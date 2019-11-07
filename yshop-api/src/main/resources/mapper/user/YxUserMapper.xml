@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yixiang.modules.user.mapper.YxUserMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uid, username, account, password, pwd, real_name, birthday, card_id, mark, partner_id, group_id, nickname, avatar, phone, add_time, add_ip, last_time, last_ip, now_money, brokerage_price, integral, sign_num, status, level, spread_uid, spread_time, user_type, is_promoter, pay_count, spread_count, clean_time, addres, adminid, login_type
+    </sql>
+
+    <select id="getYxUserById" resultType="co.yixiang.modules.user.web.vo.YxUserQueryVo">
+        select <include refid="Base_Column_List"/> from yx_user where uid = #{id}
+    </select>
+
+    <select id="getYxUserPageList" resultType="co.yixiang.modules.user.web.vo.YxUserQueryVo">
+        select <include refid="Base_Column_List"/> from yx_user
+    </select>
+
+</mapper>

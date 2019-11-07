@@ -1,0 +1,57 @@
+server:
+  port: 8009
+  servlet:
+    context-path: /api
+
+spring:
+  freemarker:
+    check-template-location: false
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+  #配置 Jpa
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    #连接超时时间
+    timeout: 5000
+
+#七牛云
+qiniu:
+  # 文件大小 /M
+  max-size: 15
+
+#邮箱验证码有效时间/分钟
+code:
+  expiration: 5
+
+#登录图形验证码有效时间/分钟
+loginCode:
+  expiration: 2
+
+mybatis-plus:
+  check-config-location: true
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: id_worker
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+

@@ -1,0 +1,79 @@
+#配置数据源
+spring:
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      url: jdbc:log4jdbc:mysql://localhost:3306/eladmin?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: root
+      password: 123456
+
+      # 初始化配置
+      initial-size: 3
+      # 最小连接数
+      min-idle: 3
+      # 最大连接数
+      max-active: 15
+      # 获取连接超时时间
+      max-wait: 5000
+      # 连接有效性检测时间
+      time-between-eviction-runs-millis: 90000
+      # 最大空闲时间
+      min-evictable-idle-time-millis: 1800000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      validation-query: select 1
+      # 配置监控统计拦截的filters
+      filters: stat
+
+      stat-view-servlet:
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: 123456
+
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+  #配置 Jpa
+  jpa:
+    hibernate:
+      # 生产环境设置成 none，避免程序运行时自动更新数据库结构
+      ddl-auto: none
+
+#jwt
+jwt:
+  header: Authorization
+  secret: mySecret
+  # token 过期时间 2个小时
+  expiration: 7200000
+  auth:
+    # 授权路径
+    path: /login
+    # 获取用户信息
+    account: /info
+
+#是否允许生成代码，生产环境设置为false
+generator:
+  enabled: false
+
+#如果生产环境要开启swagger，需要配置请求地址
+#springfox:
+#  documentation:
+#    swagger:
+#      v2:
+#        host: # 接口域名或外网ip
+
+#是否开启 swagger-ui
+swagger:
+  enabled: false
+
+# 文件存储路径
+file:
+  path: /home/eladmin/file/
+  avatar: /home/eladmin/avatar/
+  # 文件大小 /M
+  maxSize: 100
+  avatarMaxSize: 5

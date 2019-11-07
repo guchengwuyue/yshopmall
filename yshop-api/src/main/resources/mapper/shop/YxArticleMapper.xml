@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yixiang.modules.shop.mapper.YxArticleMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cid, title, author, image_input, synopsis, share_title, share_synopsis, visit, sort, url, status, add_time, hide, admin_id, mer_id, product_id, is_hot, is_banner
+    </sql>
+
+    <select id="getYxArticleById" resultType="co.yixiang.modules.shop.web.vo.YxArticleQueryVo">
+        select <include refid="Base_Column_List"/> from yx_article where id = #{id}
+    </select>
+
+    <select id="getYxArticlePageList" resultType="co.yixiang.modules.shop.web.vo.YxArticleQueryVo">
+        select <include refid="Base_Column_List"/> from yx_article
+    </select>
+
+</mapper>
