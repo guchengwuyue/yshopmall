@@ -41,6 +41,15 @@ spring:
       # 生产环境设置成 none，避免程序运行时自动更新数据库结构
       ddl-auto: update
 
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    #连接超时时间
+    timeout: 5000
+
 #jwt
 jwt:
   header: Authorization

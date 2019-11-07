@@ -4,9 +4,9 @@ spring:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://localhost:3306/eladmin?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: root
-      password: 123456
+      url: jdbc:log4jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: yshop
+      password:
 
       # 初始化配置
       initial-size: 3
@@ -42,6 +42,14 @@ spring:
     hibernate:
       # 生产环境设置成 none，避免程序运行时自动更新数据库结构
       ddl-auto: none
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: yshop
+    #连接超时时间
+    timeout: 5000
 
 #jwt
 jwt:
@@ -72,8 +80,8 @@ swagger:
 
 # 文件存储路径
 file:
-  path: /home/eladmin/file/
-  avatar: /home/eladmin/avatar/
+  path: /home/yshop/file/
+  avatar: /home/yshop/avatar/
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5

@@ -1,5 +1,6 @@
 package co.yixiang.modules.shop.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
 import co.yixiang.utils.ValidationUtil;
@@ -56,6 +57,8 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public YxStoreCategoryDTO create(YxStoreCategory resources) {
+        if(ObjectUtil.isNull(resources.getPid())) resources.setPid(0);
+        if(ObjectUtil.isNull(resources.getSort())) resources.setSort(1);
         return yxStoreCategoryMapper.toDto(yxStoreCategoryRepository.save(resources));
     }
 
@@ -82,6 +85,8 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
         Set<YxStoreCategoryDTO> cates= new LinkedHashSet<>();
         List<String> deptNames = categoryDTOS.stream().map(YxStoreCategoryDTO::getCateName)
                 .collect(Collectors.toList());
+
+        YxStoreCategoryDTO categoryDTO = new YxStoreCategoryDTO();
         Boolean isChild;
         for (YxStoreCategoryDTO deptDTO : categoryDTOS) {
             isChild = false;
@@ -103,9 +108,13 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
                 cates.add(deptDTO);
         }
 
+
+
         if (CollectionUtils.isEmpty(trees)) {
             trees = cates;
         }
+
+
 
         Integer totalElements = categoryDTOS!=null?categoryDTOS.size():0;
 

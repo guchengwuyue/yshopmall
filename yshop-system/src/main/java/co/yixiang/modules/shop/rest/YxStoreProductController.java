@@ -1,6 +1,9 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
+import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import co.yixiang.aop.log.Log;
@@ -15,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
+
+import java.math.BigDecimal;
 
 /**
 * @author hupeng
@@ -41,6 +46,14 @@ public class YxStoreProductController {
     @PostMapping(value = "/yxStoreProduct")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources){
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
+        if(ObjectUtil.isEmpty(resources.getGiveIntegral())) resources.setGiveIntegral(BigDecimal.ZERO);
+        if(ObjectUtil.isEmpty(resources.getCost())) resources.setCost(BigDecimal.ZERO);
+        //resources.setIsBargain(0);
+        //resources.setIsSeckill(0);
+        //resources.setIsDel(0);
+        //resources.setIsShow(1);
         return new ResponseEntity(yxStoreProductService.create(resources),HttpStatus.CREATED);
     }
 
@@ -58,6 +71,7 @@ public class YxStoreProductController {
     @DeleteMapping(value = "/yxStoreProduct/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
         yxStoreProductService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

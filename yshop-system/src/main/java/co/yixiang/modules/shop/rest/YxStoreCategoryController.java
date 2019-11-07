@@ -1,10 +1,13 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.aop.log.Log;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
+import co.yixiang.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,6 +45,8 @@ public class YxStoreCategoryController {
     @PostMapping(value = "/yxStoreCategory")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECATEGORY_ALL','YXSTORECATEGORY_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCategory resources){
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCategoryService.create(resources),HttpStatus.CREATED);
     }
 
@@ -50,6 +55,7 @@ public class YxStoreCategoryController {
     @PutMapping(value = "/yxStoreCategory")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECATEGORY_ALL','YXSTORECATEGORY_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCategory resources){
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         yxStoreCategoryService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -59,6 +65,7 @@ public class YxStoreCategoryController {
     @DeleteMapping(value = "/yxStoreCategory/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECATEGORY_ALL','YXSTORECATEGORY_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
         yxStoreCategoryService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

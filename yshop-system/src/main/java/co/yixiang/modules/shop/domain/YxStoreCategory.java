@@ -4,6 +4,7 @@ import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -27,6 +28,7 @@ public class YxStoreCategory implements Serializable {
 
     // 分类名称
     @Column(name = "cate_name",nullable = false)
+    @NotBlank(message = "分类名称不能为空")
     private String cateName;
 
     // 排序
@@ -35,6 +37,7 @@ public class YxStoreCategory implements Serializable {
 
     // 图标
     @Column(name = "pic",nullable = false)
+    @NotBlank(message = "请上传分类图片")
     private String pic;
 
     // 是否推荐
