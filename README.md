@@ -7,20 +7,20 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 **开发文档**  正在编写中
 
-#### 体验地址
+#### 体验地址(手机体验最好用公众号，因为H5模式不支持微信支付，只有余额支付)
 
 |     |   后台系统  |   前端(公众号)及H5  |
 |---  |--- | --- |
-|   |  https://xxxx   |  https:/xxxx   |
-|    |  后台体验账号/密码：xxxx/xxxx   |  公众号   |
+|   |  https://yshop.dayouqiantu.cn  | https://h5.dayouqiantu.cn  |
+|    |  后台体验账号/密码：admin/123456   |  公众号:![输入图片说明](https://images.gitee.com/uploads/images/2019/1107/193634_bd80bf04_477893.jpeg "175139_e07592c8_477893.jpeg")   |
 
 
 #### 项目源码
 
 |     |   |   后台系统前端源码  |
 |---  |--- | --- |
-|   码云  |    |  https://github.com/xxxx  |
-|  github   |    |  https://gitee.com/xxxx   |
+|   码云  |    |  https://gitee.com/guchengwuyue/yshopmall |
+|   github   |    | 暂无  |
 
 #### 开源版本与VIP版本说明
 
@@ -71,19 +71,38 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 #### 系统预览
 <table>
     <tr>
-        <td>xxxx</td>
-        <td>xxxx</td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194017_9207632f_477893.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194030_70f5ce92_477893.png"/></td>
     </tr>
     <tr>
-        <td>xxxx</td>
-        <td>xxxx</td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194114_cd0b06ce_477893.png "/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194130_abb4f788_477893.png"/></td>
     </tr>
     <tr>
-        <td>xxxx</td>
-        <td>xxxx</td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194147_63de73f4_477893.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194207_7b3b1f53_477893.png"/></td>
     </tr>
     <tr>   
- <td>xxxxxx</td>
+         <td><img src=https://images.gitee.com/uploads/images/2019/1107/194217_3f47214f_477893.png"/></td>
+         <td></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><img src=https://images.gitee.com/uploads/images/2019/1107/194803_245b10e2_477893.jpeg" width="100" heght="100"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194030_70f5ce92_477893.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194114_cd0b06ce_477893.png "/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194130_abb4f788_477893.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194147_63de73f4_477893.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1107/194207_7b3b1f53_477893.png"/></td>
+    </tr>
+    <tr>   
+         <td><img src=https://images.gitee.com/uploads/images/2019/1107/194217_3f47214f_477893.png"/></td>
+         <td><img src=https://images.gitee.com/uploads/images/2019/1107/194803_245b10e2_477893.jpeg"/></td>
     </tr>
 </table>
 
