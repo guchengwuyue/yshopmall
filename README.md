@@ -132,6 +132,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 第二阶段：分销、砍价、拼团
 #### 反馈交流
 - QQ交流群：907721261
+- 喜欢这个商城后台的小伙伴留下你的小星星啦,star,star哦！
 
 ####  特别鸣谢
 - eladmin:https://github.com/elunez/eladmin
