@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 08/11/2019 10:09:41
+ Date: 09/11/2019 09:43:15
 */
 
 SET NAMES utf8mb4;
@@ -217,7 +217,7 @@ CREATE TABLE `log`  (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16346 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16357 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of log
@@ -2299,6 +2299,17 @@ INSERT INTO `log` VALUES (16342, '2019-11-07 18:46:10', '用户登录', NULL, 'I
 INSERT INTO `log` VALUES (16343, '2019-11-07 18:49:50', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthenticationController.login()', '{ authorizationUser: {username=15136175246, password= ******} }', '127.0.0.1', 852, '', '内网IP');
 INSERT INTO `log` VALUES (16344, '2019-11-07 18:49:54', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthenticationController.login()', '{ authorizationUser: {username=15136175246, password= ******} }', '127.0.0.1', 17, '', '内网IP');
 INSERT INTO `log` VALUES (16345, '2019-11-07 18:50:57', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthenticationController.login()', '{ authorizationUser: {username=15136175246, password= ******} }', '127.0.0.1', 20, '', '内网IP');
+INSERT INTO `log` VALUES (16346, '2019-11-08 17:20:51', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthenticationController.login()', '{ authorizationUser: {username=admin, password= ******} }', '127.0.0.1', 1831, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16347, '2019-11-08 17:20:56', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=cate_show_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '127.0.0.1', 16, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16348, '2019-11-08 17:20:56', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 105, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16349, '2019-11-08 17:20:59', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=1, isShow=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 39, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16350, '2019-11-08 17:20:59', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=null, isShow=0) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 60, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16351, '2019-11-08 17:20:59', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 177, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16352, '2019-11-08 17:21:02', '查询用户', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxUserController.getYxUsers()', '{ criteria: YxUserQueryCriteria(nickname=null, phone=null) pageable: Page request [number: 0, size 10, sort: uid: DESC] }', '127.0.0.1', 25, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16353, '2019-11-08 17:21:12', '查询YxSystemConfig', NULL, 'INFO', 'co.yixiang.modules.wechat.rest.YxSystemConfigController.getYxSystemConfigs()', '{ criteria: YxSystemConfigQueryCriteria() pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 28, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16354, '2019-11-08 17:21:22', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=cate_show_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '127.0.0.1', 8, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16355, '2019-11-08 17:21:22', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 11, 'admin', '内网IP');
+INSERT INTO `log` VALUES (16356, '2019-11-08 17:21:25', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 40, 'admin', '内网IP');
 
 -- ----------------------------
 -- Table structure for menu
@@ -2500,11 +2511,6 @@ CREATE TABLE `qiniu_config`  (
   `zone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '机房',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of qiniu_config
--- ----------------------------
-INSERT INTO `qiniu_config` VALUES (1, 'OJou_rI3QATSsY0MMqkpq0FPvAXpEjs1o4KHuvCx', 'yixiang', 'http://pic.dayouqiantu.cn', 'XwNNqLeAnXP754LhkJYmBM6nu1djcc1LUXTDYylY', '公开', '华东');
 
 -- ----------------------------
 -- Table structure for qiniu_content
@@ -2830,7 +2836,7 @@ CREATE TABLE `visits`  (
   `week_day` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_11aksgq87euk9bcyeesfs4vtp`(`date`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 130 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of visits
@@ -2869,6 +2875,7 @@ INSERT INTO `visits` VALUES (126, '2019-11-04 10:01:11', '2019-11-04', 1, 1, 'Mo
 INSERT INTO `visits` VALUES (127, '2019-11-05 10:18:04', '2019-11-05', 1, 1, 'Tue');
 INSERT INTO `visits` VALUES (128, '2019-11-06 10:09:22', '2019-11-06', 1, 8, 'Wed');
 INSERT INTO `visits` VALUES (129, '2019-11-07 10:05:00', '2019-11-07', 2, 8, 'Thu');
+INSERT INTO `visits` VALUES (130, '2019-11-08 16:56:45', '2019-11-08', 1, 2, 'Fri');
 
 -- ----------------------------
 -- Table structure for yx_article
@@ -5544,7 +5551,7 @@ INSERT INTO `yx_system_config` VALUES (172, 'wechat_share_synopsis', '', NULL, N
 INSERT INTO `yx_system_config` VALUES (173, 'wechat_token', '', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (174, 'api', '', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (175, 'wechat_share_title', '', NULL, NULL);
-INSERT INTO `yx_system_config` VALUES (176, 'wechat_logo', 'http:\\/\\/kaifa.crmeb.net\\/uploads\\/attach\\/2019\\/08\\/20190801\\/deb30359d22c0b80f3cece86cb462104.png', 0, 0);
+INSERT INTO `yx_system_config` VALUES (176, 'wechat_logo', '', 0, 0);
 INSERT INTO `yx_system_config` VALUES (177, 'store_postage', '0', 0, 0);
 INSERT INTO `yx_system_config` VALUES (178, 'store_free_postage', '0', 0, 0);
 
