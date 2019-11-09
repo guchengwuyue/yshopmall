@@ -131,7 +131,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 第一阶段：积分功能、优惠券功能、公众号功能
 第二阶段：分销、砍价、拼团
 #### 反馈交流
-- QQ交流群：907721261
+- QQ交流群：907721261 **点击加入**  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=4225d0d4e0f957aad5fa8eeac4473d8848a10e557e46ab8cab5f99a64a10475d"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="java商城系统/java交流" title="java商城系统/java交流"></a>
 - 喜欢这个商城后台的小伙伴留下你的小星星啦,star,star哦！
 
 ####  特别鸣谢
