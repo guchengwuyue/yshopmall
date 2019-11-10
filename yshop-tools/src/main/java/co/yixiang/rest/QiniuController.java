@@ -40,7 +40,7 @@ public class QiniuController {
     @Log("配置七牛云存储")
     @PutMapping(value = "/qiNiuConfig")
     public ResponseEntity emailConfig(@Validated @RequestBody QiniuConfig qiniuConfig){
-        //if(ObjectUtil.isNotNull(qiniuConfig)) throw new BadRequestException("演示环境禁止操作");
+        if(ObjectUtil.isNotNull(qiniuConfig)) throw new BadRequestException("演示环境禁止操作");
         qiNiuService.update(qiniuConfig);
         qiNiuService.update(qiniuConfig.getType());
         return new ResponseEntity(HttpStatus.OK);
@@ -89,7 +89,7 @@ public class QiniuController {
     @Log("下载文件")
     @GetMapping(value = "/qiNiuContent/download/{id}")
     public ResponseEntity download(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        if(id > 0) throw new BadRequestException("演示环境禁止操作");
         Map map = new HashMap(1);
         map.put("url", qiNiuService.download(qiNiuService.findByContentId(id),qiNiuService.find()));
         return new ResponseEntity(map,HttpStatus.OK);
@@ -104,7 +104,7 @@ public class QiniuController {
     @Log("删除文件")
     @DeleteMapping(value = "/qiNiuContent/{id}")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        if(id > 0) throw new BadRequestException("演示环境禁止操作");
         qiNiuService.delete(qiNiuService.findByContentId(id),qiNiuService.find());
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -117,7 +117,7 @@ public class QiniuController {
     @Log("删除图片")
     @DeleteMapping(value = "/qiNiuContent")
     public ResponseEntity deleteAll(@RequestBody Long[] ids) {
-        //if(ArrayUtil.isNotEmpty(ids)) throw new BadRequestException("演示环境禁止操作");
+        if(ArrayUtil.isNotEmpty(ids)) throw new BadRequestException("演示环境禁止操作");
         qiNiuService.deleteAll(ids, qiNiuService.find());
         return new ResponseEntity(HttpStatus.OK);
     }

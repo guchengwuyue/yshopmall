@@ -74,7 +74,7 @@ public class MenuController {
     @PostMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_CREATE')")
     public ResponseEntity create(@Validated @RequestBody Menu resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -85,7 +85,7 @@ public class MenuController {
     @PutMapping(value = "/menus")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_EDIT')")
     public ResponseEntity update(@Validated(Menu.Update.class) @RequestBody Menu resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         menuService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -94,7 +94,7 @@ public class MenuController {
     @DeleteMapping(value = "/menus/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id>0) throw new BadRequestException("演示环境禁止操作");
+        if(id>0) throw new BadRequestException("演示环境禁止操作");
         List<Menu> menuList = menuService.findByPid(id);
         Set<Menu> menuSet = new HashSet<>();
         menuSet.add(menuService.findOne(id));
