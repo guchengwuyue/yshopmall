@@ -84,7 +84,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     </tr>
     <tr>   
          <td><img src="https://images.gitee.com/uploads/images/2019/1107/194217_3f47214f_477893.png"/></td>
-         <td></td>
+         <td><img src="https://images.gitee.com/uploads/images/2019/1114/172102_1bd94cbd_477893.png"/></td>
     </tr>
 </table>
 
@@ -100,6 +100,10 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/201646_5bc6df48_477893.png"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/201706_32ee305c_477893.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1114/172208_c8ea1008_477893.png"/></td>
+        <td></td>
     </tr>
 </table>
 
