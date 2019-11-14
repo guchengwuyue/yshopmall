@@ -85,4 +85,10 @@ public class YxUserServiceImpl implements YxUserService {
 
         yxUserRepository.updateOnstatus(status,uid);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incBrokeragePrice(double price, int uid) {
+        yxUserRepository.incBrokeragePrice(price,uid);
+    }
 }

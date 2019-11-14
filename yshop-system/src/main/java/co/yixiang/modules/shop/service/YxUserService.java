@@ -62,4 +62,6 @@ public interface YxUserService {
     void delete(Integer uid);
 
     void onStatus(Integer uid, Integer status);
+
+    void incBrokeragePrice(double price,int uid);
 }

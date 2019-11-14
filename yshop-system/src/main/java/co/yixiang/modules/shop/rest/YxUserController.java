@@ -1,6 +1,8 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.modules.shop.service.YxUserService;
+import co.yixiang.modules.wechat.service.YxSystemConfigService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import co.yixiang.aop.log.Log;
@@ -27,11 +29,23 @@ public class YxUserController {
     @Autowired
     private YxUserService yxUserService;
 
+    @Autowired
+    private YxSystemConfigService yxSystemConfigService;
+
     @Log("查询用户")
     @ApiOperation(value = "查询用户")
     @GetMapping(value = "/yxUser")
     @PreAuthorize("hasAnyRole('ADMIN','YXUSER_ALL','YXUSER_SELECT')")
     public ResponseEntity getYxUsers(YxUserQueryCriteria criteria, Pageable pageable){
+        if(ObjectUtil.isNotNull(criteria.getIsPromoter())){
+            if(criteria.getIsPromoter() == 1){
+                String key = yxSystemConfigService.findByKey("store_brokerage_statu")
+                        .getValue();
+                if(Integer.valueOf(key) == 2){
+                    return new ResponseEntity(null,HttpStatus.OK);
+                }
+            }
+        }
         return new ResponseEntity(yxUserService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 

@@ -34,7 +34,7 @@
 			maigin-bottom: 10px;
 			font-size: 14px;
             color: #555;">
-            <p style="line-height: 12px;">Github：<a hover="color: #DA251D;" style="color: #999;" href="https://github.com/elunez/eladmin" target="_blank">https://github.com/elunez/eladmin</a></p>
+            <p style="line-height: 12px;">Github：<a hover="color: #DA251D;" style="color: #999;" href="https://gitee.com/guchengwuyue/yshopmall" target="_blank">https://gitee.com/guchengwuyue/yshopmall</a></p>
         </div>
         <div class="foot-hr hr" style="margin: 0 auto;
 			z-index: 111;

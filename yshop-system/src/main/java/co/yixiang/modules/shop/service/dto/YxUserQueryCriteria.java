@@ -17,4 +17,7 @@ public class YxUserQueryCriteria{
     // 模糊
     @Query(type = Query.Type.INNER_LIKE)
     private String phone;
+
+    @Query
+    private Integer isPromoter;
 }
