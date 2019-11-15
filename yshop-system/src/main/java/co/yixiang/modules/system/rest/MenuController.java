@@ -94,7 +94,7 @@ public class MenuController {
     @DeleteMapping(value = "/menus/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','MENU_ALL','MENU_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id>0) throw new BadRequestException("演示环境禁止操作");
+       // if(id>0) throw new BadRequestException("演示环境禁止操作");
         List<Menu> menuList = menuService.findByPid(id);
         Set<Menu> menuSet = new HashSet<>();
         menuSet.add(menuService.findOne(id));

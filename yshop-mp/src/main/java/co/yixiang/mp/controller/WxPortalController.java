@@ -80,26 +80,26 @@ public class WxPortalController {
         if (encType == null) {
             // 明文传输的消息
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
-            WxMpXmlOutMessage outMessage = this.route(inMessage);
-            if (outMessage == null) {
-                return "";
-            }
+//            WxMpXmlOutMessage outMessage = this.route(inMessage);
+//            if (outMessage == null) {
+//                return "";
+//            }
 
-            out = outMessage.toXml();
+            //out = outMessage.toXml();
         } else if ("aes".equalsIgnoreCase(encType)) {
             // aes加密的消息
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
                 timestamp, nonce, msgSignature);
-            log.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
-            WxMpXmlOutMessage outMessage = this.route(inMessage);
-            if (outMessage == null) {
-                return "";
-            }
-
-            out = outMessage.toEncryptedXml(wxService.getWxMpConfigStorage());
+//            log.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
+//            WxMpXmlOutMessage outMessage = this.route(inMessage);
+//            if (outMessage == null) {
+//                return "";
+//            }
+//
+//            out = outMessage.toEncryptedXml(wxService.getWxMpConfigStorage());
         }
 
-        log.debug("\n组装回复信息：{}", out);
+        //log.debug("\n组装回复信息：{}", out);
         return out;
     }
 

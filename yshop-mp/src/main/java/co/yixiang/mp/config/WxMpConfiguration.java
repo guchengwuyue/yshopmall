@@ -69,7 +69,7 @@ public class WxMpConfiguration {
         final WxMpMessageRouter newRouter = new WxMpMessageRouter(wxMpService);
 
         // 记录所有事件的日志 （异步执行）
-        newRouter.rule().handler(this.logHandler).next();
+        //newRouter.rule().handler(this.logHandler).next();
 
         // 接收客服会话管理事件
 //        newRouter.rule().async(false).msgType(EVENT).event(KF_CREATE_SESSION)
@@ -104,7 +104,7 @@ public class WxMpConfiguration {
         //newRouter.rule().async(false).msgType(EVENT).event(EventType.SCAN).handler(this.scanHandler).end();
 
         // 默认
-        //newRouter.rule().async(false).handler(this.msgHandler).end();
+       // newRouter.rule().async(false).handler(this.msgHandler).end();
 
         return newRouter;
     }

@@ -5,7 +5,7 @@
 yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商城、拼团、砍价、
 秒杀、优惠券、积分、分销等功能，更适合企业或个人二次开发；
 
-**开发文档**  【[查看文档](https://gitee.com/guchengwuyue/yshopmall/wikis/pages)】 
+**开发文档**  【[查看文档](https://gitee.com/guchengwuyue/yshopmall/wikis/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83?sort_id=1718722)】 
 
 #### 体验地址(手机体验最好用公众号，因为H5模式不支持微信支付，只有余额支付)
 
@@ -84,7 +84,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     </tr>
     <tr>   
          <td><img src="https://images.gitee.com/uploads/images/2019/1107/194217_3f47214f_477893.png"/></td>
-         <td><img src="https://images.gitee.com/uploads/images/2019/1114/172102_1bd94cbd_477893.png"/></td>
+         <td></td>
     </tr>
 </table>
 
@@ -100,10 +100,6 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/201646_5bc6df48_477893.png"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/201706_32ee305c_477893.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1114/172208_c8ea1008_477893.png"/></td>
-        <td></td>
     </tr>
 </table>
 
@@ -132,8 +128,8 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 
 #### 项目下步工作计划
-- 分销功能及其提现功能上线啦
-- 下步计划：砍价或拼团
+第一阶段：积分功能、优惠券功能、公众号功能
+第二阶段：分销、砍价、拼团
 #### 反馈交流
 - QQ交流群：907721261
 - 喜欢这个商城后台的小伙伴留下你的小星星啦,star,star哦！

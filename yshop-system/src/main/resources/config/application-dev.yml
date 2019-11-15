@@ -72,8 +72,9 @@ swagger:
 
 # 文件存储路径
 file:
-  path: E:\yashop\file\
-  avatar: E:\yashop\avatar\
+  path: E:\yshop\file\
+  avatar: E:\yshop\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
+  localUrl: http://localhost:8000

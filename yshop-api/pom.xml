@@ -5,7 +5,7 @@
     <parent>
         <artifactId>yshop</artifactId>
         <groupId>co.yixiang</groupId>
-        <version>1.0</version>
+        <version>1.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,13 +21,13 @@
         <dependency>
             <groupId>co.yixiang</groupId>
             <artifactId>yshop-common</artifactId>
-            <version>1.0</version>
+            <version>1.2</version>
         </dependency>
 
         <dependency>
             <groupId>co.yixiang</groupId>
             <artifactId>yshop-tools</artifactId>
-            <version>1.0</version>
+            <version>1.2</version>
         </dependency>
 
         <!--jwt-->

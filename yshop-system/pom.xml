@@ -34,6 +34,11 @@
             <artifactId>yshop-tools</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <groupId>co.yixiang</groupId>
+            <artifactId>yshop-mp</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!--jwt-->
         <dependency>

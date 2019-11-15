@@ -84,7 +84,7 @@ public class RoleController {
     @PutMapping(value = "/roles")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
     public ResponseEntity update(@Validated(Role.Update.class) @RequestBody Role resources){
-      //  if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         roleService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

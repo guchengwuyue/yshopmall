@@ -68,7 +68,7 @@ public class YxSystemConfigController {
     @PutMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemConfig resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+       // if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         yxSystemConfigService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

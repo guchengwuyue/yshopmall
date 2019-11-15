@@ -34,6 +34,7 @@ public class LocalStorageServiceImpl implements LocalStorageService {
     @Autowired
     private LocalStorageMapper localStorageMapper;
 
+
     @Value("${file.path}")
     private String path;
 
