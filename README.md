@@ -7,7 +7,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 **开发文档**  【[查看文档](https://gitee.com/guchengwuyue/yshopmall/wikis/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83?sort_id=1718722)】 
 
-#### 体验地址(手机体验最好用公众号，因为H5模式不支持微信支付，只有余额支付)
+#### 体验地址
 
 |     |   后台系统  |   前端(公众号)  |
 |---  |--- | --- |
