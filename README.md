@@ -127,7 +127,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     * 2.2 Element
 
 
-#### 项目发布明显
+#### 项目发布明细
 	1.0版本
 	1.1版本新增积分与优惠券抵扣
     1.2版本分销功能已经发布
