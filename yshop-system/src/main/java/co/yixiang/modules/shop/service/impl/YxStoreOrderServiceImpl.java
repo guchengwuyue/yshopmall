@@ -2,8 +2,12 @@ package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.EntityExistException;
+import co.yixiang.modules.activity.domain.YxStorePink;
+import co.yixiang.modules.activity.repository.YxStorePinkRepository;
+import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.shop.domain.YxStoreOrder;
 import co.yixiang.modules.shop.domain.YxStoreOrderStatus;
 import co.yixiang.modules.shop.domain.YxUserBill;
@@ -63,6 +67,9 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
     @Autowired
     private YxUserBillService yxUserBillService;
 
+    @Autowired
+    private YxStorePinkRepository storePinkRepository;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void refund(YxStoreOrder resources) {
@@ -105,6 +112,34 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
     }
 
     @Override
+    public String orderType(int id,int pinkId, int combinationId) {
+        String str = "[普通订单]";
+        if(pinkId > 0 || combinationId > 0){
+            YxStorePink storePink = storePinkRepository.findByOrderIdKey(id);
+            if(ObjectUtil.isNull(storePink)) {
+                str = "[拼团订单]";
+            }else{
+                switch (storePink.getStatus()){
+                    case 1:
+                        str = "[拼团订单]正在进行中";
+                        break;
+                    case 2:
+                        str = "[拼团订单]已完成";
+                        break;
+                    case 3:
+                        str = "[拼团订单]未完成";
+                        break;
+                    default:
+                        str = "[拼团订单]历史订单";
+                        break;
+                }
+            }
+
+        }
+        return str;
+    }
+
+    @Override
     public Map<String,Object> queryAll(YxStoreOrderQueryCriteria criteria, Pageable pageable){
 
         Page<YxStoreOrder> page = yxStoreOrderRepository
@@ -139,8 +174,8 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
                     ,yxStoreOrder.getPaid());
             yxStoreOrderDTO.setPayTypeName(payTypeName);
 
-            String orderType = OrderUtil.orderType(1);
-            yxStoreOrderDTO.setPinkName(orderType);
+            yxStoreOrderDTO.setPinkName(orderType(yxStoreOrder.getId()
+                    ,yxStoreOrder.getPinkId(),yxStoreOrder.getCombinationId()));
 
             List<StoreOrderCartInfo> cartInfos = yxStoreOrderCartInfoRepository
                     .findByOid(yxStoreOrder.getId());

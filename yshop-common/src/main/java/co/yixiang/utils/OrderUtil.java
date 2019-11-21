@@ -159,7 +159,7 @@ public class OrderUtil {
     }
 
     //todo 订单类型
-    public static String orderType(int pink_id){
+    public static String orderType(int pinkId){
         return "普通订单";
     }
 

@@ -23,7 +23,7 @@ public class SubscribeHandler extends AbstractHandler {
 
 
         try {
-            return new TextBuilder().build("hello,yshop", wxMessage, weixinService);
+            return new TextBuilder().build("hello yshop", wxMessage, weixinService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

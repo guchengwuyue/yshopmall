@@ -103,7 +103,7 @@ public class YxStoreProduct implements Serializable {
     private Integer stock;
 
     // 状态（0：未上架，1：上架）
-    @Column(name = "is_show",columnDefinition="int default 1")
+    @Column(name = "is_show",insertable = false)
     private Integer isShow;
 
     // 是否热卖
@@ -132,11 +132,11 @@ public class YxStoreProduct implements Serializable {
     private Integer addTime;
 
     // 是否包邮
-    @Column(name = "is_postage",columnDefinition="int default 0")
+    @Column(name = "is_postage")
     private Integer isPostage;
 
     // 是否删除
-    @Column(name = "is_del",columnDefinition="int default 0")
+    @Column(name = "is_del",insertable = false)
     private Integer isDel;
 
     // 商户是否代理 0不可代理1可代理

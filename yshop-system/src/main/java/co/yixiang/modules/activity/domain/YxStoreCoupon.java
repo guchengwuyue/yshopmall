@@ -60,7 +60,7 @@ public class YxStoreCoupon implements Serializable {
     private Integer addTime;
 
     // 是否删除
-    @Column(name = "is_del",nullable = false)
+    @Column(name = "is_del",nullable = false,insertable = false)
     private Integer isDel;
 
     public void copy(YxStoreCoupon source){

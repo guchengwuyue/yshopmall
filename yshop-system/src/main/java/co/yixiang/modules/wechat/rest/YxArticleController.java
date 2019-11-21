@@ -1,5 +1,6 @@
 package co.yixiang.modules.wechat.rest;
 
+import cn.hutool.core.date.DateUtil;
 import co.yixiang.modules.wechat.service.dto.YxArticleQueryCriteria;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.wechat.domain.YxArticle;
@@ -30,7 +31,6 @@ public class YxArticleController {
     @GetMapping(value = "/yxArticle")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_SELECT')")
     public ResponseEntity getYxArticles(YxArticleQueryCriteria criteria, Pageable pageable){
-        System.out.println(yxArticleService.queryAll(criteria,pageable));
         return new ResponseEntity(yxArticleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
@@ -39,6 +39,7 @@ public class YxArticleController {
     @PostMapping(value = "/yxArticle")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources){
+        resources.setAddTime(DateUtil.now());
         return new ResponseEntity(yxArticleService.create(resources),HttpStatus.CREATED);
     }
 

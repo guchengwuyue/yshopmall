@@ -14,6 +14,8 @@ import java.util.List;
 //@CacheConfig(cacheNames = "yxStoreOrder")
 public interface YxStoreOrderService {
 
+    String orderType(int id,int pinkId,int combinationId);
+
     void refund(YxStoreOrder resources);
 
     /**

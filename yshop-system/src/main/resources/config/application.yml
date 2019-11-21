@@ -39,6 +39,6 @@ wx:
   mp:
     configs:
       - appId: wxc061dee8806ff712
-        secret: 5
+        secret: 1dc5b2871d0d5ebd0f1ec7ddb856f805
         token: yshop
         aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY

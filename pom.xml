@@ -7,7 +7,7 @@
     <groupId>co.yixiang</groupId>
     <artifactId>yshop</artifactId>
     <packaging>pom</packaging>
-    <version>1.2</version>
+    <version>1.3</version>
 
     <modules>
         <module>yshop-common</module>
