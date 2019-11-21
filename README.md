@@ -89,11 +89,11 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 </table>
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1107/201443_df1cc3a6_477893.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1107/201540_ef6123a9_477893.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1121/231156_df0430c8_477893.jpeg"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1121/231246_797725e6_477893.jpeg"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1107/201601_acd0ccd3_477893.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1121/231335_7d732dbd_477893.jpeg"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/201622_f913b59c_477893.png"/></td>
     </tr>
     <tr>
@@ -127,10 +127,14 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 
 #### 项目发布明细
-	1.0版本
-	1.1版本新增积分与优惠券抵扣
-    1.2版本分销功能已经发布
-	1.2.1增加了未付款订单取消功能库存销量退出、优惠券、积分功能，个人中心增加了积分流水
+
+- 1.0版本
+- 1.1版本新增积分与优惠券抵扣
+- 1.2版本分销功能已经发布
+- 1.2.1增加了未付款订单取消功能库存销量退出、优惠券、积分功能，个人中心增加了积分流水
+- 1.3版本新增拼团功能，已经发布
+- 1.4版本规划：补充公众号功能、新增redisson队列、发布mpvue小程序
+
 	
 #### 反馈交流
 - QQ交流群：907721261
