@@ -43,7 +43,7 @@ public class YxSystemConfigController {
     @PostMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         jsonObject.forEach(
                 (key,value)->{
@@ -68,7 +68,7 @@ public class YxSystemConfigController {
     @PutMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemConfig resources){
-        if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         yxSystemConfigService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -78,7 +78,7 @@ public class YxSystemConfigController {
     @DeleteMapping(value = "/yxSystemConfig/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
         yxSystemConfigService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
