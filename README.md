@@ -107,7 +107,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     * 1.1 SpringBoot
     * 1.2 mybatis、MyBatis-Plus
     * 1.3 SpringSecurity
-    * 1.4 JAP
+    * 1.4 JPA
     * 1.5 Druid1
     * 1.6 Slf4j
     * 1.7 Fastjson
