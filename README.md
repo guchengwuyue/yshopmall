@@ -75,7 +75,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
         <td><img src="https://images.gitee.com/uploads/images/2019/1121/230257_5844f5f1_477893.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1121/230051_971db503_477893.png "/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/1121/230051_971db503_477893.png"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1121/230342_f379583e_477893.png"/></td>
     </tr>
     <tr>
