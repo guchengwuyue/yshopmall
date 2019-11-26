@@ -11,7 +11,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 |     |   后台系统  |   前端(公众号)  |
 |---  |--- | --- |
-|   |  https://yshop.dayouqiantu.cn  |g公众号：YshopMall  |
+|   |  https://yshop.dayouqiantu.cn  |H5:https://h5.dayouqiantu.cn 测试号：hupeng/123456,也可以自行注册 |
 |    |  后台体验账号/密码：admin/123456   |  公众号:![输入图片说明](https://images.gitee.com/uploads/images/2019/1116/060936_fd73496c_477893.jpeg "qrcode_for_gh_95df5a2881cc_258.jpg")   |
 
 
