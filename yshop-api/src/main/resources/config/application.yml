@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /api
 
+
+
 spring:
   freemarker:
     check-template-location: false
@@ -22,14 +24,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: true
 
-  redis:
-    #数据库索引
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    password:
-    #连接超时时间
-    timeout: 5000
+
 
 #七牛云
 qiniu:
@@ -54,4 +49,36 @@ mybatis-plus:
       logic-delete-value: 0
       logic-not-delete-value: 1
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+# 公众号配置(必填)
+wx:
+  mp:
+    configs:
+    - appId: wxc061dee8806ff712
+      secret:
+      token: yshop
+      aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY
+  pay:
+    appId: wxc061dee8806ff712
+    mchId:
+    mchKey: dayouqiantuhupeng8638004yixiangt
+    subAppId:
+    subMchId:
+    keyPath:
+  miniapp:
+    appid: wxa82b5b7fcb0ec161
+    secret:
+    token:
+    aesKey:
+    msgDataFormat: JSON
+logging:
+  level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
+
+
+#订单未付款订单时间(单位秒)
+job:
+  unpayorder: 10
 

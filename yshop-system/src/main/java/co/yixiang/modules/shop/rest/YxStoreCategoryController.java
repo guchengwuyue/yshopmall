@@ -36,6 +36,8 @@ public class YxStoreCategoryController {
     @GetMapping(value = "/yxStoreCategory")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECATEGORY_ALL','YXSTORECATEGORY_SELECT')")
     public ResponseEntity getYxStoreCategorys(YxStoreCategoryQueryCriteria criteria, Pageable pageable){
+        
+
         List<YxStoreCategoryDTO> categoryDTOList = yxStoreCategoryService.queryAll(criteria);
         return new ResponseEntity(yxStoreCategoryService.buildTree(categoryDTOList),HttpStatus.OK);
     }

@@ -58,6 +58,7 @@ public class YxStoreProductController {
     @PutMapping(value = "/yxStoreProduct")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProduct resources){
+        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
         yxStoreProductService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -106,6 +107,7 @@ public class YxStoreProductController {
     @ApiOperation(value = "清除属性")
     @PostMapping(value = "/yxStoreProduct/clearAttr/{id}")
     public ResponseEntity clearAttr(@PathVariable Integer id){
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
         yxStoreProductService.clearProductAttr(id,true);
         return new ResponseEntity(HttpStatus.OK);
     }

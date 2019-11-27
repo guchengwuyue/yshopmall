@@ -1,7 +1,13 @@
 package co.yixiang.mp.handler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import cn.hutool.core.util.ObjectUtil;
+import co.yixiang.mp.domain.YxWechatReply;
+import co.yixiang.mp.service.YxWechatReplyService;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import co.yixiang.mp.builder.TextBuilder;
@@ -16,14 +22,35 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 @Component
 public class SubscribeHandler extends AbstractHandler {
 
+    @Autowired
+    private YxWechatReplyService yxWechatReplyService;
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) throws WxErrorException {
 
 
+        //System.out.println("wxMessage:"+wxMessage);
+        //System.out.println("context:"+context);
+
+        YxWechatReply wechatReply = yxWechatReplyService.isExist("subscribe");
+        if(ObjectUtil.isNull(wechatReply)){
+
+        }
+
+
+        String str = JSONObject.parseObject(wechatReply.getData()).getString("content");
         try {
-            return new TextBuilder().build("hello yshop", wxMessage, weixinService);
+            //String str = new String(wechatReply.getData().getBytes(),"utf-8");
+            WxMpXmlOutMessage msg= WxMpXmlOutMessage.TEXT()
+                    .content(str)
+                    .fromUser(wxMessage.getToUser())
+                    .toUser(wxMessage.getFromUser())
+                    .build();
+            //System.out.println(msg);
+            return msg;
+            //return new TextBuilder().build(str, wxMessage, weixinService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

@@ -54,6 +54,7 @@ public class YxStoreCombination implements Serializable {
 
     // 参团人数
     @Column(name = "people",nullable = false)
+    @NotNull(message = "拼团人数必填")
     @Min(value = 2,message = "拼团人数必须大于1")
     private Integer people;
 
@@ -64,19 +65,23 @@ public class YxStoreCombination implements Serializable {
 
     // 价格
     @Column(name = "price",nullable = false)
+    @NotNull(message = "拼团价必填")
     @Min(value = 0,message = "拼团价必须大于0")
     private BigDecimal price;
 
     // 排序
     @Column(name = "sort",nullable = false)
+    @NotNull(message = "排序必填")
     private Integer sort;
 
     // 销量
     @Column(name = "sales",nullable = false)
+    @NotNull(message = "销量必填")
     private Integer sales;
 
     // 库存
     @Column(name = "stock",nullable = false)
+    @NotNull(message = "库存必填")
     private Integer stock;
 
     // 添加时间
@@ -85,10 +90,12 @@ public class YxStoreCombination implements Serializable {
 
     // 推荐
     @Column(name = "is_host",nullable = false)
+    @NotNull(message = "推荐必须选择")
     private Integer isHost;
 
     // 产品状态
     @Column(name = "is_show",nullable = false)
+    @NotNull(message = "状态必须选择")
     private Integer isShow;
 
     @Column(name = "is_del",nullable = false,insertable = false)
@@ -103,14 +110,17 @@ public class YxStoreCombination implements Serializable {
 
     // 是否包邮1是0否
     @Column(name = "is_postage",nullable = false)
+    @NotNull(message = "包邮状态必须选择")
     private Integer isPostage;
 
     // 邮费
     @Column(name = "postage",nullable = false)
+    @NotNull(message = "邮费必填")
     private BigDecimal postage;
 
     // 拼团内容
     @Column(name = "description",nullable = false)
+    @NotBlank(message = "拼团内容不能为空")
     private String description;
 
     // 拼团开始时间

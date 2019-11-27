@@ -17,9 +17,7 @@ import co.yixiang.modules.shop.service.YxStoreOrderService;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
 import co.yixiang.modules.shop.service.YxUserBillService;
 import co.yixiang.modules.shop.service.YxUserService;
-import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
-import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
-import co.yixiang.modules.shop.service.dto.YxUserDTO;
+import co.yixiang.modules.shop.service.dto.*;
 import co.yixiang.modules.shop.service.mapper.YxStoreOrderMapper;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.QueryHelp;
@@ -27,7 +25,6 @@ import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
 import co.yixiang.modules.shop.domain.StoreOrderCartInfo;
 import co.yixiang.modules.shop.repository.YxStoreOrderCartInfoRepository;
-import co.yixiang.modules.shop.service.dto.StoreOrderCartInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -69,6 +66,44 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
     @Autowired
     private YxStorePinkRepository storePinkRepository;
+
+    @Override
+    public OrderTimeDataDTO getOrderTimeData() {
+        int today = OrderUtil.dateToTimestampT(DateUtil.beginOfDay(new Date()));
+        int yesterday = OrderUtil.dateToTimestampT(DateUtil.beginOfDay(DateUtil.
+                yesterday()));
+        int lastWeek = OrderUtil.dateToTimestampT(DateUtil.beginOfDay(DateUtil.lastWeek()));
+        int nowMonth = OrderUtil.dateToTimestampT(DateUtil
+                .beginOfMonth(new Date()));
+        OrderTimeDataDTO orderTimeDataDTO = new OrderTimeDataDTO();
+
+        orderTimeDataDTO.setTodayCount(yxStoreOrderRepository.countByPayTimeGreaterThanEqual(today));
+        orderTimeDataDTO.setTodayPrice(yxStoreOrderRepository.sumPrice(today));
+
+        orderTimeDataDTO.setProCount(yxStoreOrderRepository
+                .countByPayTimeLessThanAndPayTimeGreaterThanEqual(today,yesterday));
+        orderTimeDataDTO.setProPrice(yxStoreOrderRepository.sumTPrice(today,yesterday));
+
+        orderTimeDataDTO.setLastWeekCount(yxStoreOrderRepository.countByPayTimeGreaterThanEqual(lastWeek));
+        orderTimeDataDTO.setLastWeekPrice(yxStoreOrderRepository.sumPrice(lastWeek));
+
+        orderTimeDataDTO.setMonthCount(yxStoreOrderRepository.countByPayTimeGreaterThanEqual(nowMonth));
+        orderTimeDataDTO.setMonthPrice(yxStoreOrderRepository.sumPrice(nowMonth));
+
+        return orderTimeDataDTO;
+    }
+
+    @Override
+    public Map<String, Object> chartCount() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        int nowMonth = OrderUtil.dateToTimestampT(DateUtil
+                .beginOfMonth(new Date()));
+
+        map.put("chart",yxStoreOrderRepository.chartList(nowMonth));
+        map.put("chartT",yxStoreOrderRepository.chartListT(nowMonth));
+
+        return map;
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

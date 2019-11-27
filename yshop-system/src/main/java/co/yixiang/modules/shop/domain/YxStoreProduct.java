@@ -6,6 +6,7 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.io.Serializable;
 
@@ -64,21 +65,25 @@ public class YxStoreProduct implements Serializable {
 
     // 商品价格
     @Column(name = "price",nullable = false)
+    @NotNull(message = "价格必填")
     @Min(value = 0)
     private BigDecimal price;
 
     // 会员价格
     @Column(name = "vip_price",nullable = false)
+    @NotNull(message = "会员价必填")
     @Min(value = 0)
     private BigDecimal vipPrice;
 
     // 市场价
     @Column(name = "ot_price",nullable = false)
+    @NotNull(message = "原价必填")
     @Min(value = 0)
     private BigDecimal otPrice;
 
     // 邮费
     @Column(name = "postage",nullable = false)
+    @NotNull(message = "邮费必填")
     @Min(value = 0)
     private BigDecimal postage;
 
@@ -89,37 +94,45 @@ public class YxStoreProduct implements Serializable {
 
     // 排序
     @Column(name = "sort",nullable = false)
+    @NotNull(message = "排序必填")
     @Min(value = 0)
     private Integer sort;
 
     // 销量
     @Column(name = "sales",nullable = false)
+    @NotNull(message = "销量必填")
     @Min(value = 0)
     private Integer sales;
 
     // 库存
     @Column(name = "stock",nullable = false)
+    @NotNull(message = "库存必填")
     @Min(value = 0)
     private Integer stock;
 
     // 状态（0：未上架，1：上架）
     @Column(name = "is_show",insertable = false)
+    @NotNull(message = "状态必须选择")
     private Integer isShow;
 
     // 是否热卖
-    @Column(name = "is_hot",columnDefinition="int default 0")
+    @Column(name = "is_hot")
+    @NotNull(message = "热卖单品必须选择")
     private Integer isHot;
 
     // 是否优惠
-    @Column(name = "is_benefit",columnDefinition="int default 0")
+    @Column(name = "is_benefit")
+    @NotNull(message = "优惠推荐必须选择")
     private Integer isBenefit;
 
     // 是否精品
     @Column(name = "is_best",columnDefinition="int default 0")
+    @NotNull(message = "精品状态必须选择")
     private Integer isBest;
 
     // 是否新品
     @Column(name = "is_new",columnDefinition="int default 0")
+    @NotNull(message = "首发新品必须选择")
     private Integer isNew;
 
     // 产品描述
@@ -133,6 +146,7 @@ public class YxStoreProduct implements Serializable {
 
     // 是否包邮
     @Column(name = "is_postage")
+    @NotNull(message = "包邮状态必须选择")
     private Integer isPostage;
 
     // 是否删除
@@ -144,12 +158,14 @@ public class YxStoreProduct implements Serializable {
     private Integer merUse;
 
     // 获得积分
-    @Column(name = "give_integral",columnDefinition="int default 0")
+    @Column(name = "give_integral")
+    @NotNull(message = "奖励积分不能为空")
     @Min(value = 0)
     private BigDecimal giveIntegral;
 
     // 成本价
-    @Column(name = "cost",columnDefinition="int default 0")
+    @Column(name = "cost")
+    @NotNull(message = "成本价不能为空")
     @Min(value = 0)
     private BigDecimal cost;
 

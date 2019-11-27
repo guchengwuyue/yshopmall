@@ -3,8 +3,10 @@ spring:
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
-      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://localhost:3306/yxshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      #driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+      url: jdbc:p6spy:mysql://localhost:3306/yxshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      #url: jdbc:log4jdbc:mysql://localhost:3306/yxshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
       username: root
       password: root
 
@@ -40,6 +42,14 @@ spring:
     hibernate:
       # 生产环境设置成 none，避免程序运行时自动更新数据库结构
       ddl-auto: update
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    #连接超时时间
+    timeout: 5000
 
 #jwt
 jwt:
@@ -63,8 +73,93 @@ swagger:
 
 # 文件存储路径
 file:
-  path: E:\eladmin\file\
-  avatar: E:\eladmin\avatar\
+  path: E:\yshop\file\
+  avatar: E:\yshop\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
+  localUrl: http://localhost:8000
+yshop:
+  #通知相关配置
+  notify:
+    mail:
+      # 邮件通知配置,邮箱一般用于接收业务通知例如收到新的订单，sendto 定义邮件接收者，通常为商城运营人员
+      enable: false
+      host: smtp.exmail.qq.com
+      username: ex@ex.com.cn
+      password: XXXXXXXXXXXXX
+      sendfrom: ex@ex.com.cn
+      sendto: ex@qq.com
+
+    # 短消息模版通知配置
+    # 短信息用于通知客户，例如发货短信通知，注意配置格式；template-name，template-templateId 请参考 NotifyType 枚举值
+    sms:
+      enable: false
+      # 如果是腾讯云短信，则设置active的值tencent
+      # 如果是阿里云短信，则设置active的值aliyun
+      active: tencent
+      sign: litemall
+      template:
+        - name: paySucceed
+          templateId: 156349
+        - name: captcha
+          templateId: 156433
+        - name: ship
+          templateId: 158002
+        - name: refund
+          templateId: 159447
+      tencent:
+        appid: 111111111
+        appkey: xxxxxxxxxxxxxx
+      aliyun:
+        regionId: xxx
+        accessKeyId: xxx
+        accessKeySecret: xxx
+
+
+    # 微信模版通知配置
+    # 微信模版用于通知客户或者运营者，注意配置格式；template-name，template-templateId 请参考 NotifyType 枚举值
+    wx:
+      enable: false
+      template:
+        - name: paySucceed
+          templateId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        - name: captcha
+          templateId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        - name: ship
+          templateId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        - name: refund
+          templateId: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  # 快鸟物流查询配置
+  express:
+    enable: false
+    appId: "XXXXXXXXX"
+    appKey: "XXXXXXXXXXXXXXXXXXXXXXXXX"
+    vendors:
+      - code: "ZTO"
+        name: "中通快递"
+      - code: "YTO"
+        name: "圆通速递"
+      - code: "YD"
+        name: "韵达速递"
+      - code: "YZPY"
+        name: "邮政快递包裹"
+      - code: "EMS"
+        name: "EMS"
+      - code: "DBL"
+        name: "德邦快递"
+      - code: "FAST"
+        name: "快捷快递"
+      - code: "ZJS"
+        name: "宅急送"
+      - code: "TNT"
+        name: "TNT快递"
+      - code: "UPS"
+        name: "UPS"
+      - code: "DHL"
+        name: "DHL"
+      - code: "FEDEX"
+        name: "FEDEX联邦(国内件)"
+      - code: "FEDEX_GJ"
+        name: "FEDEX联邦(国际件)"

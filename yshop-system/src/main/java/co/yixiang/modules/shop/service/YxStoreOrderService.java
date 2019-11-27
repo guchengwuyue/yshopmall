@@ -1,6 +1,7 @@
 package co.yixiang.modules.shop.service;
 
 import co.yixiang.modules.shop.domain.YxStoreOrder;
+import co.yixiang.modules.shop.service.dto.OrderTimeDataDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,9 @@ import java.util.List;
 */
 //@CacheConfig(cacheNames = "yxStoreOrder")
 public interface YxStoreOrderService {
+    OrderTimeDataDTO getOrderTimeData();
+
+    Map<String,Object> chartCount();
 
     String orderType(int id,int pinkId,int combinationId);
 

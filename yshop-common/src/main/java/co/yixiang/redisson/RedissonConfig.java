@@ -1,5 +1,6 @@
 package co.yixiang.redisson;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
@@ -39,10 +40,16 @@ public class RedissonConfig extends CachingConfigurerSupport {
     private String password;
 
     @Bean
-    public RedissonClient getRedisson(){
+    public RedissonClient getRedisson() {
 
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://" + host + ":" + port).setPassword(password);
+        if (StrUtil.isNotEmpty(password)) {
+            config.useSingleServer().setAddress("redis://" + host + ":" + port)
+                    .setPassword(password);
+        } else {
+            config.useSingleServer().setAddress("redis://" + host + ":" + port);
+        }
+        //config.useSingleServer().setAddress("redis://" + host + ":" + port).setPassword(password);
         //添加主从配置
 //        config.useMasterSlaveServers().setMasterAddress("").setPassword("").addSlaveAddress(new String[]{"",""});
 
@@ -50,16 +57,17 @@ public class RedissonConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    CacheManager cacheManager(RedissonClient redissonClient){
+    CacheManager cacheManager(RedissonClient redissonClient) {
         Map<String, CacheConfig> config = new HashMap<>(16);
         // create "testMap" cache with ttl = 24 minutes and maxIdleTime = 12 minutes
-        config.put("testMap",new CacheConfig(24*60*1000,12*60*1000));
-        return  new RedissonSpringCacheManager(redissonClient,config);
+        config.put("testMap", new CacheConfig(24 * 60 * 1000, 12 * 60 * 1000));
+        return new RedissonSpringCacheManager(redissonClient, config);
     }
 
     /**
      * 自定义缓存key生成策略，默认将使用该策略
      * 使用方法 @Cacheable
+     *
      * @return
      */
     @Bean

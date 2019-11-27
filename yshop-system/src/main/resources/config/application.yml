@@ -1,6 +1,7 @@
 server:
   port: 8000
 
+
 spring:
   freemarker:
     check-template-location: false
@@ -42,3 +43,9 @@ wx:
         secret:
         token: yshop
         aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY
+#  miniapp:
+#    appid: wx604d2ea4702620d2
+#    secret:
+#    token:
+#    aesKey:
+#    msgDataFormat: JSON

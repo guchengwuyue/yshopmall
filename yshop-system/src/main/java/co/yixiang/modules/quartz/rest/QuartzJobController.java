@@ -75,7 +75,7 @@ public class QuartzJobController {
     @PutMapping(value = "/jobs/exec/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_EDIT')")
     public ResponseEntity execution(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+       // if(id > 0) throw new BadRequestException("演示环境禁止操作");
         quartzJobService.execution(quartzJobService.findById(id));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

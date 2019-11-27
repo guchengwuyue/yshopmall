@@ -1,8 +1,10 @@
 package co.yixiang.utils;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 
 import javax.xml.crypto.Data;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -49,6 +51,15 @@ public class OrderUtil {
      * @return
      **/
     public static int dateToTimestamp(Date date){
+        String timestamp = String.valueOf(date.getTime()/1000);
+        return Integer.valueOf(timestamp);
+    }
+
+    /**
+     * 获取精确到秒的时间戳
+     * @return
+     **/
+    public static int dateToTimestampT(DateTime date){
         String timestamp = String.valueOf(date.getTime()/1000);
         return Integer.valueOf(timestamp);
     }

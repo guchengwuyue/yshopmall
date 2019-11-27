@@ -104,11 +104,11 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 ## 技术选型
 * 1 后端使用技术
-    * 1.1 SpringBoot
+    * 1.1 SpringBoot2
     * 1.2 mybatis、MyBatis-Plus
     * 1.3 SpringSecurity
     * 1.4 JPA
-    * 1.5 Druid1
+    * 1.5 Druid
     * 1.6 Slf4j
     * 1.7 Fastjson
     * 1.8 JWT
@@ -120,6 +120,7 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
     * 1.14 Lombok
     * 1.15 Hutool
     * 1.16 Mapstruct
+	* 1.17 Redisson
         
 * 前端使用技术
     * 2.1 Vue 全家桶
@@ -133,7 +134,8 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 - 1.2版本分销功能已经发布
 - 1.2.1增加了未付款订单取消功能库存销量退出、优惠券、积分功能，个人中心增加了积分流水
 - 1.3版本新增拼团功能，已经发布
-- 1.4版本规划：补充公众号功能、新增redisson队列、发布mpvue小程序
+- 1.3.1版本手机端新增商户管理、后台新增统计
+- 1.4版本规划：补充公众号功能、发布mpvue小程序
 
 	
 #### 反馈交流
