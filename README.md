@@ -57,8 +57,6 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 - 可以具体查看演示地址查看当前版本已经完成的功能，不再絮叨啦
 
 
-
-
 #### 项目结构
 项目采用分模块开发方式
 - yshop-api       公众号(H5)API模块
