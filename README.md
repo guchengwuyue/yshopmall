@@ -24,7 +24,6 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 
 #### 开源版本与VIP版本说明
 
-
 ###  开源版
 1.包括整个商城系统后台、数据库、api(只是简单的配置好模块);
 
@@ -40,7 +39,6 @@ yshop基于当前流行技术组合： SpringBoot2+Jpa+MybatisPlus+SpringSecurit
 3.加入VIP、享有后续所有功能免费升级及其技术支持等。
 
 4、VIP为终身，【[详情请查看](https://gitee.com/guchengwuyue/yshopmall/wikis/pages?sort_id=1715823&doc_id=441578)】 
-
 
 ## 商城功能
 
