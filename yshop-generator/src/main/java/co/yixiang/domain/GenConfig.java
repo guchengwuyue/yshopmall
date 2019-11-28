@@ -2,6 +2,7 @@ package co.yixiang.domain;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 代码生成配置
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "gen_config")
-public class GenConfig {
+public class GenConfig implements Serializable {
 
     @Id
     private Long id;

@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.wechat.domain.YxSystemConfig;
+import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import co.yixiang.aop.log.Log;
@@ -43,7 +44,7 @@ public class YxSystemConfigController {
     @PostMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         jsonObject.forEach(
                 (key,value)->{
@@ -51,6 +52,7 @@ public class YxSystemConfigController {
                     YxSystemConfig yxSystemConfigModel = new YxSystemConfig();
                     yxSystemConfigModel.setMenuName(key);
                     yxSystemConfigModel.setValue(value.toString());
+                    RedisUtil.set(key,value.toString());
                     if(ObjectUtil.isNull(yxSystemConfig)){
                         yxSystemConfigService.create(yxSystemConfigModel);
                     }else{
@@ -63,23 +65,6 @@ public class YxSystemConfigController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @Log("修改YxSystemConfig")
-    @ApiOperation(value = "修改YxSystemConfig")
-    @PutMapping(value = "/yxSystemConfig")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxSystemConfig resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
-        yxSystemConfigService.update(resources);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
 
-    @Log("删除YxSystemConfig")
-    @ApiOperation(value = "删除YxSystemConfig")
-    @DeleteMapping(value = "/yxSystemConfig/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
-        yxSystemConfigService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+
 }

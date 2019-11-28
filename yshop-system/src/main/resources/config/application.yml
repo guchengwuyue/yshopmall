@@ -39,7 +39,7 @@ loginCode:
 wx:
   mp:
     configs:
-      - appId: wxc061dee8806ff712
+      - appId:
         secret:
         token: yshop
         aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY

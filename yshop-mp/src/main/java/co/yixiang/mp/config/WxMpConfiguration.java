@@ -1,15 +1,19 @@
 package co.yixiang.mp.config;
 
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.mp.handler.*;
+import co.yixiang.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
+import org.apache.poi.util.StringUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,13 +45,33 @@ public class WxMpConfiguration {
     private final SubscribeHandler subscribeHandler;
     private final ScanHandler scanHandler;
     private final WxMpProperties properties;
+    private final RedisHandler redisHandler;
 
     @Bean
     public WxMpService wxMpService() {
-        // 代码里 getConfigs()处报错的同学，请注意仔细阅读项目说明，你的IDE需要引入lombok插件！！！！
-        final List<WxMpProperties.MpConfig> configs = this.properties.getConfigs();
-        System.out.println(configs);
-        if (configs == null) {
+
+        final List<WxMpProperties.MpConfig> configs = new ArrayList<>();
+        WxMpProperties.MpConfig mpConfig = new WxMpProperties.MpConfig();
+        String appId = redisHandler.getVal("wechat_appid");
+        String secret = redisHandler.getVal("wechat_appsecret");
+        String token = redisHandler.getVal("wechat_token");
+        String aesKey = redisHandler.getVal("wechat_encodingaeskey");
+
+
+        if(StrUtil.isNotBlank(appId) && StrUtil.isNotBlank(secret)
+                && StrUtil.isNotBlank(token) && StrUtil.isNotBlank(aesKey)) {
+            mpConfig.setAppId(appId);
+            mpConfig.setSecret(secret);
+            mpConfig.setToken(token);
+            mpConfig.setAesKey(aesKey);
+            System.out.println(mpConfig);
+
+            configs.add(mpConfig);
+        }
+
+        //System.out.println("configs:"+configs);
+
+        if (configs.isEmpty()) {
             throw new RuntimeException("请先配置！");
         }
 

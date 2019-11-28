@@ -31,9 +31,6 @@ public class SubscribeHandler extends AbstractHandler {
                                     WxSessionManager sessionManager) throws WxErrorException {
 
 
-        //System.out.println("wxMessage:"+wxMessage);
-        //System.out.println("context:"+context);
-
         YxWechatReply wechatReply = yxWechatReplyService.isExist("subscribe");
         if(ObjectUtil.isNull(wechatReply)){
 
@@ -42,15 +39,12 @@ public class SubscribeHandler extends AbstractHandler {
 
         String str = JSONObject.parseObject(wechatReply.getData()).getString("content");
         try {
-            //String str = new String(wechatReply.getData().getBytes(),"utf-8");
             WxMpXmlOutMessage msg= WxMpXmlOutMessage.TEXT()
                     .content(str)
                     .fromUser(wxMessage.getToUser())
                     .toUser(wxMessage.getFromUser())
                     .build();
-            //System.out.println(msg);
             return msg;
-            //return new TextBuilder().build(str, wxMessage, weixinService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

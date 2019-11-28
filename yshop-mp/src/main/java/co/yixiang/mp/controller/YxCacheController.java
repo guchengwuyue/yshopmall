@@ -1,6 +1,8 @@
 package co.yixiang.mp.controller;
 
 
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxCache;
 import co.yixiang.mp.service.YxCacheService;
 import co.yixiang.utils.OrderUtil;
@@ -45,7 +47,7 @@ public class YxCacheController {
     @PostMapping(value = "/yxCache")
     @PreAuthorize("hasAnyRole('ADMIN','YXCACHE_ALL','YXCACHE_CREATE')")
     public ResponseEntity create( @RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String jsonButton = jsonObject.get("buttons").toString();
         YxCache yxCache = new YxCache();
@@ -62,6 +64,7 @@ public class YxCacheController {
             yxCacheService.create(yxCache);
         }
 
+        System.out.println("menu:"+menu);
 
         //创建菜单
         try {

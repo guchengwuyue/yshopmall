@@ -2,6 +2,7 @@ package co.yixiang.modules.system.service.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2018-12-17
  */
 @Data
-public class MenuDTO {
+public class MenuDTO implements Serializable {
 
     private Long id;
 

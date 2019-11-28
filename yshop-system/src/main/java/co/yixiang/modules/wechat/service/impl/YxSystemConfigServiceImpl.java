@@ -35,7 +35,9 @@ public class YxSystemConfigServiceImpl implements YxSystemConfigService {
 
     @Override
     public Map<String,Object> queryAll(YxSystemConfigQueryCriteria criteria, Pageable pageable){
-        Page<YxSystemConfig> page = yxSystemConfigRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        Page<YxSystemConfig> page = yxSystemConfigRepository
+                .findAll((root, criteriaQuery, criteriaBuilder)
+                        -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
         return PageUtil.toPage(page.map(yxSystemConfigMapper::toDto));
     }
 

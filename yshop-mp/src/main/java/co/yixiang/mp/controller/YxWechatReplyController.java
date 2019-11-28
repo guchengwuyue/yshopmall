@@ -1,6 +1,8 @@
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxWechatReply;
 import co.yixiang.mp.service.YxWechatReplyService;
 import com.alibaba.fastjson.JSON;
@@ -39,6 +41,7 @@ public class YxWechatReplyController {
     @PostMapping(value = "/yxWechatReply")
     @PreAuthorize("hasAnyRole('ADMIN','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
+        if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         YxWechatReply yxWechatReply = new YxWechatReply();
         YxWechatReply isExist = yxWechatReplyService.isExist(jsonObject.get("key").toString());
