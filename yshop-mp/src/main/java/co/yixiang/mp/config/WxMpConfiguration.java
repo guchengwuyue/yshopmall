@@ -67,6 +67,13 @@ public class WxMpConfiguration {
             System.out.println(mpConfig);
 
             configs.add(mpConfig);
+        }else{
+            mpConfig.setAppId("111111");
+            mpConfig.setSecret("111111");
+            mpConfig.setToken("111111");
+            mpConfig.setAesKey("111111");
+
+            configs.add(mpConfig);
         }
 
         //System.out.println("configs:"+configs);

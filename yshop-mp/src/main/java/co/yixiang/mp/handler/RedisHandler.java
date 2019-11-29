@@ -6,10 +6,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 
-/**
- * @author Zheng Jie
- * @date 2018-12-10
- */
 @Component
 public class RedisHandler{
 
