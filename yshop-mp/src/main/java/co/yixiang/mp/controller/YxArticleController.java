@@ -1,8 +1,11 @@
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxArticle;
 import co.yixiang.mp.service.YxArticleService;
+import co.yixiang.mp.service.dto.YxArticleDTO;
 import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,6 +60,7 @@ public class YxArticleController {
     @DeleteMapping(value = "/yxArticle/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
         yxArticleService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -64,8 +68,10 @@ public class YxArticleController {
     @ApiOperation(value = "发布文章")
     @GetMapping(value = "/yxArticle/publish/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
-    public ResponseEntity publish(@PathVariable Integer id){
-        //todo
+    public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
+        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        YxArticleDTO yxArticleDTO= yxArticleService.findById(id);
+        yxArticleService.uploadNews(yxArticleDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 

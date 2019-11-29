@@ -62,4 +62,7 @@ public interface YxArticleService {
      */
     //@CacheEvict(allEntries = true)
     void delete(Integer id);
+
+    void uploadNews(YxArticleDTO yxArticleDTO) throws Exception;
+
 }

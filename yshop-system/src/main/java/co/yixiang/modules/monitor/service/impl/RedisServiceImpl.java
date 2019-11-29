@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class RedisServiceImpl implements RedisService {
             if (s.toString().indexOf("role::loadPermissionByUser") != -1 || s.toString().indexOf("user::loadUserByUsername") != -1) {
                 continue;
             }
+            DataType dataType = redisTemplate.type(s.toString());
+            if(dataType.code().equals("hash")) continue;
             RedisVo redisVo = new RedisVo(s.toString(),redisTemplate.opsForValue().get(s.toString()).toString());
             redisVos.add(redisVo);
         }

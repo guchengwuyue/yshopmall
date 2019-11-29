@@ -70,4 +70,6 @@ public class YxArticleDTO implements Serializable {
 
     // 是否轮播图(小程序)
     private Integer isBanner;
+
+    private String thumbMediaId;
 }

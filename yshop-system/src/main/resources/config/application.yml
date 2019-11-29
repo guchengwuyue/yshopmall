@@ -35,17 +35,3 @@ code:
 loginCode:
   expiration: 2
 
-# 公众号配置(必填)
-wx:
-  mp:
-    configs:
-      - appId:
-        secret:
-        token: yshop
-        aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY
-#  miniapp:
-#    appid: wx604d2ea4702620d2
-#    secret:
-#    token:
-#    aesKey:
-#    msgDataFormat: JSON
