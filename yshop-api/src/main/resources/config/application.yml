@@ -54,14 +54,14 @@ mybatis-plus:
 wx:
   mp:
     configs:
-    - appId: wxc061dee8806ff712
+    - appId:
       secret:
-      token: yshop
-      aesKey: yYuBUkC8BXImCXyu7O6hkzLj4TC5nxsWPfL4CQAZPNY
+      token:
+      aesKey:
   pay:
-    appId: wxc061dee8806ff712
+    appId:
     mchId:
-    mchKey: dayouqiantuhupeng8638004yixiangt
+    mchKey:
     subAppId:
     subMchId:
     keyPath:

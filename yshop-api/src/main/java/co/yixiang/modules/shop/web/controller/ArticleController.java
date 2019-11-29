@@ -5,9 +5,9 @@ import co.yixiang.common.web.controller.BaseController;
 import co.yixiang.common.web.param.IdParam;
 import co.yixiang.common.web.vo.Paging;
 import co.yixiang.modules.shop.entity.YxArticle;
-import co.yixiang.modules.shop.web.vo.YxArticleQueryVo;
-import co.yixiang.modules.shop.service.YxArticleService;
+import co.yixiang.modules.shop.service.ArticleService;
 import co.yixiang.modules.shop.web.param.YxArticleQueryParam;
+import co.yixiang.modules.shop.web.vo.YxArticleQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +31,10 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/yxArticle")
 @Api("文章管理表 API")
-public class YxArticleController extends BaseController {
+public class ArticleController extends BaseController {
 
     @Autowired
-    private YxArticleService yxArticleService;
+    private ArticleService yxArticleService;
 
     /**
     * 添加文章管理表

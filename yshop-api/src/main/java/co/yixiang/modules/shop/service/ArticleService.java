@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author hupeng
  * @since 2019-10-02
  */
-public interface YxArticleService extends BaseService<YxArticle> {
+public interface ArticleService extends BaseService<YxArticle> {
 
     /**
      * 根据ID获取查询对象
