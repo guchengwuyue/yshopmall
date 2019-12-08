@@ -31,13 +31,12 @@ public class SubscribeHandler extends AbstractHandler {
                                     WxSessionManager sessionManager) throws WxErrorException {
 
 
+        String str = "你好，欢迎关注yshop!";
         YxWechatReply wechatReply = yxWechatReplyService.isExist("subscribe");
-        if(ObjectUtil.isNull(wechatReply)){
-
+        if(!ObjectUtil.isNull(wechatReply)){
+            str = JSONObject.parseObject(wechatReply.getData()).getString("content");
         }
 
-
-        String str = JSONObject.parseObject(wechatReply.getData()).getString("content");
         try {
             WxMpXmlOutMessage msg= WxMpXmlOutMessage.TEXT()
                     .content(str)

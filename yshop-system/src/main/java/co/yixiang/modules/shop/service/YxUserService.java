@@ -1,6 +1,7 @@
 package co.yixiang.modules.shop.service;
 
 import co.yixiang.modules.shop.domain.YxUser;
+import co.yixiang.modules.shop.service.dto.UserMoneyDTO;
 import co.yixiang.modules.shop.service.dto.YxUserDTO;
 import co.yixiang.modules.shop.service.dto.YxUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,8 @@ import java.util.List;
 */
 //@CacheConfig(cacheNames = "yxUser")
 public interface YxUserService {
+
+    void updateMoney(UserMoneyDTO param);
 
     /**
     * 查询数据分页

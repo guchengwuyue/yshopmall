@@ -70,9 +70,9 @@ public class YxStoreProduct implements Serializable {
     private BigDecimal price;
 
     // 会员价格
-    @Column(name = "vip_price",nullable = false)
-    @NotNull(message = "会员价必填")
-    @Min(value = 0)
+    @Column(name = "vip_price",insertable = false)
+    //@NotNull(message = "会员价必填")
+    //@Min(value = 0)
     private BigDecimal vipPrice;
 
     // 市场价
@@ -112,7 +112,7 @@ public class YxStoreProduct implements Serializable {
 
     // 状态（0：未上架，1：上架）
     @Column(name = "is_show",insertable = false)
-    @NotNull(message = "状态必须选择")
+    //@NotNull(message = "状态必须选择")
     private Integer isShow;
 
     // 是否热卖

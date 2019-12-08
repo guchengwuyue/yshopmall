@@ -45,7 +45,7 @@ public class YxSystemGroupDataController {
     @PostMapping(value = "/yxSystemGroupData")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
 
         if(ObjectUtil.isNotNull(jsonObject.get("name"))){
@@ -88,7 +88,7 @@ public class YxSystemGroupDataController {
     @PutMapping(value = "/yxSystemGroupData")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         if(ObjectUtil.isNotNull(jsonObject.get("name"))){
             if(StrUtil.isEmpty(jsonObject.get("name").toString())){
@@ -123,7 +123,7 @@ public class YxSystemGroupDataController {
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemGroupDataService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

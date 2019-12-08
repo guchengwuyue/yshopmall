@@ -4,10 +4,10 @@ import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -23,18 +23,18 @@ public class JobTimer {
     private RedissonClient client;
 
     @Autowired
-    private ApplicationContext context;
+    private ExecuteJob service;
 
     ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
     @PostConstruct
     public void startJobTimer() {
-        RBlockingQueue blockingQueue = client.getBlockingQueue(CUSTOMER_JOB_TIMER_JOBS);
-        RDelayedQueue delayedQueue = client.getDelayedQueue(blockingQueue);
+        RBlockingQueue<Map<String,Object>> blockingQueue = client.getBlockingQueue(CUSTOMER_JOB_TIMER_JOBS);
+        RDelayedQueue<Map<String,Object>> delayedQueue = client.getDelayedQueue(blockingQueue);
         new Thread(() -> {
             while (true) {
                 try {
-                    DelayJob job = (DelayJob) blockingQueue.take();
-                    executorService.execute(new ExecutorTask(context, job));
+                    Map<String,Object> job = blockingQueue.take();
+                    executorService.execute(new ExecutorTask(job));
                 } catch (Exception e) {
                     e.printStackTrace();
                     try {
@@ -50,18 +50,14 @@ public class JobTimer {
     }
     class ExecutorTask implements Runnable {
 
-        private ApplicationContext context;
 
-        private DelayJob delayJob;
+        private Map<String,Object> delayJob;
 
-        public ExecutorTask(ApplicationContext context, DelayJob delayJob) {
-            this.context = context;
+        public ExecutorTask(Map<String,Object> delayJob) {
             this.delayJob = delayJob;
         }
-
         @Override
         public void run() {
-            ExecuteJob service = (ExecuteJob) context.getBean(delayJob.getAClass());
             service.execute(delayJob);
         }
     }

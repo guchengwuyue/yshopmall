@@ -1,6 +1,7 @@
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
@@ -45,7 +46,7 @@ public class YxStoreCombinationController {
     @PutMapping(value = "/yxStoreCombination")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
             resources.setStartTime(OrderUtil.
                     dateToTimestamp(resources.getStartTimeDate()));
@@ -67,7 +68,7 @@ public class YxStoreCombinationController {
     @ApiOperation(value = "开启关闭")
     @PostMapping(value = "/yxStoreCombination/onsale/{id}")
     public ResponseEntity onSale(@PathVariable Integer id,@RequestBody String jsonStr){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
         //System.out.println(status);
@@ -80,7 +81,7 @@ public class YxStoreCombinationController {
     @DeleteMapping(value = "/yxStoreCombination/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         YxStoreCombination combination = new YxStoreCombination();
         combination.setIsDel(1);
         yxStoreCombinationService.update(combination);

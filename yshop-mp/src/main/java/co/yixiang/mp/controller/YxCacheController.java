@@ -47,7 +47,7 @@ public class YxCacheController {
     @PostMapping(value = "/yxCache")
     @PreAuthorize("hasAnyRole('ADMIN','YXCACHE_ALL','YXCACHE_CREATE')")
     public ResponseEntity create( @RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty(jsonStr)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String jsonButton = jsonObject.get("buttons").toString();
         YxCache yxCache = new YxCache();

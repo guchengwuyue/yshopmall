@@ -1,6 +1,7 @@
 package co.yixiang.modules.quartz.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.service.QuartzJobService;
@@ -46,7 +47,7 @@ public class QuartzJobController {
     @PostMapping(value = "/jobs")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_CREATE')")
     public ResponseEntity create(@Validated @RequestBody QuartzJob resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -57,7 +58,7 @@ public class QuartzJobController {
     @PutMapping(value = "/jobs")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_EDIT')")
     public ResponseEntity update(@Validated(QuartzJob.Update.class) @RequestBody QuartzJob resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         quartzJobService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -66,7 +67,7 @@ public class QuartzJobController {
     @PutMapping(value = "/jobs/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_EDIT')")
     public ResponseEntity updateIsPause(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         quartzJobService.updateIsPause(quartzJobService.findById(id));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -75,7 +76,7 @@ public class QuartzJobController {
     @PutMapping(value = "/jobs/exec/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_EDIT')")
     public ResponseEntity execution(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         quartzJobService.execution(quartzJobService.findById(id));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -84,7 +85,7 @@ public class QuartzJobController {
     @DeleteMapping(value = "/jobs/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','JOB_ALL','JOB_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         quartzJobService.delete(quartzJobService.findById(id));
         return new ResponseEntity(HttpStatus.OK);
     }

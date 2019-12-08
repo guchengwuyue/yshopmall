@@ -60,7 +60,7 @@ public class YxArticleController {
     @DeleteMapping(value = "/yxArticle/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxArticleService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -69,7 +69,7 @@ public class YxArticleController {
     @GetMapping(value = "/yxArticle/publish/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         YxArticleDTO yxArticleDTO= yxArticleService.findById(id);
         yxArticleService.uploadNews(yxArticleDTO);
         return new ResponseEntity(HttpStatus.OK);

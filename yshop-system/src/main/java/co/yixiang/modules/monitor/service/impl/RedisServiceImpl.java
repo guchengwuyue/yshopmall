@@ -36,11 +36,13 @@ public class RedisServiceImpl implements RedisService {
         }
         for (Object s : redisTemplate.keys(key)) {
             // 过滤掉权限的缓存
-            if (s.toString().indexOf("role::loadPermissionByUser") != -1 || s.toString().indexOf("user::loadUserByUsername") != -1) {
+            if (s.toString().indexOf("role::loadPermissionByUser") != -1
+                    || s.toString().indexOf("user::loadUserByUsername") != -1
+                    || s.toString().indexOf("wechat") != -1 || s.toString().indexOf("wxpay") != -1) {
                 continue;
             }
             DataType dataType = redisTemplate.type(s.toString());
-            if(dataType.code().equals("hash")) continue;
+            if(!dataType.code().equals("string")) continue;
             RedisVo redisVo = new RedisVo(s.toString(),redisTemplate.opsForValue().get(s.toString()).toString());
             redisVos.add(redisVo);
         }

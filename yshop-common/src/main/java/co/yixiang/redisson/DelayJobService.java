@@ -2,10 +2,12 @@ package co.yixiang.redisson;
 
 import org.redisson.api.RBlockingQueue;
 import org.redisson.api.RDelayedQueue;
+import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,22 +25,10 @@ public class DelayJobService {
      * @param job  任务
      * @param delay 超时时间
      */
-    public void submitJob(DelayJob job, Long delay){
-        RBlockingQueue blockingQueue = client.getBlockingQueue(JobTimer.CUSTOMER_JOB_TIMER_JOBS);
-        RDelayedQueue delayedQueue = client.getDelayedQueue(blockingQueue);
+    public void submitJob(Map<String,Object> job, Long delay){
+        RQueue<Map<String,Object>> blockingQueue = client.getQueue(JobTimer.CUSTOMER_JOB_TIMER_JOBS);
+        RDelayedQueue<Map<String,Object>> delayedQueue = client.getDelayedQueue(blockingQueue);
         delayedQueue.offer(job,delay,TimeUnit.MILLISECONDS);
         delayedQueue.destroy();
-    }
-    /**
-     * 用户付款后取消队列
-     * @param job  任务
-     */
-    public void cancelJob(DelayJob job){
-        RBlockingQueue blockingQueue = client.getBlockingQueue(JobTimer.CUSTOMER_JOB_TIMER_JOBS);
-        RDelayedQueue delayedQueue = client.getDelayedQueue(blockingQueue);
-        delayedQueue.remove(job);
-        delayedQueue.destroy();
-
-
     }
 }

@@ -1,5 +1,8 @@
 package co.yixiang.modules.monitor.rest;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.monitor.service.RedisService;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.monitor.domain.vo.RedisVo;
@@ -32,6 +35,7 @@ public class RedisController {
     @DeleteMapping(value = "/redis")
     @PreAuthorize("hasAnyRole('ADMIN','REDIS_ALL','REDIS_DELETE')")
     public ResponseEntity delete(@RequestBody RedisVo resources){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         redisService.delete(resources.getKey());
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -40,6 +44,7 @@ public class RedisController {
     @DeleteMapping(value = "/redis/all")
     @PreAuthorize("hasAnyRole('ADMIN','REDIS_ALL','REDIS_DELETE')")
     public ResponseEntity deleteAll(){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         redisService.flushdb();
         return new ResponseEntity(HttpStatus.OK);
     }

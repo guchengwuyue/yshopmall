@@ -2,6 +2,7 @@ package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.ThrowableUtil;
@@ -84,7 +85,7 @@ public class RoleController {
     @PutMapping(value = "/roles")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
     public ResponseEntity update(@Validated(Role.Update.class) @RequestBody Role resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         roleService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -93,7 +94,7 @@ public class RoleController {
     @PutMapping(value = "/roles/permission")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
     public ResponseEntity updatePermission(@RequestBody Role resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         roleService.updatePermission(resources,roleService.findById(resources.getId()));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -102,7 +103,7 @@ public class RoleController {
     @PutMapping(value = "/roles/menu")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_EDIT')")
     public ResponseEntity updateMenu(@RequestBody Role resources){
-        //
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         roleService.updateMenu(resources,roleService.findById(resources.getId()));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -111,7 +112,7 @@ public class RoleController {
     @DeleteMapping(value = "/roles/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','ROLES_ALL','ROLES_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-       // if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         try {
             roleService.delete(id);
         }catch (Throwable e){

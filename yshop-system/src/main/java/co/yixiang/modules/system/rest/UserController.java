@@ -1,6 +1,7 @@
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.config.DataScope;
 import co.yixiang.domain.VerificationCode;
 import co.yixiang.exception.BadRequestException;
@@ -125,7 +126,7 @@ public class UserController {
     @DeleteMapping(value = "/users/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         Integer currentLevel =  Collections.min(roleService.findByUsers_Id(SecurityUtils.getUserId()).stream().map(RoleSmallDTO::getLevel).collect(Collectors.toList()));
         Integer optLevel =  Collections.min(roleService.findByUsers_Id(id).stream().map(RoleSmallDTO::getLevel).collect(Collectors.toList()));
 
@@ -143,7 +144,7 @@ public class UserController {
      */
     @PostMapping(value = "/users/updatePass")
     public ResponseEntity updatePass(@RequestBody UserPassVo user){
-        //if(ObjectUtil.isNotNull(user)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         UserDetails userDetails = SecurityUtils.getUserDetails();
         if(!userDetails.getPassword().equals(EncryptUtils.encryptPassword(user.getOldPass()))){
             throw new BadRequestException("修改失败，旧密码错误");
@@ -162,7 +163,7 @@ public class UserController {
      */
     @PostMapping(value = "/users/updateAvatar")
     public ResponseEntity updateAvatar(@RequestParam MultipartFile file){
-        //if(ObjectUtil.isNotNull(file)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         userService.updateAvatar(file);
         return new ResponseEntity(HttpStatus.OK);
     }

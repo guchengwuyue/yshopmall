@@ -1,6 +1,7 @@
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.system.domain.Permission;
@@ -67,7 +68,7 @@ public class PermissionController {
     @PutMapping(value = "/permissions")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_EDIT')")
     public ResponseEntity update(@Validated(Permission.Update.class) @RequestBody Permission resources){
-        //if(ObjectUtil.isNotNull(resources)) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         permissionService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -76,7 +77,7 @@ public class PermissionController {
     @DeleteMapping(value = "/permissions/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','PERMISSION_ALL','PERMISSION_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
-        //if(id > 0) throw new BadRequestException("演示环境禁止操作");
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         List<Permission> permissions = permissionService.findByPid(id);
         Set<Permission> permissionSet = new HashSet<>();
         permissionSet.add(permissionMapper.toEntity(permissionService.findById(id)));

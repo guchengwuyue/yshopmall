@@ -2,6 +2,8 @@ package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.modules.shop.service.YxUserService;
+import co.yixiang.modules.shop.service.dto.UserMoneyDTO;
+import co.yixiang.modules.shop.service.dto.YxUserDTO;
 import co.yixiang.modules.wechat.service.YxSystemConfigService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -83,6 +85,15 @@ public class YxUserController {
         //System.out.println(status);
         yxUserService.onStatus(id,status);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "修改余额")
+    @PostMapping(value = "/yxUser/money")
+    @PreAuthorize("hasAnyRole('ADMIN','YXUSER_ALL','YXUSER_EDIT')")
+    public ResponseEntity updatePrice(@Validated @RequestBody UserMoneyDTO param){
+
+        yxUserService.updateMoney(param);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }
