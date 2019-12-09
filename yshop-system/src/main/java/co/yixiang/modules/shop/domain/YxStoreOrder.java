@@ -134,6 +134,10 @@ public class YxStoreOrder implements Serializable {
     @Column(name = "delivery_name")
     private String deliveryName;
 
+    @Column(name = "delivery_sn")
+    private String deliverySn;
+
+
     // 发货类型
     @Column(name = "delivery_type")
     private String deliveryType;

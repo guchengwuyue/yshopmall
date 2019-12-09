@@ -51,16 +51,16 @@ public class ExpressService {
     /**
      * 获取物流信息
      *
-     * @param expCode
-     * @param expNo
+     * @param OrderCode
+     * @param ShipperCode
      * @return
      */
-    public ExpressInfo getExpressInfo(String expCode, String expNo) {
+    public ExpressInfo getExpressInfo(String OrderCode,String ShipperCode, String LogisticCode) {
         try {
-            String result = getOrderTracesByJson(expCode, expNo);
+            String result = getOrderTracesByJson(OrderCode,ShipperCode, LogisticCode);
             ObjectMapper objMap = new ObjectMapper();
             ExpressInfo ei = objMap.readValue(result, ExpressInfo.class);
-            ei.setShipperName(getVendorName(expCode));
+            ei.setShipperName(getVendorName(ShipperCode));
             return ei;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -74,12 +74,12 @@ public class ExpressService {
      *
      * @throws Exception
      */
-    private String getOrderTracesByJson(String expCode, String expNo) throws Exception {
+    private String getOrderTracesByJson(String OrderCode,String ShipperCode, String LogisticCode) throws Exception {
         if (!properties.isEnable()) {
             return null;
         }
 
-        String requestData = "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
+        String requestData = "{'OrderCode':'"+OrderCode+"','ShipperCode':'" + ShipperCode + "','LogisticCode':'" + LogisticCode + "'}";
 
         Map<String, Object> params = new HashMap<>();
         params.put("RequestData", URLEncoder.encode(requestData, "UTF-8"));

@@ -1,5 +1,6 @@
 package co.yixiang.modules.system.rest;
 
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.system.domain.DictDetail;
@@ -56,6 +57,7 @@ public class DictDetailController {
     @PostMapping(value = "/dictDetail")
     @PreAuthorize("hasAnyRole('ADMIN','DICT_ALL','DICT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody DictDetail resources){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -66,6 +68,7 @@ public class DictDetailController {
     @PutMapping(value = "/dictDetail")
     @PreAuthorize("hasAnyRole('ADMIN','DICT_ALL','DICT_EDIT')")
     public ResponseEntity update(@Validated(DictDetail.Update.class) @RequestBody DictDetail resources){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         dictDetailService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -74,6 +77,7 @@ public class DictDetailController {
     @DeleteMapping(value = "/dictDetail/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','DICT_ALL','DICT_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         dictDetailService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

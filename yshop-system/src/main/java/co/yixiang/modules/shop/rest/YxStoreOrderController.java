@@ -1,5 +1,6 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreOrder;
@@ -8,6 +9,8 @@ import co.yixiang.modules.shop.service.YxStoreOrderService;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
+import co.yixiang.modules.system.service.DictDetailService;
+import co.yixiang.modules.system.service.dto.DictDetailDTO;
 import co.yixiang.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +35,9 @@ public class YxStoreOrderController {
 
     @Autowired
     private YxStoreOrderStatusService yxStoreOrderStatusService;
+
+    @Autowired
+    private DictDetailService dictDetailService;
 
     @GetMapping(value = "/data/count")
     //@PreAuthorize("hasAnyRole('ADMIN','YXSTOREORDER_ALL','YXSTOREORDER_SELECT')")
@@ -114,8 +120,17 @@ public class YxStoreOrderController {
     @PutMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreOrder resources){
+
+        DictDetailDTO dictDetailDTO = dictDetailService.findById(Long.valueOf(resources
+                .getDeliveryName()));
+        if(ObjectUtil.isNull(dictDetailDTO)){
+            throw new BadRequestException("请先添加快递公司");
+        }
         resources.setStatus(1);
         resources.setDeliveryType("express");
+        resources.setDeliveryName(dictDetailDTO.getLabel());
+        resources.setDeliverySn(dictDetailDTO.getValue());
+
         yxStoreOrderService.update(resources);
 
         YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
