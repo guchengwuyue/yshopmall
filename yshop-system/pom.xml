@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>co.yixiang</groupId>
-            <artifactId>yshop-mp</artifactId>
+            <artifactId>yshop-shop</artifactId>
             <version>1.4</version>
         </dependency>
 

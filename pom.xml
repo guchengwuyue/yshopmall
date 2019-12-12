@@ -17,6 +17,7 @@
         <module>yshop-generator</module>
         <module>yshop-api</module>
         <module>yshop-mp</module>
+        <module>yshop-shop</module>
     </modules>
 
     <name>YSHOP商城管理系统</name>

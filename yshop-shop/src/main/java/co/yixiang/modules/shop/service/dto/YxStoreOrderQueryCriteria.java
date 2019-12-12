@@ -1,0 +1,36 @@
+package co.yixiang.modules.shop.service.dto;
+
+import co.yixiang.annotation.Query;
+import lombok.Data;
+
+/**
+* @author hupeng
+* @date 2019-10-14
+*/
+@Data
+public class YxStoreOrderQueryCriteria{
+
+    // 模糊
+    @Query(type = Query.Type.INNER_LIKE)
+    private String orderId;
+
+    // 模糊
+    @Query(type = Query.Type.INNER_LIKE)
+    private String realName;
+
+    // 模糊
+    @Query(type = Query.Type.INNER_LIKE)
+    private String userPhone;
+
+    @Query
+    private Integer paid;
+
+    @Query
+    private Integer status;
+
+    @Query
+    private Integer refundStatus;
+
+    @Query
+    private Integer isDel;
+}

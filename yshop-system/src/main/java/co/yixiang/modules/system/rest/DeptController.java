@@ -32,7 +32,7 @@ public class DeptController {
 
     private static final String ENTITY_NAME = "dept";
 
-    @Log("查询部门")
+   // @Log("查询部门")
     @GetMapping(value = "/dept")
     @PreAuthorize("hasAnyRole('ADMIN','USER_ALL','USER_SELECT','DEPT_ALL','DEPT_SELECT')")
     public ResponseEntity getDepts(DeptQueryCriteria criteria){
@@ -42,7 +42,7 @@ public class DeptController {
         return new ResponseEntity(deptService.buildTree(deptDTOS),HttpStatus.OK);
     }
 
-    @Log("新增部门")
+    //@Log("新增部门")
     @PostMapping(value = "/dept")
     @PreAuthorize("hasAnyRole('ADMIN','DEPT_ALL','DEPT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody Dept resources){
@@ -52,7 +52,7 @@ public class DeptController {
         return new ResponseEntity(deptService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改部门")
+    //@Log("修改部门")
     @PutMapping(value = "/dept")
     @PreAuthorize("hasAnyRole('ADMIN','DEPT_ALL','DEPT_EDIT')")
     public ResponseEntity update(@Validated(Dept.Update.class) @RequestBody Dept resources){
@@ -60,7 +60,7 @@ public class DeptController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除部门")
+    //@Log("删除部门")
     @DeleteMapping(value = "/dept/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','DEPT_ALL','DEPT_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){
