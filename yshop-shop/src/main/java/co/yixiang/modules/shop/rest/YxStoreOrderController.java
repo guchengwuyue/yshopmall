@@ -11,7 +11,13 @@ import co.yixiang.aop.log.Log;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
 import co.yixiang.modules.shop.service.dto.YxExpressDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
+import co.yixiang.modules.wechat.service.YxWechatUserService;
+import co.yixiang.modules.wechat.service.dto.YxWechatUserDTO;
+import co.yixiang.mp.domain.YxWechatTemplate;
+import co.yixiang.mp.service.WxMpTemplateMessageService;
+import co.yixiang.mp.service.YxWechatTemplateService;
 import co.yixiang.utils.OrderUtil;
+import co.yixiang.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,6 +26,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 * @author hupeng
@@ -38,6 +47,15 @@ public class YxStoreOrderController {
 
     @Autowired
     private YxExpressService yxExpressService;
+
+    @Autowired
+    private YxWechatUserService wechatUserService;
+
+    @Autowired
+    private WxMpTemplateMessageService templateMessageService;
+
+    @Autowired
+    private YxWechatTemplateService yxWechatTemplateService;
 
 
     @GetMapping(value = "/data/count")
@@ -142,6 +160,23 @@ public class YxStoreOrderController {
         storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
         yxStoreOrderStatusService.create(storeOrderStatus);
+
+        //模板消息通知
+        String siteUrl = RedisUtil.get("site_url");
+        YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
+        if(ObjectUtil.isNotNull(wechatUser)){
+            YxWechatTemplate WechatTemplate = yxWechatTemplateService
+                    .findByTempkey("OPENTM200565259");
+            Map<String,String> map = new HashMap<>();
+            map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
+            map.put("keyword1",resources.getOrderId());//订单号
+            map.put("keyword2",expressDTO.getName());
+            map.put("keyword3",resources.getDeliveryId());
+            map.put("remark","yshop电商系统为你服务！");
+            templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
+                    ,WechatTemplate.getTempid(),
+                    siteUrl+"/order/detail/"+resources.getOrderId(),map);
+        }
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

@@ -19,7 +19,7 @@ public interface YxUserBillRepository extends JpaRepository<YxUserBill, Integer>
             value = "select b.title,b.pm,b.category,b.type,b.number,b.add_time as addTime," +
                     "u.nickname from yx_user_bill b left join yx_user u on u.uid=b.uid " +
                     " where if(?1 !='',b.category=?1,1=1) and if(?2 !='',b.type=?2,1=1)  " +
-                    "and if(?3 !='',u.nickname LIKE CONCAT('%',?3,'%'),1=1)",
+                    "and if(?3 !='',u.nickname LIKE CONCAT('%',?3,'%'),1=1) order by b.id desc",
             countQuery = "select count(*) from yx_user_bill b left join yx_user u on u.uid=b.uid" +
                     " where if(?1 !='',b.category=?1,1=1) and if(?2 !='',b.type=?2,1=1)  " +
                     "and if(?3 !='',u.nickname LIKE CONCAT('%',?3,'%'),1=1)")
