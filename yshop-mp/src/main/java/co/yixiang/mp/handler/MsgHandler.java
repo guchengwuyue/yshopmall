@@ -22,7 +22,6 @@ public class MsgHandler extends AbstractHandler {
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
 
-        this.logger.info("hupeng");
         if (!wxMessage.getMsgType().equals(XmlMsgType.EVENT)) {
             //TODO 可以选择将消息保存到本地
         }
@@ -41,7 +40,7 @@ public class MsgHandler extends AbstractHandler {
         }
 
         //TODO 组装回复消息
-        String content = "收到信息内容：" + JsonUtils.toJson(wxMessage);
+        String content = "yshop收到信息内容：" + wxMessage.getContent();
 
         return new TextBuilder().build(content, wxMessage, weixinService);
 

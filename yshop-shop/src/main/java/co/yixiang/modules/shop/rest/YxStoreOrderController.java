@@ -139,7 +139,8 @@ public class YxStoreOrderController {
     @PutMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreOrder resources){
-
+        if(StrUtil.isBlank(resources.getDeliveryName())) throw new BadRequestException("请选择快递公司");
+        if(StrUtil.isBlank(resources.getDeliveryId())) throw new BadRequestException("快递单号不能为空");
         YxExpressDTO expressDTO = yxExpressService.findById(Integer.valueOf(resources
                 .getDeliveryName()));
         if(ObjectUtil.isNull(expressDTO)){

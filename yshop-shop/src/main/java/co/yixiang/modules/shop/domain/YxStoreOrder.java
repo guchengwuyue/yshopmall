@@ -133,7 +133,7 @@ public class YxStoreOrder implements Serializable {
 
     // 快递名称/送货人姓名
     @Column(name = "delivery_name")
-    @NotBlank(message = "请选择快递公司")
+    //@NotBlank(message = "请选择快递公司")
     private String deliveryName;
 
     @Column(name = "delivery_sn")
@@ -146,7 +146,7 @@ public class YxStoreOrder implements Serializable {
 
     // 快递单号/手机号
     @Column(name = "delivery_id")
-    @NotBlank(message = "快递单号不能为空")
+    //@NotBlank(message = "快递单号不能为空")
     private String deliveryId;
 
     // 消费赚取积分
