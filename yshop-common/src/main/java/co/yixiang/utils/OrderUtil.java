@@ -107,7 +107,7 @@ public class OrderUtil {
      * @return
      */
     public static int orderStatus(int paid,int status,int refund_status){
-        //todo  1-已付款 2-未发货 3-退款中 4-待收货 5-待评价 6-已完成 7-已退款
+        //todo  1-未付款 2-未发货 3-退款中 4-待收货 5-待评价 6-已完成 7-已退款
         int _status = 0;
 
         if(paid == 0 && status == 0 && refund_status == 0){

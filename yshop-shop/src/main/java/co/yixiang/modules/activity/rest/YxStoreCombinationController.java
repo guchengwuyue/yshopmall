@@ -46,7 +46,6 @@ public class YxStoreCombinationController {
     @PutMapping(value = "/yxStoreCombination")
     @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
             resources.setStartTime(OrderUtil.
                     dateToTimestamp(resources.getStartTimeDate()));

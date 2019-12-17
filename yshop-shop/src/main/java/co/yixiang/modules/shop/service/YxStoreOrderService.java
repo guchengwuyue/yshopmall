@@ -18,7 +18,7 @@ public interface YxStoreOrderService {
 
     Map<String,Object> chartCount();
 
-    String orderType(int id,int pinkId,int combinationId);
+    String orderType(int id,int pinkId,int combinationId,int seckillId);
 
     void refund(YxStoreOrder resources);
 

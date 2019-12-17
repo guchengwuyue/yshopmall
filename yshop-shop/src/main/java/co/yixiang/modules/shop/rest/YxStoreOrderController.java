@@ -89,7 +89,6 @@ public class YxStoreOrderController {
                     criteria.setRefundStatus(0);
                     break;
                 case "1":
-                    System.out.println(orderStatus);
                     criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setStatus(0);
