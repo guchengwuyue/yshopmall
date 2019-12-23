@@ -2,6 +2,7 @@ package co.yixiang.utils;
 
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.NumberUtil;
 
 import javax.xml.crypto.Data;
 import java.text.DateFormat;
@@ -14,6 +15,18 @@ import java.util.Date;
  * @Date 2019/9/13
  **/
 public class OrderUtil {
+
+    /**
+     * 获取俩个数之间的随机数
+     * @param min
+     * @param max
+     * @return
+     */
+    public static Double randomNumber(double min,double max){
+        return NumberUtil.add(min,
+                NumberUtil.mul(Math.random(),
+                NumberUtil.sub(max,min)));
+    }
 
     /**
      * 时间戳订单号
