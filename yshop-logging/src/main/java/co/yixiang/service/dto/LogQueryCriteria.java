@@ -17,4 +17,8 @@ public class LogQueryCriteria {
 
     @Query
     private String logType;
+
+    @Query
+    private Integer type;
+
 }

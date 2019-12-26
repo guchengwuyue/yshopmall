@@ -49,7 +49,9 @@ public class LogAspect {
         currentTime = System.currentTimeMillis();
         result = joinPoint.proceed();
         Log log = new Log("INFO",System.currentTimeMillis() - currentTime);
-        logService.save(getUsername(), StringUtils.getIP(RequestHolder.getHttpServletRequest()),joinPoint, log);
+        logService.save(getUsername(),
+                StringUtils.getIP(RequestHolder.getHttpServletRequest()),joinPoint,
+                log,getUid());
         return result;
     }
 
@@ -63,7 +65,9 @@ public class LogAspect {
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         Log log = new Log("ERROR",System.currentTimeMillis() - currentTime);
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
-        logService.save(getUsername(), StringUtils.getIP(RequestHolder.getHttpServletRequest()), (ProceedingJoinPoint)joinPoint, log);
+        logService.save(getUsername(),
+                StringUtils.getIP(RequestHolder.getHttpServletRequest()),
+                (ProceedingJoinPoint)joinPoint, log,getUid());
     }
 
     public String getUsername() {
@@ -71,6 +75,14 @@ public class LogAspect {
             return SecurityUtils.getUsername();
         }catch (Exception e){
             return "";
+        }
+    }
+
+    public Long getUid(){
+        try {
+            return SecurityUtils.getUserId();
+        }catch (Exception e){
+            return 0L;
         }
     }
 }

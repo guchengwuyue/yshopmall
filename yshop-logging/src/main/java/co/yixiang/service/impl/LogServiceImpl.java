@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.Method;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Zheng Jie
@@ -41,6 +43,15 @@ public class LogServiceImpl implements LogService {
     private final String LOGINPATH = "login";
 
     @Override
+    public Object findAllByPageable(String nickname, Pageable pageable) {
+        Page<Map> page = logRepository.findAllByPageable(nickname,pageable);
+        Map<String,Object> map = new LinkedHashMap<>(2);
+        map.put("content",page.getContent());
+        map.put("totalElements",page.getTotalElements());
+        return map;
+    }
+
+    @Override
     public Object queryAll(LogQueryCriteria criteria, Pageable pageable){
         Page<Log> page = logRepository.findAll(((root, criteriaQuery, cb) -> QueryHelp.getPredicate(root, criteria, cb)),pageable);
         if ("ERROR".equals(criteria.getLogType())) {
@@ -57,7 +68,8 @@ public class LogServiceImpl implements LogService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log){
+    public void save(String username, String ip, ProceedingJoinPoint joinPoint,
+                     Log log,Long uid){
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
@@ -67,6 +79,12 @@ public class LogServiceImpl implements LogService {
         if (log != null) {
             log.setDescription(aopLog.value());
         }
+        //类型 0-后台 1-前台
+        log.setType(aopLog.type());
+        if(uid != null) {
+            log.setUid(uid);
+        }
+
 
         // 方法路径
         String methodName = joinPoint.getTarget().getClass().getName()+"."+signature.getName()+"()";

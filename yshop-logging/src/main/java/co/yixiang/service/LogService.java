@@ -12,6 +12,8 @@ import org.springframework.scheduling.annotation.Async;
  */
 public interface LogService {
 
+    Object findAllByPageable(String nickname, Pageable pageable);
+
     /**
      * queryAll
      * @param criteria
@@ -36,7 +38,7 @@ public interface LogService {
      * @param log
      */
     @Async
-    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log);
+    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log,Long uid);
 
     /**
      * 查询异常详情

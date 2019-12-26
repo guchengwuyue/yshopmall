@@ -62,6 +62,10 @@ public class Log  implements Serializable {
      */
     private Long time;
 
+    private Long uid;
+
+    private Integer type;
+
     /**
      * 异常详细
      */

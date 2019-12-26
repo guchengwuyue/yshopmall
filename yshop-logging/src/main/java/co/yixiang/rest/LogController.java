@@ -28,7 +28,16 @@ public class LogController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity getLogs(LogQueryCriteria criteria, Pageable pageable){
         criteria.setLogType("INFO");
+        criteria.setType(0);
         return new ResponseEntity(logService.queryAll(criteria,pageable), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/mlogs")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity getApiLogs(LogQueryCriteria criteria, Pageable pageable){
+        criteria.setLogType("INFO");
+        criteria.setType(1);
+        return new ResponseEntity(logService.findAllByPageable(criteria.getBlurry(),pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/logs/user")

@@ -1,10 +1,14 @@
 package co.yixiang.repository;
 
 import co.yixiang.domain.Log;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
 
 /**
  * @author Zheng Jie
@@ -12,6 +16,18 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface LogRepository extends JpaRepository<Log,Long>, JpaSpecificationExecutor {
+
+    @Query(nativeQuery = true,
+            value = "select l.id,l.create_time as createTime,l.description," +
+                    "l.request_ip as requestIp,l.address," +
+                    "u.nickname from log l left join yx_user u on u.uid=l.uid " +
+                    " where l.type=1" +
+                    " and if(?1 !='',u.nickname LIKE CONCAT('%',?1,'%'),1=1) order by l.id desc",
+            countQuery = "select count(*) from log l left join yx_user u on u.uid=l.uid" +
+                    " where l.type=1 " +
+                    "and if(?1 !='',u.nickname LIKE CONCAT('%',?1,'%'),1=1)")
+    Page<Map> findAllByPageable(String nickname,
+                                Pageable pageable);
 
     /**
      * 获取一个时间段的IP记录
