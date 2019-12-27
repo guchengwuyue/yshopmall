@@ -109,6 +109,11 @@
             <artifactId>qcloudsms</artifactId>
             <version>1.0.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>4.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
