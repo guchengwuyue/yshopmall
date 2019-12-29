@@ -3,8 +3,10 @@ package co.yixiang.modules.shop.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.EntityExistException;
+import co.yixiang.exception.ErrorRequestException;
 import co.yixiang.modules.activity.domain.YxStorePink;
 import co.yixiang.modules.activity.repository.YxStorePinkRepository;
 import co.yixiang.modules.activity.service.YxStorePinkService;
@@ -21,15 +23,22 @@ import co.yixiang.modules.shop.service.dto.*;
 import co.yixiang.modules.shop.service.mapper.YxStoreOrderMapper;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.QueryHelp;
+import co.yixiang.utils.RedisUtil;
 import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
 import co.yixiang.modules.shop.domain.StoreOrderCartInfo;
 import co.yixiang.modules.shop.repository.YxStoreOrderCartInfoRepository;
+import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
+import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.github.binarywang.wxpay.service.WxPayService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import org.springframework.data.domain.Page;
@@ -39,6 +48,7 @@ import org.springframework.data.domain.Pageable;
 * @author hupeng
 * @date 2019-10-14
 */
+@Slf4j
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreOrderServiceImpl implements YxStoreOrderService {
@@ -66,6 +76,9 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
     @Autowired
     private YxStorePinkRepository storePinkRepository;
+
+    @Autowired
+    private WxPayService wxPayService;
 
     @Override
     public OrderTimeDataDTO getOrderTimeData() {
@@ -112,39 +125,78 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
             throw new BadRequestException("请输入退款金额");
         }
 
-        //修改状态
-        resources.setRefundStatus(2);
-        resources.setRefundPrice(resources.getPayPrice());
-        update(resources);
+        if(resources.getPayType().equals("yue")){
+            //修改状态
+            resources.setRefundStatus(2);
+            resources.setRefundPrice(resources.getPayPrice());
+            update(resources);
 
-        //退款到余额
-        YxUserDTO userDTO = userService.findById(resources.getUid());
-        userRepository.updateMoney(resources.getPayPrice().doubleValue(),
-                resources.getUid());
+            //退款到余额
+            YxUserDTO userDTO = userService.findById(resources.getUid());
+            userRepository.updateMoney(resources.getPayPrice().doubleValue(),
+                    resources.getUid());
 
-        YxUserBill userBill = new YxUserBill();
-        userBill.setUid(resources.getUid());
+            YxUserBill userBill = new YxUserBill();
+            userBill.setUid(resources.getUid());
 
-        userBill.setLinkId(resources.getId().toString());
-        userBill.setPm(1);
-        userBill.setTitle("商品退款");
-        userBill.setCategory("now_money");
-        userBill.setType("pay_product_refund");
-        userBill.setNumber(resources.getPayPrice());
-        userBill.setBalance(NumberUtil.add(resources.getPayPrice(),userDTO.getNowMoney()));
-        userBill.setMark("订单退款到余额");
-        userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
-        userBill.setStatus(1);
-        yxUserBillService.create(userBill);
+            userBill.setLinkId(resources.getId().toString());
+            userBill.setPm(1);
+            userBill.setTitle("商品退款");
+            userBill.setCategory("now_money");
+            userBill.setType("pay_product_refund");
+            userBill.setNumber(resources.getPayPrice());
+            userBill.setBalance(NumberUtil.add(resources.getPayPrice(),userDTO.getNowMoney()));
+            userBill.setMark("订单退款到余额");
+            userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
+            userBill.setStatus(1);
+            yxUserBillService.create(userBill);
 
 
-        YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
-        storeOrderStatus.setOid(resources.getId());
-        storeOrderStatus.setChangeType("refund_price");
-        storeOrderStatus.setChangeMessage("退款给用户："+resources.getPayPrice() +"元");
-        storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
+            YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
+            storeOrderStatus.setOid(resources.getId());
+            storeOrderStatus.setChangeType("refund_price");
+            storeOrderStatus.setChangeMessage("退款给用户："+resources.getPayPrice() +"元");
+            storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
-        yxStoreOrderStatusService.create(storeOrderStatus);
+            yxStoreOrderStatusService.create(storeOrderStatus);
+        }else{
+            String apiUrl = RedisUtil.get("api_url");
+            if(StrUtil.isBlank(apiUrl)) throw new BadRequestException("请配置api地址");
+            //读取redis配置
+            String appId = RedisUtil.get("wxpay_appId");
+            String mchId = RedisUtil.get("wxpay_mchId");
+            String mchKey = RedisUtil.get("wxpay_mchKey");
+            String keyPath = RedisUtil.get("wxpay_keyPath");
+
+            if(StrUtil.isBlank(appId) || StrUtil.isBlank(mchId) || StrUtil.isBlank(mchKey)){
+                throw new BadRequestException("请配置微信支付");
+            }
+            if(StrUtil.isBlank(keyPath)){
+                throw new BadRequestException("请配置微信支付证书");
+            }
+            WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
+            BigDecimal bigDecimal = new BigDecimal("100");
+            wxPayRefundRequest.setTotalFee(bigDecimal.multiply(resources.getPayPrice()).intValue());//订单总金额
+            wxPayRefundRequest.setOutTradeNo(resources.getOrderId());
+            wxPayRefundRequest.setOutRefundNo(resources.getOrderId());
+            wxPayRefundRequest.setRefundFee(bigDecimal.multiply(resources.getPayPrice()).intValue());//退款金额
+            wxPayRefundRequest.setOpUserId(mchId); //操作人默认商户号当前
+            wxPayRefundRequest.setNotifyUrl(apiUrl+"/api/notify/refund");
+
+            WxPayConfig wxPayConfig = new WxPayConfig();
+            wxPayConfig.setAppId(appId);
+            wxPayConfig.setMchId(mchId);
+            wxPayConfig.setMchKey(mchKey);
+            wxPayConfig.setKeyPath(keyPath);
+            wxPayService.setConfig(wxPayConfig);
+            try {
+                wxPayService.refund(wxPayRefundRequest);
+            } catch (WxPayException e) {
+                log.info("refund-error:{}",e.getMessage());
+            }
+        }
+
+
     }
 
     @Override
