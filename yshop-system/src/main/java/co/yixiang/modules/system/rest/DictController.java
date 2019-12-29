@@ -6,6 +6,7 @@ import co.yixiang.aop.log.Log;
 import co.yixiang.modules.system.domain.Dict;
 import co.yixiang.modules.system.service.DictService;
 import co.yixiang.modules.system.service.dto.DictQueryCriteria;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
+@Api(tags = "字典管理")
 public class DictController {
 
     @Autowired

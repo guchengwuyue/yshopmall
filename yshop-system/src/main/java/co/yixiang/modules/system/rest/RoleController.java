@@ -11,6 +11,7 @@ import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.dto.RoleQueryCriteria;
 import co.yixiang.modules.system.service.dto.RoleSmallDTO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api")
+@Api(tags = "角色管理")
 public class RoleController {
 
     @Autowired

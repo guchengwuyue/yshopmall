@@ -4,6 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.aop.log.Log;
 import co.yixiang.domain.QiniuConfig;
@@ -28,6 +29,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("api")
+@Api(tags = "七牛")
 public class QiniuController {
 
     @Autowired

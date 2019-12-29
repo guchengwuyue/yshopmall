@@ -1,24 +1,22 @@
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.modules.shop.domain.YxSystemGroupData;
-import co.yixiang.utils.ValidationUtil;
 import co.yixiang.modules.shop.repository.YxSystemGroupDataRepository;
 import co.yixiang.modules.shop.service.YxSystemGroupDataService;
 import co.yixiang.modules.shop.service.dto.YxSystemGroupDataDTO;
 import co.yixiang.modules.shop.service.dto.YxSystemGroupDataQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxSystemGroupDataMapper;
+import co.yixiang.utils.QueryHelp;
+import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
 
 /**
 * @author hupeng

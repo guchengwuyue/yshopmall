@@ -1,10 +1,10 @@
 package co.yixiang.mp.controller;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxWechatTemplate;
 import co.yixiang.mp.service.YxWechatTemplateService;
 import co.yixiang.mp.service.dto.YxWechatTemplateQueryCriteria;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
 /**
 * @author xuwenbo

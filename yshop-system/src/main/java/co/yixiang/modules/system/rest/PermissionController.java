@@ -9,6 +9,7 @@ import co.yixiang.modules.system.service.PermissionService;
 import co.yixiang.modules.system.service.dto.PermissionDTO;
 import co.yixiang.modules.system.service.dto.PermissionQueryCriteria;
 import co.yixiang.modules.system.service.mapper.PermissionMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("api")
+@Api(tags = "权限管理")
 public class PermissionController {
 
     @Autowired

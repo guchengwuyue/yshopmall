@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.service.QuartzJobService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.quartz.service.dto.JobQueryCriteria;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Api(tags = "定时任务")
 public class QuartzJobController {
 
     private static final String ENTITY_NAME = "quartzJob";

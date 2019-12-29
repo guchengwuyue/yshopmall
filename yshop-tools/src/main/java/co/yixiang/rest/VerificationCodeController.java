@@ -5,6 +5,7 @@ import co.yixiang.domain.vo.EmailVo;
 import co.yixiang.service.EmailService;
 import co.yixiang.service.VerificationCodeService;
 import co.yixiang.utils.ElAdminConstant;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api")
+@Api(tags = "验证")
 public class VerificationCodeController {
 
     @Autowired

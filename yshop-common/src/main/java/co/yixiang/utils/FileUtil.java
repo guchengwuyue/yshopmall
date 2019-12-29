@@ -222,14 +222,14 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         String video = "avi mpg mpe mpeg asf wmv mov qt rm mp4 flv m4v webm ogv ogg";
         String image = "bmp dib pcp dif wmf gif jpg tif eps psd cdr iff tga pcd mpt png jpeg";
         if(image.indexOf(type) != -1){
-            return "图片";
+            return "pic";
         } else if(documents.indexOf(type) != -1){
-            return "文档";
+            return "txt";
         } else if(music.indexOf(type) != -1){
-            return "音乐";
+            return "music";
         } else if(video.indexOf(type) != -1){
-            return "视频";
-        } else return "其他";
+            return "video";
+        } else return "other";
     }
 
     public static String getFileTypeByMimeType(String type) {

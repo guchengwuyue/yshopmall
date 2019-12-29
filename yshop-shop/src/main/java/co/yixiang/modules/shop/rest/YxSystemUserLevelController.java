@@ -1,12 +1,12 @@
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemUserLevelService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelQueryCriteria;
 import co.yixiang.utils.OrderUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,13 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
 /**
 * @author hupeng
 * @date 2019-12-04
 */
-@Api(tags = "YxSystemUserLevel管理")
+@Api(tags = "用户等级管理")
 @RestController
 @RequestMapping("api")
 public class YxSystemUserLevelController {
@@ -46,8 +45,8 @@ public class YxSystemUserLevelController {
         return new ResponseEntity(yxSystemUserLevelService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改YxSystemUserLevel")
-    @ApiOperation(value = "修改YxSystemUserLevel")
+    @Log("修改")
+    @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources){
@@ -56,8 +55,8 @@ public class YxSystemUserLevelController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除YxSystemUserLevel")
-    @ApiOperation(value = "删除YxSystemUserLevel")
+    @Log("删除")
+    @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){

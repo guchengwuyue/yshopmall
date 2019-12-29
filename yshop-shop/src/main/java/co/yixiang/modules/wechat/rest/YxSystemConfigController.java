@@ -23,7 +23,7 @@ import io.swagger.annotations.*;
 * @author hupeng
 * @date 2019-10-10
 */
-@Api(tags = "YxSystemConfig管理")
+@Api(tags = "配置管理")
 @RestController
 @RequestMapping("api")
 public class YxSystemConfigController {
@@ -31,7 +31,7 @@ public class YxSystemConfigController {
     @Autowired
     private YxSystemConfigService yxSystemConfigService;
 
-    @Log("查询YxSystemConfig")
+    @Log("查询")
     @ApiOperation(value = "查询YxSystemConfig")
     @GetMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
@@ -39,7 +39,7 @@ public class YxSystemConfigController {
         return new ResponseEntity(yxSystemConfigService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
-    @Log("新增YxSystemConfig")
+    @Log("新增或修改")
     @ApiOperation(value = "新增YxSystemConfig")
     @PostMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")

@@ -12,6 +12,7 @@ import co.yixiang.modules.system.service.UserService;
 import co.yixiang.modules.system.service.dto.MenuDTO;
 import co.yixiang.modules.system.service.dto.MenuQueryCriteria;
 import co.yixiang.modules.system.service.dto.UserDTO;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("api")
+@Api(tags = "菜单管理")
 public class MenuController {
 
     @Autowired

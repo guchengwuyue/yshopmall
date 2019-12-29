@@ -1,15 +1,16 @@
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import co.yixiang.aop.log.Log;
+import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.dto.UserMoneyDTO;
-import co.yixiang.modules.shop.service.dto.YxUserDTO;
+import co.yixiang.modules.shop.service.dto.YxUserQueryCriteria;
 import co.yixiang.modules.wechat.service.YxSystemConfigService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import co.yixiang.aop.log.Log;
-import co.yixiang.modules.shop.domain.YxUser;
-import co.yixiang.modules.shop.service.dto.YxUserQueryCriteria;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
 /**
 * @author hupeng

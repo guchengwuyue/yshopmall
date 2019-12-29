@@ -8,6 +8,7 @@ import co.yixiang.modules.system.domain.Dept;
 import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.dto.DeptDTO;
 import co.yixiang.modules.system.service.dto.DeptQueryCriteria;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("api")
+@Api(tags = "部门管理")
 public class DeptController {
 
     @Autowired

@@ -5,6 +5,7 @@ import co.yixiang.domain.Picture;
 import co.yixiang.service.PictureService;
 import co.yixiang.service.dto.PictureQueryCriteria;
 import co.yixiang.utils.SecurityUtils;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api")
+@Api(tags = "图床")
 public class PictureController {
 
     @Autowired

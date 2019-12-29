@@ -20,6 +20,7 @@ import co.yixiang.modules.system.service.dto.RoleSmallDTO;
 import co.yixiang.modules.system.service.dto.UserQueryCriteria;
 import co.yixiang.utils.*;
 import co.yixiang.modules.system.service.UserService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api")
+@Api(tags = "系统用户管理")
 public class UserController {
 
     @Autowired

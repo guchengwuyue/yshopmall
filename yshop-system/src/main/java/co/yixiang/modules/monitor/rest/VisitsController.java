@@ -2,6 +2,7 @@ package co.yixiang.modules.monitor.rest;
 
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.modules.monitor.service.VisitsService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Zheng Jie
  * @date 2018-12-13
  */
+@Api(tags = "访问统计")
 @RestController
 @RequestMapping("api")
 public class VisitsController {

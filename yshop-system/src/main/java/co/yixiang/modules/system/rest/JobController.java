@@ -7,6 +7,7 @@ import co.yixiang.aop.log.Log;
 import co.yixiang.modules.system.domain.Job;
 import co.yixiang.modules.system.service.JobService;
 import co.yixiang.modules.system.service.dto.JobQueryCriteria;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
+@Api(tags = "任务管理")
 public class JobController {
 
     @Autowired

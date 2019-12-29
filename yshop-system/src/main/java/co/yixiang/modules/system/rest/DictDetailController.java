@@ -6,6 +6,7 @@ import co.yixiang.aop.log.Log;
 import co.yixiang.modules.system.domain.DictDetail;
 import co.yixiang.modules.system.service.DictDetailService;
 import co.yixiang.modules.system.service.dto.DictDetailQueryCriteria;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +26,7 @@ import java.util.Map;
 */
 @RestController
 @RequestMapping("api")
+@Api(tags = "字典明细管理")
 public class DictDetailController {
 
     @Autowired

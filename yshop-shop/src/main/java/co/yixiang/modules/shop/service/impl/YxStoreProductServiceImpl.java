@@ -1,22 +1,25 @@
 package co.yixiang.modules.shop.service.impl;
 
-import cn.hutool.core.util.*;
-import co.yixiang.modules.shop.domain.YxStoreProduct;
-import co.yixiang.modules.shop.repository.*;
-import co.yixiang.modules.shop.service.YxStoreProductService;
-import co.yixiang.modules.shop.service.dto.*;
-import co.yixiang.modules.shop.service.mapper.YxStoreProductMapper;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.domain.YxStoreProductAttr;
 import co.yixiang.modules.shop.domain.YxStoreProductAttrResult;
 import co.yixiang.modules.shop.domain.YxStoreProductAttrValue;
 import co.yixiang.modules.shop.repository.*;
+import co.yixiang.modules.shop.service.YxStoreProductService;
 import co.yixiang.modules.shop.service.dto.*;
+import co.yixiang.modules.shop.service.mapper.YxStoreProductMapper;
 import co.yixiang.utils.OrderUtil;
+import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.QueryHelp;
 
 /**
 * @author hupeng

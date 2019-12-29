@@ -1,26 +1,25 @@
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.modules.shop.domain.YxSystemUserTask;
-import co.yixiang.modules.shop.service.YxSystemUserLevelService;
-import co.yixiang.utils.ValidationUtil;
 import co.yixiang.modules.shop.repository.YxSystemUserTaskRepository;
+import co.yixiang.modules.shop.service.YxSystemUserLevelService;
 import co.yixiang.modules.shop.service.YxSystemUserTaskService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserTaskDTO;
 import co.yixiang.modules.shop.service.dto.YxSystemUserTaskQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxSystemUserTaskMapper;
+import co.yixiang.utils.QueryHelp;
+import co.yixiang.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
-import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
 * @author hupeng

@@ -1,24 +1,25 @@
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.modules.activity.domain.YxStoreCouponUser;
-import co.yixiang.modules.shop.service.YxUserService;
-import co.yixiang.utils.ValidationUtil;
 import co.yixiang.modules.activity.repository.YxStoreCouponUserRepository;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponUserDTO;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponUserQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreCouponUserMapper;
+import co.yixiang.modules.shop.service.YxUserService;
+import co.yixiang.utils.QueryHelp;
+import co.yixiang.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
 * @author hupeng

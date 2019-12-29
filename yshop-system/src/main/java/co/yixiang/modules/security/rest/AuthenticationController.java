@@ -12,6 +12,7 @@ import co.yixiang.modules.security.utils.VerifyCodeUtils;
 import co.yixiang.utils.EncryptUtils;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.aop.log.Log;
 import co.yixiang.modules.security.security.ImgResult;
@@ -35,6 +36,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping("auth")
+@Api(tags = "认证模块")
 public class AuthenticationController {
 
     @Value("${jwt.header}")

@@ -1,5 +1,6 @@
 package co.yixiang.rest;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.aop.log.Log;
@@ -25,6 +26,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Api(tags = "支付宝支付")
 public class AliPayController {
 
     @Autowired
