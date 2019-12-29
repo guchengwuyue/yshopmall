@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @MapperScan({"co.yixiang.modules.*.mapper"})
+@ComponentScan(basePackages = {"co.yixiang", "org.n3r.idworker"})
 public class ApiRun {
 
     public static void main(String[] args) {
