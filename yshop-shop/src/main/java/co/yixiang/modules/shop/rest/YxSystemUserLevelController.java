@@ -1,6 +1,8 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemUserLevelService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelQueryCriteria;
