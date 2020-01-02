@@ -2,10 +2,16 @@ server:
   port: 8009
   servlet:
     context-path: /api
-
+  tomcat:
+    uri-encoding: UTF-8
 
 
 spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
   freemarker:
     check-template-location: false
   profiles:
@@ -16,6 +22,12 @@ spring:
     redis:
       repositories:
         enabled: false
+#配置rocketmq
+rocketmq:
+  nameServer: localhost:9876
+  producer:
+    group: yshop-group
+    sendMessageTimeout: 300000
 
   #配置 Jpa
   jpa:
@@ -50,27 +62,6 @@ mybatis-plus:
       logic-not-delete-value: 1
   mapper-locations: classpath*:mapper/**/*Mapper.xml
 
-# 公众号配置(必填)
-wx:
-  mp:
-    configs:
-    - appId:
-      secret:
-      token:
-      aesKey:
-  pay:
-    appId:
-    mchId:
-    mchKey:
-    subAppId:
-    subMchId:
-    keyPath:
-  miniapp:
-    appid: wxa82b5b7fcb0ec161
-    secret:
-    token:
-    aesKey:
-    msgDataFormat: JSON
 logging:
   level:
     org.springframework.web: INFO
