@@ -1,4 +1,4 @@
-//package co.yixiang.modules.wechat.rest;
+package co.yixiang.modules.wechat.rest;//package co.yixiang.modules.wechat.rest;
 //
 //import co.yixiang.aop.log.Log;
 //import co.yixiang.modules.wechat.domain.YxWechatUser;
@@ -28,7 +28,7 @@
 //    @Log("查询YxWechatUser")
 //    @ApiOperation(value = "查询YxWechatUser")
 //    @GetMapping(value = "/yxWechatUser")
-//    @PreAuthorize("hasAnyRole('ADMIN','YXWECHATUSER_ALL','YXWECHATUSER_SELECT')")
+//    @PreAuthorize("@el.check('admin','YXWECHATUSER_ALL','YXWECHATUSER_SELECT')")
 //    public ResponseEntity getYxWechatUsers(YxWechatUserQueryCriteria criteria, Pageable pageable){
 //        return new ResponseEntity(yxWechatUserService.queryAll(criteria,pageable),HttpStatus.OK);
 //    }
@@ -36,7 +36,7 @@
 //    @Log("新增YxWechatUser")
 //    @ApiOperation(value = "新增YxWechatUser")
 //    @PostMapping(value = "/yxWechatUser")
-//    @PreAuthorize("hasAnyRole('ADMIN','YXWECHATUSER_ALL','YXWECHATUSER_CREATE')")
+//    @PreAuthorize("@el.check('admin','YXWECHATUSER_ALL','YXWECHATUSER_CREATE')")
 //    public ResponseEntity create(@Validated @RequestBody YxWechatUser resources){
 //        return new ResponseEntity(yxWechatUserService.create(resources),HttpStatus.CREATED);
 //    }
@@ -44,7 +44,7 @@
 //    @Log("修改YxWechatUser")
 //    @ApiOperation(value = "修改YxWechatUser")
 //    @PutMapping(value = "/yxWechatUser")
-//    @PreAuthorize("hasAnyRole('ADMIN','YXWECHATUSER_ALL','YXWECHATUSER_EDIT')")
+//    @PreAuthorize("@el.check('admin','YXWECHATUSER_ALL','YXWECHATUSER_EDIT')")
 //    public ResponseEntity update(@Validated @RequestBody YxWechatUser resources){
 //        yxWechatUserService.update(resources);
 //        return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -53,7 +53,7 @@
 //    @Log("删除YxWechatUser")
 //    @ApiOperation(value = "删除YxWechatUser")
 //    @DeleteMapping(value = "/yxWechatUser/{uid}")
-//    @PreAuthorize("hasAnyRole('ADMIN','YXWECHATUSER_ALL','YXWECHATUSER_DELETE')")
+//    @PreAuthorize("@el.check('admin','YXWECHATUSER_ALL','YXWECHATUSER_DELETE')")
 //    public ResponseEntity delete(@PathVariable Integer uid){
 //        yxWechatUserService.delete(uid);
 //        return new ResponseEntity(HttpStatus.OK);

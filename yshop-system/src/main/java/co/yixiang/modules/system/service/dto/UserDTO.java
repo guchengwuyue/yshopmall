@@ -20,6 +20,10 @@ public class UserDTO implements Serializable {
 
     private String username;
 
+    private String nickName;
+
+    private String sex;
+
     private String avatar;
 
     private String email;
@@ -30,8 +34,6 @@ public class UserDTO implements Serializable {
 
     @JsonIgnore
     private String password;
-
-    private Timestamp createTime;
 
     private Date lastPasswordResetTime;
 
@@ -44,4 +46,6 @@ public class UserDTO implements Serializable {
     private DeptSmallDTO dept;
 
     private Long deptId;
+
+    private Timestamp createTime;
 }

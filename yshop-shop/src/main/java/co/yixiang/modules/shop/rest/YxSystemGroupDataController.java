@@ -34,7 +34,7 @@ public class YxSystemGroupDataController {
     @Log("查询数据配置")
     @ApiOperation(value = "查询数据配置")
     @GetMapping(value = "/yxSystemGroupData")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
     public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria, Pageable pageable){
 
         return new ResponseEntity(yxSystemGroupDataService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -43,7 +43,7 @@ public class YxSystemGroupDataController {
     @Log("新增数据配置")
     @ApiOperation(value = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -86,7 +86,7 @@ public class YxSystemGroupDataController {
     @Log("修改数据配置")
     @ApiOperation(value = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -121,7 +121,7 @@ public class YxSystemGroupDataController {
     @Log("删除数据配置")
     @ApiOperation(value = "删除数据配置")
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemGroupDataService.delete(id);

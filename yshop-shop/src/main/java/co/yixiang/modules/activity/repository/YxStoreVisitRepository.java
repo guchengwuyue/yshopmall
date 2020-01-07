@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 * @date 2019-11-18
 */
 public interface YxStoreVisitRepository extends JpaRepository<YxStoreVisit, Integer>, JpaSpecificationExecutor {
-        int countByProductIdAndProductType(int productId,String productType);
+        int countByProductIdAndProductType(int productId, String productType);
 }

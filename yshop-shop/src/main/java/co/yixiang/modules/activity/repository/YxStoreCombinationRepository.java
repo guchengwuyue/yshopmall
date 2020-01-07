@@ -13,6 +13,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface YxStoreCombinationRepository extends JpaRepository<YxStoreCombination, Integer>, JpaSpecificationExecutor {
     @Modifying
     @Query(value = "update yx_store_combination set is_show = ?1 where id = ?2",nativeQuery = true)
-    void updateOnsale(int status,int id);
+    void updateOnsale(int status, int id);
 
 }

@@ -2,7 +2,6 @@ package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.Map;
 
 /**

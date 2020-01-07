@@ -1,8 +1,9 @@
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-import java.math.BigDecimal;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 
 /**

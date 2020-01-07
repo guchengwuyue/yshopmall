@@ -3,12 +3,10 @@ package co.yixiang.modules.activity.service;
 import co.yixiang.modules.activity.domain.YxStoreVisit;
 import co.yixiang.modules.activity.service.dto.YxStoreVisitDTO;
 import co.yixiang.modules.activity.service.dto.YxStoreVisitQueryCriteria;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng

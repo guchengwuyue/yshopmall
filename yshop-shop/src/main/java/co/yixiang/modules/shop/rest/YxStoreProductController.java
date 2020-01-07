@@ -37,7 +37,7 @@ public class YxStoreProductController {
     @Log("查询商品")
     @ApiOperation(value = "查询商品")
     @GetMapping(value = "/yxStoreProduct")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_SELECT')")
     public ResponseEntity getYxStoreProducts(YxStoreProductQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreProductService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class YxStoreProductController {
     @Log("新增商品")
     @ApiOperation(value = "新增商品")
     @PostMapping(value = "/yxStoreProduct")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
+    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -57,7 +57,7 @@ public class YxStoreProductController {
     @Log("修改商品")
     @ApiOperation(value = "修改商品")
     @PutMapping(value = "/yxStoreProduct")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProduct resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxStoreProductService.update(resources);
@@ -67,7 +67,7 @@ public class YxStoreProductController {
     @Log("删除商品")
     @ApiOperation(value = "删除商品")
     @DeleteMapping(value = "/yxStoreProduct/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxStoreProductService.delete(id);
@@ -76,7 +76,7 @@ public class YxStoreProductController {
 
     @ApiOperation(value = "恢复数据")
     @DeleteMapping(value = "/yxStoreProduct/recovery/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity recovery(@PathVariable Integer id){
         yxStoreProductService.recovery(id);
         return new ResponseEntity(HttpStatus.OK);

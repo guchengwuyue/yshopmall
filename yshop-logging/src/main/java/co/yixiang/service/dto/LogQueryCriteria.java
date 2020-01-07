@@ -1,7 +1,9 @@
 package co.yixiang.service.dto;
 
-import co.yixiang.annotation.Query;
 import lombok.Data;
+import co.yixiang.annotation.Query;
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 日志查询类
@@ -11,14 +13,16 @@ import lombok.Data;
 @Data
 public class LogQueryCriteria {
 
-    // 多字段模糊
     @Query(blurry = "username,description,address,requestIp,method,params")
     private String blurry;
 
     @Query
     private String logType;
 
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> createTime;
+
+
     @Query
     private Integer type;
-
 }

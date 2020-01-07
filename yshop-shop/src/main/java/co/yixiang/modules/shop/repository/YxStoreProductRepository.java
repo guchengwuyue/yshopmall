@@ -13,9 +13,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface YxStoreProductRepository extends JpaRepository<YxStoreProduct, Integer>, JpaSpecificationExecutor {
     @Modifying
     @Query(value = "update yx_store_product set is_show = ?1 where id = ?2",nativeQuery = true)
-    void updateOnsale(int status,int id);
+    void updateOnsale(int status, int id);
 
     @Modifying
     @Query(value = "update yx_store_product set is_del = ?1 where id = ?2",nativeQuery = true)
-    void updateDel(int status,int id);
+    void updateDel(int status, int id);
 }

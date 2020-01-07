@@ -19,7 +19,7 @@ public interface YxStoreOrderRepository extends JpaRepository<YxStoreOrder, Inte
     int countByPayTimeGreaterThanEqual(int time);
 
     //昨天
-    int countByPayTimeLessThanAndPayTimeGreaterThanEqual(int timeO,int timeT);
+    int countByPayTimeLessThanAndPayTimeGreaterThanEqual(int timeO, int timeT);
 
     @Query(value = "select IFNULL(sum(pay_price),0)  from yx_store_order " +
             "where refund_status=0 and is_del=0 and paid=1 and  pay_time >= ?1",nativeQuery = true)
@@ -27,7 +27,7 @@ public interface YxStoreOrderRepository extends JpaRepository<YxStoreOrder, Inte
 
     @Query(value = "select IFNULL(sum(pay_price),0)  from yx_store_order " +
             "where refund_status=0 and is_del=0 and paid=1 and  pay_time >= ?1 and pay_time < ?2",nativeQuery = true)
-    double sumTPrice(Integer timeO,Integer timeT);
+    double sumTPrice(Integer timeO, Integer timeT);
 
     @Query(value = "SELECT IFNULL(sum(pay_price),0) as num," +
             "FROM_UNIXTIME(add_time, '%m-%d') as time " +

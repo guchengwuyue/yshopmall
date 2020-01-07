@@ -29,7 +29,7 @@ public class YxUserBillController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxUserBill")
-    @PreAuthorize("hasAnyRole('ADMIN','YXUSERBILL_ALL','YXUSERBILL_SELECT')")
+    @PreAuthorize("@el.check('admin','YXUSERBILL_ALL','YXUSERBILL_SELECT')")
     public ResponseEntity getYxUserBills(YxUserBillQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxUserBillService.queryAll(criteria,pageable),HttpStatus.OK);
     }

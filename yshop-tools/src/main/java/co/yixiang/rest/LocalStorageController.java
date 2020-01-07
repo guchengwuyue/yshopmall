@@ -2,13 +2,8 @@ package co.yixiang.rest;
 
 import co.yixiang.aop.log.Log;
 import co.yixiang.domain.LocalStorage;
-import co.yixiang.domain.Picture;
 import co.yixiang.service.LocalStorageService;
-import co.yixiang.service.dto.LocalStorageDTO;
 import co.yixiang.service.dto.LocalStorageQueryCriteria;
-import co.yixiang.utils.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,69 +13,59 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
 * @author Zheng Jie
 * @date 2019-09-05
 */
-@Api(tags = "本地存储管理")
+@Api(tags = "工具：本地存储管理")
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api/localStorage")
 public class LocalStorageController {
 
-    @Autowired
-    private LocalStorageService localStorageService;
+    private final LocalStorageService localStorageService;
 
-    @Value("${file.localUrl}")
-    private String localUrl;
-
-
-    @ApiOperation(value = "查询文件")
-    @GetMapping(value = "/localStorage")
-    @PreAuthorize("hasAnyRole('ADMIN','LOCALSTORAGE_ALL','LOCALSTORAGE_SELECT')")
-    public ResponseEntity getLocalStorages(LocalStorageQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(localStorageService.queryAll(criteria,pageable),HttpStatus.OK);
+    public LocalStorageController(LocalStorageService localStorageService) {
+        this.localStorageService = localStorageService;
     }
 
-    @ApiOperation(value = "上传文件")
-    @PostMapping(value = "/localStorage")
-    @PreAuthorize("hasAnyRole('ADMIN','LOCALSTORAGE_ALL','LOCALSTORAGE_CREATE')")
-    public ResponseEntity create(@RequestParam(value = "name",defaultValue = "") String name , @RequestParam("file") MultipartFile file){
-        LocalStorageDTO storageDTO = localStorageService.create(name, file);
-        String url = localUrl+"/file/"+storageDTO.getType()+"/"+storageDTO.getRealName();
-        Map<String,Object> map = new HashMap<>(3);
-        map.put("errno",0);
-        map.put("data",new String[]{url});
-        return new ResponseEntity(map,HttpStatus.CREATED);
+    @ApiOperation("查询文件")
+    @GetMapping
+    @PreAuthorize("@el.check('storage:list')")
+    public ResponseEntity<Object> getLocalStorages(LocalStorageQueryCriteria criteria, Pageable pageable){
+        return new ResponseEntity<>(localStorageService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
-    @ApiOperation(value = "修改文件")
-    @PutMapping(value = "/localStorage")
-    @PreAuthorize("hasAnyRole('ADMIN','LOCALSTORAGE_ALL','LOCALSTORAGE_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody LocalStorage resources){
+    @Log("导出数据")
+    @ApiOperation("导出数据")
+    @GetMapping(value = "/download")
+    @PreAuthorize("@el.check('storage:list')")
+    public void download(HttpServletResponse response, LocalStorageQueryCriteria criteria) throws IOException {
+        localStorageService.download(localStorageService.queryAll(criteria), response);
+    }
+
+    @ApiOperation("上传文件")
+    @PostMapping
+    @PreAuthorize("@el.check('storage:add')")
+    public ResponseEntity<Object> create(@RequestParam String name, @RequestParam("file") MultipartFile file){
+        return new ResponseEntity<>(localStorageService.create(name, file),HttpStatus.CREATED);
+    }
+
+    @ApiOperation("修改文件")
+    @PutMapping
+    @PreAuthorize("@el.check('storage:edit')")
+    public ResponseEntity<Object> update(@Validated @RequestBody LocalStorage resources){
         localStorageService.update(resources);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "删除文件")
-    @DeleteMapping(value = "/localStorage/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','LOCALSTORAGE_ALL','LOCALSTORAGE_DELETE')")
-    public ResponseEntity delete(@PathVariable Long id){
-        localStorageService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    /**
-     * 删除多张图片
-     * @param ids
-     * @return
-     */
-    @Log("删除图片")
-    @DeleteMapping(value = "/localStorage")
-    public ResponseEntity deleteAll(@RequestBody Long[] ids) {
+    @Log("多选删除")
+    @DeleteMapping
+    @ApiOperation("多选删除")
+    public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {
         localStorageService.deleteAll(ids);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

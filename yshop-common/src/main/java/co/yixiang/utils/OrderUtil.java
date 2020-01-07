@@ -25,7 +25,7 @@ public class OrderUtil {
     public static Double randomNumber(double min,double max){
         return NumberUtil.add(min,
                 NumberUtil.mul(Math.random(),
-                NumberUtil.sub(max,min)));
+                        NumberUtil.sub(max,min)));
     }
 
     /**

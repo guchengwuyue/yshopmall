@@ -1,8 +1,9 @@
 package co.yixiang.modules.shop.domain;
 
-import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -37,7 +38,7 @@ public class YxStoreCategory implements Serializable {
 
     // 图标
     @Column(name = "pic",nullable = false)
-    @NotBlank(message = "请上传分类图片")
+    //@NotBlank(message = "请上传分类图片")
     private String pic;
 
     // 是否推荐

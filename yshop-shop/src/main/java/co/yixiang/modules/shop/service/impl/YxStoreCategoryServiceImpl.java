@@ -2,25 +2,27 @@ package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
-import co.yixiang.modules.shop.service.YxStoreCategoryService;
-import co.yixiang.utils.ValidationUtil;
 import co.yixiang.modules.shop.repository.YxStoreCategoryRepository;
+import co.yixiang.modules.shop.service.YxStoreCategoryService;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxStoreCategoryMapper;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.utils.PageUtil;
+import co.yixiang.utils.QueryHelp;
+import co.yixiang.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
-import org.springframework.util.CollectionUtils;
 
 /**
 * @author hupeng
@@ -35,6 +37,19 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
 
     @Autowired
     private YxStoreCategoryMapper yxStoreCategoryMapper;
+
+
+    @Override
+    public void download(List<YxStoreCategoryDTO> queryAll, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxStoreCategoryDTO storeCategoryDTO : queryAll) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("分类名称", storeCategoryDTO.getCateName());
+            map.put("分类状态", storeCategoryDTO.getIsShow() == 1 ? "启用" : "停用");
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreCategoryQueryCriteria criteria, Pageable pageable){

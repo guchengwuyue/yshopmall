@@ -33,7 +33,7 @@ public class YxStoreBargainController {
     @Log("查询砍价")
     @ApiOperation(value = "查询砍价")
     @GetMapping(value = "/yxStoreBargain")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_SELECT')")
     public ResponseEntity getYxStoreBargains(YxStoreBargainQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreBargainService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class YxStoreBargainController {
     @Log("修改砍价")
     @ApiOperation(value = "修改砍价")
     @PutMapping(value = "/yxStoreBargain")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreBargain resources){
 
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
@@ -66,7 +66,7 @@ public class YxStoreBargainController {
     @Log("删除砍价")
     @ApiOperation(value = "删除砍价")
     @DeleteMapping(value = "/yxStoreBargain/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxStoreBargainService.delete(id);

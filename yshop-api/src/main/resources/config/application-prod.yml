@@ -58,6 +58,8 @@ jwt:
   secret: JBqNQX7HD9xhwHP7YSHOP
   # token 过期时间 2个小时
   expiration: 7200000
+  # 在线用户key
+  online-key: online-token
   auth:
     # 授权路径
     path: /login

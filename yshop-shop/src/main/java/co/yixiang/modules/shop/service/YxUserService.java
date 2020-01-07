@@ -5,8 +5,9 @@ import co.yixiang.modules.shop.service.dto.UserMoneyDTO;
 import co.yixiang.modules.shop.service.dto.YxUserDTO;
 import co.yixiang.modules.shop.service.dto.YxUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng
@@ -66,5 +67,5 @@ public interface YxUserService {
 
     void onStatus(Integer uid, Integer status);
 
-    void incBrokeragePrice(double price,int uid);
+    void incBrokeragePrice(double price, int uid);
 }

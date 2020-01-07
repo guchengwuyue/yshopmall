@@ -3,12 +3,10 @@ package co.yixiang.modules.shop.service;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelDTO;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelQueryCriteria;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng

@@ -13,20 +13,14 @@ import java.util.*;
  * @date 2019-6-4 14:59:48
  */
 @Slf4j
+@SuppressWarnings({"unchecked","all"})
 public class QueryHelp {
 
-    /**
-     * @描述 :  转换为Predicate
-     * @作者 :  Dong ZhaoYang
-     * @日期 :  2017/8/7
-     * @时间 :  17:25
-     */
-    @SuppressWarnings("unchecked")
     public static <R, Q> Predicate getPredicate(Root<R> root, Q query, CriteriaBuilder cb) {
         List<Predicate> list = new ArrayList<>();
 
         if(query == null){
-            return cb.and(list.toArray(new Predicate[list.size()]));
+            return cb.and(list.toArray(new Predicate[0]));
         }
         try {
             List<Field> fields = getAllFields(query.getClass(), new ArrayList<>());
@@ -62,19 +56,20 @@ public class QueryHelp {
                         for (String name : joinNames) {
                             switch (q.join()) {
                                 case LEFT:
-                                    if(ObjectUtil.isNotEmpty(join)){
+                                    if(ObjectUtil.isNotNull(join)){
                                         join = join.join(name, JoinType.LEFT);
                                     } else {
                                         join = root.join(name, JoinType.LEFT);
                                     }
                                     break;
                                 case RIGHT:
-                                    if(ObjectUtil.isNotEmpty(join)){
+                                    if(ObjectUtil.isNotNull(join)){
                                         join = join.join(name, JoinType.RIGHT);
                                     } else {
                                         join = root.join(name, JoinType.RIGHT);
                                     }
                                     break;
+                                default: break;
                             }
                         }
                     }
@@ -106,11 +101,24 @@ public class QueryHelp {
                         case RIGHT_LIKE:
                             list.add(cb.like(getExpression(attributeName,join,root)
                                     .as(String.class), val.toString() + "%"));
+                            break;
                         case IN:
                             if (CollUtil.isNotEmpty((Collection<Long>)val)) {
                                 list.add(getExpression(attributeName,join,root).in((Collection<Long>) val));
                             }
                             break;
+                        case NOT_EQUAL:
+                            list.add(cb.notEqual(getExpression(attributeName,join,root), val));
+                            break;
+                        case NOT_NULL:
+                            list.add(cb.isNotNull(getExpression(attributeName,join,root)));
+                            break;
+                        case BETWEEN:
+                            List<Object> between = new ArrayList<>((List<Object>)val);
+                            list.add(cb.between(getExpression(attributeName, join, root).as((Class<? extends Comparable>) between.get(0).getClass()),
+                                    (Comparable) between.get(0), (Comparable) between.get(1)));
+                            break;
+                        default: break;
                     }
                 }
                 field.setAccessible(accessible);
@@ -118,7 +126,8 @@ public class QueryHelp {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return cb.and(list.toArray(new Predicate[list.size()]));
+        int size = list.size();
+        return cb.and(list.toArray(new Predicate[size]));
     }
 
     @SuppressWarnings("unchecked")
@@ -130,21 +139,19 @@ public class QueryHelp {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static boolean isBlank(final CharSequence cs) {
+    private static boolean isBlank(final CharSequence cs) {
         int strLen;
         if (cs == null || (strLen = cs.length()) == 0) {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(cs.charAt(i)) == false) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     private static List<Field> getAllFields(Class clazz, List<Field> fields) {
         if (clazz != null) {
             fields.addAll(Arrays.asList(clazz.getDeclaredFields()));

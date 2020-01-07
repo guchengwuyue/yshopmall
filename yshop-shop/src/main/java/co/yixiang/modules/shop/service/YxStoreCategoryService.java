@@ -4,8 +4,11 @@ import co.yixiang.modules.shop.domain.YxStoreCategory;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng
@@ -13,6 +16,15 @@ import java.util.List;
 */
 //@CacheConfig(cacheNames = "yxStoreCategory")
 public interface YxStoreCategoryService {
+
+    /**
+     * 导出数据
+     * @param queryAll 待导出的数据
+     * @param response /
+     * @throws IOException /
+     */
+    void download(List<YxStoreCategoryDTO> queryAll, HttpServletResponse response) throws IOException;
+
 
     /**
     * 查询数据分页

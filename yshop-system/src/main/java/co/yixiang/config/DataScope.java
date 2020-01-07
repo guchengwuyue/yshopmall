@@ -1,13 +1,12 @@
 package co.yixiang.config;
 
+import co.yixiang.modules.system.service.UserService;
+import co.yixiang.modules.system.service.dto.RoleSmallDTO;
+import co.yixiang.modules.system.service.dto.UserDTO;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.modules.system.domain.Dept;
 import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.RoleService;
-import co.yixiang.modules.system.service.UserService;
-import co.yixiang.modules.system.service.dto.RoleSmallDTO;
-import co.yixiang.modules.system.service.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,14 +23,17 @@ public class DataScope {
 
     private final String[] scopeType = {"全部","本级","自定义"};
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    @Autowired
-    private DeptService deptService;
+    private final DeptService deptService;
+
+    public DataScope(UserService userService, RoleService roleService, DeptService deptService) {
+        this.userService = userService;
+        this.roleService = roleService;
+        this.deptService = deptService;
+    }
 
     public Set<Long> getDeptIds() {
 
@@ -41,7 +43,7 @@ public class DataScope {
         Set<Long> deptIds = new HashSet<>();
 
         // 查询用户角色
-        List<RoleSmallDTO> roleSet = roleService.findByUsers_Id(user.getId());
+        List<RoleSmallDTO> roleSet = roleService.findByUsersId(user.getId());
 
         for (RoleSmallDTO role : roleSet) {
 
@@ -75,7 +77,7 @@ public class DataScope {
         deptList.forEach(dept -> {
                     if (dept!=null && dept.getEnabled()){
                         List<Dept> depts = deptService.findByPid(dept.getId());
-                        if(deptList!=null && deptList.size()!=0){
+                        if(deptList.size() != 0){
                             list.addAll(getDeptChildren(depts));
                         }
                         list.add(dept.getId());

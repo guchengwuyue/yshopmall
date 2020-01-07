@@ -1,9 +1,13 @@
 package co.yixiang.modules.activity.rest;
 
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
 /**
 * @author hupeng
@@ -28,7 +31,7 @@ public class YxStoreCouponIssueUserController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_SELECT')")
     public ResponseEntity getYxStoreCouponIssueUsers(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreCouponIssueUserService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -36,7 +39,7 @@ public class YxStoreCouponIssueUserController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_CREATE')")
+    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCouponIssueUser resources){
         return new ResponseEntity(yxStoreCouponIssueUserService.create(resources),HttpStatus.CREATED);
     }
@@ -44,7 +47,7 @@ public class YxStoreCouponIssueUserController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCouponIssueUser resources){
         yxStoreCouponIssueUserService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -53,8 +56,9 @@ public class YxStoreCouponIssueUserController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreCouponIssueUser/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxStoreCouponIssueUserService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -1,7 +1,7 @@
 package co.yixiang.modules.activity.service.dto;
 
-import lombok.Data;
 import co.yixiang.annotation.Query;
+import lombok.Data;
 
 /**
 * @author hupeng

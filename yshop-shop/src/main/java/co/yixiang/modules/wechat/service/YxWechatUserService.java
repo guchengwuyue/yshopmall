@@ -3,12 +3,10 @@ package co.yixiang.modules.wechat.service;
 import co.yixiang.modules.wechat.domain.YxWechatUser;
 import co.yixiang.modules.wechat.service.dto.YxWechatUserDTO;
 import co.yixiang.modules.wechat.service.dto.YxWechatUserQueryCriteria;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng

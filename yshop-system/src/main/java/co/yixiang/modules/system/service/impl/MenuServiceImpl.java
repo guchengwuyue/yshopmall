@@ -7,59 +7,71 @@ import co.yixiang.exception.EntityExistException;
 import co.yixiang.modules.system.domain.Menu;
 import co.yixiang.modules.system.domain.vo.MenuMetaVo;
 import co.yixiang.modules.system.domain.vo.MenuVo;
+import co.yixiang.modules.system.repository.MenuRepository;
 import co.yixiang.modules.system.service.MenuService;
 import co.yixiang.modules.system.service.RoleService;
-import co.yixiang.modules.system.service.dto.MenuDTO;
-import co.yixiang.modules.system.service.dto.MenuQueryCriteria;
-import co.yixiang.modules.system.service.dto.RoleSmallDTO;
+import co.yixiang.modules.system.service.dto.*;
+import co.yixiang.modules.system.service.mapper.MenuMapper;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ValidationUtil;
-import co.yixiang.modules.system.repository.MenuRepository;
-import co.yixiang.modules.system.service.mapper.MenuMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author Zheng Jie
+ */
 @Service
+@CacheConfig(cacheNames = "menu")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class MenuServiceImpl implements MenuService {
 
-    @Autowired
-    private MenuRepository menuRepository;
+    private final MenuRepository menuRepository;
 
-    @Autowired
-    private MenuMapper menuMapper;
+    private final MenuMapper menuMapper;
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    public MenuServiceImpl(MenuRepository menuRepository, MenuMapper menuMapper, RoleService roleService) {
+        this.menuRepository = menuRepository;
+        this.menuMapper = menuMapper;
+        this.roleService = roleService;
+    }
 
     @Override
-    public List queryAll(MenuQueryCriteria criteria){
+    @Cacheable
+    public List<MenuDTO> queryAll(MenuQueryCriteria criteria){
+//        Sort sort = new Sort(Sort.Direction.DESC,"id");
         return menuMapper.toDto(menuRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
+    @Cacheable(key = "#p0")
     public MenuDTO findById(long id) {
-        Optional<Menu> menu = menuRepository.findById(id);
-        ValidationUtil.isNull(menu,"Menu","id",id);
-        return menuMapper.toDto(menu.get());
+        Menu menu = menuRepository.findById(id).orElseGet(Menu::new);
+        ValidationUtil.isNull(menu.getId(),"Menu","id",id);
+        return menuMapper.toDto(menu);
     }
 
     @Override
     public List<MenuDTO> findByRoles(List<RoleSmallDTO> roles) {
-        Set<Menu> menus = new LinkedHashSet<>();
-        for (RoleSmallDTO role : roles) {
-            List<Menu> menus1 = menuRepository.findByRoles_IdOrderBySortAsc(role.getId()).stream().collect(Collectors.toList());
-            menus.addAll(menus1);
-        }
+        Set<Long> roleIds = roles.stream().map(RoleSmallDTO::getId).collect(Collectors.toSet());
+        LinkedHashSet<Menu> menus = menuRepository.findByRoles_IdInAndTypeNotOrderBySortAsc(roleIds, 2);
         return menus.stream().map(menuMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public MenuDTO create(Menu resources) {
         if(menuRepository.findByName(resources.getName()) != null){
             throw new EntityExistException(Menu.class,"name",resources.getName());
@@ -70,7 +82,8 @@ public class MenuServiceImpl implements MenuService {
             }
         }
         if(resources.getIFrame()){
-            if (!(resources.getPath().toLowerCase().startsWith("http://")||resources.getPath().toLowerCase().startsWith("https://"))) {
+            String http = "http://", https = "https://";
+            if (!(resources.getPath().toLowerCase().startsWith(http)||resources.getPath().toLowerCase().startsWith(https))) {
                 throw new BadRequestException("外链必须以http://或者https://开头");
             }
         }
@@ -78,19 +91,20 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public void update(Menu resources) {
         if(resources.getId().equals(resources.getPid())) {
             throw new BadRequestException("上级不能为自己");
         }
-        Optional<Menu> optionalPermission = menuRepository.findById(resources.getId());
-        ValidationUtil.isNull(optionalPermission,"Permission","id",resources.getId());
+        Menu menu = menuRepository.findById(resources.getId()).orElseGet(Menu::new);
+        ValidationUtil.isNull(menu.getId(),"Permission","id",resources.getId());
 
         if(resources.getIFrame()){
-            if (!(resources.getPath().toLowerCase().startsWith("http://")||resources.getPath().toLowerCase().startsWith("https://"))) {
+            String http = "http://", https = "https://";
+            if (!(resources.getPath().toLowerCase().startsWith(http)||resources.getPath().toLowerCase().startsWith(https))) {
                 throw new BadRequestException("外链必须以http://或者https://开头");
             }
         }
-        Menu menu = optionalPermission.get();
         Menu menu1 = menuRepository.findByName(resources.getName());
 
         if(menu1 != null && !menu1.getId().equals(menu.getId())){
@@ -113,6 +127,8 @@ public class MenuServiceImpl implements MenuService {
         menu.setCache(resources.getCache());
         menu.setHidden(resources.getHidden());
         menu.setComponentName(resources.getComponentName());
+        menu.setPermission(resources.getPermission());
+        menu.setType(resources.getType());
         menuRepository.save(menu);
     }
 
@@ -130,6 +146,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Menu> menuSet) {
         for (Menu menu : menuSet) {
@@ -139,12 +156,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Cacheable(key = "'tree'")
     public Object getMenuTree(List<Menu> menus) {
         List<Map<String,Object>> list = new LinkedList<>();
         menus.forEach(menu -> {
                     if (menu!=null){
                         List<Menu> menuList = menuRepository.findByPid(menu.getId());
-                        Map<String,Object> map = new HashMap<>();
+                        Map<String,Object> map = new HashMap<>(16);
                         map.put("id",menu.getId());
                         map.put("label",menu.getName());
                         if(menuList!=null && menuList.size()!=0){
@@ -158,43 +176,44 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Cacheable(key = "'pid:'+#p0")
     public List<Menu> findByPid(long pid) {
         return menuRepository.findByPid(pid);
     }
 
     @Override
-    public Map buildTree(List<MenuDTO> menuDTOS) {
-        List<MenuDTO> trees = new ArrayList<MenuDTO>();
+    public Map<String,Object> buildTree(List<MenuDTO> menuDtos) {
+        List<MenuDTO> trees = new ArrayList<>();
         Set<Long> ids = new HashSet<>();
-        for (MenuDTO menuDTO : menuDTOS) {
+        for (MenuDTO menuDTO : menuDtos) {
             if (menuDTO.getPid() == 0) {
                 trees.add(menuDTO);
             }
-            for (MenuDTO it : menuDTOS) {
+            for (MenuDTO it : menuDtos) {
                 if (it.getPid().equals(menuDTO.getId())) {
                     if (menuDTO.getChildren() == null) {
-                        menuDTO.setChildren(new ArrayList<MenuDTO>());
+                        menuDTO.setChildren(new ArrayList<>());
                     }
                     menuDTO.getChildren().add(it);
                     ids.add(it.getId());
                 }
             }
         }
-        Map map = new HashMap();
+        Map<String,Object> map = new HashMap<>(2);
         if(trees.size() == 0){
-            trees = menuDTOS.stream().filter(s -> !ids.contains(s.getId())).collect(Collectors.toList());
+            trees = menuDtos.stream().filter(s -> !ids.contains(s.getId())).collect(Collectors.toList());
         }
         map.put("content",trees);
-        map.put("totalElements",menuDTOS!=null?menuDTOS.size():0);
+        map.put("totalElements", menuDtos.size());
         return map;
     }
 
     @Override
-    public List<MenuVo> buildMenus(List<MenuDTO> menuDTOS) {
+    public List<MenuVo> buildMenus(List<MenuDTO> menuDtos) {
         List<MenuVo> list = new LinkedList<>();
-        menuDTOS.forEach(menuDTO -> {
+        menuDtos.forEach(menuDTO -> {
             if (menuDTO!=null){
-                List<MenuDTO> menuDTOList = menuDTO.getChildren();
+                List<MenuDTO> menuDtoList = menuDTO.getChildren();
                 MenuVo menuVo = new MenuVo();
                 menuVo.setName(ObjectUtil.isNotEmpty(menuDTO.getComponentName())  ? menuDTO.getComponentName() : menuDTO.getName());
                 // 一级目录需要加斜杠，不然会报警告
@@ -209,10 +228,10 @@ public class MenuServiceImpl implements MenuService {
                     }
                 }
                 menuVo.setMeta(new MenuMetaVo(menuDTO.getName(),menuDTO.getIcon(),!menuDTO.getCache()));
-                if(menuDTOList!=null && menuDTOList.size()!=0){
+                if(menuDtoList !=null && menuDtoList.size()!=0){
                     menuVo.setAlwaysShow(true);
                     menuVo.setRedirect("noredirect");
-                    menuVo.setChildren(buildMenus(menuDTOList));
+                    menuVo.setChildren(buildMenus(menuDtoList));
                     // 处理是一级菜单并且没有子菜单的情况
                 } else if(menuDTO.getPid() == 0){
                     MenuVo menuVo1 = new MenuVo();
@@ -228,7 +247,7 @@ public class MenuServiceImpl implements MenuService {
                     menuVo.setName(null);
                     menuVo.setMeta(null);
                     menuVo.setComponent("Layout");
-                    List<MenuVo> list1 = new ArrayList<MenuVo>();
+                    List<MenuVo> list1 = new ArrayList<>();
                     list1.add(menuVo1);
                     menuVo.setChildren(list1);
                 }
@@ -241,8 +260,25 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu findOne(Long id) {
-        Optional<Menu> menu = menuRepository.findById(id);
-        ValidationUtil.isNull(menu,"Menu","id",id);
-        return menu.get();
+        Menu menu = menuRepository.findById(id).orElseGet(Menu::new);
+        ValidationUtil.isNull(menu.getId(),"Menu","id",id);
+        return menu;
+    }
+
+    @Override
+    public void download(List<MenuDTO> menuDtos, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (MenuDTO menuDTO : menuDtos) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("菜单名称", menuDTO.getName());
+            map.put("菜单类型", menuDTO.getType() == 0 ? "目录" : menuDTO.getType() == 1 ? "菜单" : "按钮");
+            map.put("权限标识", menuDTO.getPermission());
+            map.put("外链菜单", menuDTO.getIFrame() ? "是" : "否");
+            map.put("菜单可见", menuDTO.getHidden() ? "否" : "是");
+            map.put("是否缓存", menuDTO.getCache() ? "是" : "否");
+            map.put("创建日期", menuDTO.getCreateTime());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 }

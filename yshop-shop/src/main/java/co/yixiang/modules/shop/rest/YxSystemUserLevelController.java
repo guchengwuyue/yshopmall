@@ -32,7 +32,7 @@ public class YxSystemUserLevelController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemUserLevel")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_SELECT')")
     public ResponseEntity getYxSystemUserLevels(YxSystemUserLevelQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxSystemUserLevelService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -40,7 +40,7 @@ public class YxSystemUserLevelController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserLevel")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -50,7 +50,7 @@ public class YxSystemUserLevelController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserLevel")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemUserLevelService.update(resources);
@@ -60,7 +60,7 @@ public class YxSystemUserLevelController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemUserLevelService.delete(id);

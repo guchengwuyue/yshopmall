@@ -1,6 +1,9 @@
 package co.yixiang.service.dto;
 
 import lombok.Data;
+import java.sql.Timestamp;
+import java.util.List;
+
 import co.yixiang.annotation.Query;
 
 /**
@@ -10,7 +13,9 @@ import co.yixiang.annotation.Query;
 @Data
 public class LocalStorageQueryCriteria{
 
-    // 模糊
     @Query(blurry = "name,suffix,type,operate,size")
     private String blurry;
+
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> createTime;
 }

@@ -1,16 +1,14 @@
 package co.yixiang.rest;
 
+import co.yixiang.utils.YshopConstant;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import co.yixiang.domain.VerificationCode;
 import co.yixiang.domain.vo.EmailVo;
 import co.yixiang.service.EmailService;
 import co.yixiang.service.VerificationCodeService;
-import co.yixiang.utils.ElAdminConstant;
-import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,42 +16,44 @@ import org.springframework.web.bind.annotation.*;
  * @date 2018-12-26
  */
 @RestController
-@RequestMapping("api")
-@Api(tags = "验证")
+@RequestMapping("/api/code")
+@Api(tags = "工具：验证码管理")
 public class VerificationCodeController {
 
-    @Autowired
-    private VerificationCodeService verificationCodeService;
+    private final VerificationCodeService verificationCodeService;
 
-    @Autowired
-    @Qualifier("jwtUserDetailsService")
-    private UserDetailsService userDetailsService;
+    private final EmailService emailService;
 
-    @Autowired
-    private EmailService emailService;
-
-    @PostMapping(value = "/code/resetEmail")
-    public ResponseEntity resetEmail(@RequestBody VerificationCode code) throws Exception {
-        code.setScenes(ElAdminConstant.RESET_MAIL);
-        EmailVo emailVo = verificationCodeService.sendEmail(code);
-        emailService.send(emailVo,emailService.find());
-        return new ResponseEntity(HttpStatus.OK);
+    public VerificationCodeController(VerificationCodeService verificationCodeService,  EmailService emailService) {
+        this.verificationCodeService = verificationCodeService;
+        this.emailService = emailService;
     }
 
-    @PostMapping(value = "/code/email/resetPass")
-    public ResponseEntity resetPass(@RequestParam String email) throws Exception {
+    @PostMapping(value = "/resetEmail")
+    @ApiOperation("重置邮箱，发送验证码")
+    public ResponseEntity<Object> resetEmail(@RequestBody VerificationCode code) throws Exception {
+        code.setScenes(YshopConstant.RESET_MAIL);
+        EmailVo emailVo = verificationCodeService.sendEmail(code);
+        emailService.send(emailVo,emailService.find());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/email/resetPass")
+    @ApiOperation("重置密码，发送验证码")
+    public ResponseEntity<Object> resetPass(@RequestParam String email) throws Exception {
         VerificationCode code = new VerificationCode();
         code.setType("email");
         code.setValue(email);
-        code.setScenes(ElAdminConstant.RESET_MAIL);
+        code.setScenes(YshopConstant.RESET_MAIL);
         EmailVo emailVo = verificationCodeService.sendEmail(code);
         emailService.send(emailVo,emailService.find());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/code/validated")
-    public ResponseEntity validated(VerificationCode code){
+    @GetMapping(value = "/validated")
+    @ApiOperation("验证码验证")
+    public ResponseEntity<Object> validated(VerificationCode code){
         verificationCodeService.validated(code);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

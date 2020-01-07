@@ -1,7 +1,6 @@
 package co.yixiang.modules.system.service.dto;
 
 import lombok.Data;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -14,6 +13,10 @@ import java.util.List;
 public class MenuDTO implements Serializable {
 
     private Long id;
+
+    private Integer type;
+
+    private String permission;
 
     private String name;
 

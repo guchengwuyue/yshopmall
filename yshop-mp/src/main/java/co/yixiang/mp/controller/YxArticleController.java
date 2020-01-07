@@ -1,6 +1,8 @@
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxArticle;
 import co.yixiang.mp.service.YxArticleService;
 import co.yixiang.mp.service.dto.YxArticleDTO;
@@ -30,7 +32,7 @@ public class YxArticleController {
 
     @ApiOperation(value = "查询YxArticle")
     @GetMapping(value = "/yxArticle")
-    @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_SELECT')")
+    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_SELECT')")
     public ResponseEntity getYxArticles(YxArticleQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxArticleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -38,7 +40,7 @@ public class YxArticleController {
 
     @ApiOperation(value = "新增YxArticle")
     @PostMapping(value = "/yxArticle")
-    @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_CREATE')")
+    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources){
         resources.setAddTime(DateUtil.now());
         return new ResponseEntity(yxArticleService.create(resources),HttpStatus.CREATED);
@@ -47,7 +49,7 @@ public class YxArticleController {
 
     @ApiOperation(value = "修改YxArticle")
     @PutMapping(value = "/yxArticle")
-    @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_EDIT')")
+    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxArticle resources){
         yxArticleService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -56,7 +58,7 @@ public class YxArticleController {
 
     @ApiOperation(value = "删除YxArticle")
     @DeleteMapping(value = "/yxArticle/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
+    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxArticleService.delete(id);
@@ -65,7 +67,7 @@ public class YxArticleController {
 
     @ApiOperation(value = "发布文章")
     @GetMapping(value = "/yxArticle/publish/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXARTICLE_ALL','YXARTICLE_DELETE')")
+    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         YxArticleDTO yxArticleDTO= yxArticleService.findById(id);

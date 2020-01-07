@@ -35,7 +35,7 @@ public class YxStoreCombinationController {
     @Log("查询拼团")
     @ApiOperation(value = "查询拼团")
     @GetMapping(value = "/yxStoreCombination")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
     public ResponseEntity getYxStoreCombinations(YxStoreCombinationQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreCombinationService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class YxStoreCombinationController {
     @Log("修改拼团")
     @ApiOperation(value = "新增/修改拼团")
     @PutMapping(value = "/yxStoreCombination")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources){
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
             resources.setStartTime(OrderUtil.
@@ -79,7 +79,7 @@ public class YxStoreCombinationController {
     @Log("删除拼团")
     @ApiOperation(value = "删除拼团")
     @DeleteMapping(value = "/yxStoreCombination/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         YxStoreCombination combination = new YxStoreCombination();

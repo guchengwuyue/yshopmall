@@ -7,13 +7,14 @@
     <groupId>co.yixiang</groupId>
     <artifactId>yshop</artifactId>
     <packaging>pom</packaging>
-    <version>1.6</version>
+    <version>1.7</version>
 
     <modules>
         <module>yshop-common</module>
         <module>yshop-logging</module>
         <module>yshop-system</module>
         <module>yshop-tools</module>
+        <module>yshop-monitor</module>
         <module>yshop-generator</module>
         <module>yshop-api</module>
         <module>yshop-mp</module>
@@ -26,7 +27,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
-        <relativePath/>
     </parent>
 
     <properties>
@@ -74,6 +74,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
         <!--Spring boot end-->
 
         <!--spring2.0集成redis所需common-pool2-->
@@ -124,6 +125,11 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
             <version>1.5.21</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.9.3</version>
         </dependency>
 
         <!--Mysql依赖包-->
@@ -199,26 +205,20 @@
             <version>1</version>
         </dependency>
         <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>3.11.2</version>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.20</version>
         </dependency>
 
-        <!--webservice-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-web-services</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.cxf</groupId>-->
-<!--            <artifactId>cxf-rt-frontend-jaxws</artifactId>-->
-<!--            <version>3.1.6</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.cxf</groupId>-->
-<!--            <artifactId>cxf-rt-transports-http</artifactId>-->
-<!--            <version>3.1.6</version>-->
-<!--        </dependency>-->
+
+
+
+
 
 
     </dependencies>

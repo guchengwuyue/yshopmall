@@ -1,7 +1,6 @@
 package co.yixiang.modules.shop.repository;
 
 import co.yixiang.modules.shop.domain.YxUserBill;
-import co.yixiang.modules.shop.service.dto.UserBillDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +23,6 @@ public interface YxUserBillRepository extends JpaRepository<YxUserBill, Integer>
                     " where if(?1 !='',b.category=?1,1=1) and if(?2 !='',b.type=?2,1=1)  " +
                     "and if(?3 !='',u.nickname LIKE CONCAT('%',?3,'%'),1=1)")
     Page<Map> findAllByPageable(String category, String type, String nickname,
-                                        Pageable pageable);
+                                Pageable pageable);
 
 }

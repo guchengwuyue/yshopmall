@@ -1,9 +1,10 @@
 package co.yixiang.modules.system.service.dto;
 
-import co.yixiang.annotation.Query;
 import lombok.Data;
-
+import co.yixiang.annotation.Query;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,12 +20,14 @@ public class UserQueryCriteria implements Serializable {
     @Query(propName = "id", type = Query.Type.IN, joinName = "dept")
     private Set<Long> deptIds;
 
-    // 多字段模糊
-    @Query(blurry = "email,username")
+    @Query(blurry = "email,username,nickName")
     private String blurry;
 
     @Query
     private Boolean enabled;
 
     private Long deptId;
+
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> createTime;
 }

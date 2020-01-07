@@ -33,7 +33,7 @@ public class YxSystemUserTaskController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_SELECT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_SELECT')")
     public ResponseEntity getYxSystemUserTasks(YxSystemUserTaskQueryCriteria criteria,
                                                Pageable pageable){
         Sort sort = new Sort(Sort.Direction.ASC, "levelId");
@@ -47,7 +47,7 @@ public class YxSystemUserTaskController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_CREATE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxSystemUserTask resources){
         return new ResponseEntity(yxSystemUserTaskService.create(resources),HttpStatus.CREATED);
     }
@@ -55,7 +55,7 @@ public class YxSystemUserTaskController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserTask resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemUserTaskService.update(resources);
@@ -65,7 +65,7 @@ public class YxSystemUserTaskController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserTask/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_DELETE')")
+    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemUserTaskService.delete(id);

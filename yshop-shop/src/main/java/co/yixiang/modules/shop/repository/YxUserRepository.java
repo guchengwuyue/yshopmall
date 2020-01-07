@@ -14,15 +14,15 @@ public interface YxUserRepository extends JpaRepository<YxUser, Integer>, JpaSpe
 
     @Modifying
     @Query(value = "update yx_user set status = ?1 where uid = ?2",nativeQuery = true)
-    void updateOnstatus(int status,int id);
+    void updateOnstatus(int status, int id);
 
     @Modifying
     @Query(value = "update yx_user set now_money = now_money + ?1 where uid = ?2",nativeQuery = true)
-    void updateMoney(double money,int id);
+    void updateMoney(double money, int id);
 
     @Modifying
     @Query(value = "update yx_user set brokerage_price = brokerage_price+?1 where uid = ?2",nativeQuery = true)
-    void incBrokeragePrice(double price,int id);
+    void incBrokeragePrice(double price, int id);
 
 
 

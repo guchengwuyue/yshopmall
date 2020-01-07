@@ -1,20 +1,21 @@
 package co.yixiang.aspect;
 
+import lombok.extern.slf4j.Slf4j;
 import co.yixiang.domain.Log;
+import co.yixiang.service.LogService;
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ThrowableUtil;
-import lombok.extern.slf4j.Slf4j;
-import co.yixiang.service.LogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Zheng Jie
@@ -25,10 +26,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogAspect {
 
-    @Autowired
-    private LogService logService;
+    private final LogService logService;
 
-    private long currentTime = 0L;
+    ThreadLocal<Long> currentTime = new ThreadLocal<>();
+
+    public LogAspect(LogService logService) {
+        this.logService = logService;
+    }
 
     /**
      * 配置切入点
@@ -45,12 +49,14 @@ public class LogAspect {
      */
     @Around("logPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        Object result = null;
-        currentTime = System.currentTimeMillis();
+        Object result;
+        currentTime.set(System.currentTimeMillis());
         result = joinPoint.proceed();
-        Log log = new Log("INFO",System.currentTimeMillis() - currentTime);
+        Log log = new Log("INFO",System.currentTimeMillis() - currentTime.get());
+        currentTime.remove();
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
         logService.save(getUsername(),
-                StringUtils.getIP(RequestHolder.getHttpServletRequest()),joinPoint,
+                StringUtils.getIp(RequestHolder.getHttpServletRequest()),joinPoint,
                 log,getUid());
         return result;
     }
@@ -63,10 +69,12 @@ public class LogAspect {
      */
     @AfterThrowing(pointcut = "logPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        Log log = new Log("ERROR",System.currentTimeMillis() - currentTime);
+        Log log = new Log("ERROR",System.currentTimeMillis() - currentTime.get());
+        currentTime.remove();
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
+        HttpServletRequest request = RequestHolder.getHttpServletRequest();
         logService.save(getUsername(),
-                StringUtils.getIP(RequestHolder.getHttpServletRequest()),
+                StringUtils.getIp(RequestHolder.getHttpServletRequest()),
                 (ProceedingJoinPoint)joinPoint, log,getUid());
     }
 

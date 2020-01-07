@@ -1,9 +1,7 @@
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
-import java.util.List;
 import java.util.Map;
 
 /**

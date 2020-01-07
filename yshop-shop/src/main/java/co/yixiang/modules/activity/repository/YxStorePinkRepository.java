@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface YxStorePinkRepository extends JpaRepository<YxStorePink, Integer>, JpaSpecificationExecutor {
      int countByCid(int cid);
 
-     int countByCidAndKId(int cid,int kid);
+     int countByCidAndKId(int cid, int kid);
 
      int countByKId(int kid);
 

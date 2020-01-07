@@ -1,10 +1,5 @@
 package co.yixiang.modules.shop.service.dto;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-
-import java.io.Serializable;
-
 /**
  * @ClassName ChartDataDTO
  * @Author hupeng <610796224@qq.com>

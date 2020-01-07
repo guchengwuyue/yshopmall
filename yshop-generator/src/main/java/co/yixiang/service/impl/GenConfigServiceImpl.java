@@ -1,53 +1,63 @@
 package co.yixiang.service.impl;
 
+import co.yixiang.domain.GenConfig;
 import co.yixiang.repository.GenConfigRepository;
 import co.yixiang.service.GenConfigService;
-import co.yixiang.domain.GenConfig;
-import org.springframework.beans.factory.annotation.Autowired;
+import co.yixiang.utils.StringUtils;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
-import java.util.Optional;
 
 /**
  * @author Zheng Jie
  * @date 2019-01-14
  */
 @Service
+@CacheConfig(cacheNames = "genConfig")
 public class GenConfigServiceImpl implements GenConfigService {
 
-    @Autowired
-    private GenConfigRepository genConfigRepository;
+    private final GenConfigRepository genConfigRepository;
 
-    @Override
-    public GenConfig find() {
-        Optional<GenConfig> genConfig = genConfigRepository.findById(1L);
-        if(genConfig.isPresent()){
-            return genConfig.get();
-        } else {
-            return new GenConfig();
-        }
+    public GenConfigServiceImpl(GenConfigRepository genConfigRepository) {
+        this.genConfigRepository = genConfigRepository;
     }
 
     @Override
-    public GenConfig update(GenConfig genConfig) {
-        genConfig.setId(1L);
-        // 自动设置Api路径，注释掉前需要同步取消前端的注释
-        String separator = File.separator;
-        String[] paths = null;
-        if (separator.equals("\\")) {
-            paths = genConfig.getPath().split("\\\\");
-        } else paths = genConfig.getPath().split(File.separator);
-        StringBuffer api = new StringBuffer();
-        for (int i = 0; i < paths.length; i++) {
-            api.append(paths[i]);
-            api.append(separator);
-            if(paths[i].equals("src")){
-                api.append("api");
-                break;
-            }
+    @Cacheable(key = "#p0")
+    public GenConfig find(String tableName) {
+        GenConfig genConfig = genConfigRepository.findByTableName(tableName);
+        if(genConfig == null){
+            return new GenConfig(tableName);
         }
-        genConfig.setApiPath(api.toString());
+        return genConfig;
+    }
+
+    @Override
+    @CachePut(key = "#p0")
+    public GenConfig update(String tableName, GenConfig genConfig) {
+        // 如果 api 路径为空，则自动生成路径
+        if(StringUtils.isBlank(genConfig.getApiPath())){
+            String separator = File.separator;
+            String[] paths;
+            String symbol = "\\";
+            if (symbol.equals(separator)) {
+                paths = genConfig.getPath().split("\\\\");
+            } else {
+                paths = genConfig.getPath().split(File.separator);
+            }
+            StringBuilder api = new StringBuilder();
+            for (String path : paths) {
+                api.append(path);
+                api.append(separator);
+                if ("src".equals(path)) {
+                    api.append("api");
+                    break;
+                }
+            }
+            genConfig.setApiPath(api.toString());
+        }
         return genConfigRepository.save(genConfig);
     }
 }

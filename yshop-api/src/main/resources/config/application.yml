@@ -69,7 +69,8 @@ logging:
     me.chanjar.weixin: DEBUG
 
 
-#订单未付款订单时间(单位秒)
-job:
-  unpayorder: 10
+
+# sm.ms 图床的 token
+smms:
+  token: 1oOP3ykFDI0K6ifmtvU7c8Y1eTWZSlyl
 

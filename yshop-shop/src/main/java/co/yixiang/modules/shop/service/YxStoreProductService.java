@@ -5,8 +5,9 @@ import co.yixiang.modules.shop.service.dto.ProductFormatDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreProductDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreProductQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import java.util.Map;
+
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author hupeng
@@ -64,15 +65,15 @@ public interface YxStoreProductService {
 
     void recovery(Integer id);
 
-    void onSale(Integer id,Integer status);
+    void onSale(Integer id, Integer status);
 
     List<ProductFormatDTO> isFormatAttr(Integer id, String jsonStr);
 
     void createProductAttr(Integer id, String jsonStr);
 
-    void setResult(Map<String,Object> map,Integer id);
+    void setResult(Map<String, Object> map, Integer id);
 
-    void clearProductAttr(Integer id,boolean isActice);
+    void clearProductAttr(Integer id, boolean isActice);
 
     String getStoreProductAttrResult(Integer id);
 }

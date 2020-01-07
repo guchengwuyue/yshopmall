@@ -4,11 +4,13 @@ import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import co.yixiang.domain.EmailConfig;
 import co.yixiang.domain.vo.EmailVo;
+import co.yixiang.repository.EmailRepository;
 import co.yixiang.service.EmailService;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.repository.EmailRepository;
 import co.yixiang.utils.EncryptUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +21,18 @@ import java.util.Optional;
  * @date 2018-12-26
  */
 @Service
+@CacheConfig(cacheNames = "email")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
-    private EmailRepository emailRepository;
+    private final EmailRepository emailRepository;
+
+    public EmailServiceImpl(EmailRepository emailRepository) {
+        this.emailRepository = emailRepository;
+    }
 
     @Override
+    @CachePut(key = "'1'")
     @Transactional(rollbackFor = Exception.class)
     public EmailConfig update(EmailConfig emailConfig, EmailConfig old) {
         try {
@@ -40,13 +47,10 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    @Cacheable(key = "'1'")
     public EmailConfig find() {
         Optional<EmailConfig> emailConfig = emailRepository.findById(1L);
-        if(emailConfig.isPresent()){
-            return emailConfig.get();
-        } else {
-            return new EmailConfig();
-        }
+        return emailConfig.orElseGet(EmailConfig::new);
     }
 
     @Override
@@ -55,9 +59,7 @@ public class EmailServiceImpl implements EmailService {
         if(emailConfig == null){
             throw new BadRequestException("请先配置，再操作");
         }
-        /**
-         * 封装
-         */
+        // 封装
         MailAccount account = new MailAccount();
         account.setHost(emailConfig.getHost());
         account.setPort(Integer.parseInt(emailConfig.getPort()));
@@ -69,15 +71,14 @@ public class EmailServiceImpl implements EmailService {
             throw new BadRequestException(e.getMessage());
         }
         account.setFrom(emailConfig.getUser()+"<"+emailConfig.getFromUser()+">");
-        //ssl方式发送
+        // ssl方式发送
         account.setSslEnable(true);
         String content = emailVo.getContent();
-        /**
-         * 发送
-         */
+        // 发送
         try {
+            int size = emailVo.getTos().size();
             Mail.create(account)
-                    .setTos(emailVo.getTos().toArray(new String[emailVo.getTos().size()]))
+                    .setTos(emailVo.getTos().toArray(new String[size]))
                     .setTitle(emailVo.getSubject())
                     .setContent(content)
                     .setHtml(true)

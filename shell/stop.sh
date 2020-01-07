@@ -1,4 +1,4 @@
-PID=$(ps -ef | grep yshop-api-1.6.jar | grep -v grep | awk '{ print $2 }')
+PID=$(ps -ef | grep yshop-api-1.7.jar | grep -v grep | awk '{ print $2 }')
 if [ -z "$PID" ];then
     echo Application is already stopped
 else

@@ -22,7 +22,7 @@ public class RoleDTO implements Serializable {
 
     private String remark;
 
-    private Set<PermissionDTO> permissions;
+    private String permission;
 
     private Set<MenuDTO> menus;
 

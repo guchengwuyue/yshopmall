@@ -4,11 +4,13 @@ import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.service.dto.RoleDTO;
 import co.yixiang.modules.system.service.dto.RoleQueryCriteria;
 import co.yixiang.modules.system.service.dto.RoleSmallDTO;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import co.yixiang.modules.system.service.dto.UserDTO;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -16,95 +18,95 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2018-12-03
  */
-@CacheConfig(cacheNames = "role")
 public interface RoleService {
 
     /**
-     * get
-     * @param id
-     * @return
+     * 根据ID查询
+     * @param id /
+     * @return /
      */
-    @Cacheable(key = "#p0")
     RoleDTO findById(long id);
 
     /**
-     * create
-     * @param resources
-     * @return
+     * 创建
+     * @param resources /
+     * @return /
      */
-    @CacheEvict(allEntries = true)
     RoleDTO create(Role resources);
 
     /**
-     * update
-     * @param resources
+     * 编辑
+     * @param resources /
      */
-    @CacheEvict(allEntries = true)
     void update(Role resources);
 
     /**
-     * delete
-     * @param id
+     * 删除
+     * @param ids /
      */
-    @CacheEvict(allEntries = true)
-    void delete(Long id);
+    void delete(Set<Long> ids);
 
     /**
-     * key的名称如有修改，请同步修改 UserServiceImpl 中的 update 方法
-     * findByUsers_Id
-     * @param id
-     * @return
+     * 根据用户ID查询
+     * @param id 用户ID
+     * @return /
      */
-    @Cacheable(key = "'findByUsers_Id:' + #p0")
-    List<RoleSmallDTO> findByUsers_Id(Long id);
+    List<RoleSmallDTO> findByUsersId(Long id);
 
-    @Cacheable
+    /**
+     * 根据角色查询角色级别
+     * @param roles /
+     * @return /
+     */
     Integer findByRoles(Set<Role> roles);
 
     /**
-     * updatePermission
-     * @param resources
-     * @param roleDTO
+     * 修改绑定的菜单
+     * @param resources /
+     * @param roleDTO /
      */
-    @CacheEvict(allEntries = true)
-    void updatePermission(Role resources, RoleDTO roleDTO);
-
-    /**
-     * updateMenu
-     * @param resources
-     * @param roleDTO
-     */
-    @CacheEvict(allEntries = true)
     void updateMenu(Role resources, RoleDTO roleDTO);
 
-    @CacheEvict(allEntries = true)
+    /**
+     * 解绑菜单
+     * @param id /
+     */
     void untiedMenu(Long id);
 
     /**
-     * queryAll
-     * @param pageable
-     * @return
+     * 不带条件分页查询
+     * @param pageable 分页参数
+     * @return /
      */
-    @Cacheable
     Object queryAll(Pageable pageable);
 
     /**
-     * queryAll
-     * @param pageable
-     * @param criteria
-     * @return
+     * 待条件分页查询
+     * @param criteria 条件
+     * @param pageable 分页参数
+     * @return /
      */
-    @Cacheable
     Object queryAll(RoleQueryCriteria criteria, Pageable pageable);
 
     /**
-     * queryAll
-     * @param criteria
-     * @return
+     * 查询全部
+     * @param criteria 条件
+     * @return /
      */
-    @Cacheable
     List<RoleDTO> queryAll(RoleQueryCriteria criteria);
 
-    @CacheEvict(allEntries = true)
-    void untiedPermission(Long id);
+    /**
+     * 导出数据
+     * @param queryAll 待导出的数据
+     * @param response /
+     * @throws IOException /
+     */
+    void download(List<RoleDTO> queryAll, HttpServletResponse response) throws IOException;
+
+    /**
+     * 获取用户权限信息
+     * @param user 用户信息
+     * @return 权限信息
+     */
+    Collection<GrantedAuthority> mapToGrantedAuthorities(UserDTO user);
 }

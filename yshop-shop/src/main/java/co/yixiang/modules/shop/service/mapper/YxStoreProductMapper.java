@@ -1,8 +1,8 @@
 package co.yixiang.modules.shop.service.mapper;
 
-import co.yixiang.modules.shop.service.dto.YxStoreProductDTO;
 import co.yixiang.mapper.EntityMapper;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
+import co.yixiang.modules.shop.service.dto.YxStoreProductDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
