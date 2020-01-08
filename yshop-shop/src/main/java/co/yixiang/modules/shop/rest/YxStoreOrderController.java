@@ -219,4 +219,35 @@ public class YxStoreOrderController {
         yxStoreOrderService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+
+
+    @Log("修改订单")
+    @ApiOperation(value = "修改订单")
+    @PostMapping(value = "/yxStoreOrder/edit")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
+    public ResponseEntity editOrder(@RequestBody YxStoreOrder resources){
+        if(ObjectUtil.isNull(resources.getPayPrice())) throw new BadRequestException("请输入支付金额");
+        if(resources.getPayPrice().doubleValue() < 0) throw new BadRequestException("金额不能低于0");
+        yxStoreOrderService.update(resources);
+
+        YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
+        storeOrderStatus.setOid(resources.getId());
+        storeOrderStatus.setChangeType("order_edit");
+        storeOrderStatus.setChangeMessage("修改订单价格为："+resources.getPayPrice());
+        storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
+
+        yxStoreOrderStatusService.create(storeOrderStatus);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Log("修改订单备注")
+    @ApiOperation(value = "修改订单备注")
+    @PostMapping(value = "/yxStoreOrder/remark")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
+    public ResponseEntity editOrderRemark(@RequestBody YxStoreOrder resources){
+        if(StrUtil.isBlank(resources.getRemark())) throw new BadRequestException("请输入备注");
+        yxStoreOrderService.update(resources);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

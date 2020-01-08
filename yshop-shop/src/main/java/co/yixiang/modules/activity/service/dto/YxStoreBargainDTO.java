@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -105,4 +106,8 @@ public class YxStoreBargainDTO implements Serializable {
 
     // 砍价产品分享量
     private Integer share;
+
+    private Date startTimeDate;
+
+    private Date endTimeDate;
 }
