@@ -51,6 +51,7 @@ public class YxSystemUserLevel implements Serializable {
 
     // 是否显示 1=显示,0=隐藏
     @Column(name = "is_show",nullable = false)
+    @NotNull(message = "请选择显示状态")
     private Integer isShow;
 
     // 会员等级

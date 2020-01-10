@@ -195,15 +195,15 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         String video = "avi mpg mpe mpeg asf wmv mov qt rm mp4 flv m4v webm ogv ogg";
         String image = "bmp dib pcp dif wmf gif jpg tif eps psd cdr iff tga pcd mpt png jpeg";
         if(image.contains(type)){
-            return "图片";
+            return "pic";
         } else if(documents.contains(type)){
-            return "文档";
+            return "txt";
         } else if(music.contains(type)){
-            return "音乐";
+            return "music";
         } else if(video.contains(type)){
-            return "视频";
+            return "vedio";
         } else {
-            return "其他";
+            return "other";
         }
     }
 

@@ -74,6 +74,9 @@ generator:
 #是否开启 swagger-ui
 swagger:
   enabled: true
+  title: yshop商城管理后台API
+  serverUrl: http://localhost:8000
+  version: 1.7
 
 # 文件存储路径
 file:
@@ -82,4 +85,4 @@ file:
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  localUrl: http://localhost:8000
+  localUrl:
