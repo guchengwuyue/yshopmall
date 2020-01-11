@@ -68,6 +68,10 @@ public class YxStoreProductServiceImpl implements YxStoreProductService {
                     .findNameById(Integer.valueOf(product.getCateId()));
             YxStoreProductDTO yxStoreProductDTO = yxStoreProductMapper.toDto(product);
             yxStoreProductDTO.setCateName(cateName);
+            //规格属性库存
+            Integer newStock = yxStoreProductAttrValueRepository.sumStock(product.getId());
+            if(newStock != null) yxStoreProductDTO.setStock(newStock);
+
             storeProductDTOS.add(yxStoreProductDTO);
         }
         Map<String,Object> map = new LinkedHashMap<>(2);
