@@ -33,16 +33,20 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> getAll(String filter, Pageable pageable){
-        return new ResponseEntity<>(onlineUserService.getAll(filter, pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getAll(@RequestParam(value = "filter",defaultValue = "") String filter,
+                                         @RequestParam(value = "type",defaultValue = "0") int type,
+                                         Pageable pageable){
+        return new ResponseEntity<>(onlineUserService.getAll(filter, type,pageable),HttpStatus.OK);
     }
 
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check()")
-    public void download(HttpServletResponse response, String filter) throws IOException {
-        onlineUserService.download(onlineUserService.getAll(filter), response);
+    public void download(HttpServletResponse response,
+                         @RequestParam(value = "filter",defaultValue = "") String filter,
+                         @RequestParam(value = "type",defaultValue = "0") int type) throws IOException {
+        onlineUserService.download(onlineUserService.getAll(filter,type), response);
     }
 
     @ApiOperation("踢出用户")
@@ -52,6 +56,17 @@ public class OnlineController {
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         for (String key : keys) {
             onlineUserService.kickOut(key);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("踢出移动端用户")
+    @PostMapping("/delete" )
+    @PreAuthorize("@el.check()")
+    public ResponseEntity<Object> deletet(@RequestBody Set<String> keys) throws Exception {
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+        for (String key : keys) {
+            onlineUserService.kickOutT(key);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

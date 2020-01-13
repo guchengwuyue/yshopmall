@@ -1,0 +1,5 @@
+ALTER TABLE `yshop`.`yx_user` 
+MODIFY COLUMN `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户密码（跟pwd）' AFTER `account`,
+MODIFY COLUMN `pwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户密码' AFTER `password`;
+
+update yx_user set `password`='$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky'

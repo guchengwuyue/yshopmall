@@ -55,8 +55,8 @@ public class OnlineUserService {
      * @param pageable /
      * @return /
      */
-    public Map<String,Object> getAll(String filter, Pageable pageable){
-        List<OnlineUser> onlineUsers = getAll(filter);
+    public Map<String,Object> getAll(String filter, int type, Pageable pageable){
+        List<OnlineUser> onlineUsers = getAll(filter,type);
         return PageUtil.toPage(
                 PageUtil.toPage(pageable.getPageNumber(),pageable.getPageSize(),onlineUsers),
                 onlineUsers.size()
@@ -68,8 +68,15 @@ public class OnlineUserService {
      * @param filter /
      * @return /
      */
-    public List<OnlineUser> getAll(String filter){
-        List<String> keys = redisUtils.scan(properties.getOnlineKey() + "*");
+    public List<OnlineUser> getAll(String filter,int type){
+        List<String> keys = null;
+        if(type == 1){
+            keys = redisUtils.scan("m-online-token*");
+        }else{
+            keys = redisUtils.scan(properties.getOnlineKey() + "*");
+        }
+
+
         Collections.reverse(keys);
         List<OnlineUser> onlineUsers = new ArrayList<>();
         for (String key : keys) {
@@ -94,6 +101,19 @@ public class OnlineUserService {
     public void kickOut(String key) throws Exception {
         key = properties.getOnlineKey() + EncryptUtils.desDecrypt(key);
         redisUtils.del(key);
+
+    }
+
+    /**
+     * 踢出移动端用户
+     * @param key /
+     * @throws Exception /
+     */
+    public void kickOutT(String key) throws Exception {
+
+        String keyt = "m-online-token" + EncryptUtils.desDecrypt(key);
+        redisUtils.del(keyt);
+
     }
 
     /**
@@ -140,7 +160,7 @@ public class OnlineUserService {
      * @param userName 用户名
      */
     public void checkLoginOnUser(String userName, String igoreToken){
-        List<OnlineUser> onlineUsers = getAll(userName);
+        List<OnlineUser> onlineUsers = getAll(userName,0);
         if(onlineUsers ==null || onlineUsers.isEmpty()){
             return;
         }

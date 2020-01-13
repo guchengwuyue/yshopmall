@@ -76,7 +76,7 @@ swagger:
   enabled: true
   title: yshop商城管理后台API
   serverUrl: http://localhost:8000
-  version: 1.7
+  version: 1.8
 
 # 文件存储路径
 file:
@@ -85,4 +85,4 @@ file:
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  localUrl:
+  localUrl: http://localhost:8000
