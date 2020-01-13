@@ -16,7 +16,6 @@
         <module>yshop-tools</module>
         <module>yshop-monitor</module>
         <module>yshop-generator</module>
-        <module>yshop-api</module>
         <module>yshop-mp</module>
         <module>yshop-shop</module>
     </modules>
