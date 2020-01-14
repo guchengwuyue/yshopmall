@@ -20,6 +20,7 @@ import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,7 @@ import java.util.Map;
 @Api(tags = "订单管理")
 @RestController
 @RequestMapping("api")
+@Slf4j
 public class YxStoreOrderController {
 
     @Autowired
@@ -164,20 +166,25 @@ public class YxStoreOrderController {
 
         //模板消息通知
         String siteUrl = RedisUtil.get("site_url");
-        YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
-        if(ObjectUtil.isNotNull(wechatUser)){
-            YxWechatTemplate WechatTemplate = yxWechatTemplateService
-                    .findByTempkey("OPENTM200565259");
-            Map<String,String> map = new HashMap<>();
-            map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
-            map.put("keyword1",resources.getOrderId());//订单号
-            map.put("keyword2",expressDTO.getName());
-            map.put("keyword3",resources.getDeliveryId());
-            map.put("remark","yshop电商系统为你服务！");
-            templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
-                    ,WechatTemplate.getTempid(),
-                    siteUrl+"/order/detail/"+resources.getOrderId(),map);
+        try{
+            YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
+            if(ObjectUtil.isNotNull(wechatUser)){
+                YxWechatTemplate WechatTemplate = yxWechatTemplateService
+                        .findByTempkey("OPENTM200565259");
+                Map<String,String> map = new HashMap<>();
+                map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
+                map.put("keyword1",resources.getOrderId());//订单号
+                map.put("keyword2",expressDTO.getName());
+                map.put("keyword3",resources.getDeliveryId());
+                map.put("remark","yshop电商系统为你服务！");
+                templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
+                        ,WechatTemplate.getTempid(),
+                        siteUrl+"/order/detail/"+resources.getOrderId(),map);
+            }
+        }catch (Exception e){
+            log.info("当前用户不是微信用户不能发送模板消息哦!");
         }
+
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
