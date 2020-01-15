@@ -27,6 +27,11 @@ public class YxStoreOrder implements Serializable {
     @Column(name = "order_id",nullable = false)
     private String orderId;
 
+    // 订单号
+    @Column(name = "extend_order_id",nullable = true)
+    private String extendOrderId;
+
+
     // 用户id
     @Column(name = "uid",nullable = false)
     private Integer uid;

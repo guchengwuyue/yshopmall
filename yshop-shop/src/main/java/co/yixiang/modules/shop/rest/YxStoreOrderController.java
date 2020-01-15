@@ -1,5 +1,7 @@
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
@@ -10,6 +12,7 @@ import co.yixiang.modules.shop.service.YxExpressService;
 import co.yixiang.modules.shop.service.YxStoreOrderService;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
 import co.yixiang.modules.shop.service.dto.YxExpressDTO;
+import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
 import co.yixiang.modules.wechat.service.YxWechatUserService;
 import co.yixiang.modules.wechat.service.dto.YxWechatUserDTO;
@@ -236,6 +239,17 @@ public class YxStoreOrderController {
     public ResponseEntity editOrder(@RequestBody YxStoreOrder resources){
         if(ObjectUtil.isNull(resources.getPayPrice())) throw new BadRequestException("请输入支付金额");
         if(resources.getPayPrice().doubleValue() < 0) throw new BadRequestException("金额不能低于0");
+
+        YxStoreOrderDTO storeOrder = yxStoreOrderService.findById(resources.getId());
+        //判断金额是否有变动,生成一个额外订单号去支付
+
+        int res = NumberUtil.compare(storeOrder.getPayPrice().doubleValue(),resources.getPayPrice().doubleValue());
+        if(res != 0){
+            String orderSn = IdUtil.getSnowflake(0,0).nextIdStr();
+            resources.setExtendOrderId(orderSn);
+        }
+
+
         yxStoreOrderService.update(resources);
 
         YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
