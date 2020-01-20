@@ -1,6 +1,9 @@
 package co.yixiang.mp.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.service.WxMpTemplateMessageService;
+import co.yixiang.utils.RedisUtil;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
@@ -13,9 +16,6 @@ import java.util.Map;
 @Component
 public class WxMpTemplateMessageServiceImpl implements WxMpTemplateMessageService {
 
-    @Autowired
-    private WxMpService wxMpService;
-
     @Override
     public String sendWxMpTemplateMessage(String openId, String templateId, String url, Map<String,String> map){
         WxMpTemplateMessage templateMessage = WxMpTemplateMessage.builder()
@@ -25,8 +25,13 @@ public class WxMpTemplateMessageServiceImpl implements WxMpTemplateMessageServic
                 .build();
         map.forEach( (k,v)-> { templateMessage.addData(new WxMpTemplateData(k, v, "#000000"));} );
         String msgId = null;
+        String appId = RedisUtil.get("wechat_appid");
+        if(StrUtil.isBlank(appId)) {
+            return "请配置公众号";
+        }
+        WxMpService wxService = WxMpConfiguration.getWxMpService(appId);
         try {
-            msgId =   wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
+            msgId =   wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

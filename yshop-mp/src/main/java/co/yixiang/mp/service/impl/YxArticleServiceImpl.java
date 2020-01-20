@@ -3,9 +3,12 @@ package co.yixiang.mp.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.ErrorRequestException;
+import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxArticle;
 import co.yixiang.mp.repository.YxArticleRepository;
 import co.yixiang.mp.service.YxArticleService;
@@ -13,10 +16,7 @@ import co.yixiang.mp.service.dto.YxArticleDTO;
 import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
 import co.yixiang.mp.service.mapper.YxArticleMapper;
 import co.yixiang.mp.utils.URLUtils;
-import co.yixiang.utils.OrderUtil;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
+import co.yixiang.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -56,8 +56,6 @@ public class YxArticleServiceImpl implements YxArticleService {
     @Autowired
     private YxArticleMapper yxArticleMapper;
 
-    @Autowired
-    private WxMpService wxMpService;
 
     @Value("${file.path}")
     private String uploadDirStr;
@@ -107,6 +105,12 @@ public class YxArticleServiceImpl implements YxArticleService {
     @Override
     public void uploadNews(YxArticleDTO wxNewsArticleItem) throws Exception {
 
+        String appId = RedisUtil.get("wechat_appid");
+        if(StrUtil.isBlank(appId)) {
+            throw new BadRequestException("请配置公众号");
+        }
+        WxMpService wxMpService = WxMpConfiguration.getWxMpService(appId);
+
         WxMpMaterialNews wxMpMaterialNews = new WxMpMaterialNews();
 
 
@@ -118,7 +122,6 @@ public class YxArticleServiceImpl implements YxArticleService {
 
         article.setAuthor( wxNewsArticleItem.getAuthor() );
 
-        System.out.println(wxNewsArticleItem.getContent());
 
         //处理content
         String content = processContent(wxMpService, wxNewsArticleItem.getContent());

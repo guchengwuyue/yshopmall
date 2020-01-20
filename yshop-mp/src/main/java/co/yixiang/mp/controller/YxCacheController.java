@@ -3,9 +3,11 @@ package co.yixiang.mp.controller;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxCache;
 import co.yixiang.mp.service.YxCacheService;
 import co.yixiang.utils.OrderUtil;
+import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
@@ -31,8 +33,6 @@ public class YxCacheController {
     @Autowired
     private YxCacheService yxCacheService;
 
-    @Autowired
-    private  WxMpService wxService;
 
 
     @ApiOperation(value = "查询菜单")
@@ -53,6 +53,12 @@ public class YxCacheController {
         YxCache yxCache = new YxCache();
         Boolean isExist = yxCacheService.isExist("wechat_menus");
         WxMenu menu = JSONObject.parseObject(jsonStr,WxMenu.class);
+
+        String appId = RedisUtil.get("wechat_appid");
+        if(StrUtil.isBlank(appId)) {
+            throw new BadRequestException("请配置公众号");
+        }
+        WxMpService wxService = WxMpConfiguration.getWxMpService(appId);
         if(isExist){
             yxCache.setKey("wechat_menus");
             yxCache.setResult(jsonButton);

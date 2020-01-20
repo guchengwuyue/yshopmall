@@ -1,141 +1,154 @@
 package co.yixiang.mp.config;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.mp.handler.*;
-import co.yixiang.utils.RedisUtil;
-import lombok.AllArgsConstructor;
+import com.google.common.collect.Maps;
+import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
-import org.apache.poi.util.StringUtil;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
+import me.chanjar.weixin.mp.constant.WxMpEventConstants;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import static me.chanjar.weixin.common.api.WxConsts.EventType;
-import static me.chanjar.weixin.common.api.WxConsts.EventType.SUBSCRIBE;
-import static me.chanjar.weixin.common.api.WxConsts.EventType.UNSUBSCRIBE;
-import static me.chanjar.weixin.common.api.WxConsts.MenuButtonType.CLICK;
-import static me.chanjar.weixin.common.api.WxConsts.MenuButtonType.VIEW;
 import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
-import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType.EVENT;
-import static me.chanjar.weixin.mp.constant.WxMpEventConstants.CustomerService.*;
-import static me.chanjar.weixin.mp.constant.WxMpEventConstants.POI_CHECK_NOTIFY;
 
 /**
- * wechat mp configuration
+ * 公众号配置
+ * @author hupeng
+ * @date 2020/01/20
  */
-@AllArgsConstructor
 @Configuration
-@EnableConfigurationProperties(WxMpProperties.class)
 public class WxMpConfiguration {
-    private final LogHandler logHandler;
-    private final NullHandler nullHandler;
-    private final KfSessionHandler kfSessionHandler;
-    private final StoreCheckNotifyHandler storeCheckNotifyHandler;
-    private final LocationHandler locationHandler;
-    private final MenuHandler menuHandler;
-    private final MsgHandler msgHandler;
-    private final UnsubscribeHandler unsubscribeHandler;
-    private final SubscribeHandler subscribeHandler;
-    private final ScanHandler scanHandler;
-    private final WxMpProperties properties;
-    private final RedisHandler redisHandler;
 
-    @Bean
-    public WxMpService wxMpService() {
+    private static Map<String, WxMpService> mpServices = Maps.newHashMap();
+    private static Map<String, WxMpMessageRouter> routers = Maps.newHashMap();
 
-        final List<WxMpProperties.MpConfig> configs = new ArrayList<>();
-        WxMpProperties.MpConfig mpConfig = new WxMpProperties.MpConfig();
-        String appId = redisHandler.getVal("wechat_appid");
-        String secret = redisHandler.getVal("wechat_appsecret");
-        String token = redisHandler.getVal("wechat_token");
-        String aesKey = redisHandler.getVal("wechat_encodingaeskey");
+    private static LogHandler logHandler;
+    private static NullHandler nullHandler;
+    private static KfSessionHandler kfSessionHandler;
+    private static StoreCheckNotifyHandler storeCheckNotifyHandler;
+    private static LocationHandler locationHandler;
+    private static MenuHandler menuHandler;
+    private static MsgHandler msgHandler;
+    private static UnsubscribeHandler unsubscribeHandler;
+    private static SubscribeHandler subscribeHandler;
+    private static ScanHandler scanHandler;
+    private static RedisHandler redisHandler;
 
-
-        if(StrUtil.isNotBlank(appId) && StrUtil.isNotBlank(secret)
-                && StrUtil.isNotBlank(token) && StrUtil.isNotBlank(aesKey)) {
-            mpConfig.setAppId(appId);
-            mpConfig.setSecret(secret);
-            mpConfig.setToken(token);
-            mpConfig.setAesKey(aesKey);
-            System.out.println(mpConfig);
-
-            configs.add(mpConfig);
-        }else{
-            mpConfig.setAppId("111111");
-            mpConfig.setSecret("111111");
-            mpConfig.setToken("111111");
-            mpConfig.setAesKey("111111");
-
-            configs.add(mpConfig);
-        }
-
-        //System.out.println("configs:"+configs);
-
-        if (configs.isEmpty()) {
-            throw new RuntimeException("请先配置！");
-        }
-
-        WxMpService service = new WxMpServiceImpl();
-        service.setMultiConfigStorages(configs
-            .stream().map(a -> {
-                WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
-                configStorage.setAppId(a.getAppId());
-                configStorage.setSecret(a.getSecret());
-                configStorage.setToken(a.getToken());
-                configStorage.setAesKey(a.getAesKey());
-                return configStorage;
-            }).collect(Collectors.toMap(WxMpDefaultConfigImpl::getAppId, a -> a, (o, n) -> o)));
-        return service;
+    public WxMpConfiguration(LogHandler logHandler,NullHandler nullHandler,KfSessionHandler kfSessionHandler,
+                             StoreCheckNotifyHandler storeCheckNotifyHandler,LocationHandler locationHandler,
+                             MenuHandler menuHandler,MsgHandler msgHandler,UnsubscribeHandler unsubscribeHandler,
+                             SubscribeHandler subscribeHandler,ScanHandler scanHandler,
+                             RedisHandler redisHandler){
+        this.logHandler = logHandler;
+        this.nullHandler = nullHandler;
+        this.kfSessionHandler = kfSessionHandler;
+        this.storeCheckNotifyHandler = storeCheckNotifyHandler;
+        this.locationHandler = locationHandler;
+        this.menuHandler = menuHandler;
+        this.msgHandler = msgHandler;
+        this.unsubscribeHandler = unsubscribeHandler;
+        this.subscribeHandler = subscribeHandler;
+        this.scanHandler = scanHandler;
+        this.redisHandler = redisHandler;
     }
 
-    @Bean
-    public WxMpMessageRouter messageRouter(WxMpService wxMpService) {
+
+    /**
+     * 获取WxMpService
+     * @return
+     */
+    public static WxMpService getWxMpService(String appId) {
+
+        WxMpService wxMpService = mpServices.get(appId);
+        if(wxMpService == null) {
+            WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
+            configStorage.setAppId(redisHandler.getVal("wechat_appid"));
+            configStorage.setSecret(redisHandler.getVal("wechat_appsecret"));
+            configStorage.setToken(redisHandler.getVal("wechat_token"));
+            configStorage.setAesKey(redisHandler.getVal("wechat_encodingaeskey"));
+            wxMpService = new WxMpServiceImpl();
+            wxMpService.setWxMpConfigStorage(configStorage);
+            mpServices.put(appId, wxMpService);
+            routers.put(appId, newRouter(wxMpService));
+        }
+        return wxMpService;
+    }
+
+    /**
+     * 移除WxMpService
+     * @param appId
+     */
+    public static void removeWxMpService(String appId){
+        mpServices.remove(appId);
+        routers.remove(appId);
+    }
+
+    /**
+     *  获取WxMpMessageRouter
+     * @param appId
+     */
+    public static WxMpMessageRouter getWxMpMessageRouter(String appId) {
+        WxMpMessageRouter wxMpMessageRouter = routers.get(appId);
+        return wxMpMessageRouter;
+    }
+
+    private static WxMpMessageRouter newRouter(WxMpService wxMpService) {
         final WxMpMessageRouter newRouter = new WxMpMessageRouter(wxMpService);
 
         // 记录所有事件的日志 （异步执行）
-        //newRouter.rule().handler(this.logHandler).next();
+        newRouter.rule().handler(logHandler).next();
 
         // 接收客服会话管理事件
-//        newRouter.rule().async(false).msgType(EVENT).event(KF_CREATE_SESSION)
-//            .handler(this.kfSessionHandler).end();
-//        newRouter.rule().async(false).msgType(EVENT).event(KF_CLOSE_SESSION)
-//            .handler(this.kfSessionHandler).end();
-//        newRouter.rule().async(false).msgType(EVENT).event(KF_SWITCH_SESSION)
-//            .handler(this.kfSessionHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxMpEventConstants.CustomerService.KF_CREATE_SESSION)
+                .handler(kfSessionHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxMpEventConstants.CustomerService.KF_CLOSE_SESSION)
+                .handler(kfSessionHandler)
+                .end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxMpEventConstants.CustomerService.KF_SWITCH_SESSION)
+                .handler(kfSessionHandler).end();
 
         // 门店审核事件
-        //newRouter.rule().async(false).msgType(EVENT).event(POI_CHECK_NOTIFY).handler(this.storeCheckNotifyHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxMpEventConstants.POI_CHECK_NOTIFY)
+                .handler(storeCheckNotifyHandler).end();
 
         // 自定义菜单事件
-        newRouter.rule().async(false).msgType(EVENT).event(CLICK).handler(this.menuHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxConsts.MenuButtonType.CLICK).handler(menuHandler).end();
 
         // 点击菜单连接事件
-        newRouter.rule().async(false).msgType(EVENT).event(VIEW).handler(this.nullHandler).end();
-
-        // 关注事件
-        newRouter.rule().async(false).msgType(EVENT).event(SUBSCRIBE).handler(this.subscribeHandler).end();
-
-        // 取消关注事件
-        newRouter.rule().async(false).msgType(EVENT).event(UNSUBSCRIBE).handler(this.unsubscribeHandler).end();
-
-        // 上报地理位置事件
-        //newRouter.rule().async(false).msgType(EVENT).event(EventType.LOCATION).handler(this.locationHandler).end();
-
-        // 接收地理位置消息
-        //newRouter.rule().async(false).msgType(XmlMsgType.LOCATION).handler(this.locationHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(WxConsts.MenuButtonType.VIEW).handler(menuHandler).end();
 
         // 扫码事件
-        //newRouter.rule().async(false).msgType(EVENT).event(EventType.SCAN).handler(this.scanHandler).end();
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(EventType.SCANCODE_WAITMSG).handler(menuHandler).end();
+
+        // 关注事件
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(EventType.SUBSCRIBE).handler(subscribeHandler)
+                .end();
+
+        // 取消关注事件
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(EventType.UNSUBSCRIBE)
+                .handler(unsubscribeHandler).end();
+
+        // 上报地理位置事件
+        newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
+                .event(EventType.LOCATION).handler(locationHandler)
+                .end();
+
 
         // 默认
-        newRouter.rule().async(false).handler(this.msgHandler).end();
+        newRouter.rule().async(false).handler(msgHandler).end();
 
         return newRouter;
     }
