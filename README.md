@@ -10,7 +10,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 |     |   后台系统  |   前端(公众号)  |
 |---  |--- | --- |
-|   |  https://yshop.dayouqiantu.cn  |H5:https://h5.dayouqiantu.cn 测试号：hupeng/123456,也可以自行注册 |
+|   |  https://www.yixiang.co  |H5:https://h5.yixiang.co 测试号：hupeng/123456,也可以自行注册 |
 |    |  后台体验账号/密码：admin/123456   |  公众号:![输入图片说明](https://images.gitee.com/uploads/images/2019/1116/060936_fd73496c_477893.jpeg "qrcode_for_gh_95df5a2881cc_258.jpg")   |
 
 
