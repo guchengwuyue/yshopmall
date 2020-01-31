@@ -201,20 +201,25 @@ public class YxStoreOrderController {
 
         //模板消息通知
         String siteUrl = RedisUtil.get("site_url");
-        YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
-        if(ObjectUtil.isNotNull(wechatUser)){
-            YxWechatTemplate WechatTemplate = yxWechatTemplateService
-                    .findByTempkey("OPENTM410119152");
-            Map<String,String> map = new HashMap<>();
-            map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
-            map.put("keyword1",resources.getOrderId());//订单号
-            map.put("keyword2",resources.getPayPrice().toString());
-            map.put("keyword3", OrderUtil.stampToDate(resources.getAddTime().toString()));
-            map.put("remark","yshop电商系统为你服务！");
-            templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
-                    ,WechatTemplate.getTempid(),
-                    siteUrl+"/order/detail/"+resources.getOrderId(),map);
+        try{
+            YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
+            if(ObjectUtil.isNotNull(wechatUser)){
+                YxWechatTemplate WechatTemplate = yxWechatTemplateService
+                        .findByTempkey("OPENTM410119152");
+                Map<String,String> map = new HashMap<>();
+                map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
+                map.put("keyword1",resources.getOrderId());//订单号
+                map.put("keyword2",resources.getPayPrice().toString());
+                map.put("keyword3", OrderUtil.stampToDate(resources.getAddTime().toString()));
+                map.put("remark","yshop电商系统为你服务！");
+                templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
+                        ,WechatTemplate.getTempid(),
+                        siteUrl+"/order/detail/"+resources.getOrderId(),map);
+            }
+        }catch (Exception e){
+            log.info("当前用户不是微信用户不能发送模板消息哦!");
         }
+
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

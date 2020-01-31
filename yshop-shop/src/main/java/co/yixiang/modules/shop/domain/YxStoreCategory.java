@@ -3,6 +3,8 @@ package co.yixiang.modules.shop.domain;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +15,8 @@ import java.io.Serializable;
 * @date 2019-10-03
 */
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name="yx_store_category")
 public class YxStoreCategory implements Serializable {
 
