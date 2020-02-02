@@ -17,11 +17,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
 * @author hupeng
 * @date 2019-10-07
 */
-@Api(tags = "YxArticle管理")
+@Api(tags = "图文管理")
 @RestController
 @RequestMapping("api")
 public class YxArticleController {
@@ -30,7 +32,7 @@ public class YxArticleController {
     private YxArticleService yxArticleService;
 
 
-    @ApiOperation(value = "查询YxArticle")
+    @ApiOperation(value = "查询")
     @GetMapping(value = "/yxArticle")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_SELECT')")
     public ResponseEntity getYxArticles(YxArticleQueryCriteria criteria, Pageable pageable){
@@ -38,16 +40,16 @@ public class YxArticleController {
     }
 
 
-    @ApiOperation(value = "新增YxArticle")
+    @ApiOperation(value = "新增")
     @PostMapping(value = "/yxArticle")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources){
-        resources.setAddTime(DateUtil.now());
+        resources.setAddTime(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm"));
         return new ResponseEntity(yxArticleService.create(resources),HttpStatus.CREATED);
     }
 
 
-    @ApiOperation(value = "修改YxArticle")
+    @ApiOperation(value = "修改")
     @PutMapping(value = "/yxArticle")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxArticle resources){
@@ -56,7 +58,7 @@ public class YxArticleController {
     }
 
 
-    @ApiOperation(value = "删除YxArticle")
+    @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxArticle/{id}")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){

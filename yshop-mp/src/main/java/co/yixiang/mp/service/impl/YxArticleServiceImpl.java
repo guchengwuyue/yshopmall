@@ -81,7 +81,7 @@ public class YxArticleServiceImpl implements YxArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public YxArticleDTO create(YxArticle resources) {
-        resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
+        //resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
         return yxArticleMapper.toDto(yxArticleRepository.save(resources));
     }
 
