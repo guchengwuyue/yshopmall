@@ -20,4 +20,7 @@ public class YxUserQueryCriteria{
 
     @Query
     private Integer isPromoter;
+
+    @Query
+    private String userType;
 }

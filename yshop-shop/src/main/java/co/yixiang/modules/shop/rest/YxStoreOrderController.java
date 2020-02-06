@@ -172,17 +172,22 @@ public class YxStoreOrderController {
         try{
             YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
             if(ObjectUtil.isNotNull(wechatUser)){
-                YxWechatTemplate WechatTemplate = yxWechatTemplateService
-                        .findByTempkey("OPENTM200565259");
-                Map<String,String> map = new HashMap<>();
-                map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
-                map.put("keyword1",resources.getOrderId());//订单号
-                map.put("keyword2",expressDTO.getName());
-                map.put("keyword3",resources.getDeliveryId());
-                map.put("remark","yshop电商系统为你服务！");
-                templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
-                        ,WechatTemplate.getTempid(),
-                        siteUrl+"/order/detail/"+resources.getOrderId(),map);
+                if(StrUtil.isNotBlank(wechatUser.getOpenid())){
+                    YxWechatTemplate WechatTemplate = yxWechatTemplateService
+                            .findByTempkey("OPENTM200565259");
+                    Map<String,String> map = new HashMap<>();
+                    map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
+                    map.put("keyword1",resources.getOrderId());//订单号
+                    map.put("keyword2",expressDTO.getName());
+                    map.put("keyword3",resources.getDeliveryId());
+                    map.put("remark","yshop电商系统为你服务！");
+                    templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
+                            ,WechatTemplate.getTempid(),
+                            siteUrl+"/order/detail/"+resources.getOrderId(),map);
+                }else if(StrUtil.isNotBlank(wechatUser.getRoutineOpenid())){
+                    //todo 小程序通知
+                }
+
             }
         }catch (Exception e){
             log.info("当前用户不是微信用户不能发送模板消息哦!");
@@ -204,17 +209,22 @@ public class YxStoreOrderController {
         try{
             YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
             if(ObjectUtil.isNotNull(wechatUser)){
-                YxWechatTemplate WechatTemplate = yxWechatTemplateService
-                        .findByTempkey("OPENTM410119152");
-                Map<String,String> map = new HashMap<>();
-                map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
-                map.put("keyword1",resources.getOrderId());//订单号
-                map.put("keyword2",resources.getPayPrice().toString());
-                map.put("keyword3", OrderUtil.stampToDate(resources.getAddTime().toString()));
-                map.put("remark","yshop电商系统为你服务！");
-                templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
-                        ,WechatTemplate.getTempid(),
-                        siteUrl+"/order/detail/"+resources.getOrderId(),map);
+                if(StrUtil.isNotBlank(wechatUser.getOpenid())){
+                    YxWechatTemplate WechatTemplate = yxWechatTemplateService
+                            .findByTempkey("OPENTM410119152");
+                    Map<String,String> map = new HashMap<>();
+                    map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
+                    map.put("keyword1",resources.getOrderId());//订单号
+                    map.put("keyword2",resources.getPayPrice().toString());
+                    map.put("keyword3", OrderUtil.stampToDate(resources.getAddTime().toString()));
+                    map.put("remark","yshop电商系统为你服务！");
+                    templateMessageService.sendWxMpTemplateMessage( wechatUser.getOpenid()
+                            ,WechatTemplate.getTempid(),
+                            siteUrl+"/order/detail/"+resources.getOrderId(),map);
+                }else if(StrUtil.isNotBlank(wechatUser.getRoutineOpenid())){
+                    //todo 小程序通知
+                }
+
             }
         }catch (Exception e){
             log.info("当前用户不是微信用户不能发送模板消息哦!");
