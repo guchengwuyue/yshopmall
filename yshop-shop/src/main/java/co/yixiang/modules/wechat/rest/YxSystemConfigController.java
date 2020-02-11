@@ -33,7 +33,7 @@ public class YxSystemConfigController {
     private YxSystemConfigService yxSystemConfigService;
 
     @Log("查询")
-    @ApiOperation(value = "查询YxSystemConfig")
+    @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemConfig")
     @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
     public ResponseEntity getYxSystemConfigs(YxSystemConfigQueryCriteria criteria, Pageable pageable){
@@ -41,7 +41,7 @@ public class YxSystemConfigController {
     }
 
     @Log("新增或修改")
-    @ApiOperation(value = "新增YxSystemConfig")
+    @ApiOperation(value = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")
     @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){

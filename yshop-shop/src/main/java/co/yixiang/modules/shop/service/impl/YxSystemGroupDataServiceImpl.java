@@ -50,7 +50,6 @@ public class YxSystemGroupDataServiceImpl implements YxSystemGroupDataService {
         map.put("content",systemGroupDataDTOS);
         map.put("totalElements",page.getTotalElements());
         return map;
-        //return PageUtil.toPage(page.map(yxSystemGroupDataMapper::toDto));
     }
 
     @Override

@@ -13,7 +13,9 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,9 +37,13 @@ public class YxSystemGroupDataController {
     @ApiOperation(value = "查询数据配置")
     @GetMapping(value = "/yxSystemGroupData")
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
-    public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria, Pageable pageable){
-
-        return new ResponseEntity(yxSystemGroupDataService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria,
+                                                Pageable pageable){
+        Sort sort = new Sort(Sort.Direction.DESC, "sort");
+        Pageable pageableT = new PageRequest(pageable.getPageNumber(),
+                pageable.getPageSize(),
+                sort);
+        return new ResponseEntity(yxSystemGroupDataService.queryAll(criteria,pageableT),HttpStatus.OK);
     }
 
     @Log("新增数据配置")
@@ -77,7 +83,8 @@ public class YxSystemGroupDataController {
         yxSystemGroupData.setGroupName(jsonObject.get("groupName").toString());
         jsonObject.remove("groupName");
         yxSystemGroupData.setValue(jsonObject.toJSONString());
-        yxSystemGroupData.setStatus(1);
+        yxSystemGroupData.setStatus(jsonObject.getInteger("status"));
+        yxSystemGroupData.setSort(jsonObject.getInteger("sort"));
         yxSystemGroupData.setAddTime(OrderUtil.getSecondTimestampTwo());
 
         return new ResponseEntity(yxSystemGroupDataService.create(yxSystemGroupData),HttpStatus.CREATED);
@@ -113,6 +120,19 @@ public class YxSystemGroupDataController {
         yxSystemGroupData.setGroupName(jsonObject.get("groupName").toString());
         jsonObject.remove("groupName");
         yxSystemGroupData.setValue(jsonObject.toJSONString());
+        if(jsonObject.getInteger("status") == null){
+            yxSystemGroupData.setStatus(1);
+        }else{
+            yxSystemGroupData.setStatus(jsonObject.getInteger("status"));
+        }
+
+        if(jsonObject.getInteger("sort") == null){
+            yxSystemGroupData.setSort(0);
+        }else{
+            yxSystemGroupData.setSort(jsonObject.getInteger("sort"));
+        }
+
+
         yxSystemGroupData.setId(Integer.valueOf(jsonObject.get("id").toString()));
         yxSystemGroupDataService.update(yxSystemGroupData);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
