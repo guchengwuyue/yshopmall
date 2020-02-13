@@ -84,6 +84,7 @@ public class YxStoreCombinationController {
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         YxStoreCombination combination = new YxStoreCombination();
         combination.setIsDel(1);
+        combination.setId(id);
         yxStoreCombinationService.update(combination);
         return new ResponseEntity(HttpStatus.OK);
     }
