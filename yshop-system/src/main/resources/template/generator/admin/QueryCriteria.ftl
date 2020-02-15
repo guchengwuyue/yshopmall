@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 </#if>
 <#if queryColumns??>
-import Query;
+import co.yixiang.annotation.Query;
 </#if>
 
 /**

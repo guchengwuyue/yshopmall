@@ -1,6 +1,6 @@
 package ${package}.rest;
 
-import Log;
+import co.yixiang.aop.log.Log;
 import ${package}.domain.${className};
 import ${package}.service.${className}Service;
 import ${package}.service.dto.${className}QueryCriteria;
