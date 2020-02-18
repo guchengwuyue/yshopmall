@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 14/02/2020 22:37:57
+ Date: 18/02/2020 12:29:00
 */
 
 SET NAMES utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE `column_config`  (
   `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `date_annotation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 163 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 204 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of column_config
@@ -93,6 +93,47 @@ INSERT INTO `column_config` VALUES (159, 'yx_material', 'type', 'char', NULL, ''
 INSERT INTO `column_config` VALUES (160, 'yx_material', 'group_id', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '分组ID', NULL);
 INSERT INTO `column_config` VALUES (161, 'yx_material', 'name', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '素材名', NULL);
 INSERT INTO `column_config` VALUES (162, 'yx_material', 'url', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '素材链接', NULL);
+INSERT INTO `column_config` VALUES (163, 'yx_user', 'uid', 'int', NULL, 'auto_increment', b'1', NULL, 'PRI', b'1', b'0', NULL, '用户id', NULL);
+INSERT INTO `column_config` VALUES (164, 'yx_user', 'username', 'varchar', NULL, '', b'1', NULL, 'MUL', b'1', b'0', NULL, '用户账户(跟accout一样)', NULL);
+INSERT INTO `column_config` VALUES (165, 'yx_user', 'account', 'varchar', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '用户账号', NULL);
+INSERT INTO `column_config` VALUES (166, 'yx_user', 'password', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户密码（跟pwd）', NULL);
+INSERT INTO `column_config` VALUES (167, 'yx_user', 'pwd', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '用户密码', NULL);
+INSERT INTO `column_config` VALUES (168, 'yx_user', 'real_name', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '真实姓名', NULL);
+INSERT INTO `column_config` VALUES (169, 'yx_user', 'birthday', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '生日', NULL);
+INSERT INTO `column_config` VALUES (170, 'yx_user', 'card_id', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '身份证号码', NULL);
+INSERT INTO `column_config` VALUES (171, 'yx_user', 'mark', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户备注', NULL);
+INSERT INTO `column_config` VALUES (172, 'yx_user', 'partner_id', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '合伙人id', NULL);
+INSERT INTO `column_config` VALUES (173, 'yx_user', 'group_id', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户分组id', NULL);
+INSERT INTO `column_config` VALUES (174, 'yx_user', 'nickname', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户昵称', NULL);
+INSERT INTO `column_config` VALUES (175, 'yx_user', 'avatar', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户头像', NULL);
+INSERT INTO `column_config` VALUES (176, 'yx_user', 'phone', 'char', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '手机号码', NULL);
+INSERT INTO `column_config` VALUES (177, 'yx_user', 'add_time', 'int', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '添加时间', NULL);
+INSERT INTO `column_config` VALUES (178, 'yx_user', 'add_ip', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '添加ip', NULL);
+INSERT INTO `column_config` VALUES (179, 'yx_user', 'last_time', 'int', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '最后一次登录时间', NULL);
+INSERT INTO `column_config` VALUES (180, 'yx_user', 'last_ip', 'varchar', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '最后一次登录ip', NULL);
+INSERT INTO `column_config` VALUES (181, 'yx_user', 'now_money', 'decimal', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '用户余额', NULL);
+INSERT INTO `column_config` VALUES (182, 'yx_user', 'brokerage_price', 'decimal', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '佣金金额', NULL);
+INSERT INTO `column_config` VALUES (183, 'yx_user', 'integral', 'decimal', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '用户剩余积分', NULL);
+INSERT INTO `column_config` VALUES (184, 'yx_user', 'sign_num', 'int', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '连续签到天数', NULL);
+INSERT INTO `column_config` VALUES (185, 'yx_user', 'status', 'tinyint', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '1为正常，0为禁止', NULL);
+INSERT INTO `column_config` VALUES (186, 'yx_user', 'level', 'tinyint', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '等级', NULL);
+INSERT INTO `column_config` VALUES (187, 'yx_user', 'spread_uid', 'int', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '推广元id', NULL);
+INSERT INTO `column_config` VALUES (188, 'yx_user', 'spread_time', 'int', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '推广员关联时间', NULL);
+INSERT INTO `column_config` VALUES (189, 'yx_user', 'user_type', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '用户类型', NULL);
+INSERT INTO `column_config` VALUES (190, 'yx_user', 'is_promoter', 'tinyint', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '是否为推广员', NULL);
+INSERT INTO `column_config` VALUES (191, 'yx_user', 'pay_count', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '用户购买次数', NULL);
+INSERT INTO `column_config` VALUES (192, 'yx_user', 'spread_count', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '下级人数', NULL);
+INSERT INTO `column_config` VALUES (193, 'yx_user', 'clean_time', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '清理会员时间', NULL);
+INSERT INTO `column_config` VALUES (194, 'yx_user', 'addres', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '详细地址', NULL);
+INSERT INTO `column_config` VALUES (195, 'yx_user', 'adminid', 'int', NULL, '', b'1', NULL, '', b'1', b'0', NULL, '管理员编号 ', NULL);
+INSERT INTO `column_config` VALUES (196, 'yx_user', 'login_type', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '用户登陆类型，h5,wechat,routine', NULL);
+INSERT INTO `column_config` VALUES (197, 'yx_wechat_media', 'id', 'int', NULL, 'auto_increment', b'1', NULL, 'PRI', b'1', b'0', NULL, '微信视频音频id', NULL);
+INSERT INTO `column_config` VALUES (198, 'yx_wechat_media', 'type', 'varchar', NULL, '', b'1', NULL, 'MUL', b'1', b'1', NULL, '回复类型', NULL);
+INSERT INTO `column_config` VALUES (199, 'yx_wechat_media', 'path', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '文件路径', NULL);
+INSERT INTO `column_config` VALUES (200, 'yx_wechat_media', 'media_id', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '微信服务器返回的id', NULL);
+INSERT INTO `column_config` VALUES (201, 'yx_wechat_media', 'url', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '地址', NULL);
+INSERT INTO `column_config` VALUES (202, 'yx_wechat_media', 'temporary', 'tinyint', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '是否永久或者临时 0永久1临时', NULL);
+INSERT INTO `column_config` VALUES (203, 'yx_wechat_media', 'add_time', 'int', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '添加时间', NULL);
 
 -- ----------------------------
 -- Table structure for dept
@@ -110,7 +151,7 @@ CREATE TABLE `dept`  (
 -- ----------------------------
 -- Records of dept
 -- ----------------------------
-INSERT INTO `dept` VALUES (1, 'EL-ADMIN', 0, b'1', '2019-03-01 12:07:37');
+INSERT INTO `dept` VALUES (1, 'YSHOP', 0, b'1', '2019-03-01 12:07:37');
 INSERT INTO `dept` VALUES (2, '研发部', 7, b'1', '2019-03-25 09:15:32');
 INSERT INTO `dept` VALUES (5, '运维部', 7, b'1', '2019-03-25 09:20:44');
 INSERT INTO `dept` VALUES (6, '测试部', 8, b'1', '2019-03-25 09:52:18');
@@ -198,7 +239,7 @@ CREATE TABLE `gen_config`  (
   `prefix` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '表前缀',
   `api_alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接口名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of gen_config
@@ -206,6 +247,8 @@ CREATE TABLE `gen_config`  (
 INSERT INTO `gen_config` VALUES (3, 'gen_test', 'Zheng Jie', b'1', 'eladmin-system', 'me.zhengjie.gen', 'E:\\workspace\\me\\front\\eladmin-web\\src\\views\\gen', 'E:\\workspace\\me\\front\\eladmin-web\\src\\api', NULL, '测试生成');
 INSERT INTO `gen_config` VALUES (4, 'yx_material_group', 'hupeng', b'0', 'yshop-shop', 'co.yixiang.modules.shop', 'E:\\output', 'E:\\output\\', NULL, '素材');
 INSERT INTO `gen_config` VALUES (5, 'yx_material', 'hupeng', b'0', 'yshop-shop', 'co.yixiang.modules.shop', 'E:\\output', 'E:\\output\\', NULL, '素材管理');
+INSERT INTO `gen_config` VALUES (6, 'yx_user', 'hupeng', b'0', 'yshop-system', 'co.yixiang.modules', 'aa', 'aa\\', NULL, '用户');
+INSERT INTO `gen_config` VALUES (7, 'yx_wechat_media', 'hupeng', b'0', 'yshop-system', 'co.yixiang.modules', 'E:\\book\\img', 'E:\\book\\img\\', NULL, 'ceshi');
 
 -- ----------------------------
 -- Table structure for gen_test
@@ -319,7 +362,7 @@ CREATE TABLE `log`  (
   `type` int(1) NULL DEFAULT 0,
   `uid` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 413446 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 413543 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of log
@@ -2240,6 +2283,103 @@ INSERT INTO `log` VALUES (413442, '2020-02-14 22:35:46', '查询商品分类', N
 INSERT INTO `log` VALUES (413443, '2020-02-14 22:35:48', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.0.105', 66, 'test', '内网IP', NULL, 0, NULL);
 INSERT INTO `log` VALUES (413444, '2020-02-14 22:35:48', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=1, isShow=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.0.105', 66, 'test', '内网IP', NULL, 0, NULL);
 INSERT INTO `log` VALUES (413445, '2020-02-14 22:35:48', '查询商品', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=null, isShow=0) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.0.105', 64, 'test', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413446, '2020-02-14 22:40:54', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.0.105', 1, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413447, '2020-02-14 22:44:38', '查询角色', NULL, 'INFO', 'co.yixiang.modules.system.rest.RoleController.getRoles()', '{ criteria: RoleQueryCriteria(blurry=null, createTime=null) pageable: Page request [number: 0, size 10, sort: level: ASC] }', '192.168.0.105', 31, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413448, '2020-02-14 22:44:39', '查询角色', NULL, 'INFO', 'co.yixiang.modules.system.rest.RoleController.getRoles()', '{ criteria: RoleQueryCriteria(blurry=null, createTime=null) pageable: Page request [number: 0, size 10, sort: level: ASC] }', '192.168.0.105', 1, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413449, '2020-02-15 20:38:21', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5187f82d]] }', '192.168.42.77', 1805, 'admin', '内网IP', NULL, 0, 1);
+INSERT INTO `log` VALUES (413450, '2020-02-15 20:38:29', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 137, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413451, '2020-02-15 20:38:29', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 204, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413452, '2020-02-15 20:38:29', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 237, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413453, '2020-02-15 20:38:29', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 4, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413454, '2020-02-15 20:38:32', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 44, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413455, '2020-02-15 20:39:02', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=2, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.42.77', 72, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413456, '2020-02-15 20:39:16', '新增用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.create()', '{ resources: co.yixiang.modules.system.domain.User@692521d }', '192.168.42.77', 293, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413457, '2020-02-15 20:39:16', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 21, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413458, '2020-02-15 20:39:31', '修改用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.update()', '{ resources: co.yixiang.modules.system.domain.User@692521d }', '192.168.42.77', 94, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413459, '2020-02-15 20:39:33', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=2, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.42.77', 37, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413460, '2020-02-15 20:39:33', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 6, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413461, '2020-02-15 20:39:37', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=2, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.42.77', 9, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413462, '2020-02-15 20:39:37', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 12, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413463, '2020-02-15 20:39:51', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=test, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5187f82d]] }', '192.168.42.77', 107, 'test', '内网IP', NULL, 0, 3);
+INSERT INTO `log` VALUES (413464, '2020-02-15 20:39:59', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 8, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413465, '2020-02-15 20:39:59', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 5, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413466, '2020-02-15 20:39:59', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 22, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413467, '2020-02-15 20:40:00', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 2, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413468, '2020-02-15 20:40:15', '用户登录', 'co.yixiang.exception.BadRequestException: 验证码错误\r\n	at co.yixiang.modules.security.rest.AuthController.login(AuthController.java:85)\r\n	at co.yixiang.modules.security.rest.AuthController$$FastClassBySpringCGLIB$$b289290e.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:746)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)\r\n	at co.yixiang.aspect.LogAspect.logAround(LogAspect.java:54)\r\n	at sun.reflect.GeneratedMethodAccessor300.invoke(Unknown Source)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)\r\n	at co.yixiang.modules.security.rest.AuthController$$EnhancerBySpringCGLIB$$e123078a.login(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:215)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:142)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:998)\r\n	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:901)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:875)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at co.yixiang.modules.security.security.TokenFilter.doFilter(TokenFilter.java:54)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:66)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)\r\n	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)\r\n	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\n', 'ERROR', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=test2, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5187f82d]] }', '192.168.42.77', 4, 'test2', '内网IP', NULL, 0, 0);
+INSERT INTO `log` VALUES (413469, '2020-02-15 20:40:20', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=test2, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5187f82d]] }', '192.168.42.77', 153, 'test2', '内网IP', NULL, 0, 4);
+INSERT INTO `log` VALUES (413470, '2020-02-15 20:40:20', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 2, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413471, '2020-02-15 20:40:20', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[2], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 13, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413472, '2020-02-15 20:40:20', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 20, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413473, '2020-02-15 20:40:21', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 4, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413474, '2020-02-15 20:40:36', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 1, 'test', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413475, '2020-02-15 20:40:36', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 2, 'test', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413476, '2020-02-15 20:40:36', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[2], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 3, 'test', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413477, '2020-02-15 20:40:36', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 2, 'test', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413478, '2020-02-15 20:40:52', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 1, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413479, '2020-02-15 20:40:52', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 2, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413480, '2020-02-15 20:40:52', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[2], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 3, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413481, '2020-02-15 20:40:52', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 2, 'test2', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413482, '2020-02-15 20:41:07', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@2b1e0ca]] }', '192.168.42.77', 90, 'admin', '内网IP', NULL, 0, 1);
+INSERT INTO `log` VALUES (413483, '2020-02-15 20:41:08', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 1, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413484, '2020-02-15 20:41:08', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 4, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413485, '2020-02-15 20:41:08', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 6, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413486, '2020-02-15 20:41:08', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 3, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413487, '2020-02-15 20:41:11', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 8, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413488, '2020-02-15 20:41:11', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=2, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.42.77', 11, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413489, '2020-02-15 20:41:13', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=2, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.42.77', 2, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413490, '2020-02-15 20:41:14', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 4, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413491, '2020-02-15 20:44:59', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 4, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413492, '2020-02-15 20:44:59', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=dept_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.42.77', 15, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413493, '2020-02-15 20:45:02', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.42.77', 2, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413494, '2020-02-15 20:45:29', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.42.77', 1, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413495, '2020-02-15 21:52:43', '查询字典', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictController.all()', '{ }', '192.168.42.77', 152, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413496, '2020-02-15 22:21:41', '查询文件', NULL, 'INFO', 'co.yixiang.rest.QiniuController.getRoles()', '{ criteria: QiniuQueryCriteria(key=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 225, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413497, '2020-02-15 22:24:14', '查询文件', NULL, 'INFO', 'co.yixiang.rest.QiniuController.getRoles()', '{ criteria: QiniuQueryCriteria(key=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 17, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413498, '2020-02-15 22:33:13', '查询字典', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictController.all()', '{ }', '192.168.42.77', 199, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413499, '2020-02-16 21:14:45', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@e07751e]] }', '192.168.42.77', 596, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413500, '2020-02-16 21:14:47', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.42.77', 12, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413501, '2020-02-16 21:15:24', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.42.77', 14, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413502, '2020-02-16 21:28:31', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.42.77', 3, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413503, '2020-02-16 22:11:54', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5ce7ba10]] }', '192.168.42.77', 2013, 'admin', '内网IP', NULL, 0, 1);
+INSERT INTO `log` VALUES (413504, '2020-02-16 22:54:56', '查询用户', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxUserController.getYxUsers()', '{ criteria: YxUserQueryCriteria(nickname=null, phone=null, isPromoter=null, userType=) pageable: Page request [number: 0, size 10, sort: uid: DESC] }', '192.168.42.77', 187, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413505, '2020-02-16 22:54:56', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxSystemUserLevelController.getYxSystemUserLevels()', '{ criteria: YxSystemUserLevelQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 81, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413506, '2020-02-16 22:54:58', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxSystemUserTaskController.getYxSystemUserTasks()', '{ criteria: YxSystemUserTaskQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 55, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413507, '2020-02-16 22:54:58', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxUserBillController.getYxUserBills()', '{ criteria: YxUserBillQueryCriteria(nickname=, category=, type=) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 82, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413508, '2020-02-16 22:56:21', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxSystemUserTaskController.getYxSystemUserTasks()', '{ criteria: YxSystemUserTaskQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 31, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413509, '2020-02-16 22:56:33', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.shop.rest.YxStoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.42.77', 22, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413510, '2020-02-17 09:55:45', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@7c3032df]] }', '192.168.2.102', 816, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413511, '2020-02-17 09:55:46', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.2.102', 10, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413512, '2020-02-17 11:09:52', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@b57e815]] }', '192.168.2.102', 2127, 'admin', '内网IP', NULL, 0, 1);
+INSERT INTO `log` VALUES (413513, '2020-02-17 11:09:59', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort: ASC] }', '192.168.2.102', 190, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413514, '2020-02-17 11:09:59', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '192.168.2.102', 45, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413515, '2020-02-17 11:09:59', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 49, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413516, '2020-02-17 11:09:59', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 6, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413517, '2020-02-17 11:10:02', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2], blurry=null, enabled=null, deptId=2, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 54, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413518, '2020-02-17 11:10:03', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2, 5, 7], blurry=null, enabled=null, deptId=7, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 91, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413519, '2020-02-17 11:10:05', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[6, 8, 11], blurry=null, enabled=null, deptId=8, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 20, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413520, '2020-02-17 11:10:06', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[6], blurry=null, enabled=null, deptId=6, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 7, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413521, '2020-02-17 11:10:07', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[11], blurry=null, enabled=null, deptId=11, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 13, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413522, '2020-02-17 11:10:09', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2, 5, 7], blurry=null, enabled=null, deptId=7, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 32, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413523, '2020-02-17 11:10:17', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.2.102', 68, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413524, '2020-02-17 11:10:28', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=true, pid=null, createTime=null) }', '192.168.2.102', 8, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413525, '2020-02-17 11:10:56', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=6, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.2.102', 66, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413526, '2020-02-17 11:11:12', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=11, deptIds=[], createTime=null) pageable: Page request [number: 0, size 2000, sort: UNSORTED] }', '192.168.2.102', 29, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413527, '2020-02-17 11:11:18', '新增用户', 'java.util.NoSuchElementException\r\n	at java.util.ArrayList$Itr.next(ArrayList.java:862)\r\n	at java.util.Collections.min(Collections.java:596)\r\n	at co.yixiang.modules.system.service.impl.RoleServiceImpl.findByRoles(RoleServiceImpl.java:152)\r\n	at co.yixiang.modules.system.service.impl.RoleServiceImpl$$FastClassBySpringCGLIB$$b4410b8b.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:746)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)\r\n	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.cache.interceptor.CacheInterceptor.lambda$invoke$0(CacheInterceptor.java:53)\r\n	at org.springframework.cache.interceptor.CacheAspectSupport.invokeOperation(CacheAspectSupport.java:365)\r\n	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:420)\r\n	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:345)\r\n	at org.springframework.cache.interceptor.CacheInterceptor.invoke(CacheInterceptor.java:61)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)\r\n	at co.yixiang.modules.system.service.impl.RoleServiceImpl$$EnhancerBySpringCGLIB$$d8c9c170.findByRoles(<generated>)\r\n	at co.yixiang.modules.system.rest.UserController.checkLevel(UserController.java:218)\r\n	at co.yixiang.modules.system.rest.UserController.create(UserController.java:118)\r\n	at co.yixiang.modules.system.rest.UserController$$FastClassBySpringCGLIB$$f56cb460.invoke(<generated>)\r\n	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)\r\n	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:746)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)\r\n	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:88)\r\n	at co.yixiang.aspect.LogAspect.logAround(LogAspect.java:54)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:644)\r\n	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:633)\r\n	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:70)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.aop.aspectj.AspectJAfterThrowingAdvice.invoke(AspectJAfterThrowingAdvice.java:62)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:175)\r\n	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:69)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)\r\n	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)\r\n	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)\r\n	at co.yixiang.modules.system.rest.UserController$$EnhancerBySpringCGLIB$$ff866e0e.create(<generated>)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n	at java.lang.reflect.Method.invoke(Method.java:498)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:215)\r\n	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:142)\r\n	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)\r\n	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800)\r\n	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)\r\n	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038)\r\n	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)\r\n	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:998)\r\n	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:901)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)\r\n	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:875)\r\n	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)\r\n	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at co.yixiang.modules.security.security.TokenFilter.doFilter(TokenFilter.java:54)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:66)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)\r\n	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)\r\n	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)\r\n	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)\r\n	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)\r\n	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\r\n	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\r\n	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)\r\n	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\r\n	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)\r\n	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)\r\n	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)\r\n	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\r\n	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)\r\n	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)\r\n	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)\r\n	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770)\r\n	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415)\r\n	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\r\n	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\r\n	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\r\n	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\r\n	at java.lang.Thread.run(Thread.java:748)\r\n', 'ERROR', 'co.yixiang.modules.system.rest.UserController.create()', '{ resources: co.yixiang.modules.system.domain.User@66d77f2 }', '192.168.2.102', 22, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413528, '2020-02-17 11:12:01', '新增用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.create()', '{ resources: co.yixiang.modules.system.domain.User@66d788d }', '192.168.2.102', 273, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413529, '2020-02-17 11:12:01', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2, 5, 7], blurry=null, enabled=null, deptId=7, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 16, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413530, '2020-02-17 11:12:09', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[11], blurry=null, enabled=null, deptId=11, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 17, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413531, '2020-02-17 11:12:12', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.UserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[2, 5, 7], blurry=null, enabled=null, deptId=7, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.2.102', 5, 'admin', '内网IP', NULL, 0, NULL);
+INSERT INTO `log` VALUES (413532, '2020-02-17 13:23:36', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 9, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413533, '2020-02-17 13:23:54', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5e6b6488]] }', '192.168.1.109', 123, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413534, '2020-02-17 13:23:54', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 5, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413535, '2020-02-17 13:26:55', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@7c3032df]] }', '192.168.1.109', 90, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413536, '2020-02-17 13:26:55', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 6, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413537, '2020-02-17 13:33:23', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@5e6b6488]] }', '192.168.1.109', 92, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413538, '2020-02-17 13:33:24', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 4, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413539, '2020-02-17 13:34:38', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@7c3032df]] }', '192.168.1.109', 92, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413540, '2020-02-17 13:34:38', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 5, 'hupeng', '内网IP', NULL, 1, 11);
+INSERT INTO `log` VALUES (413541, '2020-02-17 13:35:01', 'H5用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=hupeng, password= ******} request: SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.connector.RequestFacade@7c3032df]] }', '192.168.1.109', 100, 'hupeng', '内网IP', NULL, 0, 11);
+INSERT INTO `log` VALUES (413542, '2020-02-17 13:35:01', '进入用户中心', NULL, 'INFO', 'co.yixiang.modules.user.web.controller.UserController.userMenu()', '{ }', '192.168.1.109', 7, 'hupeng', '内网IP', NULL, 1, 11);
 
 -- ----------------------------
 -- Table structure for menu
@@ -2828,13 +2968,15 @@ CREATE TABLE `user`  (
   CONSTRAINT `FK5rwmryny6jthaaxkogownknqp` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKfftoc2abhot8f2wu6cl9a5iky` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FKpq2dhypk2qgt68nauh2by22jb` FOREIGN KEY (`avatar_id`) REFERENCES `user_avatar` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统用户' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, NULL, 'yshop@qq.com', 1, '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'admin', 2, '18888888888', 11, '2018-08-23 09:11:56', '2019-05-18 17:34:21', '管理员', '男');
 INSERT INTO `user` VALUES (3, NULL, 'test@yshopnet', 1, '$2a$10$HhxyGZy.ulf3RvAwaHUGb.k.2i9PBpv4YbLMJWp8pES7pPhTyRCF.', 'test', 2, '17777777777', 12, '2018-12-27 20:05:26', '2019-04-01 09:15:24', '测试', '男');
+INSERT INTO `user` VALUES (4, NULL, 'test2@qq.com', 1, '$2a$10$IjehtV8MiXb8ni.Qz0wBteE7FjVn49cEcsSj2.ZBUqqHjnC3umSh.', 'test2', 2, '15136175247', 11, '2020-02-15 20:39:16', NULL, 'test2', '男');
+INSERT INTO `user` VALUES (5, NULL, '444@qq.com', 0, '$2a$10$f/VH35NBOBszycV9KEA1HenQ0qVjazDm8LacQU9PO.A4UizFxLMuq', 'qqqqq', 11, '15136175249', 8, '2020-02-17 11:12:01', NULL, 'eeeeee', '男');
 
 -- ----------------------------
 -- Table structure for user_avatar
@@ -2867,6 +3009,8 @@ CREATE TABLE `users_roles`  (
 -- ----------------------------
 INSERT INTO `users_roles` VALUES (1, 1);
 INSERT INTO `users_roles` VALUES (3, 2);
+INSERT INTO `users_roles` VALUES (4, 2);
+INSERT INTO `users_roles` VALUES (5, 2);
 
 -- ----------------------------
 -- Table structure for verification_code
@@ -2896,7 +3040,7 @@ CREATE TABLE `visits`  (
   `week_day` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UK_11aksgq87euk9bcyeesfs4vtp`(`date`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '访客记录' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '访客记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of visits
@@ -2928,6 +3072,9 @@ INSERT INTO `visits` VALUES (44, '2020-02-10 10:07:12', '2020-02-10', 1, 3, 'Mon
 INSERT INTO `visits` VALUES (45, '2020-02-11 21:31:13', '2020-02-11', 1, 1, 'Tue');
 INSERT INTO `visits` VALUES (46, '2020-02-13 14:47:22', '2020-02-13', 1, 3, 'Thu');
 INSERT INTO `visits` VALUES (47, '2020-02-14 13:32:26', '2020-02-14', 3, 5, 'Fri');
+INSERT INTO `visits` VALUES (48, '2020-02-15 20:37:36', '2020-02-15', 1, 4, 'Sat');
+INSERT INTO `visits` VALUES (49, '2020-02-16 20:11:40', '2020-02-16', 1, 4, 'Sun');
+INSERT INTO `visits` VALUES (50, '2020-02-17 09:48:36', '2020-02-17', 1, 2, 'Mon');
 
 -- ----------------------------
 -- Table structure for yx_article
@@ -2967,34 +3114,6 @@ INSERT INTO `yx_article` VALUES (4, '', '4444', '444', '', '4444', '<p>4444</p>'
 INSERT INTO `yx_article` VALUES (5, '', '666', '666', '', '666', '<p>666</p>', '', '', '', NULL, '', NULL, '1580632741', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `yx_article` VALUES (6, '', '888', '888', '', '8888', '<p>888</p>', '', '', '', NULL, '', NULL, '1580632911', NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `yx_article` VALUES (7, '', '55555', '55555', '', '55555', '<p>5555</p>', '', '', '', NULL, '', NULL, '2020-02-02 16:54', NULL, NULL, NULL, NULL, NULL, NULL);
-
--- ----------------------------
--- Table structure for yx_article_category
--- ----------------------------
-DROP TABLE IF EXISTS `yx_article_category`;
-CREATE TABLE `yx_article_category`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文章分类id',
-  `pid` int(11) NOT NULL DEFAULT 0 COMMENT '父级ID',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章分类标题',
-  `intr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文章分类简介',
-  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章分类图片',
-  `status` tinyint(1) UNSIGNED NOT NULL COMMENT '状态',
-  `sort` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
-  `is_del` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '1删除0未删除',
-  `add_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '添加时间',
-  `hidden` tinyint(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否隐藏',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章分类表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_article_content
--- ----------------------------
-DROP TABLE IF EXISTS `yx_article_content`;
-CREATE TABLE `yx_article_content`  (
-  `nid` int(10) UNSIGNED NOT NULL COMMENT '文章id',
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章内容',
-  UNIQUE INDEX `nid`(`nid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章内容表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_cache
@@ -3070,22 +3189,6 @@ CREATE TABLE `yx_material_group`  (
 INSERT INTO `yx_material_group` VALUES ('3e4ee0cdbb484aaeb5a40c337a47dba6', '0', '2020-01-09 18:48:24', NULL, '商品');
 
 -- ----------------------------
--- Table structure for yx_routine_access_token
--- ----------------------------
-DROP TABLE IF EXISTS `yx_routine_access_token`;
-CREATE TABLE `yx_routine_access_token`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '小程序access_token表ID',
-  `access_token` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'openid',
-  `stop_time` int(11) UNSIGNED NOT NULL COMMENT '添加时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '小程序access_token表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of yx_routine_access_token
--- ----------------------------
-INSERT INTO `yx_routine_access_token` VALUES (1, '20_z3MAutcbznCSyQPqMVOQVRUktcvLYUXAAICpCMXkpu5rLoVnBB0u88rnJr1sWDJlwj-S6aVhmswmLdW86e9Bg2ugd3BOayE6ntY6FfckSXWgvW2y5N0bLkBxHpCjJH2bQpuvnmMIZr08G32hWSQfACAZVT', 1554809658);
-
--- ----------------------------
 -- Table structure for yx_routine_form_id
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_routine_form_id`;
@@ -3097,22 +3200,6 @@ CREATE TABLE `yx_routine_form_id`  (
   `status` tinyint(1) UNSIGNED NULL DEFAULT 0 COMMENT '状态1 未使用 2不能使用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单id表记录表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_routine_qrcode
--- ----------------------------
-DROP TABLE IF EXISTS `yx_routine_qrcode`;
-CREATE TABLE `yx_routine_qrcode`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '微信二维码ID',
-  `third_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '二维码类型 spread(用户推广) product_spread(产品推广)',
-  `third_id` int(11) UNSIGNED NOT NULL COMMENT '用户id',
-  `status` tinyint(1) UNSIGNED NULL DEFAULT 1 COMMENT '状态 0不可用 1可用',
-  `add_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '添加时间',
-  `page` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '小程序页面路径带参数',
-  `qrcode_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '小程序二维码路径',
-  `url_time` int(11) UNSIGNED NULL DEFAULT NULL COMMENT '二维码添加时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '小程序二维码管理表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_routine_template
@@ -4345,40 +4432,6 @@ CREATE TABLE `yx_store_seckill_attr_value`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀商品属性值表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for yx_store_service
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_service`;
-CREATE TABLE `yx_store_service`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '客服id',
-  `mer_id` int(11) NOT NULL DEFAULT 0 COMMENT '商户id',
-  `uid` int(11) NOT NULL COMMENT '客服uid',
-  `avatar` varchar(250) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '客服头像',
-  `nickname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '代理名称',
-  `add_time` int(11) NOT NULL COMMENT '添加时间',
-  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '0隐藏1显示',
-  `notify` int(2) NULL DEFAULT 0 COMMENT '订单通知1开启0关闭',
-  `customer` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否展示统计管理',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '客服表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_store_service_log
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_service_log`;
-CREATE TABLE `yx_store_service_log`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '客服用户对话记录表ID',
-  `mer_id` int(11) NOT NULL DEFAULT 0 COMMENT '商户id',
-  `msn` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
-  `uid` int(11) NOT NULL COMMENT '发送人uid',
-  `to_uid` int(11) NOT NULL COMMENT '接收人uid',
-  `add_time` int(11) NOT NULL COMMENT '发送时间',
-  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否已读（0：否；1：是；）',
-  `remind` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否提醒过',
-  `msn_type` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '消息类型 1=文字 2=表情 3=图片 4=语音',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '客服用户对话记录表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for yx_store_visit
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_visit`;
@@ -4412,19 +4465,6 @@ CREATE TABLE `yx_system_attachment`  (
   `module_type` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '图片上传模块类型 1 后台上传 2 用户生成',
   PRIMARY KEY (`att_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件管理表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_system_attachment_category
--- ----------------------------
-DROP TABLE IF EXISTS `yx_system_attachment_category`;
-CREATE TABLE `yx_system_attachment_category`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pid` int(11) NULL DEFAULT 0 COMMENT '父级ID',
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '分类名称',
-  `enname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分类目录',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `id`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件分类表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_system_config
@@ -4468,20 +4508,6 @@ INSERT INTO `yx_system_config` VALUES (194, 'wxapp_appId', '22222', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (195, 'wxapp_secret', '22222222', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (196, 'wxpay_keyPath', 'http://localhost:8000/file/pic/list_30-20200110053337209.png', 0, 0);
 INSERT INTO `yx_system_config` VALUES (197, 'imageArr', '[\"https://image.dayouqiantu.cn/list_34.png\"]', NULL, NULL);
-
--- ----------------------------
--- Table structure for yx_system_group
--- ----------------------------
-DROP TABLE IF EXISTS `yx_system_group`;
-CREATE TABLE `yx_system_group`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '组合数据ID',
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '数据组名称',
-  `info` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '数据提示',
-  `config_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '数据字段',
-  `fields` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '数据组字段以及类型（json数据）',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `config_name`(`config_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '组合数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_system_group_data
@@ -4690,7 +4716,7 @@ CREATE TABLE `yx_user`  (
 -- ----------------------------
 -- Records of yx_user
 -- ----------------------------
-INSERT INTO `yx_user` VALUES (11, 'hupeng', 'hupeng', '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'e10adc3949ba59abbe56e057f20f883e', '', 0, '', '', 0, 0, '会敲代码的喵88', 'http://localhost:8009/api/file/pic/list_30-20200207062920744.png', '15136175246', 1573120584, '', 1573120584, '', 9983.50, 26.86, 0.00, 0, 1, 0, 0, 1573613651, 'h5', 0, 3, 1, 0, '', 0, '');
+INSERT INTO `yx_user` VALUES (11, 'hupeng', 'hupeng', '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'e10adc3949ba59abbe56e057f20f883e', '', 0, '', '', 0, 0, '会敲代码的喵88', 'http://localhost:8009/api/file/pic/list_30-20200207062920744.png', '15136175246', 1573120584, '', 1573120584, '', 9983.50, 26.86, 0.00, 0, 1, 0, 0, 1573613651, 'h5', 0, 3, 1, 0, '', 1, '');
 INSERT INTO `yx_user` VALUES (12, '15136175246', 'hupeng2', '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'e10adc3949ba59abbe56e057f20f883e', '', 0, '', '', 0, 0, '会敲代码的喵2', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', '15136175246', 1573120881, '', 1573120881, '', 8766.20, 28.00, 70.51, 2, 1, 1, 11, 1573527758, 'h5', 0, 20, 1, 0, '', 1, '');
 INSERT INTO `yx_user` VALUES (14, '15136175247', '15136175247', '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'e10adc3949ba59abbe56e057f20f883e', '', 0, '', '', 0, 0, '15136175247', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', '15136175247', 1573612696, '', 1573612696, '', 9200.00, 0.00, 2.00, 0, 1, 0, 12, 1573612702, 'h5', 0, 5, 0, 0, '', 0, '');
 INSERT INTO `yx_user` VALUES (15, '15136175249', '15136175249', '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', '$2a$10$IG/fc8idkW35ezw7VtiM.OjUU1fvS2d/Bw7TmU76UUTbd5/4eCd9a', '', 0, '', '', 0, 0, '15136175249', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', '15136175249', 1578839477, '', 1578839477, '', 0.00, 0.00, 0.00, 0, 1, 0, 0, 0, 'h5', 0, 0, 0, 0, '', 0, '');
@@ -4928,35 +4954,6 @@ CREATE TABLE `yx_user_level`  (
 INSERT INTO `yx_user_level` VALUES (1, 12, 1, 1, 0, 1, 0, 1, '恭喜你成为了普通会员', 0, 0, 1575728091, 99);
 
 -- ----------------------------
--- Table structure for yx_user_notice
--- ----------------------------
-DROP TABLE IF EXISTS `yx_user_notice`;
-CREATE TABLE `yx_user_notice`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '接收消息的用户id（类型：json数据）',
-  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '消息通知类型（1：系统消息；2：用户通知）',
-  `user` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '发送人',
-  `title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '通知消息的标题信息',
-  `content` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '通知消息的内容',
-  `add_time` int(11) NOT NULL DEFAULT 0 COMMENT '通知消息发送的时间',
-  `is_send` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否发送（0：未发送；1：已发送）',
-  `send_time` int(11) NOT NULL COMMENT '发送时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户通知表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_user_notice_see
--- ----------------------------
-DROP TABLE IF EXISTS `yx_user_notice_see`;
-CREATE TABLE `yx_user_notice_see`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nid` int(11) NOT NULL DEFAULT 0 COMMENT '查看的通知id',
-  `uid` int(11) NOT NULL DEFAULT 0 COMMENT '查看通知的用户id',
-  `add_time` int(11) NOT NULL DEFAULT 0 COMMENT '查看通知的时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户通知发送记录表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for yx_user_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_recharge`;
@@ -5039,61 +5036,6 @@ CREATE TABLE `yx_wechat_media`  (
   UNIQUE INDEX `type`(`type`, `media_id`) USING BTREE,
   INDEX `type_2`(`type`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信回复表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_wechat_message
--- ----------------------------
-DROP TABLE IF EXISTS `yx_wechat_message`;
-CREATE TABLE `yx_wechat_message`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户行为记录id',
-  `openid` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户openid',
-  `type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作类型',
-  `result` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作详细记录',
-  `add_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '操作时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `openid`(`openid`) USING BTREE,
-  INDEX `type`(`type`) USING BTREE,
-  INDEX `add_time`(`add_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户行为记录表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_wechat_news_category
--- ----------------------------
-DROP TABLE IF EXISTS `yx_wechat_news_category`;
-CREATE TABLE `yx_wechat_news_category`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '图文消息管理ID',
-  `cate_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图文名称',
-  `sort` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
-  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态',
-  `new_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文章id',
-  `add_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '添加时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '图文消息管理表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of yx_wechat_news_category
--- ----------------------------
-INSERT INTO `yx_wechat_news_category` VALUES (21, '小程序商城前景分析', 0, 1, '51,52,58,59,60', '1565520433');
-
--- ----------------------------
--- Table structure for yx_wechat_qrcode
--- ----------------------------
-DROP TABLE IF EXISTS `yx_wechat_qrcode`;
-CREATE TABLE `yx_wechat_qrcode`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '微信二维码ID',
-  `third_type` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '二维码类型',
-  `third_id` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户id',
-  `ticket` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '二维码参数',
-  `expire_seconds` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '二维码有效时间',
-  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态',
-  `add_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '微信访问url',
-  `qrcode_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '微信二维码url',
-  `scan` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '被扫的次数',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `third_type`(`third_type`, `third_id`) USING BTREE,
-  INDEX `ticket`(`ticket`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信二维码管理表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_wechat_reply

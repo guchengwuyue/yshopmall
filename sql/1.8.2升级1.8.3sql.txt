@@ -1,2 +1,0 @@
-ALTER TABLE `yxshop`.`yx_store_order` 
-ADD COLUMN `extend_order_id` varchar(32) NULL COMMENT '额外订单号' AFTER `order_id`
