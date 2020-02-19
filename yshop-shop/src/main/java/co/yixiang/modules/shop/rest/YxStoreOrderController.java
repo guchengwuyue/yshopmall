@@ -83,7 +83,8 @@ public class YxStoreOrderController {
     @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_SELECT')")
     public ResponseEntity getYxStoreOrders(YxStoreOrderQueryCriteria criteria,
                                            Pageable pageable,
-                                           @RequestParam(name = "orderStatus") String orderStatus){
+                                           @RequestParam(name = "orderStatus") String orderStatus,
+                                           @RequestParam(name = "orderType") String orderType){
 
 
         if(StrUtil.isNotEmpty(orderStatus)){
@@ -133,6 +134,25 @@ public class YxStoreOrderController {
                     break;
             }
         }
+        if(StrUtil.isNotEmpty(orderType)){
+            switch (orderType){
+                case "1":
+                    criteria.setBargainId(0);
+                    criteria.setCombinationId(0);
+                    criteria.setSeckillId(0);
+                    break;
+                case "2":
+                    criteria.setNewCombinationId(0);
+                    break;
+                case "3":
+                    criteria.setNewSeckillId(0);
+                    break;
+                case "4":
+                    criteria.setNewBargainId(0);
+                    break;
+            }
+        }
+
 
         return new ResponseEntity(yxStoreOrderService.queryAll(criteria,pageable),HttpStatus.OK);
     }

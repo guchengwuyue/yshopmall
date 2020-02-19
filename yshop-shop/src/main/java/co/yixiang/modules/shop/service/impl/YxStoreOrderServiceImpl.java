@@ -197,7 +197,7 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
     }
 
     @Override
-    public String orderType(int id,int pinkId, int combinationId,int seckillId) {
+    public String orderType(int id,int pinkId, int combinationId,int seckillId,int bargainId) {
         String str = "[普通订单]";
         if(pinkId > 0 || combinationId > 0){
             YxStorePink storePink = storePinkRepository.findByOrderIdKey(id);
@@ -222,6 +222,8 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
         }else if(seckillId > 0){
             str = "[秒杀订单]";
+        }else if(bargainId > 0){
+            str = "[砍价订单]";
         }
         return str;
     }
@@ -263,7 +265,7 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
             yxStoreOrderDTO.setPinkName(orderType(yxStoreOrder.getId()
                     ,yxStoreOrder.getPinkId(),yxStoreOrder.getCombinationId()
-                    ,yxStoreOrder.getSeckillId()));
+                    ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId()));
 
             List<StoreOrderCartInfo> cartInfos = yxStoreOrderCartInfoRepository
                     .findByOid(yxStoreOrder.getId());

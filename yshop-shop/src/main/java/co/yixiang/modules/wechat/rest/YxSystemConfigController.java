@@ -55,7 +55,7 @@ public class YxSystemConfigController {
                     yxSystemConfigModel.setValue(value.toString());
                     //重新配置微信相关
                     if(key.equals("wechat_appid")){
-                        WxMpConfiguration.removeWxMpService(key);
+                        WxMpConfiguration.removeWxMpService(value.toString());
                     }
                     RedisUtil.set(key,value.toString(),0);
                     if(ObjectUtil.isNull(yxSystemConfig)){

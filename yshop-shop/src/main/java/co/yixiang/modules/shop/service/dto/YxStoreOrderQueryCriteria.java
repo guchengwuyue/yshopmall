@@ -33,4 +33,22 @@ public class YxStoreOrderQueryCriteria{
 
     @Query
     private Integer isDel;
+
+    @Query
+    private Integer combinationId;
+
+    @Query
+    private Integer seckillId;
+
+    @Query
+    private Integer bargainId;
+
+    @Query(propName="combinationId",type = Query.Type.NOT_EQUAL)
+    private Integer newCombinationId;
+
+    @Query(propName="seckillId",type = Query.Type.NOT_EQUAL)
+    private Integer newSeckillId;
+
+    @Query(propName="bargainId",type = Query.Type.NOT_EQUAL)
+    private Integer newBargainId;
 }
