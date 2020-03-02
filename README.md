@@ -86,7 +86,7 @@ CMS，CRM，OA等等本版本本身属于独立后台商城管理系统;
 </table>
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1223/195748_ce8bddc3_477893.jpeg"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2020/0303/023406_d4ef025a_477893.jpeg"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1129/234538_62ba99b7_477893.jpeg"/></td>
     </tr>
     <tr>
