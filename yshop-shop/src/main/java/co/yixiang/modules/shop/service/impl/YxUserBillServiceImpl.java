@@ -8,7 +8,6 @@ import co.yixiang.modules.shop.service.dto.YxUserBillQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxUserBillMapper;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxUserBillServiceImpl implements YxUserBillService {
 
-    @Autowired
-    private YxUserBillRepository yxUserBillRepository;
+    private final YxUserBillRepository yxUserBillRepository;
 
-    @Autowired
-    private YxUserBillMapper yxUserBillMapper;
+    private final YxUserBillMapper yxUserBillMapper;
+
+    public YxUserBillServiceImpl(YxUserBillRepository yxUserBillRepository, YxUserBillMapper yxUserBillMapper) {
+        this.yxUserBillRepository = yxUserBillRepository;
+        this.yxUserBillMapper = yxUserBillMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxUserBillQueryCriteria criteria, Pageable pageable){

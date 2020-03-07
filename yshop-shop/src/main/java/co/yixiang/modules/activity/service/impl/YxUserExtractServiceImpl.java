@@ -9,7 +9,6 @@ import co.yixiang.modules.activity.service.mapper.YxUserExtractMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxUserExtractServiceImpl implements YxUserExtractService {
 
-    @Autowired
-    private YxUserExtractRepository yxUserExtractRepository;
+    private final YxUserExtractRepository yxUserExtractRepository;
 
-    @Autowired
-    private YxUserExtractMapper yxUserExtractMapper;
+    private final YxUserExtractMapper yxUserExtractMapper;
+
+    public YxUserExtractServiceImpl(YxUserExtractRepository yxUserExtractRepository, YxUserExtractMapper yxUserExtractMapper) {
+        this.yxUserExtractRepository = yxUserExtractRepository;
+        this.yxUserExtractMapper = yxUserExtractMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxUserExtractQueryCriteria criteria, Pageable pageable){

@@ -1,5 +1,6 @@
 package co.yixiang.mp.config;
 
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.mp.handler.*;
 import com.google.common.collect.Maps;
 import me.chanjar.weixin.common.api.WxConsts;
@@ -61,9 +62,9 @@ public class WxMpConfiguration {
      * 获取WxMpService
      * @return
      */
-    public static WxMpService getWxMpService(String appId) {
+    public static WxMpService getWxMpService() {
 
-        WxMpService wxMpService = mpServices.get(appId);
+        WxMpService wxMpService = mpServices.get(ShopConstants.YSHOP_WEIXIN_MP_SERVICE);
         if(wxMpService == null) {
             WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
             configStorage.setAppId(redisHandler.getVal("wechat_appid"));
@@ -72,27 +73,25 @@ public class WxMpConfiguration {
             configStorage.setAesKey(redisHandler.getVal("wechat_encodingaeskey"));
             wxMpService = new WxMpServiceImpl();
             wxMpService.setWxMpConfigStorage(configStorage);
-            mpServices.put(appId, wxMpService);
-            routers.put(appId, newRouter(wxMpService));
+            mpServices.put(ShopConstants.YSHOP_WEIXIN_MP_SERVICE, wxMpService);
+            routers.put(ShopConstants.YSHOP_WEIXIN_MP_SERVICE, newRouter(wxMpService));
         }
         return wxMpService;
     }
 
     /**
      * 移除WxMpService
-     * @param appId
      */
-    public static void removeWxMpService(String appId){
-        mpServices.remove(appId);
-        routers.remove(appId);
+    public static void removeWxMpService(){
+        mpServices.remove(ShopConstants.YSHOP_WEIXIN_MP_SERVICE);
+        routers.remove(ShopConstants.YSHOP_WEIXIN_MP_SERVICE);
     }
 
     /**
      *  获取WxMpMessageRouter
-     * @param appId
      */
-    public static WxMpMessageRouter getWxMpMessageRouter(String appId) {
-        WxMpMessageRouter wxMpMessageRouter = routers.get(appId);
+    public static WxMpMessageRouter getWxMpMessageRouter() {
+        WxMpMessageRouter wxMpMessageRouter = routers.get(ShopConstants.YSHOP_WEIXIN_MP_SERVICE);
         return wxMpMessageRouter;
     }
 

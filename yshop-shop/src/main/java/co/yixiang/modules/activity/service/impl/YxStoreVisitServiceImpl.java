@@ -9,7 +9,6 @@ import co.yixiang.modules.activity.service.mapper.YxStoreVisitMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreVisitServiceImpl implements YxStoreVisitService {
 
-    @Autowired
-    private YxStoreVisitRepository yxStoreVisitRepository;
+    private final YxStoreVisitRepository yxStoreVisitRepository;
 
-    @Autowired
-    private YxStoreVisitMapper yxStoreVisitMapper;
+    private final YxStoreVisitMapper yxStoreVisitMapper;
+
+    public YxStoreVisitServiceImpl(YxStoreVisitRepository yxStoreVisitRepository, YxStoreVisitMapper yxStoreVisitMapper) {
+        this.yxStoreVisitRepository = yxStoreVisitRepository;
+        this.yxStoreVisitMapper = yxStoreVisitMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreVisitQueryCriteria criteria, Pageable pageable){

@@ -11,7 +11,6 @@ import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,12 +31,15 @@ import java.util.stream.Collectors;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
 
-    @Autowired
-    private YxStoreCategoryRepository yxStoreCategoryRepository;
 
-    @Autowired
-    private YxStoreCategoryMapper yxStoreCategoryMapper;
+    private final YxStoreCategoryRepository yxStoreCategoryRepository;
 
+    private final YxStoreCategoryMapper yxStoreCategoryMapper;
+
+    public YxStoreCategoryServiceImpl(YxStoreCategoryRepository yxStoreCategoryRepository, YxStoreCategoryMapper yxStoreCategoryMapper) {
+        this.yxStoreCategoryRepository = yxStoreCategoryRepository;
+        this.yxStoreCategoryMapper = yxStoreCategoryMapper;
+    }
 
     @Override
     public void download(List<YxStoreCategoryDTO> queryAll, HttpServletResponse response) throws IOException {

@@ -9,7 +9,6 @@ import co.yixiang.modules.activity.service.mapper.YxStoreBargainMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreBargainServiceImpl implements YxStoreBargainService {
 
-    @Autowired
-    private YxStoreBargainRepository yxStoreBargainRepository;
+    private final YxStoreBargainRepository yxStoreBargainRepository;
 
-    @Autowired
-    private YxStoreBargainMapper yxStoreBargainMapper;
+    private final YxStoreBargainMapper yxStoreBargainMapper;
+
+    public YxStoreBargainServiceImpl(YxStoreBargainRepository yxStoreBargainRepository, YxStoreBargainMapper yxStoreBargainMapper) {
+        this.yxStoreBargainRepository = yxStoreBargainRepository;
+        this.yxStoreBargainMapper = yxStoreBargainMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreBargainQueryCriteria criteria, Pageable pageable){

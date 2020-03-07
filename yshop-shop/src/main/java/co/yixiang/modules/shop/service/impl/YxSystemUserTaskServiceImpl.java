@@ -9,7 +9,6 @@ import co.yixiang.modules.shop.service.dto.YxSystemUserTaskQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxSystemUserTaskMapper;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,14 +28,17 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxSystemUserTaskServiceImpl implements YxSystemUserTaskService {
 
-    @Autowired
-    private YxSystemUserTaskRepository yxSystemUserTaskRepository;
+    private final YxSystemUserTaskRepository yxSystemUserTaskRepository;
 
-    @Autowired
-    private YxSystemUserTaskMapper yxSystemUserTaskMapper;
+    private final YxSystemUserTaskMapper yxSystemUserTaskMapper;
 
-    @Autowired
-    private YxSystemUserLevelService systemUserLevelService;
+    private final YxSystemUserLevelService systemUserLevelService;
+
+    public YxSystemUserTaskServiceImpl(YxSystemUserTaskRepository yxSystemUserTaskRepository, YxSystemUserTaskMapper yxSystemUserTaskMapper, YxSystemUserLevelService systemUserLevelService) {
+        this.yxSystemUserTaskRepository = yxSystemUserTaskRepository;
+        this.yxSystemUserTaskMapper = yxSystemUserTaskMapper;
+        this.systemUserLevelService = systemUserLevelService;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxSystemUserTaskQueryCriteria criteria, Pageable pageable){

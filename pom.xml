@@ -7,15 +7,15 @@
     <groupId>co.yixiang</groupId>
     <artifactId>yshop</artifactId>
     <packaging>pom</packaging>
-    <version>1.9</version>
+    <version>2.0</version>
 
     <modules>
         <module>yshop-common</module>
         <module>yshop-logging</module>
         <module>yshop-system</module>
         <module>yshop-tools</module>
-        <module>yshop-monitor</module>
         <module>yshop-generator</module>
+        <module>yshop-api</module>
         <module>yshop-mp</module>
         <module>yshop-shop</module>
     </modules>

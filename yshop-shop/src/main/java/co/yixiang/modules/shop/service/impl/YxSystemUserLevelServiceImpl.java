@@ -28,11 +28,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxSystemUserLevelServiceImpl implements YxSystemUserLevelService {
 
-    @Autowired
-    private YxSystemUserLevelRepository yxSystemUserLevelRepository;
+    private final YxSystemUserLevelRepository yxSystemUserLevelRepository;
 
-    @Autowired
-    private YxSystemUserLevelMapper yxSystemUserLevelMapper;
+    private final YxSystemUserLevelMapper yxSystemUserLevelMapper;
+
+    public YxSystemUserLevelServiceImpl(YxSystemUserLevelRepository yxSystemUserLevelRepository, YxSystemUserLevelMapper yxSystemUserLevelMapper) {
+        this.yxSystemUserLevelRepository = yxSystemUserLevelRepository;
+        this.yxSystemUserLevelMapper = yxSystemUserLevelMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxSystemUserLevelQueryCriteria criteria, Pageable pageable){

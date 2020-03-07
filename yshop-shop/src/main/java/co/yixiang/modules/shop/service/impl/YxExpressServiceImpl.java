@@ -10,7 +10,6 @@ import co.yixiang.modules.shop.service.mapper.YxExpressMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +28,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxExpressServiceImpl implements YxExpressService {
 
-    @Autowired
-    private YxExpressRepository yxExpressRepository;
+    private final YxExpressRepository yxExpressRepository;
 
-    @Autowired
-    private YxExpressMapper yxExpressMapper;
+    private final YxExpressMapper yxExpressMapper;
+
+    public YxExpressServiceImpl(YxExpressRepository yxExpressRepository, YxExpressMapper yxExpressMapper) {
+        this.yxExpressRepository = yxExpressRepository;
+        this.yxExpressMapper = yxExpressMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxExpressQueryCriteria criteria, Pageable pageable){

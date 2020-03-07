@@ -25,11 +25,7 @@ public class WxMpTemplateMessageServiceImpl implements WxMpTemplateMessageServic
                 .build();
         map.forEach( (k,v)-> { templateMessage.addData(new WxMpTemplateData(k, v, "#000000"));} );
         String msgId = null;
-        String appId = RedisUtil.get("wechat_appid");
-        if(StrUtil.isBlank(appId)) {
-            return "请配置公众号";
-        }
-        WxMpService wxService = WxMpConfiguration.getWxMpService(appId);
+        WxMpService wxService = WxMpConfiguration.getWxMpService();
         try {
             msgId =   wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
         } catch (WxErrorException e) {

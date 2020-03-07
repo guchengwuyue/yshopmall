@@ -10,7 +10,6 @@ import co.yixiang.modules.activity.service.dto.YxStoreCombinationQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreCombinationMapper;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,17 +29,19 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreCombinationServiceImpl implements YxStoreCombinationService {
 
-    @Autowired
-    private YxStoreCombinationRepository yxStoreCombinationRepository;
+    private final YxStoreCombinationRepository yxStoreCombinationRepository;
+    private final YxStorePinkRepository storePinkRepository;
+    private final YxStoreVisitRepository storeVisitRepository;
 
-    @Autowired
-    private YxStorePinkRepository storePinkRepository;
+    private final YxStoreCombinationMapper yxStoreCombinationMapper;
 
-    @Autowired
-    private YxStoreVisitRepository storeVisitRepository;
-
-    @Autowired
-    private YxStoreCombinationMapper yxStoreCombinationMapper;
+    public YxStoreCombinationServiceImpl(YxStoreCombinationRepository yxStoreCombinationRepository, YxStorePinkRepository storePinkRepository,
+                                         YxStoreVisitRepository storeVisitRepository, YxStoreCombinationMapper yxStoreCombinationMapper) {
+        this.yxStoreCombinationRepository = yxStoreCombinationRepository;
+        this.storePinkRepository = storePinkRepository;
+        this.storeVisitRepository = storeVisitRepository;
+        this.yxStoreCombinationMapper = yxStoreCombinationMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreCombinationQueryCriteria criteria, Pageable pageable){

@@ -12,7 +12,6 @@ import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.dto.YxUserDTO;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,17 +31,20 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStorePinkServiceImpl implements YxStorePinkService {
 
-    @Autowired
-    private YxStorePinkRepository yxStorePinkRepository;
+    private final YxStorePinkRepository yxStorePinkRepository;
 
-    @Autowired
-    private YxStoreCombinationService combinationService;
+    private final YxStoreCombinationService combinationService;
+    private final YxUserService userService;
 
-    @Autowired
-    private YxUserService userService;
+    private final YxStorePinkMapper yxStorePinkMapper;
 
-    @Autowired
-    private YxStorePinkMapper yxStorePinkMapper;
+    public YxStorePinkServiceImpl(YxStorePinkRepository yxStorePinkRepository, YxStoreCombinationService combinationService,
+                                  YxUserService userService, YxStorePinkMapper yxStorePinkMapper) {
+        this.yxStorePinkRepository = yxStorePinkRepository;
+        this.combinationService = combinationService;
+        this.userService = userService;
+        this.yxStorePinkMapper = yxStorePinkMapper;
+    }
 
     /**
      * 参与拼团的人

@@ -49,6 +49,15 @@ public class OrderUtil {
         return res;
     }
 
+    /*
+     * 将时间戳转换为date
+     */
+    public static Date stampToDateObj(String s){
+        long lt = new Long(s) * 1000;
+        Date date = new Date(lt);
+        return date;
+    }
+
 
     /**
      * 获取精确到秒的时间戳

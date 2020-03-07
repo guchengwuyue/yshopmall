@@ -10,7 +10,6 @@ import co.yixiang.mp.service.mapper.YxCacheMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +28,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxCacheServiceImpl implements YxCacheService {
 
-    @Autowired
-    private YxCacheRepository yxCacheRepository;
+    private final YxCacheRepository yxCacheRepository;
 
-    @Autowired
-    private YxCacheMapper yxCacheMapper;
+    private final YxCacheMapper yxCacheMapper;
+
+    public YxCacheServiceImpl(YxCacheRepository yxCacheRepository, YxCacheMapper yxCacheMapper) {
+        this.yxCacheRepository = yxCacheRepository;
+        this.yxCacheMapper = yxCacheMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxCacheQueryCriteria criteria, Pageable pageable){

@@ -3,6 +3,7 @@ package co.yixiang.modules.activity.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -24,6 +25,10 @@ public class YxStoreCouponIssueDTO implements Serializable {
 
     // 优惠券领取结束时间
     private Integer endTime;
+
+    private Date startTimeDate;
+
+    private Date endTimeDate;
 
     // 优惠券领取数量
     private Integer totalCount;

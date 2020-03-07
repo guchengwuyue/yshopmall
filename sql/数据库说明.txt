@@ -1,0 +1,4 @@
+新项目 直接导入yshop2.0.sql即可
+1.9升级到2.0表变化的只有yx_user_recharge_sql、yx_system_store.sql
+
+升级说明：这次2.0代码改动地方多，升级需谨慎！！！

@@ -14,7 +14,6 @@ import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -34,14 +33,17 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxUserServiceImpl implements YxUserService {
 
-    @Autowired
-    private YxUserRepository yxUserRepository;
+    private final YxUserRepository yxUserRepository;
 
-    @Autowired
-    private YxUserMapper yxUserMapper;
+    private final YxUserMapper yxUserMapper;
 
-    @Autowired
-    private YxUserBillService yxUserBillService;
+    private final YxUserBillService yxUserBillService;
+
+    public YxUserServiceImpl(YxUserRepository yxUserRepository, YxUserMapper yxUserMapper, YxUserBillService yxUserBillService) {
+        this.yxUserRepository = yxUserRepository;
+        this.yxUserMapper = yxUserMapper;
+        this.yxUserBillService = yxUserBillService;
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

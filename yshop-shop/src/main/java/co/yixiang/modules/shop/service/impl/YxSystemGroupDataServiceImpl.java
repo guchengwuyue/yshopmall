@@ -9,7 +9,6 @@ import co.yixiang.modules.shop.service.mapper.YxSystemGroupDataMapper;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,14 @@ import java.util.*;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxSystemGroupDataServiceImpl implements YxSystemGroupDataService {
 
-    @Autowired
-    private YxSystemGroupDataRepository yxSystemGroupDataRepository;
+    private final YxSystemGroupDataRepository yxSystemGroupDataRepository;
 
-    @Autowired
-    private YxSystemGroupDataMapper yxSystemGroupDataMapper;
+    private final YxSystemGroupDataMapper yxSystemGroupDataMapper;
+
+    public YxSystemGroupDataServiceImpl(YxSystemGroupDataRepository yxSystemGroupDataRepository, YxSystemGroupDataMapper yxSystemGroupDataMapper) {
+        this.yxSystemGroupDataRepository = yxSystemGroupDataRepository;
+        this.yxSystemGroupDataMapper = yxSystemGroupDataMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxSystemGroupDataQueryCriteria criteria, Pageable pageable){

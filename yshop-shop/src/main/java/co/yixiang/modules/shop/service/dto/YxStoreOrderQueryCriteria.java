@@ -51,4 +51,7 @@ public class YxStoreOrderQueryCriteria{
 
     @Query(propName="bargainId",type = Query.Type.NOT_EQUAL)
     private Integer newBargainId;
+
+    @Query
+    private Integer shippingType;
 }

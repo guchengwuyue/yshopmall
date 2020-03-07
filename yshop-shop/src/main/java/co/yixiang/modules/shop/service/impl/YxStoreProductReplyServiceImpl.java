@@ -10,7 +10,6 @@ import co.yixiang.modules.shop.service.dto.YxStoreProductReplyQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.YxStoreProductReplyMapper;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,17 +26,20 @@ import java.util.*;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreProductReplyServiceImpl implements YxStoreProductReplyService {
 
-    @Autowired
-    private YxStoreProductReplyRepository yxStoreProductReplyRepository;
+    private final YxStoreProductReplyRepository yxStoreProductReplyRepository;
 
-    @Autowired
-    private YxStoreProductReplyMapper yxStoreProductReplyMapper;
+    private final YxStoreProductReplyMapper yxStoreProductReplyMapper;
 
-    @Autowired
-    private YxUserService userService;
+    private final YxUserService userService;
+    private final YxStoreProductService productService;
 
-    @Autowired
-    private YxStoreProductService productService;
+    public YxStoreProductReplyServiceImpl(YxStoreProductReplyRepository yxStoreProductReplyRepository, YxStoreProductReplyMapper yxStoreProductReplyMapper,
+                                          YxUserService userService, YxStoreProductService productService) {
+        this.yxStoreProductReplyRepository = yxStoreProductReplyRepository;
+        this.yxStoreProductReplyMapper = yxStoreProductReplyMapper;
+        this.userService = userService;
+        this.productService = productService;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreProductReplyQueryCriteria criteria, Pageable pageable){

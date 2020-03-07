@@ -27,11 +27,14 @@ import java.util.Map;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxWechatTemplateServiceImpl implements YxWechatTemplateService {
 
-    @Autowired
-    private YxWechatTemplateRepository yxWechatTemplateRepository;
+    private final YxWechatTemplateRepository yxWechatTemplateRepository;
 
-    @Autowired
-    private YxWechatTemplateMapper yxWechatTemplateMapper;
+    private final YxWechatTemplateMapper yxWechatTemplateMapper;
+
+    public YxWechatTemplateServiceImpl(YxWechatTemplateRepository yxWechatTemplateRepository, YxWechatTemplateMapper yxWechatTemplateMapper) {
+        this.yxWechatTemplateRepository = yxWechatTemplateRepository;
+        this.yxWechatTemplateMapper = yxWechatTemplateMapper;
+    }
 
     @Override
     public YxWechatTemplate findByTempkey(String key) {

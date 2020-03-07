@@ -9,7 +9,6 @@ import co.yixiang.modules.activity.service.mapper.YxStoreSeckillMapper;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +28,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreSeckillServiceImpl implements YxStoreSeckillService {
 
-    @Autowired
-    private YxStoreSeckillRepository yxStoreSeckillRepository;
+    private final YxStoreSeckillRepository yxStoreSeckillRepository;
 
-    @Autowired
-    private YxStoreSeckillMapper yxStoreSeckillMapper;
+    private final YxStoreSeckillMapper yxStoreSeckillMapper;
+
+    public YxStoreSeckillServiceImpl(YxStoreSeckillRepository yxStoreSeckillRepository, YxStoreSeckillMapper yxStoreSeckillMapper) {
+        this.yxStoreSeckillRepository = yxStoreSeckillRepository;
+        this.yxStoreSeckillMapper = yxStoreSeckillMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreSeckillQueryCriteria criteria, Pageable pageable){

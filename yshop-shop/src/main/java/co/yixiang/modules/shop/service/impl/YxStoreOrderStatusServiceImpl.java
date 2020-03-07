@@ -9,7 +9,6 @@ import co.yixiang.modules.shop.service.mapper.YxStoreOrderStatusMapper;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,11 +27,14 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreOrderStatusServiceImpl implements YxStoreOrderStatusService {
 
-    @Autowired
-    private YxStoreOrderStatusRepository yxStoreOrderStatusRepository;
+    private final YxStoreOrderStatusRepository yxStoreOrderStatusRepository;
 
-    @Autowired
-    private YxStoreOrderStatusMapper yxStoreOrderStatusMapper;
+    private final YxStoreOrderStatusMapper yxStoreOrderStatusMapper;
+
+    public YxStoreOrderStatusServiceImpl(YxStoreOrderStatusRepository yxStoreOrderStatusRepository, YxStoreOrderStatusMapper yxStoreOrderStatusMapper) {
+        this.yxStoreOrderStatusRepository = yxStoreOrderStatusRepository;
+        this.yxStoreOrderStatusMapper = yxStoreOrderStatusMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreOrderStatusQueryCriteria criteria, Pageable pageable){

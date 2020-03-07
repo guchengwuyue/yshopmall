@@ -3,6 +3,7 @@ package co.yixiang.modules.shop.service.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.domain.YxStoreProductAttr;
@@ -17,7 +18,7 @@ import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,23 +37,24 @@ import java.util.stream.Collectors;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreProductServiceImpl implements YxStoreProductService {
 
-    @Autowired
-    private YxStoreProductRepository yxStoreProductRepository;
+    private final YxStoreProductRepository yxStoreProductRepository;
+    private final YxStoreCategoryRepository yxStoreCategoryRepository;
+    private final YxStoreProductAttrRepository yxStoreProductAttrRepository;
+    private final YxStoreProductAttrValueRepository yxStoreProductAttrValueRepository;
+    private final YxStoreProductAttrResultRepository yxStoreProductAttrResultRepository;
 
-    @Autowired
-    private YxStoreCategoryRepository yxStoreCategoryRepository;
+    private final YxStoreProductMapper yxStoreProductMapper;
 
-    @Autowired
-    private YxStoreProductAttrRepository yxStoreProductAttrRepository;
-
-    @Autowired
-    private YxStoreProductAttrValueRepository yxStoreProductAttrValueRepository;
-
-    @Autowired
-    private YxStoreProductAttrResultRepository yxStoreProductAttrResultRepository;
-
-    @Autowired
-    private YxStoreProductMapper yxStoreProductMapper;
+    public YxStoreProductServiceImpl(YxStoreProductRepository yxStoreProductRepository, YxStoreCategoryRepository yxStoreCategoryRepository,
+                                     YxStoreProductAttrRepository yxStoreProductAttrRepository, YxStoreProductAttrValueRepository yxStoreProductAttrValueRepository,
+                                     YxStoreProductAttrResultRepository yxStoreProductAttrResultRepository, YxStoreProductMapper yxStoreProductMapper) {
+        this.yxStoreProductRepository = yxStoreProductRepository;
+        this.yxStoreCategoryRepository = yxStoreCategoryRepository;
+        this.yxStoreProductAttrRepository = yxStoreProductAttrRepository;
+        this.yxStoreProductAttrValueRepository = yxStoreProductAttrValueRepository;
+        this.yxStoreProductAttrResultRepository = yxStoreProductAttrResultRepository;
+        this.yxStoreProductMapper = yxStoreProductMapper;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreProductQueryCriteria criteria, Pageable pageable){

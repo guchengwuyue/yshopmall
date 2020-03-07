@@ -9,7 +9,6 @@ import co.yixiang.modules.activity.service.mapper.YxStoreCouponUserMapper;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,14 +28,17 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreCouponUserServiceImpl implements YxStoreCouponUserService {
 
-    @Autowired
-    private YxStoreCouponUserRepository yxStoreCouponUserRepository;
+    private final YxStoreCouponUserRepository yxStoreCouponUserRepository;
 
-    @Autowired
-    private YxStoreCouponUserMapper yxStoreCouponUserMapper;
+    private final YxStoreCouponUserMapper yxStoreCouponUserMapper;
 
-    @Autowired
-    private YxUserService userService;
+    private final YxUserService userService;
+
+    public YxStoreCouponUserServiceImpl(YxStoreCouponUserRepository yxStoreCouponUserRepository, YxStoreCouponUserMapper yxStoreCouponUserMapper, YxUserService userService) {
+        this.yxStoreCouponUserRepository = yxStoreCouponUserRepository;
+        this.yxStoreCouponUserMapper = yxStoreCouponUserMapper;
+        this.userService = userService;
+    }
 
     @Override
     public Map<String,Object> queryAll(YxStoreCouponUserQueryCriteria criteria, Pageable pageable){

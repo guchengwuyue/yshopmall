@@ -3,7 +3,7 @@ package co.yixiang.modules.shop.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.EntityExistException;
 import co.yixiang.modules.activity.domain.YxStorePink;
@@ -21,17 +21,13 @@ import co.yixiang.modules.shop.service.YxUserBillService;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.dto.*;
 import co.yixiang.modules.shop.service.mapper.YxStoreOrderMapper;
+import co.yixiang.mp.service.YxPayService;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.RedisUtil;
 import co.yixiang.utils.ValidationUtil;
 import com.alibaba.fastjson.JSON;
-import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
-import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.exception.WxPayException;
-import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,32 +46,32 @@ import java.util.*;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
-    @Autowired
-    private YxStoreOrderRepository yxStoreOrderRepository;
+    private final YxStoreOrderRepository yxStoreOrderRepository;
+    private final YxStoreOrderCartInfoRepository yxStoreOrderCartInfoRepository;
+    private final YxUserRepository userRepository;
+    private final YxStorePinkRepository storePinkRepository;
 
-    @Autowired
-    private YxStoreOrderCartInfoRepository yxStoreOrderCartInfoRepository;
+    private final YxStoreOrderMapper yxStoreOrderMapper;
 
-    @Autowired
-    private YxStoreOrderMapper yxStoreOrderMapper;
+    private final YxUserBillService yxUserBillService;
+    private final YxStoreOrderStatusService yxStoreOrderStatusService;
+    private final YxUserService userService;
+    private final YxPayService payService;
 
-    @Autowired
-    private YxStoreOrderStatusService yxStoreOrderStatusService;
-
-    @Autowired
-    private YxUserService userService;
-
-    @Autowired
-    private YxUserRepository userRepository;
-
-    @Autowired
-    private YxUserBillService yxUserBillService;
-
-    @Autowired
-    private YxStorePinkRepository storePinkRepository;
-
-    @Autowired
-    private WxPayService wxPayService;
+    public YxStoreOrderServiceImpl(YxStoreOrderRepository yxStoreOrderRepository, YxStoreOrderCartInfoRepository yxStoreOrderCartInfoRepository, YxUserRepository userRepository,
+                                   YxStorePinkRepository storePinkRepository, YxStoreOrderMapper yxStoreOrderMapper, YxUserBillService yxUserBillService,
+                                   YxStoreOrderStatusService yxStoreOrderStatusService,
+                                   YxUserService userService, YxPayService payService) {
+        this.yxStoreOrderRepository = yxStoreOrderRepository;
+        this.yxStoreOrderCartInfoRepository = yxStoreOrderCartInfoRepository;
+        this.userRepository = userRepository;
+        this.storePinkRepository = storePinkRepository;
+        this.yxStoreOrderMapper = yxStoreOrderMapper;
+        this.yxUserBillService = yxUserBillService;
+        this.yxStoreOrderStatusService = yxStoreOrderStatusService;
+        this.userService = userService;
+        this.payService = payService;
+    }
 
     @Override
     public OrderTimeDataDTO getOrderTimeData() {
@@ -157,47 +153,22 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
             yxStoreOrderStatusService.create(storeOrderStatus);
         }else{
-            String apiUrl = RedisUtil.get("api_url");
-            if(StrUtil.isBlank(apiUrl)) throw new BadRequestException("请配置api地址");
-            //读取redis配置
-            String appId = RedisUtil.get("wxpay_appId");
-            String mchId = RedisUtil.get("wxpay_mchId");
-            String mchKey = RedisUtil.get("wxpay_mchKey");
-            String keyPath = RedisUtil.get("wxpay_keyPath");
-
-            if(StrUtil.isBlank(appId) || StrUtil.isBlank(mchId) || StrUtil.isBlank(mchKey)){
-                throw new BadRequestException("请配置微信支付");
-            }
-            if(StrUtil.isBlank(keyPath)){
-                throw new BadRequestException("请配置微信支付证书");
-            }
-            WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
             BigDecimal bigDecimal = new BigDecimal("100");
-            wxPayRefundRequest.setTotalFee(bigDecimal.multiply(resources.getPayPrice()).intValue());//订单总金额
-            wxPayRefundRequest.setOutTradeNo(resources.getOrderId());
-            wxPayRefundRequest.setOutRefundNo(resources.getOrderId());
-            wxPayRefundRequest.setRefundFee(bigDecimal.multiply(resources.getPayPrice()).intValue());//退款金额
-            wxPayRefundRequest.setOpUserId(mchId); //操作人默认商户号当前
-            wxPayRefundRequest.setNotifyUrl(apiUrl+"/api/notify/refund");
-
-            WxPayConfig wxPayConfig = new WxPayConfig();
-            wxPayConfig.setAppId(appId);
-            wxPayConfig.setMchId(mchId);
-            wxPayConfig.setMchKey(mchKey);
-            wxPayConfig.setKeyPath(keyPath);
-            wxPayService.setConfig(wxPayConfig);
             try {
-                wxPayService.refund(wxPayRefundRequest);
+                payService.refundOrder(resources.getOrderId(),
+                        bigDecimal.multiply(resources.getPayPrice()).intValue());
             } catch (WxPayException e) {
                 log.info("refund-error:{}",e.getMessage());
             }
+
         }
 
 
     }
 
     @Override
-    public String orderType(int id,int pinkId, int combinationId,int seckillId,int bargainId) {
+    public String orderType(int id,int pinkId, int combinationId,int seckillId,
+                            int bargainId,int shippingType) {
         String str = "[普通订单]";
         if(pinkId > 0 || combinationId > 0){
             YxStorePink storePink = storePinkRepository.findByOrderIdKey(id);
@@ -225,6 +196,7 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
         }else if(bargainId > 0){
             str = "[砍价订单]";
         }
+        if(shippingType == 2) str = "[核销订单]";
         return str;
     }
 
@@ -265,7 +237,8 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
 
             yxStoreOrderDTO.setPinkName(orderType(yxStoreOrder.getId()
                     ,yxStoreOrder.getPinkId(),yxStoreOrder.getCombinationId()
-                    ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId()));
+                    ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId(),
+                    yxStoreOrder.getShippingType()));
 
             List<StoreOrderCartInfo> cartInfos = yxStoreOrderCartInfoRepository
                     .findByOid(yxStoreOrder.getId());
