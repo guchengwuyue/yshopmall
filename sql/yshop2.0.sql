@@ -1273,51 +1273,7 @@ CREATE TABLE `yx_material_group`  (
 -- ----------------------------
 INSERT INTO `yx_material_group` VALUES ('3e4ee0cdbb484aaeb5a40c337a47dba6', '0', '2020-01-09 18:48:24', NULL, '商品');
 
--- ----------------------------
--- Table structure for yx_routine_form_id
--- ----------------------------
-DROP TABLE IF EXISTS `yx_routine_form_id`;
-CREATE TABLE `yx_routine_form_id`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '表单ID表ID',
-  `uid` int(11) NULL DEFAULT 0 COMMENT '用户uid',
-  `form_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '表单ID',
-  `stop_time` int(11) UNSIGNED NULL DEFAULT NULL COMMENT '表单ID失效时间',
-  `status` tinyint(1) UNSIGNED NULL DEFAULT 0 COMMENT '状态1 未使用 2不能使用',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '表单id表记录表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for yx_routine_template
--- ----------------------------
-DROP TABLE IF EXISTS `yx_routine_template`;
-CREATE TABLE `yx_routine_template`  (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '模板id',
-  `tempkey` char(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模板编号',
-  `name` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '模板名',
-  `content` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '回复内容',
-  `tempid` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模板ID',
-  `add_time` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '添加时间',
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `tempkey`(`tempkey`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信模板' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of yx_routine_template
--- ----------------------------
-INSERT INTO `yx_routine_template` VALUES (13, 'AT0007', '订单发货提醒', '订单号{{keyword1.DATA}}\n快递公司{{keyword2.DATA}}\n快递单号{{keyword3.DATA}}\n发货时间{{keyword4.DATA}}\n备注{{keyword5.DATA}}', 'fLsTVQmI2AE9q48BL58tffLRcyCnPLC9guSFrEHXbR8', '1534469928', 1);
-INSERT INTO `yx_routine_template` VALUES (14, 'AT0787', '退款成功通知', '订单号{{keyword1.DATA}}\n退款时间{{keyword2.DATA}}\n退款金额{{keyword3.DATA}}\n退款方式{{keyword4.DATA}}\n备注{{keyword5.DATA}}', 'vgTj1nk1A1bVObCX0Fw3h9WbXvay1URcHMITjGW13cc', '1534469993', 1);
-INSERT INTO `yx_routine_template` VALUES (15, 'AT0009', '订单支付成功通知', '单号{{keyword1.DATA}}\n下单时间{{keyword2.DATA}}\n订单状态{{keyword3.DATA}}\n支付金额{{keyword4.DATA}}\n支付方式{{keyword5.DATA}}', 'Rwt2QIz3zHbQGPXCH3E8nBneWzgFFBMiMI6EShTBLpI', '1534470043', 1);
-INSERT INTO `yx_routine_template` VALUES (16, 'AT1173', '砍价成功通知', '商品名称{{keyword1.DATA}}\n砍价金额{{keyword2.DATA}}\n底价{{keyword3.DATA}}\n砍掉价格{{keyword4.DATA}}\n支付金额{{keyword5.DATA}}\n备注{{keyword6.DATA}}', 'qu3nRoV9lTmmvVWOdgf-2uz8NPT3w71cOx7UDJ5Uryo', '1534470085', 1);
-INSERT INTO `yx_routine_template` VALUES (17, 'AT0036', '退款通知', '订单编号{{keyword1.DATA}}\n退款原因{{keyword2.DATA}}\n退款时间{{keyword3.DATA}}\n退款金额{{keyword4.DATA}}\n退款方式{{keyword5.DATA}}', 'gYYXx5nz8eWHPd_zp42EdR9UzhdynOo8Eq5GDb4dTrc', '1534470134', 1);
-INSERT INTO `yx_routine_template` VALUES (19, 'AT2430', '拼团取消通知', '活动名称{{keyword1.DATA}}\n订单编号{{keyword2.DATA}}\n订单金额{{keyword3.DATA}}', 'OmzyMqsWJFn3L68DmEcZqV9FdSHrr2ThHYe6Czs8iaM', '1553910500', 1);
-INSERT INTO `yx_routine_template` VALUES (20, 'AT0310', '拼团失败通知', '商品名称{{keyword1.DATA}}\n失败原因{{keyword2.DATA}}\n订单号{{keyword3.DATA}}\n开团时间{{keyword4.DATA}}\n退款金额{{keyword5.DATA}}', 'GRpTaZ1-tHoLvrfM-iEsBBbVSIXgh7bO17b7Z2AUpKM', '1553910844', 1);
-INSERT INTO `yx_routine_template` VALUES (21, 'AT0051', '拼团成功通知', '活动名称{{keyword1.DATA}}\n团长{{keyword2.DATA}}\n成团时间{{keyword3.DATA}}\n拼团价{{keyword4.DATA}}', 'dlYqzgGLrVgRq-Ealw31wCy5PV-rGof-99OppSZhWxY', '1553911022', 1);
-INSERT INTO `yx_routine_template` VALUES (22, 'AT0541', '开团成功提醒', '开团时间{{keyword1.DATA}}\n截至时间{{keyword2.DATA}}\n产品名称{{keyword3.DATA}}\n单号{{keyword4.DATA}}\n支付金额{{keyword5.DATA}}', 'E2NURfqs4MnciPB1YzvjtMDZCMfCCOHOwCdKFl7XigU', '1555133496', 1);
-INSERT INTO `yx_routine_template` VALUES (23, 'AT0241', '确认收货通知', '订单编号{{keyword1.DATA}}\n商品详情{{keyword2.DATA}}\n支付金额{{keyword3.DATA}}\n确认收货时间{{keyword4.DATA}}', '4-DQPQMVsJfHjiKhEACz0ofcs_PHupy3xHTX1N1tzTo', '1557384781', 1);
-INSERT INTO `yx_routine_template` VALUES (24, 'AT0329', '退款失败通知', '订单号{{keyword1.DATA}}\n商品名称{{keyword2.DATA}}\n退款金额{{keyword3.DATA}}\n失败原因{{keyword4.DATA}}', 'rlOEIDa0s6PMG4L_CkDLpBWCPf_mGci3z86UC5LmXCc', '1557384804', 1);
-INSERT INTO `yx_routine_template` VALUES (25, 'AT1242', '提现失败通知', '失败原因{{keyword1.DATA}}\n提现金额{{keyword2.DATA}}\n提现方式{{keyword3.DATA}}\n审核时间{{keyword4.DATA}}', 'MsVoI7IV4CTFObS9XoJYTjMWPh8zjbNRK5-Z_II0Dnk', '1558918703', 1);
-INSERT INTO `yx_routine_template` VALUES (26, 'AT1330', ' 提现成功通知', '提现金额{{keyword1.DATA}}\n提现状态{{keyword2.DATA}}\n审核时间{{keyword3.DATA}}\n提现方式{{keyword4.DATA}}', 'Twp4EWZTRUF2mps0J5Inw55_DpbNEfqqdKvfEx_ihos', '1558918767', 1);
 
 -- ----------------------------
 -- Table structure for yx_store_bargain
@@ -1535,44 +1491,7 @@ INSERT INTO `yx_store_combination` VALUES (1, 19, NULL, 'https://image.dayouqian
 INSERT INTO `yx_store_combination` VALUES (2, 19, NULL, 'https://image.dayouqiantu.cn/5ca011a1cd487.jpg', 'https://image.dayouqiantu.cn/5ca01c7fc9238.jpg,http://localhost:8000/file/pic/05ea40b831858a8cf423aa709840507c-20200228083801500.png', '70gA4黑白打印复印', NULL, 2, '打印复印资料A4黑白彩色印刷画册书本装订图文数码快印服务', 1.00, 1, 28, 89, '1574066608', 1, 1, 0, 1, NULL, 1, 0.00, '<p style=\"text-align: center;\"><strong>文件请传QQ2412733099，</strong></p><p style=\"text-align: center;\"><strong>718504558或2412733099@qq.com邮箱，</strong></p><p style=\"text-align: center;\"><strong>手机/微信：13733990583</strong></p><p style=\"text-align: center;\"><strong>量大请联系店主，一定让您满意而归</strong></p><p style=\"text-align: center;\"><strong>&nbsp; &nbsp;实体店面经营 保质保量</strong></p><p style=\"text-align: center;\"><strong>A4黑白2毛/张，量大1毛/张，</strong></p><p style=\"text-align: center;\"><strong>A3黑白双面5毛/张，量大3毛/张，</strong></p><p style=\"text-align: center;\"><strong>更大量请联系店主报价，</strong></p><p style=\"text-align: center;\"><strong>每消费1元可积1分，1分抵现金1毛，</strong></p><p style=\"text-align: center;\"><strong>付款时直接抵扣</strong></p><p style=\"text-align: center;\"><strong>（如此优惠的基础上还可积分，积分抵现金）</strong></p><p style=\"text-align: left;\"><strong><br></strong></p><p><br></p><p>&nbsp; &nbsp;&nbsp;<img src=\"https://image.dayouqiantu.cn/5ca03007150f1.jpg\" style=\"max-width: 100%;\"><br></p>', 1574066592, 1574870400, 24, 0, 0, '张', '2019-11-28 00:00:00', '2019-11-18 16:43:12');
 INSERT INTO `yx_store_combination` VALUES (3, 22, 0, 'http://localhost:8000/file/pic/list_16-20200110120838173.png', 'http://localhost:8000/file/pic/list_16-20200110120838173.png,http://localhost:8000/file/pic/list_32-20200109100213309.png', '3333', NULL, 2, '3333', 1.00, 0, 0, 11, '1578644367', 0, 1, 1, 1, NULL, 0, 0.00, '<p>4444</p>', 1578644348, 1585213664, 24, 1, 0, '333', '2020-01-29 00:00:00', '2020-01-10 16:19:08');
 
--- ----------------------------
--- Table structure for yx_store_combination_attr
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_combination_attr`;
-CREATE TABLE `yx_store_combination_attr`  (
-  `product_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
-  `attr_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性名',
-  `attr_values` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性值',
-  INDEX `store_id`(`product_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品属性表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Table structure for yx_store_combination_attr_result
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_combination_attr_result`;
-CREATE TABLE `yx_store_combination_attr_result`  (
-  `product_id` int(10) UNSIGNED NOT NULL COMMENT '商品ID',
-  `result` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品属性参数',
-  `change_time` int(10) UNSIGNED NOT NULL COMMENT '上次修改时间',
-  UNIQUE INDEX `product_id`(`product_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品属性详情表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_store_combination_attr_value
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_combination_attr_value`;
-CREATE TABLE `yx_store_combination_attr_value`  (
-  `product_id` int(10) UNSIGNED NOT NULL COMMENT '商品ID',
-  `suk` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品属性索引值 (attr_value|attr_value[|....])',
-  `stock` int(10) UNSIGNED NOT NULL COMMENT '属性对应的库存',
-  `sales` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销量',
-  `price` decimal(8, 2) UNSIGNED NOT NULL COMMENT '属性金额',
-  `image` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片',
-  `unique` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '唯一值',
-  `cost` decimal(8, 2) UNSIGNED NOT NULL COMMENT '成本价',
-  UNIQUE INDEX `unique`(`unique`, `suk`) USING BTREE,
-  INDEX `store_id`(`product_id`, `suk`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品属性值表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_store_coupon
@@ -2279,44 +2198,6 @@ INSERT INTO `yx_store_product_attr_value` VALUES (27, 20, 'A3,红色', 999, NULL
 INSERT INTO `yx_store_product_attr_value` VALUES (28, 20, 'A4,白色', 999, NULL, 0.20, 'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg', '5e0ae3241d8c4ea793368666f862dd3b', 0.50);
 INSERT INTO `yx_store_product_attr_value` VALUES (29, 20, 'A4,红色', 999, NULL, 0.20, 'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg', '4b4b306134434832885a52f3a85955ce', 0.50);
 
--- ----------------------------
--- Table structure for yx_store_product_cate
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_product_cate`;
-CREATE TABLE `yx_store_product_cate`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL DEFAULT 0 COMMENT '产品id',
-  `cate_id` int(11) NOT NULL DEFAULT 0 COMMENT '分类id',
-  `add_time` int(11) NOT NULL DEFAULT 0 COMMENT '添加时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '产品分类辅助表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of yx_store_product_cate
--- ----------------------------
-INSERT INTO `yx_store_product_cate` VALUES (14, 6, 2, 1558580351);
-INSERT INTO `yx_store_product_cate` VALUES (24, 4, 3, 1559110372);
-INSERT INTO `yx_store_product_cate` VALUES (25, 4, 2, 1559110372);
-INSERT INTO `yx_store_product_cate` VALUES (28, 3, 3, 1559110403);
-INSERT INTO `yx_store_product_cate` VALUES (29, 3, 2, 1559110403);
-INSERT INTO `yx_store_product_cate` VALUES (38, 12, 3, 1560650420);
-INSERT INTO `yx_store_product_cate` VALUES (49, 5, 4, 1562729229);
-INSERT INTO `yx_store_product_cate` VALUES (50, 5, 7, 1562729229);
-INSERT INTO `yx_store_product_cate` VALUES (51, 5, 2, 1562729229);
-INSERT INTO `yx_store_product_cate` VALUES (52, 5, 3, 1562729229);
-INSERT INTO `yx_store_product_cate` VALUES (53, 5, 19, 1562729229);
-INSERT INTO `yx_store_product_cate` VALUES (55, 11, 4, 1562729250);
-INSERT INTO `yx_store_product_cate` VALUES (59, 10, 4, 1562741711);
-INSERT INTO `yx_store_product_cate` VALUES (60, 1, 2, 1562835320);
-INSERT INTO `yx_store_product_cate` VALUES (61, 1, 7, 1562835320);
-INSERT INTO `yx_store_product_cate` VALUES (64, 17, 4, 1564471319);
-INSERT INTO `yx_store_product_cate` VALUES (65, 2, 3, 1565148046);
-INSERT INTO `yx_store_product_cate` VALUES (66, 2, 2, 1565148046);
-INSERT INTO `yx_store_product_cate` VALUES (67, 18, 0, 1565148206);
-INSERT INTO `yx_store_product_cate` VALUES (68, 9, 2, 1565148922);
-INSERT INTO `yx_store_product_cate` VALUES (70, 8, 2, 1565426114);
-INSERT INTO `yx_store_product_cate` VALUES (71, 7, 2, 1565600246);
-INSERT INTO `yx_store_product_cate` VALUES (72, 19, 4, 1565687845);
 
 -- ----------------------------
 -- Table structure for yx_store_product_relation
@@ -2420,44 +2301,6 @@ CREATE TABLE `yx_store_seckill`  (
 INSERT INTO `yx_store_seckill` VALUES (1, 20, 'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg', 'https://image.dayouqiantu.cn/5ca05103ad634.jpg,https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg', '70gA4彩色打印复印', '70gA4彩色打印复印', 1.00, 0.50, 1.00, 0.00, 0, 100, 1, '张', 0.00, '<p style=\"text-align: center;\">7<strong>文件请传QQ2412733099，</strong></p><p style=\"text-align: center;\"><strong>718504558或2412733099@qq.com邮箱，</strong></p><p style=\"text-align: center;\"><strong>手机/微信：13733990583</strong></p><p style=\"text-align: center;\"><strong>量大请联系店主，一定让您满意而归</strong></p><p style=\"text-align: center;\"><strong>&nbsp; &nbsp;实体店面经营 保质保量</strong></p><p style=\"text-align: center;\"><strong>A4黑白2毛/张，量大1毛/张，</strong></p><p style=\"text-align: center;\"><strong>A3黑白双面5毛/张，量大3毛/张，</strong></p><p style=\"text-align: center;\"><strong>更大量请联系店主报价，</strong></p><p style=\"text-align: center;\"><strong>每消费1元可积1分，1分抵现金1毛，</strong></p><p style=\"text-align: center;\"><strong>付款时直接抵扣</strong></p><p style=\"text-align: center;\"><strong>（如此优惠的基础上还可积分，积分抵现金）</strong></p><p style=\"text-align: center;\"><img src=\"https://image.dayouqiantu.cn/5ca03007150f1.jpg\" style=\"max-width:100%;\"><strong><br></strong></p><p style=\"text-align: center;\"><br></p>', 1576476046, 1577203200, '1576476055', 1, 1, 0, 0, 1, 1, '2019-12-25 00:00:00', '2019-12-16 14:00:46');
 INSERT INTO `yx_store_seckill` VALUES (2, 20, 'https://image.dayouqiantu.cn/5ca04fa9c08ef.jpg', 'https://image.dayouqiantu.cn/5ca05103ad634.jpg,http://localhost:8000/file/pic/05ea40b831858a8cf423aa709840507c-20200228083801500.png', '70gA4彩色打印复印', '70gA4彩色打印复印', 1.00, 0.50, 1.00, 0.00, 0, 99, 2, '张', 0.00, '<p style=\"text-align: center;\">7<strong>文件请传QQ2412733099，</strong></p><p style=\"text-align: center;\"><strong>718504558或2412733099@qq.com邮箱，</strong></p><p style=\"text-align: center;\"><strong>手机/微信：13733990583</strong></p><p style=\"text-align: center;\"><strong>量大请联系店主，一定让您满意而归</strong></p><p style=\"text-align: center;\"><strong>&nbsp; &nbsp;实体店面经营 保质保量</strong></p><p style=\"text-align: center;\"><strong>A4黑白2毛/张，量大1毛/张，</strong></p><p style=\"text-align: center;\"><strong>A3黑白双面5毛/张，量大3毛/张，</strong></p><p style=\"text-align: center;\"><strong>更大量请联系店主报价，</strong></p><p style=\"text-align: center;\"><strong>每消费1元可积1分，1分抵现金1毛，</strong></p><p style=\"text-align: center;\"><strong>付款时直接抵扣</strong></p><p style=\"text-align: center;\"><strong>（如此优惠的基础上还可积分，积分抵现金）</strong></p><p style=\"text-align: center;\"><img src=\"https://image.dayouqiantu.cn/5ca03007150f1.jpg\" style=\"max-width:100%;\"><strong><br></strong></p><p style=\"text-align: center;\"><br></p>', 1576477734, 1576598400, '1576477741', 1, 1, 0, 0, 1, 1, '2019-12-18 00:00:00', '2019-12-16 14:28:54');
 
--- ----------------------------
--- Table structure for yx_store_seckill_attr
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_seckill_attr`;
-CREATE TABLE `yx_store_seckill_attr`  (
-  `product_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
-  `attr_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性名',
-  `attr_values` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '属性值',
-  INDEX `store_id`(`product_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀商品属性表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_store_seckill_attr_result
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_seckill_attr_result`;
-CREATE TABLE `yx_store_seckill_attr_result`  (
-  `product_id` int(10) UNSIGNED NOT NULL COMMENT '商品ID',
-  `result` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品属性参数',
-  `change_time` int(10) UNSIGNED NOT NULL COMMENT '上次修改时间',
-  UNIQUE INDEX `product_id`(`product_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀商品属性详情表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for yx_store_seckill_attr_value
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_seckill_attr_value`;
-CREATE TABLE `yx_store_seckill_attr_value`  (
-  `product_id` int(10) UNSIGNED NOT NULL COMMENT '商品ID',
-  `suk` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品属性索引值 (attr_value|attr_value[|....])',
-  `stock` int(10) UNSIGNED NOT NULL COMMENT '属性对应的库存',
-  `sales` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '销量',
-  `price` decimal(8, 2) UNSIGNED NOT NULL COMMENT '属性金额',
-  `image` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片',
-  `unique` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '唯一值',
-  `cost` decimal(8, 2) UNSIGNED NOT NULL COMMENT '成本价',
-  UNIQUE INDEX `unique`(`unique`, `suk`) USING BTREE,
-  INDEX `store_id`(`product_id`, `suk`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀商品属性值表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for yx_store_visit
