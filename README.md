@@ -65,16 +65,8 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 </table>
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2020/0303/023406_d4ef025a_477893.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1129/234538_62ba99b7_477893.jpeg"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1129/234601_7fb028a6_477893.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1129/234622_6f593729_477893.jpeg"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1130/114845_9ed3c82c_477893.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/1129/234703_49e8fe4f_477893.jpeg"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2020/0407/180521_10ece580_477893.jpeg"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2020/0407/180547_09fb7ab2_477893.jpeg"/></td>
     </tr>
 </table>
 
