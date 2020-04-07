@@ -48,6 +48,7 @@ public class SystemConfigController {
     @Log("新增或修改")
     @ApiOperation(value = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")
+    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
@@ -61,8 +62,9 @@ public class SystemConfigController {
                     //重新配置微信相关
                     if(key.equals("wechat_appid")){
                         WxMpConfiguration.removeWxMpService();
+                        WxPayConfiguration.removeWxPayService();
                     }
-                    if(key.equals("wxpay_appId")){
+                    if(key.equals("wxpay_mchId") || key.equals("wxapp_appId")){
                         WxPayConfiguration.removeWxPayService();
                     }
                     RedisUtil.set(key,value.toString(),0);

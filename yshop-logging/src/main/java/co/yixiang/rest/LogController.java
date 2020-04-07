@@ -21,6 +21,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/api/logs")
 @Api(tags = "监控：日志管理")
+@SuppressWarnings("unchecked")
 public class LogController {
 
     private final LogService logService;

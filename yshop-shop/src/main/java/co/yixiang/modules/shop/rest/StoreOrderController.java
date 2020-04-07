@@ -9,18 +9,15 @@ import co.yixiang.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.express.ExpressService;
+import co.yixiang.express.dao.ExpressInfo;
 import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.activity.service.dto.YxStorePinkDTO;
 import co.yixiang.modules.shop.domain.YxStoreOrder;
 import co.yixiang.modules.shop.domain.YxStoreOrderStatus;
-import co.yixiang.modules.shop.service.YxExpressService;
-import co.yixiang.modules.shop.service.YxStoreOrderService;
-import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
-import co.yixiang.modules.shop.service.YxWechatUserService;
-import co.yixiang.modules.shop.service.dto.YxExpressDTO;
-import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
-import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
-import co.yixiang.modules.shop.service.dto.YxWechatUserDTO;
+import co.yixiang.modules.shop.service.*;
+import co.yixiang.modules.shop.service.dto.*;
+import co.yixiang.modules.shop.service.param.ExpressParam;
 import co.yixiang.mp.service.WxMpTemplateMessageService;
 import co.yixiang.mp.service.YxTemplateService;
 import co.yixiang.mp.service.YxWechatTemplateService;
@@ -56,11 +53,14 @@ public class StoreOrderController {
     private final RedisTemplate<String, String> redisTemplate;
     private final YxTemplateService templateService;
     private final YxStorePinkService  storePinkService;
+    private final ExpressService expressService;
+
 
     public StoreOrderController(YxStoreOrderService yxStoreOrderService, YxStoreOrderStatusService yxStoreOrderStatusService,
                                 YxExpressService yxExpressService, YxWechatUserService wechatUserService,
                                 RedisTemplate<String, String> redisTemplate,
-                                YxTemplateService templateService,YxStorePinkService storePinkService) {
+                                YxTemplateService templateService,YxStorePinkService storePinkService,
+                                ExpressService expressService) {
         this.yxStoreOrderService = yxStoreOrderService;
         this.yxStoreOrderStatusService = yxStoreOrderStatusService;
         this.yxExpressService = yxExpressService;
@@ -68,6 +68,17 @@ public class StoreOrderController {
         this.redisTemplate = redisTemplate;
         this.templateService = templateService;
         this.storePinkService = storePinkService;
+        this.expressService = expressService;
+    }
+
+    /**@Valid
+     * 根据商品分类统计订单占比
+     */
+    @GetMapping("/yxStoreOrder/orderCount")
+    @ApiOperation(value = "根据商品分类统计订单占比",notes = "根据商品分类统计订单占比",response = ExpressParam.class)
+    public ResponseEntity orderCount(){
+        OrderCountDto orderCountDto  = yxStoreOrderService.getOrderCount();
+        return new ResponseEntity(orderCountDto, HttpStatus.OK);
     }
 
     @GetMapping(value = "/data/count")
@@ -200,11 +211,10 @@ public class StoreOrderController {
         try {
             YxWechatUserDTO wechatUser = wechatUserService.findById(resources.getUid());
             if (ObjectUtil.isNotNull(wechatUser)) {
+                //公众号与小程序打通统一公众号模板通知
                 if (StrUtil.isNotBlank(wechatUser.getOpenid())) {
                     templateService.deliverySuccessNotice(resources.getOrderId(),
                             expressDTO.getName(),resources.getDeliveryId(),wechatUser.getOpenid());
-                } else if (StrUtil.isNotBlank(wechatUser.getRoutineOpenid())) {
-                    //todo 小程序通知
                 }
             }
         } catch (Exception e) {
@@ -260,12 +270,11 @@ public class StoreOrderController {
         try {
             YxWechatUserDTO wechatUser = wechatUserService.findById(resources.getUid());
             if (ObjectUtil.isNotNull(wechatUser)) {
+                //公众号与小程序打通统一公众号模板通知
                 if (StrUtil.isNotBlank(wechatUser.getOpenid())) {
                     templateService.refundSuccessNotice(resources.getOrderId(),
                             resources.getPayPrice().toString(),wechatUser.getOpenid(),
                             OrderUtil.stampToDate(resources.getAddTime().toString()));
-                } else if (StrUtil.isNotBlank(wechatUser.getRoutineOpenid())) {
-                    //todo 小程序通知
                 }
             }
         } catch (Exception e) {
@@ -327,4 +336,18 @@ public class StoreOrderController {
         yxStoreOrderService.update(resources);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+
+    /**@Valid
+     * 获取物流信息,根据传的订单编号 ShipperCode快递公司编号 和物流单号,
+     */
+    @PostMapping("/yxStoreOrder/express")
+    @ApiOperation(value = "获取物流信息",notes = "获取物流信息",response = ExpressParam.class)
+    public ResponseEntity express( @RequestBody ExpressParam expressInfoDo){
+        ExpressInfo expressInfo = expressService.getExpressInfo(expressInfoDo.getOrderCode(),
+                expressInfoDo.getShipperCode(), expressInfoDo.getLogisticCode());
+        if(!expressInfo.isSuccess()) throw new BadRequestException(expressInfo.getReason());
+        return new ResponseEntity(expressInfo, HttpStatus.OK);
+    }
+
 }

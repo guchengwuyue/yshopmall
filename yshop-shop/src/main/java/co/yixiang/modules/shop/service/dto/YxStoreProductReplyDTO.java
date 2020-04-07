@@ -18,7 +18,7 @@ public class YxStoreProductReplyDTO implements Serializable {
     // 用户ID
     private Integer uid;
 
-    private String username;
+    private YxUserSmallDTO user;
 
     // 订单ID
     private Integer oid;
@@ -29,7 +29,7 @@ public class YxStoreProductReplyDTO implements Serializable {
     // 产品id
     private Integer productId;
 
-    private String productName;
+    private YxStoreProductSmallDTO storeProduct;
 
 
     // 某种商品类型(普通商品、秒杀商品）

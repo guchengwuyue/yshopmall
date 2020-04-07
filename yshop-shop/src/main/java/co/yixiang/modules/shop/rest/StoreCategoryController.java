@@ -66,6 +66,7 @@ public class StoreCategoryController {
         if(resources.getPid() > 0 && StrUtil.isBlank(resources.getPic())) {
             throw new BadRequestException("子分类图片必传");
         }
+
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCategoryService.create(resources),HttpStatus.CREATED);
     }
@@ -87,9 +88,12 @@ public class StoreCategoryController {
     @ApiOperation(value = "删除商品分类")
     @DeleteMapping(value = "/yxStoreCategory/{id}")
     @PreAuthorize("@el.check('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable String id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxStoreCategoryService.delete(id);
+        String[] ids = id.split(",");
+        for (String newId: ids) {
+            yxStoreCategoryService.delete(Integer.valueOf(newId));
+        }
         return new ResponseEntity(HttpStatus.OK);
     }
 }

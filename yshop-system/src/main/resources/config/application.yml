@@ -51,3 +51,10 @@ rsa:
 # sm.ms 图床的 token
 smms:
   token: 1oOP3ykFDI0K6ifmtvU7c8Y1eTWZSlyl
+
+yshop:
+  # 快鸟物流查询配置
+  express:
+    enable: true
+    appId: 1607734
+    appKey: 81f43a2e-f504-45c4-9b54-2637d59f8190

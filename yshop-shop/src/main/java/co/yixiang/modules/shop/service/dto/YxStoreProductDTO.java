@@ -40,7 +40,9 @@ public class YxStoreProductDTO implements Serializable {
     // 分类id
     private String cateId;
 
-    private String cateName;
+    //private String cateName;
+
+    private YxStoreCategorySmallDTO storeCategory;
 
     // 商品价格
     private BigDecimal price;

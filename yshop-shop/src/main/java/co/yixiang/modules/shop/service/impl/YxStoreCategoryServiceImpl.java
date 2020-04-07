@@ -1,8 +1,11 @@
 package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
+import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.repository.YxStoreCategoryRepository;
+import co.yixiang.modules.shop.repository.YxStoreProductRepository;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
@@ -31,13 +34,16 @@ import java.util.stream.Collectors;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
 
-
     private final YxStoreCategoryRepository yxStoreCategoryRepository;
+    private final YxStoreProductRepository yxStoreProductRepository;
 
     private final YxStoreCategoryMapper yxStoreCategoryMapper;
 
-    public YxStoreCategoryServiceImpl(YxStoreCategoryRepository yxStoreCategoryRepository, YxStoreCategoryMapper yxStoreCategoryMapper) {
+    public YxStoreCategoryServiceImpl(YxStoreCategoryRepository yxStoreCategoryRepository,
+                                      YxStoreProductRepository yxStoreProductRepository,
+                                      YxStoreCategoryMapper yxStoreCategoryMapper) {
         this.yxStoreCategoryRepository = yxStoreCategoryRepository;
+        this.yxStoreProductRepository = yxStoreProductRepository;
         this.yxStoreCategoryMapper = yxStoreCategoryMapper;
     }
 
@@ -72,6 +78,11 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
     }
 
     @Override
+    public YxStoreCategoryDTO findByName(String name) {
+        return null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public YxStoreCategoryDTO create(YxStoreCategory resources) {
         if(ObjectUtil.isNull(resources.getPid())) resources.setPid(0);
@@ -82,6 +93,9 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(YxStoreCategory resources) {
+        if(resources.getId().equals(resources.getPid())){
+            throw new BadRequestException("自己不能选择自己哦");
+        }
         Optional<YxStoreCategory> optionalYxStoreCategory = yxStoreCategoryRepository.findById(resources.getId());
         ValidationUtil.isNull( optionalYxStoreCategory,"YxStoreCategory","id",resources.getId());
         YxStoreCategory yxStoreCategory = optionalYxStoreCategory.get();
@@ -92,7 +106,16 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Integer id) {
-        yxStoreCategoryRepository.deleteById(id);
+        YxStoreCategory storeCategory = yxStoreCategoryRepository.findByPid(id);
+
+        if(storeCategory != null) throw new BadRequestException("请先删除子类");
+        YxStoreCategory category = new YxStoreCategory();
+        category.setId(id);
+        List<YxStoreProduct> storeProduct = yxStoreProductRepository.findByStoreCategoryAndIsDel(category,0);
+
+        if(!storeProduct.isEmpty()) throw new BadRequestException("此分类下有商品,不能删除");
+
+        yxStoreCategoryRepository.delCategory(id);
     }
 
 

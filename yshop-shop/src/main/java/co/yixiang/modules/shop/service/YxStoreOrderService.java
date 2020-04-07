@@ -1,6 +1,7 @@
 package co.yixiang.modules.shop.service;
 
 import co.yixiang.modules.shop.domain.YxStoreOrder;
+import co.yixiang.modules.shop.service.dto.OrderCountDto;
 import co.yixiang.modules.shop.service.dto.OrderTimeDataDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
@@ -15,6 +16,9 @@ import java.util.Map;
 */
 //@CacheConfig(cacheNames = "yxStoreOrder")
 public interface YxStoreOrderService {
+
+    OrderCountDto getOrderCount();
+
     OrderTimeDataDTO getOrderTimeData();
 
     Map<String,Object> chartCount();

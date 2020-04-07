@@ -148,6 +148,9 @@ public class YxStoreSeckill implements Serializable {
     @Column(name = "is_show",nullable = false)
     private Integer isShow;
 
+    @NotNull(message = "请选择开始时间")
+    private Integer timeId;
+
     public void copy(YxStoreSeckill source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }

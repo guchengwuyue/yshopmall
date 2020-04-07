@@ -23,8 +23,12 @@ public class YxStoreProductReply implements Serializable {
     private Integer id;
 
     // 用户ID
-    @Column(name = "uid",nullable = false)
-    private Integer uid;
+//    @Column(name = "uid",nullable = false)
+//    private Integer uid;
+
+    @ManyToOne(fetch=FetchType.LAZY,optional = false)
+    @JoinColumn(name = "uid")
+    private YxUser user;
 
     // 订单ID
     @Column(name = "oid",nullable = false)
@@ -35,8 +39,12 @@ public class YxStoreProductReply implements Serializable {
     private String unique;
 
     // 产品id
-    @Column(name = "product_id",nullable = false)
-    private Integer productId;
+//    @Column(name = "product_id",nullable = false)
+//    private Integer productId;
+
+    @ManyToOne(fetch=FetchType.LAZY,optional = false)
+    @JoinColumn(name = "product_id")
+    private YxStoreProduct storeProduct;
 
     // 某种商品类型(普通商品、秒杀商品）
     @Column(name = "reply_type",nullable = false)

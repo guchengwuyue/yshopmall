@@ -94,4 +94,6 @@ public class YxStoreSeckillDTO implements Serializable {
     private Date endTimeDate;
 
     private String statusStr;
+
+    private Integer timeId;
 }

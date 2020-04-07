@@ -96,7 +96,6 @@ public class StoreProductController {
     public ResponseEntity onSale(@PathVariable Integer id,@RequestBody String jsonStr){
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
-        //System.out.println(status);
         yxStoreProductService.onSale(id,status);
         return new ResponseEntity(HttpStatus.OK);
     }

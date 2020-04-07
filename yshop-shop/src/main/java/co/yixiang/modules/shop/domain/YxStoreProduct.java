@@ -59,10 +59,11 @@ public class YxStoreProduct implements Serializable {
     @Column(name = "bar_code",nullable = false)
     private String barCode;
 
-    // 分类id
-    @Column(name = "cate_id",nullable = false)
-    @NotBlank(message = "请选择分类")
-    private String cateId;
+   // private Integer cateId;
+
+    @ManyToOne(fetch=FetchType.LAZY,optional = false)
+    @JoinColumn(name = "cate_id")
+    private YxStoreCategory storeCategory;
 
     // 商品价格
     @Column(name = "price",nullable = false)

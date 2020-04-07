@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * @author hupeng
  * 账单相关枚举
  */
 @Getter

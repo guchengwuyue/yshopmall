@@ -54,4 +54,7 @@ public class YxStoreOrderQueryCriteria{
 
     @Query
     private Integer shippingType;
+
+    @Query
+    private Integer storeId;
 }

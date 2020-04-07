@@ -13,4 +13,7 @@ public class YxStoreCategoryQueryCriteria{
     // 模糊
     @Query(type = Query.Type.INNER_LIKE)
     private String cateName;
+
+    @Query
+    private Integer isDel = 0;
 }

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "商城:微信菜單")
 @RestController
 @RequestMapping("api")
+@SuppressWarnings("unchecked")
 public class WechatMenuController {
 
     private final YxCacheService yxCacheService;

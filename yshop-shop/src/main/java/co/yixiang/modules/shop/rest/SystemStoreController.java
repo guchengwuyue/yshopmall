@@ -39,6 +39,15 @@ public class SystemStoreController {
         this.yxSystemStoreService = yxSystemStoreService;
     }
 
+
+    @Log("所有门店")
+    @ApiOperation("所有门店")
+    @GetMapping(value = "/all")
+    @PreAuthorize("@el.check('yxSystemStore:list')")
+    public ResponseEntity<Object>  getAll(YxSystemStoreQueryCriteria criteria) {
+        return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria),HttpStatus.OK);
+    }
+
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
@@ -69,18 +78,23 @@ public class SystemStoreController {
         return new ResponseEntity<>(json,HttpStatus.CREATED);
     }
 
+    @PostMapping
+    @Log("新增门店")
+    @ApiOperation("新增门店")
+    @PreAuthorize("@el.check('yxSystemStore:add')")
+    public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
+        return new ResponseEntity<>(yxSystemStoreService.create(resources),HttpStatus.CREATED);
+    }
+
     @PutMapping
-    @Log("设置门店信息")
-    @ApiOperation("设置门店信息")
+    @Log("修改门店")
+    @ApiOperation("修改门店")
     @PreAuthorize("@el.check('yxSystemStore:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        if(resources.getId() == null){
-            resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-            yxSystemStoreService.create(resources);
-        }else{
-            yxSystemStoreService.update(resources);
-        }
+        yxSystemStoreService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

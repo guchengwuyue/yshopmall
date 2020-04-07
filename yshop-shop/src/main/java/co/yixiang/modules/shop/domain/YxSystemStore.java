@@ -88,7 +88,8 @@ public class YxSystemStore implements Serializable {
     private Integer addTime;
 
     /** 是否显示 */
-    @Column(name = "is_show",insertable = false)
+    @Column(name = "is_show")
+    @NotNull
     private Integer isShow;
 
     /** 是否删除 */

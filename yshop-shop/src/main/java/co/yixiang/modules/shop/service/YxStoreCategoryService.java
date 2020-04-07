@@ -51,6 +51,8 @@ public interface YxStoreCategoryService {
     //@Cacheable(key = "#p0")
     YxStoreCategoryDTO findById(Integer id);
 
+    YxStoreCategoryDTO findByName(String name);
+
     /**
      * 创建
      * @param resources

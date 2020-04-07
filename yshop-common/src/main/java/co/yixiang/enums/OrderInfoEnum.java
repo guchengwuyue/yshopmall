@@ -6,6 +6,7 @@ import lombok.Getter;
 import javax.persistence.criteria.CriteriaBuilder;
 
 /**
+ * @author hupeng
  * 订单相关枚举
  */
 @Getter
@@ -37,6 +38,9 @@ public enum OrderInfoEnum {
 
 	CONFIRM_STATUS_0(0,"正常"),
 	CONFIRM_STATUS_1(1,"确认"),
+
+	PAY_CHANNEL_0(0,"公众号/H5支付渠道"),
+	PAY_CHANNEL_1(1,"小程序支付渠道"),
 
 
 	SHIPPIING_TYPE_1(1,"快递"),

@@ -26,6 +26,10 @@ public interface YxStoreOrderRepository extends JpaRepository<YxStoreOrder, Inte
     double sumPrice(Integer time);
 
     @Query(value = "select IFNULL(sum(pay_price),0)  from yx_store_order " +
+            "where refund_status=0 and is_del=0 and paid=1",nativeQuery = true)
+    double sumTotalPrice();
+
+    @Query(value = "select IFNULL(sum(pay_price),0)  from yx_store_order " +
             "where refund_status=0 and is_del=0 and paid=1 and  pay_time >= ?1 and pay_time < ?2",nativeQuery = true)
     double sumTPrice(Integer timeO, Integer timeT);
 

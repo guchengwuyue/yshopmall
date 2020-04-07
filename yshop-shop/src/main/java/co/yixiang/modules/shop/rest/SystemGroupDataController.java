@@ -40,7 +40,6 @@ public class SystemGroupDataController {
 
     @Log("查询数据配置")
     @ApiOperation(value = "查询数据配置")
-    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @GetMapping(value = "/yxSystemGroupData")
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
     public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria,
@@ -55,6 +54,7 @@ public class SystemGroupDataController {
     @Log("新增数据配置")
     @ApiOperation(value = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
+    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
@@ -99,6 +99,7 @@ public class SystemGroupDataController {
     @Log("修改数据配置")
     @ApiOperation(value = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
+    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");

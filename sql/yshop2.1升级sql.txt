@@ -1,0 +1,28 @@
+CREATE TABLE `yx_system_store_staff` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT '微信用户id',
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '店员头像',
+  `store_id` int(11) NOT NULL COMMENT '门店id',
+  `store_name` varchar(50) DEFAULT NULL,
+  `staff_name` varchar(64) DEFAULT '' COMMENT '店员名称',
+  `phone` char(15) DEFAULT NULL COMMENT '手机号码',
+  `verify_status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '核销开关',
+  `status` tinyint(2) DEFAULT '1' COMMENT '状态',
+  `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='门店店员表';
+
+
+ALTER TABLE `yx_user_recharge`
+ADD COLUMN `give_price` decimal(8, 2) NULL DEFAULT 0 COMMENT '赠送金额' AFTER `price`
+
+ALTER TABLE `yx_system_attachment`
+ADD COLUMN `uid` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '用户id' AFTER `module_type`,
+ADD COLUMN `invite_code` varchar(50) NULL DEFAULT '' COMMENT '邀请码' AFTER `uid`
+
+ALTER TABLE `yx_store_seckill`
+ADD COLUMN `time_id` int(10) UNSIGNED NULL DEFAULT 0 COMMENT '时间段id' AFTER `start_time_date`
+
+ALTER TABLE `yx_store_category`
+ADD COLUMN `is_del` tinyint(1) UNSIGNED NULL DEFAULT 0 COMMENT '删除状态' AFTER `add_time`

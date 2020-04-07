@@ -21,6 +21,7 @@ import static org.springframework.http.HttpStatus.*;
  */
 @Slf4j
 @RestControllerAdvice
+@SuppressWarnings("unchecked")
 public class GlobalExceptionHandler {
 
     /**

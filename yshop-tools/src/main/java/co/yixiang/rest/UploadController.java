@@ -32,6 +32,7 @@ import java.util.Map;
 @Api(tags = "上传统一管理")
 @RestController
 @RequestMapping("/api/upload")
+@SuppressWarnings("unchecked")
 public class UploadController {
 
     @Value("${file.localUrl}")

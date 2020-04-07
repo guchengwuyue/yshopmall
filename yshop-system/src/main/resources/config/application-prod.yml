@@ -81,7 +81,7 @@ swagger:
   enabled: true
   title: yshop商城管理后台API
   serverUrl: http://localhost:8000
-  version: 2.0
+  version: 2.1
 
 # 文件存储路径
 file:

@@ -38,18 +38,16 @@ import java.util.stream.Collectors;
 public class YxStoreProductServiceImpl implements YxStoreProductService {
 
     private final YxStoreProductRepository yxStoreProductRepository;
-    private final YxStoreCategoryRepository yxStoreCategoryRepository;
     private final YxStoreProductAttrRepository yxStoreProductAttrRepository;
     private final YxStoreProductAttrValueRepository yxStoreProductAttrValueRepository;
     private final YxStoreProductAttrResultRepository yxStoreProductAttrResultRepository;
 
     private final YxStoreProductMapper yxStoreProductMapper;
 
-    public YxStoreProductServiceImpl(YxStoreProductRepository yxStoreProductRepository, YxStoreCategoryRepository yxStoreCategoryRepository,
+    public YxStoreProductServiceImpl(YxStoreProductRepository yxStoreProductRepository,
                                      YxStoreProductAttrRepository yxStoreProductAttrRepository, YxStoreProductAttrValueRepository yxStoreProductAttrValueRepository,
                                      YxStoreProductAttrResultRepository yxStoreProductAttrResultRepository, YxStoreProductMapper yxStoreProductMapper) {
         this.yxStoreProductRepository = yxStoreProductRepository;
-        this.yxStoreCategoryRepository = yxStoreCategoryRepository;
         this.yxStoreProductAttrRepository = yxStoreProductAttrRepository;
         this.yxStoreProductAttrValueRepository = yxStoreProductAttrValueRepository;
         this.yxStoreProductAttrResultRepository = yxStoreProductAttrResultRepository;
@@ -65,11 +63,9 @@ public class YxStoreProductServiceImpl implements YxStoreProductService {
                         ,pageable);
         List<YxStoreProductDTO> storeProductDTOS = new ArrayList<>();
         for (YxStoreProduct product : page.getContent()) {
-            if(StrUtil.isEmpty(product.getCateId())) continue;
-            String cateName = yxStoreCategoryRepository
-                    .findNameById(Integer.valueOf(product.getCateId()));
+
             YxStoreProductDTO yxStoreProductDTO = yxStoreProductMapper.toDto(product);
-            yxStoreProductDTO.setCateName(cateName);
+
             //规格属性库存
             Integer newStock = yxStoreProductAttrValueRepository.sumStock(product.getId());
             if(newStock != null) yxStoreProductDTO.setStock(newStock);
@@ -119,6 +115,7 @@ public class YxStoreProductServiceImpl implements YxStoreProductService {
     @Transactional(rollbackFor = Exception.class)
     public void recovery(Integer id) {
         yxStoreProductRepository.updateDel(0,id);
+        yxStoreProductRepository.updateOnsale(0,id);
     }
 
     @Override

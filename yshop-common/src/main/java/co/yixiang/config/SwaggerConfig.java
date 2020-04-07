@@ -18,6 +18,7 @@ import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.schema.AlternateTypeRuleConvention;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -84,7 +85,7 @@ public class SwaggerConfig {
                 .termsOfServiceUrl(serverUrl)
                 .description(title)
                 .version(version)
-                .contact("610796224@qq.com")
+                .contact(new Contact("hupeng","https://www.yixiang.co","guchengwuyue@163.com"))
                 .build();
     }
 

@@ -8,6 +8,7 @@ import javax.xml.crypto.Data;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @ClassName OrderUtil
@@ -15,6 +16,30 @@ import java.util.Date;
  * @Date 2019/9/13
  **/
 public class OrderUtil {
+
+    /**
+     * 生成邀请码
+     *
+     * @return
+     */
+    public static String createShareCode() {
+        int maxNum = 36;
+        int i;
+        int count = 0;
+        char[] str = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        StringBuffer pwd = new StringBuffer("");
+        Random r = new Random();
+        while (count < 10) {
+            i = Math.abs(r.nextInt(maxNum));
+            if (i >= 0 && i < str.length) {
+                pwd.append(str[i]);
+                count++;
+            }
+        }
+        return pwd.toString();
+    }
 
     /**
      * 获取俩个数之间的随机数
