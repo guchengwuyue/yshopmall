@@ -4,8 +4,8 @@ package co.yixiang.mp.controller;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.config.WxMpConfiguration;
-import co.yixiang.mp.domain.YxCache;
-import co.yixiang.mp.service.YxCacheService;
+import co.yixiang.mp.domain.YxWechatMenu;
+import co.yixiang.mp.service.YxWechatMenuService;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
@@ -31,41 +31,41 @@ import org.springframework.web.bind.annotation.*;
 @SuppressWarnings("unchecked")
 public class WechatMenuController {
 
-    private final YxCacheService yxCacheService;
+    private final YxWechatMenuService YxWechatMenuService;
 
-    public WechatMenuController(YxCacheService yxCacheService) {
-        this.yxCacheService = yxCacheService;
+    public WechatMenuController(YxWechatMenuService YxWechatMenuService) {
+        this.YxWechatMenuService = YxWechatMenuService;
     }
 
     @ApiOperation(value = "查询菜单")
-    @GetMapping(value = "/yxCache")
-    @PreAuthorize("@el.check('admin','YXCACHE_ALL','YXCACHE_SELECT')")
-    public ResponseEntity getYxCaches(){
-        return new ResponseEntity(yxCacheService.findById("wechat_menus"),HttpStatus.OK);
+    @GetMapping(value = "/YxWechatMenu")
+    @PreAuthorize("@el.check('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
+    public ResponseEntity getYxWechatMenus(){
+        return new ResponseEntity(YxWechatMenuService.findById("wechat_menus"),HttpStatus.OK);
     }
 
 
     @ApiOperation(value = "创建菜单")
-    @PostMapping(value = "/yxCache")
-    @PreAuthorize("@el.check('admin','YXCACHE_ALL','YXCACHE_CREATE')")
+    @PostMapping(value = "/YxWechatMenu")
+    @PreAuthorize("@el.check('admin','YxWechatMenu_ALL','YxWechatMenu_CREATE')")
     public ResponseEntity create( @RequestBody String jsonStr){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String jsonButton = jsonObject.get("buttons").toString();
-        YxCache yxCache = new YxCache();
-        Boolean isExist = yxCacheService.isExist("wechat_menus");
+        YxWechatMenu YxWechatMenu = new YxWechatMenu();
+        Boolean isExist = YxWechatMenuService.isExist("wechat_menus");
         WxMenu menu = JSONObject.parseObject(jsonStr,WxMenu.class);
 
         WxMpService wxService = WxMpConfiguration.getWxMpService();
         if(isExist){
-            yxCache.setKey("wechat_menus");
-            yxCache.setResult(jsonButton);
-            yxCacheService.update(yxCache);
+            YxWechatMenu.setKey("wechat_menus");
+            YxWechatMenu.setResult(jsonButton);
+            YxWechatMenuService.update(YxWechatMenu);
         }else {
-            yxCache.setKey("wechat_menus");
-            yxCache.setResult(jsonButton);
-            yxCache.setAddTime(OrderUtil.getSecondTimestampTwo());
-            yxCacheService.create(yxCache);
+            YxWechatMenu.setKey("wechat_menus");
+            YxWechatMenu.setResult(jsonButton);
+            YxWechatMenu.setAddTime(OrderUtil.getSecondTimestampTwo());
+            YxWechatMenuService.create(YxWechatMenu);
         }
 
 

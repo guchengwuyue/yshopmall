@@ -16,8 +16,8 @@ import java.io.Serializable;
 */
 @Entity
 @Data
-@Table(name="yx_cache")
-public class YxCache implements Serializable {
+@Table(name="yx_wechat_menu")
+public class YxWechatMenu implements Serializable {
 
 
     @Id
@@ -32,7 +32,7 @@ public class YxCache implements Serializable {
     @Column(name = "add_time")
     private Integer addTime;
 
-    public void copy(YxCache source){
+    public void copy(YxWechatMenu source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

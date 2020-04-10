@@ -1256,10 +1256,10 @@ INSERT INTO `yx_article` VALUES (5, '', '444', '4444', 'http://localhost:8000/fi
 INSERT INTO `yx_article` VALUES (6, '', '555', '555', 'http://localhost:8000/file/pic/秒杀-2020031104371672.png', '555', '<p>555</p>', '', '', '5', NULL, '', NULL, '2020-03-13 14:55', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
--- Table structure for yx_cache
+-- Table structure for yx_wechat_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `yx_cache`;
-CREATE TABLE `yx_cache`  (
+DROP TABLE IF EXISTS `yx_wechat_menu`;
+CREATE TABLE `yx_wechat_menu`  (
   `key` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `result` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '缓存数据',
   `add_time` int(10) NULL DEFAULT NULL COMMENT '缓存时间',
@@ -1267,9 +1267,9 @@ CREATE TABLE `yx_cache`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信缓存表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of yx_cache
+-- Records of yx_wechat_menu
 -- ----------------------------
-INSERT INTO `yx_cache` VALUES ('wechat_menus', '[{\"subButtons\":[{\"name\":\"公众号演示\",\"type\":\"view\",\"url\":\"https://h5.dayouqiantu.cn\"}],\"name\":\"Yshop商城3\",\"type\":\"click\",\"key\":\"yshop\"},{\"subButtons\":[{\"appId\":\"wxa82b5b7fcb0ec161\",\"name\":\"小程序演示\",\"pagePath\":\"pages/index\",\"type\":\"miniprogram\",\"url\":\"pages/index\"}],\"name\":\"供货商城\",\"type\":\"click\",\"key\":\"supply\"},{\"subButtons\":[],\"name\":\"3333\",\"type\":\"click\",\"key\":\"2222\"}]', 1570435277);
+INSERT INTO `yx_wechat_menu` VALUES ('wechat_menus', '[{\"subButtons\":[{\"name\":\"公众号演示\",\"type\":\"view\",\"url\":\"https://h5.dayouqiantu.cn\"}],\"name\":\"Yshop商城3\",\"type\":\"click\",\"key\":\"yshop\"},{\"subButtons\":[{\"appId\":\"wxa82b5b7fcb0ec161\",\"name\":\"小程序演示\",\"pagePath\":\"pages/index\",\"type\":\"miniprogram\",\"url\":\"pages/index\"}],\"name\":\"供货商城\",\"type\":\"click\",\"key\":\"supply\"},{\"subButtons\":[],\"name\":\"3333\",\"type\":\"click\",\"key\":\"2222\"}]', 1570435277);
 
 -- ----------------------------
 -- Table structure for yx_express

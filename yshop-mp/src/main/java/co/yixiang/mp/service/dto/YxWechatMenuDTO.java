@@ -10,7 +10,7 @@ import java.io.Serializable;
 * @date 2019-10-06
 */
 @Data
-public class YxCacheDTO implements Serializable {
+public class YxWechatMenuDTO implements Serializable {
 
     private String key;
 

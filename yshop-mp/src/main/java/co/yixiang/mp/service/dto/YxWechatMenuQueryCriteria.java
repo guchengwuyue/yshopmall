@@ -7,5 +7,5 @@ import lombok.Data;
 * @date 2019-10-06
 */
 @Data
-public class YxCacheQueryCriteria{
+public class YxWechatMenuQueryCriteria{
 }
