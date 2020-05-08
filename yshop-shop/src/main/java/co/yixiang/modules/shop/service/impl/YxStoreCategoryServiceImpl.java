@@ -128,6 +128,7 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
 
         YxStoreCategoryDTO categoryDTO = new YxStoreCategoryDTO();
         Boolean isChild;
+        List<YxStoreCategory> categories = yxStoreCategoryRepository.findAll();
         for (YxStoreCategoryDTO deptDTO : categoryDTOS) {
             isChild = false;
             if ("0".equals(deptDTO.getPid().toString())) {
@@ -144,8 +145,11 @@ public class YxStoreCategoryServiceImpl implements YxStoreCategoryService {
             }
             if(isChild)
                 cates.add(deptDTO);
-            else if(!deptNames.contains(yxStoreCategoryRepository.findNameById(deptDTO.getPid())))
-                cates.add(deptDTO);
+            for (YxStoreCategory category : categories) {
+                if(category.getId()==deptDTO.getPid()&&!deptNames.contains(category.getCateName())){
+                    cates.add(deptDTO);
+                }
+            }
         }
 
 

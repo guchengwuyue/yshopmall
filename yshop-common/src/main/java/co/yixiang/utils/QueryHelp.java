@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import co.yixiang.annotation.Query;
 import javax.persistence.criteria.*;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -117,6 +118,16 @@ public class QueryHelp {
                             List<Object> between = new ArrayList<>((List<Object>)val);
                             list.add(cb.between(getExpression(attributeName, join, root).as((Class<? extends Comparable>) between.get(0).getClass()),
                                     (Comparable) between.get(0), (Comparable) between.get(1)));
+                            break;
+                        case UNIX_TIMESTAMP:
+                            List<Object> UNIX_TIMESTAMP = new ArrayList<>((List<Object>)val);
+                            if(!UNIX_TIMESTAMP.isEmpty()){
+                                SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                long time1 = fm.parse(UNIX_TIMESTAMP.get(0).toString()).getTime()/1000;
+                                long time2 = fm.parse(UNIX_TIMESTAMP.get(1).toString()).getTime()/1000;
+                                list.add(cb.between(getExpression(attributeName, join, root),
+                                        time1, time2));
+                            }
                             break;
                         default: break;
                     }

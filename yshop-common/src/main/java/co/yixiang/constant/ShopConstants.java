@@ -25,6 +25,11 @@ public interface ShopConstants {
 	String REDIS_ORDER_OUTTIME_UNCONFIRM = "order:unconfirm:";
 
 	/**
+	 * redis拼团key
+	 */
+	String REDIS_PINK_CANCEL_KEY = "pink:cancel:";
+
+	/**
 	 * 微信支付service
 	 */
 	String YSHOP_WEIXIN_PAY_SERVICE = "yshop_weixin_pay_service";

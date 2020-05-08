@@ -19,6 +19,7 @@ import co.yixiang.modules.shop.service.dto.*;
 import co.yixiang.modules.shop.service.mapper.YxStoreOrderMapper;
 import co.yixiang.mp.service.YxMiniPayService;
 import co.yixiang.mp.service.YxPayService;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.QueryHelp;
 import co.yixiang.utils.ValidationUtil;
@@ -31,7 +32,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -356,4 +360,50 @@ public class YxStoreOrderServiceImpl implements YxStoreOrderService {
     public void delete(Integer id) {
         yxStoreOrderRepository.deleteById(id);
     }
+
+
+    @Override
+    public void download(List<YxStoreOrderDTO> queryAll, HttpServletResponse response) throws IOException, ParseException {
+        List<Map<String, Object>> list = new ArrayList<>();
+
+        for (YxStoreOrderDTO storeOrderDTO : queryAll) {
+            List<StoreOrderCartInfoDTO> storeList = new ArrayList<StoreOrderCartInfoDTO>();
+            storeList = storeOrderDTO.getCartInfoList();
+            if(storeList != null){
+                for(StoreOrderCartInfoDTO storeOrderCartInfoDTO : storeList){
+                    Map<String,Object> map = new LinkedHashMap<>();
+                    map.put("订单号", storeOrderDTO.getOrderId());
+                    map.put("下单时间", OrderUtil.stampToDate(storeOrderDTO.getAddTime()+""));
+                    map.put("订单状态", storeOrderDTO.getStatusName());
+                    map.put("支付状态", storeOrderDTO.getPayTypeName());
+                    map.put("配送费用", storeOrderDTO.getFreightPrice());
+                    map.put("实际支付", storeOrderDTO.getPayPrice());
+
+                    map.put("客户编号", storeOrderDTO.getUserDTO().getAccount());
+                    map.put("客户名称", storeOrderDTO.getUserDTO().getNickname());
+                    map.put("客户类型", storeOrderDTO.getUserDTO().getUserType());
+                    map.put("客户手机号码", storeOrderDTO.getUserDTO().getPhone());
+                    map.put("是否为推广员", storeOrderDTO.getUserDTO().getIsPromoter());
+
+                    map.put("收货人", storeOrderDTO.getRealName());
+                    map.put("联系电话", storeOrderDTO.getUserPhone());
+                    map.put("收货地址", storeOrderDTO.getUserAddress());
+
+                    Map proInfo = ((Map)storeOrderCartInfoDTO.getCartInfoMap().get("productInfo"));
+                    map.put("商品编号", proInfo.get("id"));
+                    map.put("商品名称", proInfo.get("store_name"));
+                    map.put("商品规格", proInfo.get("unit_name"));
+                    map.put("商品库存", proInfo.get("stock"));
+                    map.put("单价", proInfo.get("price"));
+                    map.put("订购数量", storeOrderDTO.getTotalNum());
+                    map.put("小计", storeOrderDTO.getTotalPrice());
+                    map.put("订单备注", storeOrderDTO.getMark());
+
+                    list.add(map);
+                }
+            }
+        }
+        FileUtil.downloadExcel(list, response);
+    }
+
 }

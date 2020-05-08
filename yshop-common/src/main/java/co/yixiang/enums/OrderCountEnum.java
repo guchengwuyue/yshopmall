@@ -7,33 +7,28 @@ import java.util.stream.Stream;
 
 /**
  * @author hupeng
- * 账单相关枚举
+ * 订单相关枚举
  */
 @Getter
 @AllArgsConstructor
-public enum BillEnum {
+public enum OrderCountEnum {
 
-	PM_0(0,"支出"),
-	PM_1(1,"获得"),
-
-	STATUS_0(0,"默认"),
-	STATUS_1(1,"有效"),
-	STATUS_2(2,"无效");
-
-
+	TODAY(1,"今天"),
+	YESTERDAY(2,"昨天"),
+	WEEK(3,"上周"),
+	MONTH(4,"本月");
 
 
 
 	private Integer value;
 	private String desc;
 
-	public static BillEnum toType(int value) {
-		return Stream.of(BillEnum.values())
+	public static OrderCountEnum toType(int value) {
+		return Stream.of(OrderCountEnum.values())
 				.filter(p -> p.value == value)
 				.findAny()
 				.orElse(null);
 	}
-
 
 
 }

@@ -58,3 +58,4 @@ yshop:
     enable: true
     appId: 1607734
     appKey: 81f43a2e-f504-45c4-9b54-2637d59f8190
+  apiUrl: http://127.0.0.1:8009/api

@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import co.yixiang.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
+import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemStore;
 import co.yixiang.modules.shop.service.YxSystemStoreService;
@@ -69,7 +70,7 @@ public class SystemStoreController {
     @ApiOperation("获取经纬度")
     @PreAuthorize("@el.check('yxSystemStore:getl')")
     public ResponseEntity<Object> create(@Validated @RequestBody String jsonStr){
-        String key = RedisUtil.get("tengxun_map_key");
+        String key = RedisUtil.get(RedisKeyEnum.TENGXUN_MAP_KEY.getValue());
         if(StrUtil.isBlank(key)) throw  new BadRequestException("请先配置腾讯地图key");
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String addr = jsonObject.getString("addr");
@@ -103,6 +104,7 @@ public class SystemStoreController {
     @PreAuthorize("@el.check('yxSystemStore:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {
+        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         yxSystemStoreService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }

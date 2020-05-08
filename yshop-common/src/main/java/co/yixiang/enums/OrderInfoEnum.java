@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.stream.Stream;
 
 /**
  * @author hupeng
@@ -50,6 +51,13 @@ public enum OrderInfoEnum {
 
 	private Integer value;
 	private String desc;
+
+	public static OrderInfoEnum toType(int value) {
+		return Stream.of(OrderInfoEnum.values())
+				.filter(p -> p.value == value)
+				.findAny()
+				.orElse(null);
+	}
 
 
 }

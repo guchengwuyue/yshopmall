@@ -7,33 +7,26 @@ import java.util.stream.Stream;
 
 /**
  * @author hupeng
- * 账单相关枚举
+ * 优惠券相关枚举
  */
 @Getter
 @AllArgsConstructor
-public enum BillEnum {
+public enum CouponEnum {
 
-	PM_0(0,"支出"),
-	PM_1(1,"获得"),
-
-	STATUS_0(0,"默认"),
-	STATUS_1(1,"有效"),
-	STATUS_2(2,"无效");
-
-
-
+	TYPE_0(0,"全部"),
+	TYPE_1(1,"未使用"),
+	TYPE_2(2,"已使用");
 
 
 	private Integer value;
 	private String desc;
 
-	public static BillEnum toType(int value) {
-		return Stream.of(BillEnum.values())
+	public static CouponEnum toType(int value) {
+		return Stream.of(CouponEnum.values())
 				.filter(p -> p.value == value)
 				.findAny()
 				.orElse(null);
 	}
-
 
 
 }

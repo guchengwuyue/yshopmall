@@ -6,7 +6,10 @@ import co.yixiang.modules.shop.service.dto.OrderTimeDataDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderDTO;
 import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
 import org.springframework.data.domain.Pageable;
+import java.text.ParseException;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,9 @@ public interface YxStoreOrderService {
     String orderType(int id, int pinkId, int combinationId, int seckillId,int bargainId,int shippingType);
 
     void refund(YxStoreOrder resources);
+
+    void download(List<YxStoreOrderDTO> queryAll, HttpServletResponse response) throws IOException, ParseException;
+
 
     /**
     * 查询数据分页

@@ -2,6 +2,7 @@ package co.yixiang.mp.config;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
+import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.mp.handler.*;
 import co.yixiang.utils.RedisUtil;
 import com.google.common.collect.Maps;
@@ -70,10 +71,10 @@ public class WxMpConfiguration {
         //增加一个redis标识
         if(wxMpService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_MP_SERVICE) == null) {
             WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
-            configStorage.setAppId(RedisUtil.get("wechat_appid"));
-            configStorage.setSecret(RedisUtil.get("wechat_appsecret"));
-            configStorage.setToken(RedisUtil.get("wechat_token"));
-            configStorage.setAesKey(RedisUtil.get("wechat_encodingaeskey"));
+            configStorage.setAppId(RedisUtil.get(RedisKeyEnum.WECHAT_APPID.getValue()));
+            configStorage.setSecret(RedisUtil.get(RedisKeyEnum.WECHAT_APPSECRET.getValue()));
+            configStorage.setToken(RedisUtil.get(RedisKeyEnum.WECHAT_TOKEN.getValue()));
+            configStorage.setAesKey(RedisUtil.get(RedisKeyEnum.WECHAT_ENCODINGAESKEY.getValue()));
             wxMpService = new WxMpServiceImpl();
             wxMpService.setWxMpConfigStorage(configStorage);
             mpServices.put(ShopConstants.YSHOP_WEIXIN_MP_SERVICE, wxMpService);

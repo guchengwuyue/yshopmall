@@ -1,6 +1,7 @@
 package co.yixiang.mp.config;
 
 import co.yixiang.constant.ShopConstants;
+import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.mp.handler.RedisHandler;
 import co.yixiang.utils.RedisUtil;
 import com.github.binarywang.wxpay.config.WxPayConfig;
@@ -39,10 +40,10 @@ public class WxPayConfiguration {
 		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE);
         if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get("wechat_appid"));
-			payConfig.setMchId(RedisUtil.get("wxpay_mchId"));
-			payConfig.setMchKey(RedisUtil.get("wxpay_mchKey"));
-			payConfig.setKeyPath(RedisUtil.get("wxpay_keyPath"));
+			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WECHAT_APPID.getValue()));
+			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
+			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
+			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();
@@ -63,10 +64,10 @@ public class WxPayConfiguration {
 		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_MINI_PAY_SERVICE);
 		if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get("wxapp_appId"));
-			payConfig.setMchId(RedisUtil.get("wxpay_mchId"));
-			payConfig.setMchKey(RedisUtil.get("wxpay_mchKey"));
-			payConfig.setKeyPath(RedisUtil.get("wxpay_keyPath"));
+			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WXAPP_APPID.getValue()));
+			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
+			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
+			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();
@@ -87,10 +88,10 @@ public class WxPayConfiguration {
 		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_APP_PAY_SERVICE);
 		if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get("wx_native_app_appId"));
-			payConfig.setMchId(RedisUtil.get("wxpay_mchId"));
-			payConfig.setMchKey(RedisUtil.get("wxpay_mchKey"));
-			payConfig.setKeyPath(RedisUtil.get("wxpay_keyPath"));
+			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WX_NATIVE_APP_APPID.getValue()));
+			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
+			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
+			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();

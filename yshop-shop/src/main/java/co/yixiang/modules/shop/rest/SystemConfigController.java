@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
+import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemConfig;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
@@ -60,11 +61,11 @@ public class SystemConfigController {
                     yxSystemConfigModel.setMenuName(key);
                     yxSystemConfigModel.setValue(value.toString());
                     //重新配置微信相关
-                    if(key.equals("wechat_appid")){
+                    if(RedisKeyEnum.WECHAT_APPID.getValue().equals(key)){
                         WxMpConfiguration.removeWxMpService();
                         WxPayConfiguration.removeWxPayService();
                     }
-                    if(key.equals("wxpay_mchId") || key.equals("wxapp_appId")){
+                    if( RedisKeyEnum.WXPAY_MCHID.getValue().equals(key) || RedisKeyEnum.WXAPP_APPID.getValue().equals(key)){
                         WxPayConfiguration.removeWxPayService();
                     }
                     RedisUtil.set(key,value.toString(),0);

@@ -4,9 +4,9 @@ import co.yixiang.annotation.Query;
 import lombok.Data;
 
 /**
-* @author hupeng
-* @date 2019-11-10
-*/
+ * @author hupeng
+ * @date 2019-11-10
+ */
 @Data
 public class YxStoreCouponUserQueryCriteria{
 

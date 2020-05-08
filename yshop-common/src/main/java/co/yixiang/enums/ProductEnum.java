@@ -3,6 +3,8 @@ package co.yixiang.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.stream.Stream;
+
 /**
  * @author hupeng
  * 产品相关枚举
@@ -19,6 +21,13 @@ public enum ProductEnum {
 
 	private Integer value;
 	private String desc;
+
+	public static ProductEnum toType(int value) {
+		return Stream.of(ProductEnum.values())
+				.filter(p -> p.value == value)
+				.findAny()
+				.orElse(null);
+	}
 
 
 }

@@ -72,6 +72,7 @@ public class DeptServiceImpl implements DeptService {
         Set<DeptDTO> depts= new LinkedHashSet<>();
         List<String> deptNames = deptDtos.stream().map(DeptDTO::getName).collect(Collectors.toList());
         boolean isChild;
+        List<Dept> deptList = deptRepository.findAll();
         for (DeptDTO deptDTO : deptDtos) {
             isChild = false;
             if ("0".equals(deptDTO.getPid().toString())) {
@@ -88,8 +89,11 @@ public class DeptServiceImpl implements DeptService {
             }
             if(isChild) {
                 depts.add(deptDTO);
-            } else if(!deptNames.contains(deptRepository.findNameById(deptDTO.getPid()))) {
-                depts.add(deptDTO);
+                for (Dept dept : deptList) {
+                    if(dept.getId() == deptDTO.getPid() && !deptNames.contains(dept.getName())){
+                        depts.add(deptDTO);
+                    }
+                }
             }
         }
 

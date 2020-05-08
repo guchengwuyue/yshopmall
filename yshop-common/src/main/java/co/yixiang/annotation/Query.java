@@ -56,6 +56,8 @@ public @interface Query {
         ,BETWEEN
         // 不为空
         ,NOT_NULL
+        // 查询时间
+        ,UNIX_TIMESTAMP
     }
 
     /**

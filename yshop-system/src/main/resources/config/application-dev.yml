@@ -82,8 +82,8 @@ swagger:
 
 # 文件存储路径
 file:
-  path: E:\yshop\file\
-  avatar: E:\yshop\avatar\
+  path: D:\yshop\file\
+  avatar: D:\yshop\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5

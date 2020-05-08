@@ -3,6 +3,8 @@ package co.yixiang.modules.shop.domain;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -63,6 +65,7 @@ public class YxStoreProduct implements Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY,optional = false)
     @JoinColumn(name = "cate_id")
+    @NotFound(action= NotFoundAction.IGNORE)
     private YxStoreCategory storeCategory;
 
     // 商品价格

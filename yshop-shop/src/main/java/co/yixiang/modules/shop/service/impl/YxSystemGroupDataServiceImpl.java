@@ -69,6 +69,9 @@ public class YxSystemGroupDataServiceImpl implements YxSystemGroupDataService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public YxSystemGroupDataDTO create(YxSystemGroupData resources) {
+        if(resources.getStatus() == null){
+            resources.setStatus(1);
+        }
         return yxSystemGroupDataMapper.toDto(yxSystemGroupDataRepository.save(resources));
     }
 

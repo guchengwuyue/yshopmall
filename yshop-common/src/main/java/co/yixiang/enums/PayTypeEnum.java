@@ -3,6 +3,8 @@ package co.yixiang.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.stream.Stream;
+
 /**
  * @author hupeng
  * 支付相关枚举
@@ -17,6 +19,13 @@ public enum PayTypeEnum {
 
 	private String value;
 	private String desc;
+
+	public static PayTypeEnum toType(String value) {
+		return Stream.of(PayTypeEnum.values())
+				.filter(p -> p.value.equals(value))
+				.findAny()
+				.orElse(null);
+	}
 
 
 }

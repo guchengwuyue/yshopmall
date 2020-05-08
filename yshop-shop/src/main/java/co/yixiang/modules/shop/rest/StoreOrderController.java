@@ -22,9 +22,14 @@ import co.yixiang.mp.service.WxMpTemplateMessageService;
 import co.yixiang.mp.service.YxTemplateService;
 import co.yixiang.mp.service.YxWechatTemplateService;
 import co.yixiang.utils.OrderUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -32,7 +37,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,6 +57,9 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("api")
 @Slf4j
 public class StoreOrderController {
+
+    @Value("${yshop.apiUrl}")
+    private String apiUrl;
 
 
     private final YxStoreOrderService yxStoreOrderService;
@@ -243,6 +259,8 @@ public class StoreOrderController {
         if(OrderInfoEnum.PAY_STATUS_0.getValue().equals(storeOrderDTO.getPaid())){
             throw new BadRequestException("订单未支付");
         }
+
+        /**
         if(storeOrderDTO.getStatus() > 0) throw new BadRequestException("订单已核销");
 
         if(storeOrderDTO.getCombinationId() > 0 && storeOrderDTO.getPinkId() > 0){
@@ -251,9 +269,19 @@ public class StoreOrderController {
                 throw new BadRequestException("拼团订单暂未成功无法核销");
             }
         }
+         **/
 
-        resources.setStatus(OrderInfoEnum.STATUS_2.getValue());
-        yxStoreOrderService.update(resources);
+        //远程调用API
+        RestTemplate rest = new RestTemplate();
+        String url = StrUtil.format(apiUrl+"/order/admin/order_verific/{}", resources.getVerifyCode());
+        String text = rest.getForObject(url, String.class);
+
+        JSONObject jsonObject = JSON.parseObject(text);
+
+        Integer status = jsonObject.getInteger("status");
+        String msg = jsonObject.getString("msg");
+
+        if(status != 200) throw new BadRequestException(msg);
 
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -349,5 +377,111 @@ public class StoreOrderController {
         if(!expressInfo.isSuccess()) throw new BadRequestException(expressInfo.getReason());
         return new ResponseEntity(expressInfo, HttpStatus.OK);
     }
+
+    @Log("导出数据")
+    @ApiOperation("导出数据")
+    @GetMapping(value = "/yxStoreOrder/download")
+    @PreAuthorize("@el.check('admin','cate:list')")
+    public void download(HttpServletResponse response,
+                         YxStoreOrderQueryCriteria criteria,
+                         Pageable pageable,
+                         @RequestParam(name = "orderStatus") String orderStatus,
+                         @RequestParam(name = "orderType") String orderType,
+                         @RequestParam(name = "listContent") String listContent) throws IOException, ParseException {
+        List<YxStoreOrderDTO> list = (List)getYxStoreList(criteria, pageable, orderStatus, orderType).get("content");
+        if(StringUtils.isEmpty(listContent)){
+            yxStoreOrderService.download(list, response);
+        }else {
+            List<String> idList = JSONArray.parseArray(listContent).toJavaList(String.class);
+            List<YxStoreOrderDTO> yxStoreOrderDTOS = new ArrayList<>();
+            for(YxStoreOrderDTO yx : list){
+                for(String ids : idList){
+                    if(yx.getOrderId().equals(ids)){
+                        yxStoreOrderDTOS.add(yx);
+                    }
+                }
+            }
+            yxStoreOrderService.download(yxStoreOrderDTOS, response);
+        }
+    }
+
+    public Map<String,Object> getYxStoreList(YxStoreOrderQueryCriteria criteria,
+                                             Pageable pageable,
+                                             String orderStatus,
+                                             String orderType){
+        criteria.setShippingType(1);//默认查询所有快递订单
+        //订单状态查询
+        if (StrUtil.isNotEmpty(orderStatus)) {
+            switch (orderStatus) {
+                case "0":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(0);
+                    criteria.setStatus(0);
+                    criteria.setRefundStatus(0);
+                    break;
+                case "1":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setStatus(0);
+                    criteria.setRefundStatus(0);
+                    break;
+                case "2":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setStatus(1);
+                    criteria.setRefundStatus(0);
+                    break;
+                case "3":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setStatus(2);
+                    criteria.setRefundStatus(0);
+                    break;
+                case "4":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setStatus(3);
+                    criteria.setRefundStatus(0);
+                    break;
+                case "-1":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setRefundStatus(1);
+                    break;
+                case "-2":
+                    criteria.setIsDel(0);
+                    criteria.setPaid(1);
+                    criteria.setRefundStatus(2);
+                    break;
+                case "-4":
+                    criteria.setIsDel(1);
+                    break;
+            }
+        }
+        //订单类型查询
+        if (StrUtil.isNotEmpty(orderType)) {
+            switch (orderType) {
+                case "1":
+                    criteria.setBargainId(0);
+                    criteria.setCombinationId(0);
+                    criteria.setSeckillId(0);
+                    break;
+                case "2":
+                    criteria.setNewCombinationId(0);
+                    break;
+                case "3":
+                    criteria.setNewSeckillId(0);
+                    break;
+                case "4":
+                    criteria.setNewBargainId(0);
+                    break;
+                case "5":
+                    criteria.setShippingType(2);
+                    break;
+            }
+        }
+        return yxStoreOrderService.queryAll(criteria, pageable);
+    }
+
 
 }
