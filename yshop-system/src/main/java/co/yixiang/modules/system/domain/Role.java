@@ -1,84 +1,69 @@
+/**
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
- * 角色
- * @author Zheng Jie
- * @date 2018-11-22
- */
-@Entity
-@Table(name = "role")
-@Getter
-@Setter
+* @author hupeng
+* @date 2020-05-14
+*/
+@Data
+@TableName("role")
 public class Role implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = {Update.class})
+    /** ID */
+    @TableId
     private Long id;
 
-    @Column(nullable = false)
-    @NotBlank
+
+    /** 名称 */
+    @NotBlank(message = "请填写角色名称")
     private String name;
 
-    /** 数据权限类型 全部 、 本级 、 自定义 */
-    @Column(name = "data_scope")
-    private String dataScope = "本级";
 
-    /** 数值越小，级别越大 */
-    @Column(name = "level")
-    private Integer level = 3;
-
-    @Column
+    /** 备注 */
     private String remark;
 
-    /** 权限 */
-    @Column(name = "permission")
-    private String permission;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    /** 数据权限 */
+    private String dataScope;
 
-    @ManyToMany
-    @JoinTable(name = "roles_menus", joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "menu_id",referencedColumnName = "id")})
+
+    /** 角色级别 */
+    private Integer level;
+
+    @TableField(exist = false)
     private Set<Menu> menus;
 
-    @ManyToMany
-    @JoinTable(name = "roles_depts", joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "dept_id",referencedColumnName = "id")})
+    @TableField(exist = false)
     private Set<Dept> depts;
 
-    @Column(name = "create_time")
-    @CreationTimestamp
+    /** 创建日期 */
+    @TableField(fill= FieldFill.INSERT)
     private Timestamp createTime;
 
-    public @interface Update {}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Role role = (Role) o;
-        return Objects.equals(id, role.id);
-    }
+    /** 功能权限 */
+    private String permission;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    public void copy(Role source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

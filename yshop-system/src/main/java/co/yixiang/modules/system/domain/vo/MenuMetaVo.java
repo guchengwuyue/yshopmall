@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.domain.vo;
 
 import lombok.AllArgsConstructor;
@@ -5,7 +10,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-12-20
  */
 @Data

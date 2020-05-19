@@ -1,17 +1,20 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
-
+import java.io.Serializable;
 
 /**
 * @author hupeng
-* @date 2019-11-09
+* @date 2020-05-13
 */
 @Data
-public class YxStoreCouponDTO implements Serializable {
+public class YxStoreCouponDto implements Serializable {
 
     // 优惠券表ID
     private Integer id;

@@ -1,43 +1,44 @@
-package co.yixiang.modules.shop.domain;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.domain;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import lombok.Data;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
 * @author hupeng
-* @date 2019-10-10
+* @date 2020-05-12
 */
-@Entity
+
 @Data
-@Table(name="yx_system_config")
+@TableName("yx_system_config")
 public class YxSystemConfig implements Serializable {
 
-    // 配置id
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    /** 配置id */
+    @TableId
     private Integer id;
 
-    // 字段名称
-    @Column(name = "menu_name",nullable = false)
+
+    /** 字段名称 */
     private String menuName;
 
 
-    // 默认值
-    @Column(name = "value")
+    /** 默认值 */
     private String value;
 
-    // 排序
-    @Column(name = "sort",nullable = false)
+
+    /** 排序 */
     private Integer sort;
 
-    // 是否隐藏
-    @Column(name = "status",nullable = false)
+
+    /** 是否隐藏 */
     private Integer status;
+
 
     public void copy(YxSystemConfig source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

@@ -1,5 +1,10 @@
-package co.yixiang.modules.shop.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.shop.domain.YxSystemStoreStaff;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffDto;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffQueryCriteria;
@@ -11,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2020-03-22
+* @date 2020-05-12
 */
-public interface YxSystemStoreStaffService {
+public interface YxSystemStoreStaffService  extends BaseService<YxSystemStoreStaff>{
 
-    /**
+/**
     * 查询数据分页
     * @param criteria 条件
     * @param pageable 分页参数
@@ -28,33 +33,7 @@ public interface YxSystemStoreStaffService {
     * @param criteria 条件参数
     * @return List<YxSystemStoreStaffDto>
     */
-    List<YxSystemStoreStaffDto> queryAll(YxSystemStoreStaffQueryCriteria criteria);
-
-    /**
-     * 根据ID查询
-     * @param id ID
-     * @return YxSystemStoreStaffDto
-     */
-    YxSystemStoreStaffDto findById(Integer id);
-
-    /**
-    * 创建
-    * @param resources /
-    * @return YxSystemStoreStaffDto
-    */
-    YxSystemStoreStaffDto create(YxSystemStoreStaff resources);
-
-    /**
-    * 编辑
-    * @param resources /
-    */
-    void update(YxSystemStoreStaff resources);
-
-    /**
-    * 多选删除
-    * @param ids /
-    */
-    void deleteAll(Integer[] ids);
+    List<YxSystemStoreStaff> queryAll(YxSystemStoreStaffQueryCriteria criteria);
 
     /**
     * 导出数据

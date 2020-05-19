@@ -1,53 +1,59 @@
+/**
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.service;
-
-import co.yixiang.modules.system.service.dto.UserDTO;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.system.domain.User;
+import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.modules.system.service.dto.UserQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import java.util.Map;
 import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Zheng Jie
- * @date 2018-11-23
- */
-public interface UserService {
+* @author hupeng
+* @date 2020-05-14
+*/
+public interface UserService  extends BaseService<User>{
+
+/**
+    * 查询数据分页
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
+    */
+    Map<String,Object> queryAll(UserQueryCriteria criteria, Pageable pageable);
 
     /**
-     * 根据ID查询
-     * @param id ID
-     * @return /
-     */
-    UserDTO findById(long id);
+    * 查询所有数据不分页
+    * @param criteria 条件参数
+    * @return List<UserDto>
+    */
+    List<User> queryAll(UserQueryCriteria criteria);
 
     /**
-     * 新增用户
-     * @param resources /
-     * @return /
-     */
-    UserDTO create(User resources);
-
-    /**
-     * 编辑用户
-     * @param resources /
-     */
-    void update(User resources);
-
-    /**
-     * 删除用户
-     * @param ids /
-     */
-    void delete(Set<Long> ids);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<UserDto> all, HttpServletResponse response) throws IOException;
 
     /**
      * 根据用户名查询
      * @param userName /
      * @return /
      */
-    UserDTO findByName(String userName);
+    UserDto findByName(String userName);
 
     /**
      * 修改密码
@@ -58,9 +64,9 @@ public interface UserService {
 
     /**
      * 修改头像
-     * @param file 文件
+     * @param multipartFile 文件
      */
-    void updateAvatar(MultipartFile file);
+    void updateAvatar(MultipartFile multipartFile);
 
     /**
      * 修改邮箱
@@ -70,31 +76,16 @@ public interface UserService {
     void updateEmail(String username, String email);
 
     /**
-     * 查询全部
-     * @param criteria 条件
-     * @param pageable 分页参数
+     * 新增用户
+     * @param resources /
      * @return /
      */
-    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
+    boolean create(User resources);
 
     /**
-     * 查询全部不分页
-     * @param criteria 条件
-     * @return /
-     */
-    List<UserDTO> queryAll(UserQueryCriteria criteria);
-
-    /**
-     * 导出数据
-     * @param queryAll 待导出的数据
-     * @param response /
-     * @throws IOException /
-     */
-    void download(List<UserDTO> queryAll, HttpServletResponse response) throws IOException;
-
-    /**
-     * 用户自助修改资料
+     * 编辑用户
      * @param resources /
      */
-    void updateCenter(User resources);
+    void update(User resources);
+
 }

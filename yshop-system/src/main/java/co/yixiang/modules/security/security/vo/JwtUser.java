@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.security.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +16,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-11-23
  */
 @Getter

@@ -1,64 +1,45 @@
-package co.yixiang.modules.activity.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.activity.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
-import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserDTO;
+import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserDto;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-11-09
+* @date 2020-05-13
 */
-//@CacheConfig(cacheNames = "yxStoreCouponIssueUser")
-public interface YxStoreCouponIssueUserService {
+public interface YxStoreCouponIssueUserService  extends BaseService<YxStoreCouponIssueUser>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxStoreCouponIssueUserDto>
     */
-    //@Cacheable
-    List<YxStoreCouponIssueUserDTO> queryAll(YxStoreCouponIssueUserQueryCriteria criteria);
+    List<YxStoreCouponIssueUser> queryAll(YxStoreCouponIssueUserQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxStoreCouponIssueUserDTO findById(Integer id);
-
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxStoreCouponIssueUserDTO create(YxStoreCouponIssueUser resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxStoreCouponIssueUser resources);
-
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxStoreCouponIssueUserDto> all, HttpServletResponse response) throws IOException;
 }

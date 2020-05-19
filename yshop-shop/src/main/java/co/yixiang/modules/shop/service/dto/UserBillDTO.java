@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -8,7 +13,7 @@ import lombok.Data;
  * @Date 2019/12/11
  **/
 @Data
-public class UserBillDTO {
+public class UserBillDto {
     private Integer pm;
     private String gtitle;
     private String category;

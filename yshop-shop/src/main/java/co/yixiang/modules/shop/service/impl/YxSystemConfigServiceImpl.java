@@ -1,85 +1,85 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.modules.shop.domain.YxSystemConfig;
-import co.yixiang.modules.shop.repository.YxSystemConfigRepository;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.utils.*;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
-import co.yixiang.modules.shop.service.dto.YxSystemConfigDTO;
+import co.yixiang.modules.shop.service.dto.YxSystemConfigDto;
 import co.yixiang.modules.shop.service.dto.YxSystemConfigQueryCriteria;
-import co.yixiang.modules.shop.service.mapper.YxSystemConfigMapper;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import co.yixiang.modules.shop.service.mapper.SystemConfigMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2019-10-10
+* @date 2020-05-12
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxSystemConfig")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxSystemConfigServiceImpl implements YxSystemConfigService {
+public class YxSystemConfigServiceImpl extends BaseServiceImpl<SystemConfigMapper, YxSystemConfig> implements YxSystemConfigService {
 
-    private final YxSystemConfigRepository yxSystemConfigRepository;
+    private final IGenerator generator;
 
-    private final YxSystemConfigMapper yxSystemConfigMapper;
+    @Override
+    //@Cacheable
+    public Map<String, Object> queryAll(YxSystemConfigQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxSystemConfig> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxSystemConfigDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
+    }
 
-    public YxSystemConfigServiceImpl(YxSystemConfigRepository yxSystemConfigRepository, YxSystemConfigMapper yxSystemConfigMapper) {
-        this.yxSystemConfigRepository = yxSystemConfigRepository;
-        this.yxSystemConfigMapper = yxSystemConfigMapper;
+
+    @Override
+    //@Cacheable
+    public List<YxSystemConfig> queryAll(YxSystemConfigQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemConfig.class, criteria));
+    }
+
+
+    @Override
+    public void download(List<YxSystemConfigDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxSystemConfigDto yxSystemConfig : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("字段名称", yxSystemConfig.getMenuName());
+            map.put("默认值", yxSystemConfig.getValue());
+            map.put("排序", yxSystemConfig.getSort());
+            map.put("是否隐藏", yxSystemConfig.getStatus());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 
     @Override
-    public Map<String,Object> queryAll(YxSystemConfigQueryCriteria criteria, Pageable pageable){
-        Page<YxSystemConfig> page = yxSystemConfigRepository
-                .findAll((root, criteriaQuery, criteriaBuilder)
-                        -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(yxSystemConfigMapper::toDto));
-    }
-
-    @Override
-    public List<YxSystemConfigDTO> queryAll(YxSystemConfigQueryCriteria criteria){
-        return yxSystemConfigMapper.toDto(yxSystemConfigRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
-
-    @Override
-    public YxSystemConfigDTO findById(Integer id) {
-        Optional<YxSystemConfig> yxSystemConfig = yxSystemConfigRepository.findById(id);
-        ValidationUtil.isNull(yxSystemConfig,"YxSystemConfig","id",id);
-        return yxSystemConfigMapper.toDto(yxSystemConfig.get());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxSystemConfigDTO create(YxSystemConfig resources) {
-        return yxSystemConfigMapper.toDto(yxSystemConfigRepository.save(resources));
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxSystemConfig resources) {
-        Optional<YxSystemConfig> optionalYxSystemConfig = yxSystemConfigRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxSystemConfig,"YxSystemConfig","id",resources.getId());
-        YxSystemConfig yxSystemConfig = optionalYxSystemConfig.get();
-        yxSystemConfig.copy(resources);
-        yxSystemConfigRepository.save(yxSystemConfig);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxSystemConfigRepository.deleteById(id);
-    }
-
-    @Override
-    public YxSystemConfig findByKey(String str) {
-        return yxSystemConfigRepository.findByMenuName(str);
+    public YxSystemConfig findByKey(String key) {
+        return this.getOne(new QueryWrapper<YxSystemConfig>().eq("menu_name",key));
     }
 }

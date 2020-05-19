@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * WebMvcConfigurer
  *
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-11-30
  */
 @Configuration

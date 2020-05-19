@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -11,7 +16,7 @@ import java.util.Map;
  **/
 
 @Data
-public class ProductFormatDTO {
+public class ProductFormatDto {
 
     private Double price;
 
@@ -26,6 +31,6 @@ public class ProductFormatDTO {
     //private List<Map<String, String>> detail;
     private Map<String, String> detail;
     private Boolean check;
-    
+
 
 }

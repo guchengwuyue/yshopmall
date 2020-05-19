@@ -1,94 +1,93 @@
+/**
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import javax.validation.constraints.*;
 import java.sql.Timestamp;
-import java.util.Objects;
-import java.util.Set;
+import java.io.Serializable;
 
 /**
- * @author Zheng Jie
- * @date 2018-12-17
- */
-@Entity
-@Getter
-@Setter
-@Table(name = "menu")
+* @author hupeng
+* @date 2020-05-14
+*/
+@Data
+@TableName("menu")
 public class Menu implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(groups = {Update.class})
+    /** ID */
+    @TableId
     private Long id;
 
-    @NotBlank
-    private String name;
 
-    @Column(unique = true)
-    private Long sort = 999L;
-
-    @Column(name = "path")
-    private String path;
-
-    private String component;
-
-    /** 类型，目录、菜单、按钮 */
-    @Column(name = "type")
-    private Integer type;
-
-    /** 权限 */
-    @Column(name = "permission")
-    private String permission;
-
-    @Column(unique = true,name = "component_name")
-    private String componentName;
-
-    private String icon;
-
-    @Column(columnDefinition = "bit(1) default 0")
-    private Boolean cache;
-
-    @Column(columnDefinition = "bit(1) default 0")
-    private Boolean hidden;
-
-    /** 上级菜单ID */
-    @Column(name = "pid",nullable = false)
-    private Long pid;
-
-    /** 是否为外链 true/false */
-    @Column(name = "i_frame")
+    /** 是否外链 */
     private Boolean iFrame;
 
-    @ManyToMany(mappedBy = "menus")
-    @JsonIgnore
-    private Set<Role> roles;
 
-    @Column(name = "create_time")
-    @CreationTimestamp
+    /** 菜单名称 */
+    @NotBlank(message = "请填写菜单名称")
+    private String name;
+
+
+    /** 组件 */
+    private String component;
+
+
+    /** 上级菜单ID */
+    @NotNull(message = "上级菜单ID不能为空")
+    private Long pid;
+
+
+    /** 排序 */
+    @NotNull(message = "排序不能为空")
+    private Long sort;
+
+
+    /** 图标 */
+    private String icon;
+
+
+    /** 链接地址 */
+    private String path;
+
+
+    /** 缓存 */
+    private Boolean cache;
+
+
+    /** 是否隐藏 */
+    private Boolean hidden;
+
+
+    /** 组件名称 */
+    private String componentName;
+
+
+    /** 创建日期 */
+    @TableField(fill= FieldFill.INSERT)
     private Timestamp createTime;
 
-    public @interface Update {}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Menu menu = (Menu) o;
-        return Objects.equals(id, menu.id);
-    }
+    /** 权限 */
+    private String permission;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    /** 类型，目录、菜单、按钮 */
+    private Integer type;
+
+
+    public void copy(Menu source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

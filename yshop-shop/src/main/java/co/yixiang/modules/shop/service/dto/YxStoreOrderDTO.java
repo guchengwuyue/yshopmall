@@ -1,20 +1,21 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
-import co.yixiang.modules.shop.domain.YxUser;
 import lombok.Data;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.List;
-
 
 /**
 * @author hupeng
-* @date 2019-10-14
+* @date 2020-05-12
 */
 @Data
-public class YxStoreOrderDTO implements Serializable {
-
+public class YxStoreOrderDto implements Serializable {
     // 订单ID
     private Integer id;
 
@@ -29,7 +30,7 @@ public class YxStoreOrderDTO implements Serializable {
     //订单类型
     private String pinkName;
 
-    private List<StoreOrderCartInfoDTO> cartInfoList;
+    private List<StoreOrderCartInfoDto> cartInfoList;
 
 
     // 订单号
@@ -38,7 +39,7 @@ public class YxStoreOrderDTO implements Serializable {
     // 用户id
     private Integer uid;
 
-    private YxUserDTO userDTO;
+    private YxUserDto userDTO;
 
     // 用户姓名
     private String realName;

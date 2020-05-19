@@ -1,11 +1,14 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.enums.RedisKeyEnum;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemConfig;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.dto.YxSystemConfigQueryCriteria;
@@ -14,6 +17,8 @@ import co.yixiang.mp.config.WxPayConfiguration;
 import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.CacheEvict;
@@ -56,7 +61,8 @@ public class SystemConfigController {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         jsonObject.forEach(
                 (key,value)->{
-                    YxSystemConfig yxSystemConfig = yxSystemConfigService.findByKey(key);
+                    YxSystemConfig yxSystemConfig = yxSystemConfigService.getOne(new LambdaQueryWrapper<YxSystemConfig>()
+                            .eq(YxSystemConfig::getMenuName,key));
                     YxSystemConfig yxSystemConfigModel = new YxSystemConfig();
                     yxSystemConfigModel.setMenuName(key);
                     yxSystemConfigModel.setValue(value.toString());
@@ -70,10 +76,10 @@ public class SystemConfigController {
                     }
                     RedisUtil.set(key,value.toString(),0);
                     if(ObjectUtil.isNull(yxSystemConfig)){
-                        yxSystemConfigService.create(yxSystemConfigModel);
+                        yxSystemConfigService.save(yxSystemConfigModel);
                     }else{
                         yxSystemConfigModel.setId(yxSystemConfig.getId());
-                        yxSystemConfigService.update(yxSystemConfigModel);
+                        yxSystemConfigService.saveOrUpdate(yxSystemConfigModel);
                     }
                 }
         );

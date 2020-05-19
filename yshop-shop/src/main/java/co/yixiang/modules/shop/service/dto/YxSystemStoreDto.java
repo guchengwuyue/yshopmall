@@ -1,14 +1,17 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
-
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
 * @author hupeng
-* @date 2020-03-03
+* @date 2020-05-12
 */
 @Data
 public class YxSystemStoreDto implements Serializable {
@@ -54,11 +57,12 @@ public class YxSystemStoreDto implements Serializable {
     /** 是否删除 */
     private Integer isDel;
 
+    private Date validTimeEnd;
+
+    private Date validTimeStart;
+
     private Date dayTimeStart;
 
     private Date dayTimeEnd;
 
-    private Date validTimeStart;
-
-    private Date validTimeEnd;
 }

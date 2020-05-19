@@ -1,16 +1,21 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.mapper;
 
-import co.yixiang.mapper.EntityMapper;
+import co.yixiang.common.mapper.CoreMapper;
 import co.yixiang.modules.activity.domain.YxStoreSeckill;
-import co.yixiang.modules.activity.service.dto.YxStoreSeckillDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
-* @author xuwenbo
-* @date 2019-12-14
+* @author hupeng
+* @date 2020-05-13
 */
-@Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface YxStoreSeckillMapper extends EntityMapper<YxStoreSeckillDTO, YxStoreSeckill> {
+@Repository
+@Mapper
+public interface YxStoreSeckillMapper extends CoreMapper<YxStoreSeckill> {
 
 }

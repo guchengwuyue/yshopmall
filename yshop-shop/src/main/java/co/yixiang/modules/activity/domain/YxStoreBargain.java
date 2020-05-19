@@ -1,175 +1,180 @@
-package co.yixiang.modules.activity.domain;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.activity.domain;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.*;
+import java.sql.Timestamp;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.io.Serializable;
 
 /**
-* @author xuwenbo
-* @date 2019-12-22
+* @author hupeng
+* @date 2020-05-13
 */
-@Entity
 @Data
-@Table(name="yx_store_bargain")
+@TableName(value="yx_store_bargain")
 public class YxStoreBargain implements Serializable {
 
-    // 砍价产品ID
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    /** 砍价产品ID */
+    @TableId
     private Integer id;
 
-    // 关联产品ID
-    @Column(name = "product_id",nullable = false)
+
+    /** 关联产品ID */
     private Integer productId;
 
-    // 砍价活动名称
-    @Column(name = "title",nullable = false)
-    @NotBlank(message = "请输入砍价活动名称")
+
+    /** 砍价活动名称 */
+    @NotBlank(message = "请填写砍价名称")
     private String title;
 
-    // 砍价活动图片
-    @Column(name = "image",nullable = false)
-    @NotBlank(message = "请上传产品图片")
+
+    /** 砍价活动图片 */
+    @NotBlank(message = "请上传商品图片")
     private String image;
 
-    // 单位名称
-    @Column(name = "unit_name")
-    @NotBlank(message = "单位名不能为空")
+
+    /** 单位名称 */
     private String unitName;
 
-    // 库存
-    @Column(name = "stock")
-    @NotNull(message = "库存必填")
+
+    /** 库存 */
+    @NotNull(message = "请输入库存")
+    @Min(message = "库存不能小于0",value = 1)
     private Integer stock;
 
-    // 销量
-    @Column(name = "sales")
-    @NotNull(message = "销量必填")
+
+    /** 销量 */
     private Integer sales;
 
-    // 砍价产品轮播图
-    @Column(name = "images",nullable = false)
-    @NotBlank(message = "请上传产品轮播图")
+
+    /** 砍价产品轮播图 */
+    @NotBlank(message = "请上传商品轮播")
     private String images;
 
-    // 砍价开启时间
-    @Column(name = "start_time",nullable = false)
+
+    /** 砍价开启时间 */
     private Integer startTime;
 
-    // 砍价结束时间
-    @Column(name = "stop_time",nullable = false)
+
+    /** 砍价结束时间 */
     private Integer stopTime;
 
-    @NotNull(message = "开始时间不能为空")
-    private Date startTimeDate;
 
-    @NotNull(message = "结束时间不能为空")
-    private Date endTimeDate;
-
-    // 砍价产品名称
-    @Column(name = "store_name")
+    /** 砍价产品名称 */
     private String storeName;
 
-    // 砍价金额
-    @Column(name = "price")
-    @NotNull(message = "砍价金额必填")
-    @Min(value = 0,message = "砍价金额必须大于等于0")
+
+    /** 砍价金额 */
+    @NotNull(message = "请输入砍价金额")
+    @DecimalMin(value="0.00", message = "砍价金额不在合法范围内" )
+    @DecimalMax(value="99999999.99", message = "砍价金额不在合法范围内")
     private BigDecimal price;
 
-    // 砍价商品最低价
-    @Column(name = "min_price")
-    @NotNull(message = "砍价商品最低价必填")
-    @Min(value = 0,message = "砍价商品最低价必须大于等于0")
+
+    /** 砍价商品最低价 */
+    @NotNull(message = "请输入砍到最低价")
+    @DecimalMin(value="0.00", message = "砍到最低价不在合法范围内" )
+    @DecimalMax(value="99999999.99", message = "砍到最低价不在合法范围内")
     private BigDecimal minPrice;
 
-    // 每次购买的砍价产品数量
-    @Column(name = "num")
-    @NotNull(message = "购买的砍价产品数量必填")
-    @Min(value = 0,message = "购买的砍价产品数量必须大于等于0")
+
+    /** 每次购买的砍价产品数量 */
+    @NotNull(message = "请输入限购")
+    @Min(message = "限购不能小于0",value = 1)
     private Integer num;
 
-    // 用户每次砍价的最大金额
-    @Column(name = "bargain_max_price")
-    @NotNull(message = "砍价的最大金额必填")
+
+    /** 用户每次砍价的最大金额 */
+    @NotNull(message = "请输入单次砍最高价")
+    @DecimalMin(value="0.00", message = "单次砍最高价不在合法范围内" )
+    @DecimalMax(value="99999999.99", message = "单次砍最高价不在合法范围内")
     private BigDecimal bargainMaxPrice;
 
-    // 用户每次砍价的最小金额
-    @Column(name = "bargain_min_price")
-    @NotNull(message = "砍价的最小金额必填")
+
+    /** 用户每次砍价的最小金额 */
+    @NotNull(message = "请输入单次砍最低价")
+    @DecimalMin(value="0.00", message = "单次砍最低价不在合法范围内" )
+    @DecimalMax(value="99999999.99", message = "单次砍最低价小金额不在合法范围内")
     private BigDecimal bargainMinPrice;
 
-    // 用户每次砍价的次数
-    @Column(name = "bargain_num",insertable = false)
+
+    /** 用户每次砍价的次数 */
+    @NotNull(message = "请输入砍价的次数")
+    @Min(message = "砍价的次数不能小于0",value = 1)
     private Integer bargainNum;
 
-    // 砍价状态 0(到砍价时间不自动开启)  1(到砍价时间自动开启时间)
-    @Column(name = "status",nullable = false)
-    @NotNull(message = "请选择活动状态")
+
+    /** 砍价状态 0(到砍价时间不自动开启)  1(到砍价时间自动开启时间) */
     private Integer status;
 
-    // 砍价详情
-    @Column(name = "description")
+
+    /** 砍价详情 */
+    @NotBlank(message = "请填写详情")
     private String description;
 
-    // 反多少积分
-    @Column(name = "give_integral",insertable = false)
+
+    /** 反多少积分 */
     private BigDecimal giveIntegral;
 
-    // 砍价活动简介
-    @Column(name = "info")
+
+    /** 砍价活动简介 */
     private String info;
 
-    // 成本价
-    @Column(name = "cost")
-    @NotNull(message = "成本价必填")
+
+    /** 成本价 */
     private BigDecimal cost;
 
-    // 排序
-    @Column(name = "sort",nullable = false)
-    @NotNull(message = "排序必填")
+
+    /** 排序 */
     private Integer sort;
 
-    // 是否推荐0不推荐1推荐
-    @Column(name = "is_hot",insertable = false)
+
+    /** 是否推荐0不推荐1推荐 */
     private Integer isHot;
 
-    // 是否删除 0未删除 1删除
-    @Column(name = "is_del",insertable = false)
+
+    /** 是否删除 0未删除 1删除 */
     private Integer isDel;
 
-    // 添加时间
-    @Column(name = "add_time")
+
+    /** 添加时间 */
     private Integer addTime;
 
-    // 是否包邮 0不包邮 1包邮
-    @Column(name = "is_postage",nullable = false)
-    @NotNull(message = "请选择是否包邮")
+
+    /** 是否包邮 0不包邮 1包邮 */
     private Integer isPostage;
 
-    // 邮费
-    @Column(name = "postage")
+
+    /** 邮费 */
     private BigDecimal postage;
 
-    // 砍价规则
-    @Column(name = "rule")
+
+    /** 砍价规则 */
+    @NotBlank(message = "请填写砍价规则")
     private String rule;
 
-    // 砍价产品浏览量
-    @Column(name = "look",insertable = false)
+
+    /** 砍价产品浏览量 */
     private Integer look;
 
-    // 砍价产品分享量
-    @Column(name = "share",insertable = false)
+
+    /** 砍价产品分享量 */
     private Integer share;
+
+    @NotNull(message = "请选择结束时间")
+    private Timestamp endTimeDate;
+
+    @NotNull(message = "请选择开始时间")
+    private Timestamp startTimeDate;
+
 
     public void copy(YxStoreBargain source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

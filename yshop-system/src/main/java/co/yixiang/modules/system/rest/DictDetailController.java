@@ -1,7 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.system.domain.DictDetail;
 import co.yixiang.modules.system.service.DictDetailService;
@@ -21,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* @author Zheng Jie
+* @author hupeng
 * @date 2019-04-10
 */
 @RestController
@@ -30,7 +34,6 @@ import java.util.Map;
 public class DictDetailController {
 
     private final DictDetailService dictDetailService;
-
     private static final String ENTITY_NAME = "dictDetail";
 
     public DictDetailController(DictDetailService dictDetailService) {
@@ -67,16 +70,17 @@ public class DictDetailController {
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
-        return new ResponseEntity<>(dictDetailService.create(resources),HttpStatus.CREATED);
+        resources.setDictId(resources.getDict().getId());
+        return new ResponseEntity<>(dictDetailService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改字典详情")
     @ApiOperation("修改字典详情")
     @PutMapping
     @PreAuthorize("@el.check('admin','dict:edit')")
-    public ResponseEntity<Object> update(@Validated(DictDetail.Update.class) @RequestBody DictDetail resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody DictDetail resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        dictDetailService.update(resources);
+        dictDetailService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -86,7 +90,7 @@ public class DictDetailController {
     @PreAuthorize("@el.check('admin','dict:del')")
     public ResponseEntity<Object> delete(@PathVariable Long id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        dictDetailService.delete(id);
+        dictDetailService.removeById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

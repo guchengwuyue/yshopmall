@@ -1,78 +1,82 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
-import co.yixiang.modules.activity.repository.YxStoreCouponIssueUserRepository;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.ValidationUtil;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
-import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserDTO;
+import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserDto;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreCouponIssueUserMapper;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import co.yixiang.utils.PageUtil;
+import co.yixiang.utils.QueryHelp;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2019-11-09
+* @date 2020-05-13
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxStoreCouponIssueUser")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxStoreCouponIssueUserServiceImpl implements YxStoreCouponIssueUserService {
+public class YxStoreCouponIssueUserServiceImpl extends BaseServiceImpl<YxStoreCouponIssueUserMapper, YxStoreCouponIssueUser> implements YxStoreCouponIssueUserService {
 
-    private final YxStoreCouponIssueUserRepository yxStoreCouponIssueUserRepository;
-
-    private final YxStoreCouponIssueUserMapper yxStoreCouponIssueUserMapper;
-
-    public YxStoreCouponIssueUserServiceImpl(YxStoreCouponIssueUserRepository yxStoreCouponIssueUserRepository, YxStoreCouponIssueUserMapper yxStoreCouponIssueUserMapper) {
-        this.yxStoreCouponIssueUserRepository = yxStoreCouponIssueUserRepository;
-        this.yxStoreCouponIssueUserMapper = yxStoreCouponIssueUserMapper;
-    }
+    private final IGenerator generator;
 
     @Override
-    public Map<String,Object> queryAll(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable){
-        Page<YxStoreCouponIssueUser> page = yxStoreCouponIssueUserRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(yxStoreCouponIssueUserMapper::toDto));
+    //@Cacheable
+    public Map<String, Object> queryAll(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxStoreCouponIssueUser> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxStoreCouponIssueUserDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
     }
 
-    @Override
-    public List<YxStoreCouponIssueUserDTO> queryAll(YxStoreCouponIssueUserQueryCriteria criteria){
-        return yxStoreCouponIssueUserMapper.toDto(yxStoreCouponIssueUserRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
 
     @Override
-    public YxStoreCouponIssueUserDTO findById(Integer id) {
-        Optional<YxStoreCouponIssueUser> yxStoreCouponIssueUser = yxStoreCouponIssueUserRepository.findById(id);
-        ValidationUtil.isNull(yxStoreCouponIssueUser,"YxStoreCouponIssueUser","id",id);
-        return yxStoreCouponIssueUserMapper.toDto(yxStoreCouponIssueUser.get());
+    //@Cacheable
+    public List<YxStoreCouponIssueUser> queryAll(YxStoreCouponIssueUserQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCouponIssueUser.class, criteria));
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxStoreCouponIssueUserDTO create(YxStoreCouponIssueUser resources) {
-        return yxStoreCouponIssueUserMapper.toDto(yxStoreCouponIssueUserRepository.save(resources));
-    }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxStoreCouponIssueUser resources) {
-        Optional<YxStoreCouponIssueUser> optionalYxStoreCouponIssueUser = yxStoreCouponIssueUserRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxStoreCouponIssueUser,"YxStoreCouponIssueUser","id",resources.getId());
-        YxStoreCouponIssueUser yxStoreCouponIssueUser = optionalYxStoreCouponIssueUser.get();
-        yxStoreCouponIssueUser.copy(resources);
-        yxStoreCouponIssueUserRepository.save(yxStoreCouponIssueUser);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxStoreCouponIssueUserRepository.deleteById(id);
+    public void download(List<YxStoreCouponIssueUserDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxStoreCouponIssueUserDto yxStoreCouponIssueUser : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("领取优惠券用户ID", yxStoreCouponIssueUser.getUid());
+            map.put("优惠券前台领取ID", yxStoreCouponIssueUser.getIssueCouponId());
+            map.put("领取时间", yxStoreCouponIssueUser.getAddTime());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 }

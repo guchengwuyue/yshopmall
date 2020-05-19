@@ -1,67 +1,47 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service;
-
-
+import co.yixiang.common.service.BaseService;
 import co.yixiang.mp.domain.YxWechatMenu;
-import co.yixiang.mp.service.dto.YxWechatMenuDTO;
+import co.yixiang.mp.service.dto.YxWechatMenuDto;
 import co.yixiang.mp.service.dto.YxWechatMenuQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-10-06
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "YxWechatMenu")
-public interface YxWechatMenuService {
+public interface YxWechatMenuService  extends BaseService<YxWechatMenu>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxWechatMenuQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxWechatMenuDto>
     */
-    //@Cacheable
-    List<YxWechatMenuDTO> queryAll(YxWechatMenuQueryCriteria criteria);
+    List<YxWechatMenu> queryAll(YxWechatMenuQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param key
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxWechatMenuDTO findById(String key);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxWechatMenuDto> all, HttpServletResponse response) throws IOException;
 
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxWechatMenuDTO create(YxWechatMenu resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxWechatMenu resources);
-
-    /**
-     * 删除
-     * @param key
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(String key);
-
-    boolean isExist(String key);
+    Boolean isExist(String wechat_menus);
 }

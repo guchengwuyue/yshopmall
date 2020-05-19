@@ -1,9 +1,10 @@
 package co.yixiang.modules.monitor.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -13,28 +14,21 @@ import java.sql.Timestamp;
  * @author Zheng Jie
  * @date 2018-12-13
  */
-@Entity
 @Data
-@Table(name = "visits")
+@TableName( "visits")
 public class Visits  implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId
     private Long id;
 
-    @Column(unique = true)
     private String date;
 
-    @Column(name = "pv_counts")
     private Long pvCounts;
 
-    @Column(name = "ip_counts")
     private Long ipCounts;
 
-    @CreationTimestamp
-    @Column(name = "create_time")
+    @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 
-    @Column(name = "week_day")
     private String weekDay;
 }

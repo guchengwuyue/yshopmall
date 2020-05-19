@@ -1,16 +1,19 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
-
 import java.io.Serializable;
-
 
 /**
 * @author hupeng
-* @date 2019-11-03
+* @date 2020-05-12
 */
 @Data
-public class YxStoreProductReplyDTO implements Serializable {
+public class YxStoreProductReplyDto implements Serializable {
 
     // 评论ID
     private Integer id;
@@ -18,7 +21,7 @@ public class YxStoreProductReplyDTO implements Serializable {
     // 用户ID
     private Integer uid;
 
-    private YxUserSmallDTO user;
+    private YxUserSmallDto user;
 
     // 订单ID
     private Integer oid;
@@ -29,7 +32,7 @@ public class YxStoreProductReplyDTO implements Serializable {
     // 产品id
     private Integer productId;
 
-    private YxStoreProductSmallDTO storeProduct;
+    private YxStoreProductSmallDto storeProduct;
 
 
     // 某种商品类型(普通商品、秒杀商品）
@@ -61,5 +64,4 @@ public class YxStoreProductReplyDTO implements Serializable {
 
     // 0未回复1已回复
     private Integer isReply;
-
 }

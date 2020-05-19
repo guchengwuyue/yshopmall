@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -12,12 +17,12 @@ import java.io.Serializable;
  * @Date 2019/12/4
  **/
 @Data
-public class UserMoneyDTO implements Serializable {
-    @NotNull(message = "参数缺失")
+public class UserMoneyDto implements Serializable {
+   //@NotNull(message = "参数缺失")
     private Integer uid;
-    @NotNull(message = "请选择修改余额方式")
+   //@NotNull(message = "请选择修改余额方式")
     private Integer ptype;
-    @NotNull(message = "金额必填")
+   //@NotNull(message = "金额必填")
     @Min(message = "最低金额为0",value = 0)
     private Double money;
 }

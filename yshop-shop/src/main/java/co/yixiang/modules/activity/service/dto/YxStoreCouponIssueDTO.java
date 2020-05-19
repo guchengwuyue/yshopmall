@@ -1,49 +1,52 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-
+import java.sql.Timestamp;
 import java.io.Serializable;
-import java.util.Date;
-
 
 /**
 * @author hupeng
-* @date 2019-11-09
+* @date 2020-05-13
 */
 @Data
-public class YxStoreCouponIssueDTO implements Serializable {
+public class YxStoreCouponIssueDto implements Serializable {
 
     private Integer id;
 
-    // 优惠券ID
-    private Integer cid;
-
     private String cname;
 
-    // 优惠券领取开启时间
+    /** 优惠券ID */
+    private Integer cid;
+
+    /** 优惠券领取开启时间 */
     private Integer startTime;
 
-    // 优惠券领取结束时间
+    /** 优惠券领取结束时间 */
     private Integer endTime;
 
-    private Date startTimeDate;
-
-    private Date endTimeDate;
-
-    // 优惠券领取数量
+    /** 优惠券领取数量 */
     private Integer totalCount;
 
-    // 优惠券剩余领取数量
+    /** 优惠券剩余领取数量 */
     private Integer remainCount;
 
-    // 是否无限张数
+    /** 是否无限张数 */
     private Integer isPermanent;
 
-    // 1 正常 0 未开启 -1 已无效
+    /** 1 正常 0 未开启 -1 已无效 */
     private Integer status;
 
     private Integer isDel;
 
-    // 优惠券添加时间
+    /** 优惠券添加时间 */
     private Integer addTime;
+
+    private Timestamp endTimeDate;
+
+    private Timestamp startTimeDate;
 }

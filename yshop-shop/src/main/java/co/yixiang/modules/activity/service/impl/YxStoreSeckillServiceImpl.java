@@ -1,50 +1,59 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.modules.activity.domain.YxStoreSeckill;
-import co.yixiang.modules.activity.repository.YxStoreSeckillRepository;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.utils.*;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.modules.activity.service.YxStoreSeckillService;
-import co.yixiang.modules.activity.service.dto.YxStoreSeckillDTO;
+import co.yixiang.modules.activity.service.dto.YxStoreSeckillDto;
 import co.yixiang.modules.activity.service.dto.YxStoreSeckillQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreSeckillMapper;
-import co.yixiang.utils.OrderUtil;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
-* @author xuwenbo
-* @date 2019-12-14
+* @author hupeng
+* @date 2020-05-13
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxStoreSeckill")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxStoreSeckillServiceImpl implements YxStoreSeckillService {
+public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMapper, YxStoreSeckill> implements YxStoreSeckillService {
 
-    private final YxStoreSeckillRepository yxStoreSeckillRepository;
-
-    private final YxStoreSeckillMapper yxStoreSeckillMapper;
-
-    public YxStoreSeckillServiceImpl(YxStoreSeckillRepository yxStoreSeckillRepository, YxStoreSeckillMapper yxStoreSeckillMapper) {
-        this.yxStoreSeckillRepository = yxStoreSeckillRepository;
-        this.yxStoreSeckillMapper = yxStoreSeckillMapper;
-    }
+    private final IGenerator generator;
 
     @Override
-    public Map<String,Object> queryAll(YxStoreSeckillQueryCriteria criteria, Pageable pageable){
-        Page<YxStoreSeckill> page = yxStoreSeckillRepository.findAll((root, criteriaQuery, criteriaBuilder) ->
-                QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        List<YxStoreSeckillDTO> storeSeckillDTOS = yxStoreSeckillMapper
-                .toDto(page.getContent());
+    //@Cacheable
+    public Map<String, Object> queryAll(YxStoreSeckillQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxStoreSeckill> page = new PageInfo<>(queryAll(criteria));
+        List<YxStoreSeckillDto> storeSeckillDTOS = generator.convert(page.getList(),YxStoreSeckillDto.class);
         int nowTime = OrderUtil.getSecondTimestampTwo();
-        for (YxStoreSeckillDTO storeSeckillDTO : storeSeckillDTOS){
+        for (YxStoreSeckillDto storeSeckillDTO : storeSeckillDTOS){
             if(storeSeckillDTO.getStatus() > 0){
                 if(storeSeckillDTO.getStartTime() > nowTime){
                     storeSeckillDTO.setStatusStr("活动未开始");
@@ -60,42 +69,52 @@ public class YxStoreSeckillServiceImpl implements YxStoreSeckillService {
         }
         Map<String,Object> map = new LinkedHashMap<>(2);
         map.put("content",storeSeckillDTOS);
-        map.put("totalElements",page.getTotalElements());
-
+        map.put("totalElements", page.getTotal());
         return map;
     }
 
-    @Override
-    public List<YxStoreSeckillDTO> queryAll(YxStoreSeckillQueryCriteria criteria){
-        return yxStoreSeckillMapper.toDto(yxStoreSeckillRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
 
     @Override
-    public YxStoreSeckillDTO findById(Integer id) {
-        Optional<YxStoreSeckill> yxStoreSeckill = yxStoreSeckillRepository.findById(id);
-        ValidationUtil.isNull(yxStoreSeckill,"YxStoreSeckill","id",id);
-        return yxStoreSeckillMapper.toDto(yxStoreSeckill.get());
+    //@Cacheable
+    public List<YxStoreSeckill> queryAll(YxStoreSeckillQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreSeckill.class, criteria));
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxStoreSeckillDTO create(YxStoreSeckill resources) {
-        return yxStoreSeckillMapper.toDto(yxStoreSeckillRepository.save(resources));
-    }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxStoreSeckill resources) {
-        Optional<YxStoreSeckill> optionalYxStoreSeckill = yxStoreSeckillRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxStoreSeckill,"YxStoreSeckill","id",resources.getId());
-        YxStoreSeckill yxStoreSeckill = optionalYxStoreSeckill.get();
-        yxStoreSeckill.copy(resources);
-        yxStoreSeckillRepository.save(yxStoreSeckill);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxStoreSeckillRepository.deleteById(id);
+    public void download(List<YxStoreSeckillDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxStoreSeckillDto yxStoreSeckill : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("商品id", yxStoreSeckill.getProductId());
+            map.put("推荐图", yxStoreSeckill.getImage());
+            map.put("轮播图", yxStoreSeckill.getImages());
+            map.put("活动标题", yxStoreSeckill.getTitle());
+            map.put("简介", yxStoreSeckill.getInfo());
+            map.put("价格", yxStoreSeckill.getPrice());
+            map.put("成本", yxStoreSeckill.getCost());
+            map.put("原价", yxStoreSeckill.getOtPrice());
+            map.put("返多少积分", yxStoreSeckill.getGiveIntegral());
+            map.put("排序", yxStoreSeckill.getSort());
+            map.put("库存", yxStoreSeckill.getStock());
+            map.put("销量", yxStoreSeckill.getSales());
+            map.put("单位名", yxStoreSeckill.getUnitName());
+            map.put("邮费", yxStoreSeckill.getPostage());
+            map.put("内容", yxStoreSeckill.getDescription());
+            map.put("开始时间", yxStoreSeckill.getStartTime());
+            map.put("结束时间", yxStoreSeckill.getStopTime());
+            map.put("添加时间", yxStoreSeckill.getAddTime());
+            map.put("产品状态", yxStoreSeckill.getStatus());
+            map.put("是否包邮", yxStoreSeckill.getIsPostage());
+            map.put("热门推荐", yxStoreSeckill.getIsHot());
+            map.put("删除 0未删除1已删除", yxStoreSeckill.getIsDel());
+            map.put("最多秒杀几个", yxStoreSeckill.getNum());
+            map.put("显示", yxStoreSeckill.getIsShow());
+            map.put(" endTimeDate",  yxStoreSeckill.getEndTimeDate());
+            map.put(" startTimeDate",  yxStoreSeckill.getStartTimeDate());
+            map.put("时间段id", yxStoreSeckill.getTimeId());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 }

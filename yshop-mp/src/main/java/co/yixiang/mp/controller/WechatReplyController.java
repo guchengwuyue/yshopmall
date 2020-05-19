@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -54,7 +59,7 @@ public class WechatReplyController {
             yxWechatReplyService.create(yxWechatReply);
         }else{
             yxWechatReply.setId(isExist.getId());
-            yxWechatReplyService.update(yxWechatReply);
+            yxWechatReplyService.upDate(yxWechatReply);
         }
 
         return new ResponseEntity(HttpStatus.CREATED);

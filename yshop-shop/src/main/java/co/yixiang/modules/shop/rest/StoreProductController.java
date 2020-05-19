@@ -1,10 +1,14 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.service.YxStoreProductService;
 import co.yixiang.modules.shop.service.dto.YxStoreProductQueryCriteria;
@@ -56,7 +60,7 @@ public class StoreProductController {
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         if(ObjectUtil.isEmpty(resources.getGiveIntegral())) resources.setGiveIntegral(BigDecimal.ZERO);
         if(ObjectUtil.isEmpty(resources.getCost())) resources.setCost(BigDecimal.ZERO);
-        return new ResponseEntity(yxStoreProductService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxStoreProductService.saveProduct(resources),HttpStatus.CREATED);
     }
 
     @Log("修改商品")
@@ -66,7 +70,7 @@ public class StoreProductController {
     @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProduct resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxStoreProductService.update(resources);
+        yxStoreProductService.updateProduct(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

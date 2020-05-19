@@ -1,19 +1,18 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
-import co.yixiang.annotation.Query;
 import lombok.Data;
+import java.util.List;
+import co.yixiang.annotation.Query;
 
 /**
 * @author hupeng
-* @date 2019-10-03
+* @date 2020-05-12
 */
 @Data
 public class YxStoreCategoryQueryCriteria{
-
-    // 模糊
-    @Query(type = Query.Type.INNER_LIKE)
-    private String cateName;
-
-    @Query
-    private Integer isDel = 0;
 }

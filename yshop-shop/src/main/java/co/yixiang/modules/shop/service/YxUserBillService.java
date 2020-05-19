@@ -1,64 +1,45 @@
-package co.yixiang.modules.shop.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.shop.domain.YxUserBill;
-import co.yixiang.modules.shop.service.dto.YxUserBillDTO;
+import co.yixiang.modules.shop.service.dto.YxUserBillDto;
 import co.yixiang.modules.shop.service.dto.YxUserBillQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-11-06
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "yxUserBill")
-public interface YxUserBillService {
+public interface YxUserBillService  extends BaseService<YxUserBill>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxUserBillQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxUserBillDto>
     */
-    //@Cacheable
-    List<YxUserBillDTO> queryAll(YxUserBillQueryCriteria criteria);
+    List<YxUserBillDto> queryAll(YxUserBillQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxUserBillDTO findById(Integer id);
-
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxUserBillDTO create(YxUserBill resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxUserBill resources);
-
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxUserBillDto> all, HttpServletResponse response) throws IOException;
 }

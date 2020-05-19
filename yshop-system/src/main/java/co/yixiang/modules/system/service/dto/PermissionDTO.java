@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.service.dto;
 
 import lombok.Data;
@@ -7,11 +12,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-12-03
  */
 @Data
-public class PermissionDTO implements Serializable{
+public class PermissionDto implements Serializable{
 
 	private Long id;
 
@@ -23,7 +28,7 @@ public class PermissionDTO implements Serializable{
 
 	private Timestamp createTime;
 
-	private List<PermissionDTO>  children;
+	private List<PermissionDto>  children;
 
 	@Override
 	public String toString() {

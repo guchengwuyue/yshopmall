@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.service;
 
 import co.yixiang.modules.security.config.SecurityProperties;
@@ -14,7 +19,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @Date 2019年10月26日21:56:27
  */
 @Service

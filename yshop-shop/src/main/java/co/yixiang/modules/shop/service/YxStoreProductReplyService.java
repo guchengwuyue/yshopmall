@@ -1,64 +1,45 @@
-package co.yixiang.modules.shop.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.shop.domain.YxStoreProductReply;
-import co.yixiang.modules.shop.service.dto.YxStoreProductReplyDTO;
+import co.yixiang.modules.shop.service.dto.YxStoreProductReplyDto;
 import co.yixiang.modules.shop.service.dto.YxStoreProductReplyQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-11-03
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "yxStoreProductReply")
-public interface YxStoreProductReplyService {
+public interface YxStoreProductReplyService  extends BaseService<YxStoreProductReply>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxStoreProductReplyQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxStoreProductReplyDto>
     */
-    //@Cacheable
-    List<YxStoreProductReplyDTO> queryAll(YxStoreProductReplyQueryCriteria criteria);
+    List<YxStoreProductReply> queryAll(YxStoreProductReplyQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxStoreProductReplyDTO findById(Integer id);
-
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxStoreProductReplyDTO create(YxStoreProductReply resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxStoreProductReply resources);
-
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxStoreProductReplyDto> all, HttpServletResponse response) throws IOException;
 }

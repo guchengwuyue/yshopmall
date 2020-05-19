@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.date.DateUtil;
@@ -5,10 +10,11 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxArticle;
 import co.yixiang.mp.service.YxArticleService;
-import co.yixiang.mp.service.dto.YxArticleDTO;
+import co.yixiang.mp.service.dto.YxArticleDto;
 import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +52,7 @@ public class WechatArticleController {
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources){
         resources.setAddTime(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm"));
-        return new ResponseEntity(yxArticleService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxArticleService.save(resources),HttpStatus.CREATED);
     }
 
 
@@ -54,7 +60,7 @@ public class WechatArticleController {
     @PutMapping(value = "/yxArticle")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxArticle resources){
-        yxArticleService.update(resources);
+        yxArticleService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -64,7 +70,7 @@ public class WechatArticleController {
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxArticleService.delete(id);
+        yxArticleService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -73,7 +79,9 @@ public class WechatArticleController {
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        YxArticleDTO yxArticleDTO= yxArticleService.findById(id);
+        YxArticleDto yxArticleDTO= new YxArticleDto();
+        YxArticle yxArticle = yxArticleService.getById(id);
+        BeanUtils.copyProperties(yxArticle,yxArticleDTO);
         yxArticleService.uploadNews(yxArticleDTO);
         return new ResponseEntity(HttpStatus.OK);
     }

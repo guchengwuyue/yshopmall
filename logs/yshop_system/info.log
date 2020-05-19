@@ -1,0 +1,194 @@
+2020-05-19 13:39:26,745 [main] INFO  [co.yixiang.AppRun] StartupInfoLogger.java:50 - Starting AppRun on DESKTOP-GCTSJEJ with PID 15236 (E:\java\yxshop-public\yshop\yshop-system\target\classes started by 61079 in E:\java\yxshop-public\yshop)
+2020-05-19 13:39:26,751 [main] INFO  [co.yixiang.AppRun] SpringApplication.java:679 - The following profiles are active: dev
+2020-05-19 13:39:28,938 [main] INFO  [o.s.d.r.config.RepositoryConfigurationDelegate] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-05-19 13:39:28,939 [main] INFO  [o.s.d.r.config.RepositoryConfigurationDelegate] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-05-19 13:39:29,097 [main] INFO  [o.s.d.r.config.RepositoryConfigurationDelegate] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 146ms. Found 0 repository interfaces.
+2020-05-19 13:39:29,609 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'asyncTaskProperties' of type [co.yixiang.config.thread.AsyncTaskProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,610 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'asyncTaskExecutePool' of type [co.yixiang.config.thread.AsyncTaskExecutePool$$EnhancerBySpringCGLIB$$461a9a4c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,708 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$56c20048] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,851 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'redisConfig' of type [co.yixiang.config.RedisConfig$$EnhancerBySpringCGLIB$$19d57b15] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,903 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$ef6fc882] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,910 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,914 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@7793ad58' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,915 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$14446b34] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:29,925 [main] INFO  [o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] PostProcessorRegistrationDelegate.java:330 - Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-19 13:39:30,461 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8000 (http)
+2020-05-19 13:39:30,477 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8000"]
+2020-05-19 13:39:30,483 [main] INFO  [org.apache.catalina.core.StandardService] DirectJDKLog.java:173 - Starting service [Tomcat]
+2020-05-19 13:39:30,484 [main] INFO  [org.apache.catalina.core.StandardEngine] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.12
+2020-05-19 13:39:30,491 [main] INFO  [org.apache.catalina.core.AprLifecycleListener] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\Program Files\Java\jdk1.8.0_211\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\oracle\product\10.2.0\db_1\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;D:\Program Files\python3\Scripts\;D:\Program Files\python3\;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;D:\wamp\bin\php\php7.2.10;d:\composer;D:\Program Files\nodejs\;d:\Program Files\Git\cmd;D:\Program Files\TortoiseSVN\bin;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Java\jdk1.8.0_211\bin;D:\Program Files\Java\jdk1.8.0_211\jre\bin;D:\apache-maven-3.6.1-bin\apache-maven-3.6.1\bin;D:\gradle-5.5.1-all\gradle-5.5.1\bin;D:\protoc-3.9.0-win64\bin;C:\Users\61079\AppData\Local\Microsoft\WindowsApps;C:\Users\61079\AppData\Roaming\Composer\vendor\bin;C:\Users\61079\AppData\Roaming\npm;;d:\Program Files\JetBrains\WebStorm 2018.3.2\bin;;.]
+2020-05-19 13:39:30,712 [main] INFO  [o.a.c.core.ContainerBase.[Tomcat].[localhost].[/]] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+2020-05-19 13:39:30,713 [main] INFO  [org.springframework.web.context.ContextLoader] ServletWebServerApplicationContext.java:285 - Root WebApplicationContext: initialization completed in 3885 ms
+2020-05-19 13:39:30,820 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-05-19 13:39:30,822 [main] INFO  [o.s.b.w.s.DelegatingFilterProxyRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2020-05-19 13:39:30,822 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:261 - Mapping filter: 'webStatFilter' to urls: [/*]
+2020-05-19 13:39:30,823 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'corsFilter' to: [/*]
+2020-05-19 13:39:30,823 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'securityBasicAuthFilter' to: [/*]
+2020-05-19 13:39:30,823 [main] INFO  [o.s.boot.web.servlet.FilterRegistrationBean] AbstractFilterRegistrationBean.java:248 - Mapping filter: 'productionSecurityFilter' to: [/*]
+2020-05-19 13:39:30,824 [main] INFO  [o.s.boot.web.servlet.ServletRegistrationBean] ServletRegistrationBean.java:186 - Servlet dispatcherServlet mapped to [/]
+2020-05-19 13:39:30,825 [main] INFO  [o.s.boot.web.servlet.ServletRegistrationBean] ServletRegistrationBean.java:186 - Servlet statViewServlet mapped to [/druid/*]
+2020-05-19 13:39:31,133 [main] INFO  [c.a.d.s.b.a.DruidDataSourceAutoConfigure] DruidDataSourceAutoConfigure.java:56 - Init DruidDataSource
+2020-05-19 13:39:31,531 [main] INFO  [com.alibaba.druid.pool.DruidDataSource] DruidDataSource.java:930 - {dataSource-1} inited
+2020-05-19 13:39:31,853 [main] INFO  [org.hibernate.jpa.internal.util.LogHelper] LogHelper.java:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-05-19 13:39:31,946 [main] INFO  [org.hibernate.Version] Version.java:46 - HHH000412: Hibernate Core {5.3.7.Final}
+2020-05-19 13:39:31,949 [main] INFO  [org.hibernate.cfg.Environment] Environment.java:213 - HHH000206: hibernate.properties not found
+2020-05-19 13:39:32,154 [main] INFO  [org.hibernate.annotations.common.Version] JavaReflectionManager.java:49 - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2020-05-19 13:39:32,383 [main] INFO  [org.hibernate.dialect.Dialect] Dialect.java:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-05-19 13:39:32,614 [main] INFO  [o.s.orm.jpa.LocalContainerEntityManagerFactoryBean] AbstractEntityManagerFactoryBean.java:415 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-19 13:39:32,657 [main] INFO  [org.dozer.config.GlobalSettings] GlobalSettings.java:113 - Trying to find Dozer configuration file: dozer.properties
+2020-05-19 13:39:32,663 [main] WARN  [org.dozer.config.GlobalSettings] GlobalSettings.java:118 - Dozer configuration file not found: dozer.properties.  Using defaults for all Dozer global properties.
+2020-05-19 13:39:32,665 [main] INFO  [org.dozer.DozerInitializer] DozerInitializer.java:75 - Initializing Dozer. Version: 5.5.0, Thread Name: main
+2020-05-19 13:39:32,667 [main] INFO  [org.dozer.jmx.JMXPlatformImpl] JMXPlatformImpl.java:66 - Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean Server
+2020-05-19 13:39:32,668 [main] INFO  [org.dozer.jmx.JMXPlatformImpl] JMXPlatformImpl.java:66 - Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean Server
+2020-05-19 13:39:32,670 [main] INFO  [org.dozer.DozerBeanMapper] DozerBeanMapper.java:175 - Initializing a new instance of dozer bean mapper.
+2020-05-19 13:39:33,306 [main] WARN  [c.b.mybatisplus.core.metadata.TableInfoHelper] TableInfoHelper.java:282 - Warn: Could not find @TableId in Class: co.yixiang.modules.system.domain.RolesMenus.
+2020-05-19 13:39:33,361 [main] WARN  [c.b.mybatisplus.core.metadata.TableInfoHelper] TableInfoHelper.java:282 - Warn: Could not find @TableId in Class: co.yixiang.modules.system.domain.RolesDepts.
+2020-05-19 13:39:33,549 [main] WARN  [c.b.mybatisplus.core.metadata.TableInfoHelper] TableInfoHelper.java:282 - Warn: Could not find @TableId in Class: co.yixiang.modules.system.domain.UsersRoles.
+2020-05-19 13:39:34,050 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+2020-05-19 13:39:34,064 [main] INFO  [org.quartz.core.SchedulerSignalerImpl] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2020-05-19 13:39:34,065 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+2020-05-19 13:39:34,066 [main] INFO  [org.quartz.simpl.RAMJobStore] RAMJobStore.java:155 - RAMJobStore initialized.
+2020-05-19 13:39:34,067 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2020-05-19 13:39:34,067 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1362 - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+2020-05-19 13:39:34,067 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+2020-05-19 13:39:34,068 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:2287 - JobFactory set to: co.yixiang.modules.quartz.config.QuartzConfig$QuartzJobFactory@56402642
+2020-05-19 13:39:34,069 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:547 - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2020-05-19 13:39:37,663 [main] WARN  [o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration] JpaBaseConfiguration.java:234 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-19 13:39:38,277 [main] INFO  [o.s.security.web.DefaultSecurityFilterChain] DefaultSecurityFilterChain.java:43 - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@36c45149, org.springframework.security.web.context.SecurityContextPersistenceFilter@2d33795c, org.springframework.security.web.header.HeaderWriterFilter@3e4636c3, org.springframework.security.web.authentication.logout.LogoutFilter@c31419f, org.springframework.web.filter.CorsFilter@149c39b, co.yixiang.modules.security.security.TokenFilter@33f4844b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d9d8ecf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60e5eed0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@201b52f7, org.springframework.security.web.session.SessionManagementFilter@72c5064f, org.springframework.security.web.access.ExceptionTranslationFilter@7a17ffee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@56820446]
+2020-05-19 13:39:38,288 [main] INFO  [co.yixiang.config.RedisConfig] RedisConfig.java:112 - 初始化 -> [Redis CacheErrorHandler]
+2020-05-19 13:39:38,297 [main] INFO  [s.d.s.w.PropertySourcedRequestMappingHandlerMapping] PropertySourcedRequestMappingHandlerMapping.java:69 - Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2020-05-19 13:39:39,227 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+2020-05-19 13:39:39,228 [main] INFO  [org.quartz.core.SchedulerSignalerImpl] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2020-05-19 13:39:39,229 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+2020-05-19 13:39:39,229 [main] INFO  [org.quartz.simpl.RAMJobStore] RAMJobStore.java:155 - RAMJobStore initialized.
+2020-05-19 13:39:39,229 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2020-05-19 13:39:39,230 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2020-05-19 13:39:39,230 [main] INFO  [org.quartz.impl.StdSchedulerFactory] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+2020-05-19 13:39:39,230 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@5cb6b81b
+2020-05-19 13:39:39,383 [main] INFO  [s.d.s.web.plugins.DocumentationPluginsBootstrapper] DocumentationPluginsBootstrapper.java:160 - Context refreshed
+2020-05-19 13:39:39,406 [main] INFO  [s.d.s.web.plugins.DocumentationPluginsBootstrapper] DocumentationPluginsBootstrapper.java:163 - Found 1 custom documentation plugin(s)
+2020-05-19 13:39:39,497 [main] INFO  [s.d.spring.web.scanners.ApiListingReferenceScanner] ApiListingReferenceScanner.java:41 - Scanning for api listing references
+2020-05-19 13:39:39,709 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_1
+2020-05-19 13:39:39,711 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_1
+2020-05-19 13:39:39,715 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_1
+2020-05-19 13:39:39,723 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_1
+2020-05-19 13:39:39,726 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_2
+2020-05-19 13:39:39,728 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_2
+2020-05-19 13:39:39,735 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_2
+2020-05-19 13:39:39,750 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_3
+2020-05-19 13:39:39,752 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_3
+2020-05-19 13:39:39,757 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_3
+2020-05-19 13:39:39,761 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_4
+2020-05-19 13:39:39,763 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_4
+2020-05-19 13:39:39,767 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_2
+2020-05-19 13:39:39,771 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_4
+2020-05-19 13:39:39,776 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_5
+2020-05-19 13:39:39,783 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_5
+2020-05-19 13:39:39,785 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_6
+2020-05-19 13:39:39,787 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_1
+2020-05-19 13:39:39,791 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_6
+2020-05-19 13:39:39,799 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_7
+2020-05-19 13:39:39,800 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_5
+2020-05-19 13:39:39,807 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_7
+2020-05-19 13:39:39,815 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_8
+2020-05-19 13:39:39,816 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_6
+2020-05-19 13:39:39,820 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_3
+2020-05-19 13:39:39,823 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_8
+2020-05-19 13:39:39,825 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_7
+2020-05-19 13:39:39,827 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_4
+2020-05-19 13:39:39,832 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_9
+2020-05-19 13:39:39,834 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_8
+2020-05-19 13:39:39,838 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_5
+2020-05-19 13:39:39,847 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: getJobsUsingGET_1
+2020-05-19 13:39:39,848 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_9
+2020-05-19 13:39:39,851 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_9
+2020-05-19 13:39:39,852 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_2
+2020-05-19 13:39:39,858 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_10
+2020-05-19 13:39:39,859 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_10
+2020-05-19 13:39:39,862 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_6
+2020-05-19 13:39:39,863 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: getAllUsingGET_1
+2020-05-19 13:39:39,866 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: getRolesUsingGET_1
+2020-05-19 13:39:39,866 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_10
+2020-05-19 13:39:39,870 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_11
+2020-05-19 13:39:39,880 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_11
+2020-05-19 13:39:39,883 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_11
+2020-05-19 13:39:39,884 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_12
+2020-05-19 13:39:39,887 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_7
+2020-05-19 13:39:39,890 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_12
+2020-05-19 13:39:39,891 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_13
+2020-05-19 13:39:39,902 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_13
+2020-05-19 13:39:39,905 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_12
+2020-05-19 13:39:39,906 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_14
+2020-05-19 13:39:39,912 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_14
+2020-05-19 13:39:39,917 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_13
+2020-05-19 13:39:39,919 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_15
+2020-05-19 13:39:39,926 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_15
+2020-05-19 13:39:39,930 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_14
+2020-05-19 13:39:39,932 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_16
+2020-05-19 13:39:39,937 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_16
+2020-05-19 13:39:39,957 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_17
+2020-05-19 13:39:39,962 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_8
+2020-05-19 13:39:39,973 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_17
+2020-05-19 13:39:39,985 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_15
+2020-05-19 13:39:39,986 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_18
+2020-05-19 13:39:39,992 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: onSaleUsingPOST_1
+2020-05-19 13:39:39,995 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_18
+2020-05-19 13:39:39,996 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_19
+2020-05-19 13:39:40,004 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_19
+2020-05-19 13:39:40,005 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_20
+2020-05-19 13:39:40,014 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_20
+2020-05-19 13:39:40,021 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_16
+2020-05-19 13:39:40,022 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_21
+2020-05-19 13:39:40,027 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_9
+2020-05-19 13:39:40,031 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_21
+2020-05-19 13:39:40,036 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_17
+2020-05-19 13:39:40,040 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_18
+2020-05-19 13:39:40,041 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_22
+2020-05-19 13:39:40,046 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_22
+2020-05-19 13:39:40,048 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_19
+2020-05-19 13:39:40,051 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_20
+2020-05-19 13:39:40,052 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_3
+2020-05-19 13:39:40,056 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_10
+2020-05-19 13:39:40,057 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: getAllUsingGET_2
+2020-05-19 13:39:40,060 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_23
+2020-05-19 13:39:40,063 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_21
+2020-05-19 13:39:40,064 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_4
+2020-05-19 13:39:40,068 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_11
+2020-05-19 13:39:40,070 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_24
+2020-05-19 13:39:40,073 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_22
+2020-05-19 13:39:40,074 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_23
+2020-05-19 13:39:40,079 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_25
+2020-05-19 13:39:40,081 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_23
+2020-05-19 13:39:40,082 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteUsingDELETE_24
+2020-05-19 13:39:40,087 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_26
+2020-05-19 13:39:40,096 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_27
+2020-05-19 13:39:40,099 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_24
+2020-05-19 13:39:40,100 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_5
+2020-05-19 13:39:40,103 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_12
+2020-05-19 13:39:40,105 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_25
+2020-05-19 13:39:40,110 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: createUsingPOST_26
+2020-05-19 13:39:40,111 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: deleteAllUsingDELETE_6
+2020-05-19 13:39:40,115 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: downloadUsingGET_13
+2020-05-19 13:39:40,118 [main] INFO  [s.d.s.w.r.operation.CachingOperationNameGenerator] CachingOperationNameGenerator.java:40 - Generating unique operation named: updateUsingPUT_28
+2020-05-19 13:39:40,139 [main] INFO  [o.s.scheduling.quartz.SchedulerFactoryBean] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+2020-05-19 13:39:40,140 [main] INFO  [org.quartz.core.QuartzScheduler] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2020-05-19 13:39:40,147 [main] INFO  [org.apache.coyote.http11.Http11NioProtocol] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8000"]
+2020-05-19 13:39:40,157 [main] INFO  [org.apache.tomcat.util.net.NioSelectorPool] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+2020-05-19 13:39:40,177 [main] INFO  [o.s.boot.web.embedded.tomcat.TomcatWebServer] TomcatWebServer.java:204 - Tomcat started on port(s): 8000 (http) with context path ''
+2020-05-19 13:39:40,180 [main] INFO  [co.yixiang.AppRun] StartupInfoLogger.java:59 - Started AppRun in 14.129 seconds (JVM running for 18.738)

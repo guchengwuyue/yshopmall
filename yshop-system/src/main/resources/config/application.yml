@@ -13,12 +13,6 @@ spring:
       repositories:
         enabled: false
 
-  #配置 Jpa
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: true
 
 task:
   pool:
@@ -59,3 +53,11 @@ yshop:
     appId: 1607734
     appKey: 81f43a2e-f504-45c4-9b54-2637d59f8190
   apiUrl: http://127.0.0.1:8009/api
+
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

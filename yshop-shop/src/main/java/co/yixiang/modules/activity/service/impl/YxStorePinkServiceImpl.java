@@ -1,116 +1,94 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.modules.activity.domain.YxStorePink;
-import co.yixiang.modules.activity.repository.YxStorePinkRepository;
-import co.yixiang.modules.activity.service.YxStoreCombinationService;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.ValidationUtil;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.modules.activity.service.YxStorePinkService;
-import co.yixiang.modules.activity.service.dto.YxStoreCombinationDTO;
-import co.yixiang.modules.activity.service.dto.YxStorePinkDTO;
+import co.yixiang.modules.activity.service.dto.YxStorePinkDto;
 import co.yixiang.modules.activity.service.dto.YxStorePinkQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStorePinkMapper;
-import co.yixiang.modules.shop.service.YxUserService;
-import co.yixiang.modules.shop.service.dto.YxUserDTO;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.LinkedHashMap;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import co.yixiang.utils.PageUtil;
+import co.yixiang.utils.QueryHelp;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2019-11-18
+* @date 2020-05-12
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxStorePink")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxStorePinkServiceImpl implements YxStorePinkService {
+public class YxStorePinkServiceImpl extends BaseServiceImpl<YxStorePinkMapper, YxStorePink> implements YxStorePinkService {
 
-    private final YxStorePinkRepository yxStorePinkRepository;
-
-    private final YxStoreCombinationService combinationService;
-    private final YxUserService userService;
-
-    private final YxStorePinkMapper yxStorePinkMapper;
-
-    public YxStorePinkServiceImpl(YxStorePinkRepository yxStorePinkRepository, YxStoreCombinationService combinationService,
-                                  YxUserService userService, YxStorePinkMapper yxStorePinkMapper) {
-        this.yxStorePinkRepository = yxStorePinkRepository;
-        this.combinationService = combinationService;
-        this.userService = userService;
-        this.yxStorePinkMapper = yxStorePinkMapper;
-    }
-
-    /**
-     * 参与拼团的人
-     * @param id id
-     * @return
-     */
-    @Override
-    public int countPeople(int id) {
-        return yxStorePinkRepository.countByKId(id) + 1;
-    }
+    private final IGenerator generator;
 
     @Override
-    public Map<String,Object> queryAll(YxStorePinkQueryCriteria criteria, Pageable pageable){
-        criteria.setKId(0);
-        Page<YxStorePink> page = yxStorePinkRepository
-                .findAll((root, criteriaQuery, criteriaBuilder)
-                        -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        List<YxStorePinkDTO> storePinkDTOS = yxStorePinkMapper.toDto(page.getContent());
-        for (YxStorePinkDTO storePinkDTO : storePinkDTOS) {
-            YxStoreCombinationDTO combinationDTO = combinationService
-                    .findById(storePinkDTO.getCid());
-            YxUserDTO userDTO = userService.findById(storePinkDTO.getUid());
-
-            storePinkDTO.setAvatar(userDTO.getAvatar());
-            storePinkDTO.setNickname(userDTO.getNickname());
-            storePinkDTO.setTitle(combinationDTO.getTitle());
-            storePinkDTO.setCountPeople(countPeople(storePinkDTO.getId()));
-        }
-        Map<String,Object> map = new LinkedHashMap<>(2);
-        map.put("content",storePinkDTOS);
-        map.put("totalElements",page.getTotalElements());
-
+    //@Cacheable
+    public Map<String, Object> queryAll(YxStorePinkQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxStorePink> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxStorePinkDto.class));
+        map.put("totalElements", page.getTotal());
         return map;
     }
 
-    @Override
-    public List<YxStorePinkDTO> queryAll(YxStorePinkQueryCriteria criteria){
-        return yxStorePinkMapper.toDto(yxStorePinkRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
 
     @Override
-    public YxStorePinkDTO findById(Integer id) {
-        Optional<YxStorePink> yxStorePink = yxStorePinkRepository.findById(id);
-        ValidationUtil.isNull(yxStorePink,"YxStorePink","id",id);
-        return yxStorePinkMapper.toDto(yxStorePink.get());
+    //@Cacheable
+    public List<YxStorePink> queryAll(YxStorePinkQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStorePink.class, criteria));
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxStorePinkDTO create(YxStorePink resources) {
-        return yxStorePinkMapper.toDto(yxStorePinkRepository.save(resources));
-    }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxStorePink resources) {
-        Optional<YxStorePink> optionalYxStorePink = yxStorePinkRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxStorePink,"YxStorePink","id",resources.getId());
-        YxStorePink yxStorePink = optionalYxStorePink.get();
-        yxStorePink.copy(resources);
-        yxStorePinkRepository.save(yxStorePink);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxStorePinkRepository.deleteById(id);
+    public void download(List<YxStorePinkDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxStorePinkDto yxStorePink : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("用户id", yxStorePink.getUid());
+            map.put("订单id 生成", yxStorePink.getOrderId());
+            map.put("订单id  数据库", yxStorePink.getOrderIdKey());
+            map.put("购买商品个数", yxStorePink.getTotalNum());
+            map.put("购买总金额", yxStorePink.getTotalPrice());
+            map.put("拼团产品id", yxStorePink.getCid());
+            map.put("产品id", yxStorePink.getPid());
+            map.put("拼图总人数", yxStorePink.getPeople());
+            map.put("拼团产品单价", yxStorePink.getPrice());
+            map.put("开始时间", yxStorePink.getAddTime());
+            map.put(" stopTime",  yxStorePink.getStopTime());
+            map.put("团长id 0为团长", yxStorePink.getKId());
+            map.put("是否发送模板消息0未发送1已发送", yxStorePink.getIsTpl());
+            map.put("是否退款 0未退款 1已退款", yxStorePink.getIsRefund());
+            map.put("状态1进行中2已完成3未完成", yxStorePink.getStatus());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 }

@@ -1,17 +1,19 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
-
 import java.io.Serializable;
-
 
 /**
 * @author hupeng
-* @date 2019-12-04
+* @date 2020-05-12
 */
 @Data
-public class YxSystemUserTaskDTO implements Serializable {
-
+public class YxSystemUserTaskDto implements Serializable {
     private Integer id;
 
     // 任务名称

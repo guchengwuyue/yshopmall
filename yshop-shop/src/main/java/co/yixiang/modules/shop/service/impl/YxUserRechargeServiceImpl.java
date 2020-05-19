@@ -1,25 +1,30 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.modules.shop.domain.YxUserRecharge;
-import co.yixiang.utils.ValidationUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.utils.FileUtil;
-import co.yixiang.modules.shop.repository.YxUserRechargeRepository;
 import co.yixiang.modules.shop.service.YxUserRechargeService;
 import co.yixiang.modules.shop.service.dto.YxUserRechargeDto;
 import co.yixiang.modules.shop.service.dto.YxUserRechargeQueryCriteria;
-import co.yixiang.modules.shop.service.mapper.YxUserRechargeMapper;
+import co.yixiang.modules.shop.service.mapper.UserRechargeMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import co.yixiang.exception.EntityExistException;
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
+
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
@@ -29,61 +34,34 @@ import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2020-03-02
+* @date 2020-05-12
 */
 @Service
+@AllArgsConstructor
 //@CacheConfig(cacheNames = "yxUserRecharge")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxUserRechargeServiceImpl implements YxUserRechargeService {
+public class YxUserRechargeServiceImpl extends BaseServiceImpl<UserRechargeMapper, YxUserRecharge> implements YxUserRechargeService {
 
-    private final YxUserRechargeRepository yxUserRechargeRepository;
-
-    private final YxUserRechargeMapper yxUserRechargeMapper;
-
-    public YxUserRechargeServiceImpl(YxUserRechargeRepository yxUserRechargeRepository, YxUserRechargeMapper yxUserRechargeMapper) {
-        this.yxUserRechargeRepository = yxUserRechargeRepository;
-        this.yxUserRechargeMapper = yxUserRechargeMapper;
-    }
+    private final IGenerator generator;
 
     @Override
     //@Cacheable
-    public Map<String,Object> queryAll(YxUserRechargeQueryCriteria criteria, Pageable pageable){
-        Page<YxUserRecharge> page = yxUserRechargeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(yxUserRechargeMapper::toDto));
+    public Map<String, Object> queryAll(YxUserRechargeQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxUserRecharge> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxUserRechargeDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
     }
+
 
     @Override
     //@Cacheable
-    public List<YxUserRechargeDto> queryAll(YxUserRechargeQueryCriteria criteria){
-        return yxUserRechargeMapper.toDto(yxUserRechargeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<YxUserRecharge> queryAll(YxUserRechargeQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxUserRecharge.class, criteria));
     }
 
-    @Override
-    //@Cacheable(key = "#p0")
-    public YxUserRechargeDto findById(Integer id) {
-        YxUserRecharge yxUserRecharge = yxUserRechargeRepository.findById(id).orElseGet(YxUserRecharge::new);
-        ValidationUtil.isNull(yxUserRecharge.getId(),"YxUserRecharge","id",id);
-        return yxUserRechargeMapper.toDto(yxUserRecharge);
-    }
-
-    @Override
-    //@CacheEvict(allEntries = true)
-    @Transactional(rollbackFor = Exception.class)
-    public YxUserRechargeDto create(YxUserRecharge resources) {
-        if(yxUserRechargeRepository.findByOrderId(resources.getOrderId()) != null){
-            throw new EntityExistException(YxUserRecharge.class,"order_id",resources.getOrderId());
-        }
-        return yxUserRechargeMapper.toDto(yxUserRechargeRepository.save(resources));
-    }
-
-
-    @Override
-    //@CacheEvict(allEntries = true)
-    public void deleteAll(Integer[] ids) {
-        for (Integer id : ids) {
-            yxUserRechargeRepository.deleteById(id);
-        }
-    }
 
     @Override
     public void download(List<YxUserRechargeDto> all, HttpServletResponse response) throws IOException {

@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.rest;
 
 import cn.hutool.core.util.IdUtil;
@@ -8,7 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.annotation.AnonymousAccess;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.security.config.SecurityProperties;
 import co.yixiang.modules.security.security.TokenProvider;
@@ -34,7 +39,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-11-23
  * 授权、根据token获取用户详细信息
  */
@@ -122,7 +127,12 @@ public class AuthController {
         // 几位数运算，默认是两位
         captcha.setLen(2);
         // 获取运算的结果
-        String result = captcha.text();
+        String result ="";
+        try {
+            result = new Double(Double.parseDouble(captcha.text())).intValue()+"";
+        }catch (Exception e){
+            result = captcha.text();
+        }
         String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
         // 保存
         redisUtils.set(uuid, result, expiration, TimeUnit.MINUTES);

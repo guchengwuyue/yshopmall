@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.config;
 
 import co.yixiang.annotation.AnonymousAccess;
@@ -28,7 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  */
 @Configuration
 @EnableWebSecurity
@@ -109,6 +114,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/*/api-docs").permitAll()
+                .antMatchers("/v2/api-docs-ext").permitAll()
+                //.antMatchers("/api/wxmp/**").permitAll()
+
                 // 文件
                 .antMatchers("/avatar/**").permitAll()
                 .antMatchers("/file/**").permitAll()

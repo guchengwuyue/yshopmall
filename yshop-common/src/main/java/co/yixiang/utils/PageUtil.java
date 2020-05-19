@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.utils;
 
 import org.springframework.data.domain.Page;
@@ -34,6 +39,8 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
         map.put("totalElements",page.getTotalElements());
         return map;
     }
+
+
 
     /**
      * 自定义分页

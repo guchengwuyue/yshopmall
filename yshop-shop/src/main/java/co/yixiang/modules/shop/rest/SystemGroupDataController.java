@@ -1,8 +1,13 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemGroupData;
@@ -13,7 +18,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -93,7 +97,7 @@ public class SystemGroupDataController {
         yxSystemGroupData.setSort(jsonObject.getInteger("sort"));
         yxSystemGroupData.setAddTime(OrderUtil.getSecondTimestampTwo());
 
-        return new ResponseEntity(yxSystemGroupDataService.create(yxSystemGroupData),HttpStatus.CREATED);
+        return new ResponseEntity(yxSystemGroupDataService.save(yxSystemGroupData),HttpStatus.CREATED);
     }
 
     @Log("修改数据配置")
@@ -141,7 +145,7 @@ public class SystemGroupDataController {
 
 
         yxSystemGroupData.setId(Integer.valueOf(jsonObject.get("id").toString()));
-        yxSystemGroupDataService.update(yxSystemGroupData);
+        yxSystemGroupDataService.saveOrUpdate(yxSystemGroupData);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -151,7 +155,7 @@ public class SystemGroupDataController {
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxSystemGroupDataService.delete(id);
+        yxSystemGroupDataService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

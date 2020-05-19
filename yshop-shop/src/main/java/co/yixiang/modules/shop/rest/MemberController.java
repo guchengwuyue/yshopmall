@@ -1,13 +1,16 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.YxUserService;
-import co.yixiang.modules.shop.service.dto.UserMoneyDTO;
+import co.yixiang.modules.shop.service.dto.UserMoneyDto;
 import co.yixiang.modules.shop.service.dto.YxUserQueryCriteria;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -59,7 +62,7 @@ public class MemberController {
     @PostMapping(value = "/yxUser")
     @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxUser resources){
-        return new ResponseEntity(yxUserService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxUserService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改用户")
@@ -67,7 +70,7 @@ public class MemberController {
     @PutMapping(value = "/yxUser")
     @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxUser resources){
-        yxUserService.update(resources);
+        yxUserService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -77,7 +80,7 @@ public class MemberController {
     @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer uid){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxUserService.delete(uid);
+        yxUserService.removeById(uid);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -94,7 +97,7 @@ public class MemberController {
     @ApiOperation(value = "修改余额")
     @PostMapping(value = "/yxUser/money")
     @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_EDIT')")
-    public ResponseEntity updatePrice(@Validated @RequestBody UserMoneyDTO param){
+    public ResponseEntity updatePrice(@Validated @RequestBody UserMoneyDto param){
         yxUserService.updateMoney(param);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

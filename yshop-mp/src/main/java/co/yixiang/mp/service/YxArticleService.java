@@ -1,68 +1,48 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service;
-
-
+import co.yixiang.common.service.BaseService;
 import co.yixiang.mp.domain.YxArticle;
-import co.yixiang.mp.service.dto.YxArticleDTO;
+import co.yixiang.mp.service.dto.YxArticleDto;
 import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-10-07
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "yxArticle")
-public interface YxArticleService {
+public interface YxArticleService  extends BaseService<YxArticle>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxArticleQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxArticleDto>
     */
-    //@Cacheable
-    List<YxArticleDTO> queryAll(YxArticleQueryCriteria criteria);
+    List<YxArticle> queryAll(YxArticleQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxArticleDTO findById(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxArticleDto> all, HttpServletResponse response) throws IOException;
 
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxArticleDTO create(YxArticle resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxArticle resources);
-
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
-
-    void uploadNews(YxArticleDTO yxArticleDTO) throws Exception;
-
+    void uploadNews(YxArticleDto yxArticleDTO) throws WxErrorException;
 }

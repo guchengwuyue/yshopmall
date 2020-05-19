@@ -1,12 +1,14 @@
 #配置数据源
 spring:
+  application:
+    name: yshop-system
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: yshop
-      password:
+      url: jdbc:log4jdbc:mysql://localhost:3366/yxshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      username: root
+      password: root
 
       # 初始化配置
       initial-size: 3
@@ -47,7 +49,7 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
-    password:
+    password: root
     #连接超时时间
     timeout: 5000
 
@@ -80,14 +82,29 @@ generator:
 swagger:
   enabled: true
   title: yshop商城管理后台API
-  serverUrl: http://localhost:8000
+  serverUrl: http://127.0.0.1:8000
   version: 2.1
 
 # 文件存储路径
 file:
-  path: /home/yshop/file/
-  avatar: /home/yshop/avatar/
+  path: D:\upload\file\
+  avatar: D:\upload\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  localUrl:
+  localUrl: https://cdn.jidanguo10.com
+mybatis-plus:
+  check-config-location: true
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: id_worker
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+yshop:
+  hApi: https://127.0.0.1:8000
+  wechatCode: http://127.0.0.1:8000/upload/qrcode_for_gh_2ac8f422a79f_258.jpg
+  miniAppID:

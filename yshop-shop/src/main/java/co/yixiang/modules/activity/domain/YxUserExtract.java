@@ -1,78 +1,79 @@
-package co.yixiang.modules.activity.domain;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.activity.domain;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import lombok.Data;
-
-import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.io.Serializable;
 
 /**
 * @author hupeng
-* @date 2019-11-14
+* @date 2020-05-13
 */
-@Entity
 @Data
-@Table(name="yx_user_extract")
+@TableName("yx_user_extract")
 public class YxUserExtract implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @TableId
     private Integer id;
 
-    @Column(name = "uid")
+
     private Integer uid;
 
-    // 名称
-    @Column(name = "real_name")
+
+    /** 名称 */
     private String realName;
 
-    // bank = 银行卡 alipay = 支付宝wx=微信
-    @Column(name = "extract_type")
+
+    /** bank = 银行卡 alipay = 支付宝wx=微信 */
     private String extractType;
 
-    // 银行卡
-    @Column(name = "bank_code")
+
+    /** 银行卡 */
     private String bankCode;
 
-    // 开户地址
-    @Column(name = "bank_address")
+
+    /** 开户地址 */
     private String bankAddress;
 
-    // 支付宝账号
-    @Column(name = "alipay_code")
+
+    /** 支付宝账号 */
     private String alipayCode;
 
-    // 提现金额
-    @Column(name = "extract_price")
+
+    /** 提现金额 */
     private BigDecimal extractPrice;
 
-    @Column(name = "mark")
+
     private String mark;
 
-    @Column(name = "balance")
+
     private BigDecimal balance;
 
-    // 无效原因
-    @Column(name = "fail_msg")
+
+    /** 无效原因 */
     private String failMsg;
 
-    @Column(name = "fail_time")
+
     private Integer failTime;
 
-    // 添加时间
-    @Column(name = "add_time")
+
+    /** 添加时间 */
     private Integer addTime;
 
-    // -1 未通过 0 审核中 1 已提现
-    @Column(name = "status")
+
+    /** -1 未通过 0 审核中 1 已提现 */
     private Integer status;
 
-    // 微信号
-    @Column(name = "wechat")
+
+    /** 微信号 */
     private String wechat;
+
 
     public void copy(YxUserExtract source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

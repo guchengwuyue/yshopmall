@@ -1,90 +1,90 @@
-package co.yixiang.modules.shop.domain;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.domain;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import lombok.Data;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
 * @author hupeng
-* @date 2019-11-03
+* @date 2020-05-12
 */
-@Entity
+
 @Data
-@Table(name="yx_store_product_reply")
+@TableName("yx_store_product_reply")
 public class YxStoreProductReply implements Serializable {
 
-    // 评论ID
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    /** 评论ID */
+    @TableId
     private Integer id;
 
-    // 用户ID
-//    @Column(name = "uid",nullable = false)
-//    private Integer uid;
 
-    @ManyToOne(fetch=FetchType.LAZY,optional = false)
-    @JoinColumn(name = "uid")
-    private YxUser user;
+    /** 用户ID */
+    private Integer uid;
 
-    // 订单ID
-    @Column(name = "oid",nullable = false)
+
+    /** 订单ID */
     private Integer oid;
 
-    // 唯一id
-    @Column(name = "`unique`",nullable = false)
+
+    /** 唯一id */
+    @TableField(value = "`unique`")
     private String unique;
 
-    // 产品id
-//    @Column(name = "product_id",nullable = false)
-//    private Integer productId;
 
-    @ManyToOne(fetch=FetchType.LAZY,optional = false)
-    @JoinColumn(name = "product_id")
-    private YxStoreProduct storeProduct;
+    /** 产品id */
+    private Integer productId;
 
-    // 某种商品类型(普通商品、秒杀商品）
-    @Column(name = "reply_type",nullable = false)
+
+    /** 某种商品类型(普通商品、秒杀商品） */
     private String replyType;
 
-    // 商品分数
-    @Column(name = "product_score",nullable = false)
+
+    /** 商品分数 */
     private Integer productScore;
 
-    // 服务分数
-    @Column(name = "service_score",nullable = false)
+
+    /** 服务分数 */
     private Integer serviceScore;
 
-    // 评论内容
-    @Column(name = "comment",nullable = false)
+
+    /** 评论内容 */
     private String comment;
 
-    // 评论图片
-    @Column(name = "pics",nullable = false)
+
+    /** 评论图片 */
     private String pics;
 
-    // 评论时间
-    @Column(name = "add_time",nullable = false)
+
+    /** 评论时间 */
     private Integer addTime;
 
-    // 管理员回复内容
-    @Column(name = "merchant_reply_content")
+
+    /** 管理员回复内容 */
     private String merchantReplyContent;
 
-    // 管理员回复时间
-    @Column(name = "merchant_reply_time")
+
+    /** 管理员回复时间 */
     private Integer merchantReplyTime;
 
-    // 0未删除1已删除
-    @Column(name = "is_del",nullable = false)
+
+    /** 0未删除1已删除 */
     private Integer isDel;
 
-    // 0未回复1已回复
-    @Column(name = "is_reply",nullable = false)
+
+    /** 0未回复1已回复 */
     private Integer isReply;
+
+    @TableField(exist = false)
+    private YxStoreProduct storeProduct;
+
+    @TableField(exist = false)
+    private YxUser user;
 
     public void copy(YxStoreProductReply source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

@@ -1,89 +1,84 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service.impl;
 
-
 import co.yixiang.mp.domain.YxWechatMenu;
-import co.yixiang.mp.repository.YxWechatMenuRepository;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.mp.service.YxWechatMenuService;
-import co.yixiang.mp.service.dto.YxWechatMenuDTO;
+import co.yixiang.mp.service.dto.YxWechatMenuDto;
 import co.yixiang.mp.service.dto.YxWechatMenuQueryCriteria;
-import co.yixiang.mp.service.mapper.YxWechatMenuMapper;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import co.yixiang.mp.service.mapper.WechatMenuMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-10-06
+* @date 2020-05-12
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxWechatMenu")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxWechatMenuServiceImpl implements YxWechatMenuService {
+public class YxWechatMenuServiceImpl extends BaseServiceImpl<WechatMenuMapper, YxWechatMenu> implements YxWechatMenuService {
 
-    private final YxWechatMenuRepository YxWechatMenuRepository;
+    private final IGenerator generator;
 
-    private final YxWechatMenuMapper YxWechatMenuMapper;
+    @Override
+    //@Cacheable
+    public Map<String, Object> queryAll(YxWechatMenuQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxWechatMenu> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxWechatMenuDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
+    }
 
-    public YxWechatMenuServiceImpl(YxWechatMenuRepository YxWechatMenuRepository, YxWechatMenuMapper YxWechatMenuMapper) {
-        this.YxWechatMenuRepository = YxWechatMenuRepository;
-        this.YxWechatMenuMapper = YxWechatMenuMapper;
+
+    @Override
+    //@Cacheable
+    public List<YxWechatMenu> queryAll(YxWechatMenuQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxWechatMenu.class, criteria));
+    }
+
+
+    @Override
+    public void download(List<YxWechatMenuDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxWechatMenuDto yxWechatMenu : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("缓存数据", yxWechatMenu.getResult());
+            map.put("缓存时间", yxWechatMenu.getAddTime());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 
     @Override
-    public Map<String,Object> queryAll(YxWechatMenuQueryCriteria criteria, Pageable pageable){
-        Page<YxWechatMenu> page = YxWechatMenuRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(YxWechatMenuMapper::toDto));
-    }
-
-    @Override
-    public List<YxWechatMenuDTO> queryAll(YxWechatMenuQueryCriteria criteria){
-        return YxWechatMenuMapper.toDto(YxWechatMenuRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
-
-    @Override
-    public YxWechatMenuDTO findById(String key) {
-        Optional<YxWechatMenu> YxWechatMenu = YxWechatMenuRepository.findById(key);
-        ValidationUtil.isNull(YxWechatMenu,"YxWechatMenu","key",key);
-        return YxWechatMenuMapper.toDto(YxWechatMenu.get());
-    }
-
-    @Override
-    public boolean isExist(String key) {
-        Optional<YxWechatMenu> YxWechatMenu = YxWechatMenuRepository.findById(key);
-        if(!YxWechatMenu.isPresent()){
+    public Boolean isExist(String wechat_menus) {
+        YxWechatMenu yxWechatMenu = this.getOne(new QueryWrapper<YxWechatMenu>().eq("`key`",wechat_menus));
+        if(yxWechatMenu == null){
             return false;
         }
         return true;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxWechatMenuDTO create(YxWechatMenu resources) {
-        //resources.setKey(IdUtil.simpleUUID());
-        return YxWechatMenuMapper.toDto(YxWechatMenuRepository.save(resources));
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxWechatMenu resources) {
-        Optional<YxWechatMenu> optionalYxWechatMenu = YxWechatMenuRepository.findById(resources.getKey());
-        ValidationUtil.isNull( optionalYxWechatMenu,"YxWechatMenu","id",resources.getKey());
-        YxWechatMenu YxWechatMenu = optionalYxWechatMenu.get();
-        YxWechatMenu.copy(resources);
-        YxWechatMenuRepository.save(YxWechatMenu);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(String key) {
-        YxWechatMenuRepository.deleteById(key);
     }
 }

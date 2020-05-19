@@ -1,82 +1,88 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.modules.shop.domain.YxUserBill;
-import co.yixiang.modules.shop.repository.YxUserBillRepository;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.modules.shop.service.YxUserBillService;
-import co.yixiang.modules.shop.service.dto.YxUserBillDTO;
+import co.yixiang.modules.shop.service.dto.YxUserBillDto;
 import co.yixiang.modules.shop.service.dto.YxUserBillQueryCriteria;
-import co.yixiang.modules.shop.service.mapper.YxUserBillMapper;
-import co.yixiang.utils.QueryHelp;
-import co.yixiang.utils.ValidationUtil;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import co.yixiang.modules.shop.service.mapper.UserBillMapper;
+import org.apache.xmlbeans.impl.xb.xmlconfig.Qnametargetlist;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2019-11-06
+* @date 2020-05-12
 */
 @Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxUserBill")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxUserBillServiceImpl implements YxUserBillService {
+public class YxUserBillServiceImpl extends BaseServiceImpl<UserBillMapper, YxUserBill> implements YxUserBillService {
 
-    private final YxUserBillRepository yxUserBillRepository;
-
-    private final YxUserBillMapper yxUserBillMapper;
-
-    public YxUserBillServiceImpl(YxUserBillRepository yxUserBillRepository, YxUserBillMapper yxUserBillMapper) {
-        this.yxUserBillRepository = yxUserBillRepository;
-        this.yxUserBillMapper = yxUserBillMapper;
-    }
+    private final IGenerator generator;
 
     @Override
-    public Map<String,Object> queryAll(YxUserBillQueryCriteria criteria, Pageable pageable){
-        Page<Map> page = yxUserBillRepository.findAllByPageable(criteria.getCategory()
-                ,criteria.getType(),criteria.getNickname(),pageable);
-        Map<String,Object> map = new LinkedHashMap<>(2);
-        map.put("content",page.getContent());
-        map.put("totalElements",page.getTotalElements());
+    //@Cacheable
+    public Map<String, Object> queryAll(YxUserBillQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxUserBillDto> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", page.getList());
+        map.put("totalElements", page.getTotal());
         return map;
     }
 
-    @Override
-    public List<YxUserBillDTO> queryAll(YxUserBillQueryCriteria criteria){
-        return yxUserBillMapper.toDto(yxUserBillRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
 
     @Override
-    public YxUserBillDTO findById(Integer id) {
-        Optional<YxUserBill> yxUserBill = yxUserBillRepository.findById(id);
-        ValidationUtil.isNull(yxUserBill,"YxUserBill","id",id);
-        return yxUserBillMapper.toDto(yxUserBill.get());
+    //@Cacheable
+    public List<YxUserBillDto> queryAll(YxUserBillQueryCriteria criteria){
+
+        return baseMapper.findAllByQueryCriteria(criteria.getCategory(),criteria.getType(),criteria.getNickname());
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxUserBillDTO create(YxUserBill resources) {
-        return yxUserBillMapper.toDto(yxUserBillRepository.save(resources));
-    }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxUserBill resources) {
-        Optional<YxUserBill> optionalYxUserBill = yxUserBillRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxUserBill,"YxUserBill","id",resources.getId());
-        YxUserBill yxUserBill = optionalYxUserBill.get();
-        yxUserBill.copy(resources);
-        yxUserBillRepository.save(yxUserBill);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxUserBillRepository.deleteById(id);
+    public void download(List<YxUserBillDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxUserBillDto yxUserBill : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("用户uid", yxUserBill.getUid());
+            map.put("关联id", yxUserBill.getLinkId());
+            map.put("0 = 支出 1 = 获得", yxUserBill.getPm());
+            map.put("账单标题", yxUserBill.getTitle());
+            map.put("明细种类", yxUserBill.getCategory());
+            map.put("明细类型", yxUserBill.getType());
+            map.put("明细数字", yxUserBill.getNumber());
+            map.put("剩余", yxUserBill.getBalance());
+            map.put("备注", yxUserBill.getMark());
+            map.put("添加时间", yxUserBill.getAddTime());
+            map.put("0 = 带确定 1 = 有效 -1 = 无效", yxUserBill.getStatus());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
 }

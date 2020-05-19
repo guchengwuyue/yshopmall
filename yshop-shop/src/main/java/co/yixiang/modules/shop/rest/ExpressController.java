@@ -1,8 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxExpress;
 import co.yixiang.modules.shop.service.YxExpressService;
 import co.yixiang.modules.shop.service.dto.YxExpressQueryCriteria;
@@ -45,7 +48,7 @@ public class ExpressController {
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxExpress resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        return new ResponseEntity(yxExpressService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxExpressService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改快递")
@@ -54,7 +57,7 @@ public class ExpressController {
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxExpress resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxExpressService.update(resources);
+        yxExpressService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -64,7 +67,7 @@ public class ExpressController {
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxExpressService.delete(id);
+        yxExpressService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

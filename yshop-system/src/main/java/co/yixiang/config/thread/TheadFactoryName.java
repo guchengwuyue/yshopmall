@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.config.thread;
 
 import org.springframework.stereotype.Component;
@@ -7,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 自定义线程名称
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019年10月31日17:49:55
  */
 @Component

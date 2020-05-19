@@ -1,9 +1,12 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
 import co.yixiang.modules.activity.service.YxStoreCombinationService;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationQueryCriteria;
@@ -59,9 +62,9 @@ public class StoreCombinationController {
         }
         if(ObjectUtil.isNull(resources.getId())){
             resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
-            return new ResponseEntity(yxStoreCombinationService.create(resources),HttpStatus.CREATED);
+            return new ResponseEntity(yxStoreCombinationService.save(resources),HttpStatus.CREATED);
         }else{
-            yxStoreCombinationService.update(resources);
+            yxStoreCombinationService.saveOrUpdate(resources);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
 
@@ -87,7 +90,7 @@ public class StoreCombinationController {
         YxStoreCombination combination = new YxStoreCombination();
         combination.setIsDel(1);
         combination.setId(id);
-        yxStoreCombinationService.update(combination);
+        yxStoreCombinationService.saveOrUpdate(combination);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -11,7 +16,7 @@ import java.util.Map;
  * @Date 2019/10/12
  **/
 @Data
-public class DetailDTO {
+public class DetailDto {
     private List<String> data;
 
     //private List<Map<String,List<Map<String,String>>>> res;

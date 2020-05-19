@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.utils;
 
 import cn.hutool.core.codec.Base64;
@@ -12,6 +17,7 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
@@ -335,6 +341,38 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static BufferedImage inputImage(MultipartFile file) {
+        BufferedImage srcImage = null;
+        try {
+            FileInputStream in = (FileInputStream) file.getInputStream();
+            srcImage = javax.imageio.ImageIO.read(in);
+        } catch (IOException e) {
+            System.out.println("读取图片文件出错！" + e.getMessage());
+        }
+        return srcImage;
+    }
+    /**
+     * 自动调节精度(经验数值)
+     *
+     * @param size 源图片大小
+     * @return 图片压缩质量比
+     */
+    public static float getAccuracy(long size) {
+        float accuracy;
+        if (size < 400) {
+            accuracy = 0.85f;
+        } else if (size < 900) {
+            accuracy = 0.75f;
+        } else if (size < 2047) {
+            accuracy = 0.6f;
+        } else if (size < 3275) {
+            accuracy = 0.44f;
+        } else {
+            accuracy = 0.4f;
+        }
+        return accuracy;
     }
 
 }

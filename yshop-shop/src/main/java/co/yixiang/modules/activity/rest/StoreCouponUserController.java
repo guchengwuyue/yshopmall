@@ -1,7 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.rest;
 
-import co.yixiang.aop.log.Log;
-import co.yixiang.modules.activity.domain.YxStoreCouponUser;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponUserQueryCriteria;
 import io.swagger.annotations.Api;
@@ -10,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**

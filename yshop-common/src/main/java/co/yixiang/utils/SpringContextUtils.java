@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.utils;
 
 import org.springframework.beans.BeansException;
@@ -10,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SpringContextUtils implements ApplicationContextAware {
-	public static ApplicationContext applicationContext; 
+	public static ApplicationContext applicationContext;
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)

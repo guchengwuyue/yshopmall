@@ -1,8 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCoupon;
 import co.yixiang.modules.activity.service.YxStoreCouponService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponQueryCriteria;
@@ -45,7 +48,7 @@ public class StoreCouponController {
     @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCoupon resources){
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        return new ResponseEntity(yxStoreCouponService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxStoreCouponService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改")
@@ -53,7 +56,7 @@ public class StoreCouponController {
     @PutMapping(value = "/yxStoreCoupon")
     @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCoupon resources){
-        yxStoreCouponService.update(resources);
+        yxStoreCouponService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -66,7 +69,7 @@ public class StoreCouponController {
         YxStoreCoupon resources = new YxStoreCoupon();
         resources.setId(id);
         resources.setIsDel(1);
-        yxStoreCouponService.update(resources);
+        yxStoreCouponService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

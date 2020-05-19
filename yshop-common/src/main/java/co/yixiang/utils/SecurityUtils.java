@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.utils;
 
 import cn.hutool.json.JSONObject;
@@ -29,7 +34,7 @@ public class SecurityUtils {
      */
     public static String getUsername(){
         Object obj = getUserDetails();
-        return new JSONObject(obj).get("username", String.class);
+        return  new JSONObject(obj).get("username", String.class);
     }
 
     /**

@@ -1,11 +1,17 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.config.DataScope;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.system.domain.Job;
 import co.yixiang.modules.system.service.JobService;
+import co.yixiang.modules.system.service.dto.JobDto;
 import co.yixiang.modules.system.service.dto.JobQueryCriteria;
 import co.yixiang.utils.ThrowableUtil;
 import io.swagger.annotations.Api;
@@ -22,7 +28,7 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
-* @author Zheng Jie
+* @author hupeng
 * @date 2019-03-29
 */
 @Api(tags = "系统：岗位管理")
@@ -34,11 +40,14 @@ public class JobController {
 
     private final DataScope dataScope;
 
+    private final IGenerator generator;
+
     private static final String ENTITY_NAME = "job";
 
-    public JobController(JobService jobService, DataScope dataScope) {
+    public JobController(JobService jobService, DataScope dataScope, IGenerator generator) {
         this.jobService = jobService;
         this.dataScope = dataScope;
+        this.generator = generator;
     }
 
     @Log("导出岗位数据")
@@ -46,7 +55,7 @@ public class JobController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','job:list')")
     public void download(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
-        jobService.download(jobService.queryAll(criteria), response);
+        jobService.download(generator.convert(jobService.queryAll(criteria), JobDto.class), response);
     }
 
     @Log("查询岗位")
@@ -67,16 +76,16 @@ public class JobController {
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
-        return new ResponseEntity<>(jobService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(jobService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改岗位")
     @ApiOperation("修改岗位")
     @PutMapping
     @PreAuthorize("@el.check('admin','job:edit')")
-    public ResponseEntity<Object> update(@Validated(Job.Update.class) @RequestBody Job resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody Job resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        jobService.update(resources);
+        jobService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -87,7 +96,7 @@ public class JobController {
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         try {
-            jobService.delete(ids);
+            jobService.removeByIds(ids);
         }catch (Throwable e){
             ThrowableUtil.throwForeignKeyException(e, "所选岗位存在用户关联，请取消关联后再试");
         }

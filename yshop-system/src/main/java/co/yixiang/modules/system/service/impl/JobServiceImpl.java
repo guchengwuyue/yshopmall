@@ -1,111 +1,105 @@
+/**
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.service.impl;
 
-import co.yixiang.modules.system.service.dto.JobDTO;
-import co.yixiang.modules.system.service.dto.JobQueryCriteria;
 import co.yixiang.modules.system.domain.Job;
-import co.yixiang.modules.system.repository.DeptRepository;
-import co.yixiang.utils.FileUtil;
-import co.yixiang.utils.PageUtil;
-import co.yixiang.utils.QueryHelp;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.modules.system.service.DeptService;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.utils.ValidationUtil;
-import co.yixiang.modules.system.repository.JobRepository;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.modules.system.service.JobService;
+import co.yixiang.modules.system.service.dto.JobDto;
+import co.yixiang.modules.system.service.dto.JobQueryCriteria;
 import co.yixiang.modules.system.service.mapper.JobMapper;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletResponse;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import co.yixiang.utils.PageUtil;
+import co.yixiang.utils.QueryHelp;
+import java.util.List;
+import java.util.Map;
 import java.io.IOException;
-import java.util.*;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-29
+* @author hupeng
+* @date 2020-05-14
 */
 @Service
-@CacheConfig(cacheNames = "job")
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "job")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class JobServiceImpl implements JobService {
+public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements JobService {
 
-    private final JobRepository jobRepository;
+    private final IGenerator generator;
 
-    private final JobMapper jobMapper;
-
-    private final DeptRepository deptRepository;
-
-    public JobServiceImpl(JobRepository jobRepository, JobMapper jobMapper, DeptRepository deptRepository) {
-        this.jobRepository = jobRepository;
-        this.jobMapper = jobMapper;
-        this.deptRepository = deptRepository;
-    }
+    private final DeptService deptService;
 
     @Override
-    @Cacheable
-    public Map<String,Object> queryAll(JobQueryCriteria criteria, Pageable pageable) {
-        Page<Job> page = jobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        List<JobDTO> jobs = new ArrayList<>();
-        for (Job job : page.getContent()) {
-            jobs.add(jobMapper.toDto(job,deptRepository.findNameById(job.getDept().getPid())));
+    //@Cacheable
+    public Map<String, Object> queryAll(JobQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<Job> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), JobDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
+    }
+
+
+    @Override
+    //@Cacheable
+    public List<Job> queryAll(JobQueryCriteria criteria){
+        List<Job> jobList = baseMapper.selectList(QueryHelpPlus.getPredicate(Job.class, criteria));
+        List<Job> jobScopeList = new ArrayList<>();
+        if(criteria.getDeptIds().size()==0){
+            for (Job job : jobList) {
+                    job.setDept(deptService.getById(job.getDeptId()));
+                    jobScopeList.add(job);
+            }
+        }else {
+            //断权限范围
+            for (Long deptId : criteria.getDeptIds()) {
+                for (Job job : jobList) {
+                    if(deptId ==job.getDeptId()){
+                        job.setDept(deptService.getById(job.getDeptId()));
+                        jobScopeList.add(job);
+                    }
+                }
+            }
         }
-        return PageUtil.toPage(jobs,page.getTotalElements());
+        return jobScopeList;
     }
 
-    @Override
-    @Cacheable
-    public List<JobDTO> queryAll(JobQueryCriteria criteria) {
-        List<Job> list = jobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder));
-        return jobMapper.toDto(list);
-    }
 
     @Override
-    @Cacheable(key = "#p0")
-    public JobDTO findById(Long id) {
-        Job job = jobRepository.findById(id).orElseGet(Job::new);
-        ValidationUtil.isNull(job.getId(),"Job","id",id);
-        return jobMapper.toDto(job);
-    }
-
-    @Override
-    @CacheEvict(allEntries = true)
-    @Transactional(rollbackFor = Exception.class)
-    public JobDTO create(Job resources) {
-        return jobMapper.toDto(jobRepository.save(resources));
-    }
-
-    @Override
-    @CacheEvict(allEntries = true)
-    @Transactional(rollbackFor = Exception.class)
-    public void update(Job resources) {
-        Job job = jobRepository.findById(resources.getId()).orElseGet(Job::new);
-        ValidationUtil.isNull( job.getId(),"Job","id",resources.getId());
-        resources.setId(job.getId());
-        jobRepository.save(resources);
-    }
-
-    @Override
-    @CacheEvict(allEntries = true)
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Set<Long> ids) {
-        for (Long id : ids) {
-            jobRepository.deleteById(id);
-        }
-    }
-
-    @Override
-    public void download(List<JobDTO> jobDtos, HttpServletResponse response) throws IOException {
+    public void download(List<JobDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (JobDTO jobDTO : jobDtos) {
+        for (JobDto job : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("岗位名称", jobDTO.getName());
-            map.put("所属部门", jobDTO.getDept().getName());
-            map.put("岗位状态", jobDTO.getEnabled() ? "启用" : "停用");
-            map.put("创建日期", jobDTO.getCreateTime());
+            map.put("岗位名称", job.getName());
+            map.put("岗位状态", job.getEnabled());
+            map.put("岗位排序", job.getSort());
+            map.put("创建日期", job.getCreateTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

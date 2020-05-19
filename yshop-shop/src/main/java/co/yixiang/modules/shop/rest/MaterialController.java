@@ -1,7 +1,12 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxMaterial;
 import co.yixiang.modules.shop.service.YxMaterialService;
 import co.yixiang.modules.shop.service.dto.YxMaterialQueryCriteria;
@@ -43,14 +48,14 @@ public class MaterialController {
     @ApiOperation("新增素材管理")
     public ResponseEntity<Object> create(@Validated @RequestBody YxMaterial resources){
         resources.setCreateId(SecurityUtils.getUsername());
-        return new ResponseEntity<>(yxMaterialService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(yxMaterialService.save(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改素材管理")
     @ApiOperation("修改素材管理")
     public ResponseEntity<Object> update(@Validated @RequestBody YxMaterial resources){
-        yxMaterialService.update(resources);
+        yxMaterialService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -58,7 +63,7 @@ public class MaterialController {
     @ApiOperation("删除素材管理")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> deleteAll(@PathVariable String id) {
-        yxMaterialService.deleteById(id);
+        yxMaterialService.removeById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

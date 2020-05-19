@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.param;
 
 import lombok.Data;
@@ -11,7 +16,7 @@ import java.io.Serializable;
  **/
 @Data
 public class ExpressParam implements Serializable {
-    //@NotBlank()
+    ////@NotBlank()
     private String orderCode;
     private String shipperCode;
     private String logisticCode;

@@ -61,6 +61,15 @@
               <#else>
             未设置字典，请手动设置 Select
               </#if>
+            <#elseif column.formType = 'Imges'>
+              <MaterialList
+                      v-model="${column.changeColumnName}Arr"
+                      style="width: 915px;"
+                      type="image"
+                      :num="1"
+                      :width="150"
+                      :height="150"
+              />
             <#else>
             <el-date-picker v-model="form.${column.changeColumnName}" type="datetime" style="width: 370px;" />
             </#if>
@@ -78,25 +87,33 @@
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
         <el-table-column type="selection" width="55" />
         <#if columns??>
-            <#list columns as column>
-            <#if column.columnShow>
-          <#if column.dictName??>
+        <#list columns as column>
+        <#if column.columnShow>
+        <#if column.dictName??>
         <el-table-column v-if="columns.visible('${column.changeColumnName}')" prop="${column.changeColumnName}" label="<#if column.remark != ''>${column.remark}<#else>${column.changeColumnName}</#if>">
           <template slot-scope="scope">
             {{ dict.label.${column.dictName}[scope.row.${column.changeColumnName}] }}
           </template>
         </el-table-column>
-          <#elseif column.columnType != 'Timestamp'>
+        <#elseif column.formType = 'Imges'>
+          <el-table-column v-if="columns.visible('${column.changeColumnName}')" prop="${column.changeColumnName}" label="<#if column.remark != ''>${column.remark}<#else>${column.changeColumnName}</#if>">
+            <template slot-scope="scope">
+              <a :href="scope.row.${column.changeColumnName}" style="color: #42b983" target="_blank">
+                <img :src="scope.row.${column.changeColumnName}" alt="点击打开" class="table-img" />
+              </a>
+            </template>
+          </el-table-column>
+        <#elseif column.columnType != 'Timestamp'>
         <el-table-column v-if="columns.visible('${column.changeColumnName}')" prop="${column.changeColumnName}" label="<#if column.remark != ''>${column.remark}<#else>${column.changeColumnName}</#if>" />
-                <#else>
+        <#else>
         <el-table-column v-if="columns.visible('${column.changeColumnName}')" prop="${column.changeColumnName}" label="<#if column.remark != ''>${column.remark}<#else>${column.changeColumnName}</#if>">
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.${column.changeColumnName}) }}</span>
           </template>
         </el-table-column>
-                </#if>
-            </#if>
-            </#list>
+        </#if>
+        </#if>
+        </#list>
         </#if>
         <el-table-column v-permission="['admin','${changeClassName}:edit','${changeClassName}:del']" label="操作" width="150px" align="center">
           <template slot-scope="scope">
@@ -120,19 +137,21 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
+<#if hasImages??>import MaterialList from "@/components/material";</#if>
 
 // crud交由presenter持有
 const defaultCrud = CRUD({ title: '${apiAlias}', url: 'api/${changeClassName}', sort: '${pkChangeColName},desc', crudMethod: { ...crud${className} }})
 const defaultForm = { <#if columns??><#list columns as column>${column.changeColumnName}: null<#if column_has_next>, </#if></#list></#if> }
 export default {
   name: '${className}',
-  components: { pagination, crudOperation, rrOperation, udOperation },
+  components: { pagination, crudOperation, rrOperation, udOperation <#if hasImages??>,MaterialList</#if>},
   mixins: [presenter(defaultCrud), header(), form(defaultForm), crud()],
   <#if hasDict>
   dicts: [<#if hasDict??><#list dicts as dict>'${dict}'<#if dict_has_next>, </#if></#list></#if>],
   </#if>
   data() {
     return {
+      <#if columns??><#list columns as column><#if column.formShow><#if column.formType = 'Imges'>${column.changeColumnName}Arr:[],</#if></#if></#list></#if>
       permission: {
         add: ['admin', '${changeClassName}:add'],
         edit: ['admin', '${changeClassName}:edit'],
@@ -161,6 +180,21 @@ export default {
       </#if>
     }
   },
+  watch: {
+    <#if columns??>
+    <#list columns as column>
+    <#if column.formShow>
+    <#if column.formType = 'Imges'>
+    "${column.changeColumnName}Arr":function(val) {
+      if (val) {
+        this.form.${column.changeColumnName} = val.join(",");
+      }
+    },
+    </#if>
+    </#if>
+    </#list>
+    </#if>
+  },
   methods: {
     // 获取数据前设置好接口地址
     [CRUD.HOOK.beforeRefresh]() {
@@ -168,14 +202,52 @@ export default {
       const query = this.query
       if (query.type && query.value) {
         this.crud.params[query.type] = query.value
+      }else{
+        <#if queryColumns??>
+        <#list queryColumns as column>
+        delete this.crud.params.${column.changeColumnName}
+        </#list>
+        </#if>
       }
       </#if>
       return true
-    }
+    }, // 新增与编辑前做的操作
+    [CRUD.HOOK.afterToCU](crud, form) {
+      <#if columns??>
+      <#list columns as column>
+      <#if column.formShow>
+      <#if column.formType = 'Imges'>
+      if (form.${column.changeColumnName} && form.id) {
+        this.${column.changeColumnName}Arr = form.${column.changeColumnName}.split(",");
+      }else{
+        this.${column.changeColumnName}Arr=[]
+      }
+      </#if>
+      </#if>
+      </#list>
+      </#if>
+    },
   }
 }
+
+
+
 </script>
 
 <style scoped>
-
+  <#if hasImages??>
+  .table-img {
+    display: inline-block;
+    text-align: center;
+    background: #ccc;
+    color: #fff;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+  </#if>
 </style>

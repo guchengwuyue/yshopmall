@@ -1,5 +1,10 @@
-package co.yixiang.modules.shop.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.shop.domain.YxMaterial;
 import co.yixiang.modules.shop.service.dto.YxMaterialDto;
 import co.yixiang.modules.shop.service.dto.YxMaterialQueryCriteria;
@@ -11,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2020-01-09
+* @date 2020-05-12
 */
-public interface YxMaterialService {
+public interface YxMaterialService  extends BaseService<YxMaterial>{
 
-    /**
+/**
     * 查询数据分页
     * @param criteria 条件
     * @param pageable 分页参数
@@ -28,36 +33,13 @@ public interface YxMaterialService {
     * @param criteria 条件参数
     * @return List<YxMaterialDto>
     */
-    List<YxMaterialDto> queryAll(YxMaterialQueryCriteria criteria);
+    List<YxMaterial> queryAll(YxMaterialQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id ID
-     * @return YxMaterialDto
-     */
-    YxMaterialDto findById(String id);
-
-    /**
-    * 创建
-    * @param resources /
-    * @return YxMaterialDto
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
     */
-    YxMaterialDto create(YxMaterial resources);
-
-    /**
-    * 编辑
-    * @param resources /
-    */
-    void update(YxMaterial resources);
-
-    /**
-    * 多选删除
-    * @param ids /
-    */
-    void deleteAll(String[] ids);
-
-    void deleteById(String id);
-
-
-
+    void download(List<YxMaterialDto> all, HttpServletResponse response) throws IOException;
 }

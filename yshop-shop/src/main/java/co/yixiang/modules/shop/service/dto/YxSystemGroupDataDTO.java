@@ -1,17 +1,20 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Map;
 
-
 /**
 * @author hupeng
-* @date 2019-10-18
+* @date 2020-05-12
 */
 @Data
-public class YxSystemGroupDataDTO implements Serializable {
+public class YxSystemGroupDataDto implements Serializable {
 
     // 组合数据详情ID
     private Integer id;

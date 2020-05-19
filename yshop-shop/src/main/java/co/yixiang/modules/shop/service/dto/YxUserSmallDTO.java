@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -11,7 +16,7 @@ import java.math.BigDecimal;
 * @date 2019-10-06
 */
 @Data
-public class YxUserSmallDTO implements Serializable {
+public class YxUserSmallDto implements Serializable {
 
     // 用户id
     private Integer uid;

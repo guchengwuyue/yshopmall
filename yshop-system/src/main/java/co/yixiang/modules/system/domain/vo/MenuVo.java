@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,7 +13,7 @@ import java.util.List;
 
 /**
  * 构建前端路由时用到
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-12-20
  */
 @Data

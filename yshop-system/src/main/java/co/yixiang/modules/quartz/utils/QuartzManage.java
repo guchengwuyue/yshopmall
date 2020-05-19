@@ -1,8 +1,13 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.quartz.utils;
 
 import co.yixiang.exception.BadRequestException;
-import lombok.extern.slf4j.Slf4j;
 import co.yixiang.modules.quartz.domain.QuartzJob;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.stereotype.Component;
@@ -11,7 +16,7 @@ import java.util.Date;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019-01-07
  */
 @Slf4j

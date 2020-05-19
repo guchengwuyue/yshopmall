@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.controller;
 
 
@@ -10,6 +15,7 @@ import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
@@ -41,7 +47,7 @@ public class WechatMenuController {
     @GetMapping(value = "/YxWechatMenu")
     @PreAuthorize("@el.check('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
     public ResponseEntity getYxWechatMenus(){
-        return new ResponseEntity(YxWechatMenuService.findById("wechat_menus"),HttpStatus.OK);
+        return new ResponseEntity(YxWechatMenuService.getOne(new QueryWrapper<YxWechatMenu>().eq("`key`","wechat_menus")),HttpStatus.OK);
     }
 
 
@@ -60,12 +66,12 @@ public class WechatMenuController {
         if(isExist){
             YxWechatMenu.setKey("wechat_menus");
             YxWechatMenu.setResult(jsonButton);
-            YxWechatMenuService.update(YxWechatMenu);
+            YxWechatMenuService.saveOrUpdate(YxWechatMenu);
         }else {
             YxWechatMenu.setKey("wechat_menus");
             YxWechatMenu.setResult(jsonButton);
             YxWechatMenu.setAddTime(OrderUtil.getSecondTimestampTwo());
-            YxWechatMenuService.create(YxWechatMenu);
+            YxWechatMenuService.save(YxWechatMenu);
         }
 
 

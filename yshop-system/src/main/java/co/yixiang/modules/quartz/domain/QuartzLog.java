@@ -1,58 +1,71 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.quartz.domain;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
-import java.io.Serializable;
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import java.sql.Timestamp;
+import java.io.Serializable;
 
 /**
- * @author Zheng Jie
- * @date 2019-01-07
- */
-@Entity
+* @author hupeng
+* @date 2020-05-13
+*/
+
 @Data
-@Table(name = "quartz_log")
+@TableName("quartz_log")
 public class QuartzLog implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /** 任务日志ID */
+    @TableId
     private Long id;
 
+
     /** 任务名称 */
-    @Column(name = "job_name")
-    private String jobName;
+    private String baenName;
 
-    /** Bean名称 */
-    @Column(name = "baen_name")
-    private String beanName;
 
-    /** 方法名称 */
-    @Column(name = "method_name")
-    private String methodName;
+    /** 创建时间  */
+    @TableField(fill= FieldFill.INSERT)
+    private Timestamp createTime;
 
-    /** 参数 */
-    @Column(name = "params")
-    private String params;
 
     /** cron表达式 */
-    @Column(name = "cron_expression")
     private String cronExpression;
 
+
+    /** 异常详细  */
+    private String exceptionDetail;
+
+
     /** 状态 */
-    @Column(name = "is_success")
     private Boolean isSuccess;
 
-    /** 异常详细 */
-    @Column(name = "exception_detail",columnDefinition = "text")
-    private String exceptionDetail;
+
+    /** 任务名称 */
+    private String jobName;
+
+
+    /** 方法名称 */
+    private String methodName;
+
+
+    /** 参数 */
+    private String params;
+
 
     /** 耗时（毫秒） */
     private Long time;
 
-    /** 创建日期 */
-    @CreationTimestamp
-    @Column(name = "create_time")
-    private Timestamp createTime;
+
+    public void copy(QuartzLog source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    }
 }

@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.utils;
 
 import cn.hutool.core.date.DateTime;
@@ -43,29 +48,31 @@ public class OrderUtil {
 
     /**
      * 获取俩个数之间的随机数
+     *
      * @param min
      * @param max
      * @return
      */
-    public static Double randomNumber(double min,double max){
+    public static Double randomNumber(double min, double max) {
         return NumberUtil.add(min,
                 NumberUtil.mul(Math.random(),
-                        NumberUtil.sub(max,min)));
+                        NumberUtil.sub(max, min)));
     }
 
     /**
      * 时间戳订单号
+     *
      * @return
      */
-    public static String orderSn(){
+    public static String orderSn() {
         Date date = DateUtil.date();
-        return DateUtil.format(date,"yyyyMMddHHmmssSSS");
+        return DateUtil.format(date, "yyyyMMddHHmmssSSS");
     }
 
     /*
      * 将时间戳转换为时间
      */
-    public static String stampToDate(String s){
+    public static String stampToDate(String s) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long lt = new Long(s) * 1000;
@@ -77,7 +84,7 @@ public class OrderUtil {
     /*
      * 将时间戳转换为date
      */
-    public static Date stampToDateObj(String s){
+    public static Date stampToDateObj(String s) {
         long lt = new Long(s) * 1000;
         Date date = new Date(lt);
         return date;
@@ -86,59 +93,70 @@ public class OrderUtil {
 
     /**
      * 获取精确到秒的时间戳
+     *
      * @return
      **/
-    public static int getSecondTimestampTwo(){
-        String timestamp = String.valueOf(new Date().getTime()/1000);
+    public static int getSecondTimestampTwo() {
+        String timestamp = String.valueOf(new Date().getTime() / 1000);
         return Integer.valueOf(timestamp);
     }
 
     /**
      * 获取精确到秒的时间戳
+     *
      * @return
      **/
-    public static int dateToTimestamp(Date date){
-        String timestamp = String.valueOf(date.getTime()/1000);
+    public static int dateToTimestamp(Date date) {
+        String timestamp = String.valueOf(date.getTime() / 1000);
         return Integer.valueOf(timestamp);
     }
 
     /**
      * 获取精确到秒的时间戳
+     *
      * @return
      **/
-    public static int dateToTimestampT(DateTime date){
-        String timestamp = String.valueOf(date.getTime()/1000);
+    public static int dateToTimestampT(DateTime date) {
+        String timestamp = String.valueOf(date.getTime() / 1000);
         return Integer.valueOf(timestamp);
+    }
+
+    public static long dateToSecond(String str) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(str);
+        long ts = date.getTime();
+        return ts/1000;
     }
 
     /**
      * 获取订单状态名称
+     *
      * @param paid
      * @param status
      * @param shipping_type
      * @param refund_status
      * @return
      */
-    public static String orderStatusStr(int paid,int status,
-                                        int shipping_type,int refund_status){
+    public static String orderStatusStr(int paid, int status,
+                                        int shipping_type, int refund_status) {
         String statusName = "";
-        if(paid == 0 && status == 0){
+        if (paid == 0 && status == 0) {
             statusName = "未支付";
-        }else if(paid == 1 && status == 0 && shipping_type == 1 && refund_status == 0){
+        } else if (paid == 1 && status == 0 && shipping_type == 1 && refund_status == 0) {
             statusName = "未发货";
-        }else if(paid == 1 &&  status == 0 && shipping_type == 2 && refund_status == 0){
+        } else if (paid == 1 && status == 0 && shipping_type == 2 && refund_status == 0) {
             statusName = "未核销";
-        }else if(paid == 1 && status == 1 && shipping_type ==1 && refund_status == 0){
+        } else if (paid == 1 && status == 1 && shipping_type == 1 && refund_status == 0) {
             statusName = "待收货";
-        }else if(paid == 1 && status == 1 && shipping_type == 2 && refund_status == 0){
+        } else if (paid == 1 && status == 1 && shipping_type == 2 && refund_status == 0) {
             statusName = "未核销";
-        }else if(paid == 1 && status == 2 && refund_status == 0){
+        } else if (paid == 1 && status == 2 && refund_status == 0) {
             statusName = "待评价";
-        }else if(paid == 1 && status == 3 && refund_status == 0){
+        } else if (paid == 1 && status == 3 && refund_status == 0) {
             statusName = "已完成";
-        }else if(paid == 1 && refund_status == 1){
+        } else if (paid == 1 && refund_status == 1) {
             statusName = "退款中";
-        }else if(paid == 1 && refund_status == 2){
+        } else if (paid == 1 && refund_status == 2) {
             statusName = "已退款";
         }
 
@@ -148,29 +166,30 @@ public class OrderUtil {
 
     /**
      * 获取状态数值
+     *
      * @param paid
      * @param status
      * @param refund_status
      * @return
      */
-    public static int orderStatus(int paid,int status,int refund_status){
+    public static int orderStatus(int paid, int status, int refund_status) {
         //todo  1-未付款 2-未发货 3-退款中 4-待收货 5-待评价 6-已完成 7-已退款
         int _status = 0;
 
-        if(paid == 0 && status == 0 && refund_status == 0){
+        if (paid == 0 && status == 0 && refund_status == 0) {
             _status = 1;
-        }else if(paid == 1 && status == 0 && refund_status == 0){
+        } else if (paid == 1 && status == 0 && refund_status == 0) {
             _status = 2;
-        }else if(paid == 1 && refund_status == 1){
+        } else if (paid == 1 && refund_status == 1) {
             _status = 3;
-        }else if(paid == 1 && status == 1 && refund_status == 0){
+        } else if (paid == 1 && status == 1 && refund_status == 0) {
             _status = 4;
-        }else if(paid == 1 && status == 2 && refund_status == 0){
+        } else if (paid == 1 && status == 2 && refund_status == 0) {
             _status = 5;
-        }else if(paid == 1 && status == 3 && refund_status == 0){
+        } else if (paid == 1 && status == 3 && refund_status == 0) {
             _status = 6;
-        }else if(paid == 1 && refund_status == 2){
-            _status =7 ;
+        } else if (paid == 1 && refund_status == 2) {
+            _status = 7;
         }
 
         return _status;
@@ -180,14 +199,15 @@ public class OrderUtil {
 
     /**
      * 支付方式
+     *
      * @param pay_type
      * @param paid
      * @return
      */
-    public static String payTypeName(String pay_type, int paid){
+    public static String payTypeName(String pay_type, int paid) {
         String payTypeName = "";
-        if(paid == 1 ){
-            switch(pay_type){
+        if (paid == 1) {
+            switch (pay_type) {
                 case "weixin":
                     payTypeName = "微信支付";
                     break;
@@ -201,8 +221,8 @@ public class OrderUtil {
                     payTypeName = "其他支付";
                     break;
             }
-        }else{
-            switch(pay_type){
+        } else {
+            switch (pay_type) {
                 default:
                     payTypeName = "未支付";
                     break;
@@ -211,13 +231,24 @@ public class OrderUtil {
                     break;
             }
         }
-
-
         return payTypeName;
     }
 
+    /**
+     * 支付渠道(0微信公众号1微信小程序)
+     *
+     * @return
+     */
+    public static String payChannel(Integer pay_channel) {
+        if (pay_channel.equals(1)) {
+            return "微信小程序";
+        } else {
+            return "微信公众号";
+        }
+    }
+
     //todo 订单类型
-    public static String orderType(int pinkId){
+    public static String orderType(int pinkId) {
         return "普通订单";
     }
 

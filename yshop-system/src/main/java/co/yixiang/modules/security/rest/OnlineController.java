@@ -1,8 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.security.service.OnlineUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +20,7 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  */
 @RestController
 @RequestMapping("/auth/online")

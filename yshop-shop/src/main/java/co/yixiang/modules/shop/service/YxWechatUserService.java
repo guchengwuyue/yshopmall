@@ -1,64 +1,45 @@
-package co.yixiang.modules.shop.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.shop.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.shop.domain.YxWechatUser;
-import co.yixiang.modules.shop.service.dto.YxWechatUserDTO;
+import co.yixiang.modules.shop.service.dto.YxWechatUserDto;
 import co.yixiang.modules.shop.service.dto.YxWechatUserQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-12-13
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "yxWechatUser")
-public interface YxWechatUserService {
+public interface YxWechatUserService  extends BaseService<YxWechatUser>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxWechatUserQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxWechatUserDto>
     */
-    //@Cacheable
-    List<YxWechatUserDTO> queryAll(YxWechatUserQueryCriteria criteria);
+    List<YxWechatUser> queryAll(YxWechatUserQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param uid
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxWechatUserDTO findById(Integer uid);
-
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxWechatUserDTO create(YxWechatUser resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxWechatUser resources);
-
-    /**
-     * 删除
-     * @param uid
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer uid);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxWechatUserDto> all, HttpServletResponse response) throws IOException;
 }

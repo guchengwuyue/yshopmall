@@ -1,11 +1,21 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.quartz.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.service.QuartzJobService;
-import co.yixiang.modules.quartz.service.dto.JobQueryCriteria;
+import co.yixiang.modules.quartz.service.QuartzLogService;
+import co.yixiang.modules.quartz.service.dto.QuartzJobDto;
+import co.yixiang.modules.quartz.service.dto.QuartzJobQueryCriteria;
+import co.yixiang.modules.quartz.service.dto.QuartzLogDto;
+import co.yixiang.modules.quartz.service.dto.QuartzLogQueryCriteria;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +28,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019-01-07
  */
 @Slf4j
@@ -33,16 +44,22 @@ public class QuartzJobController {
     private static final String ENTITY_NAME = "quartzJob";
 
     private final QuartzJobService quartzJobService;
+    private final IGenerator generator;
+    private final QuartzLogService quartzLogService;
 
-    public QuartzJobController(QuartzJobService quartzJobService) {
+
+
+    public QuartzJobController(QuartzJobService quartzJobService, IGenerator generator, QuartzLogService quartzLogService) {
         this.quartzJobService = quartzJobService;
+        this.generator = generator;
+        this.quartzLogService = quartzLogService;
     }
 
     @Log("查询定时任务")
     @ApiOperation("查询定时任务")
     @GetMapping
     @PreAuthorize("@el.check('admin','timing:list')")
-    public ResponseEntity<Object> getJobs(JobQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> getJobs(QuartzJobQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(quartzJobService.queryAll(criteria,pageable), HttpStatus.OK);
     }
 
@@ -50,23 +67,23 @@ public class QuartzJobController {
     @ApiOperation("导出任务数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','timing:list')")
-    public void download(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
-        quartzJobService.download(quartzJobService.queryAll(criteria), response);
+    public void download(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
+        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria),QuartzJobDto.class), response);
     }
 
     @Log("导出日志数据")
     @ApiOperation("导出日志数据")
     @GetMapping(value = "/logs/download")
     @PreAuthorize("@el.check('admin','timing:list')")
-    public void downloadLog(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
-        quartzJobService.downloadLog(quartzJobService.queryAllLog(criteria), response);
+    public void downloadLog(HttpServletResponse response, QuartzLogQueryCriteria criteria) throws IOException {
+        quartzLogService.download(generator.convert(quartzLogService.queryAll(criteria), QuartzLogDto.class), response);
     }
 
     @ApiOperation("查询任务执行日志")
     @GetMapping(value = "/logs")
     @PreAuthorize("@el.check('admin','timing:list')")
-    public ResponseEntity<Object> getJobLogs(JobQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(quartzJobService.queryAllLog(criteria,pageable), HttpStatus.OK);
+    public ResponseEntity<Object> getJobLogs(QuartzLogQueryCriteria criteria, Pageable pageable){
+        return new ResponseEntity<>(quartzLogService.queryAll(criteria,pageable), HttpStatus.OK);
     }
 
     @Log("新增定时任务")
@@ -78,16 +95,16 @@ public class QuartzJobController {
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
-        return new ResponseEntity<>(quartzJobService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(quartzJobService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改定时任务")
     @ApiOperation("修改定时任务")
     @PutMapping
     @PreAuthorize("@el.check('admin','timing:edit')")
-    public ResponseEntity<Object> update(@Validated(QuartzJob.Update.class) @RequestBody QuartzJob resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        quartzJobService.update(resources);
+        quartzJobService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -97,7 +114,7 @@ public class QuartzJobController {
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> updateIsPause(@PathVariable Long id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        quartzJobService.updateIsPause(quartzJobService.findById(id));
+        quartzJobService.updateIsPause(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("uid",id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -107,7 +124,7 @@ public class QuartzJobController {
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> execution(@PathVariable Long id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        quartzJobService.execution(quartzJobService.findById(id));
+        quartzJobService.execution(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("id",id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -115,9 +132,9 @@ public class QuartzJobController {
     @ApiOperation("删除定时任务")
     @DeleteMapping
     @PreAuthorize("@el.check('admin','timing:del')")
-    public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
+    public ResponseEntity<Object> delete(@RequestBody Integer[] ids){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        quartzJobService.delete(ids);
+        quartzJobService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

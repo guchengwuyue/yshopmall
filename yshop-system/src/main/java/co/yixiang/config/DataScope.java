@@ -1,8 +1,13 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.config;
 
 import co.yixiang.modules.system.service.UserService;
-import co.yixiang.modules.system.service.dto.RoleSmallDTO;
-import co.yixiang.modules.system.service.dto.UserDTO;
+import co.yixiang.modules.system.service.dto.RoleSmallDto;
+import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.modules.system.domain.Dept;
 import co.yixiang.modules.system.service.DeptService;
@@ -15,7 +20,7 @@ import java.util.Set;
 
 /**
  * 数据权限配置
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019-4-1
  */
 @Component
@@ -37,15 +42,15 @@ public class DataScope {
 
     public Set<Long> getDeptIds() {
 
-        UserDTO user = userService.findByName(SecurityUtils.getUsername());
+        UserDto user = userService.findByName(SecurityUtils.getUsername());
 
         // 用于存储部门id
         Set<Long> deptIds = new HashSet<>();
 
         // 查询用户角色
-        List<RoleSmallDTO> roleSet = roleService.findByUsersId(user.getId());
+        List<RoleSmallDto> roleSet = roleService.findByUsersId(user.getId());
 
-        for (RoleSmallDTO role : roleSet) {
+        for (RoleSmallDto role : roleSet) {
 
             if (scopeType[0].equals(role.getDataScope())) {
                 return new HashSet<>() ;

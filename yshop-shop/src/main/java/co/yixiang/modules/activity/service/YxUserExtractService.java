@@ -1,64 +1,45 @@
-package co.yixiang.modules.activity.service;
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
 
+ */
+package co.yixiang.modules.activity.service;
+import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.activity.domain.YxUserExtract;
-import co.yixiang.modules.activity.service.dto.YxUserExtractDTO;
+import co.yixiang.modules.activity.service.dto.YxUserExtractDto;
 import co.yixiang.modules.activity.service.dto.YxUserExtractQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-11-14
+* @date 2020-05-13
 */
-//@CacheConfig(cacheNames = "yxUserExtract")
-public interface YxUserExtractService {
+public interface YxUserExtractService  extends BaseService<YxUserExtract>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxUserExtractQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxUserExtractDto>
     */
-    //@Cacheable
-    List<YxUserExtractDTO> queryAll(YxUserExtractQueryCriteria criteria);
+    List<YxUserExtract> queryAll(YxUserExtractQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxUserExtractDTO findById(Integer id);
-
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxUserExtractDTO create(YxUserExtract resources);
-
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxUserExtract resources);
-
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxUserExtractDto> all, HttpServletResponse response) throws IOException;
 }

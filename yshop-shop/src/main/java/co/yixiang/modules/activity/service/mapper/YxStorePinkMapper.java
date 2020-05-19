@@ -1,16 +1,21 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.mapper;
 
-import co.yixiang.mapper.EntityMapper;
+import co.yixiang.common.mapper.CoreMapper;
 import co.yixiang.modules.activity.domain.YxStorePink;
-import co.yixiang.modules.activity.service.dto.YxStorePinkDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author hupeng
-* @date 2019-11-18
+* @date 2020-05-12
 */
-@Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface YxStorePinkMapper extends EntityMapper<YxStorePinkDTO, YxStorePink> {
+@Repository
+@Mapper
+public interface YxStorePinkMapper extends CoreMapper<YxStorePink> {
 
 }

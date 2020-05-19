@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.security.vo;
 
 import lombok.Getter;
@@ -6,7 +11,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-11-30
  */
 @Getter

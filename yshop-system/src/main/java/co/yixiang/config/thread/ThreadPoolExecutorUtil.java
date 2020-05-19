@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.config.thread;
 
 import co.yixiang.utils.SpringContextHolder;
@@ -8,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 用于获取自定义线程池
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019年10月31日18:16:47
  */
 public class ThreadPoolExecutorUtil {

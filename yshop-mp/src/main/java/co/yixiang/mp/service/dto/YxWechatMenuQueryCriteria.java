@@ -1,10 +1,17 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service.dto;
 
 import lombok.Data;
+import java.util.List;
+import co.yixiang.annotation.Query;
 
 /**
 * @author hupeng
-* @date 2019-10-06
+* @date 2020-05-12
 */
 @Data
 public class YxWechatMenuQueryCriteria{

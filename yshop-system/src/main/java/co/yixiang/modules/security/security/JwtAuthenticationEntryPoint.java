@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.security;
 
 import org.springframework.security.core.AuthenticationException;
@@ -9,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  */
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {

@@ -1,22 +1,26 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service.impl;
 
-
-import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.ErrorRequestException;
 import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxArticle;
-import co.yixiang.mp.repository.YxArticleRepository;
-import co.yixiang.mp.service.YxArticleService;
-import co.yixiang.mp.service.dto.YxArticleDTO;
-import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
-import co.yixiang.mp.service.mapper.YxArticleMapper;
+import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.mp.utils.URLUtils;
-import co.yixiang.utils.*;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.mp.service.YxArticleService;
+import co.yixiang.mp.service.dto.YxArticleDto;
+import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
+import co.yixiang.mp.service.mapper.ArticleMapper;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -29,82 +33,91 @@ import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
 import me.chanjar.weixin.mp.bean.result.WxMpMassSendResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
-* @date 2019-10-07
+* @date 2020-05-12
 */
 @Slf4j
 @Service
+//@CacheConfig(cacheNames = "yxArticle")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class YxArticleServiceImpl implements YxArticleService {
+public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArticle> implements YxArticleService {
 
-    private final YxArticleRepository yxArticleRepository;
-
-    private final YxArticleMapper yxArticleMapper;
-
-    public YxArticleServiceImpl(YxArticleRepository yxArticleRepository, YxArticleMapper yxArticleMapper) {
-        this.yxArticleRepository = yxArticleRepository;
-        this.yxArticleMapper = yxArticleMapper;
-    }
-
+    private final IGenerator generator;
     @Value("${file.path}")
     private String uploadDirStr;
 
-    @Override
-    public Map<String,Object> queryAll(YxArticleQueryCriteria criteria, Pageable pageable){
-        Page<YxArticle> page = yxArticleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(yxArticleMapper::toDto));
+    public YxArticleServiceImpl(IGenerator generator) {
+        this.generator = generator;
     }
 
     @Override
-    public List<YxArticleDTO> queryAll(YxArticleQueryCriteria criteria){
-        return yxArticleMapper.toDto(yxArticleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
-    }
-
-    @Override
-    public YxArticleDTO findById(Integer id) {
-        Optional<YxArticle> yxArticle = yxArticleRepository.findById(id);
-        ValidationUtil.isNull(yxArticle,"YxArticle","id",id);
-        return yxArticleMapper.toDto(yxArticle.get());
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public YxArticleDTO create(YxArticle resources) {
-        //resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
-        return yxArticleMapper.toDto(yxArticleRepository.save(resources));
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(YxArticle resources) {
-        Optional<YxArticle> optionalYxArticle = yxArticleRepository.findById(resources.getId());
-        ValidationUtil.isNull( optionalYxArticle,"YxArticle","id",resources.getId());
-        YxArticle yxArticle = optionalYxArticle.get();
-        yxArticle.copy(resources);
-        yxArticleRepository.save(yxArticle);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Integer id) {
-        yxArticleRepository.deleteById(id);
+    //@Cacheable
+    public Map<String, Object> queryAll(YxArticleQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxArticle> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxArticleDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
     }
 
 
     @Override
-    public void uploadNews(YxArticleDTO wxNewsArticleItem) throws Exception {
+    //@Cacheable
+    public List<YxArticle> queryAll(YxArticleQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxArticle.class, criteria));
+    }
+
+
+    @Override
+    public void download(List<YxArticleDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxArticleDto yxArticle : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("分类id", yxArticle.getCid());
+            map.put("文章标题", yxArticle.getTitle());
+            map.put("文章作者", yxArticle.getAuthor());
+            map.put("文章图片", yxArticle.getImageInput());
+            map.put("文章简介", yxArticle.getSynopsis());
+            map.put(" content",  yxArticle.getContent());
+            map.put("文章分享标题", yxArticle.getShareTitle());
+            map.put("文章分享简介", yxArticle.getShareSynopsis());
+            map.put("浏览次数", yxArticle.getVisit());
+            map.put("排序", yxArticle.getSort());
+            map.put("原文链接", yxArticle.getUrl());
+            map.put("状态", yxArticle.getStatus());
+            map.put("添加时间", yxArticle.getAddTime());
+            map.put("是否隐藏", yxArticle.getHide());
+            map.put("管理员id", yxArticle.getAdminId());
+            map.put("商户id", yxArticle.getMerId());
+            map.put("产品关联id", yxArticle.getProductId());
+            map.put("是否热门(小程序)", yxArticle.getIsHot());
+            map.put("是否轮播图(小程序)", yxArticle.getIsBanner());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    public void uploadNews(YxArticleDto wxNewsArticleItem) throws WxErrorException {
 
         WxMpService wxMpService = WxMpConfiguration.getWxMpService();
 
@@ -161,9 +174,9 @@ public class YxArticleServiceImpl implements YxArticleService {
     private WxMpMaterialUploadResult uploadPhotoToWx(WxMpService wxMpService, String picPath) throws WxErrorException {
         WxMpMaterial wxMpMaterial = new WxMpMaterial();
 
-        String filename = String.valueOf( System.currentTimeMillis() ) + ".png";
+        String filename = String.valueOf( (int)System.currentTimeMillis() ) + ".png";
         String downloadPath = uploadDirStr + filename;
-        long size = HttpUtil.downloadFile(picPath, FileUtil.file(downloadPath));
+        long size = HttpUtil.downloadFile(picPath, cn.hutool.core.io.FileUtil.file(downloadPath));
         picPath = downloadPath;
         File picFile = new File( picPath );
         wxMpMaterial.setFile( picFile );
@@ -187,7 +200,7 @@ public class YxArticleServiceImpl implements YxArticleService {
             if(StringUtils.isBlank( filepath )){//网络图片URL，需下载到本地
                 String filename = String.valueOf( System.currentTimeMillis() ) + ".png";
                 String downloadPath = uploadDirStr + filename;
-                long size = HttpUtil.downloadFile(imgSrc, FileUtil.file(downloadPath));
+                long size = HttpUtil.downloadFile(imgSrc, cn.hutool.core.io.FileUtil.file(downloadPath));
                 filepath = downloadPath;
             }
             WxMediaImgUploadResult wxMediaImgUploadResult = wxMpService.getMaterialService().mediaImgUpload( new File(filepath) );

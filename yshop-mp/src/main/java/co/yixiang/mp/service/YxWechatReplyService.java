@@ -1,68 +1,51 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.mp.service;
-
-
+import co.yixiang.common.service.BaseService;
 import co.yixiang.mp.domain.YxWechatReply;
-import co.yixiang.mp.service.dto.YxWechatReplyDTO;
+import co.yixiang.mp.service.dto.YxWechatReplyDto;
 import co.yixiang.mp.service.dto.YxWechatReplyQueryCriteria;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
-* @date 2019-10-10
+* @date 2020-05-12
 */
-//@CacheConfig(cacheNames = "yxWechatReply")
-public interface YxWechatReplyService {
+public interface YxWechatReplyService  extends BaseService<YxWechatReply>{
 
-    /**
+/**
     * 查询数据分页
-    * @param criteria
-    * @param pageable
-    * @return
+    * @param criteria 条件
+    * @param pageable 分页参数
+    * @return Map<String,Object>
     */
-    //@Cacheable
     Map<String,Object> queryAll(YxWechatReplyQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
-    * @param criteria
-    * @return
+    * @param criteria 条件参数
+    * @return List<YxWechatReplyDto>
     */
-    //@Cacheable
-    List<YxWechatReplyDTO> queryAll(YxWechatReplyQueryCriteria criteria);
+    List<YxWechatReply> queryAll(YxWechatReplyQueryCriteria criteria);
 
     /**
-     * 根据ID查询
-     * @param id
-     * @return
-     */
-    //@Cacheable(key = "#p0")
-    YxWechatReplyDTO findById(Integer id);
+    * 导出数据
+    * @param all 待导出的数据
+    * @param response /
+    * @throws IOException /
+    */
+    void download(List<YxWechatReplyDto> all, HttpServletResponse response) throws IOException;
 
-    /**
-     * 创建
-     * @param resources
-     * @return
-     */
-    //@CacheEvict(allEntries = true)
-    YxWechatReplyDTO create(YxWechatReply resources);
+    YxWechatReply isExist(String subscribe);
 
-    /**
-     * 编辑
-     * @param resources
-     */
-    //@CacheEvict(allEntries = true)
-    void update(YxWechatReply resources);
+    void create(YxWechatReply yxWechatReply);
 
-    /**
-     * 删除
-     * @param id
-     */
-    //@CacheEvict(allEntries = true)
-    void delete(Integer id);
-
-    YxWechatReply isExist(String key);
-
+    void upDate(YxWechatReply yxWechatReply);
 }

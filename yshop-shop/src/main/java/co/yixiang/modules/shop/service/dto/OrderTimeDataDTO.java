@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.service.dto;
 
 import lombok.Data;
@@ -10,7 +15,7 @@ import java.io.Serializable;
  * @Date 2019/11/25
  **/
 @Data
-public class OrderTimeDataDTO implements Serializable {
+public class OrderTimeDataDto implements Serializable {
     private Double todayPrice;  //今日成交额
     private Integer todayCount; //今日订单数
     private Double proPrice;  //昨日成交额
@@ -21,8 +26,8 @@ public class OrderTimeDataDTO implements Serializable {
     private Integer lastWeekCount;//上周
     private Double lastWeekPrice; //上周
 
-    private Long userCount;
-    private Long orderCount;
+    private Integer userCount;
+    private Integer orderCount;
     private Double priceCount;
-    private Long goodsCount;
+    private Integer goodsCount;
 }

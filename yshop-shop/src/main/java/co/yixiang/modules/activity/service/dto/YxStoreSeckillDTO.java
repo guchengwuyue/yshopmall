@@ -1,18 +1,23 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-
-import java.io.Serializable;
+import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.Date;
 
-
 /**
-* @author xuwenbo
-* @date 2019-12-14
+* @author hupeng
+* @date 2020-05-13
 */
 @Data
-public class YxStoreSeckillDTO implements Serializable {
+public class YxStoreSeckillDto implements Serializable {
+
 
     // 商品秒杀产品表id
     private Integer id;

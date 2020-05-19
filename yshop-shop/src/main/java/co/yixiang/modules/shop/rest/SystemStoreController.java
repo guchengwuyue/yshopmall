@@ -1,13 +1,20 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.constant.ShopConstants;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxSystemStore;
 import co.yixiang.modules.shop.service.YxSystemStoreService;
+import co.yixiang.modules.shop.service.dto.YxSystemStoreDto;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreQueryCriteria;
 import co.yixiang.utils.OrderUtil;
 import co.yixiang.utils.RedisUtil;
@@ -24,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
 * @author hupeng
@@ -35,9 +44,10 @@ import java.io.IOException;
 public class SystemStoreController {
 
     private final YxSystemStoreService yxSystemStoreService;
-
-    public SystemStoreController(YxSystemStoreService yxSystemStoreService) {
+    private final IGenerator generator;
+    public SystemStoreController(YxSystemStoreService yxSystemStoreService, IGenerator generator) {
         this.yxSystemStoreService = yxSystemStoreService;
+        this.generator = generator;
     }
 
 
@@ -54,7 +64,7 @@ public class SystemStoreController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('yxSystemStore:list')")
     public void download(HttpServletResponse response, YxSystemStoreQueryCriteria criteria) throws IOException {
-        yxSystemStoreService.download(yxSystemStoreService.queryAll(criteria), response);
+        yxSystemStoreService.download(generator.convert(yxSystemStoreService.queryAll(criteria), YxSystemStoreDto.class), response);
     }
 
     @GetMapping
@@ -86,7 +96,7 @@ public class SystemStoreController {
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        return new ResponseEntity<>(yxSystemStoreService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(yxSystemStoreService.save(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -95,7 +105,7 @@ public class SystemStoreController {
     @PreAuthorize("@el.check('yxSystemStore:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxSystemStoreService.update(resources);
+        yxSystemStoreService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -105,7 +115,7 @@ public class SystemStoreController {
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxSystemStoreService.deleteAll(ids);
+        yxSystemStoreService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,25 +1,31 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.activity.domain.YxUserExtract;
 import co.yixiang.modules.activity.service.YxUserExtractService;
 import co.yixiang.modules.activity.service.dto.YxUserExtractQueryCriteria;
+import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.domain.YxUserBill;
+import co.yixiang.modules.shop.domain.YxWechatUser;
 import co.yixiang.modules.shop.service.YxUserBillService;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.YxWechatUserService;
-import co.yixiang.modules.shop.service.dto.YxUserDTO;
-import co.yixiang.modules.shop.service.dto.YxWechatUserDTO;
-import co.yixiang.mp.config.WxPayConfiguration;
+import co.yixiang.modules.shop.service.dto.YxUserDto;
+import co.yixiang.modules.shop.service.dto.YxWechatUserDto;
 import co.yixiang.mp.service.YxPayService;
 import co.yixiang.utils.OrderUtil;
-import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.binarywang.wxpay.exception.WxPayException;
-import com.github.binarywang.wxpay.service.WxPayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -45,15 +51,17 @@ public class UserExtractController {
     private final YxUserBillService yxUserBillService;
     private final YxWechatUserService wechatUserService;
     private final YxPayService payService;
+    private final IGenerator generator;
 
-    public UserExtractController(YxUserExtractService yxUserExtractService,YxUserService yxUserService,
-                                 YxUserBillService yxUserBillService,YxWechatUserService wechatUserService,
-                                 YxPayService payService) {
+    public UserExtractController(YxUserExtractService yxUserExtractService, YxUserService yxUserService,
+                                 YxUserBillService yxUserBillService, YxWechatUserService wechatUserService,
+                                 YxPayService payService, IGenerator generator) {
         this.yxUserExtractService = yxUserExtractService;
         this.yxUserService = yxUserService;
         this.yxUserBillService = yxUserBillService;
         this.wechatUserService = wechatUserService;
         this.payService = payService;
+        this.generator = generator;
     }
 
     @Log("查询")
@@ -82,7 +90,7 @@ public class UserExtractController {
                 throw new BadRequestException("请填写失败原因");
             }
             String mark = "提现失败,退回佣金"+resources.getExtractPrice()+"元";
-            YxUserDTO userDTO = yxUserService.findById(resources.getUid());
+            YxUserDto userDTO = generator.convert(yxUserService.getOne(new QueryWrapper<YxUser>().eq("uid",resources.getUid())),YxUserDto.class);
 
             //增加流水
             YxUserBill userBill = new YxUserBill();
@@ -97,7 +105,7 @@ public class UserExtractController {
             userBill.setStatus(1);
             userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
             userBill.setPm(1);
-            yxUserBillService.create(userBill);
+            yxUserBillService.save(userBill);
 
             //返回提现金额
             yxUserService.incBrokeragePrice(resources.getExtractPrice().doubleValue()
@@ -109,7 +117,7 @@ public class UserExtractController {
         //todo 此处为企业付款，没经过测试
         boolean isTest = true;
         if(!isTest){
-            YxWechatUserDTO wechatUser =  wechatUserService.findById(resources.getUid());
+            YxWechatUserDto wechatUser =  generator.convert(wechatUserService.getOne(new QueryWrapper<YxWechatUser>().eq("uid",resources.getUid())),YxWechatUserDto.class);
             if(ObjectUtil.isNotNull(wechatUser)){
                 try {
                     payService.entPay(wechatUser.getOpenid(),resources.getId().toString(),
@@ -123,7 +131,7 @@ public class UserExtractController {
             }
 
         }
-        yxUserExtractService.update(resources);
+        yxUserExtractService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

@@ -1,8 +1,11 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemUserLevelService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelQueryCriteria;
@@ -46,7 +49,7 @@ public class SystemUserLevelController {
     public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        return new ResponseEntity(yxSystemUserLevelService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxSystemUserLevelService.save(resources),HttpStatus.CREATED);
     }
 
     @Log("修改")
@@ -55,7 +58,7 @@ public class SystemUserLevelController {
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxSystemUserLevelService.update(resources);
+        yxSystemUserLevelService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -65,7 +68,7 @@ public class SystemUserLevelController {
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        yxSystemUserLevelService.delete(id);
+        yxSystemUserLevelService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

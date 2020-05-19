@@ -1,3 +1,8 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.security.config;
 
 import lombok.Data;
@@ -7,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Jwt参数配置
- * @author Zheng Jie
+ * @author hupeng
  * @date 2019年11月28日
  */
 @Data

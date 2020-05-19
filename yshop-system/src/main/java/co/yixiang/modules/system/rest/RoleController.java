@@ -1,16 +1,21 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.lang.Dict;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.aop.log.Log;
+import co.yixiang.logging.aop.log.Log;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.UserService;
-import co.yixiang.modules.system.service.dto.RoleDTO;
+import co.yixiang.modules.system.service.dto.RoleDto;
 import co.yixiang.modules.system.service.dto.RoleQueryCriteria;
-import co.yixiang.modules.system.service.dto.RoleSmallDTO;
-import co.yixiang.modules.system.service.dto.UserDTO;
+import co.yixiang.modules.system.service.dto.RoleSmallDto;
+import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.ThrowableUtil;
 import io.swagger.annotations.Api;
@@ -32,7 +37,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author Zheng Jie
+ * @author hupeng
  * @date 2018-12-03
  */
 @Api(tags = "系统：角色管理")
@@ -42,12 +47,14 @@ public class RoleController {
 
     private final RoleService roleService;
     private final UserService userService;
+    private final IGenerator generator;
 
     private static final String ENTITY_NAME = "role";
 
-    public RoleController(RoleService roleService, UserService userService) {
+    public RoleController(RoleService roleService, UserService userService, IGenerator generator) {
         this.roleService = roleService;
         this.userService = userService;
+        this.generator = generator;
     }
 
     @ApiOperation("获取单个role")
@@ -62,14 +69,14 @@ public class RoleController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('role:list')")
     public void download(HttpServletResponse response, RoleQueryCriteria criteria) throws IOException {
-        roleService.download(roleService.queryAll(criteria), response);
+        roleService.download(generator.convert(roleService.queryAll(criteria),RoleDto.class), response);
     }
 
     @ApiOperation("返回全部的角色")
     @GetMapping(value = "/all")
     @PreAuthorize("@el.check('roles:list','user:add','user:edit')")
-    public ResponseEntity<Object> getAll(@PageableDefault(value = 2000, sort = {"level"}, direction = Sort.Direction.ASC) Pageable pageable){
-        return new ResponseEntity<>(roleService.queryAll(pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getAll(RoleQueryCriteria criteria ,@PageableDefault(value = 2000, sort = {"level"}, direction = Sort.Direction.ASC) Pageable pageable){
+        return new ResponseEntity<>(roleService.queryAlls(criteria,pageable),HttpStatus.OK);
     }
 
     @Log("查询角色")
@@ -103,7 +110,7 @@ public class RoleController {
     @ApiOperation("修改角色")
     @PutMapping
     @PreAuthorize("@el.check('roles:edit')")
-    public ResponseEntity<Object> update(@Validated(Role.Update.class) @RequestBody Role resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody Role resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         getLevels(resources.getLevel());
         roleService.update(resources);
@@ -116,7 +123,7 @@ public class RoleController {
     @PreAuthorize("@el.check('roles:edit')")
     public ResponseEntity<Object> updateMenu(@RequestBody Role resources){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        RoleDTO role = roleService.findById(resources.getId());
+        RoleDto role = roleService.findById(resources.getId());
         getLevels(role.getLevel());
         roleService.updateMenu(resources,role);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -129,11 +136,11 @@ public class RoleController {
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
         //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
         for (Long id : ids) {
-            RoleDTO role = roleService.findById(id);
+            RoleDto role = roleService.findById(id);
             getLevels(role.getLevel());
         }
         try {
-            roleService.delete(ids);
+            roleService.removeByIds(ids);
         } catch (Throwable e){
             ThrowableUtil.throwForeignKeyException(e, "所选角色存在用户关联，请取消关联后再试");
         }
@@ -145,8 +152,8 @@ public class RoleController {
      * @return /
      */
     private int getLevels(Integer level){
-        UserDTO user = userService.findByName(SecurityUtils.getUsername());
-        List<Integer> levels = roleService.findByUsersId(user.getId()).stream().map(RoleSmallDTO::getLevel).collect(Collectors.toList());
+        UserDto user = userService.findByName(SecurityUtils.getUsername());
+        List<Integer> levels = roleService.findByUsersId(user.getId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList());
         int min = Collections.min(levels);
         if(level != null){
             if(level < min){

@@ -1,11 +1,16 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
 package co.yixiang.modules.quartz.utils;
 
 import co.yixiang.config.thread.ThreadPoolExecutorUtil;
+import co.yixiang.modules.quartz.domain.QuartzJob;
+import co.yixiang.modules.quartz.service.QuartzLogService;
 import co.yixiang.utils.SpringContextHolder;
 import co.yixiang.utils.ThrowableUtil;
-import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.domain.QuartzLog;
-import co.yixiang.modules.quartz.repository.QuartzLogRepository;
 import co.yixiang.modules.quartz.service.QuartzJobService;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
@@ -32,12 +37,12 @@ public class ExecutionJob extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext context) {
         QuartzJob quartzJob = (QuartzJob) context.getMergedJobDataMap().get(QuartzJob.JOB_KEY);
         // 获取spring bean
-        QuartzLogRepository quartzLogRepository = SpringContextHolder.getBean(QuartzLogRepository.class);
+        QuartzLogService quartzLogService = SpringContextHolder.getBean(QuartzLogService.class);
         QuartzJobService quartzJobService = SpringContextHolder.getBean(QuartzJobService.class);
 
         QuartzLog log = new QuartzLog();
         log.setJobName(quartzJob.getJobName());
-        log.setBeanName(quartzJob.getBeanName());
+        log.setBaenName(quartzJob.getBeanName());
         log.setMethodName(quartzJob.getMethodName());
         log.setParams(quartzJob.getParams());
         long startTime = System.currentTimeMillis();
@@ -65,7 +70,7 @@ public class ExecutionJob extends QuartzJobBean {
             //更新状态
             quartzJobService.updateIsPause(quartzJob);
         } finally {
-            quartzLogRepository.save(log);
+            quartzLogService.save(log);
         }
     }
 }
