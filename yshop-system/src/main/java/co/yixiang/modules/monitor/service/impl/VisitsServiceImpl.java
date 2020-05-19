@@ -61,7 +61,7 @@ public class VisitsServiceImpl extends BaseServiceImpl<VisitsMapper, Visits> imp
         visits.setPvCounts(visits.getPvCounts()+1);
         long ipCounts = logMapper.findIp(localDate.toString(), localDate.plusDays(1).toString());
         visits.setIpCounts(ipCounts);
-        this.save(visits);
+        this.saveOrUpdate(visits);
     }
 
     @Override
