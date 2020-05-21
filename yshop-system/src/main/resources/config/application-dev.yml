@@ -36,22 +36,12 @@ spring:
       web-stat-filter:
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
-
-  #配置 Jpa
-  jpa:
-    properties:
-      hibernate:
-        # 生产环境设置成 none，避免程序运行时自动更新数据库结构
-        ddl_auto: none
-        show_sql: true
-        format_sql: true
-
   redis:
     #数据库索引
     database: 0
     host: 127.0.0.1
     port: 6379
-    password:
+    password: root
     #连接超时时间
     timeout: 5000
 

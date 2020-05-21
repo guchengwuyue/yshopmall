@@ -13,7 +13,6 @@ spring:
       repositories:
         enabled: false
 
-
 task:
   pool:
     # 核心线程池大小

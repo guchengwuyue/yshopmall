@@ -5,6 +5,7 @@
  */
 package co.yixiang.gen.service;
 
+import co.yixiang.common.web.vo.Paging;
 import co.yixiang.gen.domain.ColumnConfig;
 import co.yixiang.gen.domain.GenConfig;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,11 @@ public interface GeneratorService {
     /**
      * 查询数据库元数据
      * @param name 表名
-     * @param startEnd 分页参数
+     * @param page 分页页码
+     * @param size 分页大小
      * @return /
      */
-    Object getTables(String name, int[] startEnd);
+    Object getTables(String name, Integer page, Integer size);
 
     /**
      * 得到数据表的元数据
@@ -84,4 +86,6 @@ public interface GeneratorService {
      * @return /
      */
     List<ColumnConfig> query(String table);
+
+
 }

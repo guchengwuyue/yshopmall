@@ -11,7 +11,6 @@ import co.yixiang.common.web.vo.Paging;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.annotation.Query;
-import net.sf.jsqlparser.statement.select.Join;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,7 +36,6 @@ public class QueryHelpPlus {
                 Query q = field.getAnnotation(Query.class);
                 if (q != null) {
                     String propName = q.propName();
-                    String joinName = q.joinName();
                     String blurry = q.blurry();
                     String attributeName = isBlank(propName) ? field.getName() : propName;
                     attributeName = humpToUnderline(attributeName);
@@ -46,7 +44,6 @@ public class QueryHelpPlus {
                     if (ObjectUtil.isNull(val) || "".equals(val)) {
                         continue;
                     }
-                    Join join = null;
                     // 模糊多字段
                     if (ObjectUtil.isNotEmpty(blurry)) {
                         String[] blurrys = blurry.split(",");
@@ -62,29 +59,6 @@ public class QueryHelpPlus {
                         });
                         continue;
                     }
-                    /*if (ObjectUtil.isNotEmpty(joinName)) {
-                        String[] joinNames = joinName.split(">");
-                        for (String name : joinNames) {
-                            switch (q.join()) {
-                                case LEFT:
-                                    if (ObjectUtil.isNotNull(join)) {
-                                        join = join.join(name, JoinType.LEFT);
-                                    } else {
-                                        join = root.join(name, JoinType.LEFT);
-                                    }
-                                    break;
-                                case RIGHT:
-                                    if (ObjectUtil.isNotNull(join)) {
-                                        join = join.join(name, JoinType.RIGHT);
-                                    } else {
-                                        join = root.join(name, JoinType.RIGHT);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }*/
                     String finalAttributeName = attributeName;
                     switch (q.type()) {
                         case EQUAL:
@@ -190,16 +164,16 @@ public class QueryHelpPlus {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        QueryWrapper<Paging> query = new QueryWrapper<Paging>();
-        //query.or();
-        query.or(wrapper -> wrapper.eq("store_id", 1).or().eq("store_id", 2));
-        //query.like("a",1);
-        //query.or();
-        //query.like("b",2);
-        //query.and(wrapper->wrapper.eq("c",1));
-        query.eq("1", 1);
-
-        System.out.println(query.getSqlSegment());
-    }
+//    public static void main(String[] args) {
+//        QueryWrapper<Paging> query = new QueryWrapper<Paging>();
+//        //query.or();
+//        query.or(wrapper -> wrapper.eq("store_id", 1).or().eq("store_id", 2));
+//        //query.like("a",1);
+//        //query.or();
+//        //query.like("b",2);
+//        //query.and(wrapper->wrapper.eq("c",1));
+//        query.eq("1", 1);
+//
+//        System.out.println(query.getSqlSegment());
+//    }
 }
