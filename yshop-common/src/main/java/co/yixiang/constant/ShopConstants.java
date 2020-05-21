@@ -107,7 +107,7 @@ public interface ShopConstants {
 	/**
 	 * 签到天数
 	 */
-	String YSHOP_SIGN_DAY_NUM = "sign_day_num";
+	String YSHOP_SIGN_DAY_NUM = "yshop_sign_day_num";
 
 	/**
 	 * 打印机配置

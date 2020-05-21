@@ -13,7 +13,6 @@ import cn.hutool.poi.excel.ExcelUtil;
 import co.yixiang.exception.BadRequestException;
 import org.apache.poi.util.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -213,10 +212,6 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         }
     }
 
-    public static String getFileTypeByMimeType(String type) {
-        String mimeType = new MimetypesFileTypeMap().getContentType("." + type);
-        return mimeType.split("/")[0];
-    }
 
     public static void checkSize(long maxSize, long size) {
         // 1M

@@ -7,8 +7,6 @@ package co.yixiang.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.stream.Stream;
 
 /**

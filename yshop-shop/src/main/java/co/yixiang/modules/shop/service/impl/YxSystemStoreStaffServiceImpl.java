@@ -1,0 +1,85 @@
+/**
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+
+ */
+package co.yixiang.modules.shop.service.impl;
+
+import co.yixiang.modules.shop.domain.YxSystemStoreStaff;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import lombok.AllArgsConstructor;
+import co.yixiang.dozer.service.IGenerator;
+import com.github.pagehelper.PageInfo;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.modules.shop.service.YxSystemStoreStaffService;
+import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffDto;
+import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffQueryCriteria;
+import co.yixiang.modules.shop.service.mapper.SystemStoreStaffMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+// 默认不使用缓存
+//import org.springframework.cache.annotation.CacheConfig;
+//import org.springframework.cache.annotation.CacheEvict;
+//import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Map;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+/**
+* @author hupeng
+* @date 2020-05-12
+*/
+@Service
+@AllArgsConstructor
+//@CacheConfig(cacheNames = "yxSystemStoreStaff")
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+public class YxSystemStoreStaffServiceImpl extends BaseServiceImpl<SystemStoreStaffMapper, YxSystemStoreStaff> implements YxSystemStoreStaffService {
+
+    private final IGenerator generator;
+
+    @Override
+    //@Cacheable
+    public Map<String, Object> queryAll(YxSystemStoreStaffQueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<YxSystemStoreStaff> page = new PageInfo<>(queryAll(criteria));
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", generator.convert(page.getList(), YxSystemStoreStaffDto.class));
+        map.put("totalElements", page.getTotal());
+        return map;
+    }
+
+
+    @Override
+    //@Cacheable
+    public List<YxSystemStoreStaff> queryAll(YxSystemStoreStaffQueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemStoreStaff.class, criteria));
+    }
+
+
+    @Override
+    public void download(List<YxSystemStoreStaffDto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (YxSystemStoreStaffDto yxSystemStoreStaff : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+            map.put("微信用户id", yxSystemStoreStaff.getUid());
+            map.put("店员头像", yxSystemStoreStaff.getAvatar());
+            map.put("门店id", yxSystemStoreStaff.getStoreId());
+            map.put("店员名称", yxSystemStoreStaff.getStaffName());
+            map.put("手机号码", yxSystemStoreStaff.getPhone());
+            map.put("核销开关", yxSystemStoreStaff.getVerifyStatus());
+            map.put("状态", yxSystemStoreStaff.getStatus());
+            map.put("添加时间", yxSystemStoreStaff.getAddTime());
+            map.put("微信昵称", yxSystemStoreStaff.getNickname());
+            map.put("所属门店", yxSystemStoreStaff.getStoreName());
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
+    }
+}

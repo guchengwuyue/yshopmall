@@ -6,7 +6,8 @@
 package co.yixiang.utils;
 
 import co.yixiang.exception.BadRequestException;
-import org.hibernate.exception.ConstraintViolationException;
+
+import javax.validation.ConstraintViolationException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 

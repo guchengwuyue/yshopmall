@@ -11,13 +11,10 @@ import co.yixiang.common.web.vo.Paging;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import co.yixiang.annotation.Query;
-
-import javax.persistence.criteria.*;
+import net.sf.jsqlparser.statement.select.Join;
 import java.lang.reflect.Field;
-import java.sql.Wrapper;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * @author Zheng Jie
@@ -149,14 +146,7 @@ public class QueryHelpPlus {
         return queryWrapper;
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T, R> Expression<T> getExpression(String attributeName, Join join, Root<R> root) {
-        if (ObjectUtil.isNotEmpty(join)) {
-            return join.get(attributeName);
-        } else {
-            return root.get(attributeName);
-        }
-    }
+
 
     private static boolean isBlank(final CharSequence cs) {
         int strLen;
