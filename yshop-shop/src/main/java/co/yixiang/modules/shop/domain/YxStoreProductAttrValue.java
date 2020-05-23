@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
+
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.io.Serializable;

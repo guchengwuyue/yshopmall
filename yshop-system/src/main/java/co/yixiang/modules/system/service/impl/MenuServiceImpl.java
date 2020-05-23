@@ -302,12 +302,8 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         Menu menu = this.getById(resources.getId());
         ValidationUtil.isNull(menu.getId(),"Permission","id",resources.getId());
 
-        if(resources.getIFrame()){
-            String http = "http://", https = "https://";
-            if (!(resources.getPath().toLowerCase().startsWith(http)||resources.getPath().toLowerCase().startsWith(https))) {
-                throw new BadRequestException("外链必须以http://或者https://开头");
-            }
-        }
+        isExitHttp(resources);
+
         Menu menu1 = this.getOne(new QueryWrapper<Menu>().eq("name",resources.getName()));
 
         if(menu1 != null && !menu1.getId().equals(menu.getId())){
@@ -320,6 +316,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
                 throw new EntityExistException(Menu.class,"componentName",resources.getComponentName());
             }
         }
+
         menu.setId(resources.getId());
         menu.setName(resources.getName());
         menu.setComponent(resources.getComponent());
@@ -339,21 +336,29 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     @CacheEvict(allEntries = true)
     public MenuDto create(Menu resources) {
-        if(this.getOne(lambdaQuery().eq(Menu::getName,resources.getName())) != null){
+        isExitHttp(resources);
+        if(this.getOne(new QueryWrapper<Menu>().eq("name",resources.getName())) != null){
             throw new EntityExistException(Menu.class,"name",resources.getName());
         }
         if(StringUtils.isNotBlank(resources.getComponentName())){
-            if(this.getOne(lambdaQuery().eq(Menu::getComponentName,resources.getComponentName())) != null){
+            if(this.getOne(new QueryWrapper<Menu>().eq("component_name",resources.getComponentName())) != null){
                 throw new EntityExistException(Menu.class,"componentName",resources.getComponentName());
             }
         }
+        this.save(resources);
+        return generator.convert(resources,MenuDto.class);
+    }
+
+    /**
+     * 公共方法提取出来
+     * @param resources
+     */
+    private void isExitHttp(Menu resources){
         if(resources.getIFrame()){
             String http = "http://", https = "https://";
             if (!(resources.getPath().toLowerCase().startsWith(http)||resources.getPath().toLowerCase().startsWith(https))) {
                 throw new BadRequestException("外链必须以http://或者https://开头");
             }
         }
-        this.save(resources);
-        return generator.convert(resources,MenuDto.class);
     }
 }

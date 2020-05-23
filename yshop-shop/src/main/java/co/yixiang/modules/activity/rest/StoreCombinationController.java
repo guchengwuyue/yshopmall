@@ -42,6 +42,7 @@ public class StoreCombinationController {
     @GetMapping(value = "/yxStoreCombination")
     @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
     public ResponseEntity getYxStoreCombinations(YxStoreCombinationQueryCriteria criteria, Pageable pageable){
+        criteria.setIsDel(0);
         return new ResponseEntity(yxStoreCombinationService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 

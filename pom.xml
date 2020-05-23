@@ -15,6 +15,7 @@
         <module>yshop-system</module>
         <module>yshop-tools</module>
         <module>yshop-generator</module>
+        <module>yshop-api</module>
         <module>yshop-mp</module>
         <module>yshop-shop</module>
         <module>yshop-mproot</module>
@@ -44,12 +45,6 @@
 
 
     <dependencies>
-
-        <!--Spring boot start-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -62,6 +57,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <!-- spring cache -->
         <dependency>
@@ -125,11 +125,6 @@
             <artifactId>swagger-models</artifactId>
             <version>1.5.21</version>
         </dependency>
-    <!--    <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.6</version>
-        </dependency>-->
         <!--单应用-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
@@ -218,13 +213,6 @@
             <artifactId>UserAgentUtils</artifactId>
             <version>1.20</version>
         </dependency>
-
-
-
-
-
-
-
     </dependencies>
 
     <build>

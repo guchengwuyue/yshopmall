@@ -11,7 +11,7 @@ package ${package}.domain;
 import lombok.Data;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
+
 <#if isNotNullColumns??>
 import javax.validation.constraints.*;
 </#if>

@@ -12,8 +12,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 
 /**
