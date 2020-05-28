@@ -68,7 +68,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 <table>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2020/0407/180521_10ece580_477893.jpeg"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2020/0407/180547_09fb7ab2_477893.jpeg"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2020/0528/104130_3808f305_477893.jpeg"/></td>
     </tr>
 </table>
 
