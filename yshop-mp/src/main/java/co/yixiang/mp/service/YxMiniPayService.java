@@ -7,11 +7,11 @@ package co.yixiang.mp.service;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.ErrorRequestException;
+import co.yixiang.mp.config.ShopKeyUtils;
 import co.yixiang.mp.config.WxPayConfiguration;
 import co.yixiang.mp.handler.RedisHandler;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.order.WxPayMwebOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
@@ -43,7 +43,7 @@ public class YxMiniPayService {
     public WxPayMpOrderResult wxPay(String orderId, String openId, String body,
                                     Integer totalFee,String attach) throws WxPayException {
 
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
@@ -74,7 +74,7 @@ public class YxMiniPayService {
      * @throws WxPayException
      */
     public void refundOrder(String orderId, Integer totalFee) throws WxPayException {
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();

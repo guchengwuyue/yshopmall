@@ -5,18 +5,19 @@
  */
 package co.yixiang.modules.security.service;
 
-import co.yixiang.modules.system.service.UserService;
-import co.yixiang.modules.system.service.dto.DeptSmallDto;
-import co.yixiang.modules.system.service.dto.JobSmallDto;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.security.security.vo.JwtUser;
 import co.yixiang.modules.system.service.RoleService;
+import co.yixiang.modules.system.service.UserService;
+import co.yixiang.modules.system.service.dto.DeptSmallDto;
+import co.yixiang.modules.system.service.dto.JobSmallDto;
 import co.yixiang.modules.system.service.dto.UserDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 /**

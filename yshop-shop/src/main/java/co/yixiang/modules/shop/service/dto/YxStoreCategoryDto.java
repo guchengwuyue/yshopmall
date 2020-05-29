@@ -7,6 +7,7 @@ package co.yixiang.modules.shop.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 

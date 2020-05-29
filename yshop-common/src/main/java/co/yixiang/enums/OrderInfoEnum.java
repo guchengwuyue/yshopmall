@@ -7,6 +7,7 @@ package co.yixiang.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import java.util.stream.Stream;
 
 /**

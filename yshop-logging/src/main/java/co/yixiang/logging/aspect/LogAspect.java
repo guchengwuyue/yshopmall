@@ -5,13 +5,13 @@
  */
 package co.yixiang.logging.aspect;
 
-import lombok.extern.slf4j.Slf4j;
 import co.yixiang.logging.domain.Log;
 import co.yixiang.logging.service.LogService;
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ThrowableUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;

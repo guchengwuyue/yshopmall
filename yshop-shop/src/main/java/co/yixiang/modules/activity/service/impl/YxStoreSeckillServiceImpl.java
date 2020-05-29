@@ -5,34 +5,34 @@
  */
 package co.yixiang.modules.activity.service.impl;
 
-import co.yixiang.modules.activity.domain.YxStoreSeckill;
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.utils.*;
-import lombok.AllArgsConstructor;
-import co.yixiang.dozer.service.IGenerator;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.modules.activity.domain.YxStoreSeckill;
 import co.yixiang.modules.activity.service.YxStoreSeckillService;
 import co.yixiang.modules.activity.service.dto.YxStoreSeckillDto;
 import co.yixiang.modules.activity.service.dto.YxStoreSeckillQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreSeckillMapper;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.utils.OrderUtil;
+import com.github.pagehelper.PageInfo;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @author hupeng
@@ -52,20 +52,10 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
         getPage(pageable);
         PageInfo<YxStoreSeckill> page = new PageInfo<>(queryAll(criteria));
         List<YxStoreSeckillDto> storeSeckillDTOS = generator.convert(page.getList(),YxStoreSeckillDto.class);
-        int nowTime = OrderUtil.getSecondTimestampTwo();
         for (YxStoreSeckillDto storeSeckillDTO : storeSeckillDTOS){
-            if(storeSeckillDTO.getStatus() > 0){
-                if(storeSeckillDTO.getStartTime() > nowTime){
-                    storeSeckillDTO.setStatusStr("活动未开始");
-                }else if(storeSeckillDTO.getStopTime() < nowTime){
-                    storeSeckillDTO.setStatusStr("活动已结束");
-                }else if(storeSeckillDTO.getStopTime() > nowTime && storeSeckillDTO.getStartTime() < nowTime){
-                    storeSeckillDTO.setStatusStr("正在进行中");
-                }
-            }else {
-                storeSeckillDTO.setStatusStr("关闭");
-            }
-
+            String statusStr = OrderUtil.checkActivityStatus(storeSeckillDTO.getStartTime(),
+                    storeSeckillDTO.getStopTime(), storeSeckillDTO.getStatus());
+            storeSeckillDTO.setStatusStr(statusStr);
         }
         Map<String,Object> map = new LinkedHashMap<>(2);
         map.put("content",storeSeckillDTOS);

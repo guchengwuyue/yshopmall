@@ -8,53 +8,54 @@
 */
 package co.yixiang.modules.system.service.impl;
 
-import co.yixiang.exception.EntityExistException;
-import co.yixiang.modules.system.domain.*;
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.modules.system.service.*;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.EntityExistException;
+import co.yixiang.modules.system.domain.Dept;
+import co.yixiang.modules.system.domain.Menu;
+import co.yixiang.modules.system.domain.Role;
+import co.yixiang.modules.system.domain.RolesDepts;
+import co.yixiang.modules.system.domain.RolesMenus;
+import co.yixiang.modules.system.service.RoleService;
+import co.yixiang.modules.system.service.RolesDeptsService;
+import co.yixiang.modules.system.service.RolesMenusService;
+import co.yixiang.modules.system.service.dto.RoleDto;
+import co.yixiang.modules.system.service.dto.RoleQueryCriteria;
 import co.yixiang.modules.system.service.dto.RoleSmallDto;
 import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.modules.system.service.mapper.DeptMapper;
 import co.yixiang.modules.system.service.mapper.MenuMapper;
+import co.yixiang.modules.system.service.mapper.RoleMapper;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
-import lombok.AllArgsConstructor;
-import co.yixiang.dozer.service.IGenerator;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.utils.ValidationUtil;
-import co.yixiang.utils.FileUtil;
-import co.yixiang.modules.system.service.dto.RoleDto;
-import co.yixiang.modules.system.service.dto.RoleQueryCriteria;
-import co.yixiang.modules.system.service.mapper.RoleMapper;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
 * @author hupeng

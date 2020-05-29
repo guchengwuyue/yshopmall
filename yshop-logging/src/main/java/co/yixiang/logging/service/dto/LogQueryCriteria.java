@@ -7,6 +7,7 @@ package co.yixiang.logging.service.dto;
 
 import co.yixiang.annotation.Query;
 import lombok.Data;
+
 import java.sql.Timestamp;
 import java.util.List;
 

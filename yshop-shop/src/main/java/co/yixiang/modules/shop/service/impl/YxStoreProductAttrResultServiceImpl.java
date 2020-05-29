@@ -5,11 +5,11 @@
  */
 package co.yixiang.modules.shop.service.impl;
 
-import co.yixiang.modules.shop.domain.YxStoreProductAttrResult;
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import lombok.AllArgsConstructor;
+import co.yixiang.modules.shop.domain.YxStoreProductAttrResult;
 import co.yixiang.modules.shop.service.YxStoreProductAttrResultService;
 import co.yixiang.modules.shop.service.mapper.StoreProductAttrResultMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

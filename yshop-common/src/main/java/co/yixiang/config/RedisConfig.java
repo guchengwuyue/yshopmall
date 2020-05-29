@@ -6,11 +6,11 @@
 package co.yixiang.config;
 
 import cn.hutool.core.lang.Assert;
+import co.yixiang.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
-import co.yixiang.utils.StringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -29,6 +29,7 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -143,7 +144,7 @@ public class RedisConfig extends CachingConfigurerSupport {
  */
  class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 
-    private Class<T> clazz;
+    private final Class<T> clazz;
 
     FastJsonRedisSerializer(Class<T> clazz) {
         super();

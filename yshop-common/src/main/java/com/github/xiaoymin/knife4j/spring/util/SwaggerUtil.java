@@ -1,8 +1,18 @@
 package com.github.xiaoymin.knife4j.spring.util;
 
 import io.swagger.models.Model;
-import io.swagger.models.properties.*;
+import io.swagger.models.properties.AbstractProperty;
+import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.DateTimeProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.ObjectProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.PropertyBuilder;
 import io.swagger.models.properties.PropertyBuilder.PropertyId;
+import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import org.springframework.beans.BeanUtils;
 
 import java.util.HashMap;

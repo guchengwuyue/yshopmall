@@ -8,8 +8,8 @@
 */
 package co.yixiang.modules.system.service.dto;
 
-import lombok.Data;
 import co.yixiang.annotation.Query;
+import lombok.Data;
 
 /**
 * @author hupeng

@@ -8,7 +8,6 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**

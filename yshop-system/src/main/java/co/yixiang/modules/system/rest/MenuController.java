@@ -5,11 +5,10 @@
  */
 package co.yixiang.modules.system.rest;
 
-import co.yixiang.exception.EntityExistException;
-import co.yixiang.logging.aop.log.Log;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.modules.shop.domain.YxSystemConfig;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.system.domain.Menu;
 import co.yixiang.modules.system.service.MenuService;
 import co.yixiang.modules.system.service.RoleService;
@@ -18,7 +17,6 @@ import co.yixiang.modules.system.service.dto.MenuDto;
 import co.yixiang.modules.system.service.dto.MenuQueryCriteria;
 import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.utils.SecurityUtils;
-import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +24,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

@@ -5,12 +5,12 @@
  */
 package co.yixiang.tools.service.impl;
 
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.tools.domain.AlipayConfig;
 import co.yixiang.tools.domain.vo.TradeVo;
 import co.yixiang.tools.service.AlipayConfigService;
 import co.yixiang.tools.service.mapper.AlipayConfigMapper;
-import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.exception.BadRequestException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;

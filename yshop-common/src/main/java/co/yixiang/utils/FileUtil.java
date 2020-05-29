@@ -13,17 +13,28 @@ import cn.hutool.poi.excel.ExcelUtil;
 import co.yixiang.exception.BadRequestException;
 import org.apache.poi.util.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * File工具类，扩展 hutool 工具包
@@ -140,13 +151,11 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
      * 将文件名解析成文件的上传路径
      */
     public static File upload(MultipartFile file, String filePath) {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssS");
-        String name = getFileNameNoEx(file.getOriginalFilename());
+        //String name = getFileNameNoEx(file.getOriginalFilename());
         String suffix = getExtensionName(file.getOriginalFilename());
-        String nowStr = "-" + format.format(date);
+        StringBuffer nowStr = fileRename();
         try {
-            String fileName = name + nowStr + "." + suffix;
+            String fileName = nowStr + "." + suffix;
             String path = filePath + fileName;
             // getCanonicalFile 可解析正确各种路径
             File dest = new File(path).getCanonicalFile();
@@ -368,6 +377,22 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             accuracy = 0.4f;
         }
         return accuracy;
+    }
+
+    /**
+     * 上传文件重命名
+     * @return 新的文件名
+     */
+    public static StringBuffer fileRename() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String time = sdf.format(new Date());
+        StringBuffer buf = new StringBuffer(time);
+        Random r = new Random();
+        //循环取得三个不大于10的随机整数
+        for (int x = 0; x < 3; x++) {
+            buf.append(r.nextInt(10));
+        }
+        return buf;
     }
 
 }

@@ -4,23 +4,26 @@
 
  */
 package co.yixiang.tools.domain;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @author hupeng
 * @date 2020-05-13
 */
 
-@Data
+@Getter
+@Setter
 @TableName("local_storage")
 public class LocalStorage implements Serializable {
 
@@ -69,6 +72,8 @@ public class LocalStorage implements Serializable {
    // @Column(name = "create_time")
     @TableField(fill= FieldFill.INSERT)
     private Timestamp createTime;
+
+
     public LocalStorage(String realName,String name, String suffix, String path, String type, String size, String operate) {
         this.realName = realName;
         this.name = name;

@@ -6,15 +6,16 @@
 package co.yixiang.modules.security.security;
 
 import co.yixiang.modules.security.config.SecurityProperties;
+import co.yixiang.modules.security.security.vo.OnlineUser;
 import co.yixiang.modules.security.service.OnlineUserService;
+import co.yixiang.utils.SpringContextHolder;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
-import co.yixiang.modules.security.security.vo.OnlineUser;
-import co.yixiang.utils.SpringContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;

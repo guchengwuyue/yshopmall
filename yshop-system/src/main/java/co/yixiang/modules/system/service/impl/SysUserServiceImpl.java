@@ -8,48 +8,52 @@
 */
 package co.yixiang.modules.system.service.impl;
 
+import cn.hutool.core.date.DateUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.EntityExistException;
 import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.domain.User;
-import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.modules.system.domain.UserAvatar;
 import co.yixiang.modules.system.domain.UsersRoles;
-import co.yixiang.modules.system.service.*;
+import co.yixiang.modules.system.service.DeptService;
+import co.yixiang.modules.system.service.JobService;
+import co.yixiang.modules.system.service.UserAvatarService;
+import co.yixiang.modules.system.service.UserService;
+import co.yixiang.modules.system.service.UsersRolesService;
+import co.yixiang.modules.system.service.dto.UserDto;
+import co.yixiang.modules.system.service.dto.UserQueryCriteria;
 import co.yixiang.modules.system.service.mapper.RoleMapper;
+import co.yixiang.modules.system.service.mapper.SysUserMapper;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ValidationUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import co.yixiang.dozer.service.IGenerator;
 import com.github.pagehelper.PageInfo;
-import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.utils.FileUtil;
-import co.yixiang.modules.system.service.dto.UserDto;
-import co.yixiang.modules.system.service.dto.UserQueryCriteria;
-import co.yixiang.modules.system.service.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Set;
 
 /**
 * @author hupeng
@@ -137,8 +141,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
      */
     @Override
     public UserDto findByName(String userName) {
-      User user =   this.getOne(new QueryWrapper<User>().lambda()
-                .eq(User::getUsername,userName));
+      User user =  userMapper.findByName(userName);
         //用户所属岗位
         user.setJob(jobService.getById(user.getJobId()));
         //用户所属部门
@@ -154,7 +157,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
      */
     @Override
     public void updatePass(String username, String encryptPassword) {
-        userMapper.updatePass(encryptPassword,new Date(),username);
+        userMapper.updatePass(encryptPassword, DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"),username);
     }
 
     /**
@@ -164,18 +167,23 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
      */
     @Override
     public void updateAvatar(MultipartFile multipartFile) {
-        User user = this.getOne(new QueryWrapper<User>().eq("username",SecurityUtils.getUsername()));
-        UserAvatar userAvatar = user.getUserAvatar();
+        User user = this.getOne(new QueryWrapper<User>().lambda()
+                .eq(User::getUsername,SecurityUtils.getUsername()));
+        UserAvatar userAvatar =  userAvatarService.getOne(new QueryWrapper<UserAvatar>().lambda()
+                .eq(UserAvatar::getId,user.getId()));
         String oldPath = "";
         if(userAvatar != null){
             oldPath = userAvatar.getPath();
         }
         File file = FileUtil.upload(multipartFile, avatar);
         assert file != null;
-        UserAvatar saveUserAvatar = new UserAvatar(userAvatar,file.getName(), file.getPath(), FileUtil.getSize(multipartFile.getSize()));
-        userAvatarService.save(saveUserAvatar);
-        user.setUserAvatar(saveUserAvatar);
-        this.save(user);
+        //UserAvatar saveUserAvatar = new UserAvatar(userAvatar,file.getName(), file.getPath(), FileUtil.getSize(multipartFile.getSize()));
+        userAvatar.setRealName(file.getName());
+        userAvatar.setPath(file.getPath());
+        userAvatar.setSize(FileUtil.getSize(multipartFile.getSize()));
+        userAvatarService.saveOrUpdate(userAvatar);
+        user.setAvatarId(userAvatar.getId());
+        this.saveOrUpdate(user);
         if(StringUtils.isNotBlank(oldPath)){
             FileUtil.del(oldPath);
         }

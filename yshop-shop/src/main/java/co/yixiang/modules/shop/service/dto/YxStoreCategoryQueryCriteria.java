@@ -5,9 +5,8 @@
  */
 package co.yixiang.modules.shop.service.dto;
 
-import lombok.Data;
-import java.util.List;
 import co.yixiang.annotation.Query;
+import lombok.Data;
 
 /**
 * @author hupeng
@@ -15,4 +14,6 @@ import co.yixiang.annotation.Query;
 */
 @Data
 public class YxStoreCategoryQueryCriteria{
+    @Query
+    private String cateName;
 }

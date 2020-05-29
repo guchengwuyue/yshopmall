@@ -8,13 +8,12 @@
 */
 package co.yixiang.modules.system.service.dto;
 
+import co.yixiang.annotation.Query;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
-
-import co.yixiang.annotation.Query;
 
 /**
 * @author hupeng

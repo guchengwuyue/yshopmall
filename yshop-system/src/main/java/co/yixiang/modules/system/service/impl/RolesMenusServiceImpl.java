@@ -8,11 +8,11 @@
 */
 package co.yixiang.modules.system.service.impl;
 
-import co.yixiang.modules.system.domain.RolesMenus;
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import lombok.AllArgsConstructor;
+import co.yixiang.modules.system.domain.RolesMenus;
 import co.yixiang.modules.system.service.RolesMenusService;
 import co.yixiang.modules.system.service.mapper.RolesMenusMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

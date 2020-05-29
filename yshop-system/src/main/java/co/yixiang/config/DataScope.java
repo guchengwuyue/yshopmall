@@ -5,14 +5,15 @@
  */
 package co.yixiang.config;
 
+import co.yixiang.modules.system.domain.Dept;
+import co.yixiang.modules.system.service.DeptService;
+import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.UserService;
 import co.yixiang.modules.system.service.dto.RoleSmallDto;
 import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.utils.SecurityUtils;
-import co.yixiang.modules.system.domain.Dept;
-import co.yixiang.modules.system.service.DeptService;
-import co.yixiang.modules.system.service.RoleService;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

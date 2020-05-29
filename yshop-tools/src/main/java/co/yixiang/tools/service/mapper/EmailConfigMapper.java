@@ -5,8 +5,8 @@
  */
 package co.yixiang.tools.service.mapper;
 
-import co.yixiang.tools.domain.EmailConfig;
 import co.yixiang.common.mapper.CoreMapper;
+import co.yixiang.tools.domain.EmailConfig;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

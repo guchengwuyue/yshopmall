@@ -5,11 +5,11 @@
  */
 package co.yixiang.gen.service;
 
-import co.yixiang.common.web.vo.Paging;
 import co.yixiang.gen.domain.ColumnConfig;
 import co.yixiang.gen.domain.GenConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

@@ -4,9 +4,10 @@
 
  */
 package co.yixiang.tools.service;
+
+import co.yixiang.common.service.BaseService;
 import co.yixiang.tools.domain.AlipayConfig;
 import co.yixiang.tools.domain.vo.TradeVo;
-import co.yixiang.common.service.BaseService;
 
 /**
 * @author hupeng

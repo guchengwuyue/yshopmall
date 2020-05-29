@@ -6,9 +6,10 @@
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
-import java.math.BigDecimal;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
 * @author hupeng
@@ -113,4 +114,6 @@ public class YxStoreBargainDto implements Serializable {
     private Timestamp endTimeDate;
 
     private Timestamp startTimeDate;
+
+    private String statusStr;
 }

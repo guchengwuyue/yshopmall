@@ -7,16 +7,17 @@
 * 一经发现盗用、分享等行为，将追究法律责任，后果自负
 */
 package co.yixiang.modules.system.domain;
-import cn.hutool.core.util.ObjectUtil;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
-import java.sql.Timestamp;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @author hupeng
@@ -45,13 +46,6 @@ public class UserAvatar implements Serializable {
     /** 创建时间 */
     @TableField(fill= FieldFill.INSERT)
     private Timestamp createTime;
-
-    public UserAvatar(UserAvatar userAvatar,String realName, String path, String size) {
-        this.id = ObjectUtil.isNotEmpty(userAvatar) ? userAvatar.getId() : null;
-        this.realName = realName;
-        this.path = path;
-        this.size = size;
-    }
 
 
     public void copy(UserAvatar source){

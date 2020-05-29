@@ -5,8 +5,8 @@
  */
 package co.yixiang.logging.service;
 
-import co.yixiang.logging.domain.Log;
 import co.yixiang.common.service.BaseService;
+import co.yixiang.logging.domain.Log;
 import co.yixiang.logging.service.dto.LogQueryCriteria;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.data.domain.Pageable;

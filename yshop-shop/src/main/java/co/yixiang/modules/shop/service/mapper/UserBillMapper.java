@@ -10,13 +10,10 @@ import co.yixiang.modules.shop.domain.YxUserBill;
 import co.yixiang.modules.shop.service.dto.YxUserBillDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author hupeng

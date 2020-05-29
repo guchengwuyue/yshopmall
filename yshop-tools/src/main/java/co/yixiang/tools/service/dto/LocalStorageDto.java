@@ -6,8 +6,9 @@
 package co.yixiang.tools.service.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @author hupeng
@@ -22,6 +23,8 @@ public class LocalStorageDto implements Serializable {
     private String name;
 
     private String suffix;
+
+    private String path;
 
     private String type;
 

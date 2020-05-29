@@ -5,7 +5,9 @@
  */
 package co.yixiang.gen.utils;
 
-import org.apache.commons.configuration.*;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 /**
  * sql字段转java

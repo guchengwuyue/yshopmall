@@ -7,17 +7,19 @@ package co.yixiang.modules.quartz.utils;
 
 import co.yixiang.config.thread.ThreadPoolExecutorUtil;
 import co.yixiang.modules.quartz.domain.QuartzJob;
+import co.yixiang.modules.quartz.domain.QuartzLog;
+import co.yixiang.modules.quartz.service.QuartzJobService;
 import co.yixiang.modules.quartz.service.QuartzLogService;
 import co.yixiang.utils.SpringContextHolder;
 import co.yixiang.utils.ThrowableUtil;
-import co.yixiang.modules.quartz.domain.QuartzLog;
-import co.yixiang.modules.quartz.service.QuartzJobService;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import java.util.concurrent.*;
+
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 参考人人开源，https://gitee.com/renrenio/renren-security

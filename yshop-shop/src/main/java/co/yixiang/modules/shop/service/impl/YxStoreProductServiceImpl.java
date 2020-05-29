@@ -8,38 +8,48 @@ package co.yixiang.modules.shop.service.impl;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
-import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.modules.shop.domain.YxStoreProductAttr;
 import co.yixiang.modules.shop.domain.YxStoreProductAttrResult;
 import co.yixiang.modules.shop.domain.YxStoreProductAttrValue;
-import co.yixiang.modules.shop.service.*;
-import co.yixiang.modules.shop.service.dto.*;
-import co.yixiang.utils.*;
+import co.yixiang.modules.shop.service.YxStoreCategoryService;
+import co.yixiang.modules.shop.service.YxStoreProductAttrResultService;
+import co.yixiang.modules.shop.service.YxStoreProductAttrService;
+import co.yixiang.modules.shop.service.YxStoreProductAttrValueService;
+import co.yixiang.modules.shop.service.YxStoreProductService;
+import co.yixiang.modules.shop.service.dto.DetailDto;
+import co.yixiang.modules.shop.service.dto.FromatDetailDto;
+import co.yixiang.modules.shop.service.dto.ProductFormatDto;
+import co.yixiang.modules.shop.service.dto.YxStoreProductDto;
+import co.yixiang.modules.shop.service.dto.YxStoreProductQueryCriteria;
+import co.yixiang.modules.shop.service.mapper.StoreProductMapper;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import lombok.AllArgsConstructor;
-import co.yixiang.dozer.service.IGenerator;
 import com.github.pagehelper.PageInfo;
-import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.modules.shop.service.mapper.StoreProductMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
-
-import java.math.BigDecimal;
-import java.util.*;
-import java.io.IOException;
-import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
@@ -78,13 +88,10 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     //@Cacheable
     public List<YxStoreProduct> queryAll(YxStoreProductQueryCriteria criteria){
         List<YxStoreProduct> yxStoreProductList = baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreProduct.class, criteria));
-        List<YxStoreProduct> storeProductList  = yxStoreProductList.stream().map(i ->{
-            YxStoreProduct yxStoreProduct = new YxStoreProduct();
-            BeanUtils.copyProperties(i,yxStoreProduct);
-            yxStoreProduct.setStoreCategory(yxStoreCategoryService.getById(i.getCateId()));
-            return yxStoreProduct;
-        }).collect(Collectors.toList());
-        return storeProductList;
+        yxStoreProductList.forEach(yxStoreProduct ->{
+            yxStoreProduct.setStoreCategory(yxStoreCategoryService.getById(yxStoreProduct.getCateId()));
+        });
+        return yxStoreProductList;
     }
 
 
@@ -135,6 +142,12 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     public YxStoreProduct saveProduct(YxStoreProduct storeProduct) {
+        if (storeProduct.getStoreCategory().getId() == null) {
+            throw new BadRequestException("分类名称不能为空");
+        }
+        boolean check = yxStoreCategoryService
+                .checkProductCategory(storeProduct.getStoreCategory().getId());
+        if(!check) throw new BadRequestException("商品分类必选选择二级");
         storeProduct.setCateId(storeProduct.getStoreCategory().getId().toString());
         this.save(storeProduct);
         return storeProduct;
@@ -223,15 +236,38 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             throw new BadRequestException("请设置至少一个属性!");
         }
 
+        //如果设置sku 处理价格与库存
+
+        ////取最小价格
+        BigDecimal minPrice = valueGroup
+                .stream()
+                .map(YxStoreProductAttrValue::getPrice)
+                .min(Comparator.naturalOrder())
+                .orElse(BigDecimal.ZERO);
+
+        //计算库存
+        Integer stock = valueGroup
+                .stream()
+                .map(YxStoreProductAttrValue::getStock)
+                .reduce(Integer::sum)
+                .orElse(0);
+
+        YxStoreProduct yxStoreProduct = YxStoreProduct.builder()
+                .stock(stock)
+                .price(minPrice)
+                .id(id)
+                .build();
+        this.updateById(yxStoreProduct);
+
         //插入之前清空
         clearProductAttr(id,false);
 
 
         //保存属性
-        yxStoreProductAttrService.saveBatch(attrGroup);
+        yxStoreProductAttrService.saveOrUpdateBatch(attrGroup);
 
         //保存值
-        yxStoreProductAttrValueService.saveBatch(valueGroup);
+        yxStoreProductAttrValueService.saveOrUpdateBatch(valueGroup);
 
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("attr",jsonObject.get("items"));
@@ -248,9 +284,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         yxStoreProductAttrResult.setResult(JSON.toJSONString(map));
         yxStoreProductAttrResult.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
-        yxStoreProductAttrService.remove(new QueryWrapper<YxStoreProductAttr>().eq("product_id",id));
+        yxStoreProductAttrResultService.remove(new QueryWrapper<YxStoreProductAttrResult>().eq("product_id",id));
 
-        yxStoreProductAttrResultService.save(yxStoreProductAttrResult);
+        yxStoreProductAttrResultService.saveOrUpdate(yxStoreProductAttrResult);
     }
 
     @Override
@@ -264,6 +300,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Override
     public void updateProduct(YxStoreProduct resources) {
         if(resources.getStoreCategory() == null || resources.getStoreCategory().getId() == null) throw new BadRequestException("请选择分类");
+        boolean check = yxStoreCategoryService
+                .checkProductCategory(resources.getStoreCategory().getId());
+        if(!check) throw new BadRequestException("商品分类必选选择二级");
         resources.setCateId(resources.getStoreCategory().getId().toString());
         this.saveOrUpdate(resources);
     }

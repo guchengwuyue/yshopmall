@@ -7,13 +7,14 @@ package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
-import co.yixiang.logging.aop.log.Log;
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDto;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
 import co.yixiang.utils.OrderUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,10 +23,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Wrapper;
 import java.util.List;
 
 /**
@@ -75,6 +84,12 @@ public class StoreCategoryController {
             throw new BadRequestException("子分类图片必传");
         }
 
+
+        boolean checkResult = yxStoreCategoryService.checkCategory(resources.getPid());
+
+        if(!checkResult) throw new BadRequestException("分类最多能添加2级哦");
+
+
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCategoryService.save(resources),HttpStatus.CREATED);
     }
@@ -89,6 +104,15 @@ public class StoreCategoryController {
         if(resources.getPid() > 0 && StrUtil.isBlank(resources.getPic())) {
             throw new BadRequestException("子分类图片必传");
         }
+
+        if(resources.getId().equals(resources.getPid())){
+            throw new BadRequestException("自己不能选择自己哦");
+        }
+
+        boolean checkResult = yxStoreCategoryService.checkCategory(resources.getPid());
+
+        if(!checkResult) throw new BadRequestException("分类最多能添加2级哦");
+        
         yxStoreCategoryService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

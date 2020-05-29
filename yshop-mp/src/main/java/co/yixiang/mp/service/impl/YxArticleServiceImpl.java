@@ -8,19 +8,19 @@ package co.yixiang.mp.service.impl;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.ErrorRequestException;
 import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxArticle;
-import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.mp.utils.URLUtils;
-import co.yixiang.dozer.service.IGenerator;
-import com.github.pagehelper.PageInfo;
-import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.utils.FileUtil;
 import co.yixiang.mp.service.YxArticleService;
 import co.yixiang.mp.service.dto.YxArticleDto;
 import co.yixiang.mp.service.dto.YxArticleQueryCriteria;
 import co.yixiang.mp.service.mapper.ArticleMapper;
+import co.yixiang.mp.utils.URLUtils;
+import co.yixiang.utils.FileUtil;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -33,22 +33,23 @@ import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
 import me.chanjar.weixin.mp.bean.result.WxMpMassSendResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
-
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @author hupeng

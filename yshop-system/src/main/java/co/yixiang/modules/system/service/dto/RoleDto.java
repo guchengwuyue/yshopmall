@@ -10,8 +10,9 @@ package co.yixiang.modules.system.service.dto;
 
 import co.yixiang.modules.system.domain.Menu;
 import lombok.Data;
-import java.sql.Timestamp;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Set;
 
 /**

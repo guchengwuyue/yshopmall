@@ -6,19 +6,22 @@
 package co.yixiang.exception.handler;
 
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.exception.EntityExistException;
+import co.yixiang.exception.EntityNotFoundException;
 import co.yixiang.exception.ErrorRequestException;
 import co.yixiang.utils.ThrowableUtil;
 import lombok.extern.slf4j.Slf4j;
-import co.yixiang.exception.EntityExistException;
-import co.yixiang.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.Objects;
-import static org.springframework.http.HttpStatus.*;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.valueOf;
 
 /**
  * @author Zheng Jie

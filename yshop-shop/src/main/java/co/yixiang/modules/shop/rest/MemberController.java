@@ -6,6 +6,9 @@
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.constant.SystemConfigConstants;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
@@ -21,7 +24,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @author hupeng
@@ -47,7 +57,7 @@ public class MemberController {
     public ResponseEntity getYxUsers(YxUserQueryCriteria criteria, Pageable pageable){
         if(ObjectUtil.isNotNull(criteria.getIsPromoter())){
             if(criteria.getIsPromoter() == 1){
-                String key = yxSystemConfigService.findByKey("store_brokerage_statu")
+                String key = yxSystemConfigService.findByKey(SystemConfigConstants.STORE_BROKERAGE_STATU)
                         .getValue();
                 if(Integer.valueOf(key) == 2){
                     return new ResponseEntity(null,HttpStatus.OK);

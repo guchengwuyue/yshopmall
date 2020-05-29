@@ -6,8 +6,9 @@
 package co.yixiang.modules.activity.service.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
 * @author hupeng

@@ -7,15 +7,15 @@ package co.yixiang.tools.service.impl;
 
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.tools.domain.EmailConfig;
 import co.yixiang.tools.domain.vo.EmailVo;
 import co.yixiang.tools.service.EmailConfigService;
 import co.yixiang.tools.service.mapper.EmailConfigMapper;
-import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.exception.BadRequestException;
-import co.yixiang.utils.*;
+import co.yixiang.utils.EncryptUtils;
 import lombok.AllArgsConstructor;
-import co.yixiang.dozer.service.IGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +79,8 @@ public class EmailConfigServiceImpl extends BaseServiceImpl<EmailConfigMapper, E
         account.setFrom(emailConfig.getUser()+"<"+emailConfig.getFromUser()+">");
         // ssl方式发送
         account.setSslEnable(true);
+        // 使用STARTTLS安全连接
+        account.setStarttlsEnable(true);
         String content = emailVo.getContent();
         // 发送
         try {

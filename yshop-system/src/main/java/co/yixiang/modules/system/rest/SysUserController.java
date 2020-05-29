@@ -5,21 +5,22 @@
  */
 package co.yixiang.modules.system.rest;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
-import co.yixiang.logging.aop.log.Log;
 import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
-import co.yixiang.modules.system.service.dto.UserDto;
-import co.yixiang.tools.domain.VerificationCode;
 import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.system.domain.User;
 import co.yixiang.modules.system.domain.vo.UserPassVo;
 import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.UserService;
 import co.yixiang.modules.system.service.dto.RoleSmallDto;
+import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.modules.system.service.dto.UserQueryCriteria;
+import co.yixiang.tools.domain.VerificationCode;
 import co.yixiang.tools.service.VerificationCodeService;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.SecurityUtils;
@@ -35,7 +36,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;

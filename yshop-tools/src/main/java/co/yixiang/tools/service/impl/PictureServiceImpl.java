@@ -9,37 +9,42 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.common.utils.QueryHelpPlus;
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.tools.domain.Picture;
 import co.yixiang.tools.service.PictureService;
 import co.yixiang.tools.service.dto.PictureDto;
 import co.yixiang.tools.service.dto.PictureQueryCriteria;
 import co.yixiang.tools.service.mapper.PictureMapper;
-import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.exception.BadRequestException;
-import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.TranslatorUtil;
 import co.yixiang.utils.ValidationUtil;
 import co.yixiang.utils.YshopConstant;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageInfo;
-import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.util.*;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
 
 /**
 * @author hupeng
@@ -172,7 +177,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
             if(this.getOne(new QueryWrapper<Picture>().eq("url",picture.getUrl()))==null){
                 picture.setSize(FileUtil.getSize(Integer.parseInt(picture.getSize())));
                 picture.setUsername("System Sync");
-                picture.setMd5code("");
+                picture.setMd5code(null);
                 this.save(picture);
             }
         }

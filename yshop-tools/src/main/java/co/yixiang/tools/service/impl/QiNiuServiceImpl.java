@@ -5,6 +5,8 @@
  */
 package co.yixiang.tools.service.impl;
 
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.tools.domain.QiniuConfig;
 import co.yixiang.tools.domain.QiniuContent;
 import co.yixiang.tools.service.QiNiuService;
@@ -12,7 +14,7 @@ import co.yixiang.tools.service.QiniuConfigService;
 import co.yixiang.tools.service.QiniuContentService;
 import co.yixiang.tools.service.dto.QiniuQueryCriteria;
 import co.yixiang.tools.utils.QiNiuUtil;
-import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.utils.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.qiniu.common.QiniuException;
@@ -23,17 +25,19 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
-import co.yixiang.exception.BadRequestException;
-import co.yixiang.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author hupeng
@@ -112,16 +116,21 @@ public class QiNiuServiceImpl implements QiNiuService {
             //解析上传成功的结果
 
             DefaultPutRet putRet = JSON.parseObject(response.bodyString(), DefaultPutRet.class);
-            //存入数据库
-            QiniuContent qiniuContent = new QiniuContent();
-            qiniuContent.setSuffix(FileUtil.getExtensionName(putRet.key));
-            qiniuContent.setBucket(qiniuConfig.getBucket());
-            qiniuContent.setType(qiniuConfig.getType());
-            qiniuContent.setName(FileUtil.getFileNameNoEx(putRet.key));
-            qiniuContent.setUrl(qiniuConfig.getHost()+"/"+putRet.key);
-            qiniuContent.setSize(FileUtil.getSize(Integer.parseInt(file.getSize()+"")));
-            qiniuContentService.save(qiniuContent);
-            return qiniuContent;
+
+            QiniuContent content = qiniuContentService.getOne(new QueryWrapper<QiniuContent>().eq("name",FileUtil.getFileNameNoEx(putRet.key)));
+            if (content == null) {
+                //存入数据库
+                QiniuContent qiniuContent = new QiniuContent();
+                qiniuContent.setSuffix(FileUtil.getExtensionName(putRet.key));
+                qiniuContent.setBucket(qiniuConfig.getBucket());
+                qiniuContent.setType(qiniuConfig.getType());
+                qiniuContent.setName(FileUtil.getFileNameNoEx(putRet.key));
+                qiniuContent.setUrl(qiniuConfig.getHost()+"/"+putRet.key);
+                qiniuContent.setSize(FileUtil.getSize(Integer.parseInt(file.getSize()+"")));
+                qiniuContentService.save(qiniuContent);
+                return qiniuContent;
+            }
+            return content;
         } catch (Exception e) {
            throw new BadRequestException(e.getMessage());
         }

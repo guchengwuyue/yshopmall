@@ -11,19 +11,22 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.tools.domain.VerificationCode;
 import co.yixiang.tools.domain.vo.EmailVo;
 import co.yixiang.tools.service.VerificationCodeService;
 import co.yixiang.tools.service.mapper.VerificationCodeMapper;
-import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.exception.BadRequestException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collections;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author hupeng

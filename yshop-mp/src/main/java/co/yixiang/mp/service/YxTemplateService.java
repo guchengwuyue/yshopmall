@@ -5,6 +5,7 @@
  */
 package co.yixiang.mp.service;
 
+import co.yixiang.mp.config.ShopKeyUtils;
 import co.yixiang.mp.domain.YxWechatTemplate;
 import co.yixiang.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class YxTemplateService {
      * @param openid
      */
     public void rechargeSuccessNotice(String time,String price,String openid){
-        String siteUrl = RedisUtil.get("site_url");
+        String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(RECHARGE_SUCCESS_KEY);
         Map<String,String> map = new HashMap<>();
         map.put("first","您的账户金币发生变动，详情如下：");
@@ -59,7 +60,7 @@ public class YxTemplateService {
      * @param openid
      */
     public void paySuccessNotice(String orderId,String price,String openid){
-        String siteUrl = RedisUtil.get("site_url");
+        String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(PAY_SUCCESS_KEY);
         Map<String,String> map = new HashMap<>();
         map.put("first","您的订单已支付成功，我们会尽快为您发货。");
@@ -79,7 +80,7 @@ public class YxTemplateService {
      * @param time
      */
     public void refundSuccessNotice(String orderId,String price,String openid,String time){
-        String siteUrl = RedisUtil.get("site_url");
+        String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(REFUND_SUCCESS_KEY);
         Map<String,String> map = new HashMap<>();
         map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
@@ -100,7 +101,7 @@ public class YxTemplateService {
      * @param openid
      */
     public void deliverySuccessNotice(String orderId,String deliveryName,String deliveryId,String openid){
-        String siteUrl = RedisUtil.get("site_url");
+        String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(DELIVERY_SUCCESS_KEY);
         Map<String,String> map = new HashMap<>();
         map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");

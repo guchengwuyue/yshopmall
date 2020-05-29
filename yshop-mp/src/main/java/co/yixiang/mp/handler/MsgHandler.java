@@ -6,7 +6,6 @@
 package co.yixiang.mp.handler;
 
 import co.yixiang.mp.builder.TextBuilder;
-import co.yixiang.mp.utils.JsonUtils;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;

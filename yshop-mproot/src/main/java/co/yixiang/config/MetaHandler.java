@@ -19,7 +19,6 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * 处理新增和更新的基础数据填充，配合BaseEntity和MyBatisPlusConfig使用

@@ -5,8 +5,8 @@
  */
 package co.yixiang.tools.service.dto;
 
-import lombok.Data;
 import co.yixiang.annotation.Query;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;

@@ -6,8 +6,8 @@
 package co.yixiang.mp.service;
 
 import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.ErrorRequestException;
+import co.yixiang.mp.config.ShopKeyUtils;
 import co.yixiang.mp.config.WxPayConfiguration;
 import co.yixiang.mp.handler.RedisHandler;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
@@ -19,10 +19,7 @@ import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 /**
  * @ClassName 公众号支付YxPayService
@@ -48,7 +45,7 @@ public class YxPayService {
     public WxPayMpOrderResult wxPay(String orderId, String openId, String body,
                                     Integer totalFee,String attach) throws WxPayException {
 
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
@@ -83,7 +80,7 @@ public class YxPayService {
     public WxPayMwebOrderResult wxH5Pay(String orderId, String body,
                                         Integer totalFee,String attach) throws WxPayException {
 
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
@@ -115,7 +112,7 @@ public class YxPayService {
     public WxPayAppOrderResult appPay(String orderId, String body,
                                       Integer totalFee, String attach) throws WxPayException {
 
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getAppPayService();
@@ -143,7 +140,7 @@ public class YxPayService {
      * @throws WxPayException
      */
     public void refundOrder(String orderId, Integer totalFee) throws WxPayException {
-        String apiUrl = redisHandler.getVal("api_url");
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
         if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();

@@ -2,6 +2,7 @@ package co.yixiang.modules.monitor.service.impl;
 
 import co.yixiang.modules.monitor.domain.vo.RedisVo;
 import co.yixiang.modules.monitor.service.RedisService;
+import co.yixiang.mp.config.ShopKeyUtils;
 import co.yixiang.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +42,7 @@ public class RedisServiceImpl implements RedisService {
                     || s.toString().indexOf("user::loadUserByUsername") != -1
                     || s.toString().indexOf("wechat") != -1
                     || s.toString().indexOf("wxpay") != -1
-                    || s.toString().indexOf("site_url") != -1) {
+                    || s.toString().indexOf(ShopKeyUtils.getSiteUrl()) != -1) {
                 continue;
             }
             DataType dataType = redisTemplate.type(s.toString());

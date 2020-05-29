@@ -5,8 +5,6 @@
  */
 package co.yixiang.mp.config;
 
-import co.yixiang.constant.ShopConstants;
-import co.yixiang.enums.RedisKeyEnum;
 import co.yixiang.mp.handler.RedisHandler;
 import co.yixiang.utils.RedisUtil;
 import com.github.binarywang.wxpay.config.WxPayConfig;
@@ -42,22 +40,22 @@ public class WxPayConfiguration {
 	 * @return
 	 */
 	public static WxPayService getPayService() {
-		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE);
-        if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
+		WxPayService wxPayService = payServices.get(ShopKeyUtils.getYshopWeiXinPayService());
+		if(wxPayService == null || RedisUtil.get(ShopKeyUtils.getYshopWeiXinPayService()) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WECHAT_APPID.getValue()));
-			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
-			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
-			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
+			payConfig.setAppId(RedisUtil.get(ShopKeyUtils.getWechatAppId()));
+			payConfig.setMchId(RedisUtil.get(ShopKeyUtils.getWxPayMchId()));
+			payConfig.setMchKey(RedisUtil.get(ShopKeyUtils.getWxPayMchKey()));
+			payConfig.setKeyPath(RedisUtil.get(ShopKeyUtils.getWxPayKeyPath()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();
 			wxPayService.setConfig(payConfig);
-			payServices.put(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE, wxPayService);
+			payServices.put(ShopKeyUtils.getYshopWeiXinPayService(), wxPayService);
 
 			//增加标识
-			RedisUtil.set(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE,"yshop");
-        }
+			RedisUtil.set(ShopKeyUtils.getYshopWeiXinPayService(),"yshop");
+		}
 		return wxPayService;
     }
 
@@ -66,21 +64,21 @@ public class WxPayConfiguration {
 	 * @return
 	 */
 	public static WxPayService getWxAppPayService() {
-		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_MINI_PAY_SERVICE);
-		if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
+		WxPayService wxPayService = payServices.get(ShopKeyUtils.getYshopWeiXinMiniPayService());
+		if(wxPayService == null || RedisUtil.get(ShopKeyUtils.getYshopWeiXinPayService()) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WXAPP_APPID.getValue()));
-			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
-			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
-			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
+			payConfig.setAppId(RedisUtil.get(ShopKeyUtils.getWxAppAppId()));
+			payConfig.setMchId(RedisUtil.get(ShopKeyUtils.getWxPayMchId()));
+			payConfig.setMchKey(RedisUtil.get(ShopKeyUtils.getWxPayMchKey()));
+			payConfig.setKeyPath(RedisUtil.get(ShopKeyUtils.getWxPayKeyPath()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();
 			wxPayService.setConfig(payConfig);
-			payServices.put(ShopConstants.YSHOP_WEIXIN_MINI_PAY_SERVICE, wxPayService);
+			payServices.put(ShopKeyUtils.getYshopWeiXinMiniPayService(), wxPayService);
 
 			//增加标识
-			RedisUtil.set(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE,"yshop");
+			RedisUtil.set(ShopKeyUtils.getYshopWeiXinPayService(),"yshop");
 		}
 		return wxPayService;
 	}
@@ -90,21 +88,21 @@ public class WxPayConfiguration {
 	 * @return
 	 */
 	public static WxPayService getAppPayService() {
-		WxPayService wxPayService = payServices.get(ShopConstants.YSHOP_WEIXIN_APP_PAY_SERVICE);
-		if(wxPayService == null || RedisUtil.get(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE) == null) {
+		WxPayService wxPayService = payServices.get(ShopKeyUtils.getYshopWeiXinAppPayService());
+		if(wxPayService == null || RedisUtil.get(ShopKeyUtils.getYshopWeiXinPayService()) == null) {
 			WxPayConfig payConfig = new WxPayConfig();
-			payConfig.setAppId(RedisUtil.get(RedisKeyEnum.WX_NATIVE_APP_APPID.getValue()));
-			payConfig.setMchId(RedisUtil.get(RedisKeyEnum.WXPAY_MCHID.getValue()));
-			payConfig.setMchKey(RedisUtil.get(RedisKeyEnum.WXPAY_MCHKEY.getValue()));
-			payConfig.setKeyPath(RedisUtil.get(RedisKeyEnum.WXPAY_KEYPATH.getValue()));
+			payConfig.setAppId(RedisUtil.get(ShopKeyUtils.getWxNativeAppAppId()));
+			payConfig.setMchId(RedisUtil.get(ShopKeyUtils.getWxPayMchId()));
+			payConfig.setMchKey(RedisUtil.get(ShopKeyUtils.getWxPayMchKey()));
+			payConfig.setKeyPath(RedisUtil.get(ShopKeyUtils.getWxPayKeyPath()));
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();
 			wxPayService.setConfig(payConfig);
-			payServices.put(ShopConstants.YSHOP_WEIXIN_APP_PAY_SERVICE, wxPayService);
+			payServices.put(ShopKeyUtils.getYshopWeiXinAppPayService(), wxPayService);
 
 			//增加标识
-			RedisUtil.set(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE,"yshop");
+			RedisUtil.set(ShopKeyUtils.getYshopWeiXinPayService(),"yshop");
 		}
 		return wxPayService;
 	}
@@ -113,12 +111,10 @@ public class WxPayConfiguration {
 	 * 移除WxPayService
 	 */
 	public static void removeWxPayService(){
-		RedisUtil.del(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE);
-		payServices.remove(ShopConstants.YSHOP_WEIXIN_PAY_SERVICE);
-		payServices.remove(ShopConstants.YSHOP_WEIXIN_MINI_PAY_SERVICE);
-		payServices.remove(ShopConstants.YSHOP_WEIXIN_APP_PAY_SERVICE);
+		RedisUtil.del(ShopKeyUtils.getYshopWeiXinPayService());
+		payServices.remove(ShopKeyUtils.getYshopWeiXinPayService());
+		payServices.remove(ShopKeyUtils.getYshopWeiXinMiniPayService());
+		payServices.remove(ShopKeyUtils.getYshopWeiXinAppPayService());
 	}
-
-
 
 }

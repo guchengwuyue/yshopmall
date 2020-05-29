@@ -6,6 +6,7 @@
 package co.yixiang.mp.service.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**

@@ -10,7 +10,6 @@ package co.yixiang.modules.system.service.mapper;
 
 import co.yixiang.common.mapper.CoreMapper;
 import co.yixiang.modules.system.domain.DictDetail;
-import co.yixiang.modules.system.service.dto.DictDetailQueryCriteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

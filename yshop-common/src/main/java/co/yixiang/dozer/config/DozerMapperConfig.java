@@ -5,8 +5,6 @@
  */
 package co.yixiang.dozer.config;
 
-import co.yixiang.dozer.service.EJBGenerator;
-import co.yixiang.dozer.service.IGenerator;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

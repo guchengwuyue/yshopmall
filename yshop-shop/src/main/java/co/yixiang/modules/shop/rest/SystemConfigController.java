@@ -6,9 +6,11 @@
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import co.yixiang.logging.aop.log.Log;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
-import co.yixiang.enums.RedisKeyEnum;
+import co.yixiang.constant.SystemConfigConstants;
+import co.yixiang.exception.BadRequestException;
+import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxSystemConfig;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.dto.YxSystemConfigQueryCriteria;
@@ -18,7 +20,6 @@ import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.CacheEvict;
@@ -26,7 +27,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @author hupeng
@@ -67,11 +72,11 @@ public class SystemConfigController {
                     yxSystemConfigModel.setMenuName(key);
                     yxSystemConfigModel.setValue(value.toString());
                     //重新配置微信相关
-                    if(RedisKeyEnum.WECHAT_APPID.getValue().equals(key)){
+                    if(SystemConfigConstants.WECHAT_APPID.equals(key)){
                         WxMpConfiguration.removeWxMpService();
                         WxPayConfiguration.removeWxPayService();
                     }
-                    if( RedisKeyEnum.WXPAY_MCHID.getValue().equals(key) || RedisKeyEnum.WXAPP_APPID.getValue().equals(key)){
+                    if(SystemConfigConstants.WXPAY_MCHID.equals(key) || SystemConfigConstants.WXAPP_APPID.equals(key)){
                         WxPayConfiguration.removeWxPayService();
                     }
                     RedisUtil.set(key,value.toString(),0);

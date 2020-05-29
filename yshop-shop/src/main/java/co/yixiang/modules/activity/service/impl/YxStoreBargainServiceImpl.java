@@ -1,43 +1,43 @@
 /**
  * Copyright (C) 2018-2020
  * All rights reserved, Designed By www.yixiang.co
-
  */
 package co.yixiang.modules.activity.service.impl;
 
-import co.yixiang.modules.activity.domain.YxStoreBargain;
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import lombok.AllArgsConstructor;
-import co.yixiang.dozer.service.IGenerator;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.utils.ValidationUtil;
-import co.yixiang.utils.FileUtil;
+import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.modules.activity.domain.YxStoreBargain;
 import co.yixiang.modules.activity.service.YxStoreBargainService;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainDto;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainQueryCriteria;
+import co.yixiang.modules.activity.service.dto.YxStoreSeckillDto;
 import co.yixiang.modules.activity.service.mapper.YxStoreBargainMapper;
+import co.yixiang.utils.FileUtil;
+import co.yixiang.utils.OrderUtil;
+import com.github.pagehelper.PageInfo;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
 //import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import java.util.List;
-import java.util.Map;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreBargain")
@@ -52,7 +52,14 @@ public class YxStoreBargainServiceImpl extends BaseServiceImpl<YxStoreBargainMap
         getPage(pageable);
         PageInfo<YxStoreBargain> page = new PageInfo<>(queryAll(criteria));
         Map<String, Object> map = new LinkedHashMap<>(2);
-        map.put("content", generator.convert(page.getList(), YxStoreBargainDto.class));
+        List<YxStoreBargainDto> storeBargainDtoList = generator.convert(page.getList(), YxStoreBargainDto.class);
+        for (YxStoreBargainDto storeBargainDto : storeBargainDtoList) {
+
+            String statusStr = OrderUtil.checkActivityStatus(storeBargainDto.getStartTime(),
+                    storeBargainDto.getStopTime(), storeBargainDto.getStatus());
+            storeBargainDto.setStatusStr(statusStr);
+        }
+        map.put("content", storeBargainDtoList);
         map.put("totalElements", page.getTotal());
         return map;
     }
@@ -60,7 +67,7 @@ public class YxStoreBargainServiceImpl extends BaseServiceImpl<YxStoreBargainMap
 
     @Override
     //@Cacheable
-    public List<YxStoreBargain> queryAll(YxStoreBargainQueryCriteria criteria){
+    public List<YxStoreBargain> queryAll(YxStoreBargainQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreBargain.class, criteria));
     }
 
@@ -69,7 +76,7 @@ public class YxStoreBargainServiceImpl extends BaseServiceImpl<YxStoreBargainMap
     public void download(List<YxStoreBargainDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreBargainDto yxStoreBargain : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("关联产品ID", yxStoreBargain.getProductId());
             map.put("砍价活动名称", yxStoreBargain.getTitle());
             map.put("砍价活动图片", yxStoreBargain.getImage());
@@ -100,8 +107,8 @@ public class YxStoreBargainServiceImpl extends BaseServiceImpl<YxStoreBargainMap
             map.put("砍价规则", yxStoreBargain.getRule());
             map.put("砍价产品浏览量", yxStoreBargain.getLook());
             map.put("砍价产品分享量", yxStoreBargain.getShare());
-            map.put(" endTimeDate",  yxStoreBargain.getEndTimeDate());
-            map.put(" startTimeDate",  yxStoreBargain.getStartTimeDate());
+            map.put(" endTimeDate", yxStoreBargain.getEndTimeDate());
+            map.put(" startTimeDate", yxStoreBargain.getStartTimeDate());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

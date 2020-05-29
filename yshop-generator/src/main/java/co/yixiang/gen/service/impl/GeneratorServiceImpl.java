@@ -8,14 +8,14 @@ package co.yixiang.gen.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
-import co.yixiang.gen.domain.ColumnConfig;
-import co.yixiang.gen.service.mapper.ColumnInfoMapper;
-import co.yixiang.gen.utils.GenUtil;
 import co.yixiang.common.service.impl.BaseServiceImpl;
+import co.yixiang.exception.BadRequestException;
+import co.yixiang.gen.domain.ColumnConfig;
 import co.yixiang.gen.domain.GenConfig;
 import co.yixiang.gen.domain.vo.TableInfo;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.gen.service.GeneratorService;
+import co.yixiang.gen.service.mapper.ColumnInfoMapper;
+import co.yixiang.gen.utils.GenUtil;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.StringUtils;
@@ -25,6 +25,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -79,12 +80,12 @@ public class GeneratorServiceImpl extends BaseServiceImpl<ColumnInfoMapper, Colu
             columnInfos.add(
                     new ColumnConfig(
                             tableName,
-                            map.get("column_name").toString(),
-                            "NO".equals(map.get("is_nullable").toString()),
-                            map.get("data_type").toString(),
-                            ObjectUtil.isNotNull( map.get("column_comment")) ?  map.get("column_comment").toString() : null,
-                            ObjectUtil.isNotNull(map.get("column_key")) ? map.get("column_key").toString() : null,
-                            ObjectUtil.isNotNull(map.get("extra")) ? map.get("extra").toString() : null)
+                            map.get("COLUMN_NAME").toString(),
+                            "NO".equals(map.get("IS_NULLABLE").toString()),
+                            map.get("DATA_TYPE").toString(),
+                            ObjectUtil.isNotNull( map.get("COLUMN_COMMENT")) ?  map.get("COLUMN_COMMENT").toString() : null,
+                            ObjectUtil.isNotNull(map.get("COLUMN_KEY")) ? map.get("COLUMN_KEY").toString() : null,
+                            ObjectUtil.isNotNull(map.get("EXTRA")) ? map.get("EXTRA").toString() : null)
             );
         }
         return columnInfos;

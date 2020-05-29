@@ -4,9 +4,10 @@
 
  */
 package co.yixiang.tools.service;
+
+import co.yixiang.common.service.BaseService;
 import co.yixiang.tools.domain.EmailConfig;
 import co.yixiang.tools.domain.vo.EmailVo;
-import co.yixiang.common.service.BaseService;
 import org.springframework.scheduling.annotation.Async;
 
 /**

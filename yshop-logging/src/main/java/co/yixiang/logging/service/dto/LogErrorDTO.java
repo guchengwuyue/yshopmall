@@ -6,6 +6,7 @@
 package co.yixiang.logging.service.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
