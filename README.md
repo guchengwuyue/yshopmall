@@ -12,6 +12,12 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 
 
+
+## yshop3.0版本最新日志：https://www.yixiang.co/log/
+
+
+
+
 #### 项目源码
 
 |     |  后台系统源码 |   后台系统前端源码  |
