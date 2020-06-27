@@ -1,11 +1,11 @@
 /**
  * Copyright (C) 2018-2020
  * All rights reserved, Designed By www.yixiang.co
+
  */
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
@@ -110,7 +110,7 @@ public class DeptController {
     @DeleteMapping
     @PreAuthorize("@el.check('admin','dept:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         List<Long> deptIds = new ArrayList<>();
         for (Long id : ids) {
             List<Dept> deptList = deptService.findByPid(id);

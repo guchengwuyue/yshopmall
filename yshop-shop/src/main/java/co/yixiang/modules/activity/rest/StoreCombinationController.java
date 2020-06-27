@@ -1,12 +1,11 @@
 /**
  * Copyright (C) 2018-2020
  * All rights reserved, Designed By www.yixiang.co
+
  */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
 import co.yixiang.modules.activity.service.YxStoreCombinationService;
@@ -82,7 +81,7 @@ public class StoreCombinationController {
     @ApiOperation(value = "开启关闭")
     @PostMapping(value = "/yxStoreCombination/onsale/{id}")
     public ResponseEntity onSale(@PathVariable Integer id,@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
         //System.out.println(status);
@@ -95,7 +94,7 @@ public class StoreCombinationController {
     @DeleteMapping(value = "/yxStoreCombination/{id}")
     @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         YxStoreCombination combination = new YxStoreCombination();
         combination.setIsDel(1);
         combination.setId(id);

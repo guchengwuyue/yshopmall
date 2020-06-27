@@ -75,7 +75,7 @@ public class WechatArticleController {
     @DeleteMapping(value = "/yxArticle/{id}")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxArticleService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -84,7 +84,7 @@ public class WechatArticleController {
     @GetMapping(value = "/yxArticle/publish/{id}")
     @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         YxArticleDto yxArticleDTO= new YxArticleDto();
         YxArticle yxArticle = yxArticleService.getById(id);
         BeanUtils.copyProperties(yxArticle,yxArticleDTO);

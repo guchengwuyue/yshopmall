@@ -6,10 +6,8 @@
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.constant.SystemConfigConstants;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxSystemConfig;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
@@ -62,7 +60,7 @@ public class SystemConfigController {
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         jsonObject.forEach(
                 (key,value)->{

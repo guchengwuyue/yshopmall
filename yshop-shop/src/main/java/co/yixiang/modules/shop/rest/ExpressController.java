@@ -5,8 +5,6 @@
  */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxExpress;
 import co.yixiang.modules.shop.service.YxExpressService;
@@ -56,7 +54,7 @@ public class ExpressController {
     @PostMapping(value = "/yxExpress")
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxExpress resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         return new ResponseEntity(yxExpressService.save(resources),HttpStatus.CREATED);
     }
 
@@ -65,7 +63,7 @@ public class ExpressController {
     @PutMapping(value = "/yxExpress")
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxExpress resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxExpressService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -75,7 +73,7 @@ public class ExpressController {
     @DeleteMapping(value = "/yxExpress/{id}")
     @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxExpressService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

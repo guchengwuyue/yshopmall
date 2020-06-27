@@ -79,7 +79,7 @@ public class StoreCategoryController {
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCategory resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         if(resources.getPid() > 0 && StrUtil.isBlank(resources.getPic())) {
             throw new BadRequestException("子分类图片必传");
         }
@@ -100,7 +100,7 @@ public class StoreCategoryController {
     @PutMapping(value = "/yxStoreCategory")
     @PreAuthorize("@el.check('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCategory resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         if(resources.getPid() > 0 && StrUtil.isBlank(resources.getPic())) {
             throw new BadRequestException("子分类图片必传");
         }
@@ -123,7 +123,7 @@ public class StoreCategoryController {
     @DeleteMapping(value = "/yxStoreCategory/{id}")
     @PreAuthorize("@el.check('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_DELETE')")
     public ResponseEntity delete(@PathVariable String id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         String[] ids = id.split(",");
         for (String newId: ids) {
             yxStoreCategoryService.removeById(Integer.valueOf(newId));

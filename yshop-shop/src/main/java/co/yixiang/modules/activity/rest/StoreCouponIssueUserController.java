@@ -1,11 +1,10 @@
 /**
  * Copyright (C) 2018-2020
  * All rights reserved, Designed By www.yixiang.co
+
  */
 package co.yixiang.modules.activity.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
@@ -71,7 +70,7 @@ public class StoreCouponIssueUserController {
     @DeleteMapping(value = "/yxStoreCouponIssueUser/{id}")
     @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxStoreCouponIssueUserService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

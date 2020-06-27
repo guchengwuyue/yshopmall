@@ -5,8 +5,6 @@
  */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemUserLevelService;
@@ -56,7 +54,7 @@ public class SystemUserLevelController {
     @PostMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxSystemUserLevelService.save(resources),HttpStatus.CREATED);
     }
@@ -66,7 +64,7 @@ public class SystemUserLevelController {
     @PutMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemUserLevelService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -76,7 +74,7 @@ public class SystemUserLevelController {
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemUserLevelService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

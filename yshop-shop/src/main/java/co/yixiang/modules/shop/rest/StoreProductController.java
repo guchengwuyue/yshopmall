@@ -8,7 +8,6 @@ package co.yixiang.modules.shop.rest;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.service.YxStoreProductService;
@@ -64,7 +63,7 @@ public class StoreProductController {
     @PostMapping(value = "/yxStoreProduct")
     @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         if(ObjectUtil.isEmpty(resources.getGiveIntegral())) resources.setGiveIntegral(BigDecimal.ZERO);
         if(ObjectUtil.isEmpty(resources.getCost())) resources.setCost(BigDecimal.ZERO);
@@ -77,7 +76,7 @@ public class StoreProductController {
     @PutMapping(value = "/yxStoreProduct")
     @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProduct resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxStoreProductService.updateProduct(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -88,7 +87,7 @@ public class StoreProductController {
     @DeleteMapping(value = "/yxStoreProduct/{id}")
     @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxStoreProductService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -60,7 +60,7 @@ public class QiniuController {
     @ApiOperation("配置七牛云存储")
     @PutMapping(value = "/config")
     public ResponseEntity<Object> emailConfig(@Validated @RequestBody QiniuConfig qiniuConfig){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         qiNiuService.update(qiniuConfig);
         qiNiuService.update(qiniuConfig.getType());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -96,7 +96,7 @@ public class QiniuController {
     @ApiOperation("同步七牛云数据")
     @PostMapping(value = "/synchronize")
     public ResponseEntity<Object> synchronize(){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         qiNiuService.synchronize(qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -105,7 +105,7 @@ public class QiniuController {
     @ApiOperation("下载文件")
     @GetMapping(value = "/download/{id}")
     public ResponseEntity<Object> download(@PathVariable Long id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         Map<String,Object> map = new HashMap<>(1);
         map.put("url", qiNiuService.download(qiNiuService.findByContentId(id),qiNiuService.find()));
         return new ResponseEntity<>(map,HttpStatus.OK);
@@ -115,7 +115,7 @@ public class QiniuController {
     @ApiOperation("删除文件")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         qiNiuService.delete(qiNiuService.findByContentId(id),qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -124,7 +124,7 @@ public class QiniuController {
     @ApiOperation("删除多张图片")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         qiNiuService.deleteAll(ids, qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }

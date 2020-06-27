@@ -59,7 +59,7 @@ public class AuthController {
     private Long expiration;
     @Value("${rsa.private_key}")
     private String privateKey;
-    @Value("${single.login:false}")
+    @Value("${single.login}")
     private Boolean singleLogin;
     private final SecurityProperties properties;
     private final RedisUtils redisUtils;

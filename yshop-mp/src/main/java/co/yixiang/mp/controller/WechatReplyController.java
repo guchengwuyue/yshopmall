@@ -49,7 +49,7 @@ public class WechatReplyController {
     @PostMapping(value = "/yxWechatReply")
     @PreAuthorize("@el.check('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         YxWechatReply yxWechatReply = new YxWechatReply();
         YxWechatReply isExist = yxWechatReplyService.isExist(jsonObject.get("key").toString());

@@ -27,6 +27,6 @@ public interface UserBillMapper extends CoreMapper<YxUserBill> {
             "from yx_user_bill b left join yx_user u on u.uid=b.uid  where 1=1  "  +
             "<if test =\"category !=''\">and b.category=#{category}</if> " +
             "<if test =\"type !=''\">and b.type=#{type}</if> " +
-            "<if test =\"nickname !=''\">and u.nickname= LIKE CONCAT('%',#{nickname},'%')</if> </script> ")
+            "<if test =\"nickname !=''\">and u.nickname LIKE CONCAT('%',#{nickname},'%')</if> </script> ")
     List<YxUserBillDto> findAllByQueryCriteria(@Param("category") String category, @Param("type") String type, @Param("nickname") String nickname);
 }

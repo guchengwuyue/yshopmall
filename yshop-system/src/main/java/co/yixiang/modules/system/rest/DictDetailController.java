@@ -5,7 +5,6 @@
  */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.system.domain.DictDetail;
@@ -87,7 +86,7 @@ public class DictDetailController {
     @PutMapping
     @PreAuthorize("@el.check('admin','dict:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody DictDetail resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         dictDetailService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -97,7 +96,7 @@ public class DictDetailController {
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("@el.check('admin','dict:del')")
     public ResponseEntity<Object> delete(@PathVariable Long id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         dictDetailService.removeById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

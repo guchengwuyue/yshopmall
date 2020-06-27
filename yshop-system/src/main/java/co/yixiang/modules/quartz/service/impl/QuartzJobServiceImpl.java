@@ -118,7 +118,7 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
             quartzManage.pauseJob(quartzJob);
             quartzJob.setIsPause(true);
         }
-        this.save(quartzJob);
+        this.saveOrUpdate(quartzJob);
     }
 
     /**

@@ -100,7 +100,7 @@ public class SystemStoreController {
     @ApiOperation("新增门店")
     @PreAuthorize("@el.check('yxSystemStore:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity<>(yxSystemStoreService.save(resources),HttpStatus.CREATED);
     }
@@ -110,7 +110,7 @@ public class SystemStoreController {
     @ApiOperation("修改门店")
     @PreAuthorize("@el.check('yxSystemStore:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemStoreService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -120,7 +120,7 @@ public class SystemStoreController {
     @PreAuthorize("@el.check('yxSystemStore:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemStoreService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }

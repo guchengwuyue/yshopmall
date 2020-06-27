@@ -337,7 +337,7 @@ public class StoreOrderController {
     @DeleteMapping(value = "/yxStoreOrder/{id}")
     @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxStoreOrderService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

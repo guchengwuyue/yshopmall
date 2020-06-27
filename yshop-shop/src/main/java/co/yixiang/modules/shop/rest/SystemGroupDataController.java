@@ -68,7 +68,7 @@ public class SystemGroupDataController {
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
 
         if(ObjectUtil.isNotNull(jsonObject.get("name"))){
@@ -113,7 +113,7 @@ public class SystemGroupDataController {
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         if(ObjectUtil.isNotNull(jsonObject.get("name"))){
             if(StrUtil.isEmpty(jsonObject.get("name").toString())){
@@ -161,7 +161,7 @@ public class SystemGroupDataController {
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
     @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemGroupDataService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

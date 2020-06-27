@@ -7,8 +7,8 @@ spring:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       url: jdbc:log4jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username:
-      password:
+      username: root
+      password: root
 
       # 初始化配置
       initial-size: 3
@@ -44,9 +44,13 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
-    password:
+    password: root
     #连接超时时间
     timeout: 5000
+
+# 是否限制单用户登录
+single:
+  login: false
 
 #jwt
 jwt:
@@ -75,7 +79,7 @@ generator:
 
 #是否开启 swagger-ui，生产环境默认不开启
 swagger:
-  enabled: true
+  enabled: false
   title: yshop商城管理后台API
   serverUrl: http://127.0.0.1:8000
   version: 2.2

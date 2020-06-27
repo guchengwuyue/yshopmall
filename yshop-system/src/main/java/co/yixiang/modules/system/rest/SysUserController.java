@@ -5,7 +5,6 @@
  */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import co.yixiang.config.DataScope;
@@ -130,7 +129,7 @@ public class SysUserController {
     @PostMapping
     @PreAuthorize("@el.check('admin','user:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody User resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         checkLevel(resources);
         // 默认密码 123456
         resources.setPassword(passwordEncoder.encode("123456"));
@@ -142,7 +141,7 @@ public class SysUserController {
     @PutMapping
     @PreAuthorize("@el.check('admin','user:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody User resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         checkLevel(resources);
         userService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -151,8 +150,8 @@ public class SysUserController {
     @Log("修改用户：个人中心")
     @ApiOperation("修改用户：个人中心")
     @PutMapping(value = "center")
-    public ResponseEntity<Object> center(@Validated @RequestBody User resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+    public ResponseEntity<Object> center(@Validated(User.Update.class) @RequestBody User resources){
+
         UserDto userDto = userService.findByName(SecurityUtils.getUsername());
         if(!resources.getId().equals(userDto.getId())){
             throw new BadRequestException("不能修改他人资料");
@@ -166,7 +165,7 @@ public class SysUserController {
     @DeleteMapping
     @PreAuthorize("@el.check('admin','user:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         UserDto user = userService.findByName(SecurityUtils.getUsername());
         for (Long id : ids) {
             Integer currentLevel =  Collections.min(roleService.findByUsersId(user.getId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
@@ -182,7 +181,7 @@ public class SysUserController {
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
     public ResponseEntity<Object> updatePass(@RequestBody UserPassVo passVo){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         // 密码解密
         RSA rsa = new RSA(privateKey, null);
         String oldPass = new String(rsa.decrypt(passVo.getOldPass(), KeyType.PrivateKey));
@@ -201,7 +200,7 @@ public class SysUserController {
     @ApiOperation("修改头像")
     @PostMapping(value = "/updateAvatar")
     public ResponseEntity<Object> updateAvatar(@RequestParam MultipartFile file){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         userService.updateAvatar(file);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -210,7 +209,7 @@ public class SysUserController {
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
     public ResponseEntity<Object> updateEmail(@PathVariable String code,@RequestBody User user){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         // 密码解密
         RSA rsa = new RSA(privateKey, null);
         String password = new String(rsa.decrypt(user.getPassword(), KeyType.PrivateKey));

@@ -5,8 +5,6 @@
  */
 package co.yixiang.modules.security.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.security.service.OnlineUserService;
 import io.swagger.annotations.Api;
@@ -64,7 +62,7 @@ public class OnlineController {
     @DeleteMapping
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> delete(@RequestBody Set<String> keys) throws Exception {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         for (String key : keys) {
             onlineUserService.kickOut(key);
         }
@@ -75,7 +73,7 @@ public class OnlineController {
     @PostMapping("/delete" )
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> deletet(@RequestBody Set<String> keys) throws Exception {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         for (String key : keys) {
             onlineUserService.kickOutT(key);
         }

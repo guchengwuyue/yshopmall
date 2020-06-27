@@ -5,8 +5,6 @@
  */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxSystemUserTask;
 import co.yixiang.modules.shop.service.YxSystemUserTaskService;
@@ -71,7 +69,7 @@ public class SystemUserTaskController {
     @PutMapping(value = "/yxSystemUserTask")
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserTask resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemUserTaskService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -81,7 +79,7 @@ public class SystemUserTaskController {
     @DeleteMapping(value = "/yxSystemUserTask/{id}")
     @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxSystemUserTaskService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

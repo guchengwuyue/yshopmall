@@ -1,11 +1,7 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制，未经购买不得使用
-* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
-* 一经发现盗用、分享等行为，将追究法律责任，后果自负
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ */
 package co.yixiang.modules.system.service.impl;
 
 import cn.hutool.core.date.DateUtil;
@@ -170,14 +166,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
         User user = this.getOne(new QueryWrapper<User>().lambda()
                 .eq(User::getUsername,SecurityUtils.getUsername()));
         UserAvatar userAvatar =  userAvatarService.getOne(new QueryWrapper<UserAvatar>().lambda()
-                .eq(UserAvatar::getId,user.getId()));
+                .eq(UserAvatar::getId,user.getAvatarId()));
         String oldPath = "";
         if(userAvatar != null){
             oldPath = userAvatar.getPath();
+        } else {
+            userAvatar = new UserAvatar();
         }
         File file = FileUtil.upload(multipartFile, avatar);
         assert file != null;
-        //UserAvatar saveUserAvatar = new UserAvatar(userAvatar,file.getName(), file.getPath(), FileUtil.getSize(multipartFile.getSize()));
         userAvatar.setRealName(file.getName());
         userAvatar.setPath(file.getPath());
         userAvatar.setSize(FileUtil.getSize(multipartFile.getSize()));
@@ -259,6 +256,25 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
         if(user2!=null&&!user.getId().equals(user2.getId())){
             throw new EntityExistException(User.class,"email",resources.getEmail());
         }
+        user.setUsername(resources.getUsername());
+        user.setEmail(resources.getEmail());
+        user.setEnabled(resources.getEnabled());
+        user.setDeptId(resources.getDept().getId());
+        user.setJobId(resources.getJob().getId());
+        user.setPhone(resources.getPhone());
+        user.setNickName(resources.getNickName());
+        user.setSex(resources.getSex());
+        boolean result = this.saveOrUpdate(user);
+        usersRolesService.lambdaUpdate().eq(UsersRoles ::getUserId,resources.getId()).remove();
+        UsersRoles usersRoles = new UsersRoles();
+        usersRoles.setUserId(resources.getId());
+        Set<Role> set = resources.getRoles();
+        for (Role roleIds : set ) {
+            usersRoles.setRoleId(roleIds.getId());
+        }
+        if (result) {
+            usersRolesService.save(usersRoles);
+        }
 
         // 如果用户的角色改变了，需要手动清理下缓存
         if (!resources.getRoles().equals(user.getRoles())) {
@@ -267,17 +283,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
             key = "role::findByUsers_Id:" + user.getId();
             redisUtils.del(key);
         }
-
-        user.setUsername(resources.getUsername());
-        user.setEmail(resources.getEmail());
-        user.setEnabled(resources.getEnabled());
-        user.setRoles(resources.getRoles());
-        user.setDept(resources.getDept());
-        user.setJob(resources.getJob());
-        user.setPhone(resources.getPhone());
-        user.setNickName(resources.getNickName());
-        user.setSex(resources.getSex());
-        this.saveOrUpdate(user);
     }
 
     @Override

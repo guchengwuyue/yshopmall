@@ -5,8 +5,6 @@
  */
 package co.yixiang.modules.shop.rest;
 
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxStoreProductReply;
 import co.yixiang.modules.shop.service.YxStoreProductReplyService;
@@ -67,7 +65,7 @@ public class StoreProductReplyController {
     @DeleteMapping(value = "/yxStoreProductReply/{id}")
     @PreAuthorize("@el.check('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         YxStoreProductReply reply = new YxStoreProductReply();
         reply.setIsDel(1);
         reply.setId(id);

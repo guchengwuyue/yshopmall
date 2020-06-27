@@ -1,10 +1,10 @@
 /**
  * Copyright (C) 2018-2020
  * All rights reserved, Designed By www.yixiang.co
+
  */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
@@ -69,7 +69,7 @@ public class MenuController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('menu:list')")
     public void download(HttpServletResponse response, MenuQueryCriteria criteria) throws IOException {
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         menuService.download(generator.convert(menuService.queryAll(criteria),MenuDto.class), response);
     }
 
@@ -103,7 +103,7 @@ public class MenuController {
     @PostMapping
     @PreAuthorize("@el.check('menu:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Menu resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -116,7 +116,7 @@ public class MenuController {
     @PutMapping
     @PreAuthorize("@el.check('menu:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Menu resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         menuService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -126,7 +126,7 @@ public class MenuController {
     @DeleteMapping
     @PreAuthorize("@el.check('menu:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         Set<Menu> menuSet = new HashSet<>();
         for (Long id : ids) {
             List<Menu> menuList = menuService.findByPid(id);

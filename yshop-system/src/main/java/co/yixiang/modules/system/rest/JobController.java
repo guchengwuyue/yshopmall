@@ -5,7 +5,6 @@
  */
 package co.yixiang.modules.system.rest;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
@@ -82,6 +81,7 @@ public class JobController {
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
+        resources.setDeptId(resources.getDept().getId());
         return new ResponseEntity<>(jobService.save(resources),HttpStatus.CREATED);
     }
 
@@ -90,7 +90,8 @@ public class JobController {
     @PutMapping
     @PreAuthorize("@el.check('admin','job:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Job resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
+        resources.setDeptId(resources.getDept().getId());
         jobService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -100,7 +101,7 @@ public class JobController {
     @DeleteMapping
     @PreAuthorize("@el.check('admin','job:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         try {
             jobService.removeByIds(ids);
         }catch (Throwable e){

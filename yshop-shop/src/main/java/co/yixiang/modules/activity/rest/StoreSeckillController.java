@@ -6,8 +6,6 @@
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreSeckill;
 import co.yixiang.modules.activity.service.YxStoreSeckillService;
@@ -80,7 +78,7 @@ public class StoreSeckillController {
     @DeleteMapping(value = "/yxStoreSeckill/{id}")
     @PreAuthorize("@el.check('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxStoreSeckillService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

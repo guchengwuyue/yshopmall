@@ -45,7 +45,10 @@ spring:
     #连接超时时间
     timeout: 5000
 
-#jwt
+# 是否限制单用户登录
+single:
+  login: false
+
 #jwt
 jwt:
   header: Authorization

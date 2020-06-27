@@ -6,7 +6,6 @@
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.lang.Dict;
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
@@ -105,7 +104,7 @@ public class RoleController {
     @PostMapping
     @PreAuthorize("@el.check('roles:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Role resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -118,7 +117,7 @@ public class RoleController {
     @PutMapping
     @PreAuthorize("@el.check('roles:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Role resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         getLevels(resources.getLevel());
         roleService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -129,7 +128,7 @@ public class RoleController {
     @PutMapping(value = "/menu")
     @PreAuthorize("@el.check('roles:edit')")
     public ResponseEntity<Object> updateMenu(@RequestBody Role resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         RoleDto role = roleService.findById(resources.getId());
         getLevels(role.getLevel());
         roleService.updateMenu(resources,role);
@@ -141,7 +140,7 @@ public class RoleController {
     @DeleteMapping
     @PreAuthorize("@el.check('roles:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         for (Long id : ids) {
             RoleDto role = roleService.findById(id);
             getLevels(role.getLevel());

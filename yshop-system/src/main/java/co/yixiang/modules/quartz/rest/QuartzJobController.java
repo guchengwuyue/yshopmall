@@ -5,7 +5,6 @@
  */
 package co.yixiang.modules.quartz.rest;
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
@@ -16,6 +15,7 @@ import co.yixiang.modules.quartz.service.dto.QuartzJobDto;
 import co.yixiang.modules.quartz.service.dto.QuartzJobQueryCriteria;
 import co.yixiang.modules.quartz.service.dto.QuartzLogDto;
 import co.yixiang.modules.quartz.service.dto.QuartzLogQueryCriteria;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -99,7 +99,7 @@ public class QuartzJobController {
     @PostMapping
     @PreAuthorize("@el.check('admin','timing:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody QuartzJob resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -111,7 +111,7 @@ public class QuartzJobController {
     @PutMapping
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         quartzJobService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -121,8 +121,9 @@ public class QuartzJobController {
     @PutMapping(value = "/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> updateIsPause(@PathVariable Long id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
-        quartzJobService.updateIsPause(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("uid",id)));
+
+        quartzJobService.updateIsPause(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>()
+                .eq(QuartzJob::getId,id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -131,7 +132,7 @@ public class QuartzJobController {
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> execution(@PathVariable Long id){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         quartzJobService.execution(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("id",id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -141,7 +142,7 @@ public class QuartzJobController {
     @DeleteMapping
     @PreAuthorize("@el.check('admin','timing:del')")
     public ResponseEntity<Object> delete(@RequestBody Integer[] ids){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         quartzJobService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }

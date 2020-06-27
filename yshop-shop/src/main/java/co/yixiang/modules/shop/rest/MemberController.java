@@ -6,9 +6,7 @@
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.SystemConfigConstants;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
@@ -89,7 +87,7 @@ public class MemberController {
     @DeleteMapping(value = "/yxUser/{uid}")
     @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer uid){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         yxUserService.removeById(uid);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -97,7 +95,7 @@ public class MemberController {
     @ApiOperation(value = "用户禁用启用")
     @PostMapping(value = "/yxUser/onStatus/{id}")
     public ResponseEntity onStatus(@PathVariable Integer id,@RequestBody String jsonStr){
-        //if(StrUtil.isNotEmpty("22")) throw new BadRequestException("演示环境禁止操作");
+
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
         yxUserService.onStatus(id,status);

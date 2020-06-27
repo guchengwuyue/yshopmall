@@ -486,6 +486,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
             } catch (WxPayException e) {
                 log.info("refund-error:{}",e.getMessage());
+                throw new BadRequestException("退款失败:" + e.getMessage());
             }
 
         }

@@ -1,11 +1,7 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制，未经购买不得使用
-* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
-* 一经发现盗用、分享等行为，将追究法律责任，后果自负
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ */
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -67,11 +63,9 @@ public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements J
     //@Cacheable
     public List<Job> queryAll(JobQueryCriteria criteria){
         List<Job> jobList = baseMapper.selectList(QueryHelpPlus.getPredicate(Job.class, criteria));
-        List<Job> jobScopeList = new ArrayList<>();
         if(criteria.getDeptIds().size()==0){
             for (Job job : jobList) {
                     job.setDept(deptService.getById(job.getDeptId()));
-                    jobScopeList.add(job);
             }
         }else {
             //断权限范围
@@ -79,12 +73,11 @@ public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements J
                 for (Job job : jobList) {
                     if(deptId ==job.getDeptId()){
                         job.setDept(deptService.getById(job.getDeptId()));
-                        jobScopeList.add(job);
                     }
                 }
             }
         }
-        return jobScopeList;
+        return jobList;
     }
 
 
