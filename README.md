@@ -13,7 +13,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 
 
-## yshop3.0版本最新日志：https://www.yixiang.co/log/
+## yshop3.0RC1版本演示与更新：https://www.yixiang.co/guide/#_3-0%E4%BD%93%E9%AA%8C%E5%9C%B0%E5%9D%80
 
 
 
