@@ -1,12 +1,12 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxWechatReply;
 import co.yixiang.mp.service.YxWechatReplyService;
 import com.alibaba.fastjson.JSON;
@@ -39,7 +39,7 @@ public class WechatReplyController {
 
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxWechatReply")
-    @PreAuthorize("@el.check('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_SELECT')")
     public ResponseEntity getYxWechatReplys(){
         return new ResponseEntity(yxWechatReplyService.isExist("subscribe"),HttpStatus.OK);
     }
@@ -47,7 +47,7 @@ public class WechatReplyController {
 
     @ApiOperation(value = "新增自动回复")
     @PostMapping(value = "/yxWechatReply")
-    @PreAuthorize("@el.check('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);

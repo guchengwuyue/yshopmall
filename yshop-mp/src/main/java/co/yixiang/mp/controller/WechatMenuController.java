@@ -1,11 +1,12 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.mp.controller;
 
 
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxWechatMenu;
@@ -46,7 +47,7 @@ public class WechatMenuController {
 
     @ApiOperation(value = "查询菜单")
     @GetMapping(value = "/YxWechatMenu")
-    @PreAuthorize("@el.check('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
     public ResponseEntity getYxWechatMenus(){
         return new ResponseEntity(YxWechatMenuService.getOne(new QueryWrapper<YxWechatMenu>().eq("`key`","wechat_menus")),HttpStatus.OK);
     }
@@ -54,7 +55,7 @@ public class WechatMenuController {
 
     @ApiOperation(value = "创建菜单")
     @PostMapping(value = "/YxWechatMenu")
-    @PreAuthorize("@el.check('admin','YxWechatMenu_ALL','YxWechatMenu_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_CREATE')")
     public ResponseEntity create( @RequestBody String jsonStr){
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);

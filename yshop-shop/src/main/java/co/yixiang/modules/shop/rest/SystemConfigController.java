@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -49,7 +50,7 @@ public class SystemConfigController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemConfig")
-    @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
     public ResponseEntity getYxSystemConfigs(YxSystemConfigQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxSystemConfigService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -58,7 +59,7 @@ public class SystemConfigController {
     @ApiOperation(value = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
-    @PreAuthorize("@el.check('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);

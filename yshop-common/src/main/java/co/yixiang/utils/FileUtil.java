@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.utils;
 
 import cn.hutool.core.codec.Base64;
@@ -28,6 +29,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -393,6 +396,60 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
             buf.append(r.nextInt(10));
         }
         return buf;
+    }
+
+    /**
+     * 对中文字符进行UTF-8编码
+     * @param source 要转义的字符串
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    public static String transformStyle(String source) throws UnsupportedEncodingException
+    {
+        char[] arr = source.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < arr.length; i++)
+        {
+            char temp = arr[i];
+            if(isChinese(temp))
+            {
+                sb.append(URLEncoder.encode("" + temp, "UTF-8"));
+                continue;
+            }
+            sb.append(arr[i]);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 判断是不是中文字符
+     * @param c
+     * @return
+     */
+    public static boolean isChinese(char c)
+    {
+
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+
+        if(ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
+
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS)
+        {
+
+            return true;
+
+        }
+
+        return false;
+
     }
 
 }

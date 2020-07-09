@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.activity.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -43,7 +44,7 @@ public class StoreCouponIssueUserController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_SELECT')")
     public ResponseEntity getYxStoreCouponIssueUsers(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreCouponIssueUserService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -51,7 +52,7 @@ public class StoreCouponIssueUserController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCouponIssueUser resources){
         return new ResponseEntity(yxStoreCouponIssueUserService.save(resources),HttpStatus.CREATED);
     }
@@ -59,7 +60,7 @@ public class StoreCouponIssueUserController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreCouponIssueUser")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCouponIssueUser resources){
         yxStoreCouponIssueUserService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -68,7 +69,7 @@ public class StoreCouponIssueUserController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreCouponIssueUser/{id}")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxStoreCouponIssueUserService.removeById(id);

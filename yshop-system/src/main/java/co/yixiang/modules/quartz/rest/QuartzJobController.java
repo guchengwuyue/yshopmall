@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.quartz.rest;
 
 import co.yixiang.dozer.service.IGenerator;
@@ -25,14 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -76,7 +70,7 @@ public class QuartzJobController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','timing:list')")
     public void download(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
-        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria),QuartzJobDto.class), response);
+        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria), QuartzJobDto.class), response);
     }
 
     @Log("导出日志数据")
@@ -112,7 +106,7 @@ public class QuartzJobController {
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources){
 
-        quartzJobService.saveOrUpdate(resources);
+        quartzJobService.updateById(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

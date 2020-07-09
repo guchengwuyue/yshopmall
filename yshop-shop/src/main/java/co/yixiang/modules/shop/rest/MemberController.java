@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -51,7 +52,7 @@ public class MemberController {
     @Log("查询用户")
     @ApiOperation(value = "查询用户")
     @GetMapping(value = "/yxUser")
-    @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_SELECT')")
     public ResponseEntity getYxUsers(YxUserQueryCriteria criteria, Pageable pageable){
         if(ObjectUtil.isNotNull(criteria.getIsPromoter())){
             if(criteria.getIsPromoter() == 1){
@@ -68,7 +69,7 @@ public class MemberController {
     @Log("新增用户")
     @ApiOperation(value = "新增用户")
     @PostMapping(value = "/yxUser")
-    @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxUser resources){
         return new ResponseEntity(yxUserService.save(resources),HttpStatus.CREATED);
     }
@@ -76,7 +77,7 @@ public class MemberController {
     @Log("修改用户")
     @ApiOperation(value = "修改用户")
     @PutMapping(value = "/yxUser")
-    @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxUser resources){
         yxUserService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -85,7 +86,7 @@ public class MemberController {
     @Log("删除用户")
     @ApiOperation(value = "删除用户")
     @DeleteMapping(value = "/yxUser/{uid}")
-    @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer uid){
 
         yxUserService.removeById(uid);
@@ -104,7 +105,7 @@ public class MemberController {
 
     @ApiOperation(value = "修改余额")
     @PostMapping(value = "/yxUser/money")
-    @PreAuthorize("@el.check('admin','YXUSER_ALL','YXUSER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_EDIT')")
     public ResponseEntity updatePrice(@Validated @RequestBody UserMoneyDto param){
         yxUserService.updateMoney(param);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

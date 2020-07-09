@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.mp.service;
 
 import cn.hutool.core.util.StrUtil;
@@ -95,6 +96,39 @@ public class YxPayService {
         orderRequest.setAttach(attach);
 
         WxPayMwebOrderResult orderResult = wxPayService.createOrder(orderRequest);
+
+        return orderResult;
+
+    }
+
+
+    /**
+     * 微信小程序支付
+     *
+     * @param orderId
+     * @param body
+     * @param totalFee
+     * @return
+     * @throws WxPayException
+     */
+    public WxPayMpOrderResult routinePay(String orderId, String body,String openId,
+                                        Integer totalFee,String attach) throws WxPayException {
+
+        String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
+        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+
+        WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
+        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
+        orderRequest.setOpenid(openId);
+        orderRequest.setTradeType("JSAPI");
+        orderRequest.setBody(body);
+        orderRequest.setOutTradeNo(orderId);
+        orderRequest.setTotalFee(totalFee);
+        orderRequest.setSpbillCreateIp("127.0.0.1");
+        orderRequest.setNotifyUrl(apiUrl + "/api/wechat/notify");
+        orderRequest.setAttach(attach);
+
+        WxPayMpOrderResult orderResult = wxPayService.createOrder(orderRequest);
 
         return orderResult;
 

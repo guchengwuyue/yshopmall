@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -52,7 +53,7 @@ public class SystemGroupDataController {
     @Log("查询数据配置")
     @ApiOperation(value = "查询数据配置")
     @GetMapping(value = "/yxSystemGroupData")
-    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
     public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria,
                                                 Pageable pageable){
         Sort sort = new Sort(Sort.Direction.DESC, "sort");
@@ -66,7 +67,7 @@ public class SystemGroupDataController {
     @ApiOperation(value = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
-    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -111,7 +112,7 @@ public class SystemGroupDataController {
     @ApiOperation(value = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
-    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr){
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -159,7 +160,7 @@ public class SystemGroupDataController {
     @Log("删除数据配置")
     @ApiOperation(value = "删除数据配置")
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
-    @PreAuthorize("@el.check('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxSystemGroupDataService.removeById(id);

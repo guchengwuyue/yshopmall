@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -47,7 +48,7 @@ public class StoreCombinationController {
     @Log("查询拼团")
     @ApiOperation(value = "查询拼团")
     @GetMapping(value = "/yxStoreCombination")
-    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
     public ResponseEntity getYxStoreCombinations(YxStoreCombinationQueryCriteria criteria, Pageable pageable){
         criteria.setIsDel(0);
         return new ResponseEntity(yxStoreCombinationService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -58,7 +59,7 @@ public class StoreCombinationController {
     @Log("修改拼团")
     @ApiOperation(value = "新增/修改拼团")
     @PutMapping(value = "/yxStoreCombination")
-    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources){
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
             resources.setStartTime(OrderUtil.
@@ -92,7 +93,7 @@ public class StoreCombinationController {
     @Log("删除拼团")
     @ApiOperation(value = "删除拼团")
     @DeleteMapping(value = "/yxStoreCombination/{id}")
-    @PreAuthorize("@el.check('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         YxStoreCombination combination = new YxStoreCombination();

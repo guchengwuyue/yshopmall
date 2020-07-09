@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -44,7 +45,7 @@ public class ExpressController {
     @Log("查询快递")
     @ApiOperation(value = "查询快递")
     @GetMapping(value = "/yxExpress")
-    @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_SELECT')")
     public ResponseEntity getYxExpresss(YxExpressQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxExpressService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -52,7 +53,7 @@ public class ExpressController {
     @Log("新增快递")
     @ApiOperation(value = "新增快递")
     @PostMapping(value = "/yxExpress")
-    @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxExpress resources){
 
         return new ResponseEntity(yxExpressService.save(resources),HttpStatus.CREATED);
@@ -61,7 +62,7 @@ public class ExpressController {
     @Log("修改快递")
     @ApiOperation(value = "修改快递")
     @PutMapping(value = "/yxExpress")
-    @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxExpress resources){
 
         yxExpressService.saveOrUpdate(resources);
@@ -71,7 +72,7 @@ public class ExpressController {
     @Log("删除快递")
     @ApiOperation(value = "删除快递")
     @DeleteMapping(value = "/yxExpress/{id}")
-    @PreAuthorize("@el.check('admin','YXEXPRESS_ALL','YXEXPRESS_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxExpressService.removeById(id);

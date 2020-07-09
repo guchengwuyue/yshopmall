@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.activity.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -44,7 +45,7 @@ public class StoreCouponController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxStoreCoupon")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_SELECT')")
     public ResponseEntity getYxStoreCoupons(YxStoreCouponQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreCouponService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -52,7 +53,7 @@ public class StoreCouponController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxStoreCoupon")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCoupon resources){
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCouponService.save(resources),HttpStatus.CREATED);
@@ -61,7 +62,7 @@ public class StoreCouponController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreCoupon")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCoupon resources){
         yxStoreCouponService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -70,7 +71,7 @@ public class StoreCouponController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreCoupon/{id}")
-    @PreAuthorize("@el.check('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         YxStoreCoupon resources = new YxStoreCoupon();

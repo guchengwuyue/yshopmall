@@ -1,12 +1,12 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
-import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.domain.YxArticle;
 import co.yixiang.mp.service.YxArticleService;
 import co.yixiang.mp.service.dto.YxArticleDto;
@@ -47,7 +47,7 @@ public class WechatArticleController {
 
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxArticle")
-    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_SELECT')")
     public ResponseEntity getYxArticles(YxArticleQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxArticleService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -55,7 +55,7 @@ public class WechatArticleController {
 
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxArticle")
-    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources){
         resources.setAddTime(DateUtil.format(new Date(),"yyyy-MM-dd HH:mm"));
         return new ResponseEntity(yxArticleService.save(resources),HttpStatus.CREATED);
@@ -64,7 +64,7 @@ public class WechatArticleController {
 
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxArticle")
-    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxArticle resources){
         yxArticleService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -73,7 +73,7 @@ public class WechatArticleController {
 
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxArticle/{id}")
-    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxArticleService.removeById(id);
@@ -82,7 +82,7 @@ public class WechatArticleController {
 
     @ApiOperation(value = "发布文章")
     @GetMapping(value = "/yxArticle/publish/{id}")
-    @PreAuthorize("@el.check('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_DELETE')")
     public ResponseEntity publish(@PathVariable Integer id)  throws Exception{
 
         YxArticleDto yxArticleDTO= new YxArticleDto();

@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.system.service.dto;
 
 import co.yixiang.annotation.Query;
@@ -30,7 +31,7 @@ public class JobQueryCriteria {
     @Query
     private Long deptId;
 
-    @Query(propName = "deptIds",  type = Query.Type.IN)
+    @Query(propName = "deptId",  type = Query.Type.IN)
     private Set<Long> deptIds;
 
     @Query(type = Query.Type.BETWEEN)

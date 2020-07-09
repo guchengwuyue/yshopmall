@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -44,7 +45,7 @@ public class StoreSeckillController {
     @Log("列表")
     @ApiOperation(value = "列表")
     @GetMapping(value = "/yxStoreSeckill")
-    @PreAuthorize("@el.check('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_SELECT')")
     public ResponseEntity getYxStoreSeckills(YxStoreSeckillQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreSeckillService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -54,7 +55,7 @@ public class StoreSeckillController {
     @Log("发布")
     @ApiOperation(value = "发布")
     @PutMapping(value = "/yxStoreSeckill")
-    @PreAuthorize("@el.check('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreSeckill resources){
         if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
             resources.setStartTime(OrderUtil.
@@ -76,7 +77,7 @@ public class StoreSeckillController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreSeckill/{id}")
-    @PreAuthorize("@el.check('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxStoreSeckillService.removeById(id);

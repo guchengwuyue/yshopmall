@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.quartz.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -119,6 +120,24 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
             quartzJob.setIsPause(true);
         }
         this.saveOrUpdate(quartzJob);
+    }
+
+    @Override
+    public boolean save(QuartzJob quartzJob) {
+        if (quartzJob.getIsPause()) {
+            quartzManage.pauseJob(quartzJob);
+        }
+        return retBool(baseMapper.insert(quartzJob));
+    }
+
+    @Override
+    public boolean updateById(QuartzJob quartzJob) {
+        if (quartzJob.getIsPause()) {
+            quartzManage.pauseJob(quartzJob);
+        } else {
+            quartzManage.resumeJob(quartzJob);
+        }
+        return retBool(baseMapper.updateById(quartzJob));
     }
 
     /**

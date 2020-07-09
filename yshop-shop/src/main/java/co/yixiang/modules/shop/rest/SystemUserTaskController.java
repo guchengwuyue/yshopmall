@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -45,7 +46,7 @@ public class SystemUserTaskController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_SELECT')")
     public ResponseEntity getYxSystemUserTasks(YxSystemUserTaskQueryCriteria criteria,
                                                Pageable pageable){
         Sort sort = new Sort(Sort.Direction.ASC, "level_id");
@@ -59,7 +60,7 @@ public class SystemUserTaskController {
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxSystemUserTask resources){
         return new ResponseEntity(yxSystemUserTaskService.save(resources),HttpStatus.CREATED);
     }
@@ -67,7 +68,7 @@ public class SystemUserTaskController {
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserTask")
-    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserTask resources){
 
         yxSystemUserTaskService.saveOrUpdate(resources);
@@ -77,7 +78,7 @@ public class SystemUserTaskController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserTask/{id}")
-    @PreAuthorize("@el.check('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxSystemUserTaskService.removeById(id);

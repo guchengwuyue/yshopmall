@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.NumberUtil;
@@ -71,7 +72,7 @@ public class UserExtractController {
     @Log("查询")
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxUserExtract")
-    @PreAuthorize("@el.check('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_SELECT')")
     public ResponseEntity getYxUserExtracts(YxUserExtractQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxUserExtractService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -81,7 +82,7 @@ public class UserExtractController {
     @Log("修改")
     @ApiOperation(value = "修改审核")
     @PutMapping(value = "/yxUserExtract")
-    @PreAuthorize("@el.check('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxUserExtract resources){
         if(StrUtil.isEmpty(resources.getStatus().toString())){
             throw new BadRequestException("请选择审核状态");

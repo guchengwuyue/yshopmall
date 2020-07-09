@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -52,7 +53,7 @@ public class StoreProductController {
     @Log("查询商品")
     @ApiOperation(value = "查询商品")
     @GetMapping(value = "/yxStoreProduct")
-    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_SELECT')")
     public ResponseEntity getYxStoreProducts(YxStoreProductQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity(yxStoreProductService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -61,7 +62,7 @@ public class StoreProductController {
     @ApiOperation(value = "新增商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PostMapping(value = "/yxStoreProduct")
-    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources){
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -74,7 +75,7 @@ public class StoreProductController {
     @ApiOperation(value = "修改商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PutMapping(value = "/yxStoreProduct")
-    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProduct resources){
 
         yxStoreProductService.updateProduct(resources);
@@ -85,7 +86,7 @@ public class StoreProductController {
     @ApiOperation(value = "删除商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @DeleteMapping(value = "/yxStoreProduct/{id}")
-    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){
 
         yxStoreProductService.delete(id);
@@ -95,7 +96,7 @@ public class StoreProductController {
     @ApiOperation(value = "恢复数据")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @DeleteMapping(value = "/yxStoreProduct/recovery/{id}")
-    @PreAuthorize("@el.check('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
     public ResponseEntity recovery(@PathVariable Integer id){
         yxStoreProductService.recovery(id);
         return new ResponseEntity(HttpStatus.OK);

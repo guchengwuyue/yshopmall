@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.IdUtil;
@@ -129,7 +130,7 @@ public class StoreOrderController {
 
     @ApiOperation(value = "查询订单")
     @GetMapping(value = "/yxStoreOrder")
-    @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_SELECT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_SELECT')")
     public ResponseEntity getYxStoreOrders(YxStoreOrderQueryCriteria criteria,
                                            Pageable pageable,
                                            @RequestParam(name = "orderStatus") String orderStatus,
@@ -215,7 +216,7 @@ public class StoreOrderController {
 
     @ApiOperation(value = "发货")
     @PutMapping(value = "/yxStoreOrder")
-    @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreOrder resources) {
         if (StrUtil.isBlank(resources.getDeliveryName())) throw new BadRequestException("请选择快递公司");
         if (StrUtil.isBlank(resources.getDeliveryId())) throw new BadRequestException("快递单号不能为空");
@@ -266,7 +267,7 @@ public class StoreOrderController {
 
     @ApiOperation(value = "订单核销")
     @PutMapping(value = "/yxStoreOrder/check")
-    @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity check(@Validated @RequestBody YxStoreOrder resources) {
         if (StrUtil.isBlank(resources.getVerifyCode())) throw new BadRequestException("核销码不能为空");
         YxStoreOrderDto storeOrderDTO = generator.convert(yxStoreOrderService.getById(resources.getId()),YxStoreOrderDto.class);
@@ -308,7 +309,7 @@ public class StoreOrderController {
 
     @ApiOperation(value = "退款")
     @PostMapping(value = "/yxStoreOrder/refund")
-    @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity refund(@Validated @RequestBody YxStoreOrder resources) {
         yxStoreOrderService.refund(resources);
 
@@ -335,7 +336,7 @@ public class StoreOrderController {
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreOrder/{id}")
-    @PreAuthorize("@el.check('admin','YXSTOREORDER_ALL','YXSTOREORDER_DELETE')")
+    @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
 
         yxStoreOrderService.removeById(id);
@@ -399,7 +400,7 @@ public class StoreOrderController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/yxStoreOrder/download")
-    @PreAuthorize("@el.check('admin','cate:list')")
+    @PreAuthorize("hasAnyRole('admin','cate:list')")
     public void download(HttpServletResponse response,
                          YxStoreOrderQueryCriteria criteria,
                          Pageable pageable,

@@ -1,8 +1,9 @@
 /**
- * Copyright (C) 2018-2020
- * All rights reserved, Designed By www.yixiang.co
-
- */
+* Copyright (C) 2018-2020
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制
+*/
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.StrUtil;
@@ -60,7 +61,7 @@ public class SystemStoreController {
     @Log("所有门店")
     @ApiOperation("所有门店")
     @GetMapping(value = "/all")
-    @PreAuthorize("@el.check('yxSystemStore:list')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:list')")
     public ResponseEntity<Object>  getAll(YxSystemStoreQueryCriteria criteria) {
         return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria),HttpStatus.OK);
     }
@@ -68,7 +69,7 @@ public class SystemStoreController {
     @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('yxSystemStore:list')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:list')")
     public void download(HttpServletResponse response, YxSystemStoreQueryCriteria criteria) throws IOException {
         yxSystemStoreService.download(generator.convert(yxSystemStoreService.queryAll(criteria), YxSystemStoreDto.class), response);
     }
@@ -76,7 +77,7 @@ public class SystemStoreController {
     @GetMapping
     @Log("查询门店")
     @ApiOperation("查询门店")
-    @PreAuthorize("@el.check('yxSystemStore:list')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:list')")
     public ResponseEntity<Object> getYxSystemStores(YxSystemStoreQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria,pageable),HttpStatus.OK);
     }
@@ -84,7 +85,7 @@ public class SystemStoreController {
     @PostMapping(value = "/getL")
     @Log("获取经纬度")
     @ApiOperation("获取经纬度")
-    @PreAuthorize("@el.check('yxSystemStore:getl')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:getl')")
     public ResponseEntity<Object> create(@Validated @RequestBody String jsonStr){
         String key = RedisUtil.get(ShopKeyUtils.getTengXunMapKey());
         if(StrUtil.isBlank(key)) throw  new BadRequestException("请先配置腾讯地图key");
@@ -98,7 +99,7 @@ public class SystemStoreController {
     @PostMapping
     @Log("新增门店")
     @ApiOperation("新增门店")
-    @PreAuthorize("@el.check('yxSystemStore:add')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -108,7 +109,7 @@ public class SystemStoreController {
     @PutMapping
     @Log("修改门店")
     @ApiOperation("修改门店")
-    @PreAuthorize("@el.check('yxSystemStore:edit')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
 
         yxSystemStoreService.saveOrUpdate(resources);
@@ -117,7 +118,7 @@ public class SystemStoreController {
 
     @Log("删除门店")
     @ApiOperation("删除门店")
-    @PreAuthorize("@el.check('yxSystemStore:del')")
+    @PreAuthorize("hasAnyRole('yxSystemStore:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {
 
