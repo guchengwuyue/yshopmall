@@ -11,7 +11,9 @@ import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
+import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
+import co.yixiang.modules.shop.service.YxStoreProductService;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryDto;
 import co.yixiang.modules.shop.service.dto.YxStoreCategoryQueryCriteria;
 import co.yixiang.utils.OrderUtil;
@@ -49,10 +51,13 @@ public class StoreCategoryController {
 
 
     private final YxStoreCategoryService yxStoreCategoryService;
+    private final YxStoreProductService yxStoreProductService;
 
 
-    public StoreCategoryController(YxStoreCategoryService yxStoreCategoryService) {
+    public StoreCategoryController(YxStoreCategoryService yxStoreCategoryService,
+                                   YxStoreProductService yxStoreProductService) {
         this.yxStoreCategoryService = yxStoreCategoryService;
+        this.yxStoreProductService = yxStoreProductService;
     }
 
     @Log("导出数据")
@@ -127,8 +132,30 @@ public class StoreCategoryController {
 
         String[] ids = id.split(",");
         for (String newId: ids) {
+            this.delCheck(Integer.valueOf(newId));
             yxStoreCategoryService.removeById(Integer.valueOf(newId));
         }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * 检测删除分类
+     * @param id 分类id
+     */
+    private void delCheck(Integer id){
+        int count = yxStoreCategoryService.lambdaQuery()
+                .eq(YxStoreCategory::getPid,id)
+                .count();
+        if(count > 0) {
+            throw new BadRequestException("请先删除子分类");
+        }
+
+        int countP = yxStoreProductService.lambdaQuery()
+                .eq(YxStoreProduct::getCateId,id)
+                .count();
+
+        if(countP > 0) {
+            throw new BadRequestException("当前分类下有商品不可删除");
+        }
     }
 }
