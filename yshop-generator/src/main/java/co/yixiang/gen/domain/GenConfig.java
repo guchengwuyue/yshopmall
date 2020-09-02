@@ -23,7 +23,7 @@ public class GenConfig {
 
     public GenConfig(String tableName) {
         this.cover = false;
-        this.moduleName = "yshop-system";
+        this.moduleName = "yshop-admin";
         this.tableName = tableName;
     }
 

@@ -1,7 +1,7 @@
 #配置数据源
 spring:
   application:
-    name: yshop-system
+    name: yshop-admin
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource

@@ -14,7 +14,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 4、新增订阅消息
 
-5、新增我端足迹
+5、新增我的足迹
 
 6、拼团与秒杀新增sku，管理后台营销商品添加方式优化
 
@@ -61,9 +61,9 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 #### 项目结构
 项目采用分模块开发方式
-- yshop-mp        微信相关模块
+- yshop-weixin        微信相关模块
 - yshop-common    公共模块
-- yshop-system    后台模块
+- yshop-admin    后台模块
 - yshop-logging   日志模块
 - yshop-tools     第三方工具模块
 - yshop-generator 代码生成模块

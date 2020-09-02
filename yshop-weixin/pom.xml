@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yshop-mp</artifactId>
+    <artifactId>yshop-weixin</artifactId>
     <name>微信模块</name>
 
     <properties>
