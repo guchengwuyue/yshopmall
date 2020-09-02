@@ -194,7 +194,6 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Transactional(rollbackFor = Exception.class)
     public void createProductAttr(Integer id, String jsonStr) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
-        //System.out.println(jsonObject);
         List<FromatDetailDto> attrList = JSON.parseArray(
                 jsonObject.get("items").toString(),
                 FromatDetailDto.class);
@@ -218,7 +217,6 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         for (ProductFormatDto productFormatDTO : valueList) {
             YxStoreProductAttrValue yxStoreProductAttrValue = new YxStoreProductAttrValue();
             yxStoreProductAttrValue.setProductId(id);
-            //productFormatDTO.getDetail().values().stream().collect(Collectors.toList());
             List<String> stringList = productFormatDTO.getDetail().values()
                     .stream().collect(Collectors.toList());
             Collections.sort(stringList);
@@ -368,7 +366,6 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
                         }
                     }
                 }
-                //System.out.println("tmp:"+tmp);
                 if(!tmp.isEmpty()){
                     data = tmp;
                 }

@@ -99,7 +99,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     public OrderCountDto getOrderCount() {
         //获取所有订单转态为已支付的
         List<CountDto> nameList =  storeCartService.findCateName();
-        System.out.println("nameList:"+nameList);
         Map<String,Integer> childrenMap = new HashMap<>();
         nameList.forEach(i ->{
             if(i != null) {
@@ -137,17 +136,17 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         OrderTimeDataDto orderTimeDataDTO = new OrderTimeDataDto();
 
         orderTimeDataDTO.setTodayCount(yxStoreOrderMapper.countByPayTimeGreaterThanEqual(today));
-        //orderTimeDataDTO.setTodayPrice(yxStoreOrderMapper.sumPrice(today));
+
 
         orderTimeDataDTO.setProCount(yxStoreOrderMapper
                 .countByPayTimeLessThanAndPayTimeGreaterThanEqual(today,yesterday));
-        //orderTimeDataDTO.setProPrice(yxStoreOrderMapper.sumTPrice(today,yesterday));
+
 
         orderTimeDataDTO.setLastWeekCount(yxStoreOrderMapper.countByPayTimeGreaterThanEqual(lastWeek));
-        //orderTimeDataDTO.setLastWeekPrice(yxStoreOrderMapper.sumPrice(lastWeek));
+
 
         orderTimeDataDTO.setMonthCount(yxStoreOrderMapper.countByPayTimeGreaterThanEqual(nowMonth));
-        //orderTimeDataDTO.setMonthPrice(yxStoreOrderMapper.sumPrice(nowMonth));
+
 
         orderTimeDataDTO.setUserCount(userMapper.selectCount(new QueryWrapper<YxUser>()));
         orderTimeDataDTO.setOrderCount(yxStoreOrderMapper.selectCount(new QueryWrapper<YxStoreOrder>()));
