@@ -88,7 +88,7 @@ public class SystemStoreController {
     @PreAuthorize("hasAnyRole('yxSystemStore:getl')")
     public ResponseEntity<Object> create(@Validated @RequestBody String jsonStr){
         String key = RedisUtil.get(ShopKeyUtils.getTengXunMapKey());
-        if(StrUtil.isBlank(key)) throw  new BadRequestException("请先配置腾讯地图key");
+        if(StrUtil.isBlank(key)) {throw  new BadRequestException("请先配置腾讯地图key");}
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String addr = jsonObject.getString("addr");
         String url = StrUtil.format("?address={}&key={}",addr,key);

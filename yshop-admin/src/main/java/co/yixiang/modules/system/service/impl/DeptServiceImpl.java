@@ -131,7 +131,7 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
             if(isChild) {
                 depts.add(deptDto);
                 for (Dept dept : deptList) {
-                    if(dept.getId() == deptDto.getPid() && !deptNames.contains(dept.getName())){
+                    if(dept.getId().equals(deptDto.getPid()) && !deptNames.contains(dept.getName())){
                         depts.add(deptDto);
                     }
                 }

@@ -75,7 +75,7 @@ public class TreeUtil {
         List<CateDTO> childsList = new ArrayList<CateDTO>();
         //遍历集合元素,如果元素的Parentid==指定元素的id,则说明是该元素的子节点
         for (CateDTO t1 : list) {
-            if (t1.getPid() == t.getId() ) {
+            if (t1.getPid().equals(t.getId())) {
                 childsList.add(t1);
             }
         }

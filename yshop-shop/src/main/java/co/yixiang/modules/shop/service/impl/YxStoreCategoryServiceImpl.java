@@ -113,10 +113,11 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
                     deptDTO.getChildren().add(it);
                 }
             }
-            if(isChild)
+            if(isChild) {
                 cates.add(deptDTO);
+            }
             for (YxStoreCategory category : categories) {
-                if(category.getId()==deptDTO.getPid()&&!deptNames.contains(category.getCateName())){
+                if(category.getId().equals(deptDTO.getPid()) &&!deptNames.contains(category.getCateName())){
                     cates.add(deptDTO);
                 }
             }
@@ -146,10 +147,14 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
      */
     @Override
     public boolean checkCategory(int pid){
-        if(pid == 0) return true;
+        if(pid == 0) {
+            return true;
+        }
         YxStoreCategory yxStoreCategory =  this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
                         .eq(YxStoreCategory::getId,pid));
-        if(yxStoreCategory.getPid() > 0) return false;
+        if(yxStoreCategory.getPid() > 0) {
+            return false;
+        }
 
         return true;
     }
@@ -159,11 +164,14 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
      * @param id 分类id
      * @return boolean
      */
+    @Override
     public boolean checkProductCategory(int id){
         YxStoreCategory yxStoreCategory =  this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
                 .eq(YxStoreCategory::getId,id));
 
-        if(yxStoreCategory.getPid() == 0) return false;
+        if(yxStoreCategory.getPid() == 0) {
+            return false;
+        }
 
         return true;
     }

@@ -47,7 +47,7 @@ public class YxPayService {
                                     Integer totalFee,String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -82,7 +82,7 @@ public class YxPayService {
                                         Integer totalFee,String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -115,7 +115,7 @@ public class YxPayService {
                                         Integer totalFee,String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -147,7 +147,7 @@ public class YxPayService {
                                       Integer totalFee, String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getAppPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -175,7 +175,7 @@ public class YxPayService {
      */
     public void refundOrder(String orderId, Integer totalFee) throws WxPayException {
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();

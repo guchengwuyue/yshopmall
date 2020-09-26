@@ -46,7 +46,7 @@ public class RedisServiceImpl implements RedisService {
                 continue;
             }
             DataType dataType = redisTemplate.type(s.toString());
-            if(!dataType.code().equals("string")) continue;
+            if(!"string".equals(dataType.code())) {continue;}
             RedisVo redisVo = new RedisVo(s.toString(),redisTemplate.opsForValue().get(s.toString()).toString());
             redisVos.add(redisVo);
         }

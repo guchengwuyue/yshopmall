@@ -570,8 +570,9 @@ public class PrintUtil4 {
      * @return
      */
     public static String substring(String str, int f, int t) {
-        if (f > str.length())
+        if (f > str.length()) {
             return null;
+        }
         if (t > str.length()) {
             return str.substring(f, str.length());
         } else {

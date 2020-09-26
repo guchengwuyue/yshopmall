@@ -148,7 +148,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         }
         boolean check = yxStoreCategoryService
                 .checkProductCategory(storeProduct.getStoreCategory().getId());
-        if(!check) throw new BadRequestException("商品分类必选选择二级");
+        if(!check) {
+            throw new BadRequestException("商品分类必选选择二级");
+        }
         storeProduct.setCateId(storeProduct.getStoreCategory().getId().toString());
         this.save(storeProduct);
         return storeProduct;
@@ -172,7 +174,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     public List<ProductFormatDto> isFormatAttr(Integer id, String jsonStr) {
-        if(ObjectUtil.isNull(id)) throw new BadRequestException("产品不存在");
+        if(ObjectUtil.isNull(id)) {
+            throw new BadRequestException("产品不存在");
+        }
 
         YxStoreProductDto yxStoreProductDTO = generator.convert(this.getById(id),YxStoreProductDto.class);
         DetailDto detailDTO = attrFormat(jsonStr);
@@ -292,16 +296,22 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     public String getStoreProductAttrResult(Integer id) {
         YxStoreProductAttrResult yxStoreProductAttrResult = yxStoreProductAttrResultService
                 .getOne(new QueryWrapper<YxStoreProductAttrResult>().eq("product_id",id));
-        if(ObjectUtil.isNull(yxStoreProductAttrResult)) return "";
+        if(ObjectUtil.isNull(yxStoreProductAttrResult)) {
+            return "";
+        }
         return  yxStoreProductAttrResult.getResult();
     }
 
     @Override
     public void updateProduct(YxStoreProduct resources) {
-        if(resources.getStoreCategory() == null || resources.getStoreCategory().getId() == null) throw new BadRequestException("请选择分类");
+        if(resources.getStoreCategory() == null || resources.getStoreCategory().getId() == null) {
+            throw new BadRequestException("请选择分类");
+        }
         boolean check = yxStoreCategoryService
                 .checkProductCategory(resources.getStoreCategory().getId());
-        if(!check) throw new BadRequestException("商品分类必选选择二级");
+        if(!check) {
+            throw new BadRequestException("商品分类必选选择二级");
+        }
         resources.setCateId(resources.getStoreCategory().getId().toString());
         this.saveOrUpdate(resources);
     }
@@ -314,7 +324,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void clearProductAttr(Integer id,boolean isActice) {
-        if(ObjectUtil.isNull(id)) throw new BadRequestException("产品不存在");
+        if(ObjectUtil.isNull(id)) {
+            throw new BadRequestException("产品不存在");
+        }
 
         yxStoreProductAttrService.remove(new QueryWrapper<YxStoreProductAttr>().eq("product_id",id));
         yxStoreProductAttrValueService.remove(new QueryWrapper<YxStoreProductAttrValue>().eq("product_id",id));
@@ -336,7 +348,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         List<Map<String,Map<String,String>>> res =new ArrayList<>();
         if(fromatDetailDTOList.size() > 1){
             for (int i=0; i < fromatDetailDTOList.size() - 1;i++){
-                if(i == 0) data = fromatDetailDTOList.get(i).getDetail();
+                if(i == 0) {
+                    data = fromatDetailDTOList.get(i).getDetail();
+                }
                 List<String> tmp = new LinkedList<>();
                 for (String v : data) {
                     for (String g : fromatDetailDTOList.get(i+1).getDetail()) {

@@ -428,7 +428,9 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         }else if(bargainId > 0){
             str = "[砍价订单]";
         }
-        if(shippingType == 2) str = "[核销订单]";
+        if(shippingType == 2) {
+            str = "[核销订单]";
+        }
         return str;
     }
 
@@ -439,7 +441,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             throw new BadRequestException("请输入退款金额");
         }
 
-        if(resources.getPayType().equals("yue")){
+        if("yue".equals(resources.getPayType())){
             //修改状态
             resources.setRefundStatus(2);
             resources.setRefundPrice(resources.getPayPrice());

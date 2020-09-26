@@ -93,7 +93,7 @@ public class StoreCategoryController {
 
         boolean checkResult = yxStoreCategoryService.checkCategory(resources.getPid());
 
-        if(!checkResult) throw new BadRequestException("分类最多能添加2级哦");
+        if(!checkResult) {throw new BadRequestException("分类最多能添加2级哦");}
 
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -117,7 +117,7 @@ public class StoreCategoryController {
 
         boolean checkResult = yxStoreCategoryService.checkCategory(resources.getPid());
 
-        if(!checkResult) throw new BadRequestException("分类最多能添加2级哦");
+        if(!checkResult) {throw new BadRequestException("分类最多能添加2级哦");}
 
         yxStoreCategoryService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

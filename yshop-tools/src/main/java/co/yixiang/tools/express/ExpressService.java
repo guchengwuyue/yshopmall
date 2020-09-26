@@ -48,8 +48,9 @@ public class ExpressService {
      */
     public String getVendorName(String vendorCode) {
         for (Map<String, String> item : properties.getVendors()) {
-            if (item.get("code").equals(vendorCode))
+            if (item.get("code").equals(vendorCode)){
                 return item.get("name");
+            }
         }
         return null;
     }

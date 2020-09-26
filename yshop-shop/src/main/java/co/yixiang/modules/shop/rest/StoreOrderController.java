@@ -141,12 +141,6 @@ public class StoreOrderController {
         //订单状态查询
         if (StrUtil.isNotEmpty(orderStatus)) {
             switch (orderStatus) {
-                case "0":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(0);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
-                    break;
                 case "1":
                     criteria.setIsDel(0);
                     criteria.setPaid(1);
@@ -184,16 +178,16 @@ public class StoreOrderController {
                 case "-4":
                     criteria.setIsDel(1);
                     break;
+                default:
+                    criteria.setIsDel(0);
+                    criteria.setPaid(0);
+                    criteria.setStatus(0);
+                    criteria.setRefundStatus(0);
             }
         }
         //订单类型查询
         if (StrUtil.isNotEmpty(orderType)) {
             switch (orderType) {
-                case "1":
-                    criteria.setBargainId(0);
-                    criteria.setCombinationId(0);
-                    criteria.setSeckillId(0);
-                    break;
                 case "2":
                     criteria.setNewCombinationId(0);
                     break;
@@ -206,6 +200,10 @@ public class StoreOrderController {
                 case "5":
                     criteria.setShippingType(2);
                     break;
+                default:
+                    criteria.setBargainId(0);
+                    criteria.setCombinationId(0);
+                    criteria.setSeckillId(0);
             }
         }
 
@@ -218,8 +216,8 @@ public class StoreOrderController {
     @PutMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreOrder resources) {
-        if (StrUtil.isBlank(resources.getDeliveryName())) throw new BadRequestException("请选择快递公司");
-        if (StrUtil.isBlank(resources.getDeliveryId())) throw new BadRequestException("快递单号不能为空");
+        if (StrUtil.isBlank(resources.getDeliveryName())) {throw new BadRequestException("请选择快递公司");}
+        if (StrUtil.isBlank(resources.getDeliveryId())) {throw new BadRequestException("快递单号不能为空");}
         YxExpressDto expressDTO = generator.convert(yxExpressService.getById(Integer.valueOf(resources
                 .getDeliveryName())),YxExpressDto.class);
         if (ObjectUtil.isNull(expressDTO)) {
@@ -269,7 +267,7 @@ public class StoreOrderController {
     @PutMapping(value = "/yxStoreOrder/check")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity check(@Validated @RequestBody YxStoreOrder resources) {
-        if (StrUtil.isBlank(resources.getVerifyCode())) throw new BadRequestException("核销码不能为空");
+        if (StrUtil.isBlank(resources.getVerifyCode())) {throw new BadRequestException("核销码不能为空");}
         YxStoreOrderDto storeOrderDTO = generator.convert(yxStoreOrderService.getById(resources.getId()),YxStoreOrderDto.class);
         if(!resources.getVerifyCode().equals(storeOrderDTO.getVerifyCode())){
             throw new BadRequestException("核销码不对");
@@ -300,7 +298,7 @@ public class StoreOrderController {
         Integer status = jsonObject.getInteger("status");
         String msg = jsonObject.getString("msg");
 
-        if(status != 200) throw new BadRequestException(msg);
+        if(status != 200) {throw new BadRequestException(msg);}
 
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -349,8 +347,8 @@ public class StoreOrderController {
     @PostMapping(value = "/yxStoreOrder/edit")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity editOrder(@RequestBody YxStoreOrder resources) {
-        if (ObjectUtil.isNull(resources.getPayPrice())) throw new BadRequestException("请输入支付金额");
-        if (resources.getPayPrice().doubleValue() < 0) throw new BadRequestException("金额不能低于0");
+        if (ObjectUtil.isNull(resources.getPayPrice())) {throw new BadRequestException("请输入支付金额");}
+        if (resources.getPayPrice().doubleValue() < 0) {throw new BadRequestException("金额不能低于0");}
 
         YxStoreOrderDto storeOrder = generator.convert(yxStoreOrderService.getById(resources.getId()),YxStoreOrderDto.class);
         //判断金额是否有变动,生成一个额外订单号去支付
@@ -379,7 +377,7 @@ public class StoreOrderController {
     @PostMapping(value = "/yxStoreOrder/remark")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity editOrderRemark(@RequestBody YxStoreOrder resources) {
-        if (StrUtil.isBlank(resources.getRemark())) throw new BadRequestException("请输入备注");
+        if (StrUtil.isBlank(resources.getRemark())) {throw new BadRequestException("请输入备注");}
         yxStoreOrderService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -393,7 +391,7 @@ public class StoreOrderController {
     public ResponseEntity express( @RequestBody ExpressParam expressInfoDo){
         ExpressInfo expressInfo = expressService.getExpressInfo(expressInfoDo.getOrderCode(),
                 expressInfoDo.getShipperCode(), expressInfoDo.getLogisticCode());
-        if(!expressInfo.isSuccess()) throw new BadRequestException(expressInfo.getReason());
+        if(!expressInfo.isSuccess()) {throw new BadRequestException(expressInfo.getReason());}
         return new ResponseEntity(expressInfo, HttpStatus.OK);
     }
 
@@ -425,12 +423,6 @@ public class StoreOrderController {
         //订单状态查询
         if (StrUtil.isNotEmpty(orderStatus)) {
             switch (orderStatus) {
-                case "0":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(0);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
-                    break;
                 case "1":
                     criteria.setIsDel(0);
                     criteria.setPaid(1);
@@ -468,16 +460,16 @@ public class StoreOrderController {
                 case "-4":
                     criteria.setIsDel(1);
                     break;
+                default:
+                    criteria.setIsDel(0);
+                    criteria.setPaid(0);
+                    criteria.setStatus(0);
+                    criteria.setRefundStatus(0);
             }
         }
         //订单类型查询
         if (StrUtil.isNotEmpty(orderType)) {
             switch (orderType) {
-                case "1":
-                    criteria.setBargainId(0);
-                    criteria.setCombinationId(0);
-                    criteria.setSeckillId(0);
-                    break;
                 case "2":
                     criteria.setNewCombinationId(0);
                     break;
@@ -490,6 +482,10 @@ public class StoreOrderController {
                 case "5":
                     criteria.setShippingType(2);
                     break;
+                default:
+                    criteria.setBargainId(0);
+                    criteria.setCombinationId(0);
+                    criteria.setSeckillId(0);
             }
         }
         return yxStoreOrderService.queryAll(criteria, pageable);

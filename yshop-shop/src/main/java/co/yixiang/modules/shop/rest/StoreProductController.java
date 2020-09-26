@@ -66,8 +66,8 @@ public class StoreProductController {
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources){
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        if(ObjectUtil.isEmpty(resources.getGiveIntegral())) resources.setGiveIntegral(BigDecimal.ZERO);
-        if(ObjectUtil.isEmpty(resources.getCost())) resources.setCost(BigDecimal.ZERO);
+        if(ObjectUtil.isEmpty(resources.getGiveIntegral())) {resources.setGiveIntegral(BigDecimal.ZERO);}
+        if(ObjectUtil.isEmpty(resources.getCost())) {resources.setCost(BigDecimal.ZERO);}
         return new ResponseEntity(yxStoreProductService.saveProduct(resources),HttpStatus.CREATED);
     }
 

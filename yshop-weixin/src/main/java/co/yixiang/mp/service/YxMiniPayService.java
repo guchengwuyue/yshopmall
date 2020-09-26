@@ -45,7 +45,7 @@ public class YxMiniPayService {
                                     Integer totalFee,String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -76,7 +76,7 @@ public class YxMiniPayService {
      */
     public void refundOrder(String orderId, Integer totalFee) throws WxPayException {
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) throw new ErrorRequestException("请配置api地址");
+        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
         WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();

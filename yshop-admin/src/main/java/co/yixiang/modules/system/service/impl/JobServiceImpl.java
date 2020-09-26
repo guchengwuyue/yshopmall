@@ -73,7 +73,7 @@ public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements J
             //断权限范围
             for (Long deptId : criteria.getDeptIds()) {
                 for (Job job : jobList) {
-                    if(deptId ==job.getDeptId()){
+                    if(deptId.equals(job.getDeptId())){
                         job.setDept(deptService.getById(job.getDeptId()));
                     }
                 }

@@ -32,7 +32,7 @@ public class OrderUtil {
     public static String checkActivityStatus(int starTime,int endTime,int status){
         int nowTime = OrderUtil.getSecondTimestampTwo();
 
-        if(status == 0) return "关闭";
+        if(status == 0) {return "关闭";}
 
 
         if(starTime > nowTime){
@@ -122,7 +122,7 @@ public class OrderUtil {
      * @return
      **/
     public static int getSecondTimestampTwo() {
-        String timestamp = String.valueOf(new Date().getTime() / 1000);
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         return Integer.valueOf(timestamp);
     }
 

@@ -33,7 +33,7 @@ public class WxPayConfiguration {
 
 	@Autowired
 	public WxPayConfiguration(RedisHandler redisHandler) {
-		this.redisHandler = redisHandler;
+		WxPayConfiguration.redisHandler = redisHandler;
 	}
 
 	/**

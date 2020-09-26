@@ -148,7 +148,9 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
             type = "system_sub";
             pm = 0;
             newMoney = NumberUtil.sub(userDTO.getNowMoney(),param.getMoney()).doubleValue();
-            if(newMoney < 0) newMoney = 0d;
+            if(newMoney < 0) {
+                newMoney = 0d;
+            }
 
         }
         YxUser user = new YxUser();
