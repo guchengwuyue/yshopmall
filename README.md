@@ -14,10 +14,36 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 |     |   官网文档地址  |    https://doc.yixiang.co  |
 |---  |--- | --- |
 
+### docker部署
 
-
-
-
+- 1、创建一个存储第三方软件服务Docker Compose文件目录：
+```
+     mkdir -p /yshop/soft
+```
+- 2、然后在该目录下新建一个docker-compose.yml文件：
+```
+    vim /yshop/soft/docker-compose.yml
+```
+- 3、接着创建上面docker-compose.yml里定义的挂载目录：
+```
+    mkdir -p /yshop/mysql/data /yshop/redis/data /yshop/redis/conf
+```
+- 4、创建Redis配置文件redis.conf：
+```
+    touch /yshop/redis/conf/redis.conf
+```
+- 5、docker 部署参考根目录docker文件夹
+- 6、以上创建好之后参考docker下文件，先执行软件安装：
+```
+  cd /yshop/soft
+  docker-compose up -d  启动
+  docker ps -a 查看镜像
+```
+- 7、运行docker/applicatiion目录下 docker-compose,当然之前一定要打包jar包，构建镜像
+  切换到Dockerfile 文件下：
+  ```
+  docker build -t yshop-admin .  
+  ```
 
 #### 项目源码
 
