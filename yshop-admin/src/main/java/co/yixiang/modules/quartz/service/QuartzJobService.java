@@ -18,32 +18,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 public interface QuartzJobService  extends BaseService<QuartzJob>{
 
-/**
-    * 查询数据分页
-    * @param criteria 条件
-    * @param pageable 分页参数
-    * @return Map<String,Object>
-    */
+    /**
+     * 查询数据分页
+     * @param criteria 条件
+     * @param pageable 分页参数
+     * @return Map<String,Object>
+     */
     Map<String,Object> queryAll(QuartzJobQueryCriteria criteria, Pageable pageable);
 
     /**
-    * 查询所有数据不分页
-    * @param criteria 条件参数
-    * @return List<QuartzJobDto>
-    */
+     * 查询所有数据不分页
+     * @param criteria 条件参数
+     * @return List<QuartzJobDto>
+     */
     List<QuartzJob> queryAll(QuartzJobQueryCriteria criteria);
 
     /**
-    * 导出数据
-    * @param all 待导出的数据
-    * @param response /
-    * @throws IOException /
-    */
+     * 导出数据
+     * @param all 待导出的数据
+     * @param response /
+     * @throws IOException /
+     */
     void download(List<QuartzJobDto> all, HttpServletResponse response) throws IOException;
 
 
@@ -64,4 +64,5 @@ public interface QuartzJobService  extends BaseService<QuartzJob>{
      * @return List
      */
     List<QuartzJob> findByIsPauseIsFalse();
+    void removeByIds(List<Integer> idList);
 }

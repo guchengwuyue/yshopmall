@@ -8,14 +8,10 @@ package co.yixiang.modules.quartz.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
 * @author hupeng
@@ -24,7 +20,7 @@ import java.sql.Timestamp;
 
 @Data
 @TableName("quartz_log")
-public class QuartzLog implements Serializable {
+public class QuartzLog extends BaseDomain {
 
     /** 任务日志ID */
     @TableId
@@ -34,10 +30,6 @@ public class QuartzLog implements Serializable {
     /** 任务名称 */
     private String baenName;
 
-
-    /** 创建时间  */
-    @TableField(fill= FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     /** cron表达式 */

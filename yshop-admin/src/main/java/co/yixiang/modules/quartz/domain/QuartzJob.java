@@ -8,14 +8,11 @@ package co.yixiang.modules.quartz.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
+import lombok.EqualsAndHashCode;
 
 /**
 * @author hupeng
@@ -23,8 +20,9 @@ import java.sql.Timestamp;
 */
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("quartz_job")
-public class QuartzJob implements Serializable {
+public class QuartzJob extends BaseDomain {
 
     public static final String JOB_KEY = "JOB_KEY";
 
@@ -61,9 +59,6 @@ public class QuartzJob implements Serializable {
     private String remark;
 
 
-    /** 创建日期 */
-    @TableField(fill= FieldFill.INSERT)
-    private Timestamp createTime;
 
     public void copy(QuartzJob source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

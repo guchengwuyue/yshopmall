@@ -37,9 +37,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "quartzJob")
@@ -63,7 +63,7 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
 
     @Override
     //@Cacheable
-    public List<QuartzJob> queryAll(QuartzJobQueryCriteria criteria){
+    public List<QuartzJob> queryAll(QuartzJobQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QuartzJob.class, criteria));
     }
 
@@ -72,7 +72,7 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
     public void download(List<QuartzJobDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (QuartzJobDto quartzJob : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("Spring Bean名称", quartzJob.getBeanName());
             map.put("cron 表达式", quartzJob.getCronExpression());
             map.put("状态：1暂停、0启用", quartzJob.getIsPause());
@@ -109,7 +109,7 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
      */
     @Override
     public void updateIsPause(QuartzJob quartzJob) {
-        if(quartzJob.getId().equals(1L)){
+        if (quartzJob.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
         if (quartzJob.getIsPause()) {
@@ -124,19 +124,13 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
 
     @Override
     public boolean save(QuartzJob quartzJob) {
-        if (quartzJob.getIsPause()) {
-            quartzManage.pauseJob(quartzJob);
-        }
+        quartzManage.addJob(quartzJob);
         return retBool(baseMapper.insert(quartzJob));
     }
 
     @Override
     public boolean updateById(QuartzJob quartzJob) {
-        if (quartzJob.getIsPause()) {
-            quartzManage.pauseJob(quartzJob);
-        } else {
-            quartzManage.resumeJob(quartzJob);
-        }
+        quartzManage.updateJobCron(quartzJob);
         return retBool(baseMapper.updateById(quartzJob));
     }
 
@@ -147,7 +141,7 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
      */
     @Override
     public void execution(QuartzJob quartzJob) {
-        if(quartzJob.getId().equals(1L)){
+        if (quartzJob.getId().equals(1L)) {
             throw new BadRequestException("该任务不可操作");
         }
         quartzManage.runJobNow(quartzJob);
@@ -163,5 +157,14 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
         QuartzJobQueryCriteria criteria = new QuartzJobQueryCriteria();
         criteria.setIsPause(false);
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QuartzJob.class, criteria));
+    }
+
+    @Override
+    public void removeByIds(List<Integer> idList) {
+        idList.forEach(id -> {
+            QuartzJob quartzJob = baseMapper.selectById(id);
+            quartzManage.deleteJob(quartzJob);
+        });
+        baseMapper.deleteBatchIds(idList);
     }
 }

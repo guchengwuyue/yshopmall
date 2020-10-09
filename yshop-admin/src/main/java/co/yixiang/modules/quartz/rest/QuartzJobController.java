@@ -70,7 +70,7 @@ public class QuartzJobController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','timing:list')")
     public void download(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
-        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria), QuartzJobDto.class), response);
+        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria),QuartzJobDto.class), response);
     }
 
     @Log("导出日志数据")
@@ -93,7 +93,6 @@ public class QuartzJobController {
     @PostMapping
     @PreAuthorize("@el.check('admin','timing:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody QuartzJob resources){
-
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
@@ -105,17 +104,14 @@ public class QuartzJobController {
     @PutMapping
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources){
-
         quartzJobService.updateById(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
     @Log("更改定时任务状态")
     @ApiOperation("更改定时任务状态")
     @PutMapping(value = "/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> updateIsPause(@PathVariable Long id){
-
         quartzJobService.updateIsPause(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>()
                 .eq(QuartzJob::getId,id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -126,7 +122,6 @@ public class QuartzJobController {
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> execution(@PathVariable Long id){
-
         quartzJobService.execution(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("id",id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -136,7 +131,6 @@ public class QuartzJobController {
     @DeleteMapping
     @PreAuthorize("@el.check('admin','timing:del')")
     public ResponseEntity<Object> delete(@RequestBody Integer[] ids){
-
         quartzJobService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }
