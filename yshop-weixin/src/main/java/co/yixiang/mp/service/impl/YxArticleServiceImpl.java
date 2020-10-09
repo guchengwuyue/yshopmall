@@ -27,10 +27,7 @@ import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.WxMpMassTagMessage;
-import me.chanjar.weixin.mp.bean.material.WxMediaImgUploadResult;
-import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
-import me.chanjar.weixin.mp.bean.material.WxMpMaterialNews;
-import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
+import me.chanjar.weixin.mp.bean.material.*;
 import me.chanjar.weixin.mp.bean.result.WxMpMassSendResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -126,8 +123,7 @@ public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArtic
         WxMpMaterialNews wxMpMaterialNews = new WxMpMaterialNews();
 
 
-        WxMpMaterialNews.WxMpMaterialNewsArticle article = new WxMpMaterialNews.WxMpMaterialNewsArticle();
-
+        WxMpNewsArticle article = new WxMpNewsArticle();
         WxMpMaterialUploadResult wxMpMaterialUploadResult = uploadPhotoToWx( wxMpService,
                 wxNewsArticleItem.getImageInput() );
         wxNewsArticleItem.setThumbMediaId( wxMpMaterialUploadResult.getMediaId() );
