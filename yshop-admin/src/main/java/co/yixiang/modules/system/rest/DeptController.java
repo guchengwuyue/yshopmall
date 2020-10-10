@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -11,6 +11,7 @@ import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Dept;
 import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.dto.DeptDto;
@@ -106,12 +107,12 @@ public class DeptController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除部门")
     @ApiOperation("删除部门")
     @DeleteMapping
     @PreAuthorize("@el.check('admin','dept:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){
-
         List<Long> deptIds = new ArrayList<>();
         for (Long id : ids) {
             List<Dept> deptList = deptService.findByPid(id);
@@ -125,11 +126,13 @@ public class DeptController {
                 }
             }
         }
-        try {
-            deptService.removeByIds(deptIds);
-        }catch (Throwable e){
-            throw new BadRequestException( "所选部门中存在岗位或者角色关联，请取消关联后再试");
-        }
+
+        deptService.delDepts(deptIds);
+//        try {
+//            deptService.delDepts(deptIds);
+//        }catch (Throwable e){
+//            throw new BadRequestException( "所选部门中存在岗位或者角色关联，请取消关联后再试");
+//        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -9,6 +9,7 @@ package co.yixiang.modules.system.rest;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Dict;
 import co.yixiang.modules.system.service.DictService;
 import co.yixiang.modules.system.service.dto.DictDto;
@@ -86,6 +87,7 @@ public class DictController {
         return new ResponseEntity<>(dictService.save(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改字典")
     @ApiOperation("修改字典")
     @PutMapping
@@ -96,6 +98,7 @@ public class DictController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除字典")
     @ApiOperation("删除字典")
     @DeleteMapping(value = "/{id}")

@@ -10,6 +10,7 @@ import cn.hutool.core.lang.Dict;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.UserService;
@@ -100,6 +101,7 @@ public class RoleController {
         return new ResponseEntity<>(Dict.create().set("level", getLevels(null)),HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @Log("新增角色")
     @ApiOperation("新增角色")
     @PostMapping
@@ -113,6 +115,7 @@ public class RoleController {
         return new ResponseEntity<>(roleService.create(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改角色")
     @ApiOperation("修改角色")
     @PutMapping
@@ -124,6 +127,7 @@ public class RoleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("修改角色菜单")
     @ApiOperation("修改角色菜单")
     @PutMapping(value = "/menu")
@@ -136,6 +140,7 @@ public class RoleController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除角色")
     @ApiOperation("删除角色")
     @DeleteMapping

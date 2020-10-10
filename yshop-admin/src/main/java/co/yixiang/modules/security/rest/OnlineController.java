@@ -7,6 +7,7 @@
 package co.yixiang.modules.security.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.security.service.OnlineUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -59,6 +60,7 @@ public class OnlineController {
         onlineUserService.download(onlineUserService.getAll(filter,type), response);
     }
 
+    @ForbidSubmit
     @ApiOperation("踢出用户")
     @DeleteMapping
     @PreAuthorize("@el.check()")
@@ -70,6 +72,7 @@ public class OnlineController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @ApiOperation("踢出移动端用户")
     @PostMapping("/delete" )
     @PreAuthorize("@el.check()")

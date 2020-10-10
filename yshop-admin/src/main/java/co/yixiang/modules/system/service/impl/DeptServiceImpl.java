@@ -9,12 +9,18 @@ package co.yixiang.modules.system.service.impl;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.system.domain.Dept;
+import co.yixiang.modules.system.domain.Job;
+import co.yixiang.modules.system.domain.RolesDepts;
 import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.dto.DeptDto;
 import co.yixiang.modules.system.service.dto.DeptQueryCriteria;
 import co.yixiang.modules.system.service.mapper.DeptMapper;
+import co.yixiang.modules.system.service.mapper.JobMapper;
+import co.yixiang.modules.system.service.mapper.RolesDeptsMapper;
 import co.yixiang.utils.FileUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +58,10 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
     private final IGenerator generator;
 
     private final DeptMapper deptMapper;
+
+    private final JobMapper jobMapper;
+
+    private final RolesDeptsMapper rolesDeptsMapper;
 
     @Override
     //@Cacheable
@@ -148,6 +158,25 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
         map.put("totalElements",totalElements);
         map.put("content",CollectionUtils.isEmpty(trees)? deptDtos :trees);
         return map;
+    }
+
+    /**
+     * 删除部门
+     *
+     * @param deptIds
+     */
+    @Override
+    public void delDepts(List<Long> deptIds) {
+        int jobCount = jobMapper.selectCount(Wrappers.<Job>lambdaQuery().in(Job::getDeptId,deptIds));
+        int roleCount = rolesDeptsMapper.selectCount(Wrappers.<RolesDepts>lambdaQuery()
+                .in(RolesDepts::getDeptId,deptIds));
+        if(jobCount > 0) {
+            throw new BadRequestException( "所选部门中存在与岗位关联，请取消关联后再试");
+        }
+        if(roleCount > 0) {
+            throw new BadRequestException( "所选部门中存在与角色关联，请取消关联后再试");
+        }
+        this.removeByIds(deptIds);
     }
 
     /**

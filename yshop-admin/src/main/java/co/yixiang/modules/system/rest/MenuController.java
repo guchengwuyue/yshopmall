@@ -9,6 +9,7 @@ package co.yixiang.modules.system.rest;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Menu;
 import co.yixiang.modules.system.service.MenuService;
 import co.yixiang.modules.system.service.RoleService;
@@ -65,6 +66,7 @@ public class MenuController {
         this.generator = generator;
     }
 
+    @ForbidSubmit
     @Log("导出菜单数据")
     @ApiOperation("导出菜单数据")
     @GetMapping(value = "/download")
@@ -99,6 +101,7 @@ public class MenuController {
         return new ResponseEntity<>(menuService.buildTree(menuDtoList),HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @Log("新增菜单")
     @ApiOperation("新增菜单")
     @PostMapping
@@ -112,6 +115,7 @@ public class MenuController {
         return new ResponseEntity<>(menuService.create(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改菜单")
     @ApiOperation("修改菜单")
     @PutMapping
@@ -122,6 +126,7 @@ public class MenuController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除菜单")
     @ApiOperation("删除菜单")
     @DeleteMapping

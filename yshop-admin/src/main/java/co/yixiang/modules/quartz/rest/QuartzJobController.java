@@ -9,6 +9,7 @@ package co.yixiang.modules.quartz.rest;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.service.QuartzJobService;
 import co.yixiang.modules.quartz.service.QuartzLogService;
@@ -88,6 +89,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(quartzLogService.queryAll(criteria,pageable), HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @Log("新增定时任务")
     @ApiOperation("新增定时任务")
     @PostMapping
@@ -99,6 +101,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(quartzJobService.save(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改定时任务")
     @ApiOperation("修改定时任务")
     @PutMapping
@@ -107,6 +110,8 @@ public class QuartzJobController {
         quartzJobService.updateById(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @ForbidSubmit
     @Log("更改定时任务状态")
     @ApiOperation("更改定时任务状态")
     @PutMapping(value = "/{id}")
@@ -117,6 +122,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("执行定时任务")
     @ApiOperation("执行定时任务")
     @PutMapping(value = "/exec/{id}")
@@ -126,6 +132,7 @@ public class QuartzJobController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除定时任务")
     @ApiOperation("删除定时任务")
     @DeleteMapping

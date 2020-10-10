@@ -10,6 +10,7 @@ import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Job;
 import co.yixiang.modules.system.service.JobService;
 import co.yixiang.modules.system.service.dto.JobDto;
@@ -86,6 +87,7 @@ public class JobController {
         return new ResponseEntity<>(jobService.save(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改岗位")
     @ApiOperation("修改岗位")
     @PutMapping
@@ -97,6 +99,7 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除岗位")
     @ApiOperation("删除岗位")
     @DeleteMapping

@@ -8,6 +8,7 @@ package co.yixiang.modules.system.rest;
 
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.DictDetail;
 import co.yixiang.modules.system.service.DictDetailService;
 import co.yixiang.modules.system.service.dto.DictDetailQueryCriteria;
@@ -82,6 +83,7 @@ public class DictDetailController {
         return new ResponseEntity<>(dictDetailService.save(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改字典详情")
     @ApiOperation("修改字典详情")
     @PutMapping
@@ -92,6 +94,7 @@ public class DictDetailController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除字典详情")
     @ApiOperation("删除字典详情")
     @DeleteMapping(value = "/{id}")

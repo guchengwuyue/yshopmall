@@ -61,6 +61,13 @@ public interface DeptService  extends BaseService<Dept>{
      */
     Object buildTree(List<DeptDto> deptDtos);
 
+
+    /**
+     * 删除部门
+     * @param deptIds
+     */
+    void delDepts(List<Long> deptIds);
+
     /**
      * 获取待删除的部门
      * @param deptList /

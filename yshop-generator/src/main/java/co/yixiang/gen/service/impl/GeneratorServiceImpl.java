@@ -53,6 +53,7 @@ public class GeneratorServiceImpl extends BaseServiceImpl<ColumnInfoMapper, Colu
     @Override
     public Object getTables(String name, Integer page, Integer size) {
         IPage<TableInfo> pages = null;
+        if(page>=0)page = page + 1;
         Page<TableInfo> pageModel = new Page<>(page, size);
         pages = baseMapper.selectTablePage(pageModel,name);
         Integer totalElements = 0;

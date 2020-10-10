@@ -12,6 +12,7 @@ import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.User;
 import co.yixiang.modules.system.domain.vo.UserPassVo;
 import co.yixiang.modules.system.service.DeptService;
@@ -125,6 +126,7 @@ public class SysUserController {
         }
     }
 
+    @ForbidSubmit
     @Log("新增用户")
     @ApiOperation("新增用户")
     @PostMapping
@@ -137,6 +139,7 @@ public class SysUserController {
         return new ResponseEntity<>(userService.create(resources),HttpStatus.CREATED);
     }
 
+    @ForbidSubmit
     @Log("修改用户")
     @ApiOperation("修改用户")
     @PutMapping
@@ -148,6 +151,7 @@ public class SysUserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("修改用户：个人中心")
     @ApiOperation("修改用户：个人中心")
     @PutMapping(value = "center")
@@ -161,6 +165,7 @@ public class SysUserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @ForbidSubmit
     @Log("删除用户")
     @ApiOperation("删除用户")
     @DeleteMapping
@@ -179,6 +184,7 @@ public class SysUserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @ApiOperation("修改密码")
     @PostMapping(value = "/updatePass")
     public ResponseEntity<Object> updatePass(@RequestBody UserPassVo passVo){
@@ -198,6 +204,7 @@ public class SysUserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @ApiOperation("修改头像")
     @PostMapping(value = "/updateAvatar")
     public ResponseEntity<Object> updateAvatar(@RequestParam MultipartFile file){
@@ -206,6 +213,7 @@ public class SysUserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @Log("修改邮箱")
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
