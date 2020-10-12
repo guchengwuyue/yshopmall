@@ -8,6 +8,7 @@ package co.yixiang;
 
 import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.utils.SpringContextHolder;
+import com.binarywang.spring.starter.wxjava.miniapp.config.WxMaAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,9 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @EnableAsync
 @RestController
-@SpringBootApplication
+@SpringBootApplication(exclude = {WxMaAutoConfiguration.class})
 @EnableTransactionManagement
-@MapperScan(basePackages ={ "co.yixiang.*.mapper", "co.yixiang.config"})
+@MapperScan(basePackages ={ "co.yixiang.modules.*.service.mapper", "co.yixiang.config"})
 public class AppRun {
 
     public static void main(String[] args) {
