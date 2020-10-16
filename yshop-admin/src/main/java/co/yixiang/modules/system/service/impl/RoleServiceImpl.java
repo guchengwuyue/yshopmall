@@ -28,7 +28,7 @@ import co.yixiang.modules.system.service.mapper.RoleMapper;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -189,11 +189,11 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
 //    @CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public RoleDto create(Role resources) {
-        if(this.getOne(new QueryWrapper<Role>().lambda().eq(Role::getName,resources.getName())) != null){
+        if(this.getOne(new LambdaQueryWrapper<Role>().eq(Role::getName,resources.getName())) != null){
             throw new EntityExistException(Role.class,"username",resources.getName());
         }
 
-        if(this.getOne(new QueryWrapper<Role>().lambda().eq(Role::getName,resources.getName())) != null){
+        if(this.getOne(new LambdaQueryWrapper<Role>().eq(Role::getName,resources.getName())) != null){
             throw new EntityExistException(Role.class,"username",resources.getName());
         }
         this.save(resources);
@@ -215,12 +215,12 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     public void update(Role resources) {
         Role role = this.getById(resources.getId());
 
-        Role role1 = this.getOne(new QueryWrapper<Role>().lambda().eq(Role::getName,resources.getName()));
+        Role role1 = this.getOne(new LambdaQueryWrapper<Role>().eq(Role::getName,resources.getName()));
 
         if(role1 != null && !role1.getId().equals(role.getId())){
             throw new EntityExistException(Role.class,"username",resources.getName());
         }
-        role1 = this.getOne(new QueryWrapper<Role>().lambda().eq(Role::getPermission,resources.getPermission()));
+        role1 = this.getOne(new LambdaQueryWrapper<Role>().eq(Role::getPermission,resources.getPermission()));
         if(role1 != null && !role1.getId().equals(role.getId())){
             throw new EntityExistException(Role.class,"permission",resources.getPermission());
         }

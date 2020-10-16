@@ -15,7 +15,7 @@ import co.yixiang.modules.shop.service.dto.YxSystemConfigDto;
 import co.yixiang.modules.shop.service.dto.YxSystemConfigQueryCriteria;
 import co.yixiang.modules.shop.service.mapper.SystemConfigMapper;
 import co.yixiang.utils.FileUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -82,6 +82,6 @@ public class YxSystemConfigServiceImpl extends BaseServiceImpl<SystemConfigMappe
 
     @Override
     public YxSystemConfig findByKey(String key) {
-        return this.getOne(new QueryWrapper<YxSystemConfig>().eq("menu_name",key));
+        return this.getOne(new LambdaQueryWrapper<YxSystemConfig>().eq(YxSystemConfig::getMenuName,key));
     }
 }

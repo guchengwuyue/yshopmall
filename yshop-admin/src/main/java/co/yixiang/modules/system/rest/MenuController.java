@@ -18,7 +18,7 @@ import co.yixiang.modules.system.service.dto.MenuDto;
 import co.yixiang.modules.system.service.dto.MenuQueryCriteria;
 import co.yixiang.modules.system.service.dto.UserDto;
 import co.yixiang.utils.SecurityUtils;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -136,7 +136,7 @@ public class MenuController {
         Set<Menu> menuSet = new HashSet<>();
         for (Long id : ids) {
             List<Menu> menuList = menuService.findByPid(id);
-            menuSet.add(menuService.getOne(new QueryWrapper<Menu>().eq("id",id)));
+            menuSet.add(menuService.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getId,id)));
             menuSet = menuService.getDeleteMenus(menuList, menuSet);
         }
         menuService.delete(menuSet);

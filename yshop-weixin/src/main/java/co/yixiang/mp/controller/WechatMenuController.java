@@ -7,6 +7,7 @@
 package co.yixiang.mp.controller;
 
 
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.mp.config.WxMpConfiguration;
 import co.yixiang.mp.domain.YxWechatMenu;
@@ -14,7 +15,7 @@ import co.yixiang.mp.service.YxWechatMenuService;
 import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
@@ -49,7 +50,8 @@ public class WechatMenuController {
     @GetMapping(value = "/YxWechatMenu")
     @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
     public ResponseEntity getYxWechatMenus(){
-        return new ResponseEntity(YxWechatMenuService.getOne(new QueryWrapper<YxWechatMenu>().eq("`key`","wechat_menus")),HttpStatus.OK);
+        return new ResponseEntity(YxWechatMenuService.getOne(new LambdaQueryWrapper<YxWechatMenu>()
+                .eq(YxWechatMenu::getKey, ShopConstants.WECHAT_MENUS)),HttpStatus.OK);
     }
 
 
@@ -61,16 +63,16 @@ public class WechatMenuController {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String jsonButton = jsonObject.get("buttons").toString();
         YxWechatMenu YxWechatMenu = new YxWechatMenu();
-        Boolean isExist = YxWechatMenuService.isExist("wechat_menus");
+        Boolean isExist = YxWechatMenuService.isExist(ShopConstants.WECHAT_MENUS);
         WxMenu menu = JSONObject.parseObject(jsonStr,WxMenu.class);
 
         WxMpService wxService = WxMpConfiguration.getWxMpService();
         if(isExist){
-            YxWechatMenu.setKey("wechat_menus");
+            YxWechatMenu.setKey(ShopConstants.WECHAT_MENUS);
             YxWechatMenu.setResult(jsonButton);
             YxWechatMenuService.saveOrUpdate(YxWechatMenu);
         }else {
-            YxWechatMenu.setKey("wechat_menus");
+            YxWechatMenu.setKey(ShopConstants.WECHAT_MENUS);
             YxWechatMenu.setResult(jsonButton);
             YxWechatMenu.setAddTime(OrderUtil.getSecondTimestampTwo());
             YxWechatMenuService.save(YxWechatMenu);

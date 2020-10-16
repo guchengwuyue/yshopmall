@@ -128,6 +128,9 @@ public interface ShopConstants {
 	 */
 	String YSHOP_ORDER_PRINT_COUNT_DETAIL = "order_print_count_detail";
 
-
+	/**
+	 * 微信菜单
+	 */
+	String WECHAT_MENUS =  "wechat_menus";
 
 }

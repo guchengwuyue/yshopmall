@@ -17,7 +17,7 @@ import co.yixiang.modules.system.service.DeptService;
 import co.yixiang.modules.system.service.dto.DeptDto;
 import co.yixiang.modules.system.service.dto.DeptQueryCriteria;
 import co.yixiang.utils.ValidationUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -99,7 +99,7 @@ public class DeptController {
         if(resources.getId().equals(resources.getPid())) {
             throw new BadRequestException("上级不能为自己");
         }
-        Dept dept = deptService.getOne(new QueryWrapper<Dept>().lambda()
+        Dept dept = deptService.getOne(new LambdaQueryWrapper<Dept>()
                 .eq(Dept::getId,resources.getId()));
         ValidationUtil.isNull( dept.getId(),"Dept","id",resources.getId());
         resources.setId(dept.getId());
@@ -116,7 +116,7 @@ public class DeptController {
         List<Long> deptIds = new ArrayList<>();
         for (Long id : ids) {
             List<Dept> deptList = deptService.findByPid(id);
-            Dept dept =  deptService.getOne(new QueryWrapper<Dept>().eq("id",id));
+            Dept dept =  deptService.getOne(new LambdaQueryWrapper<Dept>().eq(Dept::getId,id));
             if(null!=dept){
                 deptIds.add(dept.getId());
             }

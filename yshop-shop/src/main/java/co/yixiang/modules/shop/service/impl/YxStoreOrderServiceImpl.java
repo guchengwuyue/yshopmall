@@ -45,7 +45,7 @@ import co.yixiang.mp.service.YxPayService;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
@@ -148,10 +148,10 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         orderTimeDataDTO.setMonthCount(yxStoreOrderMapper.countByPayTimeGreaterThanEqual(nowMonth));
 
 
-        orderTimeDataDTO.setUserCount(userMapper.selectCount(new QueryWrapper<YxUser>()));
-        orderTimeDataDTO.setOrderCount(yxStoreOrderMapper.selectCount(new QueryWrapper<YxStoreOrder>()));
+        orderTimeDataDTO.setUserCount(userMapper.selectCount(new LambdaQueryWrapper<YxUser>()));
+        orderTimeDataDTO.setOrderCount(yxStoreOrderMapper.selectCount(new LambdaQueryWrapper<YxStoreOrder>()));
         orderTimeDataDTO.setPriceCount(yxStoreOrderMapper.sumTotalPrice());
-        orderTimeDataDTO.setGoodsCount(yxStoreProductMapper.selectCount(new QueryWrapper<YxStoreProduct>()));
+        orderTimeDataDTO.setGoodsCount(yxStoreProductMapper.selectCount(new LambdaQueryWrapper<YxStoreProduct>()));
 
         return orderTimeDataDTO;
     }
@@ -226,7 +226,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 yxStoreOrder.getShippingType()));
 
         List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(
-                new QueryWrapper<YxStoreOrderCartInfo>().eq("oid",yxStoreOrder.getId()));
+                new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid,yxStoreOrder.getId()));
         List<StoreOrderCartInfoDto> cartInfoDTOS = new ArrayList<>();
         for (YxStoreOrderCartInfo cartInfo : cartInfos) {
             StoreOrderCartInfoDto cartInfoDTO = new StoreOrderCartInfoDto();
@@ -252,7 +252,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     @Override
     @Transactional(rollbackFor = Exception.class)
     public YxStoreOrderDto create(YxStoreOrder resources) {
-        if(this.getOne(new QueryWrapper<YxStoreOrder>().eq("`unique`",resources.getUnique())) != null){
+        if(this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique,resources.getUnique())) != null){
             throw new EntityExistException(YxStoreOrder.class,"unique",resources.getUnique());
         }
         this.save(resources);
@@ -263,7 +263,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     @Transactional(rollbackFor = Exception.class)
     public void update(YxStoreOrder resources) {
         YxStoreOrder yxStoreOrder = this.getById(resources.getId());
-        YxStoreOrder yxStoreOrder1 = this.getOne(new QueryWrapper<YxStoreOrder>().eq("`unique`",resources.getUnique()));
+        YxStoreOrder yxStoreOrder1 = this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique,resources.getUnique()));
         if(yxStoreOrder1 != null && !yxStoreOrder1.getId().equals(yxStoreOrder.getId())){
             throw new EntityExistException(YxStoreOrder.class,"unique",resources.getUnique());
         }
@@ -335,7 +335,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
     @Override
     public Map<String, Object> queryAll(List<String> ids) {
-        List<YxStoreOrder> yxStoreOrders = this.list(new QueryWrapper<YxStoreOrder>().in("order_id",ids));
+        List<YxStoreOrder> yxStoreOrders = this.list(new LambdaQueryWrapper<YxStoreOrder>().in(YxStoreOrder::getOrderId,ids));
         List<YxStoreOrderDto> storeOrderDTOS = new ArrayList<>();
         for (YxStoreOrder yxStoreOrder :yxStoreOrders) {
             YxStoreOrderDto yxStoreOrderDto = generator.convert(yxStoreOrder,YxStoreOrderDto.class);
@@ -375,7 +375,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                     ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId(),
                     yxStoreOrder.getShippingType()));
 
-            List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(new QueryWrapper<YxStoreOrderCartInfo>().eq("oid",yxStoreOrder.getId()));
+            List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid,yxStoreOrder.getId()));
             List<StoreOrderCartInfoDto> cartInfoDTOS = new ArrayList<>();
             for (YxStoreOrderCartInfo cartInfo : cartInfos) {
                 StoreOrderCartInfoDto cartInfoDTO = new StoreOrderCartInfoDto();
@@ -384,7 +384,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 cartInfoDTOS.add(cartInfoDTO);
             }
             yxStoreOrderDto.setCartInfoList(cartInfoDTOS);
-            yxStoreOrderDto.setUserDTO(generator.convert(userService.getOne(new QueryWrapper<YxUser>().eq("uid",yxStoreOrder.getUid())), YxUserDto.class));
+            yxStoreOrderDto.setUserDTO(generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,yxStoreOrder.getUid())), YxUserDto.class));
 
             storeOrderDTOS.add(yxStoreOrderDto);
 
@@ -402,8 +402,8 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                             int bargainId,int shippingType) {
         String str = "[普通订单]";
         if(pinkId > 0 || combinationId > 0){
-            YxStorePink storePink = storePinkService.getOne(new QueryWrapper<YxStorePink>().
-                    eq("order_id_key",id));
+            YxStorePink storePink = storePinkService.getOne(new LambdaQueryWrapper<YxStorePink>().
+                    eq(YxStorePink::getOrderIdKey,id));
             if(ObjectUtil.isNull(storePink)) {
                 str = "[拼团订单]";
             }else{
@@ -448,7 +448,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             this.updateById(resources);
 
             //退款到余额
-            YxUserDto userDTO = generator.convert(userService.getOne(new QueryWrapper<YxUser>().eq("uid",resources.getUid())),YxUserDto.class);
+            YxUserDto userDTO = generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,resources.getUid())),YxUserDto.class);
             userMapper.updateMoney(resources.getPayPrice().doubleValue(),
                     resources.getUid());
 

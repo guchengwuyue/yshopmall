@@ -15,7 +15,7 @@ import co.yixiang.mp.service.dto.YxWechatMenuDto;
 import co.yixiang.mp.service.dto.YxWechatMenuQueryCriteria;
 import co.yixiang.mp.service.mapper.WechatMenuMapper;
 import co.yixiang.utils.FileUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -80,7 +80,7 @@ public class YxWechatMenuServiceImpl extends BaseServiceImpl<WechatMenuMapper, Y
 
     @Override
     public Boolean isExist(String wechat_menus) {
-        YxWechatMenu yxWechatMenu = this.getOne(new QueryWrapper<YxWechatMenu>().eq("`key`",wechat_menus));
+        YxWechatMenu yxWechatMenu = this.getOne(new LambdaQueryWrapper<YxWechatMenu>().eq(YxWechatMenu::getKey,wechat_menus));
         if(yxWechatMenu == null){
             return false;
         }

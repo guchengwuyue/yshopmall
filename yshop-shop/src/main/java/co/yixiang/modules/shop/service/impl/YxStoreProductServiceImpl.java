@@ -32,7 +32,7 @@ import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -287,7 +287,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         yxStoreProductAttrResult.setResult(JSON.toJSONString(map));
         yxStoreProductAttrResult.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
-        yxStoreProductAttrResultService.remove(new QueryWrapper<YxStoreProductAttrResult>().eq("product_id",id));
+        yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
 
         yxStoreProductAttrResultService.saveOrUpdate(yxStoreProductAttrResult);
     }
@@ -295,7 +295,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Override
     public String getStoreProductAttrResult(Integer id) {
         YxStoreProductAttrResult yxStoreProductAttrResult = yxStoreProductAttrResultService
-                .getOne(new QueryWrapper<YxStoreProductAttrResult>().eq("product_id",id));
+                .getOne(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
         if(ObjectUtil.isNull(yxStoreProductAttrResult)) {
             return "";
         }
@@ -328,11 +328,11 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             throw new BadRequestException("产品不存在");
         }
 
-        yxStoreProductAttrService.remove(new QueryWrapper<YxStoreProductAttr>().eq("product_id",id));
-        yxStoreProductAttrValueService.remove(new QueryWrapper<YxStoreProductAttrValue>().eq("product_id",id));
+        yxStoreProductAttrService.remove(new LambdaQueryWrapper<YxStoreProductAttr>().eq(YxStoreProductAttr::getProductId,id));
+        yxStoreProductAttrValueService.remove(new LambdaQueryWrapper<YxStoreProductAttrValue>().eq(YxStoreProductAttrValue::getProductId,id));
 
         if(isActice){
-            yxStoreProductAttrResultService.remove(new QueryWrapper<YxStoreProductAttrResult>().eq("product_id",id));
+            yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
         }
     }
     /**

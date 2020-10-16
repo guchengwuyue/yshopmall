@@ -191,7 +191,7 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
 
         for (Dept dept : deptList) {
             deptDtos.add((DeptDto)generator.convert(deptList,DeptDto.class));
-            List<Dept> depts = Collections.singletonList(this.getOne(new QueryWrapper<Dept>().eq("id", dept.getId())));
+            List<Dept> depts = Collections.singletonList(this.getOne(new LambdaQueryWrapper<Dept>().eq("id", dept.getId())));
             if(depts!=null && depts.size()!=0){
                 getDeleteDepts(depts, deptDtos);
             }

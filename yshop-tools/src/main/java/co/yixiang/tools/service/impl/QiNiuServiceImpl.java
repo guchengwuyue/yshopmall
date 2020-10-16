@@ -17,7 +17,7 @@ import co.yixiang.tools.service.dto.QiniuQueryCriteria;
 import co.yixiang.tools.utils.QiNiuUtil;
 import co.yixiang.utils.FileUtil;
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -110,7 +110,7 @@ public class QiNiuServiceImpl implements QiNiuService {
         String upToken = auth.uploadToken(qiniuConfig.getBucket());
         try {
             String key = file.getOriginalFilename();
-            if(qiniuContentService.getOne(new QueryWrapper<QiniuContent>().eq("name",key)) != null) {
+            if(qiniuContentService.getOne(new LambdaQueryWrapper<QiniuContent>().eq(QiniuContent::getName,key)) != null) {
                 key = QiNiuUtil.getKey(key);
             }
             Response response = uploadManager.put(file.getBytes(), key, upToken);
@@ -118,7 +118,7 @@ public class QiNiuServiceImpl implements QiNiuService {
 
             DefaultPutRet putRet = JSON.parseObject(response.bodyString(), DefaultPutRet.class);
 
-            QiniuContent content = qiniuContentService.getOne(new QueryWrapper<QiniuContent>().eq("name",FileUtil.getFileNameNoEx(putRet.key)));
+            QiniuContent content = qiniuContentService.getOne(new LambdaQueryWrapper<QiniuContent>().eq(QiniuContent::getName,FileUtil.getFileNameNoEx(putRet.key)));
             if (content == null) {
                 //存入数据库
                 QiniuContent qiniuContent = new QiniuContent();
@@ -200,7 +200,7 @@ public class QiNiuServiceImpl implements QiNiuService {
             QiniuContent qiniuContent;
             FileInfo[] items = fileListIterator.next();
             for (FileInfo item : items) {
-                if(qiniuContentService.getOne(new QueryWrapper<QiniuContent>().eq("name",FileUtil.getFileNameNoEx(item.key)))
+                if(qiniuContentService.getOne(new LambdaQueryWrapper<QiniuContent>().eq(QiniuContent::getName,FileUtil.getFileNameNoEx(item.key)))
                         == null){
                     qiniuContent = new QiniuContent();
                     qiniuContent.setSize(FileUtil.getSize(Integer.parseInt(item.fsize+"")));

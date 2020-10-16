@@ -29,7 +29,7 @@ import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ValidationUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
@@ -165,9 +165,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
      */
     @Override
     public void updateAvatar(MultipartFile multipartFile) {
-        User user = this.getOne(new QueryWrapper<User>().lambda()
+        User user = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername,SecurityUtils.getUsername()));
-        UserAvatar userAvatar =  userAvatarService.getOne(new QueryWrapper<UserAvatar>().lambda()
+        UserAvatar userAvatar =  userAvatarService.getOne(new LambdaQueryWrapper<UserAvatar>()
                 .eq(UserAvatar::getId,user.getAvatarId()));
         String oldPath = "";
         if(userAvatar != null){
@@ -209,12 +209,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
     //@CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public boolean create(User resources) {
-        User userName = this.getOne(new QueryWrapper<User>().lambda()
+        User userName = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername,resources.getUsername()));
         if(userName != null){
             throw new EntityExistException(User.class,"username",resources.getUsername());
         }
-        User userEmail = this.getOne(new QueryWrapper<User>().lambda()
+        User userEmail = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail,resources.getEmail()));
         if(userEmail != null){
             throw new EntityExistException(User.class,"email",resources.getEmail());
@@ -243,12 +243,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
     //@CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public void update(User resources) {
-        User user = this.getOne(new QueryWrapper<User>().lambda()
+        User user = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getId,resources.getId()));
         ValidationUtil.isNull(user.getId(),"User","id",resources.getId());
-        User user1 = this.getOne(new QueryWrapper<User>().lambda()
+        User user1 = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getUsername,resources.getUsername()));
-        User user2 = this.getOne(new QueryWrapper<User>().lambda()
+        User user2 = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail,resources.getEmail()));
 
         if(user1 !=null&&!user.getId().equals(user1.getId())){

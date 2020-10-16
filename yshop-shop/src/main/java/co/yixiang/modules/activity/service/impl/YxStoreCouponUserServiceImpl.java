@@ -17,7 +17,7 @@ import co.yixiang.modules.activity.service.mapper.YxStoreCouponUserMapper;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.utils.FileUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -56,7 +56,7 @@ public class YxStoreCouponUserServiceImpl extends BaseServiceImpl<YxStoreCouponU
         PageInfo<YxStoreCouponUser> page = new PageInfo<>(queryAll(criteria));
         List<YxStoreCouponUserDto> storeOrderDTOS = generator.convert(page.getList(),YxStoreCouponUserDto.class);
         for (YxStoreCouponUserDto couponUserDTO : storeOrderDTOS) {
-            couponUserDTO.setNickname(userService.getOne(new QueryWrapper<YxUser>().eq("uid",couponUserDTO.getUid())).getNickname());
+            couponUserDTO.setNickname(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,couponUserDTO.getUid())).getNickname());
         }
         Map<String,Object> map = new LinkedHashMap<>(2);
         map.put("content",storeOrderDTOS);

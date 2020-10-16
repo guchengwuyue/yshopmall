@@ -18,7 +18,6 @@ import co.yixiang.modules.quartz.service.dto.QuartzJobQueryCriteria;
 import co.yixiang.modules.quartz.service.dto.QuartzLogDto;
 import co.yixiang.modules.quartz.service.dto.QuartzLogQueryCriteria;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -128,7 +127,7 @@ public class QuartzJobController {
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
     public ResponseEntity<Object> execution(@PathVariable Long id){
-        quartzJobService.execution(quartzJobService.getOne(new QueryWrapper<QuartzJob>().eq("id",id)));
+        quartzJobService.execution(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>().eq(QuartzJob::getId,id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

@@ -18,7 +18,7 @@ import co.yixiang.tools.domain.VerificationCode;
 import co.yixiang.tools.domain.vo.EmailVo;
 import co.yixiang.tools.service.VerificationCodeService;
 import co.yixiang.tools.service.mapper.VerificationCodeMapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,8 +46,8 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
     public EmailVo sendEmail(VerificationCode code) {
         EmailVo emailVo;
         String content;
-        VerificationCode verificationCode = this.getOne(new QueryWrapper<VerificationCode>()
-                .eq("scenes",code.getScenes()).eq("type",code.getType()).eq("value",code.getValue()));
+        VerificationCode verificationCode = this.getOne(new LambdaQueryWrapper<VerificationCode>()
+                .eq(VerificationCode::getScenes,code.getScenes()).eq(VerificationCode::getType,code.getType()).eq(VerificationCode::getValue,code.getValue()));
         // 如果不存在有效的验证码，就创建一个新的
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         Template template = engine.getTemplate("email/email.ftl");
@@ -67,9 +67,9 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
 
     @Override
     public void validated(VerificationCode code) {
-        VerificationCode verificationCode = this.getOne(new QueryWrapper<VerificationCode>()
-                .eq("scenes",code.getScenes()).eq("type",code.getType()).eq("value",code.getValue())
-        .eq("status",true));
+        VerificationCode verificationCode = this.getOne(new LambdaQueryWrapper<VerificationCode>()
+                .eq(VerificationCode::getScenes,code.getScenes()).eq(VerificationCode::getType,code.getType()).eq(VerificationCode::getValue,code.getValue())
+        .eq(VerificationCode::getStatus,true));
         if(verificationCode == null || !verificationCode.getCode().equals(code.getCode())){
             throw new BadRequestException("无效验证码");
         } else {

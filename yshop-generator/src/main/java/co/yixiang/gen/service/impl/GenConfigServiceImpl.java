@@ -11,7 +11,7 @@ import co.yixiang.gen.domain.GenConfig;
 import co.yixiang.gen.service.GenConfigService;
 import co.yixiang.gen.service.mapper.GenConfigMapper;
 import co.yixiang.utils.StringUtils;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -27,7 +27,7 @@ public class GenConfigServiceImpl extends BaseServiceImpl<GenConfigMapper, GenCo
     @Override
 //    @Cacheable(key = "#p0")
     public GenConfig find(String tableName) {
-        GenConfig genConfig = this.getOne(new QueryWrapper<GenConfig>().eq("table_name",tableName));
+        GenConfig genConfig = this.getOne(new LambdaQueryWrapper<GenConfig>().eq(GenConfig::getTableName,tableName));
         if(genConfig == null){
             return new GenConfig(tableName);
         }

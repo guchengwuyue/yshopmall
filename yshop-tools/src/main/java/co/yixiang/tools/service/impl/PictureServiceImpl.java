@@ -24,7 +24,7 @@ import co.yixiang.utils.TranslatorUtil;
 import co.yixiang.utils.ValidationUtil;
 import co.yixiang.utils.YshopConstant;
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
@@ -116,7 +116,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
     public Picture upload(MultipartFile multipartFile, String username) {
         File file = FileUtil.toFile(multipartFile);
         // 验证是否重复上传
-        Picture picture = this.getOne(new QueryWrapper<Picture>().eq("md5code",FileUtil.getMd5(file)));
+        Picture picture = this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getMd5code,FileUtil.getMd5(file)));
         if(picture != null){
             return picture;
         }
@@ -175,7 +175,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
         JSONObject jsonObject = JSONUtil.parseObj(result);
         List<Picture> pictures = JSON.parseArray(jsonObject.get("data").toString(), Picture.class);
         for (Picture picture : pictures) {
-            if(this.getOne(new QueryWrapper<Picture>().eq("url",picture.getUrl()))==null){
+            if(this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getUrl,picture.getUrl()))==null){
                 picture.setSize(FileUtil.getSize(Integer.parseInt(picture.getSize())));
                 picture.setUsername("System Sync");
                 picture.setMd5code(null);

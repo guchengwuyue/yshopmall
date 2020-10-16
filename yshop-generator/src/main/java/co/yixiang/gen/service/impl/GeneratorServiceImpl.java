@@ -20,7 +20,7 @@ import co.yixiang.gen.utils.GenUtil;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.PageUtil;
 import co.yixiang.utils.StringUtils;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.http.HttpStatus;
@@ -62,8 +62,8 @@ public class GeneratorServiceImpl extends BaseServiceImpl<ColumnInfoMapper, Colu
 
     @Override
     public List<ColumnConfig> getColumns(String tableName) {
-        List<ColumnConfig> columnInfos = this.list(new QueryWrapper<ColumnConfig>()
-                .eq("table_name",tableName).orderByAsc("id"));
+        List<ColumnConfig> columnInfos = this.list(new LambdaQueryWrapper<ColumnConfig>()
+                .eq(ColumnConfig::getTableName,tableName).orderByAsc(ColumnConfig::getId));
         if(CollectionUtil.isNotEmpty(columnInfos)){
             return columnInfos;
         } else {

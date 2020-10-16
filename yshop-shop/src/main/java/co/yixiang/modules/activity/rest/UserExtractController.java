@@ -25,7 +25,7 @@ import co.yixiang.modules.shop.service.dto.YxUserDto;
 import co.yixiang.modules.shop.service.dto.YxWechatUserDto;
 import co.yixiang.mp.service.YxPayService;
 import co.yixiang.utils.OrderUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -95,7 +95,7 @@ public class UserExtractController {
                 throw new BadRequestException("请填写失败原因");
             }
             String mark = "提现失败,退回佣金"+resources.getExtractPrice()+"元";
-            YxUserDto userDTO = generator.convert(yxUserService.getOne(new QueryWrapper<YxUser>().eq("uid",resources.getUid())),YxUserDto.class);
+            YxUserDto userDTO = generator.convert(yxUserService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,resources.getUid())),YxUserDto.class);
 
             //增加流水
             YxUserBill userBill = new YxUserBill();
@@ -122,7 +122,7 @@ public class UserExtractController {
         //todo 此处为企业付款，没经过测试
         boolean isTest = true;
         if(!isTest){
-            YxWechatUserDto wechatUser =  generator.convert(wechatUserService.getOne(new QueryWrapper<YxWechatUser>().eq("uid",resources.getUid())),YxWechatUserDto.class);
+            YxWechatUserDto wechatUser =  generator.convert(wechatUserService.getOne(new LambdaQueryWrapper<YxWechatUser>().eq(YxWechatUser::getUid,resources.getUid())),YxWechatUserDto.class);
             if(ObjectUtil.isNotNull(wechatUser)){
                 try {
                     payService.entPay(wechatUser.getOpenid(),resources.getId().toString(),
