@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.handler;
 
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -26,15 +26,15 @@ public class MenuHandler extends AbstractHandler {
                                     WxSessionManager sessionManager) {
 
         String msg = String.format("type:%s, event:%s, key:%s",
-            wxMessage.getMsgType(), wxMessage.getEvent(),
-            wxMessage.getEventKey());
+                wxMessage.getMsgType(), wxMessage.getEvent(),
+                wxMessage.getEventKey());
         if (MenuButtonType.VIEW.equals(wxMessage.getEvent())) {
             return null;
         }
 
         return WxMpXmlOutMessage.TEXT().content(msg)
-            .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
-            .build();
+                .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+                .build();
     }
 
 }

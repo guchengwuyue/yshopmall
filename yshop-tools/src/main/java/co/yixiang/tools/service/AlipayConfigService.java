@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.service;
 
 import co.yixiang.common.service.BaseService;
@@ -11,10 +11,10 @@ import co.yixiang.tools.domain.AlipayConfig;
 import co.yixiang.tools.domain.vo.TradeVo;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
-public interface AlipayConfigService  extends BaseService<AlipayConfig>{
+ * @author hupeng
+ * @date 2020-05-13
+ */
+public interface AlipayConfigService extends BaseService<AlipayConfig> {
 
     /**
      * 处理来自PC的交易请求

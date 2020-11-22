@@ -1,10 +1,11 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -155,10 +156,10 @@ public class BigNum {
      * @param v
      * @return
      */
-    public static BigDecimal penny2dollar(String v){
+    public static BigDecimal penny2dollar(String v) {
         BigDecimal s = new BigDecimal("0.00");//保留两位小数
         try {
-            s = div(v,"100",2);
+            s = div(v, "100", 2);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -170,7 +171,7 @@ public class BigNum {
      * @param v
      * @return
      */
-    public static BigDecimal dollar2penny(String v){
+    public static BigDecimal dollar2penny(String v) {
         return mul(v, "100");
     }
 
@@ -182,8 +183,8 @@ public class BigNum {
      * @param v
      * @return
      */
-    public static String formatNumber(String v){
-        return formatNumber(v,BIG_NUM_FMT_COMMA);
+    public static String formatNumber(String v) {
+        return formatNumber(v, BIG_NUM_FMT_COMMA);
     }
 
     /**
@@ -192,7 +193,7 @@ public class BigNum {
      * @param pattern BigNum类中的常量 BIG_NUM_FMT_COMMA,BIG_NUM_FMT
      * @return
      */
-    public static String formatNumber(String v,String pattern) {
+    public static String formatNumber(String v, String pattern) {
         return new DecimalFormat(pattern).format(new BigDecimal(v));
     }
 

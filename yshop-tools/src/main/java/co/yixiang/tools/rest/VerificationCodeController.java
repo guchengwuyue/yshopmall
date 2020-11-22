@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.rest;
 
 import co.yixiang.tools.domain.VerificationCode;
@@ -35,7 +35,7 @@ public class VerificationCodeController {
 
     private final EmailConfigService emailService;
 
-    public VerificationCodeController(VerificationCodeService verificationCodeService,  EmailConfigService emailService) {
+    public VerificationCodeController(VerificationCodeService verificationCodeService, EmailConfigService emailService) {
         this.verificationCodeService = verificationCodeService;
         this.emailService = emailService;
     }
@@ -45,7 +45,7 @@ public class VerificationCodeController {
     public ResponseEntity<Object> resetEmail(@RequestBody VerificationCode code) throws Exception {
         code.setScenes(YshopConstant.RESET_MAIL);
         EmailVo emailVo = verificationCodeService.sendEmail(code);
-        emailService.send(emailVo,emailService.find());
+        emailService.send(emailVo, emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -57,13 +57,13 @@ public class VerificationCodeController {
         code.setValue(email);
         code.setScenes(YshopConstant.RESET_MAIL);
         EmailVo emailVo = verificationCodeService.sendEmail(code);
-        emailService.send(emailVo,emailService.find());
+        emailService.send(emailVo, emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/validated")
     @ApiOperation("验证码验证")
-    public ResponseEntity<Object> validated(VerificationCode code){
+    public ResponseEntity<Object> validated(VerificationCode code) {
         verificationCodeService.validated(code);
         return new ResponseEntity<>(HttpStatus.OK);
     }

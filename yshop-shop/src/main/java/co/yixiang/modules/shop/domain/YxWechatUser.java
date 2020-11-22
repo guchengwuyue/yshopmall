@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -17,9 +17,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Data
 public class YxWechatUser implements Serializable {
 
@@ -89,7 +89,7 @@ public class YxWechatUser implements Serializable {
 
 
     /** 添加时间 */
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private Integer addTime;
 
 
@@ -121,7 +121,7 @@ public class YxWechatUser implements Serializable {
     private String userType;
 
 
-    public void copy(YxWechatUser source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxWechatUser source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

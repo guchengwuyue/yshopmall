@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Data
 @TableName("menu")
 public class Menu implements Serializable {
@@ -76,7 +76,7 @@ public class Menu implements Serializable {
 
 
     /** 创建日期 */
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 
 
@@ -88,7 +88,7 @@ public class Menu implements Serializable {
     private Integer type;
 
 
-    public void copy(Menu source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(Menu source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

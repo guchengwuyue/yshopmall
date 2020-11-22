@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -39,15 +39,15 @@ public class EmailController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> get(){
-        return new ResponseEntity<>(emailService.find(),HttpStatus.OK);
+    public ResponseEntity<Object> get() {
+        return new ResponseEntity<>(emailService.find(), HttpStatus.OK);
     }
 
     @Log("配置邮件")
     @PutMapping
     @ApiOperation("配置邮件")
-    public ResponseEntity<Object> emailConfig(@Validated @RequestBody EmailConfig emailConfig){
-        emailService.update(emailConfig,emailService.find());
+    public ResponseEntity<Object> emailConfig(@Validated @RequestBody EmailConfig emailConfig) {
+        emailService.update(emailConfig, emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -55,7 +55,7 @@ public class EmailController {
     @PostMapping
     @ApiOperation("发送邮件")
     public ResponseEntity<Object> send(@Validated @RequestBody EmailVo emailVo) throws Exception {
-        emailService.send(emailVo,emailService.find());
+        emailService.send(emailVo, emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

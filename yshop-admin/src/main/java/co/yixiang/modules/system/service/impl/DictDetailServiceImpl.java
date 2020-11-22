@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -34,9 +34,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "dictDetail")
@@ -59,8 +59,8 @@ public class DictDetailServiceImpl extends BaseServiceImpl<DictDetailMapper, Dic
 
     @Override
     //@Cacheable
-    public List<DictDetail> queryAll(DictDetailQueryCriteria criteria){
-         List<DictDetail> list =  baseMapper.selectDictDetailList(criteria.getLabel(),criteria.getDictName());
+    public List<DictDetail> queryAll(DictDetailQueryCriteria criteria) {
+        List<DictDetail> list = baseMapper.selectDictDetailList(criteria.getLabel(), criteria.getDictName());
         return list;
     }
 
@@ -69,7 +69,7 @@ public class DictDetailServiceImpl extends BaseServiceImpl<DictDetailMapper, Dic
     public void download(List<DictDetailDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DictDetailDto dictDetail : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("字典标签", dictDetail.getLabel());
             map.put("字典值", dictDetail.getValue());
             map.put("排序", dictDetail.getSort());

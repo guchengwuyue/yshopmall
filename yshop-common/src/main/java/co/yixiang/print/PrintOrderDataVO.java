@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.print;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +26,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PrintOrderDataVO implements Serializable{
+public class PrintOrderDataVO implements Serializable {
     @ApiModelProperty(value = "订单号")
     private String orderId;
     @ApiModelProperty(value = "实际支付金额")

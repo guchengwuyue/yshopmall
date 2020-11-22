@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreVisit")
@@ -60,7 +60,7 @@ public class YxStoreVisitServiceImpl extends BaseServiceImpl<YxStoreVisitMapper,
 
     @Override
     //@Cacheable
-    public List<YxStoreVisit> queryAll(YxStoreVisitQueryCriteria criteria){
+    public List<YxStoreVisit> queryAll(YxStoreVisitQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreVisit.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxStoreVisitServiceImpl extends BaseServiceImpl<YxStoreVisitMapper,
     public void download(List<YxStoreVisitDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreVisitDto yxStoreVisit : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("产品ID", yxStoreVisit.getProductId());
             map.put("产品类型", yxStoreVisit.getProductType());
             map.put("产品分类ID", yxStoreVisit.getCateId());

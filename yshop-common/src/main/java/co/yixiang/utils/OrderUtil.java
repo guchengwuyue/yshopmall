@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
 
 import cn.hutool.core.date.DateTime;
@@ -29,17 +29,19 @@ public class OrderUtil {
      * @param status  0-关闭 其他表示相反
      * @return String
      */
-    public static String checkActivityStatus(int starTime,int endTime,int status){
+    public static String checkActivityStatus(int starTime, int endTime, int status) {
         int nowTime = OrderUtil.getSecondTimestampTwo();
 
-        if(status == 0) {return "关闭";}
+        if (status == 0) {
+            return "关闭";
+        }
 
 
-        if(starTime > nowTime){
+        if (starTime > nowTime) {
             return "活动未开始";
-        }else if(endTime < nowTime){
+        } else if (endTime < nowTime) {
             return "活动已结束";
-        }else if(endTime > nowTime && starTime < nowTime){
+        } else if (endTime > nowTime && starTime < nowTime) {
             return "正在进行中";
         }
 
@@ -150,7 +152,7 @@ public class OrderUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = simpleDateFormat.parse(str);
         long ts = date.getTime();
-        return ts/1000;
+        return ts / 1000;
     }
 
     /**

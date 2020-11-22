@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
 
 import org.springframework.beans.BeansException;
@@ -24,7 +24,7 @@ public class BeanUtil implements ApplicationContextAware {
         return context.getBean(name);
     }
 
-    public static <T> T getBean(Class<T> c){
+    public static <T> T getBean(Class<T> c) {
         return context.getBean(c);
     }
 }

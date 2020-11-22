@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-11-03
-*/
+ * @author hupeng
+ * @date 2019-11-03
+ */
 @Api(tags = "商城:评论管理")
 @RestController
 @RequestMapping("api")
@@ -45,18 +45,17 @@ public class StoreProductReplyController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxStoreProductReply")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_SELECT')")
-    public ResponseEntity getYxStoreProductReplys(YxStoreProductReplyQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity getYxStoreProductReplys(YxStoreProductReplyQueryCriteria criteria, Pageable pageable) {
         criteria.setIsDel(0);
-        return new ResponseEntity(yxStoreProductReplyService.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity(yxStoreProductReplyService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
 
 
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreProductReply")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxStoreProductReply resources){
+    public ResponseEntity update(@Validated @RequestBody YxStoreProductReply resources) {
         yxStoreProductReplyService.save(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -65,7 +64,7 @@ public class StoreProductReplyController {
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreProductReply/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable Integer id) {
 
         YxStoreProductReply reply = new YxStoreProductReply();
         reply.setIsDel(1);

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.dozer.service.IGenerator;
@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
-* @author hupeng
-* @date 2020-03-02
-*/
+ * @author hupeng
+ * @date 2020-03-02
+ */
 @Api(tags = "充值管理管理")
 @RestController
 @RequestMapping("/api/yxUserRecharge")
@@ -42,6 +42,7 @@ public class UserRechargeController {
 
     private final YxUserRechargeService yxUserRechargeService;
     private final IGenerator generator;
+
     public UserRechargeController(YxUserRechargeService yxUserRechargeService, IGenerator generator) {
         this.yxUserRechargeService = yxUserRechargeService;
         this.generator = generator;
@@ -59,18 +60,17 @@ public class UserRechargeController {
     @Log("查询充值管理")
     @ApiOperation("查询充值管理")
     @PreAuthorize("@el.check('yxUserRecharge:list')")
-    public ResponseEntity<Object> getYxUserRecharges(YxUserRechargeQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxUserRechargeService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxUserRecharges(YxUserRechargeQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxUserRechargeService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增充值管理")
     @ApiOperation("新增充值管理")
     @PreAuthorize("@el.check('yxUserRecharge:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxUserRecharge resources){
-        return new ResponseEntity<>(yxUserRechargeService.save(resources),HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@Validated @RequestBody YxUserRecharge resources) {
+        return new ResponseEntity<>(yxUserRechargeService.save(resources), HttpStatus.CREATED);
     }
-
 
 
     @Log("删除充值管理")

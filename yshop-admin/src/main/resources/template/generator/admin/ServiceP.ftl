@@ -22,17 +22,20 @@ import javax.servlet.http.HttpServletResponse;
 public interface ${className}Service  extends BaseService<${className}>{
 
 /**
-    * 查询数据分页
-    * @param criteria 条件
-    * @param pageable 分页参数
-    * @return Map<String,Object>
-    */
-    Map<String,Object> queryAll(${className}QueryCriteria criteria, Pageable pageable);
+* 查询数据分页
+* @param criteria 条件
+* @param pageable 分页参数
+* @return Map
+<String,Object>
+*/
+Map
+<String,Object> queryAll(${className}QueryCriteria criteria, Pageable pageable);
 
-    /**
-    * 查询所有数据不分页
-    * @param criteria 条件参数
-    * @return List<${className}Dto>
+/**
+* 查询所有数据不分页
+* @param criteria 条件参数
+* @return List
+<${className}Dto>
     */
     List<${className}> queryAll(${className}QueryCriteria criteria);
 
@@ -42,5 +45,6 @@ public interface ${className}Service  extends BaseService<${className}>{
     * @param response /
     * @throws IOException /
     */
-    void download(List<${className}Dto> all, HttpServletResponse response) throws IOException;
-}
+    void download(List
+    <${className}Dto> all, HttpServletResponse response) throws IOException;
+        }

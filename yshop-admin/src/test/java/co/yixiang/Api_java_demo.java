@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -38,7 +38,7 @@ public class Api_java_demo {
 
 
     //**********测试时，打开下面注释掉方法的即可,更多接口文档信息,请访问官网开放平台查看**********
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         //==================添加打印机接口（支持批量）==================
         //***返回值JSON字符串***
         //正确例子：{"msg":"ok","ret":0,"data":{"ok":["sn#key#remark#carnum","316500011#abcdefgh#快餐前台"],"no":["316500012#abcdefgh#快餐前台#13688889999  （错误：识别码不正确）"]},"serverExecutedTime":3}
@@ -50,15 +50,13 @@ public class Api_java_demo {
 //			System.out.println(method);
 
 
-
         //==================方法1.小票机打印订单接口==================
         //***返回值JSON字符串***
         //成功：{"msg":"ok","ret":0,"data":"xxxxxxx_xxxxxxxx_xxxxxxxx","serverExecutedTime":5}
         //失败：{"msg":"错误描述","ret":非0,"data":"null","serverExecutedTime":5}
 
-			String method1 = print(SN);//该接口只能是小票机使用,如购买的是标签机请使用下面方法2，调用打印
-			System.out.println(method1);
-
+        String method1 = print(SN);//该接口只能是小票机使用,如购买的是标签机请使用下面方法2，调用打印
+        System.out.println(method1);
 
 
         //==================方法2.标签机专用打印订单接口==================
@@ -68,7 +66,6 @@ public class Api_java_demo {
 
 //			String method2 = printLabelMsg(SN);//打开注释调用标签机打印接口进行打印,该接口只能是标签机使用，其它型号打印机请勿使用该接口
 //			System.out.println(method2);
-
 
 
         //===========方法3.查询某订单是否打印成功=============
@@ -81,7 +78,6 @@ public class Api_java_demo {
 //			System.out.println(method3);
 
 
-
         //===========方法4.查询指定打印机某天的订单详情============
         //***返回值JSON字符串***
         //成功：{"msg":"ok","ret":0,"data":{"print":6,"waiting":1},"serverExecutedTime":9}//print已打印，waiting为打印
@@ -90,7 +86,6 @@ public class Api_java_demo {
 //			String strdate = "2016-11-12";//注意时间格式为"yyyy-MM-dd"
 //			String method4 = queryOrderInfoByDate(SN,strdate);
 //			System.out.println(method4);
-
 
 
         //===========方法5.查询打印机的状态==========================
@@ -104,12 +99,9 @@ public class Api_java_demo {
     }
 
 
-
-
-
     //=====================以下是函数实现部分================================================
 
-    private static String addprinter(String snlist){
+    private static String addprinter(String snlist) {
 
         //通过POST请求，发送打印信息到服务器
         RequestConfig requestConfig = RequestConfig.custom()
@@ -123,34 +115,30 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_printerAddlist"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("printerContent",snlist));
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_printerAddlist"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("printerContent", snlist));
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -173,7 +161,7 @@ public class Api_java_demo {
 
 
     //方法1
-    private static String print(String sn){
+    private static String print(String sn) {
         //标签说明：
         //单标签:
         //"<BR>"为换行,"<CUT>"为切刀指令(主动切纸,仅限切刀打印机使用才有效果)
@@ -216,37 +204,33 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_printMsg"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("sn",sn));
-        nvps.add(new BasicNameValuePair("content",content));
-        nvps.add(new BasicNameValuePair("times","1"));//打印联数
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_printMsg"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("sn", sn));
+        nvps.add(new BasicNameValuePair("content", content));
+        nvps.add(new BasicNameValuePair("times", "1"));//打印联数
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     //服务器返回的JSON字符串，建议要当做日志记录起来
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -268,9 +252,8 @@ public class Api_java_demo {
     }
 
 
-
     //方法2
-    private static String printLabelMsg(String sn){
+    private static String printLabelMsg(String sn) {
 
         String content;
         content = "<DIRECTION>1</DIRECTION>";//设定打印时出纸和打印字体的方向，n 0 或 1，每次设备重启后都会初始化为 0 值设置，1：正向出纸，0：反向出纸，
@@ -288,37 +271,33 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_printLabelMsg"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("sn",sn));
-        nvps.add(new BasicNameValuePair("content",content));
-        nvps.add(new BasicNameValuePair("times","1"));//打印联数
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_printLabelMsg"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("sn", sn));
+        nvps.add(new BasicNameValuePair("content", content));
+        nvps.add(new BasicNameValuePair("times", "1"));//打印联数
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     //服务器返回的JSON字符串，建议要当做日志记录起来
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -341,7 +320,7 @@ public class Api_java_demo {
 
 
     //方法3
-    private static String queryOrderState(String orderid){
+    private static String queryOrderState(String orderid) {
 
         //通过POST请求，发送打印信息到服务器
         RequestConfig requestConfig = RequestConfig.custom()
@@ -355,35 +334,31 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_queryOrderState"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("orderid",orderid));
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_queryOrderState"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("orderid", orderid));
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     //服务器返回
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -403,11 +378,10 @@ public class Api_java_demo {
         return result;
 
     }
-
 
 
     //方法4
-    private static String queryOrderInfoByDate(String sn,String strdate){
+    private static String queryOrderInfoByDate(String sn, String strdate) {
 
         //通过POST请求，发送打印信息到服务器
         RequestConfig requestConfig = RequestConfig.custom()
@@ -421,36 +395,32 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_queryOrderInfoByDate"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("sn",sn));
-        nvps.add(new BasicNameValuePair("date",strdate));//yyyy-MM-dd格式
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_queryOrderInfoByDate"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("sn", sn));
+        nvps.add(new BasicNameValuePair("date", strdate));//yyyy-MM-dd格式
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     //服务器返回
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -472,9 +442,8 @@ public class Api_java_demo {
     }
 
 
-
     //方法5
-    private static String queryPrinterStatus(String sn){
+    private static String queryPrinterStatus(String sn) {
 
         //通过POST请求，发送打印信息到服务器
         RequestConfig requestConfig = RequestConfig.custom()
@@ -488,35 +457,31 @@ public class Api_java_demo {
 
         HttpPost post = new HttpPost(URL);
         List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("user",USER));
-        String STIME = String.valueOf(System.currentTimeMillis()/1000);
-        nvps.add(new BasicNameValuePair("stime",STIME));
-        nvps.add(new BasicNameValuePair("sig",signature(USER,UKEY,STIME)));
-        nvps.add(new BasicNameValuePair("apiname","Open_queryPrinterStatus"));//固定值,不需要修改
-        nvps.add(new BasicNameValuePair("sn",sn));
+        nvps.add(new BasicNameValuePair("user", USER));
+        String STIME = String.valueOf(System.currentTimeMillis() / 1000);
+        nvps.add(new BasicNameValuePair("stime", STIME));
+        nvps.add(new BasicNameValuePair("sig", signature(USER, UKEY, STIME)));
+        nvps.add(new BasicNameValuePair("apiname", "Open_queryPrinterStatus"));//固定值,不需要修改
+        nvps.add(new BasicNameValuePair("sn", sn));
 
         CloseableHttpResponse response = null;
         String result = null;
-        try
-        {
-            post.setEntity(new UrlEncodedFormEntity(nvps,"utf-8"));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
             response = httpClient.execute(post);
             int statecode = response.getStatusLine().getStatusCode();
-            if(statecode == 200){
+            if (statecode == 200) {
                 HttpEntity httpentity = response.getEntity();
-                if (httpentity != null){
+                if (httpentity != null) {
                     //服务器返回
                     result = EntityUtils.toString(httpentity);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(response!=null){
+                if (response != null) {
                     response.close();
                 }
             } catch (IOException e) {
@@ -539,8 +504,8 @@ public class Api_java_demo {
 
 
     //生成签名字符串
-    private static String signature(String USER,String UKEY,String STIME){
-        String s = DigestUtils.sha1Hex(USER+UKEY+STIME);
+    private static String signature(String USER, String UKEY, String STIME) {
+        String s = DigestUtils.sha1Hex(USER + UKEY + STIME);
         return s;
     }
 }

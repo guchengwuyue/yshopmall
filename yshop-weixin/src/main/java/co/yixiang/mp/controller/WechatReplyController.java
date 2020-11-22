@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.controller;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-10-10
-*/
+ * @author hupeng
+ * @date 2019-10-10
+ */
 @Api(tags = "商城:微信回復管理")
 @RestController
 @RequestMapping("api")
@@ -40,15 +40,15 @@ public class WechatReplyController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxWechatReply")
     @PreAuthorize("hasAnyRole('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_SELECT')")
-    public ResponseEntity getYxWechatReplys(){
-        return new ResponseEntity(yxWechatReplyService.isExist("subscribe"),HttpStatus.OK);
+    public ResponseEntity getYxWechatReplys() {
+        return new ResponseEntity(yxWechatReplyService.isExist("subscribe"), HttpStatus.OK);
     }
 
 
     @ApiOperation(value = "新增自动回复")
     @PostMapping(value = "/yxWechatReply")
     @PreAuthorize("hasAnyRole('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
-    public ResponseEntity create(@RequestBody String jsonStr){
+    public ResponseEntity create(@RequestBody String jsonStr) {
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         YxWechatReply yxWechatReply = new YxWechatReply();
@@ -57,18 +57,15 @@ public class WechatReplyController {
         yxWechatReply.setStatus(Integer.valueOf(jsonObject.get("status").toString()));
         yxWechatReply.setData(jsonObject.get("data").toString());
         yxWechatReply.setType(jsonObject.get("type").toString());
-        if(ObjectUtil.isNull(isExist)){
+        if (ObjectUtil.isNull(isExist)) {
             yxWechatReplyService.create(yxWechatReply);
-        }else{
+        } else {
             yxWechatReply.setId(isExist.getId());
             yxWechatReplyService.upDate(yxWechatReply);
         }
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
-
-
 
 
 }

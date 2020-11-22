@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-12-14
-*/
+ * @author hupeng
+ * @date 2019-12-14
+ */
 @Api(tags = "商城:秒杀管理")
 @RestController
 @RequestMapping("api")
@@ -46,29 +46,28 @@ public class StoreSeckillController {
     @ApiOperation(value = "列表")
     @GetMapping(value = "/yxStoreSeckill")
     @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_SELECT')")
-    public ResponseEntity getYxStoreSeckills(YxStoreSeckillQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxStoreSeckillService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxStoreSeckills(YxStoreSeckillQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxStoreSeckillService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
 
 
     @Log("发布")
     @ApiOperation(value = "发布")
     @PutMapping(value = "/yxStoreSeckill")
     @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxStoreSeckill resources){
-        if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
+    public ResponseEntity update(@Validated @RequestBody YxStoreSeckill resources) {
+        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
             resources.setStartTime(OrderUtil.
                     dateToTimestamp(resources.getStartTimeDate()));
         }
-        if(ObjectUtil.isNotNull(resources.getEndTimeDate())){
+        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
             resources.setStopTime(OrderUtil.
                     dateToTimestamp(resources.getEndTimeDate()));
         }
-        if(ObjectUtil.isNull(resources.getId())){
+        if (ObjectUtil.isNull(resources.getId())) {
             resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
-            return new ResponseEntity(yxStoreSeckillService.save(resources),HttpStatus.CREATED);
-        }else{
+            return new ResponseEntity(yxStoreSeckillService.save(resources), HttpStatus.CREATED);
+        } else {
             yxStoreSeckillService.saveOrUpdate(resources);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -78,7 +77,7 @@ public class StoreSeckillController {
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreSeckill/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable Integer id) {
 
         yxStoreSeckillService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);

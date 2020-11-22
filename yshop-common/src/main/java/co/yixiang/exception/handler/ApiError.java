@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.exception.handler;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,13 +27,13 @@ class ApiError {
         timestamp = LocalDateTime.now();
     }
 
-    public static ApiError error(String message){
+    public static ApiError error(String message) {
         ApiError apiError = new ApiError();
         apiError.setMessage(message);
         return apiError;
     }
 
-    public static ApiError error(Integer status, String message){
+    public static ApiError error(Integer status, String message) {
         ApiError apiError = new ApiError();
         apiError.setStatus(status);
         apiError.setMessage(message);

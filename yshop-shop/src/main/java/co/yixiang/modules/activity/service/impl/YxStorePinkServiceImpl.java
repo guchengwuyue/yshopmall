@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStorePink")
@@ -60,7 +60,7 @@ public class YxStorePinkServiceImpl extends BaseServiceImpl<YxStorePinkMapper, Y
 
     @Override
     //@Cacheable
-    public List<YxStorePink> queryAll(YxStorePinkQueryCriteria criteria){
+    public List<YxStorePink> queryAll(YxStorePinkQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStorePink.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxStorePinkServiceImpl extends BaseServiceImpl<YxStorePinkMapper, Y
     public void download(List<YxStorePinkDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStorePinkDto yxStorePink : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户id", yxStorePink.getUid());
             map.put("订单id 生成", yxStorePink.getOrderId());
             map.put("订单id  数据库", yxStorePink.getOrderIdKey());
@@ -80,7 +80,7 @@ public class YxStorePinkServiceImpl extends BaseServiceImpl<YxStorePinkMapper, Y
             map.put("拼图总人数", yxStorePink.getPeople());
             map.put("拼团产品单价", yxStorePink.getPrice());
             map.put("开始时间", yxStorePink.getAddTime());
-            map.put(" stopTime",  yxStorePink.getStopTime());
+            map.put(" stopTime", yxStorePink.getStopTime());
             map.put("团长id 0为团长", yxStorePink.getKId());
             map.put("是否发送模板消息0未发送1已发送", yxStorePink.getIsTpl());
             map.put("是否退款 0未退款 1已退款", yxStorePink.getIsRefund());

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.security.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -44,10 +44,10 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> getAll(@RequestParam(value = "filter",defaultValue = "") String filter,
-                                         @RequestParam(value = "type",defaultValue = "0") int type,
-                                         Pageable pageable){
-        return new ResponseEntity<>(onlineUserService.getAll(filter, type,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getAll(@RequestParam(value = "filter", defaultValue = "") String filter,
+                                         @RequestParam(value = "type", defaultValue = "0") int type,
+                                         Pageable pageable) {
+        return new ResponseEntity<>(onlineUserService.getAll(filter, type, pageable), HttpStatus.OK);
     }
 
     @Log("导出数据")
@@ -55,9 +55,9 @@ public class OnlineController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check()")
     public void download(HttpServletResponse response,
-                         @RequestParam(value = "filter",defaultValue = "") String filter,
-                         @RequestParam(value = "type",defaultValue = "0") int type) throws IOException {
-        onlineUserService.download(onlineUserService.getAll(filter,type), response);
+                         @RequestParam(value = "filter", defaultValue = "") String filter,
+                         @RequestParam(value = "type", defaultValue = "0") int type) throws IOException {
+        onlineUserService.download(onlineUserService.getAll(filter, type), response);
     }
 
     @ForbidSubmit
@@ -74,7 +74,7 @@ public class OnlineController {
 
     @ForbidSubmit
     @ApiOperation("踢出移动端用户")
-    @PostMapping("/delete" )
+    @PostMapping("/delete")
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> deletet(@RequestBody Set<String> keys) throws Exception {
 

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.security.rest;
 
 import cn.hutool.core.util.IdUtil;
@@ -82,7 +82,7 @@ public class AuthController {
     @ApiOperation("登录授权")
     @AnonymousAccess
     @PostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Validated @RequestBody AuthUser authUser, HttpServletRequest request){
+    public ResponseEntity<Object> login(@Validated @RequestBody AuthUser authUser, HttpServletRequest request) {
         // 密码解密
         RSA rsa = new RSA(privateKey, null);
         String password = new String(rsa.decrypt(authUser.getPassword(), KeyType.PrivateKey));
@@ -107,44 +107,44 @@ public class AuthController {
         // 保存在线信息
         onlineUserService.save(jwtUser, token, request);
         // 返回 token 与 用户信息
-        Map<String,Object> authInfo = new HashMap<String,Object>(2){{
+        Map<String, Object> authInfo = new HashMap<String, Object>(2) {{
             put("token", properties.getTokenStartWith() + token);
             put("user", jwtUser);
         }};
-        if(singleLogin){
+        if (singleLogin) {
             //踢掉之前已经登录的token
-            onlineUserService.checkLoginOnUser(authUser.getUsername(),token);
+            onlineUserService.checkLoginOnUser(authUser.getUsername(), token);
         }
         return ResponseEntity.ok(authInfo);
     }
 
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/info")
-    public ResponseEntity<Object> getUserInfo(){
-        JwtUser jwtUser = (JwtUser)userDetailsService.loadUserByUsername(SecurityUtils.getUsername());
+    public ResponseEntity<Object> getUserInfo() {
+        JwtUser jwtUser = (JwtUser) userDetailsService.loadUserByUsername(SecurityUtils.getUsername());
         return ResponseEntity.ok(jwtUser);
     }
 
     @AnonymousAccess
     @ApiOperation("获取验证码")
     @GetMapping(value = "/code")
-    public ResponseEntity<Object> getCode(){
+    public ResponseEntity<Object> getCode() {
         // 算术类型 https://gitee.com/whvse/EasyCaptcha
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
         // 几位数运算，默认是两位
         captcha.setLen(2);
         // 获取运算的结果
-        String result ="";
+        String result = "";
         try {
-            result = new Double(Double.parseDouble(captcha.text())).intValue()+"";
-        }catch (Exception e){
+            result = new Double(Double.parseDouble(captcha.text())).intValue() + "";
+        } catch (Exception e) {
             result = captcha.text();
         }
         String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
         // 保存
         redisUtils.set(uuid, result, expiration, TimeUnit.MINUTES);
         // 验证码信息
-        Map<String,Object> imgResult = new HashMap<String,Object>(2){{
+        Map<String, Object> imgResult = new HashMap<String, Object>(2) {{
             put("img", captcha.toBase64());
             put("uuid", uuid);
         }};
@@ -154,7 +154,7 @@ public class AuthController {
     @ApiOperation("退出登录")
     @AnonymousAccess
     @DeleteMapping(value = "/logout")
-    public ResponseEntity<Object> logout(HttpServletRequest request){
+    public ResponseEntity<Object> logout(HttpServletRequest request) {
         onlineUserService.logout(tokenProvider.getToken(request));
         return new ResponseEntity<>(HttpStatus.OK);
     }

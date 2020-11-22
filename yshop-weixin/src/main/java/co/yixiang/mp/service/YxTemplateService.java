@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service;
 
 import co.yixiang.mp.config.ShopKeyUtils;
@@ -39,18 +39,18 @@ public class YxTemplateService {
      * @param price
      * @param openid
      */
-    public void rechargeSuccessNotice(String time,String price,String openid){
+    public void rechargeSuccessNotice(String time, String price, String openid) {
         String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(RECHARGE_SUCCESS_KEY);
-        Map<String,String> map = new HashMap<>();
-        map.put("first","您的账户金币发生变动，详情如下：");
-        map.put("keyword1","充值");
-        map.put("keyword2",time);
-        map.put("keyword3",price);
-        map.put("remark","yshop电商系统为你服务！");
-        templateMessageService.sendWxMpTemplateMessage( openid
-                ,WechatTemplate.getTempid(),
-                siteUrl+"/user/account",map);
+        Map<String, String> map = new HashMap<>();
+        map.put("first", "您的账户金币发生变动，详情如下：");
+        map.put("keyword1", "充值");
+        map.put("keyword2", time);
+        map.put("keyword3", price);
+        map.put("remark", "yshop电商系统为你服务！");
+        templateMessageService.sendWxMpTemplateMessage(openid
+                , WechatTemplate.getTempid(),
+                siteUrl + "/user/account", map);
     }
 
 
@@ -60,17 +60,17 @@ public class YxTemplateService {
      * @param price
      * @param openid
      */
-    public void paySuccessNotice(String orderId,String price,String openid){
+    public void paySuccessNotice(String orderId, String price, String openid) {
         String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(PAY_SUCCESS_KEY);
-        Map<String,String> map = new HashMap<>();
-        map.put("first","您的订单已支付成功，我们会尽快为您发货。");
-        map.put("keyword1",orderId);//订单号
-        map.put("keyword2",price);
-        map.put("remark","yshop电商系统为你服务！");
-        templateMessageService.sendWxMpTemplateMessage( openid
-                ,WechatTemplate.getTempid(),
-                siteUrl+"/order/detail/"+orderId,map);
+        Map<String, String> map = new HashMap<>();
+        map.put("first", "您的订单已支付成功，我们会尽快为您发货。");
+        map.put("keyword1", orderId);//订单号
+        map.put("keyword2", price);
+        map.put("remark", "yshop电商系统为你服务！");
+        templateMessageService.sendWxMpTemplateMessage(openid
+                , WechatTemplate.getTempid(),
+                siteUrl + "/order/detail/" + orderId, map);
     }
 
     /**
@@ -80,18 +80,18 @@ public class YxTemplateService {
      * @param openid
      * @param time
      */
-    public void refundSuccessNotice(String orderId,String price,String openid,String time){
+    public void refundSuccessNotice(String orderId, String price, String openid, String time) {
         String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(REFUND_SUCCESS_KEY);
-        Map<String,String> map = new HashMap<>();
-        map.put("first","您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
-        map.put("keyword1",orderId);//订单号
-        map.put("keyword2",price);
+        Map<String, String> map = new HashMap<>();
+        map.put("first", "您在yshop的订单退款申请被通过，钱款将很快还至您的支付账户。");
+        map.put("keyword1", orderId);//订单号
+        map.put("keyword2", price);
         map.put("keyword3", time);
-        map.put("remark","yshop电商系统为你服务！");
-        templateMessageService.sendWxMpTemplateMessage( openid
-                ,WechatTemplate.getTempid(),
-                siteUrl+"/order/detail/"+orderId,map);
+        map.put("remark", "yshop电商系统为你服务！");
+        templateMessageService.sendWxMpTemplateMessage(openid
+                , WechatTemplate.getTempid(),
+                siteUrl + "/order/detail/" + orderId, map);
     }
 
     /**
@@ -101,20 +101,19 @@ public class YxTemplateService {
      * @param deliveryId
      * @param openid
      */
-    public void deliverySuccessNotice(String orderId,String deliveryName,String deliveryId,String openid){
+    public void deliverySuccessNotice(String orderId, String deliveryName, String deliveryId, String openid) {
         String siteUrl = RedisUtil.get(ShopKeyUtils.getSiteUrl());
         YxWechatTemplate WechatTemplate = templateService.findByTempkey(DELIVERY_SUCCESS_KEY);
-        Map<String,String> map = new HashMap<>();
-        map.put("first","亲，宝贝已经启程了，好想快点来到你身边。");
-        map.put("keyword1",orderId);//订单号
-        map.put("keyword2",deliveryName);
-        map.put("keyword3",deliveryId);
-        map.put("remark","yshop电商系统为你服务！");
-        templateMessageService.sendWxMpTemplateMessage( openid
-                ,WechatTemplate.getTempid(),
-                siteUrl+"/order/detail/"+orderId,map);
+        Map<String, String> map = new HashMap<>();
+        map.put("first", "亲，宝贝已经启程了，好想快点来到你身边。");
+        map.put("keyword1", orderId);//订单号
+        map.put("keyword2", deliveryName);
+        map.put("keyword3", deliveryId);
+        map.put("remark", "yshop电商系统为你服务！");
+        templateMessageService.sendWxMpTemplateMessage(openid
+                , WechatTemplate.getTempid(),
+                siteUrl + "/order/detail/" + orderId, map);
     }
-
 
 
 }

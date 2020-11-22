@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxWechatUser")
@@ -60,7 +60,7 @@ public class YxWechatUserServiceImpl extends BaseServiceImpl<WechatUserMapper, Y
 
     @Override
     //@Cacheable
-    public List<YxWechatUser> queryAll(YxWechatUserQueryCriteria criteria){
+    public List<YxWechatUser> queryAll(YxWechatUserQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxWechatUser.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxWechatUserServiceImpl extends BaseServiceImpl<WechatUserMapper, Y
     public void download(List<YxWechatUserDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxWechatUserDto yxWechatUser : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段", yxWechatUser.getUnionid());
             map.put("用户的标识，对当前公众号唯一", yxWechatUser.getOpenid());
             map.put("小程序唯一身份ID", yxWechatUser.getRoutineOpenid());

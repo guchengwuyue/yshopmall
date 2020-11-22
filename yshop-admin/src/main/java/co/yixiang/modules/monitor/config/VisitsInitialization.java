@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 初始化站点统计
+ *
  * @author Zheng Jie
  */
 @Component
@@ -19,7 +20,7 @@ public class VisitsInitialization implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args){
+    public void run(ApplicationArguments args) {
         System.out.println("--------------- 初始化站点统计，如果存在今日统计则跳过 ---------------");
         visitsService.save();
         System.out.println("--------------- 初始化站点统计完成 ---------------");

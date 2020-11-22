@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-11-10
-*/
+ * @author hupeng
+ * @date 2019-11-10
+ */
 @Api(tags = "商城:优惠券发放记录管理")
 @RestController
 @RequestMapping("api")
@@ -38,8 +38,8 @@ public class StoreCouponUserController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxStoreCouponUser")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONUSER_ALL','YXSTORECOUPONUSER_SELECT')")
-    public ResponseEntity getYxStoreCouponUsers(YxStoreCouponUserQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxStoreCouponUserService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxStoreCouponUsers(YxStoreCouponUserQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxStoreCouponUserService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
 

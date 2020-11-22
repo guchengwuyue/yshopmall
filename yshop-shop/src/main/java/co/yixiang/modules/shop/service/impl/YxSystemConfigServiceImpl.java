@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxSystemConfig")
@@ -61,7 +61,7 @@ public class YxSystemConfigServiceImpl extends BaseServiceImpl<SystemConfigMappe
 
     @Override
     //@Cacheable
-    public List<YxSystemConfig> queryAll(YxSystemConfigQueryCriteria criteria){
+    public List<YxSystemConfig> queryAll(YxSystemConfigQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemConfig.class, criteria));
     }
 
@@ -70,7 +70,7 @@ public class YxSystemConfigServiceImpl extends BaseServiceImpl<SystemConfigMappe
     public void download(List<YxSystemConfigDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxSystemConfigDto yxSystemConfig : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("字段名称", yxSystemConfig.getMenuName());
             map.put("默认值", yxSystemConfig.getValue());
             map.put("排序", yxSystemConfig.getSort());
@@ -82,6 +82,6 @@ public class YxSystemConfigServiceImpl extends BaseServiceImpl<SystemConfigMappe
 
     @Override
     public YxSystemConfig findByKey(String key) {
-        return this.getOne(new LambdaQueryWrapper<YxSystemConfig>().eq(YxSystemConfig::getMenuName,key));
+        return this.getOne(new LambdaQueryWrapper<YxSystemConfig>().eq(YxSystemConfig::getMenuName, key));
     }
 }

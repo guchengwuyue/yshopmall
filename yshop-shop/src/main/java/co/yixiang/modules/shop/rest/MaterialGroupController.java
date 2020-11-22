@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2020-01-09
-*/
+ * @author hupeng
+ * @date 2020-01-09
+ */
 @Api(tags = "商城:素材分组管理")
 @RestController
 @RequestMapping("/api/materialgroup")
@@ -41,25 +41,24 @@ public class MaterialGroupController {
     }
 
 
-
     @GetMapping(value = "/page")
     @Log("查询素材分组")
     @ApiOperation("查询素材分组")
-    public ResponseEntity<Object> getYxMaterialGroups(YxMaterialGroupQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxMaterialGroupService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxMaterialGroups(YxMaterialGroupQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxMaterialGroupService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增素材分组")
     @ApiOperation("新增素材分组")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxMaterialGroup resources){
-        return new ResponseEntity<>(yxMaterialGroupService.save(resources),HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@Validated @RequestBody YxMaterialGroup resources) {
+        return new ResponseEntity<>(yxMaterialGroupService.save(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改素材分组")
     @ApiOperation("修改素材分组")
-    public ResponseEntity<Object> update(@Validated @RequestBody YxMaterialGroup resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody YxMaterialGroup resources) {
         yxMaterialGroupService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

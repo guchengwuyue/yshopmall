@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.handler;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -35,12 +35,12 @@ public class SubscribeHandler extends AbstractHandler {
 
         String str = "你好，欢迎关注yshop!";
         YxWechatReply wechatReply = yxWechatReplyService.isExist("subscribe");
-        if(!ObjectUtil.isNull(wechatReply)){
+        if (!ObjectUtil.isNull(wechatReply)) {
             str = JSONObject.parseObject(wechatReply.getData()).getString("content");
         }
 
         try {
-            WxMpXmlOutMessage msg= WxMpXmlOutMessage.TEXT()
+            WxMpXmlOutMessage msg = WxMpXmlOutMessage.TEXT()
                     .content(str)
                     .fromUser(wxMessage.getToUser())
                     .toUser(wxMessage.getFromUser())
@@ -51,10 +51,8 @@ public class SubscribeHandler extends AbstractHandler {
         }
 
 
-
         return null;
     }
-
 
 
 }

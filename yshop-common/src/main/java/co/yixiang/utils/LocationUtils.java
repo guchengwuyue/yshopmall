@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
 
 import cn.hutool.core.util.NumberUtil;
@@ -40,7 +40,7 @@ public class LocationUtils {
         s = s * EARTH_RADIUS;
         s = Math.round(s * 10000d) / 10000d;
         //s = s*1000;
-        return  NumberUtil.round(s,2).doubleValue();
+        return NumberUtil.round(s, 2).doubleValue();
         //return s;
     }
 }

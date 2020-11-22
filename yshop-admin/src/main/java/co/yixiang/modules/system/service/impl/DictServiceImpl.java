@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "dict")
@@ -60,7 +60,7 @@ public class DictServiceImpl extends BaseServiceImpl<DictMapper, Dict> implement
 
     @Override
     //@Cacheable
-    public List<Dict> queryAll(DictQueryCriteria criteria){
+    public List<Dict> queryAll(DictQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(Dict.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class DictServiceImpl extends BaseServiceImpl<DictMapper, Dict> implement
     public void download(List<DictDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DictDto dict : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("字典名称", dict.getName());
             map.put("描述", dict.getRemark());
             map.put("创建日期", dict.getCreateTime());

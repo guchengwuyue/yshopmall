@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.config;
 
 import co.yixiang.modules.system.domain.Dept;
@@ -28,7 +28,7 @@ import java.util.Set;
 @Component
 public class DataScope {
 
-    private final String[] scopeType = {"全部","本级","自定义"};
+    private final String[] scopeType = {"全部", "本级", "自定义"};
 
     private final UserService userService;
 
@@ -55,7 +55,7 @@ public class DataScope {
         for (RoleSmallDto role : roleSet) {
 
             if (scopeType[0].equals(role.getDataScope())) {
-                return new HashSet<>() ;
+                return new HashSet<>();
             }
 
             // 存储本级的数据权限
@@ -82,9 +82,9 @@ public class DataScope {
     public List<Long> getDeptChildren(List<Dept> deptList) {
         List<Long> list = new ArrayList<>();
         deptList.forEach(dept -> {
-                    if (dept!=null && dept.getEnabled()){
+                    if (dept != null && dept.getEnabled()) {
                         List<Dept> depts = deptService.findByPid(dept.getId());
-                        if(deptList.size() != 0){
+                        if (deptList.size() != 0) {
                             list.addAll(getDeptChildren(depts));
                         }
                         list.add(dept.getId());

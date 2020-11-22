@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.NumberUtil;
@@ -43,16 +43,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 
 /**
-* @author hupeng
-* @date 2019-11-14
-*/
+ * @author hupeng
+ * @date 2019-11-14
+ */
 @Api(tags = "商城:提现管理")
 @RestController
 @RequestMapping("api")
 public class UserExtractController {
 
     private final YxUserExtractService yxUserExtractService;
-    private final  YxUserService yxUserService;
+    private final YxUserService yxUserService;
     private final YxUserBillService yxUserBillService;
     private final YxWechatUserService wechatUserService;
     private final YxPayService payService;
@@ -73,29 +73,28 @@ public class UserExtractController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxUserExtract")
     @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_SELECT')")
-    public ResponseEntity getYxUserExtracts(YxUserExtractQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxUserExtractService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxUserExtracts(YxUserExtractQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxUserExtractService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
 
 
     @Log("修改")
     @ApiOperation(value = "修改审核")
     @PutMapping(value = "/yxUserExtract")
     @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxUserExtract resources){
-        if(StrUtil.isEmpty(resources.getStatus().toString())){
+    public ResponseEntity update(@Validated @RequestBody YxUserExtract resources) {
+        if (StrUtil.isEmpty(resources.getStatus().toString())) {
             throw new BadRequestException("请选择审核状态");
         }
-        if(resources.getStatus() != -1 && resources.getStatus() != 1){
+        if (resources.getStatus() != -1 && resources.getStatus() != 1) {
             throw new BadRequestException("请选择审核状态");
         }
-        if(resources.getStatus() == -1){
-            if(StrUtil.isEmpty(resources.getFailMsg())){
+        if (resources.getStatus() == -1) {
+            if (StrUtil.isEmpty(resources.getFailMsg())) {
                 throw new BadRequestException("请填写失败原因");
             }
-            String mark = "提现失败,退回佣金"+resources.getExtractPrice()+"元";
-            YxUserDto userDTO = generator.convert(yxUserService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,resources.getUid())),YxUserDto.class);
+            String mark = "提现失败,退回佣金" + resources.getExtractPrice() + "元";
+            YxUserDto userDTO = generator.convert(yxUserService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, resources.getUid())), YxUserDto.class);
 
             //增加流水
             YxUserBill userBill = new YxUserBill();
@@ -105,7 +104,7 @@ public class UserExtractController {
             userBill.setType("extract");
             userBill.setNumber(resources.getExtractPrice());
             userBill.setLinkId(resources.getId().toString());
-            userBill.setBalance(NumberUtil.add(userDTO.getBrokeragePrice(),resources.getExtractPrice()));
+            userBill.setBalance(NumberUtil.add(userDTO.getBrokeragePrice(), resources.getExtractPrice()));
             userBill.setMark(mark);
             userBill.setStatus(1);
             userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -114,24 +113,24 @@ public class UserExtractController {
 
             //返回提现金额
             yxUserService.incBrokeragePrice(resources.getExtractPrice().doubleValue()
-                    ,resources.getUid());
+                    , resources.getUid());
 
             resources.setFailTime(OrderUtil.getSecondTimestampTwo());
 
         }
         //todo 此处为企业付款，没经过测试
         boolean isTest = true;
-        if(!isTest){
-            YxWechatUserDto wechatUser =  generator.convert(wechatUserService.getOne(new LambdaQueryWrapper<YxWechatUser>().eq(YxWechatUser::getUid,resources.getUid())),YxWechatUserDto.class);
-            if(ObjectUtil.isNotNull(wechatUser)){
+        if (!isTest) {
+            YxWechatUserDto wechatUser = generator.convert(wechatUserService.getOne(new LambdaQueryWrapper<YxWechatUser>().eq(YxWechatUser::getUid, resources.getUid())), YxWechatUserDto.class);
+            if (ObjectUtil.isNotNull(wechatUser)) {
                 try {
-                    payService.entPay(wechatUser.getOpenid(),resources.getId().toString(),
+                    payService.entPay(wechatUser.getOpenid(), resources.getId().toString(),
                             resources.getRealName(),
                             resources.getExtractPrice().multiply(new BigDecimal(100)).intValue());
                 } catch (WxPayException e) {
                     throw new BadRequestException(e.getMessage());
                 }
-            }else{
+            } else {
                 throw new BadRequestException("不是微信用户无法退款");
             }
 

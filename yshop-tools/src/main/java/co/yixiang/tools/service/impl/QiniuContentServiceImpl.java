@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "qiniuContent")
@@ -60,7 +60,7 @@ public class QiniuContentServiceImpl extends BaseServiceImpl<QiniuContentMapper,
 
     @Override
     //@Cacheable
-    public List<QiniuContent> queryAll(QiniuQueryCriteria criteria){
+    public List<QiniuContent> queryAll(QiniuQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QiniuContent.class, criteria));
     }
 
@@ -69,14 +69,14 @@ public class QiniuContentServiceImpl extends BaseServiceImpl<QiniuContentMapper,
     public void download(List<QiniuContentDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (QiniuContentDto qiniuContent : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("Bucket 识别符", qiniuContent.getBucket());
             map.put("文件名称", qiniuContent.getKey());
             map.put("文件大小", qiniuContent.getSize());
             map.put("文件类型：私有或公开", qiniuContent.getType());
             map.put("上传或同步的时间", qiniuContent.getUpdateTime());
             map.put("文件url", qiniuContent.getUrl());
-            map.put(" suffix",  qiniuContent.getSuffix());
+            map.put(" suffix", qiniuContent.getSuffix());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

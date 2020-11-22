@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.builder;
 
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -20,8 +20,8 @@ public class TextBuilder extends AbstractBuilder {
     public WxMpXmlOutMessage build(String content, WxMpXmlMessage wxMessage,
                                    WxMpService service) {
         WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content(content)
-            .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
-            .build();
+                .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+                .build();
         return m;
     }
 

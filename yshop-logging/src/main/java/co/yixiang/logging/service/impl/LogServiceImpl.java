@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.logging.service.impl;
 
 import cn.hutool.core.lang.Dict;
@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.logging.domain.Log>  implements LogService {
+public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.logging.domain.Log> implements LogService {
 
 
     private final LogMapper logMapper;
@@ -59,21 +59,21 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
     public Object findAllByPageable(String nickname, Pageable pageable) {
         getPage(pageable);
         PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(logMapper.findAllByPageable(nickname));
-        Map<String,Object> map = new LinkedHashMap<>(2);
-        map.put("content",page.getList());
-        map.put("totalElements",page.getTotal());
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", page.getList());
+        map.put("totalElements", page.getTotal());
         return map;
     }
 
 
     @Override
-    public Object queryAll(LogQueryCriteria criteria, Pageable pageable){
+    public Object queryAll(LogQueryCriteria criteria, Pageable pageable) {
 
         getPage(pageable);
         PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(queryAll(criteria));
         Map<String, Object> map = new LinkedHashMap<>(2);
         String status = "ERROR";
-        if(status.equals(criteria.getLogType())){
+        if (status.equals(criteria.getLogType())) {
             map.put("content", generator.convert(page.getList(), LogErrorDTO.class));
             map.put("totalElements", page.getTotal());
         }
@@ -101,21 +101,21 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(String username, String ip, ProceedingJoinPoint joinPoint,
-                     co.yixiang.logging.domain.Log log, Long uid){
+                     co.yixiang.logging.domain.Log log, Long uid) {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         Log aopLog = method.getAnnotation(Log.class);
 
         // 方法路径
-        String methodName = joinPoint.getTarget().getClass().getName()+"."+signature.getName()+"()";
+        String methodName = joinPoint.getTarget().getClass().getName() + "." + signature.getName() + "()";
 
         StringBuilder params = new StringBuilder("{");
         //参数值
         Object[] argValues = joinPoint.getArgs();
         //参数名称
-        String[] argNames = ((MethodSignature)joinPoint.getSignature()).getParameterNames();
-        if(argValues != null){
+        String[] argNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
+        if (argValues != null) {
             for (int i = 0; i < argValues.length; i++) {
                 params.append(" ").append(argNames[i]).append(": ").append(argValues[i]);
             }
@@ -126,18 +126,18 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
         }
         //类型 0-后台 1-前台
         log.setType(aopLog.type());
-        if(uid != null) {
+        if (uid != null) {
             log.setUid(uid);
         }
         assert log != null;
         log.setRequestIp(ip);
 
         String loginPath = "login";
-        if(loginPath.equals(signature.getName())){
+        if (loginPath.equals(signature.getName())) {
             try {
                 assert argValues != null;
                 username = new JSONObject(argValues[0]).get("username").toString();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -151,16 +151,16 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
     @Override
     public Object findByErrDetail(Long id) {
         co.yixiang.logging.domain.Log log = this.getById(id);
-        ValidationUtil.isNull( log.getId(),"Log","id", id);
+        ValidationUtil.isNull(log.getId(), "Log", "id", id);
         byte[] details = log.getExceptionDetail();
-        return Dict.create().set("exception",new String(ObjectUtil.isNotNull(details) ? details : "".getBytes()));
+        return Dict.create().set("exception", new String(ObjectUtil.isNotNull(details) ? details : "".getBytes()));
     }
 
     @Override
     public void download(List<co.yixiang.logging.domain.Log> logs, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (co.yixiang.logging.domain.Log log : logs) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户名", log.getUsername());
             map.put("IP", log.getRequestIp());
             map.put("IP来源", log.getAddress());

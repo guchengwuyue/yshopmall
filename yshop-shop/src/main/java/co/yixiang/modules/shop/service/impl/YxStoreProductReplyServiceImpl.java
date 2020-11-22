@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -39,9 +39,9 @@ import java.util.stream.Collectors;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreProductReply")
@@ -68,10 +68,11 @@ public class YxStoreProductReplyServiceImpl extends BaseServiceImpl<StoreProduct
 
     @Override
     //@Cacheable
-    public List<YxStoreProductReply> queryAll(YxStoreProductReplyQueryCriteria criteria){
-        List<YxStoreProductReply> storeProductReplyList =  baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreProductReply.class, criteria));
-        storeProductReplyList.forEach(yxStoreProductReply->{
-            yxStoreProductReply.setUser(yxUserService.getById(yxStoreProductReply.getUid()));;
+    public List<YxStoreProductReply> queryAll(YxStoreProductReplyQueryCriteria criteria) {
+        List<YxStoreProductReply> storeProductReplyList = baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreProductReply.class, criteria));
+        storeProductReplyList.forEach(yxStoreProductReply -> {
+            yxStoreProductReply.setUser(yxUserService.getById(yxStoreProductReply.getUid()));
+            ;
             yxStoreProductReply.setStoreProduct(yxStoreProductService.getById(yxStoreProductReply.getProductId()));
         });
         return storeProductReplyList;
@@ -82,7 +83,7 @@ public class YxStoreProductReplyServiceImpl extends BaseServiceImpl<StoreProduct
     public void download(List<YxStoreProductReplyDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreProductReplyDto yxStoreProductReply : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户ID", yxStoreProductReply.getUid());
             map.put("订单ID", yxStoreProductReply.getOid());
             map.put("唯一id", yxStoreProductReply.getUnique());

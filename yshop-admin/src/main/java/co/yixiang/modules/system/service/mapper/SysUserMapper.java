@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.mapper;
 
 import co.yixiang.common.mapper.CoreMapper;
@@ -15,9 +15,9 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Repository
 @Mapper
 public interface SysUserMapper extends CoreMapper<User> {
@@ -29,7 +29,7 @@ public interface SysUserMapper extends CoreMapper<User> {
      * @param lastPasswordResetTime /
      */
     @Update("update `user` set password = #{password} , last_password_reset_time = #{lastPasswordResetTime} where username = #{username}")
-    void updatePass( @Param("password") String password,@Param("lastPasswordResetTime") String lastPasswordResetTime, @Param("username") String username);
+    void updatePass(@Param("password") String password, @Param("lastPasswordResetTime") String lastPasswordResetTime, @Param("username") String username);
 
     /**
      * 修改邮箱

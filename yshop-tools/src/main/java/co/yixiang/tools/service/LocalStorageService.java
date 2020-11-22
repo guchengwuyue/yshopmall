@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.service;
 
 import co.yixiang.common.service.BaseService;
@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
-public interface LocalStorageService  extends BaseService<LocalStorage>{
+ * @author hupeng
+ * @date 2020-05-13
+ */
+public interface LocalStorageService extends BaseService<LocalStorage> {
 
     /**
      * 分页查询

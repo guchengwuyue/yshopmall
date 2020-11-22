@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service;
 
 import co.yixiang.common.service.BaseService;
@@ -20,44 +20,45 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
-public interface YxStoreOrderService  extends BaseService<YxStoreOrder>{
-
-/**
-    * 查询数据分页
-    * @param criteria 条件
-    * @param pageable 分页参数
-    * @return Map<String,Object>
-    */
-    Map<String,Object> queryAll(YxStoreOrderQueryCriteria criteria, Pageable pageable);
+ * @author hupeng
+ * @date 2020-05-12
+ */
+public interface YxStoreOrderService extends BaseService<YxStoreOrder> {
 
     /**
-    * 查询所有数据不分页
-    * @param criteria 条件参数
-    * @return List<YxStoreOrderDto>
-    */
+     * 查询数据分页
+     * @param criteria 条件
+     * @param pageable 分页参数
+     * @return Map<String, Object>
+     */
+    Map<String, Object> queryAll(YxStoreOrderQueryCriteria criteria, Pageable pageable);
+
+    /**
+     * 查询所有数据不分页
+     * @param criteria 条件参数
+     * @return List<YxStoreOrderDto>
+     */
     List<YxStoreOrder> queryAll(YxStoreOrderQueryCriteria criteria);
 
 
     YxStoreOrderDto create(YxStoreOrder resources);
 
     void update(YxStoreOrder resources);
+
     /**
-    * 导出数据
-    * @param all 待导出的数据
-    * @param response /
-    * @throws IOException /
-    */
+     * 导出数据
+     * @param all 待导出的数据
+     * @param response /
+     * @throws IOException /
+     */
     void download(List<YxStoreOrderDto> all, HttpServletResponse response) throws IOException;
 
 
-    Map<String,Object> queryAll(List<String> ids);
+    Map<String, Object> queryAll(List<String> ids);
 
 
-    String orderType(int id,int pinkId, int combinationId,int seckillId,
-                     int bargainId,int shippingType);
+    String orderType(int id, int pinkId, int combinationId, int seckillId,
+                     int bargainId, int shippingType);
 
     void refund(YxStoreOrder resources);
 
@@ -65,5 +66,5 @@ public interface YxStoreOrderService  extends BaseService<YxStoreOrder>{
 
     OrderTimeDataDto getOrderTimeData();
 
-    Map<String,Object> chartCount();
+    Map<String, Object> chartCount();
 }

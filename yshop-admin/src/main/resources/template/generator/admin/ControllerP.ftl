@@ -33,51 +33,55 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/${changeClassName}")
 public class ${className}Controller {
 
-    private final ${className}Service ${changeClassName}Service;
-    private final IGenerator generator;
+private final ${className}Service ${changeClassName}Service;
+private final IGenerator generator;
 
 
-    @Log("导出数据")
-    @ApiOperation("导出数据")
-    @GetMapping(value = "/download")
-    @PreAuthorize("@el.check('admin','${changeClassName}:list')")
-    public void download(HttpServletResponse response, ${className}QueryCriteria criteria) throws IOException {
-        ${changeClassName}Service.download(generator.convert(${changeClassName}Service.queryAll(criteria), ${className}Dto.class), response);
-    }
+@Log("导出数据")
+@ApiOperation("导出数据")
+@GetMapping(value = "/download")
+@PreAuthorize("@el.check('admin','${changeClassName}:list')")
+public void download(HttpServletResponse response, ${className}QueryCriteria criteria) throws IOException {
+${changeClassName}Service.download(generator.convert(${changeClassName}Service.queryAll(criteria), ${className}Dto.class), response);
+}
 
-    @GetMapping
-    @Log("查询${apiAlias}")
-    @ApiOperation("查询${apiAlias}")
-    @PreAuthorize("@el.check('admin','${changeClassName}:list')")
-    public ResponseEntity<Object> get${className}s(${className}QueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable),HttpStatus.OK);
+@GetMapping
+@Log("查询${apiAlias}")
+@ApiOperation("查询${apiAlias}")
+@PreAuthorize("@el.check('admin','${changeClassName}:list')")
+public ResponseEntity
+<Object> get${className}s(${className}QueryCriteria criteria, Pageable pageable){
+    return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增${apiAlias}")
     @ApiOperation("新增${apiAlias}")
     @PreAuthorize("@el.check('admin','${changeClassName}:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody ${className} resources){
+    public ResponseEntity
+    <Object> create(@Validated @RequestBody ${className} resources){
         return new ResponseEntity<>(${changeClassName}Service.save(resources),HttpStatus.CREATED);
-    }
+        }
 
-    @PutMapping
-    @Log("修改${apiAlias}")
-    @ApiOperation("修改${apiAlias}")
-    @PreAuthorize("@el.check('admin','${changeClassName}:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody ${className} resources){
-        ${changeClassName}Service.updateById(resources);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+        @PutMapping
+        @Log("修改${apiAlias}")
+        @ApiOperation("修改${apiAlias}")
+        @PreAuthorize("@el.check('admin','${changeClassName}:edit')")
+        public ResponseEntity
+        <Object> update(@Validated @RequestBody ${className} resources){
+            ${changeClassName}Service.updateById(resources);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
 
-    @Log("删除${apiAlias}")
-    @ApiOperation("删除${apiAlias}")
-    @PreAuthorize("@el.check('admin','${changeClassName}:del')")
-    @DeleteMapping
-    public ResponseEntity<Object> deleteAll(@RequestBody ${pkColumnType}[] ids) {
-        Arrays.asList(ids).forEach(id->{
-            ${changeClassName}Service.removeById(id);
-        });
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-}
+            @Log("删除${apiAlias}")
+            @ApiOperation("删除${apiAlias}")
+            @PreAuthorize("@el.check('admin','${changeClassName}:del')")
+            @DeleteMapping
+            public ResponseEntity
+            <Object> deleteAll(@RequestBody ${pkColumnType}[] ids) {
+                Arrays.asList(ids).forEach(id->{
+                ${changeClassName}Service.removeById(id);
+                });
+                return new ResponseEntity<>(HttpStatus.OK);
+                }
+                }

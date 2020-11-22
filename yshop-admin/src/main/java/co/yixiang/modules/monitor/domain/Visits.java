@@ -16,8 +16,8 @@ import java.sql.Timestamp;
  * @date 2018-12-13
  */
 @Data
-@TableName( "visits")
-public class Visits  implements Serializable {
+@TableName("visits")
+public class Visits implements Serializable {
 
     @TableId
     private Long id;

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -34,9 +34,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxUserBill")
@@ -59,9 +59,9 @@ public class YxUserBillServiceImpl extends BaseServiceImpl<UserBillMapper, YxUse
 
     @Override
     //@Cacheable
-    public List<YxUserBillDto> queryAll(YxUserBillQueryCriteria criteria){
+    public List<YxUserBillDto> queryAll(YxUserBillQueryCriteria criteria) {
 
-        return baseMapper.findAllByQueryCriteria(criteria.getCategory(),criteria.getType(),criteria.getNickname());
+        return baseMapper.findAllByQueryCriteria(criteria.getCategory(), criteria.getType(), criteria.getNickname());
     }
 
 
@@ -69,7 +69,7 @@ public class YxUserBillServiceImpl extends BaseServiceImpl<UserBillMapper, YxUse
     public void download(List<YxUserBillDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxUserBillDto yxUserBill : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户uid", yxUserBill.getUid());
             map.put("关联id", yxUserBill.getLinkId());
             map.put("0 = 支出 1 = 获得", yxUserBill.getPm());

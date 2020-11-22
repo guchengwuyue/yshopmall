@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.common.utils;
 
 import cn.hutool.core.collection.CollUtil;
@@ -53,10 +53,10 @@ public class QueryHelpPlus {
                         String[] blurrys = blurry.split(",");
                         //queryWrapper.or();
                         queryWrapper.and(wrapper -> {
-                            for (int i=0;i< blurrys.length;i++) {
+                            for (int i = 0; i < blurrys.length; i++) {
                                 String column = humpToUnderline(blurrys[i]);
                                 //if(i!=0){
-                                    wrapper.or();
+                                wrapper.or();
                                 //}
                                 wrapper.like(column, val.toString());
                             }
@@ -70,44 +70,44 @@ public class QueryHelpPlus {
                             queryWrapper.eq(attributeName, val);
                             break;
                         case GREATER_THAN:
-                           queryWrapper.ge(finalAttributeName, val);
+                            queryWrapper.ge(finalAttributeName, val);
                             break;
                         case LESS_THAN:
                             queryWrapper.le(finalAttributeName, val);
                             break;
                         case LESS_THAN_NQ:
-                           queryWrapper.lt(finalAttributeName, val);
+                            queryWrapper.lt(finalAttributeName, val);
                             break;
                         case INNER_LIKE:
-                           queryWrapper.like(finalAttributeName, val);
+                            queryWrapper.like(finalAttributeName, val);
                             break;
                         case LEFT_LIKE:
-                           queryWrapper.likeLeft(finalAttributeName, val);
+                            queryWrapper.likeLeft(finalAttributeName, val);
                             break;
                         case RIGHT_LIKE:
-                           queryWrapper.likeRight(finalAttributeName, val);
+                            queryWrapper.likeRight(finalAttributeName, val);
                             break;
                         case IN:
                             if (CollUtil.isNotEmpty((Collection<Long>) val)) {
-                               queryWrapper.in(finalAttributeName, (Collection<Long>) val);
+                                queryWrapper.in(finalAttributeName, (Collection<Long>) val);
                             }
                             break;
                         case NOT_EQUAL:
-                           queryWrapper.ne(finalAttributeName, val);
+                            queryWrapper.ne(finalAttributeName, val);
                             break;
                         case NOT_NULL:
-                           queryWrapper.isNotNull(finalAttributeName);
+                            queryWrapper.isNotNull(finalAttributeName);
                             break;
                         case BETWEEN:
                             List<Object> between = new ArrayList<>((List<Object>) val);
-                           queryWrapper.between(finalAttributeName, between.get(0), between.get(1));
+                            queryWrapper.between(finalAttributeName, between.get(0), between.get(1));
                             break;
                         case UNIX_TIMESTAMP:
-                            List<Object> UNIX_TIMESTAMP = new ArrayList<>((List<Object>)val);
-                            if(!UNIX_TIMESTAMP.isEmpty()){
+                            List<Object> UNIX_TIMESTAMP = new ArrayList<>((List<Object>) val);
+                            if (!UNIX_TIMESTAMP.isEmpty()) {
                                 SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                long time1 = fm.parse(UNIX_TIMESTAMP.get(0).toString()).getTime()/1000;
-                                long time2 = fm.parse(UNIX_TIMESTAMP.get(1).toString()).getTime()/1000;
+                                long time1 = fm.parse(UNIX_TIMESTAMP.get(0).toString()).getTime() / 1000;
+                                long time2 = fm.parse(UNIX_TIMESTAMP.get(1).toString()).getTime() / 1000;
                                 queryWrapper.between(finalAttributeName, time1, time2);
                             }
                             break;
@@ -123,7 +123,6 @@ public class QueryHelpPlus {
 
         return queryWrapper;
     }
-
 
 
     private static boolean isBlank(final CharSequence cs) {

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 重复提交aop
+ *
  * @author hupeng
  * @since 2020-06-02
  */
@@ -23,8 +24,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ForbidSubmitAspect {
-
-
 
 
     @Pointcut("@annotation(forbidSubmit)")

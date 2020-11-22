@@ -66,7 +66,7 @@ public class Swagger2Controller {
             propertyKey = "springfox.documentation.swagger.v2.path"
     )
     @ResponseBody
-    public ResponseEntity getDocumentation(@RequestParam(value = "group",required = false) String swaggerGroup, HttpServletRequest servletRequest) {
+    public ResponseEntity getDocumentation(@RequestParam(value = "group", required = false) String swaggerGroup, HttpServletRequest servletRequest) {
         String groupName = (String) Optional.ofNullable(swaggerGroup).orElse("default");
         Documentation documentation = this.documentationCache.documentationByGroup(groupName);
         if (documentation == null) {

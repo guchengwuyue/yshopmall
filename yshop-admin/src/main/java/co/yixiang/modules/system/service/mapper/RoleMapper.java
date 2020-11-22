@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.mapper;
 
 import co.yixiang.common.mapper.CoreMapper;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Repository
 @Mapper
 public interface RoleMapper extends CoreMapper<Role> {
@@ -30,9 +30,9 @@ public interface RoleMapper extends CoreMapper<Role> {
      * @param id 用户ID
      * @return
      */
-    @Select( "SELECT r.id,r.create_time,r.data_scope,r.`level`,r.`name`,r.permission,r.remark " +
+    @Select("SELECT r.id,r.create_time,r.data_scope,r.`level`,r.`name`,r.permission,r.remark " +
             "FROM role r LEFT OUTER JOIN users_roles u1 ON r.id = u1.role_id " +
-            "LEFT OUTER JOIN user u2 ON u1.user_id = u2.id "+
+            "LEFT OUTER JOIN user u2 ON u1.user_id = u2.id " +
             "WHERE u2.id = #{id}")
     Set<Role> findByUsers_Id(@Param("id") Long id);
 

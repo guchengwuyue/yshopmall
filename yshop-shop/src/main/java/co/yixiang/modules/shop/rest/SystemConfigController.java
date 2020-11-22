@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-10-10
-*/
+ * @author hupeng
+ * @date 2019-10-10
+ */
 @Api(tags = "商城:配置管理")
 @RestController
 @RequestMapping("api")
@@ -51,37 +51,37 @@ public class SystemConfigController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
-    public ResponseEntity getYxSystemConfigs(YxSystemConfigQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxSystemConfigService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxSystemConfigs(YxSystemConfigQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxSystemConfigService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @Log("新增或修改")
     @ApiOperation(value = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")
-    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
+    @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")
-    public ResponseEntity create(@RequestBody String jsonStr){
+    public ResponseEntity create(@RequestBody String jsonStr) {
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         jsonObject.forEach(
-                (key,value)->{
+                (key, value) -> {
                     YxSystemConfig yxSystemConfig = yxSystemConfigService.getOne(new LambdaQueryWrapper<YxSystemConfig>()
-                            .eq(YxSystemConfig::getMenuName,key));
+                            .eq(YxSystemConfig::getMenuName, key));
                     YxSystemConfig yxSystemConfigModel = new YxSystemConfig();
                     yxSystemConfigModel.setMenuName(key);
                     yxSystemConfigModel.setValue(value.toString());
                     //重新配置微信相关
-                    if(SystemConfigConstants.WECHAT_APPID.equals(key)){
+                    if (SystemConfigConstants.WECHAT_APPID.equals(key)) {
                         WxMpConfiguration.removeWxMpService();
                         WxPayConfiguration.removeWxPayService();
                     }
-                    if(SystemConfigConstants.WXPAY_MCHID.equals(key) || SystemConfigConstants.WXAPP_APPID.equals(key)){
+                    if (SystemConfigConstants.WXPAY_MCHID.equals(key) || SystemConfigConstants.WXAPP_APPID.equals(key)) {
                         WxPayConfiguration.removeWxPayService();
                     }
-                    RedisUtil.set(key,value.toString(),0);
-                    if(ObjectUtil.isNull(yxSystemConfig)){
+                    RedisUtil.set(key, value.toString(), 0);
+                    if (ObjectUtil.isNull(yxSystemConfig)) {
                         yxSystemConfigService.save(yxSystemConfigModel);
-                    }else{
+                    } else {
                         yxSystemConfigModel.setId(yxSystemConfig.getId());
                         yxSystemConfigService.saveOrUpdate(yxSystemConfigModel);
                     }
@@ -90,7 +90,6 @@ public class SystemConfigController {
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 
 
 }

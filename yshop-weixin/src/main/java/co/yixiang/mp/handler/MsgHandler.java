@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.handler;
 
 import co.yixiang.mp.builder.TextBuilder;
@@ -34,11 +34,11 @@ public class MsgHandler extends AbstractHandler {
         //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服
         try {
             if (StringUtils.startsWithAny(wxMessage.getContent(), "你好", "客服")
-                && weixinService.getKefuService().kfOnlineList()
-                .getKfOnlineList().size() > 0) {
+                    && weixinService.getKefuService().kfOnlineList()
+                    .getKfOnlineList().size() > 0) {
                 return WxMpXmlOutMessage.TRANSFER_CUSTOMER_SERVICE()
-                    .fromUser(wxMessage.getToUser())
-                    .toUser(wxMessage.getFromUser()).build();
+                        .fromUser(wxMessage.getToUser())
+                        .toUser(wxMessage.getFromUser()).build();
             }
         } catch (WxErrorException e) {
             e.printStackTrace();

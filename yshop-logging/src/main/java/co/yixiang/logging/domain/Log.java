@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.logging.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 @Data
 @TableName("log")
 @NoArgsConstructor
-public class Log  implements Serializable {
+public class Log implements Serializable {
 
     @TableId
     private Long id;

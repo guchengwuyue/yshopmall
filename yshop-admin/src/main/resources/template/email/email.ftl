@@ -21,7 +21,7 @@
     <div style="padding: 10px;padding-bottom: 0px;">
         <p style="margin-bottom: 10px;padding-bottom: 0px;">尊敬的用户，您好：</p>
         <p style="text-indent: 2em; margin-bottom: 10px;">您正在申请邮箱验证，您的验证码为：</p>
-            <p style="text-align: center;
+        <p style="text-align: center;
 			font-family: Times New Roman;
 			font-size: 22px;
 			color: #C60024;

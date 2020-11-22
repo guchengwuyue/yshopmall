@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.logging.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -58,48 +58,52 @@ public class LogController {
         criteria.setLogType("ERROR");
         logService.download(logService.queryAll(criteria), response);
     }
+
     @GetMapping
     @ApiOperation("日志查询")
     @PreAuthorize("@el.check('admin','log:list')")
-    public ResponseEntity<Object> getLogs(LogQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> getLogs(LogQueryCriteria criteria, Pageable pageable) {
         criteria.setLogType("INFO");
         criteria.setType(0);
-        return new ResponseEntity<>(logService.queryAll(criteria,pageable), HttpStatus.OK);
+        return new ResponseEntity<>(logService.queryAll(criteria, pageable), HttpStatus.OK);
     }
+
     @GetMapping(value = "/mlogs")
     @PreAuthorize("@el.check('admin','log:list')")
-    public ResponseEntity getApiLogs(LogQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity getApiLogs(LogQueryCriteria criteria, Pageable pageable) {
         criteria.setLogType("INFO");
         criteria.setType(1);
-        return new ResponseEntity(logService.findAllByPageable(criteria.getBlurry(),pageable), HttpStatus.OK);
+        return new ResponseEntity(logService.findAllByPageable(criteria.getBlurry(), pageable), HttpStatus.OK);
     }
+
     @GetMapping(value = "/user")
     @ApiOperation("用户日志查询")
-    public ResponseEntity<Object> getUserLogs(LogQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> getUserLogs(LogQueryCriteria criteria, Pageable pageable) {
         criteria.setLogType("INFO");
         criteria.setBlurry(SecurityUtils.getUsername());
-        return new ResponseEntity<>(logService.queryAllByUser(criteria,pageable), HttpStatus.OK);
+        return new ResponseEntity<>(logService.queryAllByUser(criteria, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/error")
     @ApiOperation("错误日志查询")
     @PreAuthorize("@el.check('admin','logError:list')")
-    public ResponseEntity<Object> getErrorLogs(LogQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<Object> getErrorLogs(LogQueryCriteria criteria, Pageable pageable) {
         criteria.setLogType("ERROR");
-        return new ResponseEntity<>(logService.queryAll(criteria,pageable), HttpStatus.OK);
+        return new ResponseEntity<>(logService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/error/{id}")
     @ApiOperation("日志异常详情查询")
     @PreAuthorize("@el.check('admin','logError:detail')")
-    public ResponseEntity<Object> getErrorLogs(@PathVariable Long id){
+    public ResponseEntity<Object> getErrorLogs(@PathVariable Long id) {
         return new ResponseEntity<>(logService.findByErrDetail(id), HttpStatus.OK);
     }
+
     @DeleteMapping(value = "/del/error")
     @Log("删除所有ERROR日志")
     @ApiOperation("删除所有ERROR日志")
     @PreAuthorize("@el.check('admin','logError:remove')")
-    public ResponseEntity<Object> delAllByError(){
+    public ResponseEntity<Object> delAllByError() {
         logService.delAllByError();
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -108,7 +112,7 @@ public class LogController {
     @Log("删除所有INFO日志")
     @ApiOperation("删除所有INFO日志")
     @PreAuthorize("@el.check('admin','logInfo:remove')")
-    public ResponseEntity<Object> delAllByInfo(){
+    public ResponseEntity<Object> delAllByInfo() {
         logService.delAllByInfo();
         return new ResponseEntity<>(HttpStatus.OK);
     }

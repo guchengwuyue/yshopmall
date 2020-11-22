@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreCart")
@@ -48,6 +48,7 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
     private final IGenerator generator;
 
     private final StoreCartMapper storeCartMapper;
+
     @Override
     //@Cacheable
     public Map<String, Object> queryAll(YxStoreCartQueryCriteria criteria, Pageable pageable) {
@@ -62,7 +63,7 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
 
     @Override
     //@Cacheable
-    public List<YxStoreCart> queryAll(YxStoreCartQueryCriteria criteria){
+    public List<YxStoreCart> queryAll(YxStoreCartQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCart.class, criteria));
     }
 
@@ -71,7 +72,7 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
     public void download(List<YxStoreCartDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreCartDto yxStoreCart : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户ID", yxStoreCart.getUid());
             map.put("类型", yxStoreCart.getType());
             map.put("商品ID", yxStoreCart.getProductId());

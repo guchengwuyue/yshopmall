@@ -19,6 +19,7 @@ public interface VisitsService extends BaseService<Visits> {
 
     /**
      * 新增记录
+     *
      * @param request /
      */
     @Async
@@ -26,12 +27,14 @@ public interface VisitsService extends BaseService<Visits> {
 
     /**
      * 获取数据
+     *
      * @return /
      */
     Object get();
 
     /**
      * getChartData
+     *
      * @return /
      */
     Object getChartData();

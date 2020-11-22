@@ -17,6 +17,7 @@ import org.mapstruct.ReportingPolicy;
 * @date ${date}
 */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ${className}Mapper extends BaseMapper<${className}Dto, ${className}> {
+public interface ${className}Mapper extends BaseMapper
+<${className}Dto, ${className}> {
 
 }

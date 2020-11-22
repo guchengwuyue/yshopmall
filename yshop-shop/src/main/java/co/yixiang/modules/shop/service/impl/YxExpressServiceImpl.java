@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxExpress")
@@ -60,7 +60,7 @@ public class YxExpressServiceImpl extends BaseServiceImpl<ExpressMapper, YxExpre
 
     @Override
     //@Cacheable
-    public List<YxExpress> queryAll(YxExpressQueryCriteria criteria){
+    public List<YxExpress> queryAll(YxExpressQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxExpress.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxExpressServiceImpl extends BaseServiceImpl<ExpressMapper, YxExpre
     public void download(List<YxExpressDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxExpressDto yxExpress : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("快递公司简称", yxExpress.getCode());
             map.put("快递公司全称", yxExpress.getName());
             map.put("排序", yxExpress.getSort());

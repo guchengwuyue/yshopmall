@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service.impl;
 
 import cn.hutool.core.util.ReUtil;
@@ -50,9 +50,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Slf4j
 @Service
 //@CacheConfig(cacheNames = "yxArticle")
@@ -81,7 +81,7 @@ public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArtic
 
     @Override
     //@Cacheable
-    public List<YxArticle> queryAll(YxArticleQueryCriteria criteria){
+    public List<YxArticle> queryAll(YxArticleQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxArticle.class, criteria));
     }
 
@@ -90,13 +90,13 @@ public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArtic
     public void download(List<YxArticleDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxArticleDto yxArticle : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("分类id", yxArticle.getCid());
             map.put("文章标题", yxArticle.getTitle());
             map.put("文章作者", yxArticle.getAuthor());
             map.put("文章图片", yxArticle.getImageInput());
             map.put("文章简介", yxArticle.getSynopsis());
-            map.put(" content",  yxArticle.getContent());
+            map.put(" content", yxArticle.getContent());
             map.put("文章分享标题", yxArticle.getShareTitle());
             map.put("文章分享简介", yxArticle.getShareSynopsis());
             map.put("浏览次数", yxArticle.getVisit());
@@ -124,31 +124,31 @@ public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArtic
 
 
         WxMpNewsArticle article = new WxMpNewsArticle();
-        WxMpMaterialUploadResult wxMpMaterialUploadResult = uploadPhotoToWx( wxMpService,
-                wxNewsArticleItem.getImageInput() );
-        wxNewsArticleItem.setThumbMediaId( wxMpMaterialUploadResult.getMediaId() );
+        WxMpMaterialUploadResult wxMpMaterialUploadResult = uploadPhotoToWx(wxMpService,
+                wxNewsArticleItem.getImageInput());
+        wxNewsArticleItem.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
 
-        article.setAuthor( wxNewsArticleItem.getAuthor() );
+        article.setAuthor(wxNewsArticleItem.getAuthor());
 
 
         //处理content
         String content = processContent(wxMpService, wxNewsArticleItem.getContent());
         System.out.println(content);
-        article.setContent( content );
-        article.setContentSourceUrl( wxNewsArticleItem.getUrl() );
-        article.setDigest( wxNewsArticleItem.getSynopsis() );
-        article.setShowCoverPic( true );
-        article.setThumbMediaId( wxNewsArticleItem.getThumbMediaId() );
-        article.setTitle( wxNewsArticleItem.getTitle() );
+        article.setContent(content);
+        article.setContentSourceUrl(wxNewsArticleItem.getUrl());
+        article.setDigest(wxNewsArticleItem.getSynopsis());
+        article.setShowCoverPic(true);
+        article.setThumbMediaId(wxNewsArticleItem.getThumbMediaId());
+        article.setTitle(wxNewsArticleItem.getTitle());
         //TODO 暂时注释掉，测试号没有留言权限
         //article.setNeedOpenComment( wxNewsArticleItem );
         //article.setOnlyFansCanComment( wxNewsArticleItem );
-        wxMpMaterialNews.addArticle( article );
+        wxMpMaterialNews.addArticle(article);
 
-        log.info( "wxMpMaterialNews : {}", JSONUtil.toJsonStr( wxMpMaterialNews ) );
+        log.info("wxMpMaterialNews : {}", JSONUtil.toJsonStr(wxMpMaterialNews));
 
         WxMpMaterialUploadResult wxMpMaterialUploadResult1 = wxMpService.getMaterialService()
-                .materialNewsUpload( wxMpMaterialNews );
+                .materialNewsUpload(wxMpMaterialNews);
 
         //推送开始
         WxMpMassTagMessage massMessage = new WxMpMassTagMessage();
@@ -158,51 +158,51 @@ public class YxArticleServiceImpl extends BaseServiceImpl<ArticleMapper, YxArtic
 
         WxMpMassSendResult massResult = wxMpService.getMassMessageService()
                 .massGroupMessageSend(massMessage);
-        if(!"0".equals(massResult.getErrorCode())) {
-            log.info("error:"+massResult.getErrorMsg());
+        if (!"0".equals(massResult.getErrorCode())) {
+            log.info("error:" + massResult.getErrorMsg());
             throw new ErrorRequestException("发送失败");
         }
 
-        log.info( "massResult : {}", JSONUtil.toJsonStr( massResult ) );
+        log.info("massResult : {}", JSONUtil.toJsonStr(massResult));
 
-        log.info( "wxMpMaterialUploadResult : {}", JSONUtil.toJsonStr( wxMpMaterialUploadResult1 ) );
+        log.info("wxMpMaterialUploadResult : {}", JSONUtil.toJsonStr(wxMpMaterialUploadResult1));
     }
 
 
     private WxMpMaterialUploadResult uploadPhotoToWx(WxMpService wxMpService, String picPath) throws WxErrorException {
         WxMpMaterial wxMpMaterial = new WxMpMaterial();
 
-        String filename = String.valueOf( (int)System.currentTimeMillis() ) + ".png";
+        String filename = String.valueOf((int) System.currentTimeMillis()) + ".png";
         String downloadPath = uploadDirStr + filename;
         long size = HttpUtil.downloadFile(picPath, cn.hutool.core.io.FileUtil.file(downloadPath));
         picPath = downloadPath;
-        File picFile = new File( picPath );
-        wxMpMaterial.setFile( picFile );
-        wxMpMaterial.setName( picFile.getName() );
-        log.info( "picFile name : {}", picFile.getName() );
-        WxMpMaterialUploadResult wxMpMaterialUploadResult = wxMpService.getMaterialService().materialFileUpload( WxConsts.MediaFileType.IMAGE, wxMpMaterial );
-        log.info( "wxMpMaterialUploadResult : {}", JSONUtil.toJsonStr( wxMpMaterialUploadResult ) );
+        File picFile = new File(picPath);
+        wxMpMaterial.setFile(picFile);
+        wxMpMaterial.setName(picFile.getName());
+        log.info("picFile name : {}", picFile.getName());
+        WxMpMaterialUploadResult wxMpMaterialUploadResult = wxMpService.getMaterialService().materialFileUpload(WxConsts.MediaFileType.IMAGE, wxMpMaterial);
+        log.info("wxMpMaterialUploadResult : {}", JSONUtil.toJsonStr(wxMpMaterialUploadResult));
         return wxMpMaterialUploadResult;
     }
 
-    private String processContent(WxMpService wxMpService,String content) throws WxErrorException {
-        if(StringUtils.isBlank( content )){
+    private String processContent(WxMpService wxMpService, String content) throws WxErrorException {
+        if (StringUtils.isBlank(content)) {
             return content;
         }
         String imgReg = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
-        List<String> imgList = ReUtil.findAllGroup1( imgReg,content);
+        List<String> imgList = ReUtil.findAllGroup1(imgReg, content);
         for (int j = 0; j < imgList.size(); j++) {
-            String imgSrc = imgList.get( j );
-            String filepath = URLUtils.getParam( imgSrc,"filepath" );
+            String imgSrc = imgList.get(j);
+            String filepath = URLUtils.getParam(imgSrc, "filepath");
 
-            if(StringUtils.isBlank( filepath )){//网络图片URL，需下载到本地
-                String filename = String.valueOf( System.currentTimeMillis() ) + ".png";
+            if (StringUtils.isBlank(filepath)) {//网络图片URL，需下载到本地
+                String filename = String.valueOf(System.currentTimeMillis()) + ".png";
                 String downloadPath = uploadDirStr + filename;
                 long size = HttpUtil.downloadFile(imgSrc, cn.hutool.core.io.FileUtil.file(downloadPath));
                 filepath = downloadPath;
             }
-            WxMediaImgUploadResult wxMediaImgUploadResult = wxMpService.getMaterialService().mediaImgUpload( new File(filepath) );
-            content = StringUtils.replace( content,imgList.get( j ),wxMediaImgUploadResult.getUrl());
+            WxMediaImgUploadResult wxMediaImgUploadResult = wxMpService.getMaterialService().mediaImgUpload(new File(filepath));
+            content = StringUtils.replace(content, imgList.get(j), wxMediaImgUploadResult.getUrl());
         }
         return content;
     }

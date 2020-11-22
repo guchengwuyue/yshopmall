@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxUserExtract")
@@ -60,7 +60,7 @@ public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMappe
 
     @Override
     //@Cacheable
-    public List<YxUserExtract> queryAll(YxUserExtractQueryCriteria criteria){
+    public List<YxUserExtract> queryAll(YxUserExtractQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxUserExtract.class, criteria));
     }
 
@@ -69,18 +69,18 @@ public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMappe
     public void download(List<YxUserExtractDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxUserExtractDto yxUserExtract : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
-            map.put(" uid",  yxUserExtract.getUid());
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put(" uid", yxUserExtract.getUid());
             map.put("名称", yxUserExtract.getRealName());
             map.put("bank = 银行卡 alipay = 支付宝wx=微信", yxUserExtract.getExtractType());
             map.put("银行卡", yxUserExtract.getBankCode());
             map.put("开户地址", yxUserExtract.getBankAddress());
             map.put("支付宝账号", yxUserExtract.getAlipayCode());
             map.put("提现金额", yxUserExtract.getExtractPrice());
-            map.put(" mark",  yxUserExtract.getMark());
-            map.put(" balance",  yxUserExtract.getBalance());
+            map.put(" mark", yxUserExtract.getMark());
+            map.put(" balance", yxUserExtract.getBalance());
             map.put("无效原因", yxUserExtract.getFailMsg());
-            map.put(" failTime",  yxUserExtract.getFailTime());
+            map.put(" failTime", yxUserExtract.getFailTime());
             map.put("添加时间", yxUserExtract.getAddTime());
             map.put("-1 未通过 0 审核中 1 已提现", yxUserExtract.getStatus());
             map.put("微信号", yxUserExtract.getWechat());

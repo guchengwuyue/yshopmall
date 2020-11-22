@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.domain;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("verification_code")
-public class VerificationCode  implements Serializable {
+public class VerificationCode implements Serializable {
 
     @TableId
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +47,8 @@ public class VerificationCode  implements Serializable {
     private String value;
 
     /** 创建日期 */
-    @TableField(fill= FieldFill.INSERT)
-   // @Column(name = "create_time")
+    @TableField(fill = FieldFill.INSERT)
+    // @Column(name = "create_time")
     private Timestamp createTime;
 
     public VerificationCode(String code, String scenes, @NotBlank String type, @NotBlank String value) {

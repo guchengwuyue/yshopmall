@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -52,14 +52,14 @@ public class QiniuController {
     }
 
     @GetMapping(value = "/config")
-    public ResponseEntity<Object> get(){
+    public ResponseEntity<Object> get() {
         return new ResponseEntity<>(qiNiuService.find(), HttpStatus.OK);
     }
 
     @Log("配置七牛云存储")
     @ApiOperation("配置七牛云存储")
     @PutMapping(value = "/config")
-    public ResponseEntity<Object> emailConfig(@Validated @RequestBody QiniuConfig qiniuConfig){
+    public ResponseEntity<Object> emailConfig(@Validated @RequestBody QiniuConfig qiniuConfig) {
 
         qiNiuService.update(qiniuConfig);
         qiNiuService.update(qiniuConfig.getType());
@@ -76,26 +76,26 @@ public class QiniuController {
     @Log("查询文件")
     @ApiOperation("查询文件")
     @GetMapping
-    public ResponseEntity<Object> getRoles(QiniuQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(qiNiuService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getRoles(QiniuQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(qiNiuService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @Log("上传文件")
     @ApiOperation("上传文件")
     @PostMapping
-    public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
-        QiniuContent qiniuContent = qiNiuService.upload(file,qiNiuService.find());
-        Map<String,Object> map = new HashMap<>(3);
-        map.put("id",qiniuContent.getId());
-        map.put("errno",0);
-        map.put("data",new String[]{qiniuContent.getUrl()});
-        return new ResponseEntity<>(map,HttpStatus.OK);
+    public ResponseEntity<Object> upload(@RequestParam MultipartFile file) {
+        QiniuContent qiniuContent = qiNiuService.upload(file, qiNiuService.find());
+        Map<String, Object> map = new HashMap<>(3);
+        map.put("id", qiniuContent.getId());
+        map.put("errno", 0);
+        map.put("data", new String[]{qiniuContent.getUrl()});
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @Log("同步七牛云数据")
     @ApiOperation("同步七牛云数据")
     @PostMapping(value = "/synchronize")
-    public ResponseEntity<Object> synchronize(){
+    public ResponseEntity<Object> synchronize() {
 
         qiNiuService.synchronize(qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -104,19 +104,19 @@ public class QiniuController {
     @Log("下载文件")
     @ApiOperation("下载文件")
     @GetMapping(value = "/download/{id}")
-    public ResponseEntity<Object> download(@PathVariable Long id){
+    public ResponseEntity<Object> download(@PathVariable Long id) {
 
-        Map<String,Object> map = new HashMap<>(1);
-        map.put("url", qiNiuService.download(qiNiuService.findByContentId(id),qiNiuService.find()));
-        return new ResponseEntity<>(map,HttpStatus.OK);
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("url", qiNiuService.download(qiNiuService.findByContentId(id), qiNiuService.find()));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @Log("删除文件")
     @ApiOperation("删除文件")
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id){
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
 
-        qiNiuService.delete(qiNiuService.findByContentId(id),qiNiuService.find());
+        qiNiuService.delete(qiNiuService.findByContentId(id), qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

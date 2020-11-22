@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.rest;
 
 import cn.hutool.core.util.StrUtil;
@@ -60,7 +60,7 @@ public class UploadController {
                 if ("".equals(url.toString())) {
                     url = url.append(localUrl + "/file/" + localStorageDTO.getType() + "/" + localStorageDTO.getRealName());
                 } else {
-                    url = url.append(","+localUrl + "/file/" + localStorageDTO.getType() + "/" + localStorageDTO.getRealName());
+                    url = url.append("," + localUrl + "/file/" + localStorageDTO.getType() + "/" + localStorageDTO.getRealName());
                 }
             }
         } else {//走七牛云
@@ -68,8 +68,8 @@ public class UploadController {
                 QiniuContent qiniuContent = qiNiuService.upload(file, qiNiuService.find());
                 if ("".equals(url.toString())) {
                     url = url.append(qiniuContent.getUrl());
-                }else{
-                    url = url.append(","+qiniuContent.getUrl());
+                } else {
+                    url = url.append("," + qiniuContent.getUrl());
                 }
             }
         }

@@ -31,9 +31,9 @@ public class RedisServiceImpl implements RedisService {
     private Long expiration;
 
     @Override
-    public Page<RedisVo> findByKey(String key, Pageable pageable){
+    public Page<RedisVo> findByKey(String key, Pageable pageable) {
         List<RedisVo> redisVos = new ArrayList<>();
-        if(!"*".equals(key)){
+        if (!"*".equals(key)) {
             key = "*" + key + "*";
         }
         for (Object s : redisTemplate.keys(key)) {
@@ -46,12 +46,14 @@ public class RedisServiceImpl implements RedisService {
                 continue;
             }
             DataType dataType = redisTemplate.type(s.toString());
-            if(!"string".equals(dataType.code())) {continue;}
-            RedisVo redisVo = new RedisVo(s.toString(),redisTemplate.opsForValue().get(s.toString()).toString());
+            if (!"string".equals(dataType.code())) {
+                continue;
+            }
+            RedisVo redisVo = new RedisVo(s.toString(), redisTemplate.opsForValue().get(s.toString()).toString());
             redisVos.add(redisVo);
         }
         Page<RedisVo> page = new PageImpl<RedisVo>(
-                PageUtil.toPage(pageable.getPageNumber(),pageable.getPageSize(),redisVos),
+                PageUtil.toPage(pageable.getPageNumber(), pageable.getPageSize(), redisVos),
                 pageable,
                 redisVos.size());
         return page;
@@ -72,14 +74,14 @@ public class RedisServiceImpl implements RedisService {
         try {
             String value = redisTemplate.opsForValue().get(key).toString();
             return value;
-        }catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }
 
     @Override
     public void saveCode(String key, Object val) {
-        redisTemplate.opsForValue().set(key,val);
-        redisTemplate.expire(key,expiration, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key, val);
+        redisTemplate.expire(key, expiration, TimeUnit.MINUTES);
     }
 }

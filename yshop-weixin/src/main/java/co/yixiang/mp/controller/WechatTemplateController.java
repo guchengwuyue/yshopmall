@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.controller;
 
 import co.yixiang.dozer.service.IGenerator;
@@ -32,9 +32,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
-* @author hupeng
-* @date 2019-12-10
-*/
+ * @author hupeng
+ * @date 2019-12-10
+ */
 @Api(tags = "商城:微信模板管理")
 @RestController
 @RequestMapping("/api/yxWechatTemplate")
@@ -56,21 +56,21 @@ public class WechatTemplateController {
     @GetMapping
     @ApiOperation("查询微信模板消息")
     @PreAuthorize("@el.check('admin','yxWechatTemplate:list')")
-    public ResponseEntity<Object> getYxWechatTemplates(YxWechatTemplateQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxWechatTemplateService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxWechatTemplates(YxWechatTemplateQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxWechatTemplateService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @ApiOperation("新增微信模板消息")
     @PreAuthorize("@el.check('admin','yxWechatTemplate:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxWechatTemplate resources){
-        return new ResponseEntity<>(yxWechatTemplateService.save(resources),HttpStatus.CREATED);
+    public ResponseEntity<Object> create(@Validated @RequestBody YxWechatTemplate resources) {
+        return new ResponseEntity<>(yxWechatTemplateService.save(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @ApiOperation("修改微信模板消息")
     @PreAuthorize("@el.check('admin','yxWechatTemplate:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody YxWechatTemplate resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody YxWechatTemplate resources) {
         yxWechatTemplateService.updateById(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -79,7 +79,7 @@ public class WechatTemplateController {
     @PreAuthorize("@el.check('admin','yxWechatTemplate:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {
-        Arrays.asList(ids).forEach(id->{
+        Arrays.asList(ids).forEach(id -> {
             yxWechatTemplateService.removeById(id);
         });
         return new ResponseEntity<>(HttpStatus.OK);

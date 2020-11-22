@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Data
 @TableName("yx_store_coupon")
 public class YxStoreCoupon implements Serializable {
@@ -42,14 +42,14 @@ public class YxStoreCoupon implements Serializable {
 
 
     /** 兑换的优惠券面值 */
-    @DecimalMin(value="0.00", message = "优惠券面值不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "优惠券面值不在合法范围内")
+    @DecimalMin(value = "0.00", message = "优惠券面值不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "优惠券面值不在合法范围内")
     private BigDecimal couponPrice;
 
 
     /** 最低消费多少金额可用优惠券 */
-    @DecimalMin(value="0.00", message = "最低消费不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "最低消费不在合法范围内")
+    @DecimalMin(value = "0.00", message = "最低消费不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "最低消费不在合法范围内")
     private BigDecimal useMinPrice;
 
 
@@ -74,7 +74,7 @@ public class YxStoreCoupon implements Serializable {
     private Integer isDel;
 
 
-    public void copy(YxStoreCoupon source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxStoreCoupon source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

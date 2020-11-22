@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.date.DateUtil;
@@ -42,9 +42,9 @@ import java.util.stream.Collectors;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreCategory")
@@ -67,8 +67,8 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
 
     @Override
     //@Cacheable
-    public List<YxStoreCategoryDto> queryAll(YxStoreCategoryQueryCriteria criteria){
-        return generator.convert(baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCategory.class, criteria)),YxStoreCategoryDto.class);
+    public List<YxStoreCategoryDto> queryAll(YxStoreCategoryQueryCriteria criteria) {
+        return generator.convert(baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCategory.class, criteria)), YxStoreCategoryDto.class);
     }
 
 
@@ -76,7 +76,7 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
     public void download(List<YxStoreCategoryDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreCategoryDto yxStoreCategory : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("父id", yxStoreCategory.getPid());
             map.put("分类名称", yxStoreCategory.getCateName());
             map.put("排序", yxStoreCategory.getSort());
@@ -92,7 +92,7 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
     @Override
     public Object buildTree(List<YxStoreCategoryDto> categoryDTOS) {
         Set<YxStoreCategoryDto> trees = new LinkedHashSet<>();
-        Set<YxStoreCategoryDto> cates= new LinkedHashSet<>();
+        Set<YxStoreCategoryDto> cates = new LinkedHashSet<>();
         List<String> deptNames = categoryDTOS.stream().map(YxStoreCategoryDto::getCateName)
                 .collect(Collectors.toList());
 
@@ -113,16 +113,15 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
                     deptDTO.getChildren().add(it);
                 }
             }
-            if(isChild) {
+            if (isChild) {
                 cates.add(deptDTO);
             }
             for (YxStoreCategory category : categories) {
-                if(category.getId().equals(deptDTO.getPid()) &&!deptNames.contains(category.getCateName())){
+                if (category.getId().equals(deptDTO.getPid()) && !deptNames.contains(category.getCateName())) {
                     cates.add(deptDTO);
                 }
             }
         }
-
 
 
         if (CollectionUtils.isEmpty(trees)) {
@@ -130,12 +129,11 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
         }
 
 
-
-        Integer totalElements = categoryDTOS!=null?categoryDTOS.size():0;
+        Integer totalElements = categoryDTOS != null ? categoryDTOS.size() : 0;
 
         Map map = new HashMap();
-        map.put("totalElements",totalElements);
-        map.put("content",CollectionUtils.isEmpty(trees)?categoryDTOS:trees);
+        map.put("totalElements", totalElements);
+        map.put("content", CollectionUtils.isEmpty(trees) ? categoryDTOS : trees);
         return map;
     }
 
@@ -146,13 +144,13 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
      * @return boolean
      */
     @Override
-    public boolean checkCategory(int pid){
-        if(pid == 0) {
+    public boolean checkCategory(int pid) {
+        if (pid == 0) {
             return true;
         }
-        YxStoreCategory yxStoreCategory =  this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
-                        .eq(YxStoreCategory::getId,pid));
-        if(yxStoreCategory.getPid() > 0) {
+        YxStoreCategory yxStoreCategory = this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
+                .eq(YxStoreCategory::getId, pid));
+        if (yxStoreCategory.getPid() > 0) {
             return false;
         }
 
@@ -165,11 +163,11 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
      * @return boolean
      */
     @Override
-    public boolean checkProductCategory(int id){
-        YxStoreCategory yxStoreCategory =  this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
-                .eq(YxStoreCategory::getId,id));
+    public boolean checkProductCategory(int id) {
+        YxStoreCategory yxStoreCategory = this.getOne(Wrappers.<YxStoreCategory>lambdaQuery()
+                .eq(YxStoreCategory::getId, id));
 
-        if(yxStoreCategory.getPid() == 0) {
+        if (yxStoreCategory.getPid() == 0) {
             return false;
         }
 

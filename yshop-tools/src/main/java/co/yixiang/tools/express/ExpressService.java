@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.express;
 
 import cn.hutool.http.HttpUtil;
@@ -48,7 +48,7 @@ public class ExpressService {
      */
     public String getVendorName(String vendorCode) {
         for (Map<String, String> item : properties.getVendors()) {
-            if (item.get("code").equals(vendorCode)){
+            if (item.get("code").equals(vendorCode)) {
                 return item.get("name");
             }
         }
@@ -62,9 +62,9 @@ public class ExpressService {
      * @param ShipperCode
      * @return
      */
-    public ExpressInfo getExpressInfo(String OrderCode,String ShipperCode, String LogisticCode) {
+    public ExpressInfo getExpressInfo(String OrderCode, String ShipperCode, String LogisticCode) {
         try {
-            String result = getOrderTracesByJson(OrderCode,ShipperCode, LogisticCode);
+            String result = getOrderTracesByJson(OrderCode, ShipperCode, LogisticCode);
             ObjectMapper objMap = new ObjectMapper();
             ExpressInfo ei = objMap.readValue(result, ExpressInfo.class);
             ei.setShipperName(getVendorName(ShipperCode));
@@ -81,12 +81,12 @@ public class ExpressService {
      *
      * @throws Exception
      */
-    private String getOrderTracesByJson(String OrderCode,String ShipperCode, String LogisticCode) throws Exception {
+    private String getOrderTracesByJson(String OrderCode, String ShipperCode, String LogisticCode) throws Exception {
         if (!properties.isEnable()) {
             return null;
         }
 
-        String requestData = "{'OrderCode':'"+OrderCode+"','ShipperCode':'" + ShipperCode + "','LogisticCode':'" + LogisticCode + "'}";
+        String requestData = "{'OrderCode':'" + OrderCode + "','ShipperCode':'" + ShipperCode + "','LogisticCode':'" + LogisticCode + "'}";
 
         Map<String, Object> params = new HashMap<>();
         params.put("RequestData", URLEncoder.encode(requestData, "UTF-8"));

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.config.thread;
 
 import lombok.extern.slf4j.Slf4j;
@@ -54,8 +54,8 @@ public class AsyncTaskExecutePool implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (throwable, method, objects) -> {
-            log.error("===="+throwable.getMessage()+"====", throwable);
-            log.error("exception method:"+method.getName());
+            log.error("====" + throwable.getMessage() + "====", throwable);
+            log.error("exception method:" + method.getName());
         };
     }
 }

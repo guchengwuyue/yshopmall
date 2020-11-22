@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -40,9 +40,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreCombination")
@@ -52,25 +52,26 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
     private final IGenerator generator;
     private final YxStorePinkMapper yxStorePinkMapper;
     private final YxStoreVisitMapper yxStoreVisitMapper;
+
     @Override
     //@Cacheable
     public Map<String, Object> queryAll(YxStoreCombinationQueryCriteria criteria, Pageable pageable) {
         getPage(pageable);
         PageInfo<YxStoreCombination> page = new PageInfo<>(queryAll(criteria));
 
-        List<YxStoreCombinationDto> combinationDTOS = generator.convert(page.getList(),YxStoreCombinationDto.class);
+        List<YxStoreCombinationDto> combinationDTOS = generator.convert(page.getList(), YxStoreCombinationDto.class);
         for (YxStoreCombinationDto combinationDTO : combinationDTOS) {
             //参与人数
-            combinationDTO.setCountPeopleAll(yxStorePinkMapper.selectCount(new LambdaQueryWrapper<YxStorePink>().eq(YxStorePink::getCid,combinationDTO.getId())));
+            combinationDTO.setCountPeopleAll(yxStorePinkMapper.selectCount(new LambdaQueryWrapper<YxStorePink>().eq(YxStorePink::getCid, combinationDTO.getId())));
 
             //成团人数
-            combinationDTO.setCountPeoplePink(yxStorePinkMapper.selectCount(new LambdaQueryWrapper<YxStorePink>().eq(YxStorePink::getCid,combinationDTO.getId()).eq(YxStorePink::getKId,0)));
+            combinationDTO.setCountPeoplePink(yxStorePinkMapper.selectCount(new LambdaQueryWrapper<YxStorePink>().eq(YxStorePink::getCid, combinationDTO.getId()).eq(YxStorePink::getKId, 0)));
             //获取查看拼团产品人数
-            combinationDTO.setCountPeopleBrowse(yxStoreVisitMapper.selectCount(new LambdaQueryWrapper<YxStoreVisit>().eq(YxStoreVisit::getProductId,combinationDTO.getId())
-                    .eq(YxStoreVisit::getProductType,"combination")));
+            combinationDTO.setCountPeopleBrowse(yxStoreVisitMapper.selectCount(new LambdaQueryWrapper<YxStoreVisit>().eq(YxStoreVisit::getProductId, combinationDTO.getId())
+                    .eq(YxStoreVisit::getProductType, "combination")));
         }
         Map<String, Object> map = new LinkedHashMap<>(2);
-        map.put("content",combinationDTOS);
+        map.put("content", combinationDTOS);
         map.put("totalElements", page.getTotal());
         return map;
     }
@@ -78,7 +79,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
 
     @Override
     //@Cacheable
-    public List<YxStoreCombination> queryAll(YxStoreCombinationQueryCriteria criteria){
+    public List<YxStoreCombination> queryAll(YxStoreCombinationQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCombination.class, criteria));
     }
 
@@ -87,7 +88,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
     public void download(List<YxStoreCombinationDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreCombinationDto yxStoreCombination : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("商品id", yxStoreCombination.getProductId());
             map.put("商户id", yxStoreCombination.getMerId());
             map.put("推荐图", yxStoreCombination.getImage());
@@ -103,8 +104,8 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
             map.put("添加时间", yxStoreCombination.getAddTime());
             map.put("推荐", yxStoreCombination.getIsHost());
             map.put("产品状态", yxStoreCombination.getIsShow());
-            map.put(" isDel",  yxStoreCombination.getIsDel());
-            map.put(" combination",  yxStoreCombination.getCombination());
+            map.put(" isDel", yxStoreCombination.getIsDel());
+            map.put(" combination", yxStoreCombination.getCombination());
             map.put("商户是否可用1可用0不可用", yxStoreCombination.getMerUse());
             map.put("是否包邮1是0否", yxStoreCombination.getIsPostage());
             map.put("邮费", yxStoreCombination.getPostage());
@@ -122,9 +123,9 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
 
     @Override
     public void onSale(Integer id, int status) {
-        if(status == 1){
+        if (status == 1) {
             status = 0;
-        }else{
+        } else {
             status = 1;
         }
         YxStoreCombination yxStoreCombination = new YxStoreCombination();

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -15,9 +15,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 
 @Data
 @TableName("yx_store_product_attr")
@@ -39,7 +39,7 @@ public class YxStoreProductAttr implements Serializable {
     private String attrValues;
 
 
-    public void copy(YxStoreProductAttr source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxStoreProductAttr source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

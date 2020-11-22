@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.util.IdUtil;
@@ -53,9 +53,9 @@ import java.util.stream.Collectors;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreProduct")
@@ -73,6 +73,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     private final YxStoreProductAttrValueService yxStoreProductAttrValueService;
 
     private final YxStoreProductAttrResultService yxStoreProductAttrResultService;
+
     @Override
     //@Cacheable
     public Map<String, Object> queryAll(YxStoreProductQueryCriteria criteria, Pageable pageable) {
@@ -87,9 +88,9 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     //@Cacheable
-    public List<YxStoreProduct> queryAll(YxStoreProductQueryCriteria criteria){
+    public List<YxStoreProduct> queryAll(YxStoreProductQueryCriteria criteria) {
         List<YxStoreProduct> yxStoreProductList = baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreProduct.class, criteria));
-        yxStoreProductList.forEach(yxStoreProduct ->{
+        yxStoreProductList.forEach(yxStoreProduct -> {
             yxStoreProduct.setStoreCategory(yxStoreCategoryService.getById(yxStoreProduct.getCateId()));
         });
         return yxStoreProductList;
@@ -100,7 +101,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     public void download(List<YxStoreProductDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreProductDto yxStoreProduct : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("商户Id(0为总后台管理员创建,不为0的时候是商户后台创建)", yxStoreProduct.getMerId());
             map.put("商品图片", yxStoreProduct.getImage());
             map.put("轮播图", yxStoreProduct.getSliderImage());
@@ -148,7 +149,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         }
         boolean check = yxStoreCategoryService
                 .checkProductCategory(storeProduct.getStoreCategory().getId());
-        if(!check) {
+        if (!check) {
             throw new BadRequestException("商品分类必选选择二级");
         }
         storeProduct.setCateId(storeProduct.getStoreCategory().getId().toString());
@@ -158,30 +159,30 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     public void recovery(Integer id) {
-        storeProductMapper.updateDel(0,id);
-        storeProductMapper.updateOnsale(0,id);
+        storeProductMapper.updateDel(0, id);
+        storeProductMapper.updateOnsale(0, id);
     }
 
     @Override
     public void onSale(Integer id, int status) {
-        if(status == 1){
+        if (status == 1) {
             status = 0;
-        }else{
+        } else {
             status = 1;
         }
-        storeProductMapper.updateOnsale(status,id);
+        storeProductMapper.updateOnsale(status, id);
     }
 
     @Override
     public List<ProductFormatDto> isFormatAttr(Integer id, String jsonStr) {
-        if(ObjectUtil.isNull(id)) {
+        if (ObjectUtil.isNull(id)) {
             throw new BadRequestException("产品不存在");
         }
 
-        YxStoreProductDto yxStoreProductDTO = generator.convert(this.getById(id),YxStoreProductDto.class);
+        YxStoreProductDto yxStoreProductDTO = generator.convert(this.getById(id), YxStoreProductDto.class);
         DetailDto detailDTO = attrFormat(jsonStr);
         List<ProductFormatDto> newList = new ArrayList<>();
-        for (Map<String, Map<String,String>> map : detailDTO.getRes()) {
+        for (Map<String, Map<String, String>> map : detailDTO.getRes()) {
             ProductFormatDto productFormatDTO = new ProductFormatDto();
             productFormatDTO.setDetail(map.get("detail"));
             productFormatDTO.setCost(yxStoreProductDTO.getCost().doubleValue());
@@ -208,11 +209,11 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
         List<YxStoreProductAttr> attrGroup = new ArrayList<>();
         for (FromatDetailDto fromatDetailDTO : attrList) {
-            YxStoreProductAttr  yxStoreProductAttr = new YxStoreProductAttr();
+            YxStoreProductAttr yxStoreProductAttr = new YxStoreProductAttr();
             yxStoreProductAttr.setProductId(id);
             yxStoreProductAttr.setAttrName(fromatDetailDTO.getValue());
             yxStoreProductAttr.setAttrValues(StrUtil.
-                    join(",",fromatDetailDTO.getDetail()));
+                    join(",", fromatDetailDTO.getDetail()));
             attrGroup.add(yxStoreProductAttr);
         }
 
@@ -225,7 +226,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
                     .stream().collect(Collectors.toList());
             Collections.sort(stringList);
             yxStoreProductAttrValue.setSuk(StrUtil.
-                    join(",",stringList));
+                    join(",", stringList));
             yxStoreProductAttrValue.setPrice(BigDecimal.valueOf(productFormatDTO.getPrice()));
             yxStoreProductAttrValue.setCost(BigDecimal.valueOf(productFormatDTO.getCost()));
             yxStoreProductAttrValue.setStock(productFormatDTO.getSales());
@@ -235,7 +236,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             valueGroup.add(yxStoreProductAttrValue);
         }
 
-        if(attrGroup.isEmpty() || valueGroup.isEmpty()){
+        if (attrGroup.isEmpty() || valueGroup.isEmpty()) {
             throw new BadRequestException("请设置至少一个属性!");
         }
 
@@ -263,7 +264,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         this.updateById(yxStoreProduct);
 
         //插入之前清空
-        clearProductAttr(id,false);
+        clearProductAttr(id, false);
 
 
         //保存属性
@@ -272,22 +273,23 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         //保存值
         yxStoreProductAttrValueService.saveOrUpdateBatch(valueGroup);
 
-        Map<String,Object> map = new LinkedHashMap<>();
-        map.put("attr",jsonObject.get("items"));
-        map.put("value",jsonObject.get("attrs"));
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("attr", jsonObject.get("items"));
+        map.put("value", jsonObject.get("attrs"));
 
         //保存结果
-        setResult(map,id);
+        setResult(map, id);
     }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void setResult(Map<String, Object> map,Integer id) {
+    public void setResult(Map<String, Object> map, Integer id) {
         YxStoreProductAttrResult yxStoreProductAttrResult = new YxStoreProductAttrResult();
         yxStoreProductAttrResult.setProductId(id);
         yxStoreProductAttrResult.setResult(JSON.toJSONString(map));
         yxStoreProductAttrResult.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
-        yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
+        yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId, id));
 
         yxStoreProductAttrResultService.saveOrUpdate(yxStoreProductAttrResult);
     }
@@ -295,21 +297,21 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Override
     public String getStoreProductAttrResult(Integer id) {
         YxStoreProductAttrResult yxStoreProductAttrResult = yxStoreProductAttrResultService
-                .getOne(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
-        if(ObjectUtil.isNull(yxStoreProductAttrResult)) {
+                .getOne(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId, id));
+        if (ObjectUtil.isNull(yxStoreProductAttrResult)) {
             return "";
         }
-        return  yxStoreProductAttrResult.getResult();
+        return yxStoreProductAttrResult.getResult();
     }
 
     @Override
     public void updateProduct(YxStoreProduct resources) {
-        if(resources.getStoreCategory() == null || resources.getStoreCategory().getId() == null) {
+        if (resources.getStoreCategory() == null || resources.getStoreCategory().getId() == null) {
             throw new BadRequestException("请选择分类");
         }
         boolean check = yxStoreCategoryService
                 .checkProductCategory(resources.getStoreCategory().getId());
-        if(!check) {
+        if (!check) {
             throw new BadRequestException("商品分类必选选择二级");
         }
         resources.setCateId(resources.getStoreCategory().getId().toString());
@@ -318,89 +320,90 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     public void delete(Integer id) {
-        storeProductMapper.updateDel(1,id);
+        storeProductMapper.updateDel(1, id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void clearProductAttr(Integer id,boolean isActice) {
-        if(ObjectUtil.isNull(id)) {
+    public void clearProductAttr(Integer id, boolean isActice) {
+        if (ObjectUtil.isNull(id)) {
             throw new BadRequestException("产品不存在");
         }
 
-        yxStoreProductAttrService.remove(new LambdaQueryWrapper<YxStoreProductAttr>().eq(YxStoreProductAttr::getProductId,id));
-        yxStoreProductAttrValueService.remove(new LambdaQueryWrapper<YxStoreProductAttrValue>().eq(YxStoreProductAttrValue::getProductId,id));
+        yxStoreProductAttrService.remove(new LambdaQueryWrapper<YxStoreProductAttr>().eq(YxStoreProductAttr::getProductId, id));
+        yxStoreProductAttrValueService.remove(new LambdaQueryWrapper<YxStoreProductAttrValue>().eq(YxStoreProductAttrValue::getProductId, id));
 
-        if(isActice){
-            yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId,id));
+        if (isActice) {
+            yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId, id));
         }
     }
+
     /**
      * 组合规则属性算法
      * @param jsonStr
      * @return
      */
-    public DetailDto attrFormat(String jsonStr){
+    public DetailDto attrFormat(String jsonStr) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         List<FromatDetailDto> fromatDetailDTOList = JSON.parseArray(jsonObject.get("items").toString(),
                 FromatDetailDto.class);
         List<String> data = new ArrayList<>();
-        List<Map<String,Map<String,String>>> res =new ArrayList<>();
-        if(fromatDetailDTOList.size() > 1){
-            for (int i=0; i < fromatDetailDTOList.size() - 1;i++){
-                if(i == 0) {
+        List<Map<String, Map<String, String>>> res = new ArrayList<>();
+        if (fromatDetailDTOList.size() > 1) {
+            for (int i = 0; i < fromatDetailDTOList.size() - 1; i++) {
+                if (i == 0) {
                     data = fromatDetailDTOList.get(i).getDetail();
                 }
                 List<String> tmp = new LinkedList<>();
                 for (String v : data) {
-                    for (String g : fromatDetailDTOList.get(i+1).getDetail()) {
+                    for (String g : fromatDetailDTOList.get(i + 1).getDetail()) {
                         String rep2 = "";
-                        if(i == 0){
+                        if (i == 0) {
                             rep2 = fromatDetailDTOList.get(i).getValue() + "_" + v + "-"
-                                    + fromatDetailDTOList.get(i+1).getValue() + "_" + g;
-                        }else{
+                                    + fromatDetailDTOList.get(i + 1).getValue() + "_" + g;
+                        } else {
                             rep2 = v + "-"
-                                    + fromatDetailDTOList.get(i+1).getValue() + "_" + g;
+                                    + fromatDetailDTOList.get(i + 1).getValue() + "_" + g;
                         }
                         tmp.add(rep2);
-                        if(i == fromatDetailDTOList.size() - 2){
-                            Map<String,Map<String,String>> rep4 = new LinkedHashMap<>();
-                            Map<String,String> reptemp = new LinkedHashMap<>();
+                        if (i == fromatDetailDTOList.size() - 2) {
+                            Map<String, Map<String, String>> rep4 = new LinkedHashMap<>();
+                            Map<String, String> reptemp = new LinkedHashMap<>();
                             for (String h : Arrays.asList(rep2.split("-"))) {
                                 List<String> rep3 = Arrays.asList(h.split("_"));
 
-                                if(rep3.size() > 1){
-                                    reptemp.put(rep3.get(0),rep3.get(1));
-                                }else{
-                                    reptemp.put(rep3.get(0),"");
+                                if (rep3.size() > 1) {
+                                    reptemp.put(rep3.get(0), rep3.get(1));
+                                } else {
+                                    reptemp.put(rep3.get(0), "");
                                 }
                             }
-                            rep4.put("detail",reptemp);
+                            rep4.put("detail", reptemp);
                             res.add(rep4);
                         }
                     }
                 }
-                if(!tmp.isEmpty()){
+                if (!tmp.isEmpty()) {
                     data = tmp;
                 }
             }
-        }else{
+        } else {
             List<String> dataArr = new ArrayList<>();
 
             for (FromatDetailDto fromatDetailDTO : fromatDetailDTOList) {
 
                 for (String str : fromatDetailDTO.getDetail()) {
-                    Map<String,Map<String,String>> map2 = new LinkedHashMap<>();
+                    Map<String, Map<String, String>> map2 = new LinkedHashMap<>();
                     //List<Map<String,String>> list1 = new ArrayList<>();
-                    dataArr.add(fromatDetailDTO.getValue()+"_"+str);
-                    Map<String,String> map1 = new LinkedHashMap<>();
-                    map1.put(fromatDetailDTO.getValue(),str);
+                    dataArr.add(fromatDetailDTO.getValue() + "_" + str);
+                    Map<String, String> map1 = new LinkedHashMap<>();
+                    map1.put(fromatDetailDTO.getValue(), str);
                     //list1.add(map1);
-                    map2.put("detail",map1);
+                    map2.put("detail", map1);
                     res.add(map2);
                 }
             }
-            String s = StrUtil.join("-",dataArr);
+            String s = StrUtil.join("-", dataArr);
             data.add(s);
         }
         DetailDto detailDTO = new DetailDto();

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * 可自行扩展
+ *
  * @author Zheng Jie
  * @date 2018-12-10
  */
@@ -12,6 +13,7 @@ public interface RedisService {
 
     /**
      * findById
+     *
      * @param key
      * @return
      */
@@ -19,6 +21,7 @@ public interface RedisService {
 
     /**
      * 查询验证码的值
+     *
      * @param key
      * @return
      */
@@ -26,6 +29,7 @@ public interface RedisService {
 
     /**
      * 保存验证码
+     *
      * @param key
      * @param val
      */
@@ -33,6 +37,7 @@ public interface RedisService {
 
     /**
      * delete
+     *
      * @param key
      */
     void delete(String key);

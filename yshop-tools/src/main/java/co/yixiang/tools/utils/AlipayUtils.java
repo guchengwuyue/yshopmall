@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.tools.utils;
 
 import co.yixiang.tools.domain.AlipayConfig;
@@ -31,7 +31,7 @@ public class AlipayUtils {
      */
     public String getOrderCode() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        int a = (int)(Math.random() * 9000.0D) + 1000;
+        int a = (int) (Math.random() * 9000.0D) + 1000;
         System.out.println(a);
         Date date = new Date();
         String str = sdf.format(date);
@@ -49,10 +49,10 @@ public class AlipayUtils {
      * @param alipay 阿里云配置
      * @return boolean
      */
-    public boolean rsaCheck(HttpServletRequest request, AlipayConfig alipay){
+    public boolean rsaCheck(HttpServletRequest request, AlipayConfig alipay) {
 
         // 获取支付宝POST过来反馈信息
-        Map<String,String> params = new HashMap<>(1);
+        Map<String, String> params = new HashMap<>(1);
         Map requestParams = request.getParameterMap();
         for (Object o : requestParams.keySet()) {
             String name = (String) o;

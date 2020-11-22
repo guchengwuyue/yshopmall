@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxMaterialGroup")
@@ -60,7 +60,7 @@ public class YxMaterialGroupServiceImpl extends BaseServiceImpl<MaterialGroupMap
 
     @Override
     //@Cacheable
-    public List<YxMaterialGroup> queryAll(YxMaterialGroupQueryCriteria criteria){
+    public List<YxMaterialGroup> queryAll(YxMaterialGroupQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxMaterialGroup.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxMaterialGroupServiceImpl extends BaseServiceImpl<MaterialGroupMap
     public void download(List<YxMaterialGroupDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxMaterialGroupDto yxMaterialGroup : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("逻辑删除标记（0：显示；1：隐藏）", yxMaterialGroup.getDelFlag());
             map.put("创建时间", yxMaterialGroup.getCreateTime());
             map.put("创建者ID", yxMaterialGroup.getCreateId());

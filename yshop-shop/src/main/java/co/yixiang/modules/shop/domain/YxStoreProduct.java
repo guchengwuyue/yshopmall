@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -18,9 +18,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 
 
 @TableName("yx_store_product")
@@ -73,8 +73,8 @@ public class YxStoreProduct implements Serializable {
 
     /** 商品价格 */
     @NotNull(message = "请输入商品价格")
-    @DecimalMin(value="0.00", message = "商品价格不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "商品价格不在合法范围内")
+    @DecimalMin(value = "0.00", message = "商品价格不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "商品价格不在合法范围内")
     private BigDecimal price;
 
 
@@ -84,8 +84,8 @@ public class YxStoreProduct implements Serializable {
 
     /** 市场价 */
     @NotNull(message = "请输入市场价")
-    @DecimalMin(value="0.00", message = "市场价不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "市场价不在合法范围内")
+    @DecimalMin(value = "0.00", message = "市场价不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "市场价不在合法范围内")
     private BigDecimal otPrice;
 
 
@@ -108,7 +108,7 @@ public class YxStoreProduct implements Serializable {
 
     /** 库存 */
     @NotNull(message = "请输入库存")
-    @Min(message = "库存不能小于0",value = 1)
+    @Min(message = "库存不能小于0", value = 1)
     private Integer stock;
 
 
@@ -154,15 +154,15 @@ public class YxStoreProduct implements Serializable {
 
 
     /** 获得积分 */
-    @DecimalMin(value="0.00", message = "获得积分不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "获得积分不在合法范围内")
+    @DecimalMin(value = "0.00", message = "获得积分不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "获得积分不在合法范围内")
     private BigDecimal giveIntegral;
 
 
     /** 成本价 */
     @NotNull(message = "请输入成本价")
-    @DecimalMin(value="0.00", message = "成本价不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "成本价不在合法范围内")
+    @DecimalMin(value = "0.00", message = "成本价不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "成本价不在合法范围内")
     private BigDecimal cost;
 
 
@@ -197,7 +197,7 @@ public class YxStoreProduct implements Serializable {
     private YxStoreCategory storeCategory;
 
 
-    public void copy(YxStoreProduct source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxStoreProduct source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

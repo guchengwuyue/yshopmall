@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.logging.service;
 
 import co.yixiang.common.service.BaseService;
@@ -24,8 +24,8 @@ import java.util.List;
 public interface LogService extends BaseService<Log> {
 
 
-
     Object findAllByPageable(String nickname, Pageable pageable);
+
     /**
      * 分页查询
      * @param criteria 查询条件
@@ -58,7 +58,7 @@ public interface LogService extends BaseService<Log> {
      * @param log 日志实体
      */
     @Async
-    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log,Long uid);
+    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log, Long uid);
 
     /**
      * 查询异常详情

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.config;
 
 /**
@@ -37,7 +37,7 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         try {
-            Timestamp time=new Timestamp(System.currentTimeMillis());
+            Timestamp time = new Timestamp(System.currentTimeMillis());
             if (metaObject.hasSetter("createTime")) {
                 log.debug("自动插入 createTime");
                 this.setFieldValByName("createTime", time, metaObject);
@@ -71,7 +71,7 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         try {
-            Timestamp time=new Timestamp(System.currentTimeMillis());
+            Timestamp time = new Timestamp(System.currentTimeMillis());
             if (metaObject.hasSetter("updateTime")) {
                 log.debug("自动插入 updateTime");
                 this.setFieldValByName("updateTime", time, metaObject);

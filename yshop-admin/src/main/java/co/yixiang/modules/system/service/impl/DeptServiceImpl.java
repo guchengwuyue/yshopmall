@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -46,9 +46,9 @@ import java.util.stream.Collectors;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "dept")
@@ -77,7 +77,7 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
 
     @Override
     //@Cacheable
-    public List<Dept> queryAll(DeptQueryCriteria criteria){
+    public List<Dept> queryAll(DeptQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(Dept.class, criteria));
     }
 
@@ -86,7 +86,7 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
     public void download(List<DeptDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (DeptDto dept : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("名称", dept.getName());
             map.put("上级部门", dept.getPid());
             map.put("状态", dept.getEnabled());
@@ -119,11 +119,11 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
     @Override
     public Object buildTree(List<DeptDto> deptDtos) {
         Set<DeptDto> trees = new LinkedHashSet<>();
-        Set<DeptDto> depts= new LinkedHashSet<>();
+        Set<DeptDto> depts = new LinkedHashSet<>();
         List<String> deptNames = deptDtos.stream().map(DeptDto::getName).collect(Collectors.toList());
         boolean isChild;
         DeptQueryCriteria criteria = new DeptQueryCriteria();
-        List<Dept> deptList =  this.queryAll(criteria);
+        List<Dept> deptList = this.queryAll(criteria);
         for (DeptDto deptDto : deptDtos) {
             isChild = false;
             if ("0".equals(deptDto.getPid().toString())) {
@@ -138,10 +138,10 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
                     deptDto.getChildren().add(it);
                 }
             }
-            if(isChild) {
+            if (isChild) {
                 depts.add(deptDto);
                 for (Dept dept : deptList) {
-                    if(dept.getId().equals(deptDto.getPid()) && !deptNames.contains(dept.getName())){
+                    if (dept.getId().equals(deptDto.getPid()) && !deptNames.contains(dept.getName())) {
                         depts.add(deptDto);
                     }
                 }
@@ -154,9 +154,9 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
 
         Integer totalElements = deptDtos.size();
 
-        Map<String,Object> map = new HashMap<>(2);
-        map.put("totalElements",totalElements);
-        map.put("content",CollectionUtils.isEmpty(trees)? deptDtos :trees);
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("totalElements", totalElements);
+        map.put("content", CollectionUtils.isEmpty(trees) ? deptDtos : trees);
         return map;
     }
 
@@ -167,14 +167,14 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
      */
     @Override
     public void delDepts(List<Long> deptIds) {
-        int jobCount = jobMapper.selectCount(Wrappers.<Job>lambdaQuery().in(Job::getDeptId,deptIds));
+        int jobCount = jobMapper.selectCount(Wrappers.<Job>lambdaQuery().in(Job::getDeptId, deptIds));
         int roleCount = rolesDeptsMapper.selectCount(Wrappers.<RolesDepts>lambdaQuery()
-                .in(RolesDepts::getDeptId,deptIds));
-        if(jobCount > 0) {
-            throw new BadRequestException( "所选部门中存在与岗位关联，请取消关联后再试");
+                .in(RolesDepts::getDeptId, deptIds));
+        if (jobCount > 0) {
+            throw new BadRequestException("所选部门中存在与岗位关联，请取消关联后再试");
         }
-        if(roleCount > 0) {
-            throw new BadRequestException( "所选部门中存在与角色关联，请取消关联后再试");
+        if (roleCount > 0) {
+            throw new BadRequestException("所选部门中存在与角色关联，请取消关联后再试");
         }
         this.removeByIds(deptIds);
     }

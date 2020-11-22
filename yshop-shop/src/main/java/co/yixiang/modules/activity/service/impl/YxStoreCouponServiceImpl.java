@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreCoupon")
@@ -60,7 +60,7 @@ public class YxStoreCouponServiceImpl extends BaseServiceImpl<YxStoreCouponMappe
 
     @Override
     //@Cacheable
-    public List<YxStoreCoupon> queryAll(YxStoreCouponQueryCriteria criteria){
+    public List<YxStoreCoupon> queryAll(YxStoreCouponQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreCoupon.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxStoreCouponServiceImpl extends BaseServiceImpl<YxStoreCouponMappe
     public void download(List<YxStoreCouponDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreCouponDto yxStoreCoupon : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("优惠券名称", yxStoreCoupon.getTitle());
             map.put("兑换消耗积分值", yxStoreCoupon.getIntegral());
             map.put("兑换的优惠券面值", yxStoreCoupon.getCouponPrice());

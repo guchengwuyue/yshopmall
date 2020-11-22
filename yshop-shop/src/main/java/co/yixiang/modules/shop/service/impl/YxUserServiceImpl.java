@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.util.NumberUtil;
@@ -41,9 +41,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxUser")
@@ -70,7 +70,7 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
 
     @Override
     //@Cacheable
-    public List<YxUser> queryAll(YxUserQueryCriteria criteria){
+    public List<YxUser> queryAll(YxUserQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxUser.class, criteria));
     }
 
@@ -79,7 +79,7 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
     public void download(List<YxUserDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxUserDto yxUser : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("用户账户(跟accout一样)", yxUser.getUsername());
             map.put("用户账号", yxUser.getAccount());
             map.put("用户密码（跟pwd）", yxUser.getPassword());
@@ -121,34 +121,34 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void onStatus(Integer uid, int status) {
-        if(status == 1){
+        if (status == 1) {
             status = 0;
-        }else{
+        } else {
             status = 1;
         }
 
-        yxUserMapper.updateOnstatus(status,uid);
+        yxUserMapper.updateOnstatus(status, uid);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateMoney(UserMoneyDto param) {
-        YxUserDto userDTO = generator.convert(getById(param.getUid()),YxUserDto.class);
+        YxUserDto userDTO = generator.convert(getById(param.getUid()), YxUserDto.class);
         Double newMoney = 0d;
         String mark = "";
         String type = "system_add";
         Integer pm = 1;
         String title = "系统增加余额";
-        if(param.getPtype() == 1){
-            mark = "系统增加了"+param.getMoney()+"余额";
-            newMoney = NumberUtil.add(userDTO.getNowMoney(),param.getMoney()).doubleValue();
-        }else{
+        if (param.getPtype() == 1) {
+            mark = "系统增加了" + param.getMoney() + "余额";
+            newMoney = NumberUtil.add(userDTO.getNowMoney(), param.getMoney()).doubleValue();
+        } else {
             title = "系统减少余额";
-            mark = "系统扣除了"+param.getMoney()+"余额";
+            mark = "系统扣除了" + param.getMoney() + "余额";
             type = "system_sub";
             pm = 0;
-            newMoney = NumberUtil.sub(userDTO.getNowMoney(),param.getMoney()).doubleValue();
-            if(newMoney < 0) {
+            newMoney = NumberUtil.sub(userDTO.getNowMoney(), param.getMoney()).doubleValue();
+            if (newMoney < 0) {
                 newMoney = 0d;
             }
 
@@ -175,6 +175,6 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
 
     @Override
     public void incBrokeragePrice(double price, Integer uid) {
-        yxUserMapper.incBrokeragePrice(price,uid);
+        yxUserMapper.incBrokeragePrice(price, uid);
     }
 }

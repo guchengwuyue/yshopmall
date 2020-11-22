@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service;
 
 import cn.hutool.core.util.StrUtil;
@@ -44,10 +44,12 @@ public class YxPayService {
      * @throws WxPayException
      */
     public WxPayMpOrderResult wxPay(String orderId, String openId, String body,
-                                    Integer totalFee,String attach) throws WxPayException {
+                                    Integer totalFee, String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
+        if (StrUtil.isBlank(apiUrl)) {
+            throw new ErrorRequestException("请配置api地址");
+        }
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -79,10 +81,12 @@ public class YxPayService {
      * @throws WxPayException
      */
     public WxPayMwebOrderResult wxH5Pay(String orderId, String body,
-                                        Integer totalFee,String attach) throws WxPayException {
+                                        Integer totalFee, String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
+        if (StrUtil.isBlank(apiUrl)) {
+            throw new ErrorRequestException("请配置api地址");
+        }
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -111,11 +115,13 @@ public class YxPayService {
      * @return
      * @throws WxPayException
      */
-    public WxPayMpOrderResult routinePay(String orderId, String body,String openId,
-                                        Integer totalFee,String attach) throws WxPayException {
+    public WxPayMpOrderResult routinePay(String orderId, String body, String openId,
+                                         Integer totalFee, String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
+        if (StrUtil.isBlank(apiUrl)) {
+            throw new ErrorRequestException("请配置api地址");
+        }
 
         WxPayService wxPayService = WxPayConfiguration.getWxAppPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -147,7 +153,9 @@ public class YxPayService {
                                       Integer totalFee, String attach) throws WxPayException {
 
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
+        if (StrUtil.isBlank(apiUrl)) {
+            throw new ErrorRequestException("请配置api地址");
+        }
 
         WxPayService wxPayService = WxPayConfiguration.getAppPayService();
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
@@ -175,7 +183,9 @@ public class YxPayService {
      */
     public void refundOrder(String orderId, Integer totalFee) throws WxPayException {
         String apiUrl = redisHandler.getVal(ShopKeyUtils.getApiUrl());
-        if (StrUtil.isBlank(apiUrl)) {throw new ErrorRequestException("请配置api地址");}
+        if (StrUtil.isBlank(apiUrl)) {
+            throw new ErrorRequestException("请配置api地址");
+        }
 
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
@@ -198,7 +208,7 @@ public class YxPayService {
      * @param amount
      * @throws WxPayException
      */
-    public void entPay(String openid,String no,String userName,Integer amount) throws WxPayException{
+    public void entPay(String openid, String no, String userName, Integer amount) throws WxPayException {
         WxPayService wxPayService = WxPayConfiguration.getPayService();
         EntPayRequest entPayRequest = new EntPayRequest();
 

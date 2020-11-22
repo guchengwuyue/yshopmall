@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.gen.rest;
 
 import co.yixiang.gen.domain.GenConfig;
@@ -37,13 +37,13 @@ public class GenConfigController {
 
     @ApiOperation("查询")
     @GetMapping(value = "/{tableName}")
-    public ResponseEntity<Object> get(@PathVariable String tableName){
+    public ResponseEntity<Object> get(@PathVariable String tableName) {
         return new ResponseEntity<>(genConfigService.find(tableName), HttpStatus.OK);
     }
 
     @ApiOperation("修改")
     @PutMapping
-    public ResponseEntity<Object> emailConfig(@Validated @RequestBody GenConfig genConfig){
-        return new ResponseEntity<>(genConfigService.update(genConfig.getTableName(), genConfig),HttpStatus.OK);
+    public ResponseEntity<Object> emailConfig(@Validated @RequestBody GenConfig genConfig) {
+        return new ResponseEntity<>(genConfigService.update(genConfig.getTableName(), genConfig), HttpStatus.OK);
     }
 }

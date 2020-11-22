@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -37,9 +37,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxWechatReply")
@@ -62,7 +62,7 @@ public class YxWechatReplyServiceImpl extends BaseServiceImpl<WechatReplyMapper,
 
     @Override
     //@Cacheable
-    public List<YxWechatReply> queryAll(YxWechatReplyQueryCriteria criteria){
+    public List<YxWechatReply> queryAll(YxWechatReplyQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxWechatReply.class, criteria));
     }
 
@@ -71,7 +71,7 @@ public class YxWechatReplyServiceImpl extends BaseServiceImpl<WechatReplyMapper,
     public void download(List<YxWechatReplyDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxWechatReplyDto yxWechatReply : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("关键字", yxWechatReply.getKey());
             map.put("回复类型", yxWechatReply.getType());
             map.put("回复数据", yxWechatReply.getData());
@@ -84,14 +84,14 @@ public class YxWechatReplyServiceImpl extends BaseServiceImpl<WechatReplyMapper,
 
     @Override
     public YxWechatReply isExist(String key) {
-        YxWechatReply yxWechatReply = this.getOne(new LambdaQueryWrapper<YxWechatReply>().eq(YxWechatReply::getKey,key));
+        YxWechatReply yxWechatReply = this.getOne(new LambdaQueryWrapper<YxWechatReply>().eq(YxWechatReply::getKey, key));
         return yxWechatReply;
     }
 
     @Override
     public void create(YxWechatReply yxWechatReply) {
-        if(this.isExist(yxWechatReply.getKey()) != null){
-            throw new EntityExistException(YxWechatReply.class,"key",yxWechatReply.getKey());
+        if (this.isExist(yxWechatReply.getKey()) != null) {
+            throw new EntityExistException(YxWechatReply.class, "key", yxWechatReply.getKey());
         }
         this.save(yxWechatReply);
     }
@@ -101,8 +101,8 @@ public class YxWechatReplyServiceImpl extends BaseServiceImpl<WechatReplyMapper,
         YxWechatReply yxWechatReply = this.getById(resources.getId());
         YxWechatReply yxWechatReply1 = null;
         yxWechatReply1 = this.isExist(resources.getKey());
-        if(yxWechatReply1 != null && !yxWechatReply1.getId().equals(yxWechatReply.getId())){
-            throw new EntityExistException(YxWechatReply.class,"key",resources.getKey());
+        if (yxWechatReply1 != null && !yxWechatReply1.getId().equals(yxWechatReply.getId())) {
+            throw new EntityExistException(YxWechatReply.class, "key", resources.getKey());
         }
         yxWechatReply.copy(resources);
         this.saveOrUpdate(yxWechatReply);

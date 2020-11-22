@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.config;
 
 import com.fasterxml.classmate.TypeResolver;
@@ -96,7 +96,7 @@ public class SwaggerConfig {
                 .termsOfServiceUrl(serverUrl)
                 .description(title)
                 .version(version)
-                .contact(new Contact("hupeng","https://www.yixiang.co","guchengwuyue@163.com"))
+                .contact(new Contact("hupeng", "https://www.yixiang.co", "guchengwuyue@163.com"))
                 .build();
     }
 

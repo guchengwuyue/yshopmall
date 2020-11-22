@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service;
 
 import co.yixiang.common.service.BaseService;
@@ -19,32 +19,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
-public interface YxStoreProductService  extends BaseService<YxStoreProduct>{
-
-/**
-    * 查询数据分页
-    * @param criteria 条件
-    * @param pageable 分页参数
-    * @return Map<String,Object>
-    */
-    Map<String,Object> queryAll(YxStoreProductQueryCriteria criteria, Pageable pageable);
+ * @author hupeng
+ * @date 2020-05-12
+ */
+public interface YxStoreProductService extends BaseService<YxStoreProduct> {
 
     /**
-    * 查询所有数据不分页
-    * @param criteria 条件参数
-    * @return List<YxStoreProductDto>
-    */
+     * 查询数据分页
+     * @param criteria 条件
+     * @param pageable 分页参数
+     * @return Map<String, Object>
+     */
+    Map<String, Object> queryAll(YxStoreProductQueryCriteria criteria, Pageable pageable);
+
+    /**
+     * 查询所有数据不分页
+     * @param criteria 条件参数
+     * @return List<YxStoreProductDto>
+     */
     List<YxStoreProduct> queryAll(YxStoreProductQueryCriteria criteria);
 
     /**
-    * 导出数据
-    * @param all 待导出的数据
-    * @param response /
-    * @throws IOException /
-    */
+     * 导出数据
+     * @param all 待导出的数据
+     * @param response /
+     * @throws IOException /
+     */
     void download(List<YxStoreProductDto> all, HttpServletResponse response) throws IOException;
 
     YxStoreProduct saveProduct(YxStoreProduct storeProduct);
@@ -57,9 +57,9 @@ public interface YxStoreProductService  extends BaseService<YxStoreProduct>{
 
     void createProductAttr(Integer id, String jsonStr);
 
-    void clearProductAttr(Integer id,boolean isActice);
+    void clearProductAttr(Integer id, boolean isActice);
 
-    void setResult(Map<String, Object> map,Integer id);
+    void setResult(Map<String, Object> map, Integer id);
 
     String getStoreProductAttrResult(Integer id);
 

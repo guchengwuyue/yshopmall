@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.StrUtil;
@@ -42,9 +42,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
-* @author hupeng
-* @date 2020-03-03
-*/
+ * @author hupeng
+ * @date 2020-03-03
+ */
 @Api(tags = "门店管理")
 @RestController
 @RequestMapping("/api/yxSystemStore")
@@ -52,6 +52,7 @@ public class SystemStoreController {
 
     private final YxSystemStoreService yxSystemStoreService;
     private final IGenerator generator;
+
     public SystemStoreController(YxSystemStoreService yxSystemStoreService, IGenerator generator) {
         this.yxSystemStoreService = yxSystemStoreService;
         this.generator = generator;
@@ -62,8 +63,8 @@ public class SystemStoreController {
     @ApiOperation("所有门店")
     @GetMapping(value = "/all")
     @PreAuthorize("hasAnyRole('yxSystemStore:list')")
-    public ResponseEntity<Object>  getAll(YxSystemStoreQueryCriteria criteria) {
-        return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria),HttpStatus.OK);
+    public ResponseEntity<Object> getAll(YxSystemStoreQueryCriteria criteria) {
+        return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria), HttpStatus.OK);
     }
 
     @Log("导出数据")
@@ -78,39 +79,41 @@ public class SystemStoreController {
     @Log("查询门店")
     @ApiOperation("查询门店")
     @PreAuthorize("hasAnyRole('yxSystemStore:list')")
-    public ResponseEntity<Object> getYxSystemStores(YxSystemStoreQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxSystemStores(YxSystemStoreQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping(value = "/getL")
     @Log("获取经纬度")
     @ApiOperation("获取经纬度")
     @PreAuthorize("hasAnyRole('yxSystemStore:getl')")
-    public ResponseEntity<Object> create(@Validated @RequestBody String jsonStr){
+    public ResponseEntity<Object> create(@Validated @RequestBody String jsonStr) {
         String key = RedisUtil.get(ShopKeyUtils.getTengXunMapKey());
-        if(StrUtil.isBlank(key)) {throw  new BadRequestException("请先配置腾讯地图key");}
+        if (StrUtil.isBlank(key)) {
+            throw new BadRequestException("请先配置腾讯地图key");
+        }
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String addr = jsonObject.getString("addr");
-        String url = StrUtil.format("?address={}&key={}",addr,key);
-        String json = HttpUtil.get(ShopConstants.QQ_MAP_URL+url);
-        return new ResponseEntity<>(json,HttpStatus.CREATED);
+        String url = StrUtil.format("?address={}&key={}", addr, key);
+        String json = HttpUtil.get(ShopConstants.QQ_MAP_URL + url);
+        return new ResponseEntity<>(json, HttpStatus.CREATED);
     }
 
     @PostMapping
     @Log("新增门店")
     @ApiOperation("新增门店")
     @PreAuthorize("hasAnyRole('yxSystemStore:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
+    public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources) {
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        return new ResponseEntity<>(yxSystemStoreService.save(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(yxSystemStoreService.save(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改门店")
     @ApiOperation("修改门店")
     @PreAuthorize("hasAnyRole('yxSystemStore:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources) {
 
         yxSystemStoreService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

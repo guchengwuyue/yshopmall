@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import cn.hutool.core.date.DateUtil;
@@ -71,9 +71,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -98,13 +98,13 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     @Override
     public OrderCountDto getOrderCount() {
         //获取所有订单转态为已支付的
-        List<CountDto> nameList =  storeCartService.findCateName();
-        Map<String,Integer> childrenMap = new HashMap<>();
-        nameList.forEach(i ->{
-            if(i != null) {
-                if(childrenMap.containsKey(i.getCatename())) {
-                    childrenMap.put(i.getCatename(), childrenMap.get(i.getCatename())+1);
-                }else {
+        List<CountDto> nameList = storeCartService.findCateName();
+        Map<String, Integer> childrenMap = new HashMap<>();
+        nameList.forEach(i -> {
+            if (i != null) {
+                if (childrenMap.containsKey(i.getCatename())) {
+                    childrenMap.put(i.getCatename(), childrenMap.get(i.getCatename()) + 1);
+                } else {
                     childrenMap.put(i.getCatename(), 1);
                 }
             }
@@ -112,7 +112,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         });
         List<OrderCountDto.OrderCountData> list = new ArrayList<>();
         List<String> columns = new ArrayList<>();
-        childrenMap.forEach((k,v) ->{
+        childrenMap.forEach((k, v) -> {
             OrderCountDto.OrderCountData orderCountData = new OrderCountDto.OrderCountData();
             orderCountData.setName(k);
             orderCountData.setValue(v);
@@ -139,7 +139,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
 
         orderTimeDataDTO.setProCount(yxStoreOrderMapper
-                .countByPayTimeLessThanAndPayTimeGreaterThanEqual(today,yesterday));
+                .countByPayTimeLessThanAndPayTimeGreaterThanEqual(today, yesterday));
 
 
         orderTimeDataDTO.setLastWeekCount(yxStoreOrderMapper.countByPayTimeGreaterThanEqual(lastWeek));
@@ -162,11 +162,12 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         int nowMonth = OrderUtil.dateToTimestampT(DateUtil
                 .beginOfMonth(new Date()));
 
-        map.put("chart",yxStoreOrderMapper.chartList(nowMonth));
-        map.put("chartT",yxStoreOrderMapper.chartListT(nowMonth));
+        map.put("chart", yxStoreOrderMapper.chartList(nowMonth));
+        map.put("chartT", yxStoreOrderMapper.chartListT(nowMonth));
 
         return map;
     }
+
     @Override
     //@Cacheable
     public Map<String, Object> queryAll(YxStoreOrderQueryCriteria criteria, Pageable pageable) {
@@ -190,26 +191,26 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
      */
     private void orderList(List<YxStoreOrderDto> storeOrderDTOS, YxStoreOrder yxStoreOrder) {
         YxStoreOrderDto yxStoreOrderDto = generator.convert(yxStoreOrder, YxStoreOrderDto.class);
-        Integer _status = OrderUtil.orderStatus(yxStoreOrder.getPaid(),yxStoreOrder.getStatus(),
+        Integer _status = OrderUtil.orderStatus(yxStoreOrder.getPaid(), yxStoreOrder.getStatus(),
                 yxStoreOrder.getRefundStatus());
 
-        if(yxStoreOrder.getStoreId() > 0) {
+        if (yxStoreOrder.getStoreId() > 0) {
             String storeName = systemStoreService.getById(yxStoreOrder.getStoreId()).getName();
             yxStoreOrderDto.setStoreName(storeName);
         }
 
         //订单状态
         String orderStatusStr = OrderUtil.orderStatusStr(yxStoreOrder.getPaid()
-                ,yxStoreOrder.getStatus(),yxStoreOrder.getShippingType()
-                ,yxStoreOrder.getRefundStatus());
+                , yxStoreOrder.getStatus(), yxStoreOrder.getShippingType()
+                , yxStoreOrder.getRefundStatus());
 
-        if(_status == 3){
+        if (_status == 3) {
             String refundTime = OrderUtil.stampToDate(String.valueOf(yxStoreOrder
                     .getRefundReasonTime()));
-            String str = "<b style='color:#f124c7'>申请退款</b><br/>"+
-                    "<span>退款原因："+yxStoreOrder.getRefundReasonWap()+"</span><br/>" +
-                    "<span>备注说明："+yxStoreOrder.getRefundReasonWapExplain()+"</span><br/>" +
-                    "<span>退款时间："+refundTime+"</span><br/>";
+            String str = "<b style='color:#f124c7'>申请退款</b><br/>" +
+                    "<span>退款原因：" + yxStoreOrder.getRefundReasonWap() + "</span><br/>" +
+                    "<span>备注说明：" + yxStoreOrder.getRefundReasonWapExplain() + "</span><br/>" +
+                    "<span>退款时间：" + refundTime + "</span><br/>";
             orderStatusStr = str;
         }
         yxStoreOrderDto.setStatusName(orderStatusStr);
@@ -217,16 +218,16 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         yxStoreOrderDto.set_status(_status);
 
         String payTypeName = OrderUtil.payTypeName(yxStoreOrder.getPayType()
-                ,yxStoreOrder.getPaid());
+                , yxStoreOrder.getPaid());
         yxStoreOrderDto.setPayTypeName(payTypeName);
 
         yxStoreOrderDto.setPinkName(orderType(yxStoreOrder.getId()
-                ,yxStoreOrder.getPinkId(),yxStoreOrder.getCombinationId()
-                ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId(),
+                , yxStoreOrder.getPinkId(), yxStoreOrder.getCombinationId()
+                , yxStoreOrder.getSeckillId(), yxStoreOrder.getBargainId(),
                 yxStoreOrder.getShippingType()));
 
         List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(
-                new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid,yxStoreOrder.getId()));
+                new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid, yxStoreOrder.getId()));
         List<StoreOrderCartInfoDto> cartInfoDTOS = new ArrayList<>();
         for (YxStoreOrderCartInfo cartInfo : cartInfos) {
             StoreOrderCartInfoDto cartInfoDTO = new StoreOrderCartInfoDto();
@@ -236,7 +237,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         }
         yxStoreOrderDto.setCartInfoList(cartInfoDTOS);
         yxStoreOrderDto.setUserDTO(generator.convert(userService.getById(yxStoreOrder.getUid()), YxUserDto.class));
-        if(yxStoreOrderDto.getUserDTO()==null){
+        if (yxStoreOrderDto.getUserDTO() == null) {
             yxStoreOrderDto.setUserDTO(new YxUserDto());
         }
         storeOrderDTOS.add(yxStoreOrderDto);
@@ -245,27 +246,27 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
     @Override
     //@Cacheable
-    public List<YxStoreOrder> queryAll(YxStoreOrderQueryCriteria criteria){
+    public List<YxStoreOrder> queryAll(YxStoreOrderQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreOrder.class, criteria));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public YxStoreOrderDto create(YxStoreOrder resources) {
-        if(this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique,resources.getUnique())) != null){
-            throw new EntityExistException(YxStoreOrder.class,"unique",resources.getUnique());
+        if (this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique, resources.getUnique())) != null) {
+            throw new EntityExistException(YxStoreOrder.class, "unique", resources.getUnique());
         }
         this.save(resources);
-        return generator.convert(resources,YxStoreOrderDto.class);
+        return generator.convert(resources, YxStoreOrderDto.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(YxStoreOrder resources) {
         YxStoreOrder yxStoreOrder = this.getById(resources.getId());
-        YxStoreOrder yxStoreOrder1 = this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique,resources.getUnique()));
-        if(yxStoreOrder1 != null && !yxStoreOrder1.getId().equals(yxStoreOrder.getId())){
-            throw new EntityExistException(YxStoreOrder.class,"unique",resources.getUnique());
+        YxStoreOrder yxStoreOrder1 = this.getOne(new LambdaQueryWrapper<YxStoreOrder>().eq(YxStoreOrder::getUnique, resources.getUnique()));
+        if (yxStoreOrder1 != null && !yxStoreOrder1.getId().equals(yxStoreOrder.getId())) {
+            throw new EntityExistException(YxStoreOrder.class, "unique", resources.getUnique());
         }
         yxStoreOrder.copy(resources);
         this.saveOrUpdate(yxStoreOrder);
@@ -276,7 +277,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     public void download(List<YxStoreOrderDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreOrderDto yxStoreOrder : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("订单号", yxStoreOrder.getOrderId());
             map.put("用户id", yxStoreOrder.getUid());
             map.put("用户姓名", yxStoreOrder.getRealName());
@@ -316,7 +317,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             map.put("唯一id(md5加密)类似id", yxStoreOrder.getUnique());
             map.put("管理员备注", yxStoreOrder.getRemark());
             map.put("商户ID", yxStoreOrder.getMerId());
-            map.put(" isMerCheck",  yxStoreOrder.getIsMerCheck());
+            map.put(" isMerCheck", yxStoreOrder.getIsMerCheck());
             map.put("拼团产品id0一般产品", yxStoreOrder.getCombinationId());
             map.put("拼团id 0没有拼团", yxStoreOrder.getPinkId());
             map.put("成本价", yxStoreOrder.getCost());
@@ -326,8 +327,8 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             map.put("门店id", yxStoreOrder.getStoreId());
             map.put("配送方式 1=快递 ，2=门店自提", yxStoreOrder.getShippingType());
             map.put("支付渠道(0微信公众号1微信小程序)", yxStoreOrder.getIsChannel());
-            map.put(" isRemind",  yxStoreOrder.getIsRemind());
-            map.put(" isSystemDel",  yxStoreOrder.getIsSystemDel());
+            map.put(" isRemind", yxStoreOrder.getIsRemind());
+            map.put(" isSystemDel", yxStoreOrder.getIsSystemDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -335,31 +336,31 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
     @Override
     public Map<String, Object> queryAll(List<String> ids) {
-        List<YxStoreOrder> yxStoreOrders = this.list(new LambdaQueryWrapper<YxStoreOrder>().in(YxStoreOrder::getOrderId,ids));
+        List<YxStoreOrder> yxStoreOrders = this.list(new LambdaQueryWrapper<YxStoreOrder>().in(YxStoreOrder::getOrderId, ids));
         List<YxStoreOrderDto> storeOrderDTOS = new ArrayList<>();
-        for (YxStoreOrder yxStoreOrder :yxStoreOrders) {
-            YxStoreOrderDto yxStoreOrderDto = generator.convert(yxStoreOrder,YxStoreOrderDto.class);
+        for (YxStoreOrder yxStoreOrder : yxStoreOrders) {
+            YxStoreOrderDto yxStoreOrderDto = generator.convert(yxStoreOrder, YxStoreOrderDto.class);
 
-            Integer _status = OrderUtil.orderStatus(yxStoreOrder.getPaid(),yxStoreOrder.getStatus(),
+            Integer _status = OrderUtil.orderStatus(yxStoreOrder.getPaid(), yxStoreOrder.getStatus(),
                     yxStoreOrder.getRefundStatus());
 
-            if(yxStoreOrder.getStoreId() > 0) {
+            if (yxStoreOrder.getStoreId() > 0) {
                 String storeName = systemStoreService.getById(yxStoreOrder.getStoreId()).getName();
                 yxStoreOrderDto.setStoreName(storeName);
             }
 
             //订单状态
             String orderStatusStr = OrderUtil.orderStatusStr(yxStoreOrder.getPaid()
-                    ,yxStoreOrder.getStatus(),yxStoreOrder.getShippingType()
-                    ,yxStoreOrder.getRefundStatus());
+                    , yxStoreOrder.getStatus(), yxStoreOrder.getShippingType()
+                    , yxStoreOrder.getRefundStatus());
 
-            if(_status == 3){
+            if (_status == 3) {
                 String refundTime = OrderUtil.stampToDate(String.valueOf(yxStoreOrder
                         .getRefundReasonTime()));
-                String str = "<b style='color:#f124c7'>申请退款</b><br/>"+
-                        "<span>退款原因："+yxStoreOrder.getRefundReasonWap()+"</span><br/>" +
-                        "<span>备注说明："+yxStoreOrder.getRefundReasonWapExplain()+"</span><br/>" +
-                        "<span>退款时间："+refundTime+"</span><br/>";
+                String str = "<b style='color:#f124c7'>申请退款</b><br/>" +
+                        "<span>退款原因：" + yxStoreOrder.getRefundReasonWap() + "</span><br/>" +
+                        "<span>备注说明：" + yxStoreOrder.getRefundReasonWapExplain() + "</span><br/>" +
+                        "<span>退款时间：" + refundTime + "</span><br/>";
                 orderStatusStr = str;
             }
             yxStoreOrderDto.setStatusName(orderStatusStr);
@@ -367,15 +368,15 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             yxStoreOrderDto.set_status(_status);
 
             String payTypeName = OrderUtil.payTypeName(yxStoreOrder.getPayType()
-                    ,yxStoreOrder.getPaid());
+                    , yxStoreOrder.getPaid());
             yxStoreOrderDto.setPayTypeName(payTypeName);
 
             yxStoreOrderDto.setPinkName(orderType(yxStoreOrder.getId()
-                    ,yxStoreOrder.getPinkId(),yxStoreOrder.getCombinationId()
-                    ,yxStoreOrder.getSeckillId(),yxStoreOrder.getBargainId(),
+                    , yxStoreOrder.getPinkId(), yxStoreOrder.getCombinationId()
+                    , yxStoreOrder.getSeckillId(), yxStoreOrder.getBargainId(),
                     yxStoreOrder.getShippingType()));
 
-            List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid,yxStoreOrder.getId()));
+            List<YxStoreOrderCartInfo> cartInfos = storeOrderCartInfoService.list(new LambdaQueryWrapper<YxStoreOrderCartInfo>().eq(YxStoreOrderCartInfo::getOid, yxStoreOrder.getId()));
             List<StoreOrderCartInfoDto> cartInfoDTOS = new ArrayList<>();
             for (YxStoreOrderCartInfo cartInfo : cartInfos) {
                 StoreOrderCartInfoDto cartInfoDTO = new StoreOrderCartInfoDto();
@@ -384,30 +385,30 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 cartInfoDTOS.add(cartInfoDTO);
             }
             yxStoreOrderDto.setCartInfoList(cartInfoDTOS);
-            yxStoreOrderDto.setUserDTO(generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,yxStoreOrder.getUid())), YxUserDto.class));
+            yxStoreOrderDto.setUserDTO(generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, yxStoreOrder.getUid())), YxUserDto.class));
 
             storeOrderDTOS.add(yxStoreOrderDto);
 
         }
 
-        Map<String,Object> map = new LinkedHashMap<>(2);
-        map.put("content",storeOrderDTOS);
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", storeOrderDTOS);
 
         return map;
     }
 
 
     @Override
-    public String orderType(int id,int pinkId, int combinationId,int seckillId,
-                            int bargainId,int shippingType) {
+    public String orderType(int id, int pinkId, int combinationId, int seckillId,
+                            int bargainId, int shippingType) {
         String str = "[普通订单]";
-        if(pinkId > 0 || combinationId > 0){
+        if (pinkId > 0 || combinationId > 0) {
             YxStorePink storePink = storePinkService.getOne(new LambdaQueryWrapper<YxStorePink>().
-                    eq(YxStorePink::getOrderIdKey,id));
-            if(ObjectUtil.isNull(storePink)) {
+                    eq(YxStorePink::getOrderIdKey, id));
+            if (ObjectUtil.isNull(storePink)) {
                 str = "[拼团订单]";
-            }else{
-                switch (storePink.getStatus()){
+            } else {
+                switch (storePink.getStatus()) {
                     case 1:
                         str = "[拼团订单]正在进行中";
                         break;
@@ -423,12 +424,12 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 }
             }
 
-        }else if(seckillId > 0){
+        } else if (seckillId > 0) {
             str = "[秒杀订单]";
-        }else if(bargainId > 0){
+        } else if (bargainId > 0) {
             str = "[砍价订单]";
         }
-        if(shippingType == 2) {
+        if (shippingType == 2) {
             str = "[核销订单]";
         }
         return str;
@@ -437,18 +438,18 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void refund(YxStoreOrder resources) {
-        if(resources.getPayPrice().doubleValue() < 0){
+        if (resources.getPayPrice().doubleValue() < 0) {
             throw new BadRequestException("请输入退款金额");
         }
 
-        if("yue".equals(resources.getPayType())){
+        if ("yue".equals(resources.getPayType())) {
             //修改状态
             resources.setRefundStatus(2);
             resources.setRefundPrice(resources.getPayPrice());
             this.updateById(resources);
 
             //退款到余额
-            YxUserDto userDTO = generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid,resources.getUid())),YxUserDto.class);
+            YxUserDto userDTO = generator.convert(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, resources.getUid())), YxUserDto.class);
             userMapper.updateMoney(resources.getPayPrice().doubleValue(),
                     resources.getUid());
 
@@ -461,7 +462,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             userBill.setCategory("now_money");
             userBill.setType("pay_product_refund");
             userBill.setNumber(resources.getPayPrice());
-            userBill.setBalance(NumberUtil.add(resources.getPayPrice(),userDTO.getNowMoney()));
+            userBill.setBalance(NumberUtil.add(resources.getPayPrice(), userDTO.getNowMoney()));
             userBill.setMark("订单退款到余额");
             userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
             userBill.setStatus(1);
@@ -471,23 +472,23 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
             storeOrderStatus.setOid(resources.getId());
             storeOrderStatus.setChangeType("refund_price");
-            storeOrderStatus.setChangeMessage("退款给用户："+resources.getPayPrice() +"元");
+            storeOrderStatus.setChangeMessage("退款给用户：" + resources.getPayPrice() + "元");
             storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
 
             yxStoreOrderStatusService.save(storeOrderStatus);
-        }else{
+        } else {
             BigDecimal bigDecimal = new BigDecimal("100");
             try {
-                if(OrderInfoEnum.PAY_CHANNEL_1.getValue().equals(resources.getIsChannel())){
+                if (OrderInfoEnum.PAY_CHANNEL_1.getValue().equals(resources.getIsChannel())) {
                     miniPayService.refundOrder(resources.getOrderId(),
                             bigDecimal.multiply(resources.getPayPrice()).intValue());
-                }else{
+                } else {
                     payService.refundOrder(resources.getOrderId(),
                             bigDecimal.multiply(resources.getPayPrice()).intValue());
                 }
 
             } catch (WxPayException e) {
-                log.info("refund-error:{}",e.getMessage());
+                log.info("refund-error:{}", e.getMessage());
                 throw new BadRequestException("退款失败:" + e.getMessage());
             }
 

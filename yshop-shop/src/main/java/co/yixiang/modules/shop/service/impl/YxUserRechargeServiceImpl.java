@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxUserRecharge")
@@ -60,7 +60,7 @@ public class YxUserRechargeServiceImpl extends BaseServiceImpl<UserRechargeMappe
 
     @Override
     //@Cacheable
-    public List<YxUserRecharge> queryAll(YxUserRechargeQueryCriteria criteria){
+    public List<YxUserRecharge> queryAll(YxUserRechargeQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxUserRecharge.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxUserRechargeServiceImpl extends BaseServiceImpl<UserRechargeMappe
     public void download(List<YxUserRechargeDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxUserRechargeDto yxUserRecharge : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("充值用户UID", yxUserRecharge.getUid());
             map.put("订单号", yxUserRecharge.getOrderId());
             map.put("充值金额", yxUserRecharge.getPrice());

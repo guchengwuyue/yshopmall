@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxSystemStoreStaff")
@@ -60,7 +60,7 @@ public class YxSystemStoreStaffServiceImpl extends BaseServiceImpl<SystemStoreSt
 
     @Override
     //@Cacheable
-    public List<YxSystemStoreStaff> queryAll(YxSystemStoreStaffQueryCriteria criteria){
+    public List<YxSystemStoreStaff> queryAll(YxSystemStoreStaffQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemStoreStaff.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxSystemStoreStaffServiceImpl extends BaseServiceImpl<SystemStoreSt
     public void download(List<YxSystemStoreStaffDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxSystemStoreStaffDto yxSystemStoreStaff : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("微信用户id", yxSystemStoreStaff.getUid());
             map.put("店员头像", yxSystemStoreStaff.getAvatar());
             map.put("门店id", yxSystemStoreStaff.getStoreId());

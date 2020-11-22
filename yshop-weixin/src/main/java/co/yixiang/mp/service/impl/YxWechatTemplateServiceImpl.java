@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxWechatTemplate")
@@ -61,7 +61,7 @@ public class YxWechatTemplateServiceImpl extends BaseServiceImpl<WechatTemplateM
 
     @Override
     //@Cacheable
-    public List<YxWechatTemplate> queryAll(YxWechatTemplateQueryCriteria criteria){
+    public List<YxWechatTemplate> queryAll(YxWechatTemplateQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxWechatTemplate.class, criteria));
     }
 
@@ -70,7 +70,7 @@ public class YxWechatTemplateServiceImpl extends BaseServiceImpl<WechatTemplateM
     public void download(List<YxWechatTemplateDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxWechatTemplateDto yxWechatTemplate : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("模板编号", yxWechatTemplate.getTempkey());
             map.put("模板名", yxWechatTemplate.getName());
             map.put("回复内容", yxWechatTemplate.getContent());
@@ -84,6 +84,6 @@ public class YxWechatTemplateServiceImpl extends BaseServiceImpl<WechatTemplateM
 
     @Override
     public YxWechatTemplate findByTempkey(String recharge_success_key) {
-        return this.getOne(new LambdaQueryWrapper<YxWechatTemplate>().eq(YxWechatTemplate::getTempkey,recharge_success_key));
+        return this.getOne(new LambdaQueryWrapper<YxWechatTemplate>().eq(YxWechatTemplate::getTempkey, recharge_success_key));
     }
 }

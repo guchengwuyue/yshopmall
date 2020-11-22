@@ -15,6 +15,15 @@ import java.lang.annotation.Target;
 /**
  * @author Zheng Jie
  * @date 2019-6-4 13:52:30
+ * <p>
+ * 连接查询的属性名，如User类中的dept
+ * <p>
+ * 默认左连接
+ * <p>
+ * 多字段模糊搜索，仅支持String类型字段，多个用逗号隔开, 如@Query(blurry = "email,username")
+ * @author Zheng Jie
+ * 适用于简单连接查询，复杂的请自定义该注解，或者使用sql查询
+ * jie 2019-6-4 13:18:30 左右连接
  *//*
 
 @Target(ElementType.FIELD)
@@ -28,22 +37,22 @@ public @interface Query {
 
     */
 /**
-     * 连接查询的属性名，如User类中的dept
-     *//*
+ * 连接查询的属性名，如User类中的dept
+ *//*
 
     String joinName() default "";
 
     */
 /**
-     * 默认左连接
-     *//*
+ * 默认左连接
+ *//*
 
     Join join() default Join.LEFT;
 
     */
 /**
-     * 多字段模糊搜索，仅支持String类型字段，多个用逗号隔开, 如@Query(blurry = "email,username")
-     *//*
+ * 多字段模糊搜索，仅支持String类型字段，多个用逗号隔开, 如@Query(blurry = "email,username")
+ *//*
 
     String blurry() default "";
 
@@ -74,9 +83,9 @@ public @interface Query {
 
     */
 /**
-     * @author Zheng Jie
-     * 适用于简单连接查询，复杂的请自定义该注解，或者使用sql查询
-     *//*
+ * @author Zheng Jie
+ * 适用于简单连接查询，复杂的请自定义该注解，或者使用sql查询
+ *//*
 
     enum Join {
         */

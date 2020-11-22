@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.controller;
 
 
@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-10-06
-*/
+ * @author hupeng
+ * @date 2019-10-06
+ */
 @Api(tags = "商城:微信菜單")
 @RestController
 @RequestMapping("api")
@@ -49,29 +49,29 @@ public class WechatMenuController {
     @ApiOperation(value = "查询菜单")
     @GetMapping(value = "/YxWechatMenu")
     @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
-    public ResponseEntity getYxWechatMenus(){
+    public ResponseEntity getYxWechatMenus() {
         return new ResponseEntity(YxWechatMenuService.getOne(new LambdaQueryWrapper<YxWechatMenu>()
-                .eq(YxWechatMenu::getKey, ShopConstants.WECHAT_MENUS)),HttpStatus.OK);
+                .eq(YxWechatMenu::getKey, ShopConstants.WECHAT_MENUS)), HttpStatus.OK);
     }
 
 
     @ApiOperation(value = "创建菜单")
     @PostMapping(value = "/YxWechatMenu")
     @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_CREATE')")
-    public ResponseEntity create( @RequestBody String jsonStr){
+    public ResponseEntity create(@RequestBody String jsonStr) {
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         String jsonButton = jsonObject.get("buttons").toString();
         YxWechatMenu YxWechatMenu = new YxWechatMenu();
         Boolean isExist = YxWechatMenuService.isExist(ShopConstants.WECHAT_MENUS);
-        WxMenu menu = JSONObject.parseObject(jsonStr,WxMenu.class);
+        WxMenu menu = JSONObject.parseObject(jsonStr, WxMenu.class);
 
         WxMpService wxService = WxMpConfiguration.getWxMpService();
-        if(isExist){
+        if (isExist) {
             YxWechatMenu.setKey(ShopConstants.WECHAT_MENUS);
             YxWechatMenu.setResult(jsonButton);
             YxWechatMenuService.saveOrUpdate(YxWechatMenu);
-        }else {
+        } else {
             YxWechatMenu.setKey(ShopConstants.WECHAT_MENUS);
             YxWechatMenu.setResult(jsonButton);
             YxWechatMenu.setAddTime(OrderUtil.getSecondTimestampTwo());
@@ -85,13 +85,11 @@ public class WechatMenuController {
             wxService.getMenuService().menuCreate(menu);
         } catch (WxErrorException e) {
             throw new BadRequestException(e.getMessage());
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
 
         return new ResponseEntity(HttpStatus.OK);
     }
-
-
 
 
 }

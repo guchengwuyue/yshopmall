@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -17,9 +17,9 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Data
 @TableName("yx_store_coupon_issue")
 public class YxStoreCouponIssue implements Serializable {
@@ -73,7 +73,7 @@ public class YxStoreCouponIssue implements Serializable {
     private Timestamp startTimeDate;
 
 
-    public void copy(YxStoreCouponIssue source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxStoreCouponIssue source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

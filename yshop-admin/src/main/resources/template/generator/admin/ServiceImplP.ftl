@@ -11,7 +11,7 @@ import ${package}.domain.${className};
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
             <#if column_index = 1>
-import co.yixiang.exception.EntityExistException;
+                import co.yixiang.exception.EntityExistException;
             </#if>
         </#if>
     </#list>
@@ -32,11 +32,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 <#if !auto && pkColumnType = 'Long'>
-import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.util.IdUtil;
+    import cn.hutool.core.lang.Snowflake;
+    import cn.hutool.core.util.IdUtil;
 </#if>
 <#if !auto && pkColumnType = 'String'>
-import cn.hutool.core.util.IdUtil;
+    import cn.hutool.core.util.IdUtil;
 </#if>
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
@@ -59,45 +59,54 @@ import java.util.LinkedHashMap;
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "${changeClassName}")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
+public class ${className}ServiceImpl extends BaseServiceImpl
+<${className}Mapper, ${className}> implements ${className}Service {
 
-    private final IGenerator generator;
+private final IGenerator generator;
 
-    @Override
-    //@Cacheable
-    public Map<String, Object> queryAll(${className}QueryCriteria criteria, Pageable pageable) {
-        getPage(pageable);
-        PageInfo<${className}> page = new PageInfo<>(queryAll(criteria));
-        Map<String, Object> map = new LinkedHashMap<>(2);
-        map.put("content", generator.convert(page.getList(), ${className}Dto.class));
-        map.put("totalElements", page.getTotal());
-        return map;
-    }
-
-
-    @Override
-    //@Cacheable
-    public List<${className}> queryAll(${className}QueryCriteria criteria){
-        return baseMapper.selectList(QueryHelpPlus.getPredicate(${className}.class, criteria));
-    }
-
-
-    @Override
-    public void download(List<${className}Dto> all, HttpServletResponse response) throws IOException {
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (${className}Dto ${changeClassName} : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
-        <#list columns as column>
-            <#if column.columnKey != 'PRI'>
-            <#if column.remark != ''>
-            map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
-            <#else>
-            map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
-            </#if>
-            </#if>
-        </#list>
-            list.add(map);
-        }
-        FileUtil.downloadExcel(list, response);
-    }
+@Override
+//@Cacheable
+public Map
+<String, Object> queryAll(${className}QueryCriteria criteria, Pageable pageable) {
+getPage(pageable);
+PageInfo<${className}> page = new PageInfo<>(queryAll(criteria));
+Map
+<String, Object> map = new LinkedHashMap<>(2);
+map.put("content", generator.convert(page.getList(), ${className}Dto.class));
+map.put("totalElements", page.getTotal());
+return map;
 }
+
+
+@Override
+//@Cacheable
+public List<${className}> queryAll(${className}QueryCriteria criteria){
+return baseMapper.selectList(QueryHelpPlus.getPredicate(${className}.class, criteria));
+}
+
+
+@Override
+public void download(List
+<${className}Dto> all, HttpServletResponse response) throws IOException {
+    List
+    <Map
+    <String
+    , Object>> list = new ArrayList<>();
+    for (${className}Dto ${changeClassName} : all) {
+    Map
+    <String
+    ,Object> map = new LinkedHashMap<>();
+    <#list columns as column>
+        <#if column.columnKey != 'PRI'>
+            <#if column.remark != ''>
+                map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
+            <#else>
+                map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
+            </#if>
+        </#if>
+    </#list>
+    list.add(map);
+    }
+    FileUtil.downloadExcel(list, response);
+    }
+    }

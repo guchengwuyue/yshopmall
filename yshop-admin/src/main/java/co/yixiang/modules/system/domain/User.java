@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -21,9 +21,9 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Data
 @TableName("user")
 public class User implements Serializable {
@@ -83,7 +83,7 @@ public class User implements Serializable {
 
 
     /** 创建日期 */
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 
 
@@ -98,7 +98,8 @@ public class User implements Serializable {
     /** 性别 */
     private String sex;
 
-    public @interface Update {}
+    public @interface Update {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -117,7 +118,8 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(id, username);
     }
-    public void copy(User source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+
+    public void copy(User source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

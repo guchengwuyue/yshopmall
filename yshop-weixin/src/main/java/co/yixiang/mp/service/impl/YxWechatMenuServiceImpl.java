@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxWechatMenu")
@@ -61,7 +61,7 @@ public class YxWechatMenuServiceImpl extends BaseServiceImpl<WechatMenuMapper, Y
 
     @Override
     //@Cacheable
-    public List<YxWechatMenu> queryAll(YxWechatMenuQueryCriteria criteria){
+    public List<YxWechatMenu> queryAll(YxWechatMenuQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxWechatMenu.class, criteria));
     }
 
@@ -70,7 +70,7 @@ public class YxWechatMenuServiceImpl extends BaseServiceImpl<WechatMenuMapper, Y
     public void download(List<YxWechatMenuDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxWechatMenuDto yxWechatMenu : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("缓存数据", yxWechatMenu.getResult());
             map.put("缓存时间", yxWechatMenu.getAddTime());
             list.add(map);
@@ -80,8 +80,8 @@ public class YxWechatMenuServiceImpl extends BaseServiceImpl<WechatMenuMapper, Y
 
     @Override
     public Boolean isExist(String wechat_menus) {
-        YxWechatMenu yxWechatMenu = this.getOne(new LambdaQueryWrapper<YxWechatMenu>().eq(YxWechatMenu::getKey,wechat_menus));
-        if(yxWechatMenu == null){
+        YxWechatMenu yxWechatMenu = this.getOne(new LambdaQueryWrapper<YxWechatMenu>().eq(YxWechatMenu::getKey, wechat_menus));
+        if (yxWechatMenu == null) {
             return false;
         }
         return true;

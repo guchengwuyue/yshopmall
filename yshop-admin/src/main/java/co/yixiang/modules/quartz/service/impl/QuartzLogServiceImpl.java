@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.quartz.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "quartzLog")
@@ -60,7 +60,7 @@ public class QuartzLogServiceImpl extends BaseServiceImpl<QuartzLogMapper, Quart
 
     @Override
     //@Cacheable
-    public List<QuartzLog> queryAll(QuartzLogQueryCriteria criteria){
+    public List<QuartzLog> queryAll(QuartzLogQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QuartzLog.class, criteria));
     }
 
@@ -75,16 +75,16 @@ public class QuartzLogServiceImpl extends BaseServiceImpl<QuartzLogMapper, Quart
     public void download(List<QuartzLogDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (QuartzLogDto quartzLog : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
-            map.put(" baenName",  quartzLog.getBaenName());
-            map.put(" createTime",  quartzLog.getCreateTime());
-            map.put(" cronExpression",  quartzLog.getCronExpression());
-            map.put(" exceptionDetail",  quartzLog.getExceptionDetail());
-            map.put(" isSuccess",  quartzLog.getIsSuccess());
-            map.put(" jobName",  quartzLog.getJobName());
-            map.put(" methodName",  quartzLog.getMethodName());
-            map.put(" params",  quartzLog.getParams());
-            map.put(" time",  quartzLog.getTime());
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put(" baenName", quartzLog.getBaenName());
+            map.put(" createTime", quartzLog.getCreateTime());
+            map.put(" cronExpression", quartzLog.getCronExpression());
+            map.put(" exceptionDetail", quartzLog.getExceptionDetail());
+            map.put(" isSuccess", quartzLog.getIsSuccess());
+            map.put(" jobName", quartzLog.getJobName());
+            map.put(" methodName", quartzLog.getMethodName());
+            map.put(" params", quartzLog.getParams());
+            map.put(" time", quartzLog.getTime());
             map.put("任务名称", quartzLog.getBaenName());
             map.put("Bean名称 ", quartzLog.getCreateTime());
             map.put("cron表达式", quartzLog.getCronExpression());

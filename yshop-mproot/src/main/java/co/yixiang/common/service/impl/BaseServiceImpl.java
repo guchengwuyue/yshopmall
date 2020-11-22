@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.common.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -30,7 +30,7 @@ import java.util.List;
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
 
     protected Page setPageParam(QueryParam queryParam) {
-        return setPageParam(queryParam,null);
+        return setPageParam(queryParam, null);
     }
 
     protected Page setPageParam(QueryParam queryParam, OrderItem defaultOrder) {
@@ -43,15 +43,15 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends Servic
          * 如果是queryParam是OrderQueryParam，并且不为空，则使用前端排序
          * 否则使用默认排序
          */
-        if (queryParam instanceof OrderQueryParam){
+        if (queryParam instanceof OrderQueryParam) {
             OrderQueryParam orderQueryParam = (OrderQueryParam) queryParam;
             List<OrderItem> orderItems = orderQueryParam.getOrders();
-            if (CollectionUtil.isEmpty(orderItems)){
+            if (CollectionUtil.isEmpty(orderItems)) {
                 page.setOrders(Arrays.asList(defaultOrder));
-            }else{
+            } else {
                 page.setOrders(orderItems);
             }
-        }else{
+        } else {
             page.setOrders(Arrays.asList(defaultOrder));
         }
 
@@ -59,15 +59,15 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> extends Servic
     }
 
     protected void getPage(Pageable pageable) {
-        String order=null;
-        if(pageable.getSort()!=null){
-            order= pageable.getSort().toString();
-            order=order.replace(":","");
-            if("UNSORTED".equals(order)){
-                order="id desc";
+        String order = null;
+        if (pageable.getSort() != null) {
+            order = pageable.getSort().toString();
+            order = order.replace(":", "");
+            if ("UNSORTED".equals(order)) {
+                order = "id desc";
             }
         }
-        PageHelper.startPage(pageable.getPageNumber()+1, pageable.getPageSize(),order);
+        PageHelper.startPage(pageable.getPageNumber() + 1, pageable.getPageSize(), order);
     }
 
 }

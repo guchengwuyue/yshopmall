@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-12-22
-*/
+ * @author hupeng
+ * @date 2019-12-22
+ */
 @Api(tags = "商城:砍价管理")
 @RestController
 @RequestMapping("api")
@@ -46,30 +46,29 @@ public class StoreBargainController {
     @ApiOperation(value = "查询砍价")
     @GetMapping(value = "/yxStoreBargain")
     @PreAuthorize("hasAnyRole('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_SELECT')")
-    public ResponseEntity getYxStoreBargains(YxStoreBargainQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxStoreBargainService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxStoreBargains(YxStoreBargainQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxStoreBargainService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
 
 
     @Log("修改砍价")
     @ApiOperation(value = "修改砍价")
     @PutMapping(value = "/yxStoreBargain")
     @PreAuthorize("hasAnyRole('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxStoreBargain resources){
+    public ResponseEntity update(@Validated @RequestBody YxStoreBargain resources) {
 
-        if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
+        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
             resources.setStartTime(OrderUtil.
                     dateToTimestamp(resources.getStartTimeDate()));
         }
-        if(ObjectUtil.isNotNull(resources.getEndTimeDate())){
+        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
             resources.setStopTime(OrderUtil.
                     dateToTimestamp(resources.getEndTimeDate()));
         }
-        if(ObjectUtil.isNull(resources.getId())){
+        if (ObjectUtil.isNull(resources.getId())) {
             resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-            return new ResponseEntity(yxStoreBargainService.save(resources),HttpStatus.CREATED);
-        }else{
+            return new ResponseEntity(yxStoreBargainService.save(resources), HttpStatus.CREATED);
+        } else {
             yxStoreBargainService.saveOrUpdate(resources);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -79,7 +78,7 @@ public class StoreBargainController {
     @ApiOperation(value = "删除砍价")
     @DeleteMapping(value = "/yxStoreBargain/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable Integer id) {
 
         yxStoreBargainService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);

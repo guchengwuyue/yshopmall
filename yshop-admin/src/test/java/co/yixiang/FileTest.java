@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang;
 
 import cn.hutool.core.img.ImgUtil;
@@ -26,6 +26,7 @@ public class FileTest {
     public static void main(String[] args) throws IOException {
         readfile("D:/upload");
     }
+
     public static void readfile(String filepath) throws FileNotFoundException, IOException {
         try {
 
@@ -36,11 +37,11 @@ public class FileTest {
                 System.out.println("absolutepath=" + file.getAbsolutePath());
                 System.out.println("name=" + file.getName());
 
-                File targetFile = new File(file.getPath().replace("upload","uploadZip"));
+                File targetFile = new File(file.getPath().replace("upload", "uploadZip"));
                 if (!targetFile.getParentFile().exists()) {
                     targetFile.getParentFile().mkdirs();
                 }
-                ImgUtil.scale(file,targetFile,getAccuracy(file.length()/ 1024));
+                ImgUtil.scale(file, targetFile, getAccuracy(file.length() / 1024));
             } else if (file.isDirectory()) {
                 System.out.println("文件夹");
                 String[] filelist = file.list();
@@ -51,13 +52,13 @@ public class FileTest {
                         System.out.println("absolutepath="
                                 + readfile.getAbsolutePath());
                         System.out.println("name=" + readfile.getName());
-                        File targetFile = new File(readfile.getPath().replace("upload","uploadZip"));
+                        File targetFile = new File(readfile.getPath().replace("upload", "uploadZip"));
                         System.out.println("path2=" + targetFile.getPath());
                         System.out.println("fileSize=" + targetFile.length());
                         if (!targetFile.getParentFile().exists()) {
                             targetFile.getParentFile().mkdirs();
                         }
-                        ImgUtil.scale(readfile,targetFile,getAccuracy(file.length()/ 1024));
+                        ImgUtil.scale(readfile, targetFile, getAccuracy(file.length() / 1024));
                     } else if (readfile.isDirectory()) {
                         readfile(filepath + "\\" + filelist[i]);
                     }

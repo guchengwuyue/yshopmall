@@ -16,7 +16,7 @@ public class VisitsTask {
         this.visitsService = visitsService;
     }
 
-    public void run(){
+    public void run() {
         visitsService.save();
     }
 }

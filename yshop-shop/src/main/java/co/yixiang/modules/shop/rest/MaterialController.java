@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 
@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2020-01-09
-*/
+ * @author hupeng
+ * @date 2020-01-09
+ */
 @Api(tags = "商城:素材管理管理")
 @RestController
 @RequestMapping("/api/material")
@@ -43,26 +43,25 @@ public class MaterialController {
     }
 
 
-
     @GetMapping(value = "/page")
     @Log("查询素材管理")
     @ApiOperation("查询素材管理")
-    public ResponseEntity<Object> getYxMaterials(YxMaterialQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxMaterialService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxMaterials(YxMaterialQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxMaterialService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增素材管理")
     @ApiOperation("新增素材管理")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxMaterial resources){
+    public ResponseEntity<Object> create(@Validated @RequestBody YxMaterial resources) {
         resources.setCreateId(SecurityUtils.getUsername());
-        return new ResponseEntity<>(yxMaterialService.save(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(yxMaterialService.save(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改素材管理")
     @ApiOperation("修改素材管理")
-    public ResponseEntity<Object> update(@Validated @RequestBody YxMaterial resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody YxMaterial resources) {
         yxMaterialService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

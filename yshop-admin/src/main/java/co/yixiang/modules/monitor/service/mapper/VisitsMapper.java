@@ -13,5 +13,5 @@ import java.util.List;
 @Mapper
 public interface VisitsMapper extends CoreMapper<Visits> {
     @Select("select * FROM visits where create_time between #{time1} and #{time2}")
-    List<Visits> findAllVisits(@Param("time1") String time1, @Param("time2")String time2);
+    List<Visits> findAllVisits(@Param("time1") String time1, @Param("time2") String time2);
 }

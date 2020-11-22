@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  * @author /
  */
 @Component
-@SuppressWarnings({"unchecked","all"})
+@SuppressWarnings({"unchecked", "all"})
 public class RedisUtils {
 
     private RedisTemplate<Object, Object> redisTemplate;
@@ -112,7 +112,7 @@ public class RedisUtils {
                 continue;
             }
             // 获取到满足条件的数据后,就可以退出了
-            if(tmpIndex >=toIndex) {
+            if (tmpIndex >= toIndex) {
                 break;
             }
             tmpIndex++;

@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-12-04
-*/
+ * @author hupeng
+ * @date 2019-12-04
+ */
 @Api(tags = "商城:用户等级管理")
 @RestController
 @RequestMapping("api")
@@ -46,25 +46,25 @@ public class SystemUserLevelController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_SELECT')")
-    public ResponseEntity getYxSystemUserLevels(YxSystemUserLevelQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxSystemUserLevelService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxSystemUserLevels(YxSystemUserLevelQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxSystemUserLevelService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE')")
-    public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources){
+    public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources) {
 
         resources.setAddTime(OrderUtil.getSecondTimestampTwo());
-        return new ResponseEntity(yxSystemUserLevelService.save(resources),HttpStatus.CREATED);
+        return new ResponseEntity(yxSystemUserLevelService.save(resources), HttpStatus.CREATED);
     }
 
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources){
+    public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources) {
 
         yxSystemUserLevelService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -74,7 +74,7 @@ public class SystemUserLevelController {
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable Integer id) {
 
         yxSystemUserLevelService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);

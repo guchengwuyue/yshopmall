@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-11-18
-*/
+ * @author hupeng
+ * @date 2019-11-18
+ */
 @Api(tags = "商城:拼团管理")
 @RestController
 @RequestMapping("api")
@@ -49,30 +49,29 @@ public class StoreCombinationController {
     @ApiOperation(value = "查询拼团")
     @GetMapping(value = "/yxStoreCombination")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_SELECT')")
-    public ResponseEntity getYxStoreCombinations(YxStoreCombinationQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity getYxStoreCombinations(YxStoreCombinationQueryCriteria criteria, Pageable pageable) {
         criteria.setIsDel(0);
-        return new ResponseEntity(yxStoreCombinationService.queryAll(criteria,pageable),HttpStatus.OK);
+        return new ResponseEntity(yxStoreCombinationService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
 
 
     @Log("修改拼团")
     @ApiOperation(value = "新增/修改拼团")
     @PutMapping(value = "/yxStoreCombination")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources){
-        if(ObjectUtil.isNotNull(resources.getStartTimeDate())){
+    public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources) {
+        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
             resources.setStartTime(OrderUtil.
                     dateToTimestamp(resources.getStartTimeDate()));
         }
-        if(ObjectUtil.isNotNull(resources.getEndTimeDate())){
+        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
             resources.setStopTime(OrderUtil.
                     dateToTimestamp(resources.getEndTimeDate()));
         }
-        if(ObjectUtil.isNull(resources.getId())){
+        if (ObjectUtil.isNull(resources.getId())) {
             resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
-            return new ResponseEntity(yxStoreCombinationService.save(resources),HttpStatus.CREATED);
-        }else{
+            return new ResponseEntity(yxStoreCombinationService.save(resources), HttpStatus.CREATED);
+        } else {
             yxStoreCombinationService.saveOrUpdate(resources);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -81,12 +80,12 @@ public class StoreCombinationController {
 
     @ApiOperation(value = "开启关闭")
     @PostMapping(value = "/yxStoreCombination/onsale/{id}")
-    public ResponseEntity onSale(@PathVariable Integer id,@RequestBody String jsonStr){
+    public ResponseEntity onSale(@PathVariable Integer id, @RequestBody String jsonStr) {
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
         //System.out.println(status);
-        yxStoreCombinationService.onSale(id,status);
+        yxStoreCombinationService.onSale(id, status);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -94,7 +93,7 @@ public class StoreCombinationController {
     @ApiOperation(value = "删除拼团")
     @DeleteMapping(value = "/yxStoreCombination/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
+    public ResponseEntity delete(@PathVariable Integer id) {
 
         YxStoreCombination combination = new YxStoreCombination();
         combination.setIsDel(1);

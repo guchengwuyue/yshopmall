@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxSystemGroupData")
@@ -56,19 +56,19 @@ public class YxSystemGroupDataServiceImpl extends BaseServiceImpl<SystemGroupDat
         List<YxSystemGroupDataDto> systemGroupDataDTOS = new ArrayList<>();
         for (YxSystemGroupData systemGroupData : page.getList()) {
 
-            YxSystemGroupDataDto systemGroupDataDTO = generator.convert(systemGroupData,YxSystemGroupDataDto.class);
+            YxSystemGroupDataDto systemGroupDataDTO = generator.convert(systemGroupData, YxSystemGroupDataDto.class);
             systemGroupDataDTO.setMap(JSON.parseObject(systemGroupData.getValue()));
             systemGroupDataDTOS.add(systemGroupDataDTO);
         }
-        map.put("content",systemGroupDataDTOS);
-        map.put("totalElements",page.getTotal());
+        map.put("content", systemGroupDataDTOS);
+        map.put("totalElements", page.getTotal());
         return map;
     }
 
 
     @Override
     //@Cacheable
-    public List<YxSystemGroupData> queryAll(YxSystemGroupDataQueryCriteria criteria){
+    public List<YxSystemGroupData> queryAll(YxSystemGroupDataQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemGroupData.class, criteria));
     }
 
@@ -77,7 +77,7 @@ public class YxSystemGroupDataServiceImpl extends BaseServiceImpl<SystemGroupDat
     public void download(List<YxSystemGroupDataDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxSystemGroupDataDto yxSystemGroupData : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("对应的数据名称", yxSystemGroupData.getGroupName());
             map.put("数据组对应的数据值（json数据）", yxSystemGroupData.getValue());
             map.put("添加数据时间", yxSystemGroupData.getAddTime());

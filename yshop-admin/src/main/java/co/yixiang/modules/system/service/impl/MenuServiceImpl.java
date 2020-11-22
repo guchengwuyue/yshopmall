@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.system.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -54,9 +54,9 @@ import java.util.stream.Collectors;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-14
-*/
+ * @author hupeng
+ * @date 2020-05-14
+ */
 @Service
 @AllArgsConstructor
 @CacheConfig(cacheNames = "menu")
@@ -81,7 +81,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
 
     @Override
     @Cacheable
-    public List<Menu> queryAll(MenuQueryCriteria criteria){
+    public List<Menu> queryAll(MenuQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(Menu.class, criteria));
     }
 
@@ -90,7 +90,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     public void download(List<MenuDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (MenuDto menu : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("是否外链", menu.getIFrame());
             map.put("菜单名称", menu.getName());
             map.put("组件", menu.getComponent());
@@ -133,11 +133,11 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
                 }
             }
         }
-        Map<String,Object> map = new HashMap<>(2);
-        if(trees.size() == 0){
+        Map<String, Object> map = new HashMap<>(2);
+        if (trees.size() == 0) {
             trees = menuDtos.stream().filter(s -> !ids.contains(s.getId())).collect(Collectors.toList());
         }
-        map.put("content",trees);
+        map.put("content", trees);
         map.put("totalElements", menuDtos.size());
         return map;
     }
@@ -152,32 +152,32 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     public List<MenuVo> buildMenus(List<MenuDto> menuDtos) {
         List<MenuVo> list = new LinkedList<>();
         menuDtos.forEach(menuDTO -> {
-                    if (menuDTO!=null){
+                    if (menuDTO != null) {
                         List<MenuDto> menuDtoList = menuDTO.getChildren();
                         MenuVo menuVo = new MenuVo();
-                        menuVo.setName(ObjectUtil.isNotEmpty(menuDTO.getComponentName())  ? menuDTO.getComponentName() : menuDTO.getName());
+                        menuVo.setName(ObjectUtil.isNotEmpty(menuDTO.getComponentName()) ? menuDTO.getComponentName() : menuDTO.getName());
                         // 一级目录需要加斜杠，不然会报警告
-                        menuVo.setPath(menuDTO.getPid() == 0 ? "/" + menuDTO.getPath() :menuDTO.getPath());
+                        menuVo.setPath(menuDTO.getPid() == 0 ? "/" + menuDTO.getPath() : menuDTO.getPath());
                         menuVo.setHidden(menuDTO.getHidden());
                         // 如果不是外链
-                        if(!menuDTO.getIFrame()){
-                            if(menuDTO.getPid() == 0){
-                                menuVo.setComponent(StrUtil.isEmpty(menuDTO.getComponent())?"Layout":menuDTO.getComponent());
-                            }else if(!StrUtil.isEmpty(menuDTO.getComponent())){
+                        if (!menuDTO.getIFrame()) {
+                            if (menuDTO.getPid() == 0) {
+                                menuVo.setComponent(StrUtil.isEmpty(menuDTO.getComponent()) ? "Layout" : menuDTO.getComponent());
+                            } else if (!StrUtil.isEmpty(menuDTO.getComponent())) {
                                 menuVo.setComponent(menuDTO.getComponent());
                             }
                         }
-                        menuVo.setMeta(new MenuMetaVo(menuDTO.getName(),menuDTO.getIcon(),!menuDTO.getCache()));
-                        if(menuDtoList !=null && menuDtoList.size()!=0){
+                        menuVo.setMeta(new MenuMetaVo(menuDTO.getName(), menuDTO.getIcon(), !menuDTO.getCache()));
+                        if (menuDtoList != null && menuDtoList.size() != 0) {
                             menuVo.setAlwaysShow(true);
                             menuVo.setRedirect("noredirect");
                             menuVo.setChildren(buildMenus(menuDtoList));
                             // 处理是一级菜单并且没有子菜单的情况
-                        } else if(menuDTO.getPid() == 0){
+                        } else if (menuDTO.getPid() == 0) {
                             MenuVo menuVo1 = new MenuVo();
                             menuVo1.setMeta(menuVo.getMeta());
                             // 非外链
-                            if(!menuDTO.getIFrame()){
+                            if (!menuDTO.getIFrame()) {
                                 menuVo1.setPath("index");
                                 menuVo1.setName(menuVo.getName());
                                 menuVo1.setComponent(menuVo.getComponent());
@@ -207,15 +207,15 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     @Cacheable(key = "'tree'")
     public Object getMenuTree(List<Menu> menus) {
-        List<Map<String,Object>> list = new LinkedList<>();
+        List<Map<String, Object>> list = new LinkedList<>();
         menus.forEach(menu -> {
-                    if (menu!=null){
+                    if (menu != null) {
                         List<Menu> menuList = menuMapper.findByPid(menu.getId());
-                        Map<String,Object> map = new HashMap<>(16);
-                        map.put("id",menu.getId());
-                        map.put("label",menu.getName());
-                        if(menuList!=null && menuList.size()!=0){
-                            map.put("children",getMenuTree(menuList));
+                        Map<String, Object> map = new HashMap<>(16);
+                        map.put("id", menu.getId());
+                        map.put("label", menu.getName());
+                        if (menuList != null && menuList.size() != 0) {
+                            map.put("children", getMenuTree(menuList));
                         }
                         list.add(map);
                     }
@@ -237,7 +237,7 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         for (Menu menu1 : menuList) {
             menuSet.add(menu1);
             List<Menu> menus = menuMapper.findByPid(menu1.getId());
-            if(menus!=null && menus.size()!=0){
+            if (menus != null && menus.size() != 0) {
                 getDeleteMenus(menus, menuSet);
             }
         }
@@ -264,13 +264,13 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
      */
     @Override
     public List<MenuDto> findByRoles(List<RoleSmallDto> roles) {
-        List<Long> roleIds = roles.stream().map(i ->{
+        List<Long> roleIds = roles.stream().map(i -> {
             Long role = i.getId();
             return role;
         }).collect(Collectors.toList());
         List<Menu> list = menuMapper.selectListByRoles(roleIds);
 
-        return generator.convert(list,MenuDto.class);
+        return generator.convert(list, MenuDto.class);
     }
 
     /**
@@ -295,24 +295,24 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     @CacheEvict(allEntries = true)
     public void update(Menu resources) {
-        if(resources.getId().equals(resources.getPid())) {
+        if (resources.getId().equals(resources.getPid())) {
             throw new BadRequestException("上级不能为自己");
         }
         Menu menu = this.getById(resources.getId());
-        ValidationUtil.isNull(menu.getId(),"Permission","id",resources.getId());
+        ValidationUtil.isNull(menu.getId(), "Permission", "id", resources.getId());
 
         isExitHttp(resources);
 
-        Menu menu1 = this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getName,resources.getName()));
+        Menu menu1 = this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getName, resources.getName()));
 
-        if(menu1 != null && !menu1.getId().equals(menu.getId())){
-            throw new EntityExistException(Menu.class,"name",resources.getName());
+        if (menu1 != null && !menu1.getId().equals(menu.getId())) {
+            throw new EntityExistException(Menu.class, "name", resources.getName());
         }
 
-        if(StringUtils.isNotBlank(resources.getComponentName())){
-            menu1 = this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getComponentName,resources.getComponentName()));
-            if(menu1 != null && !menu1.getId().equals(menu.getId())){
-                throw new EntityExistException(Menu.class,"componentName",resources.getComponentName());
+        if (StringUtils.isNotBlank(resources.getComponentName())) {
+            menu1 = this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getComponentName, resources.getComponentName()));
+            if (menu1 != null && !menu1.getId().equals(menu.getId())) {
+                throw new EntityExistException(Menu.class, "componentName", resources.getComponentName());
             }
         }
 
@@ -336,26 +336,26 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @CacheEvict(allEntries = true)
     public MenuDto create(Menu resources) {
         isExitHttp(resources);
-        if(this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getName,resources.getName())) != null){
-            throw new EntityExistException(Menu.class,"name",resources.getName());
+        if (this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getName, resources.getName())) != null) {
+            throw new EntityExistException(Menu.class, "name", resources.getName());
         }
-        if(StringUtils.isNotBlank(resources.getComponentName())){
-            if(this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getComponentName,resources.getComponentName())) != null){
-                throw new EntityExistException(Menu.class,"componentName",resources.getComponentName());
+        if (StringUtils.isNotBlank(resources.getComponentName())) {
+            if (this.getOne(new LambdaQueryWrapper<Menu>().eq(Menu::getComponentName, resources.getComponentName())) != null) {
+                throw new EntityExistException(Menu.class, "componentName", resources.getComponentName());
             }
         }
         this.save(resources);
-        return generator.convert(resources,MenuDto.class);
+        return generator.convert(resources, MenuDto.class);
     }
 
     /**
      * 公共方法提取出来
      * @param resources
      */
-    private void isExitHttp(Menu resources){
-        if(resources.getIFrame()){
+    private void isExitHttp(Menu resources) {
+        if (resources.getIFrame()) {
             String http = "http://", https = "https://";
-            if (!(resources.getPath().toLowerCase().startsWith(http)||resources.getPath().toLowerCase().startsWith(https))) {
+            if (!(resources.getPath().toLowerCase().startsWith(http) || resources.getPath().toLowerCase().startsWith(https))) {
                 throw new BadRequestException("外链必须以http://或者https://开头");
             }
         }

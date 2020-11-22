@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.quartz.rest;
 
 import co.yixiang.dozer.service.IGenerator;
@@ -50,7 +50,6 @@ public class QuartzJobController {
     private final QuartzLogService quartzLogService;
 
 
-
     public QuartzJobController(QuartzJobService quartzJobService, IGenerator generator, QuartzLogService quartzLogService) {
         this.quartzJobService = quartzJobService;
         this.generator = generator;
@@ -61,8 +60,8 @@ public class QuartzJobController {
     @ApiOperation("查询定时任务")
     @GetMapping
     @PreAuthorize("@el.check('admin','timing:list')")
-    public ResponseEntity<Object> getJobs(QuartzJobQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(quartzJobService.queryAll(criteria,pageable), HttpStatus.OK);
+    public ResponseEntity<Object> getJobs(QuartzJobQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(quartzJobService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @Log("导出任务数据")
@@ -70,7 +69,7 @@ public class QuartzJobController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','timing:list')")
     public void download(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
-        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria),QuartzJobDto.class), response);
+        quartzJobService.download(generator.convert(quartzJobService.queryAll(criteria), QuartzJobDto.class), response);
     }
 
     @Log("导出日志数据")
@@ -84,8 +83,8 @@ public class QuartzJobController {
     @ApiOperation("查询任务执行日志")
     @GetMapping(value = "/logs")
     @PreAuthorize("@el.check('admin','timing:list')")
-    public ResponseEntity<Object> getJobLogs(QuartzLogQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(quartzLogService.queryAll(criteria,pageable), HttpStatus.OK);
+    public ResponseEntity<Object> getJobLogs(QuartzLogQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(quartzLogService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @ForbidSubmit
@@ -93,11 +92,11 @@ public class QuartzJobController {
     @ApiOperation("新增定时任务")
     @PostMapping
     @PreAuthorize("@el.check('admin','timing:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody QuartzJob resources){
+    public ResponseEntity<Object> create(@Validated @RequestBody QuartzJob resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
+            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
         }
-        return new ResponseEntity<>(quartzJobService.save(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(quartzJobService.save(resources), HttpStatus.CREATED);
     }
 
     @ForbidSubmit
@@ -105,7 +104,7 @@ public class QuartzJobController {
     @ApiOperation("修改定时任务")
     @PutMapping
     @PreAuthorize("@el.check('admin','timing:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody QuartzJob resources) {
         quartzJobService.updateById(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -115,9 +114,9 @@ public class QuartzJobController {
     @ApiOperation("更改定时任务状态")
     @PutMapping(value = "/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
-    public ResponseEntity<Object> updateIsPause(@PathVariable Long id){
+    public ResponseEntity<Object> updateIsPause(@PathVariable Long id) {
         quartzJobService.updateIsPause(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>()
-                .eq(QuartzJob::getId,id)));
+                .eq(QuartzJob::getId, id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -126,8 +125,8 @@ public class QuartzJobController {
     @ApiOperation("执行定时任务")
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('admin','timing:edit')")
-    public ResponseEntity<Object> execution(@PathVariable Long id){
-        quartzJobService.execution(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>().eq(QuartzJob::getId,id)));
+    public ResponseEntity<Object> execution(@PathVariable Long id) {
+        quartzJobService.execution(quartzJobService.getOne(new LambdaQueryWrapper<QuartzJob>().eq(QuartzJob::getId, id)));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -136,7 +135,7 @@ public class QuartzJobController {
     @ApiOperation("删除定时任务")
     @DeleteMapping
     @PreAuthorize("@el.check('admin','timing:del')")
-    public ResponseEntity<Object> delete(@RequestBody Integer[] ids){
+    public ResponseEntity<Object> delete(@RequestBody Integer[] ids) {
         quartzJobService.removeByIds(new ArrayList<>(Arrays.asList(ids)));
         return new ResponseEntity<>(HttpStatus.OK);
     }

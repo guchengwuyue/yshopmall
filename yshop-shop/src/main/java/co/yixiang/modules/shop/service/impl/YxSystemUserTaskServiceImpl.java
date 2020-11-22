@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -37,9 +37,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxSystemUserTask")
@@ -54,9 +54,9 @@ public class YxSystemUserTaskServiceImpl extends BaseServiceImpl<SystemUserTaskM
     public Map<String, Object> queryAll(YxSystemUserTaskQueryCriteria criteria, Pageable pageable) {
         getPage(pageable);
         PageInfo<YxSystemUserTask> page = new PageInfo<>(queryAll(criteria));
-        List<YxSystemUserTaskDto> systemUserTaskDTOS = generator.convert(page.getList(),YxSystemUserTaskDto.class);
+        List<YxSystemUserTaskDto> systemUserTaskDTOS = generator.convert(page.getList(), YxSystemUserTaskDto.class);
         for (YxSystemUserTaskDto systemUserTaskDTO : systemUserTaskDTOS) {
-            YxSystemUserLevel userLevel=systemUserLevelService.getById(systemUserTaskDTO.getLevelId());
+            YxSystemUserLevel userLevel = systemUserLevelService.getById(systemUserTaskDTO.getLevelId());
             systemUserTaskDTO.setLevalName(userLevel.getName());
         }
         Map<String, Object> map = new LinkedHashMap<>(2);
@@ -68,7 +68,7 @@ public class YxSystemUserTaskServiceImpl extends BaseServiceImpl<SystemUserTaskM
 
     @Override
     //@Cacheable
-    public List<YxSystemUserTask> queryAll(YxSystemUserTaskQueryCriteria criteria){
+    public List<YxSystemUserTask> queryAll(YxSystemUserTaskQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemUserTask.class, criteria));
     }
 
@@ -77,7 +77,7 @@ public class YxSystemUserTaskServiceImpl extends BaseServiceImpl<SystemUserTaskM
     public void download(List<YxSystemUserTaskDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxSystemUserTaskDto yxSystemUserTask : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("任务名称", yxSystemUserTask.getName());
             map.put("配置原名", yxSystemUserTask.getRealName());
             map.put("任务类型", yxSystemUserTask.getTaskType());

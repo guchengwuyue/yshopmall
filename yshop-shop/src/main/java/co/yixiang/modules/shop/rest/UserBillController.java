@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
-* @author hupeng
-* @date 2019-11-06
-*/
+ * @author hupeng
+ * @date 2019-11-06
+ */
 @Api(tags = "商城:用户账单管理")
 @RestController
 @RequestMapping("api")
@@ -38,13 +38,9 @@ public class UserBillController {
     @ApiOperation(value = "查询")
     @GetMapping(value = "/yxUserBill")
     @PreAuthorize("hasAnyRole('admin','YXUSERBILL_ALL','YXUSERBILL_SELECT')")
-    public ResponseEntity getYxUserBills(YxUserBillQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity(yxUserBillService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity getYxUserBills(YxUserBillQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity(yxUserBillService.queryAll(criteria, pageable), HttpStatus.OK);
     }
-
-
-
-
 
 
 }

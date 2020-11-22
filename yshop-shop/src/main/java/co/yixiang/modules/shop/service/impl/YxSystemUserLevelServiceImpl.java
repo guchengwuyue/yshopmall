@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +35,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-12
-*/
+ * @author hupeng
+ * @date 2020-05-12
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxSystemUserLevel")
@@ -60,7 +60,7 @@ public class YxSystemUserLevelServiceImpl extends BaseServiceImpl<SystemUserLeve
 
     @Override
     //@Cacheable
-    public List<YxSystemUserLevel> queryAll(YxSystemUserLevelQueryCriteria criteria){
+    public List<YxSystemUserLevel> queryAll(YxSystemUserLevelQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxSystemUserLevel.class, criteria));
     }
 
@@ -69,7 +69,7 @@ public class YxSystemUserLevelServiceImpl extends BaseServiceImpl<SystemUserLeve
     public void download(List<YxSystemUserLevelDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxSystemUserLevelDto yxSystemUserLevel : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("商户id", yxSystemUserLevel.getMerId());
             map.put("会员名称", yxSystemUserLevel.getName());
             map.put("购买金额", yxSystemUserLevel.getMoney());

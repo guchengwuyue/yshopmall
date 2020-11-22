@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.mp.handler;
 
 import co.yixiang.mp.builder.TextBuilder;
@@ -38,7 +38,7 @@ public class LocationHandler extends AbstractHandler {
 
         //上报地理位置事件
         this.logger.info("上报地理位置，纬度 : {}，经度 : {}，精度 : {}",
-            wxMessage.getLatitude(), wxMessage.getLongitude(), String.valueOf(wxMessage.getPrecision()));
+                wxMessage.getLatitude(), wxMessage.getLongitude(), String.valueOf(wxMessage.getPrecision()));
 
         //TODO  可以将用户地理位置信息保存到本地数据库，以便以后使用
 

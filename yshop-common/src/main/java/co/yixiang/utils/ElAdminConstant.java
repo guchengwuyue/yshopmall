@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.utils;
 
 /**
@@ -25,7 +25,7 @@ public class ElAdminConstant {
     /**
      * 常用接口
      */
-    public static class Url{
+    public static class Url {
         public static final String SM_MS_URL = "https://sm.ms/api/upload";
     }
 }

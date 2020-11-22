@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -22,11 +22,11 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Data
-@TableName(value="yx_store_bargain")
+@TableName(value = "yx_store_bargain")
 public class YxStoreBargain implements Serializable {
 
     /** 砍价产品ID */
@@ -54,7 +54,7 @@ public class YxStoreBargain implements Serializable {
 
     /** 库存 */
     @NotNull(message = "请输入库存")
-    @Min(message = "库存不能小于0",value = 1)
+    @Min(message = "库存不能小于0", value = 1)
     private Integer stock;
 
 
@@ -81,41 +81,41 @@ public class YxStoreBargain implements Serializable {
 
     /** 砍价金额 */
     @NotNull(message = "请输入砍价金额")
-    @DecimalMin(value="0.00", message = "砍价金额不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "砍价金额不在合法范围内")
+    @DecimalMin(value = "0.00", message = "砍价金额不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "砍价金额不在合法范围内")
     private BigDecimal price;
 
 
     /** 砍价商品最低价 */
     @NotNull(message = "请输入砍到最低价")
-    @DecimalMin(value="0.00", message = "砍到最低价不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "砍到最低价不在合法范围内")
+    @DecimalMin(value = "0.00", message = "砍到最低价不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "砍到最低价不在合法范围内")
     private BigDecimal minPrice;
 
 
     /** 每次购买的砍价产品数量 */
     @NotNull(message = "请输入限购")
-    @Min(message = "限购不能小于0",value = 1)
+    @Min(message = "限购不能小于0", value = 1)
     private Integer num;
 
 
     /** 用户每次砍价的最大金额 */
     @NotNull(message = "请输入单次砍最高价")
-    @DecimalMin(value="0.00", message = "单次砍最高价不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "单次砍最高价不在合法范围内")
+    @DecimalMin(value = "0.00", message = "单次砍最高价不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "单次砍最高价不在合法范围内")
     private BigDecimal bargainMaxPrice;
 
 
     /** 用户每次砍价的最小金额 */
     @NotNull(message = "请输入单次砍最低价")
-    @DecimalMin(value="0.00", message = "单次砍最低价不在合法范围内" )
-    @DecimalMax(value="99999999.99", message = "单次砍最低价小金额不在合法范围内")
+    @DecimalMin(value = "0.00", message = "单次砍最低价不在合法范围内")
+    @DecimalMax(value = "99999999.99", message = "单次砍最低价小金额不在合法范围内")
     private BigDecimal bargainMinPrice;
 
 
     /** 用户每次砍价的次数 */
     @NotNull(message = "请输入砍价的次数")
-    @Min(message = "砍价的次数不能小于0",value = 1)
+    @Min(message = "砍价的次数不能小于0", value = 1)
     private Integer bargainNum;
 
 
@@ -183,7 +183,7 @@ public class YxStoreBargain implements Serializable {
     private Timestamp startTimeDate;
 
 
-    public void copy(YxStoreBargain source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxStoreBargain source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

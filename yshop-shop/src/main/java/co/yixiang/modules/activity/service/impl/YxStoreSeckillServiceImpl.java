@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.activity.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -36,9 +36,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
-* @author hupeng
-* @date 2020-05-13
-*/
+ * @author hupeng
+ * @date 2020-05-13
+ */
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "yxStoreSeckill")
@@ -52,14 +52,14 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
     public Map<String, Object> queryAll(YxStoreSeckillQueryCriteria criteria, Pageable pageable) {
         getPage(pageable);
         PageInfo<YxStoreSeckill> page = new PageInfo<>(queryAll(criteria));
-        List<YxStoreSeckillDto> storeSeckillDTOS = generator.convert(page.getList(),YxStoreSeckillDto.class);
-        for (YxStoreSeckillDto storeSeckillDTO : storeSeckillDTOS){
+        List<YxStoreSeckillDto> storeSeckillDTOS = generator.convert(page.getList(), YxStoreSeckillDto.class);
+        for (YxStoreSeckillDto storeSeckillDTO : storeSeckillDTOS) {
             String statusStr = OrderUtil.checkActivityStatus(storeSeckillDTO.getStartTime(),
                     storeSeckillDTO.getStopTime(), storeSeckillDTO.getStatus());
             storeSeckillDTO.setStatusStr(statusStr);
         }
-        Map<String,Object> map = new LinkedHashMap<>(2);
-        map.put("content",storeSeckillDTOS);
+        Map<String, Object> map = new LinkedHashMap<>(2);
+        map.put("content", storeSeckillDTOS);
         map.put("totalElements", page.getTotal());
         return map;
     }
@@ -67,7 +67,7 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
 
     @Override
     //@Cacheable
-    public List<YxStoreSeckill> queryAll(YxStoreSeckillQueryCriteria criteria){
+    public List<YxStoreSeckill> queryAll(YxStoreSeckillQueryCriteria criteria) {
         return baseMapper.selectList(QueryHelpPlus.getPredicate(YxStoreSeckill.class, criteria));
     }
 
@@ -76,7 +76,7 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
     public void download(List<YxStoreSeckillDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreSeckillDto yxStoreSeckill : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("商品id", yxStoreSeckill.getProductId());
             map.put("推荐图", yxStoreSeckill.getImage());
             map.put("轮播图", yxStoreSeckill.getImages());
@@ -101,8 +101,8 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
             map.put("删除 0未删除1已删除", yxStoreSeckill.getIsDel());
             map.put("最多秒杀几个", yxStoreSeckill.getNum());
             map.put("显示", yxStoreSeckill.getIsShow());
-            map.put(" endTimeDate",  yxStoreSeckill.getEndTimeDate());
-            map.put(" startTimeDate",  yxStoreSeckill.getStartTimeDate());
+            map.put(" endTimeDate", yxStoreSeckill.getEndTimeDate());
+            map.put(" startTimeDate", yxStoreSeckill.getStartTimeDate());
             map.put("时间段id", yxStoreSeckill.getTimeId());
             list.add(map);
         }

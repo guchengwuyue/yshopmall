@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.dozer.service.IGenerator;
@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
-* @author hupeng
-* @date 2020-03-22
-*/
+ * @author hupeng
+ * @date 2020-03-22
+ */
 @Api(tags = "门店店员管理")
 @RestController
 @RequestMapping("/api/yxSystemStoreStaff")
@@ -49,7 +49,7 @@ public class SystemStoreStaffController {
 
     private final IGenerator generator;
 
-    public SystemStoreStaffController(YxSystemStoreService yxSystemStoreService,YxSystemStoreStaffService yxSystemStoreStaffService, IGenerator generator) {
+    public SystemStoreStaffController(YxSystemStoreService yxSystemStoreService, YxSystemStoreStaffService yxSystemStoreStaffService, IGenerator generator) {
         this.yxSystemStoreService = yxSystemStoreService;
         this.yxSystemStoreStaffService = yxSystemStoreStaffService;
         this.generator = generator;
@@ -67,28 +67,28 @@ public class SystemStoreStaffController {
     @Log("查询门店店员")
     @ApiOperation("查询门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:list')")
-    public ResponseEntity<Object> getYxSystemStoreStaffs(YxSystemStoreStaffQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(yxSystemStoreStaffService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> getYxSystemStoreStaffs(YxSystemStoreStaffQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(yxSystemStoreStaffService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增门店店员")
     @ApiOperation("新增门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:add')")
-    public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStoreStaff resources){
+    public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStoreStaff resources) {
         YxSystemStore systemStore = yxSystemStoreService.getOne(Wrappers.<YxSystemStore>lambdaQuery()
-                .eq(YxSystemStore::getId,resources.getStoreId()));
+                .eq(YxSystemStore::getId, resources.getStoreId()));
         resources.setStoreName(systemStore.getName());
-        return new ResponseEntity<>(yxSystemStoreStaffService.save(resources),HttpStatus.CREATED);
+        return new ResponseEntity<>(yxSystemStoreStaffService.save(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改门店店员")
     @ApiOperation("修改门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:edit')")
-    public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStoreStaff resources){
+    public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStoreStaff resources) {
         YxSystemStore systemStore = yxSystemStoreService.getOne(Wrappers.<YxSystemStore>lambdaQuery()
-                .eq(YxSystemStore::getId,resources.getStoreId()));
+                .eq(YxSystemStore::getId, resources.getStoreId()));
         resources.setStoreName(systemStore.getName());
         yxSystemStoreStaffService.saveOrUpdate(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

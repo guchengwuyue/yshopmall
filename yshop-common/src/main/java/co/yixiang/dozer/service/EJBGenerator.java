@@ -1,9 +1,9 @@
 /**
-* Copyright (C) 2018-2020
-* All rights reserved, Designed By www.yixiang.co
-* 注意：
-* 本软件为www.yixiang.co开发研制
-*/
+ * Copyright (C) 2018-2020
+ * All rights reserved, Designed By www.yixiang.co
+ * 注意：
+ * 本软件为www.yixiang.co开发研制
+ */
 package co.yixiang.dozer.service;
 
 import co.yixiang.common.web.vo.Paging;
@@ -43,8 +43,8 @@ public class EJBGenerator implements IGenerator {
 
     @Override
     public <T, S> Paging<T> convertPaging(Paging<S> paging, Class<T> clz) {
-        Paging<T> pagingVo=new  Paging<T>();
-        pagingVo.setRecords(convert(paging.getRecords(),clz));
+        Paging<T> pagingVo = new Paging<T>();
+        pagingVo.setRecords(convert(paging.getRecords(), clz));
         pagingVo.setTotal(paging.getTotal());
         return pagingVo;
     }
