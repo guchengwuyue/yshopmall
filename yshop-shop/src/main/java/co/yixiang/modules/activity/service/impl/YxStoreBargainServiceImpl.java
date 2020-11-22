@@ -11,7 +11,6 @@ import co.yixiang.modules.activity.domain.YxStoreBargain;
 import co.yixiang.modules.activity.service.YxStoreBargainService;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainDto;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainQueryCriteria;
-import co.yixiang.modules.activity.service.dto.YxStoreSeckillDto;
 import co.yixiang.modules.activity.service.mapper.YxStoreBargainMapper;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.OrderUtil;

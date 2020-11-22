@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    import {add, edit} from '@/api/${changeClassName}'
+    import {add, edit} from '@/api/'
 
     export default {
         props: {

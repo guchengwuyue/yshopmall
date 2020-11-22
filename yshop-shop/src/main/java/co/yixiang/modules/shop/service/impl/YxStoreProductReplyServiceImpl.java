@@ -19,7 +19,6 @@ import co.yixiang.modules.shop.service.mapper.StoreProductReplyMapper;
 import co.yixiang.utils.FileUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;

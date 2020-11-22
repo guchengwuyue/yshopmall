@@ -7,11 +7,7 @@
 package co.yixiang.gen.utils;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.template.Template;
-import cn.hutool.extra.template.TemplateConfig;
-import cn.hutool.extra.template.TemplateEngine;
-import cn.hutool.extra.template.TemplateException;
-import cn.hutool.extra.template.TemplateUtil;
+import cn.hutool.extra.template.*;
 import co.yixiang.gen.domain.ColumnConfig;
 import co.yixiang.gen.domain.GenConfig;
 import co.yixiang.utils.FileUtil;

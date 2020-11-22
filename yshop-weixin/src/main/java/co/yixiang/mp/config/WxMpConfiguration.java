@@ -6,17 +6,7 @@
  */
 package co.yixiang.mp.config;
 
-import co.yixiang.mp.handler.KfSessionHandler;
-import co.yixiang.mp.handler.LocationHandler;
-import co.yixiang.mp.handler.LogHandler;
-import co.yixiang.mp.handler.MenuHandler;
-import co.yixiang.mp.handler.MsgHandler;
-import co.yixiang.mp.handler.NullHandler;
-import co.yixiang.mp.handler.RedisHandler;
-import co.yixiang.mp.handler.ScanHandler;
-import co.yixiang.mp.handler.StoreCheckNotifyHandler;
-import co.yixiang.mp.handler.SubscribeHandler;
-import co.yixiang.mp.handler.UnsubscribeHandler;
+import co.yixiang.mp.handler.*;
 import co.yixiang.utils.RedisUtil;
 import com.google.common.collect.Maps;
 import me.chanjar.weixin.common.api.WxConsts;

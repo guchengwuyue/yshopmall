@@ -10,11 +10,7 @@ import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.EntityExistException;
-import co.yixiang.modules.system.domain.Dept;
-import co.yixiang.modules.system.domain.Menu;
-import co.yixiang.modules.system.domain.Role;
-import co.yixiang.modules.system.domain.RolesDepts;
-import co.yixiang.modules.system.domain.RolesMenus;
+import co.yixiang.modules.system.domain.*;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.RolesDeptsService;
 import co.yixiang.modules.system.service.RolesMenusService;
@@ -28,7 +24,6 @@ import co.yixiang.modules.system.service.mapper.RoleMapper;
 import co.yixiang.utils.FileUtil;
 import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -40,14 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 // 默认不使用缓存
