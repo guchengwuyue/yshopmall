@@ -54,9 +54,7 @@ public class DataScope {
 
         for (RoleSmallDto role : roleSet) {
 
-            if (scopeType[0].equals(role.getDataScope())) {
-                return new HashSet<>();
-            }
+            if (scopeType[0].equals(role.getDataScope())) return new HashSet<>();
 
             // 存储本级的数据权限
             if (scopeType[1].equals(role.getDataScope())) {

@@ -10,6 +10,7 @@ import cn.hutool.core.date.DateUtil;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.EntityExistException;
 import co.yixiang.modules.system.domain.Role;
 import co.yixiang.modules.system.domain.User;
@@ -238,13 +239,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
         User user2 = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail, resources.getEmail()));
 
-        if (user1 != null && !user.getId().equals(user1.getId())) {
-            throw new EntityExistException(User.class, "username", resources.getUsername());
-        }
+        if (user1 != null && !user.getId().equals(user1.getId())) throw new BadRequestException("当前用户名已存在");
 
-        if (user2 != null && !user.getId().equals(user2.getId())) {
+        if (user2 != null && !user.getId().equals(user2.getId()))
             throw new EntityExistException(User.class, "email", resources.getEmail());
-        }
         user.setUsername(resources.getUsername());
         user.setEmail(resources.getEmail());
         user.setEnabled(resources.getEnabled());
