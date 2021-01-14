@@ -104,7 +104,7 @@ public class YxStoreCombinationDto implements Serializable {
     // 拼团订单有效时间
     private Integer effectiveTime;
 
-    // 拼图产品成本
+    // 拼团产品成本
     private Integer cost;
 
     // 浏览量

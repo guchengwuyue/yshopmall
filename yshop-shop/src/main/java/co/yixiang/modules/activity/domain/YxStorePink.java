@@ -55,7 +55,7 @@ public class YxStorePink implements Serializable {
     private Integer pid;
 
 
-    /** 拼图总人数 */
+    /** 拼团总人数 */
     private Integer people;
 
 

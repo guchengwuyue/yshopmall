@@ -77,10 +77,10 @@ public class YxStorePinkServiceImpl extends BaseServiceImpl<YxStorePinkMapper, Y
             map.put("购买总金额", yxStorePink.getTotalPrice());
             map.put("拼团产品id", yxStorePink.getCid());
             map.put("产品id", yxStorePink.getPid());
-            map.put("拼图总人数", yxStorePink.getPeople());
+            map.put("拼团总人数", yxStorePink.getPeople());
             map.put("拼团产品单价", yxStorePink.getPrice());
             map.put("开始时间", yxStorePink.getAddTime());
-            map.put(" stopTime", yxStorePink.getStopTime());
+            map.put("结束时间", yxStorePink.getStopTime());
             map.put("团长id 0为团长", yxStorePink.getKId());
             map.put("是否发送模板消息0未发送1已发送", yxStorePink.getIsTpl());
             map.put("是否退款 0未退款 1已退款", yxStorePink.getIsRefund());

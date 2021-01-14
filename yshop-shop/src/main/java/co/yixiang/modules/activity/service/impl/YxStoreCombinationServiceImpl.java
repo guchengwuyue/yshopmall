@@ -113,7 +113,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
             map.put("拼团开始时间", yxStoreCombination.getStartTime());
             map.put("拼团结束时间", yxStoreCombination.getStopTime());
             map.put("拼团订单有效时间", yxStoreCombination.getEffectiveTime());
-            map.put("拼图产品成本", yxStoreCombination.getCost());
+            map.put("拼团产品成本", yxStoreCombination.getCost());
             map.put("浏览量", yxStoreCombination.getBrowse());
             map.put("单位名", yxStoreCombination.getUnitName());
             list.add(map);

@@ -41,7 +41,7 @@ public class YxStorePinkDto implements Serializable {
     /** 产品id */
     private Integer pid;
 
-    /** 拼图总人数 */
+    /** 拼团总人数 */
     private Integer people;
 
     /** 拼团产品单价 */
