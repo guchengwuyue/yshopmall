@@ -109,7 +109,9 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
      */
     @Override
     public void updateIsPause(QuartzJob quartzJob) {
-        if (quartzJob.getId().equals(1L)) throw new BadRequestException("该任务不可操作");
+        if (quartzJob.getId().equals(1L)) {
+            throw new BadRequestException("该任务不可操作");
+        }
         if (quartzJob.getIsPause()) {
             quartzManage.resumeJob(quartzJob);
         } else {

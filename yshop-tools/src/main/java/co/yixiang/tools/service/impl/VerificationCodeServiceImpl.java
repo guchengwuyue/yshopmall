@@ -84,7 +84,8 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
      */
     private void timedDestruction(VerificationCode verifyCode) {
         //以下示例为程序调用结束继续运行
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
+                new BasicThreadFactory.Builder().namingPattern("verifyCode-schedule-pool-%d").daemon(true).build());
         try {
             executorService.schedule(() -> {
                 verifyCode.setStatus(false);

@@ -35,7 +35,7 @@
         <jedis.version>2.9.0</jedis.version>
         <log4jdbc.version>1.16</log4jdbc.version>
         <swagger.version>2.9.2</swagger.version>
-        <fastjson.version>1.2.73</fastjson.version>
+        <fastjson.version>1.2.74</fastjson.version>
         <druid.version>1.1.10</druid.version>
         <hutool.version>5.2.5</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>

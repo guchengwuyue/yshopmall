@@ -239,10 +239,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
         User user2 = this.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail, resources.getEmail()));
 
-        if (user1 != null && !user.getId().equals(user1.getId())) throw new BadRequestException("当前用户名已存在");
+        if (user1 != null && !user.getId().equals(user1.getId())) {
+            throw new BadRequestException("当前用户名已存在");
+        }
 
-        if (user2 != null && !user.getId().equals(user2.getId()))
+        if (user2 != null && !user.getId().equals(user2.getId())) {
             throw new EntityExistException(User.class, "email", resources.getEmail());
+        }
         user.setUsername(resources.getUsername());
         user.setEmail(resources.getEmail());
         user.setEnabled(resources.getEnabled());
