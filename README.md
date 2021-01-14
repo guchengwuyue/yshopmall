@@ -129,14 +129,10 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
     * 1.13 WxJava
     * 1.14 Lombok
     * 1.15 Hutool
-    * 1.16 Mapstruct
-	* 1.17 Redisson
-	* 1.18 Rocketmq
         
 * 前端使用技术
     * 2.1 Vue 全家桶
     * 2.2 Element
-    * 2.3 mpvue
     * 2.3 uniapp
 
 
