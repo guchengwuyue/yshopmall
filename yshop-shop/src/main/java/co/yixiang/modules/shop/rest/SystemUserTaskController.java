@@ -42,7 +42,7 @@ public class SystemUserTaskController {
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_SELECT')")
     public ResponseEntity getYxSystemUserTasks(YxSystemUserTaskQueryCriteria criteria,
                                                Pageable pageable) {
-        Sort sort = new Sort(Sort.Direction.ASC, "level_id");
+        Sort sort = Sort.by(Sort.Direction.ASC, "level_id");
         Pageable pageableT = PageRequest.of(pageable.getPageNumber(),
                 pageable.getPageSize(),
                 sort);

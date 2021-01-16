@@ -5,7 +5,8 @@
 /___/                /_/
 
 
- :: Spring Boot ::       (v2.1.0.RELEASE)
+ :: Application Version::  ${yshop.version}
+ :: Spring Boot ::       ${spring-boot.version}
 
 
 

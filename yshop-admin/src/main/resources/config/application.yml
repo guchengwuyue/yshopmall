@@ -45,7 +45,16 @@ rsa:
 smms:
   token: 1oOP3ykFDI0K6ifmtvU7c8Y1eTWZSlyl
 
+#日志级别配置
+logging:
+  level:
+    co.yixiang: DEBUG
+    org.springframework.web: ERROR
+    me.chanjar.weixin: ERROR
+
 yshop:
+  # 版本
+  version: 2.3
   # 快鸟物流查询配置
   express:
     enable: true

@@ -5,8 +5,8 @@ spring:
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
-      driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
       username: root
       password: root
 
@@ -82,7 +82,7 @@ swagger:
   enabled: false
   title: yshop商城管理后台API
   serverUrl: http://127.0.0.1:8000
-  version: 2.2
+  version: 2.3
 
 # 文件存储路径
 # 文件存储路径
