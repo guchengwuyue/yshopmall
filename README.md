@@ -36,7 +36,8 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 #### 官网体验地址（里面有演示地址与文档）
 
 |     |   官网文档地址  |    https://www.yixiang.co  |
-|---  |--- | --- |
+|---  |  管理后台演示地址： | https://demo2.yixiang.co  |
+|---  |  关注右边公众号点击菜单单商户体验小程序与H5 | https://demo2.yixiang.co  |
 
 ### docker部署
 
