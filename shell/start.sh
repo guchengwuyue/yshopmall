@@ -1,1 +1,1 @@
-nohup java -jar yshop-api-2.0.jar --spring.profiles.active=prod &
+nohup java -jar yshop-admin-2.3.jar --spring.profiles.active=prod &
