@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -17,10 +18,10 @@ import java.io.Serializable;
 @Data
 public class YxStoreOrderStatusDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     /** 订单id */
-    private Integer oid;
+    private Long oid;
 
     /** 操作类型 */
     private String changeType;
@@ -29,5 +30,5 @@ public class YxStoreOrderStatusDto implements Serializable {
     private String changeMessage;
 
     /** 操作时间 */
-    private Integer changeTime;
+    private Date changeTime;
 }

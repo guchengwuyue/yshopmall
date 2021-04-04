@@ -53,16 +53,7 @@ public class StoreCombinationController {
     @PutMapping(value = "/yxStoreCombination")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreCombination resources) {
-        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
-            resources.setStartTime(OrderUtil.
-                    dateToTimestamp(resources.getStartTimeDate()));
-        }
-        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
-            resources.setStopTime(OrderUtil.
-                    dateToTimestamp(resources.getEndTimeDate()));
-        }
         if (ObjectUtil.isNull(resources.getId())) {
-            resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
             return new ResponseEntity(yxStoreCombinationService.save(resources), HttpStatus.CREATED);
         } else {
             yxStoreCombinationService.saveOrUpdate(resources);
@@ -73,11 +64,9 @@ public class StoreCombinationController {
 
     @ApiOperation(value = "开启关闭")
     @PostMapping(value = "/yxStoreCombination/onsale/{id}")
-    public ResponseEntity onSale(@PathVariable Integer id, @RequestBody String jsonStr) {
-
+    public ResponseEntity onSale(@PathVariable Long id, @RequestBody String jsonStr) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         int status = Integer.valueOf(jsonObject.get("status").toString());
-        //System.out.println(status);
         yxStoreCombinationService.onSale(id, status);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -86,12 +75,8 @@ public class StoreCombinationController {
     @ApiOperation(value = "删除拼团")
     @DeleteMapping(value = "/yxStoreCombination/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOMBINATION_ALL','YXSTORECOMBINATION_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id) {
-
-        YxStoreCombination combination = new YxStoreCombination();
-        combination.setIsDel(1);
-        combination.setId(id);
-        yxStoreCombinationService.saveOrUpdate(combination);
+    public ResponseEntity delete(@PathVariable Long id) {
+        yxStoreCombinationService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

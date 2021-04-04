@@ -8,6 +8,7 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -25,7 +26,7 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("yx_store_coupon")
-public class YxStoreCoupon implements Serializable {
+public class YxStoreCoupon extends BaseDomain {
 
     /** 优惠券表ID */
     @TableId
@@ -65,13 +66,6 @@ public class YxStoreCoupon implements Serializable {
     /** 状态（0：关闭，1：开启） */
     private Integer status;
 
-
-    /** 兑换项目添加时间 */
-    private Integer addTime;
-
-
-    /** 是否删除 */
-    private Integer isDel;
 
 
     public void copy(YxStoreCoupon source) {

@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
@@ -21,21 +22,12 @@ import java.sql.Timestamp;
 
 @Data
 @TableName("yx_material")
-public class YxMaterial implements Serializable {
+public class YxMaterial extends BaseDomain {
 
     /** PK */
     @TableId(type = IdType.UUID)
     private String id;
 
-    /** 逻辑删除标记（0：显示；1：隐藏） */
-    @TableLogic
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Boolean delFlag;
-
-
-    /** 创建时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
     /** 创建者ID */
     private String createId;

@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -24,11 +25,11 @@ import java.io.Serializable;
 public class YxStoreProductAttrResult implements Serializable {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
 
     /** 商品属性参数 */
@@ -36,7 +37,7 @@ public class YxStoreProductAttrResult implements Serializable {
 
 
     /** 上次修改时间 */
-    private Integer changeTime;
+    private Date changeTime;
 
 
     public void copy(YxStoreProductAttrResult source) {

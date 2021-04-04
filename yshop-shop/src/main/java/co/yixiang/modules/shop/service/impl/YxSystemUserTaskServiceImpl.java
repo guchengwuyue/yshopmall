@@ -57,6 +57,10 @@ public class YxSystemUserTaskServiceImpl extends BaseServiceImpl<SystemUserTaskM
         List<YxSystemUserTaskDto> systemUserTaskDTOS = generator.convert(page.getList(), YxSystemUserTaskDto.class);
         for (YxSystemUserTaskDto systemUserTaskDTO : systemUserTaskDTOS) {
             YxSystemUserLevel userLevel = systemUserLevelService.getById(systemUserTaskDTO.getLevelId());
+            if(userLevel == null) {
+                systemUserTaskDTO.setLevalName("--");
+                continue;
+            }
             systemUserTaskDTO.setLevalName(userLevel.getName());
         }
         Map<String, Object> map = new LinkedHashMap<>(2);
@@ -87,7 +91,6 @@ public class YxSystemUserTaskServiceImpl extends BaseServiceImpl<SystemUserTaskM
             map.put("是否显示", yxSystemUserTask.getIsShow());
             map.put("是否务必达成任务,1务必达成,0=满足其一", yxSystemUserTask.getIsMust());
             map.put("任务说明", yxSystemUserTask.getIllustrate());
-            map.put("新增时间", yxSystemUserTask.getAddTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_store_cart")
-public class YxStoreCart implements Serializable {
+public class YxStoreCart extends BaseDomain {
 
     /** 购物车表ID */
     @TableId
@@ -29,7 +30,7 @@ public class YxStoreCart implements Serializable {
 
 
     /** 用户ID */
-    private Integer uid;
+    private Long uid;
 
 
     /** 类型 */
@@ -37,7 +38,7 @@ public class YxStoreCart implements Serializable {
 
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
 
     /** 商品属性 */
@@ -48,16 +49,9 @@ public class YxStoreCart implements Serializable {
     private Integer cartNum;
 
 
-    /** 添加时间 */
-    private Integer addTime;
-
-
     /** 0 = 未购买 1 = 已购买 */
     private Integer isPay;
 
-
-    /** 是否删除 */
-    private Integer isDel;
 
 
     /** 是否为立即购买 */
@@ -66,15 +60,15 @@ public class YxStoreCart implements Serializable {
 
     /** 拼团id */
     //@Column(name = "combination_id")
-    private Integer combinationId;
+    private Long combinationId;
 
 
     /** 秒杀产品ID */
-    private Integer seckillId;
+    private Long seckillId;
 
 
     /** 砍价id */
-    private Integer bargainId;
+    private Long bargainId;
 
 
     public void copy(YxStoreCart source) {

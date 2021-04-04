@@ -57,7 +57,12 @@ public class YxStoreCouponUserServiceImpl extends BaseServiceImpl<YxStoreCouponU
         PageInfo<YxStoreCouponUser> page = new PageInfo<>(queryAll(criteria));
         List<YxStoreCouponUserDto> storeOrderDTOS = generator.convert(page.getList(), YxStoreCouponUserDto.class);
         for (YxStoreCouponUserDto couponUserDTO : storeOrderDTOS) {
-            couponUserDTO.setNickname(userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, couponUserDTO.getUid())).getNickname());
+           YxUser yxUser = userService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, couponUserDTO.getUid()));
+           if(yxUser == null){
+               couponUserDTO.setNickname("--");
+               continue;
+           }
+            couponUserDTO.setNickname(yxUser.getNickname());
         }
         Map<String, Object> map = new LinkedHashMap<>(2);
         map.put("content", storeOrderDTOS);
@@ -82,7 +87,6 @@ public class YxStoreCouponUserServiceImpl extends BaseServiceImpl<YxStoreCouponU
             map.put("优惠券名称", yxStoreCouponUser.getCouponTitle());
             map.put("优惠券的面值", yxStoreCouponUser.getCouponPrice());
             map.put("最低消费多少金额可用优惠券", yxStoreCouponUser.getUseMinPrice());
-            map.put("优惠券创建时间", yxStoreCouponUser.getAddTime());
             map.put("优惠券结束时间", yxStoreCouponUser.getEndTime());
             map.put("使用时间", yxStoreCouponUser.getUseTime());
             map.put("获取方式", yxStoreCouponUser.getType());

@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -26,15 +27,10 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("yx_system_user_level")
-public class YxSystemUserLevel implements Serializable {
+public class YxSystemUserLevel extends BaseDomain {
 
     @TableId
     private Integer id;
-
-
-    /** 商户id */
-    private Integer merId;
-
 
     /** 会员名称 */
     @NotBlank(message = "名称必填")
@@ -84,14 +80,6 @@ public class YxSystemUserLevel implements Serializable {
     @TableField(value = "`explain`")
     private String explain;
 
-
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
-
-
-    /** 是否删除.1=删除,0=未删除 */
-    private Integer isDel;
 
 
     public void copy(YxSystemUserLevel source) {

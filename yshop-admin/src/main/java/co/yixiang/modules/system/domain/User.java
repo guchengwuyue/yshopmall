@@ -8,6 +8,7 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -26,7 +27,7 @@ import java.util.Set;
  */
 @Data
 @TableName("user")
-public class User implements Serializable {
+public class User extends BaseDomain {
 
     /** 系统用户ID */
     @TableId
@@ -81,10 +82,6 @@ public class User implements Serializable {
     /** 岗位名称 */
     private Long jobId;
 
-
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     /** 最后修改密码的日期 */

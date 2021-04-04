@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Data
 public class UserMoneyDto implements Serializable {
     //@NotNull(message = "参数缺失")
-    private Integer uid;
+    private Long uid;
     //@NotNull(message = "请选择修改余额方式")
     private Integer ptype;
     //@NotNull(message = "金额必填")

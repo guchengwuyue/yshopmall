@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -20,7 +21,7 @@ public class YxSystemStoreStaffDto implements Serializable {
     private Integer id;
 
     /** 微信用户id */
-    private Integer uid;
+    private Long uid;
 
     /** 店员头像 */
     private String avatar;
@@ -41,7 +42,7 @@ public class YxSystemStoreStaffDto implements Serializable {
     private Integer status;
 
     /** 添加时间 */
-    private Integer addTime;
+    private Date createTime;
 
     /** 微信昵称 */
     private String nickname;

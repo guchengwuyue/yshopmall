@@ -21,10 +21,10 @@ public class YxStoreSeckillDto implements Serializable {
 
 
     // 商品秒杀产品表id
-    private Integer id;
+    private Long id;
 
     // 商品id
-    private Integer productId;
+    private Long productId;
 
     // 推荐图
     private String image;
@@ -62,32 +62,21 @@ public class YxStoreSeckillDto implements Serializable {
     // 单位名
     private String unitName;
 
-    // 邮费
-    private BigDecimal postage;
-
     // 内容
     private String description;
 
     // 开始时间
-    private Integer startTime;
+    private Date startTime;
 
     // 结束时间
-    private Integer stopTime;
+    private Date stopTime;
 
     // 添加时间
-    private String addTime;
+    private Date createTime;
 
     // 产品状态
     private Integer status;
 
-    // 是否包邮
-    private Integer isPostage;
-
-    // 热门推荐
-    private Integer isHot;
-
-    // 删除 0未删除1已删除
-    private Integer isDel;
 
     // 最多秒杀几个
     private Integer num;
@@ -95,9 +84,6 @@ public class YxStoreSeckillDto implements Serializable {
     // 显示
     private Integer isShow;
 
-    private Date startTimeDate;
-
-    private Date endTimeDate;
 
     private String statusStr;
 

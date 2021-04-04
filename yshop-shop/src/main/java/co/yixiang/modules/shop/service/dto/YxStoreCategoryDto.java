@@ -37,11 +37,6 @@ public class YxStoreCategoryDto implements Serializable {
     /** 是否推荐 */
     private Integer isShow;
 
-    /** 添加时间 */
-    private Integer addTime;
-
-    /** 删除状态 */
-    private Integer isDel;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<YxStoreCategoryDto> children;

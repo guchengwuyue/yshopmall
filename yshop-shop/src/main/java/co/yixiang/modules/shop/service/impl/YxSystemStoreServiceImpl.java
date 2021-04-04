@@ -80,9 +80,7 @@ public class YxSystemStoreServiceImpl extends BaseServiceImpl<SystemStoreMapper,
             map.put("经度", yxSystemStore.getLongitude());
             map.put("核销有效日期", yxSystemStore.getValidTime());
             map.put("每日营业开关时间", yxSystemStore.getDayTime());
-            map.put("添加时间", yxSystemStore.getAddTime());
             map.put("是否显示", yxSystemStore.getIsShow());
-            map.put("是否删除", yxSystemStore.getIsDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

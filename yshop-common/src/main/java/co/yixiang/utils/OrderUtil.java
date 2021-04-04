@@ -9,6 +9,7 @@ package co.yixiang.utils;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
+import co.yixiang.enums.ShopCommonEnum;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,19 +30,18 @@ public class OrderUtil {
      * @param status  0-关闭 其他表示相反
      * @return String
      */
-    public static String checkActivityStatus(int starTime, int endTime, int status) {
-        int nowTime = OrderUtil.getSecondTimestampTwo();
+    public static String checkActivityStatus(Date starTime, Date endTime, int status) {
+        Date nowTime = new Date();
 
-        if (status == 0) {
+        if(ShopCommonEnum.IS_STATUS_0.getValue().equals(status)) {
             return "关闭";
         }
 
-
-        if (starTime > nowTime) {
+        if(DateUtil.compare(starTime,nowTime) > 0){
             return "活动未开始";
-        } else if (endTime < nowTime) {
+        }else if(DateUtil.compare(endTime,nowTime) < 0){
             return "活动已结束";
-        } else if (endTime > nowTime && starTime < nowTime) {
+        }else if(DateUtil.compare(endTime,nowTime) > 0 && DateUtil.compare(starTime,nowTime) < 0){
             return "正在进行中";
         }
 

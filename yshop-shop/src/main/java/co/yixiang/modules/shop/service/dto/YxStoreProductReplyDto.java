@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -18,21 +19,21 @@ import java.io.Serializable;
 public class YxStoreProductReplyDto implements Serializable {
 
     // 评论ID
-    private Integer id;
+    private Long id;
 
     // 用户ID
-    private Integer uid;
+    private Long uid;
 
     private YxUserSmallDto user;
 
     // 订单ID
-    private Integer oid;
+    private Long oid;
 
     // 唯一id
     private String unique;
 
     // 产品id
-    private Integer productId;
+    private Long productId;
 
     private YxStoreProductSmallDto storeProduct;
 
@@ -59,10 +60,8 @@ public class YxStoreProductReplyDto implements Serializable {
     private String merchantReplyContent;
 
     // 管理员回复时间
-    private Integer merchantReplyTime;
+    private Date merchantReplyTime;
 
-    // 0未删除1已删除
-    private Integer isDel;
 
     // 0未回复1已回复
     private Integer isReply;

@@ -17,16 +17,16 @@ import java.io.Serializable;
 @Data
 public class YxStoreOrderCartInfoDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     /** 订单id */
-    private Integer oid;
+    private Long oid;
 
     /** 购物车id */
-    private Integer cartId;
+    private Long cartId;
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
     /** 购买东西的详细信息 */
     private String cartInfo;

@@ -57,8 +57,6 @@ public class StoreProductController {
     @PostMapping(value = "/yxStoreProduct")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreProduct resources) {
-
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         if (ObjectUtil.isEmpty(resources.getGiveIntegral())) {
             resources.setGiveIntegral(BigDecimal.ZERO);
         }
@@ -118,7 +116,7 @@ public class StoreProductController {
     @ApiOperation(value = "设置保存属性")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PostMapping(value = "/yxStoreProduct/setAttr/{id}")
-    public ResponseEntity setAttr(@PathVariable Integer id, @RequestBody String jsonStr) {
+    public ResponseEntity setAttr(@PathVariable Long id, @RequestBody String jsonStr) {
         yxStoreProductService.createProductAttr(id, jsonStr);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -126,7 +124,7 @@ public class StoreProductController {
     @ApiOperation(value = "清除属性")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PostMapping(value = "/yxStoreProduct/clearAttr/{id}")
-    public ResponseEntity clearAttr(@PathVariable Integer id) {
+    public ResponseEntity clearAttr(@PathVariable Long id) {
         yxStoreProductService.clearProductAttr(id, true);
         return new ResponseEntity(HttpStatus.OK);
     }

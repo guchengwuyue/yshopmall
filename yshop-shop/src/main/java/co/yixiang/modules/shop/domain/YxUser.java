@@ -8,41 +8,37 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
+import co.yixiang.modules.shop.service.dto.WechatUserDto;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
  * @date 2020-05-12
  */
 @Data
-public class YxUser implements Serializable {
+public class YxUser extends BaseDomain {
 
     /** 用户id */
     @TableId(value = "uid", type = IdType.AUTO)
-    private Integer uid;
+    private Long uid;
 
 
     /** 用户账户(跟accout一样) */
     private String username;
 
 
-    /** 用户账号 */
-    private String account;
-
-
     /** 用户密码（跟pwd） */
     private String password;
-
-
-    /** 用户密码 */
-    private String pwd;
 
 
     /** 真实姓名 */
@@ -61,14 +57,6 @@ public class YxUser implements Serializable {
     private String mark;
 
 
-    /** 合伙人id */
-    private Integer partnerId;
-
-
-    /** 用户分组id */
-    private Integer groupId;
-
-
     /** 用户昵称 */
     private String nickname;
 
@@ -80,18 +68,8 @@ public class YxUser implements Serializable {
     /** 手机号码 */
     private String phone;
 
-
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
-
-
     /** 添加ip */
     private String addIp;
-
-
-    /** 最后一次登录时间 */
-    private Integer lastTime;
 
 
     /** 最后一次登录ip */
@@ -123,11 +101,11 @@ public class YxUser implements Serializable {
 
 
     /** 推广元id */
-    private Integer spreadUid;
+    private Long spreadUid;
 
 
     /** 推广员关联时间 */
-    private Integer spreadTime;
+    private Date spreadTime;
 
 
     /** 用户类型 */
@@ -141,13 +119,8 @@ public class YxUser implements Serializable {
     /** 用户购买次数 */
     private Integer payCount;
 
-
     /** 下级人数 */
     private Integer spreadCount;
-
-
-    /** 清理会员时间 */
-    private Integer cleanTime;
 
 
     /** 详细地址 */
@@ -160,6 +133,10 @@ public class YxUser implements Serializable {
 
     /** 用户登陆类型，h5,wechat,routine */
     private String loginType;
+
+    /** 微信用户json信息 */
+    @TableField(typeHandler = FastjsonTypeHandler.class)
+    private WechatUserDto wxProfile;
 
 
     public void copy(YxUser source) {

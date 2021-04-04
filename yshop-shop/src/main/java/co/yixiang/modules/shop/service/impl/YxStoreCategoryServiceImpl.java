@@ -75,8 +75,6 @@ public class YxStoreCategoryServiceImpl extends BaseServiceImpl<StoreCategoryMap
             map.put("排序", yxStoreCategory.getSort());
             map.put("图标", yxStoreCategory.getPic());
             map.put("是否推荐", yxStoreCategory.getIsShow());
-            map.put("添加时间", yxStoreCategory.getAddTime());
-            map.put("删除状态", yxStoreCategory.getIsDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

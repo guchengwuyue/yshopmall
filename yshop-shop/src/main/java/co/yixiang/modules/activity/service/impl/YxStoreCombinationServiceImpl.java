@@ -11,13 +11,11 @@ import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
 import co.yixiang.modules.activity.domain.YxStorePink;
-import co.yixiang.modules.activity.domain.YxStoreVisit;
 import co.yixiang.modules.activity.service.YxStoreCombinationService;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationDto;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxStoreCombinationMapper;
 import co.yixiang.modules.activity.service.mapper.YxStorePinkMapper;
-import co.yixiang.modules.activity.service.mapper.YxStoreVisitMapper;
 import co.yixiang.utils.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
@@ -51,7 +49,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
 
     private final IGenerator generator;
     private final YxStorePinkMapper yxStorePinkMapper;
-    private final YxStoreVisitMapper yxStoreVisitMapper;
+
 
     @Override
     //@Cacheable
@@ -66,9 +64,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
 
             //成团人数
             combinationDTO.setCountPeoplePink(yxStorePinkMapper.selectCount(new LambdaQueryWrapper<YxStorePink>().eq(YxStorePink::getCid, combinationDTO.getId()).eq(YxStorePink::getKId, 0)));
-            //获取查看拼团产品人数
-            combinationDTO.setCountPeopleBrowse(yxStoreVisitMapper.selectCount(new LambdaQueryWrapper<YxStoreVisit>().eq(YxStoreVisit::getProductId, combinationDTO.getId())
-                    .eq(YxStoreVisit::getProductType, "combination")));
+
         }
         Map<String, Object> map = new LinkedHashMap<>(2);
         map.put("content", combinationDTOS);
@@ -90,7 +86,6 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
         for (YxStoreCombinationDto yxStoreCombination : all) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("商品id", yxStoreCombination.getProductId());
-            map.put("商户id", yxStoreCombination.getMerId());
             map.put("推荐图", yxStoreCombination.getImage());
             map.put("轮播图", yxStoreCombination.getImages());
             map.put("活动标题", yxStoreCombination.getTitle());
@@ -101,14 +96,8 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
             map.put("排序", yxStoreCombination.getSort());
             map.put("销量", yxStoreCombination.getSales());
             map.put("库存", yxStoreCombination.getStock());
-            map.put("添加时间", yxStoreCombination.getAddTime());
-            map.put("推荐", yxStoreCombination.getIsHost());
             map.put("产品状态", yxStoreCombination.getIsShow());
-            map.put(" isDel", yxStoreCombination.getIsDel());
             map.put(" combination", yxStoreCombination.getCombination());
-            map.put("商户是否可用1可用0不可用", yxStoreCombination.getMerUse());
-            map.put("是否包邮1是0否", yxStoreCombination.getIsPostage());
-            map.put("邮费", yxStoreCombination.getPostage());
             map.put("拼团内容", yxStoreCombination.getDescription());
             map.put("拼团开始时间", yxStoreCombination.getStartTime());
             map.put("拼团结束时间", yxStoreCombination.getStopTime());
@@ -122,7 +111,7 @@ public class YxStoreCombinationServiceImpl extends BaseServiceImpl<YxStoreCombin
     }
 
     @Override
-    public void onSale(Integer id, int status) {
+    public void onSale(Long id, int status) {
         if (status == 1) {
             status = 0;
         } else {

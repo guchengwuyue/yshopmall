@@ -21,13 +21,13 @@ import java.util.Map;
 public class StoreOrderCartInfoDto {
 
 
-    private Integer id;
+    private Long id;
 
 
-    private Integer oid;
+    private Long oid;
 
 
-    private Integer cartId;
+    private Long cartId;
 
 
     private String cartInfo;

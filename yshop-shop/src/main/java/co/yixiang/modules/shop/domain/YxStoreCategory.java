@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_store_category")
-public class YxStoreCategory implements Serializable {
+public class YxStoreCategory extends BaseDomain {
 
     /** 商品分类表ID */
     @TableId
@@ -49,13 +50,6 @@ public class YxStoreCategory implements Serializable {
     /** 是否推荐 */
     private Integer isShow;
 
-
-    /** 添加时间 */
-    private Integer addTime;
-
-
-    /** 删除状态 */
-    private Integer isDel;
 
 
     public void copy(YxStoreCategory source) {

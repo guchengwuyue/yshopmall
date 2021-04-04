@@ -98,16 +98,9 @@ public class YxStoreBargainServiceImpl extends BaseServiceImpl<YxStoreBargainMap
             map.put("砍价活动简介", yxStoreBargain.getInfo());
             map.put("成本价", yxStoreBargain.getCost());
             map.put("排序", yxStoreBargain.getSort());
-            map.put("是否推荐0不推荐1推荐", yxStoreBargain.getIsHot());
-            map.put("是否删除 0未删除 1删除", yxStoreBargain.getIsDel());
-            map.put("添加时间", yxStoreBargain.getAddTime());
-            map.put("是否包邮 0不包邮 1包邮", yxStoreBargain.getIsPostage());
-            map.put("邮费", yxStoreBargain.getPostage());
             map.put("砍价规则", yxStoreBargain.getRule());
             map.put("砍价产品浏览量", yxStoreBargain.getLook());
             map.put("砍价产品分享量", yxStoreBargain.getShare());
-            map.put(" endTimeDate", yxStoreBargain.getEndTimeDate());
-            map.put(" startTimeDate", yxStoreBargain.getStartTimeDate());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_system_group_data")
-public class YxSystemGroupData implements Serializable {
+public class YxSystemGroupData extends BaseDomain {
 
     /** 组合数据详情ID */
     @TableId
@@ -34,10 +35,6 @@ public class YxSystemGroupData implements Serializable {
 
     /** 数据组对应的数据值（json数据） */
     private String value;
-
-
-    /** 添加数据时间 */
-    private Integer addTime;
 
 
     /** 数据排序 */

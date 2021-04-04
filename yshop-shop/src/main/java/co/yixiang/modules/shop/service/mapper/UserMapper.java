@@ -25,9 +25,9 @@ public interface UserMapper extends CoreMapper<YxUser> {
     void updateOnstatus(@Param("status") int status, @Param("id") int id);
 
     @Update("update yx_user set now_money = now_money + ${money} where uid = #{id}")
-    void updateMoney(@Param("money") double money, @Param("id") int id);
+    void updateMoney(@Param("money") double money, @Param("id") Long id);
 
     @Update("update yx_user set brokerage_price = brokerage_price+ ${price} where uid = #{id}")
-    void incBrokeragePrice(@Param("price") double price, @Param("id") int id);
+    void incBrokeragePrice(@Param("price") double price, @Param("id") Long id);
 
 }

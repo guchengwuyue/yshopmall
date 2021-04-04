@@ -50,18 +50,9 @@ public class StoreCouponIssueController {
     @PostMapping(value = "/yxStoreCouponIssue")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUE_ALL','YXSTORECOUPONISSUE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCouponIssue resources) {
-        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
-            resources.setStartTime(OrderUtil.
-                    dateToTimestamp(resources.getStartTimeDate()));
-        }
-        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
-            resources.setEndTime(OrderUtil.
-                    dateToTimestamp(resources.getEndTimeDate()));
-        }
         if (resources.getTotalCount() > 0) {
             resources.setRemainCount(resources.getTotalCount());
         }
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCouponIssueService.save(resources), HttpStatus.CREATED);
     }
 
@@ -79,11 +70,7 @@ public class StoreCouponIssueController {
     @DeleteMapping(value = "/yxStoreCouponIssue/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUE_ALL','YXSTORECOUPONISSUE_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
-        YxStoreCouponIssue resources = new YxStoreCouponIssue();
-        resources.setId(id);
-        resources.setIsDel(1);
-        yxStoreCouponIssueService.saveOrUpdate(resources);
+        yxStoreCouponIssueService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

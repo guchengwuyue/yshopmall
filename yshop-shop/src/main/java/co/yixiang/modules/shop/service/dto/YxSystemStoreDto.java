@@ -50,14 +50,9 @@ public class YxSystemStoreDto implements Serializable {
     /** 每日营业开关时间 */
     private String dayTime;
 
-    /** 添加时间 */
-    private Integer addTime;
 
     /** 是否显示 */
     private Integer isShow;
-
-    /** 是否删除 */
-    private Integer isDel;
 
     private Date validTimeEnd;
 

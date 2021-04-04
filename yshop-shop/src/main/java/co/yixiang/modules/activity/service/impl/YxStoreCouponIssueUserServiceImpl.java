@@ -72,7 +72,6 @@ public class YxStoreCouponIssueUserServiceImpl extends BaseServiceImpl<YxStoreCo
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("领取优惠券用户ID", yxStoreCouponIssueUser.getUid());
             map.put("优惠券前台领取ID", yxStoreCouponIssueUser.getIssueCouponId());
-            map.put("领取时间", yxStoreCouponIssueUser.getAddTime());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

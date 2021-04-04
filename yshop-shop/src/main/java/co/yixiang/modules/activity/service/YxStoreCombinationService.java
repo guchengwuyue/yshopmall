@@ -46,5 +46,5 @@ public interface YxStoreCombinationService extends BaseService<YxStoreCombinatio
      */
     void download(List<YxStoreCombinationDto> all, HttpServletResponse response) throws IOException;
 
-    void onSale(Integer id, int status);
+    void onSale(Long id, int status);
 }

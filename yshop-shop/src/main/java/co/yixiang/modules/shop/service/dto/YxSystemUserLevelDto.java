@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -57,8 +58,5 @@ public class YxSystemUserLevelDto implements Serializable {
     private String explain;
 
     /** 添加时间 */
-    private Integer addTime;
-
-    /** 是否删除.1=删除,0=未删除 */
-    private Integer isDel;
+    private Date createTime;
 }

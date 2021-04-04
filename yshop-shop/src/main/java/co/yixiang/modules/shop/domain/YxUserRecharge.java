@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,6 +17,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -24,14 +26,14 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("yx_user_recharge")
-public class YxUserRecharge implements Serializable {
+public class YxUserRecharge extends BaseDomain {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 充值用户UID */
-    private Integer uid;
+    private Long uid;
 
 
     /** 订单号 */
@@ -51,12 +53,7 @@ public class YxUserRecharge implements Serializable {
 
 
     /** 充值支付时间 */
-    private Integer payTime;
-
-
-    /** 充值时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
+    private Date payTime;
 
 
     /** 退款金额 */

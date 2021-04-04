@@ -57,8 +57,8 @@ public interface YxStoreOrderService extends BaseService<YxStoreOrder> {
     Map<String, Object> queryAll(List<String> ids);
 
 
-    String orderType(int id, int pinkId, int combinationId, int seckillId,
-                     int bargainId, int shippingType);
+    String orderType(Long id, Long pinkId, Long combinationId, Long seckillId,
+                     Long bargainId, int shippingType);
 
     void refund(YxStoreOrder resources);
 

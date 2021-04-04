@@ -26,15 +26,15 @@ import java.math.BigDecimal;
 public class YxStoreProductAttrValue implements Serializable {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
 
     /** 商品属性索引值 (attr_value|attr_value[|....]) */
-    private String suk;
+    private String sku;
 
 
     /** 属性对应的库存 */

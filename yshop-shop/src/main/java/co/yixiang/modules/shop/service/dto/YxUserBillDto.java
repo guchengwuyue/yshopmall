@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -19,10 +20,10 @@ import java.math.BigDecimal;
 public class YxUserBillDto implements Serializable {
 
     /** 用户账单id */
-    private Integer id;
+    private Long id;
 
     /** 用户uid */
-    private Integer uid;
+    private Long uid;
 
     /** 关联id */
     private String linkId;
@@ -49,7 +50,7 @@ public class YxUserBillDto implements Serializable {
     private String mark;
 
     /** 添加时间 */
-    private Integer addTime;
+    private Date createTime;
 
     /** 0 = 带确定 1 = 有效 -1 = 无效 */
     private Integer status;

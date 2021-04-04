@@ -78,9 +78,7 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
             map.put("商品ID", yxStoreCart.getProductId());
             map.put("商品属性", yxStoreCart.getProductAttrUnique());
             map.put("商品数量", yxStoreCart.getCartNum());
-            map.put("添加时间", yxStoreCart.getAddTime());
             map.put("0 = 未购买 1 = 已购买", yxStoreCart.getIsPay());
-            map.put("是否删除", yxStoreCart.getIsDel());
             map.put("是否为立即购买", yxStoreCart.getIsNew());
             map.put("拼团id", yxStoreCart.getCombinationId());
             map.put("秒杀产品ID", yxStoreCart.getSeckillId());

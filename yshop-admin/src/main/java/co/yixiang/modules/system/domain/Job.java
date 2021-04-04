@@ -8,6 +8,7 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -24,7 +25,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("job")
-public class Job implements Serializable {
+public class Job extends BaseDomain {
 
     /** 岗位ID */
     @TableId
@@ -48,10 +49,6 @@ public class Job implements Serializable {
     /** 部门ID */
     private Long deptId;
 
-
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     public void copy(Job source) {

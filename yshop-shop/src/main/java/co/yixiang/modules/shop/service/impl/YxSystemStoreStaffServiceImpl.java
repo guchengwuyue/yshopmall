@@ -77,7 +77,6 @@ public class YxSystemStoreStaffServiceImpl extends BaseServiceImpl<SystemStoreSt
             map.put("手机号码", yxSystemStoreStaff.getPhone());
             map.put("核销开关", yxSystemStoreStaff.getVerifyStatus());
             map.put("状态", yxSystemStoreStaff.getStatus());
-            map.put("添加时间", yxSystemStoreStaff.getAddTime());
             map.put("微信昵称", yxSystemStoreStaff.getNickname());
             map.put("所属门店", yxSystemStoreStaff.getStoreName());
             list.add(map);

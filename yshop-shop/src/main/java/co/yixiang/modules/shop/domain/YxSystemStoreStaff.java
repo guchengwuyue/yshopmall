@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -25,14 +26,14 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_system_store_staff")
-public class YxSystemStoreStaff implements Serializable {
+public class YxSystemStoreStaff extends BaseDomain {
 
     @TableId
     private Integer id;
 
 
     /** 微信用户id */
-    private Integer uid;
+    private Long uid;
 
 
     /** 店员头像 */
@@ -61,11 +62,6 @@ public class YxSystemStoreStaff implements Serializable {
 
     /** 状态 */
     private Integer status;
-
-
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
 
 
     /** 微信昵称 */

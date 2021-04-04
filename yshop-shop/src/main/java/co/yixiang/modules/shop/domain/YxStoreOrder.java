@@ -15,6 +15,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -27,7 +28,7 @@ public class YxStoreOrder implements Serializable {
 
     /** 订单ID */
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 订单号 */
@@ -39,7 +40,7 @@ public class YxStoreOrder implements Serializable {
 
 
     /** 用户id */
-    private Integer uid;
+    private Long uid;
 
 
     /** 用户姓名 */
@@ -99,15 +100,11 @@ public class YxStoreOrder implements Serializable {
 
 
     /** 支付时间 */
-    private Integer payTime;
+    private Date payTime;
 
 
     /** 支付方式 */
     private String payType;
-
-
-    /** 创建时间 */
-    private Integer addTime;
 
 
     /** 订单状态（-1 : 申请退款 -2 : 退货成功 0：待发货；1：待收货；2：已收货；3：待评价；-1：已退款） */
@@ -127,7 +124,7 @@ public class YxStoreOrder implements Serializable {
 
 
     /** 退款时间 */
-    private Integer refundReasonTime;
+    private Date refundReasonTime;
 
 
     /** 前台退款原因 */
@@ -174,33 +171,21 @@ public class YxStoreOrder implements Serializable {
     private String mark;
 
 
-    /** 是否删除 */
-    private Integer isDel;
-
-
     /** 唯一id(md5加密)类似id */
     @TableField(value = "`unique`")
     //@NotBlank
     private String unique;
 
-
     /** 管理员备注 */
     private String remark;
 
 
-    /** 商户ID */
-    private Integer merId;
-
-
-    private Integer isMerCheck;
-
-
     /** 拼团产品id0一般产品 */
-    private Integer combinationId;
+    private Long combinationId;
 
 
     /** 拼团id 0没有拼团 */
-    private Integer pinkId;
+    private Long pinkId;
 
 
     /** 成本价 */
@@ -208,11 +193,11 @@ public class YxStoreOrder implements Serializable {
 
 
     /** 秒杀产品ID */
-    private Integer seckillId;
+    private Long seckillId;
 
 
     /** 砍价id */
-    private Integer bargainId;
+    private Long bargainId;
 
 
     /** 核销码 */
@@ -226,15 +211,6 @@ public class YxStoreOrder implements Serializable {
     /** 配送方式 1=快递 ，2=门店自提 */
     private Integer shippingType;
 
-
-    /** 支付渠道(0微信公众号1微信小程序) */
-    private Integer isChannel;
-
-
-    private Integer isRemind;
-
-
-    private Integer isSystemDel;
 
 
     public void copy(YxStoreOrder source) {

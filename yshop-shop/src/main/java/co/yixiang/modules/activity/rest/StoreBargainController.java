@@ -50,17 +50,7 @@ public class StoreBargainController {
     @PutMapping(value = "/yxStoreBargain")
     @PreAuthorize("hasAnyRole('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreBargain resources) {
-
-        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
-            resources.setStartTime(OrderUtil.
-                    dateToTimestamp(resources.getStartTimeDate()));
-        }
-        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
-            resources.setStopTime(OrderUtil.
-                    dateToTimestamp(resources.getEndTimeDate()));
-        }
         if (ObjectUtil.isNull(resources.getId())) {
-            resources.setAddTime(OrderUtil.getSecondTimestampTwo());
             return new ResponseEntity(yxStoreBargainService.save(resources), HttpStatus.CREATED);
         } else {
             yxStoreBargainService.saveOrUpdate(resources);
@@ -73,7 +63,6 @@ public class StoreBargainController {
     @DeleteMapping(value = "/yxStoreBargain/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREBARGAIN_ALL','YXSTOREBARGAIN_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
         yxStoreBargainService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

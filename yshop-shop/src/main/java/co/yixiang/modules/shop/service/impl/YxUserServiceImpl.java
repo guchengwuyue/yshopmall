@@ -168,13 +168,12 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
         userBill.setNumber(BigDecimal.valueOf(param.getMoney()));
         userBill.setBalance(BigDecimal.valueOf(newMoney));
         userBill.setMark(mark);
-        userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
         userBill.setStatus(1);
         yxUserBillService.save(userBill);
     }
 
     @Override
-    public void incBrokeragePrice(double price, Integer uid) {
+    public void incBrokeragePrice(double price, Long uid) {
         yxUserMapper.incBrokeragePrice(price, uid);
     }
 }

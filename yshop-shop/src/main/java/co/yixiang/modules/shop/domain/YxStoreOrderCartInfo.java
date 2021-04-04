@@ -25,19 +25,19 @@ import java.io.Serializable;
 public class YxStoreOrderCartInfo implements Serializable {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 订单id */
-    private Integer oid;
+    private Long oid;
 
 
     /** 购物车id */
-    private Integer cartId;
+    private Long cartId;
 
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
 
     /** 购买东西的详细信息 */

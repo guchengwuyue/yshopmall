@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -19,13 +20,13 @@ import java.math.BigDecimal;
 public class YxStoreCouponUserDto implements Serializable {
 
     // 优惠券发放记录id
-    private Integer id;
+    private Long id;
 
     // 兑换的项目id
     private Integer cid;
 
     // 优惠券所属用户
-    private Integer uid;
+    private Long uid;
 
     private String nickname;
 
@@ -39,13 +40,13 @@ public class YxStoreCouponUserDto implements Serializable {
     private BigDecimal useMinPrice;
 
     // 优惠券创建时间
-    private Integer addTime;
+    private Date creteTime;
 
     // 优惠券结束时间
-    private Integer endTime;
+    private Date endTime;
 
     // 使用时间
-    private Integer useTime;
+    private Date useTime;
 
     // 获取方式
     private String type;

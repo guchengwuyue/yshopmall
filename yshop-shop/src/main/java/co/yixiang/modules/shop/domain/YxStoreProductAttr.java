@@ -24,11 +24,11 @@ import java.io.Serializable;
 public class YxStoreProductAttr implements Serializable {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 商品ID */
-    private Integer productId;
+    private Long productId;
 
 
     /** 属性名 */

@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -19,9 +20,9 @@ import java.math.BigDecimal;
 public class YxUserExtractDto implements Serializable {
 
 
-    private Integer id;
+    private Long id;
 
-    private Integer uid;
+    private Long uid;
 
     // 名称
     private String realName;
@@ -48,10 +49,10 @@ public class YxUserExtractDto implements Serializable {
     // 无效原因
     private String failMsg;
 
-    private Integer failTime;
+    private Date failTime;
 
     // 添加时间
-    private Integer addTime;
+    private Date createTime;
 
     // -1 未通过 0 审核中 1 已提现
     private Integer status;

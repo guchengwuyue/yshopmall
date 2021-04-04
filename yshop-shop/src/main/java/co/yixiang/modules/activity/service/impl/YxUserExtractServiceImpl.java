@@ -81,7 +81,6 @@ public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMappe
             map.put(" balance", yxUserExtract.getBalance());
             map.put("无效原因", yxUserExtract.getFailMsg());
             map.put(" failTime", yxUserExtract.getFailTime());
-            map.put("添加时间", yxUserExtract.getAddTime());
             map.put("-1 未通过 0 审核中 1 已提现", yxUserExtract.getStatus());
             map.put("微信号", yxUserExtract.getWechat());
             list.add(map);

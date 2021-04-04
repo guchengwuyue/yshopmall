@@ -82,8 +82,6 @@ public class YxSystemUserLevelServiceImpl extends BaseServiceImpl<SystemUserLeve
             map.put("会员卡背景", yxSystemUserLevel.getImage());
             map.put("会员图标", yxSystemUserLevel.getIcon());
             map.put("说明", yxSystemUserLevel.getExplain());
-            map.put("添加时间", yxSystemUserLevel.getAddTime());
-            map.put("是否删除.1=删除,0=未删除", yxSystemUserLevel.getIsDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

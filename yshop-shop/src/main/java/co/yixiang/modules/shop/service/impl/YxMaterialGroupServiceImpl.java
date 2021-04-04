@@ -70,8 +70,6 @@ public class YxMaterialGroupServiceImpl extends BaseServiceImpl<MaterialGroupMap
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxMaterialGroupDto yxMaterialGroup : all) {
             Map<String, Object> map = new LinkedHashMap<>();
-            map.put("逻辑删除标记（0：显示；1：隐藏）", yxMaterialGroup.getDelFlag());
-            map.put("创建时间", yxMaterialGroup.getCreateTime());
             map.put("创建者ID", yxMaterialGroup.getCreateId());
             map.put("分组名", yxMaterialGroup.getName());
             list.add(map);

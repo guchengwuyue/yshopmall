@@ -26,12 +26,6 @@ public class YxMaterialDto implements Serializable {
 
     /** 逻辑删除标记（0：显示；1：隐藏） */
 
-    /** 创建时间 */
-    private Timestamp createTime;
-
-    /** 最后更新时间 */
-    private Timestamp updateTime;
-
     /** 创建者ID */
     private String createId;
 

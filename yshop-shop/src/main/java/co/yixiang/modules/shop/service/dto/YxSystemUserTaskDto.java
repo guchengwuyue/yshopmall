@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -48,5 +49,5 @@ public class YxSystemUserTaskDto implements Serializable {
     private String illustrate;
 
     // 新增时间
-    private Integer addTime;
+    private Date createTime;
 }

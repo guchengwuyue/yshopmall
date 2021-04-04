@@ -40,7 +40,6 @@ public class StoreProductReplyController {
     @GetMapping(value = "/yxStoreProductReply")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_SELECT')")
     public ResponseEntity getYxStoreProductReplys(YxStoreProductReplyQueryCriteria criteria, Pageable pageable) {
-        criteria.setIsDel(0);
         return new ResponseEntity(yxStoreProductReplyService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
@@ -59,11 +58,7 @@ public class StoreProductReplyController {
     @DeleteMapping(value = "/yxStoreProductReply/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
-        YxStoreProductReply reply = new YxStoreProductReply();
-        reply.setIsDel(1);
-        reply.setId(id);
-        yxStoreProductReplyService.saveOrUpdate(reply);
+        yxStoreProductReplyService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -77,8 +77,6 @@ public class YxStoreCouponServiceImpl extends BaseServiceImpl<YxStoreCouponMappe
             map.put("优惠券有效期限（单位：天）", yxStoreCoupon.getCouponTime());
             map.put("排序", yxStoreCoupon.getSort());
             map.put("状态（0：关闭，1：开启）", yxStoreCoupon.getStatus());
-            map.put("兑换项目添加时间", yxStoreCoupon.getAddTime());
-            map.put("是否删除", yxStoreCoupon.getIsDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

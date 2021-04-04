@@ -8,6 +8,7 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -16,6 +17,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -23,15 +25,15 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("yx_store_seckill")
-public class YxStoreSeckill implements Serializable {
+public class YxStoreSeckill extends BaseDomain {
 
     /** 商品秒杀产品表id */
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 商品id */
-    private Integer productId;
+    private Long productId;
 
 
     /** 推荐图 */
@@ -90,9 +92,6 @@ public class YxStoreSeckill implements Serializable {
     private String unitName;
 
 
-    /** 邮费 */
-    private BigDecimal postage;
-
 
     /** 内容 */
     @NotBlank(message = "请填写详情")
@@ -100,31 +99,19 @@ public class YxStoreSeckill implements Serializable {
 
 
     /** 开始时间 */
-    private Integer startTime;
+    @NotNull(message = "请输入拼团开始时间")
+    private Date startTime;
 
 
     /** 结束时间 */
-    private Integer stopTime;
+    @NotNull(message = "请输入拼团结束时间")
+    private Date stopTime;
 
-
-    /** 添加时间 */
-    private String addTime;
 
 
     /** 产品状态 */
     private Integer status;
 
-
-    /** 是否包邮 */
-    private Integer isPostage;
-
-
-    /** 热门推荐 */
-    private Integer isHot;
-
-
-    /** 删除 0未删除1已删除 */
-    private Integer isDel;
 
 
     /** 最多秒杀几个 */
@@ -135,13 +122,6 @@ public class YxStoreSeckill implements Serializable {
 
     /** 显示 */
     private Integer isShow;
-
-    @NotNull(message = "请选择秒杀结束时间")
-    private Timestamp endTimeDate;
-
-    @NotNull(message = "请选择秒杀开始时间")
-    private Timestamp startTimeDate;
-
 
     /** 时间段id */
     @NotNull(message = "请选择开始时间")

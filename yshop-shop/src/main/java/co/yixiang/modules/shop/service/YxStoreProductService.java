@@ -55,11 +55,11 @@ public interface YxStoreProductService extends BaseService<YxStoreProduct> {
 
     List<ProductFormatDto> isFormatAttr(Integer id, String jsonStr);
 
-    void createProductAttr(Integer id, String jsonStr);
+    void createProductAttr(Long id, String jsonStr);
 
-    void clearProductAttr(Integer id, boolean isActice);
+    void clearProductAttr(Long id, boolean isActice);
 
-    void setResult(Map<String, Object> map, Integer id);
+    void setResult(Map<String, Object> map, Long id);
 
     String getStoreProductAttrResult(Integer id);
 

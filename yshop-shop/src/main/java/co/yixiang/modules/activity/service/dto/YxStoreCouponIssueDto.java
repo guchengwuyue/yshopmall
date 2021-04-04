@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -26,10 +27,10 @@ public class YxStoreCouponIssueDto implements Serializable {
     private Integer cid;
 
     /** 优惠券领取开启时间 */
-    private Integer startTime;
+    private Date startTime;
 
     /** 优惠券领取结束时间 */
-    private Integer endTime;
+    private Date endTime;
 
     /** 优惠券领取数量 */
     private Integer totalCount;
@@ -43,12 +44,7 @@ public class YxStoreCouponIssueDto implements Serializable {
     /** 1 正常 0 未开启 -1 已无效 */
     private Integer status;
 
-    private Integer isDel;
-
     /** 优惠券添加时间 */
-    private Integer addTime;
+    private Date createTime;
 
-    private Timestamp endTimeDate;
-
-    private Timestamp startTimeDate;
 }

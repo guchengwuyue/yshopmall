@@ -50,16 +50,7 @@ public class StoreSeckillController {
     @PutMapping(value = "/yxStoreSeckill")
     @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreSeckill resources) {
-        if (ObjectUtil.isNotNull(resources.getStartTimeDate())) {
-            resources.setStartTime(OrderUtil.
-                    dateToTimestamp(resources.getStartTimeDate()));
-        }
-        if (ObjectUtil.isNotNull(resources.getEndTimeDate())) {
-            resources.setStopTime(OrderUtil.
-                    dateToTimestamp(resources.getEndTimeDate()));
-        }
         if (ObjectUtil.isNull(resources.getId())) {
-            resources.setAddTime(String.valueOf(OrderUtil.getSecondTimestampTwo()));
             return new ResponseEntity(yxStoreSeckillService.save(resources), HttpStatus.CREATED);
         } else {
             yxStoreSeckillService.saveOrUpdate(resources);
@@ -72,7 +63,6 @@ public class StoreSeckillController {
     @DeleteMapping(value = "/yxStoreSeckill/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORESECKILL_ALL','YXSTORESECKILL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
         yxStoreSeckillService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -8,6 +8,7 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -25,7 +26,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("menu")
-public class Menu implements Serializable {
+public class Menu extends BaseDomain {
 
     /** ID */
     @TableId
@@ -74,10 +75,6 @@ public class Menu implements Serializable {
     /** 组件名称 */
     private String componentName;
 
-
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     /** 权限 */

@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -19,10 +20,7 @@ import java.math.BigDecimal;
 public class YxStoreProductDto implements Serializable {
 
     /** 商品id */
-    private Integer id;
-
-    /** 商户Id(0为总后台管理员创建,不为0的时候是商户后台创建) */
-    private Integer merId;
+    private Long id;
 
     /** 商品图片 */
     private String image;
@@ -88,28 +86,16 @@ public class YxStoreProductDto implements Serializable {
     private String description;
 
     /** 添加时间 */
-    private Integer addTime;
+    private Date createTime;
 
     /** 是否包邮 */
     private Integer isPostage;
-
-    /** 是否删除 */
-    private Integer isDel;
-
-    /** 商户是否代理 0不可代理1可代理 */
-    private Integer merUse;
 
     /** 获得积分 */
     private BigDecimal giveIntegral;
 
     /** 成本价 */
     private BigDecimal cost;
-
-    /** 秒杀状态 0 未开启 1已开启 */
-    private Integer isSeckill;
-
-    /** 砍价状态 0未开启 1开启 */
-    private Integer isBargain;
 
     /** 是否优品推荐 */
     private Integer isGood;
@@ -120,11 +106,6 @@ public class YxStoreProductDto implements Serializable {
     /** 浏览量 */
     private Integer browse;
 
-    /** 产品二维码地址(用户小程序海报) */
-    private String codePath;
-
-    /** 淘宝京东1688类型 */
-    private String soureLink;
 
     private YxStoreCategorySmallDto storeCategory;
 }

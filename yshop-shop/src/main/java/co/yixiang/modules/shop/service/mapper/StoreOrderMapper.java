@@ -35,16 +35,16 @@ public interface StoreOrderMapper extends CoreMapper<YxStoreOrder> {
     Double sumTotalPrice();
 
     @Select("SELECT IFNULL(sum(pay_price),0) as num," +
-            "FROM_UNIXTIME(add_time, '%m-%d') as time " +
+            "FROM_UNIXTIME(create_time, '%m-%d') as time " +
             " FROM yx_store_order where refund_status=0 and is_del=0 and paid=1 and pay_time >= ${time}" +
-            " GROUP BY FROM_UNIXTIME(add_time,'%Y-%m-%d') " +
-            " ORDER BY add_time ASC")
+            " GROUP BY FROM_UNIXTIME(create_time,'%Y-%m-%d') " +
+            " ORDER BY create_time ASC")
     List<ChartDataDto> chartList(@Param("time") int time);
 
     @Select("SELECT count(id) as num," +
-            "FROM_UNIXTIME(add_time, '%m-%d') as time " +
+            "FROM_UNIXTIME(create_time, '%m-%d') as time " +
             " FROM yx_store_order where refund_status=0 and is_del=0 and paid=1 and pay_time >= ${time}" +
-            " GROUP BY FROM_UNIXTIME(add_time,'%Y-%m-%d') " +
-            " ORDER BY add_time ASC")
+            " GROUP BY FROM_UNIXTIME(create_time,'%Y-%m-%d') " +
+            " ORDER BY create_time ASC")
     List<ChartDataDto> chartListT(@Param("time") int time);
 }

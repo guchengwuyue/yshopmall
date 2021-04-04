@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -43,8 +44,6 @@ public class YxStoreCouponDto implements Serializable {
     private Integer status;
 
     // 兑换项目添加时间
-    private Integer addTime;
+    private Date createTime;
 
-    // 是否删除
-    private Integer isDel;
 }

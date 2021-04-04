@@ -93,7 +93,6 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         List<Map<String, Object>> list = new ArrayList<>();
         for (YxStoreProductDto yxStoreProduct : all) {
             Map<String, Object> map = new LinkedHashMap<>();
-            map.put("商户Id(0为总后台管理员创建,不为0的时候是商户后台创建)", yxStoreProduct.getMerId());
             map.put("商品图片", yxStoreProduct.getImage());
             map.put("轮播图", yxStoreProduct.getSliderImage());
             map.put("商品名称", yxStoreProduct.getStoreName());
@@ -115,19 +114,12 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             map.put("是否精品", yxStoreProduct.getIsBest());
             map.put("是否新品", yxStoreProduct.getIsNew());
             map.put("产品描述", yxStoreProduct.getDescription());
-            map.put("添加时间", yxStoreProduct.getAddTime());
             map.put("是否包邮", yxStoreProduct.getIsPostage());
-            map.put("是否删除", yxStoreProduct.getIsDel());
-            map.put("商户是否代理 0不可代理1可代理", yxStoreProduct.getMerUse());
             map.put("获得积分", yxStoreProduct.getGiveIntegral());
             map.put("成本价", yxStoreProduct.getCost());
-            map.put("秒杀状态 0 未开启 1已开启", yxStoreProduct.getIsSeckill());
-            map.put("砍价状态 0未开启 1开启", yxStoreProduct.getIsBargain());
             map.put("是否优品推荐", yxStoreProduct.getIsGood());
             map.put("虚拟销量", yxStoreProduct.getFicti());
             map.put("浏览量", yxStoreProduct.getBrowse());
-            map.put("产品二维码地址(用户小程序海报)", yxStoreProduct.getCodePath());
-            map.put("淘宝京东1688类型", yxStoreProduct.getSoureLink());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -188,7 +180,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void createProductAttr(Integer id, String jsonStr) {
+    public void createProductAttr(Long id, String jsonStr) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         List<FromatDetailDto> attrList = JSON.parseArray(
                 jsonObject.get("items").toString(),
@@ -216,7 +208,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             List<String> stringList = productFormatDTO.getDetail().values()
                     .stream().collect(Collectors.toList());
             Collections.sort(stringList);
-            yxStoreProductAttrValue.setSuk(StrUtil.
+            yxStoreProductAttrValue.setSku(StrUtil.
                     join(",", stringList));
             yxStoreProductAttrValue.setPrice(BigDecimal.valueOf(productFormatDTO.getPrice()));
             yxStoreProductAttrValue.setCost(BigDecimal.valueOf(productFormatDTO.getCost()));
@@ -274,11 +266,11 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void setResult(Map<String, Object> map, Integer id) {
+    public void setResult(Map<String, Object> map, Long id) {
         YxStoreProductAttrResult yxStoreProductAttrResult = new YxStoreProductAttrResult();
         yxStoreProductAttrResult.setProductId(id);
         yxStoreProductAttrResult.setResult(JSON.toJSONString(map));
-        yxStoreProductAttrResult.setChangeTime(OrderUtil.getSecondTimestampTwo());
+        yxStoreProductAttrResult.setChangeTime(new Date());
 
         yxStoreProductAttrResultService.remove(new LambdaQueryWrapper<YxStoreProductAttrResult>().eq(YxStoreProductAttrResult::getProductId, id));
 
@@ -316,7 +308,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void clearProductAttr(Integer id, boolean isActice) {
+    public void clearProductAttr(Long id, boolean isActice) {
         if (ObjectUtil.isNull(id)) {
             throw new BadRequestException("产品不存在");
         }

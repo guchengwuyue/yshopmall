@@ -48,7 +48,6 @@ public class StoreCouponController {
     @PostMapping(value = "/yxStoreCoupon")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPON_ALL','YXSTORECOUPON_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxStoreCoupon resources) {
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCouponService.save(resources), HttpStatus.CREATED);
     }
 

@@ -51,5 +51,5 @@ public interface YxUserService extends BaseService<YxUser> {
 
     void updateMoney(UserMoneyDto param);
 
-    void incBrokeragePrice(double doubleValue, Integer uid);
+    void incBrokeragePrice(double doubleValue, Long uid);
 }

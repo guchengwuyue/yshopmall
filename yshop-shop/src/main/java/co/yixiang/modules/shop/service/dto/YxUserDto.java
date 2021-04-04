@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 public class YxUserDto implements Serializable {
 
     /** 用户id */
-    private Integer uid;
+    private Long uid;
 
     /** 用户账户(跟accout一样) */
     private String username;

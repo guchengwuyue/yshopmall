@@ -8,13 +8,12 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * @author hupeng
@@ -22,7 +21,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("dept")
-public class Dept implements Serializable {
+public class Dept extends BaseDomain {
 
     /** ID */
     @TableId(value = "id", type = IdType.AUTO)
@@ -43,12 +42,9 @@ public class Dept implements Serializable {
     private Boolean enabled;
 
 
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
-
 
     public void copy(Dept source) {
+
         BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

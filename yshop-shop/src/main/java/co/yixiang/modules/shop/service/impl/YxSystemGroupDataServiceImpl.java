@@ -80,7 +80,6 @@ public class YxSystemGroupDataServiceImpl extends BaseServiceImpl<SystemGroupDat
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("对应的数据名称", yxSystemGroupData.getGroupName());
             map.put("数据组对应的数据值（json数据）", yxSystemGroupData.getValue());
-            map.put("添加数据时间", yxSystemGroupData.getAddTime());
             map.put("数据排序", yxSystemGroupData.getSort());
             map.put("状态（1：开启；2：关闭；）", yxSystemGroupData.getStatus());
             list.add(map);

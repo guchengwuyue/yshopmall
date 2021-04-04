@@ -9,6 +9,7 @@ package co.yixiang.modules.activity.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -17,14 +18,14 @@ import java.io.Serializable;
 @Data
 public class YxStoreCouponIssueUserDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     /** 领取优惠券用户ID */
-    private Integer uid;
+    private Long uid;
 
     /** 优惠券前台领取ID */
     private Integer issueCouponId;
 
     /** 领取时间 */
-    private Integer addTime;
+    private Date createTime;
 }

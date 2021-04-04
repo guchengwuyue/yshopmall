@@ -94,7 +94,6 @@ public class YxStoreProductReplyServiceImpl extends BaseServiceImpl<StoreProduct
             map.put("评论时间", yxStoreProductReply.getAddTime());
             map.put("管理员回复内容", yxStoreProductReply.getMerchantReplyContent());
             map.put("管理员回复时间", yxStoreProductReply.getMerchantReplyTime());
-            map.put("0未删除1已删除", yxStoreProductReply.getIsDel());
             map.put("0未回复1已回复", yxStoreProductReply.getIsReply());
             list.add(map);
         }

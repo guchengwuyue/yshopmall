@@ -8,12 +8,14 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -21,13 +23,13 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("yx_user_extract")
-public class YxUserExtract implements Serializable {
+public class YxUserExtract extends BaseDomain {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
-    private Integer uid;
+    private Long uid;
 
 
     /** 名称 */
@@ -64,11 +66,7 @@ public class YxUserExtract implements Serializable {
     private String failMsg;
 
 
-    private Integer failTime;
-
-
-    /** 添加时间 */
-    private Integer addTime;
+    private Date failTime;
 
 
     /** -1 未通过 0 审核中 1 已提现 */

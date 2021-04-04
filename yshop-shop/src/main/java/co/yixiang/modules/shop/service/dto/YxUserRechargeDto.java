@@ -10,6 +10,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -18,10 +19,10 @@ import java.math.BigDecimal;
 @Data
 public class YxUserRechargeDto implements Serializable {
 
-    private Integer id;
+    private Long id;
 
     /** 充值用户UID */
-    private Integer uid;
+    private Long uid;
 
     /** 订单号 */
     private String orderId;
@@ -36,10 +37,10 @@ public class YxUserRechargeDto implements Serializable {
     private Integer paid;
 
     /** 充值支付时间 */
-    private Integer payTime;
+    private Date payTime;
 
     /** 充值时间 */
-    private Integer addTime;
+    private Date createTime;
 
     /** 退款金额 */
     private BigDecimal refundPrice;

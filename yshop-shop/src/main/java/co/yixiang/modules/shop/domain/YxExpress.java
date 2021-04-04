@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -22,7 +23,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_express")
-public class YxExpress implements Serializable {
+public class YxExpress extends BaseDomain {
 
     /** 快递公司id */
     @TableId

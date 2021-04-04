@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -24,11 +25,11 @@ import java.io.Serializable;
 public class YxStoreOrderStatus implements Serializable {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 订单id */
-    private Integer oid;
+    private Long oid;
 
 
     /** 操作类型 */
@@ -40,7 +41,7 @@ public class YxStoreOrderStatus implements Serializable {
 
 
     /** 操作时间 */
-    private Integer changeTime;
+    private Date changeTime;
 
 
     public void copy(YxStoreOrderStatus source) {

@@ -8,6 +8,7 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -22,7 +24,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("yx_store_coupon_issue")
-public class YxStoreCouponIssue implements Serializable {
+public class YxStoreCouponIssue extends BaseDomain {
 
     @TableId
     private Integer id;
@@ -36,11 +38,11 @@ public class YxStoreCouponIssue implements Serializable {
 
 
     /** 优惠券领取开启时间 */
-    private Integer startTime;
+    private Date startTime;
 
 
     /** 优惠券领取结束时间 */
-    private Integer endTime;
+    private Date endTime;
 
 
     /** 优惠券领取数量 */
@@ -58,19 +60,6 @@ public class YxStoreCouponIssue implements Serializable {
     /** 1 正常 0 未开启 -1 已无效 */
     private Integer status;
 
-
-    private Integer isDel;
-
-
-    /** 优惠券添加时间 */
-    private Integer addTime;
-
-
-    @NotNull(message = "请选择结束时间")
-    private Timestamp endTimeDate;
-
-    @NotNull(message = "请选择开始时间")
-    private Timestamp startTimeDate;
 
 
     public void copy(YxStoreCouponIssue source) {

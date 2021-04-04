@@ -98,8 +98,6 @@ public class SystemStoreController {
     @ApiOperation("新增门店")
     @PreAuthorize("hasAnyRole('yxSystemStore:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources) {
-
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity<>(yxSystemStoreService.save(resources), HttpStatus.CREATED);
     }
 

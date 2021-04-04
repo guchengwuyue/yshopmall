@@ -90,19 +90,12 @@ public class YxStoreSeckillServiceImpl extends BaseServiceImpl<YxStoreSeckillMap
             map.put("库存", yxStoreSeckill.getStock());
             map.put("销量", yxStoreSeckill.getSales());
             map.put("单位名", yxStoreSeckill.getUnitName());
-            map.put("邮费", yxStoreSeckill.getPostage());
             map.put("内容", yxStoreSeckill.getDescription());
             map.put("开始时间", yxStoreSeckill.getStartTime());
             map.put("结束时间", yxStoreSeckill.getStopTime());
-            map.put("添加时间", yxStoreSeckill.getAddTime());
             map.put("产品状态", yxStoreSeckill.getStatus());
-            map.put("是否包邮", yxStoreSeckill.getIsPostage());
-            map.put("热门推荐", yxStoreSeckill.getIsHot());
-            map.put("删除 0未删除1已删除", yxStoreSeckill.getIsDel());
             map.put("最多秒杀几个", yxStoreSeckill.getNum());
             map.put("显示", yxStoreSeckill.getIsShow());
-            map.put(" endTimeDate", yxStoreSeckill.getEndTimeDate());
-            map.put(" startTimeDate", yxStoreSeckill.getStartTimeDate());
             map.put("时间段id", yxStoreSeckill.getTimeId());
             list.add(map);
         }

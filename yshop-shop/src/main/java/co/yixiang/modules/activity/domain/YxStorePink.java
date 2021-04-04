@@ -8,12 +8,14 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -21,14 +23,14 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("yx_store_pink")
-public class YxStorePink implements Serializable {
+public class YxStorePink extends BaseDomain {
 
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 用户id */
-    private Integer uid;
+    private Long uid;
 
 
     /** 订单id 生成 */
@@ -36,7 +38,7 @@ public class YxStorePink implements Serializable {
 
 
     /** 订单id  数据库 */
-    private Integer orderIdKey;
+    private Long orderIdKey;
 
 
     /** 购买商品个数 */
@@ -48,11 +50,11 @@ public class YxStorePink implements Serializable {
 
 
     /** 拼团产品id */
-    private Integer cid;
+    private Long cid;
 
 
     /** 产品id */
-    private Integer pid;
+    private Long pid;
 
 
     /** 拼团总人数 */
@@ -63,19 +65,11 @@ public class YxStorePink implements Serializable {
     private BigDecimal price;
 
 
-    /** 开始时间 */
-    private String addTime;
-
-
-    private String stopTime;
+    private Date stopTime;
 
 
     /** 团长id 0为团长 */
     private Integer kId;
-
-
-    /** 是否发送模板消息0未发送1已发送 */
-    private Integer isTpl;
 
 
     /** 是否退款 0未退款 1已退款 */

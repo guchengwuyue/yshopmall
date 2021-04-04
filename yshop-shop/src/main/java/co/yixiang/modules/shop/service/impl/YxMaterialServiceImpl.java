@@ -71,8 +71,6 @@ public class YxMaterialServiceImpl extends BaseServiceImpl<MaterialMapper, YxMat
         for (YxMaterialDto yxMaterial : all) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("所属租户", yxMaterial.getUserId());
-            map.put("创建时间", yxMaterial.getCreateTime());
-            map.put("最后更新时间", yxMaterial.getUpdateTime());
             map.put("创建者ID", yxMaterial.getCreateId());
             map.put("类型1、图片；2、视频", yxMaterial.getType());
             map.put("分组ID", yxMaterial.getGroupId());

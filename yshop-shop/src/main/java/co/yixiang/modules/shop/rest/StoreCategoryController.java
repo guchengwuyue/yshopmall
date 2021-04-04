@@ -88,8 +88,6 @@ public class StoreCategoryController {
             throw new BadRequestException("分类最多能添加2级哦");
         }
 
-
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxStoreCategoryService.save(resources), HttpStatus.CREATED);
     }
 

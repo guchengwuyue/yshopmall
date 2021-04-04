@@ -104,6 +104,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     }
 
     @Override
+    // 此处方法已经废弃
     public OrderTimeDataDto getOrderTimeData() {
         int today = OrderUtil.dateToTimestampT(DateUtil.beginOfDay(new Date()));
         int yesterday = OrderUtil.dateToTimestampT(DateUtil.beginOfDay(DateUtil.
@@ -274,7 +275,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             map.put("支付状态", yxStoreOrder.getPaid());
             map.put("支付时间", yxStoreOrder.getPayTime());
             map.put("支付方式", yxStoreOrder.getPayType());
-            map.put("创建时间", yxStoreOrder.getAddTime());
             map.put("订单状态（-1 : 申请退款 -2 : 退货成功 0：待发货；1：待收货；2：已收货；3：待评价；-1：已退款）", yxStoreOrder.getStatus());
             map.put("0 未退款 1 申请中 2 已退款", yxStoreOrder.getRefundStatus());
             map.put("退款图片", yxStoreOrder.getRefundReasonWapImg());
@@ -291,11 +291,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             map.put("使用积分", yxStoreOrder.getUseIntegral());
             map.put("给用户退了多少积分", yxStoreOrder.getBackIntegral());
             map.put("备注", yxStoreOrder.getMark());
-            map.put("是否删除", yxStoreOrder.getIsDel());
-            map.put("唯一id(md5加密)类似id", yxStoreOrder.getUnique());
             map.put("管理员备注", yxStoreOrder.getRemark());
-            map.put("商户ID", yxStoreOrder.getMerId());
-            map.put(" isMerCheck", yxStoreOrder.getIsMerCheck());
             map.put("拼团产品id0一般产品", yxStoreOrder.getCombinationId());
             map.put("拼团id 0没有拼团", yxStoreOrder.getPinkId());
             map.put("成本价", yxStoreOrder.getCost());
@@ -304,9 +300,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             map.put("核销码", yxStoreOrder.getVerifyCode());
             map.put("门店id", yxStoreOrder.getStoreId());
             map.put("配送方式 1=快递 ，2=门店自提", yxStoreOrder.getShippingType());
-            map.put("支付渠道(0微信公众号1微信小程序)", yxStoreOrder.getIsChannel());
-            map.put(" isRemind", yxStoreOrder.getIsRemind());
-            map.put(" isSystemDel", yxStoreOrder.getIsSystemDel());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
@@ -375,12 +368,11 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         return map;
     }
 
-
     @Override
-    public String orderType(int id, int pinkId, int combinationId, int seckillId,
-                            int bargainId, int shippingType) {
+    public String orderType(Long id, Long pinkId, Long combinationId, Long seckillId,
+                            Long bargainId, int shippingType) {
         String str = "[普通订单]";
-        if (pinkId > 0 || combinationId > 0) {
+        if ( pinkId > 0 || combinationId > 0) {
             YxStorePink storePink = storePinkService.getOne(new LambdaQueryWrapper<YxStorePink>().
                     eq(YxStorePink::getOrderIdKey, id));
             if (ObjectUtil.isNull(storePink)) {
@@ -442,7 +434,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             userBill.setNumber(resources.getPayPrice());
             userBill.setBalance(NumberUtil.add(resources.getPayPrice(), userDTO.getNowMoney()));
             userBill.setMark("订单退款到余额");
-            userBill.setAddTime(OrderUtil.getSecondTimestampTwo());
             userBill.setStatus(1);
             yxUserBillService.save(userBill);
 
@@ -451,19 +442,14 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             storeOrderStatus.setOid(resources.getId());
             storeOrderStatus.setChangeType("refund_price");
             storeOrderStatus.setChangeMessage("退款给用户：" + resources.getPayPrice() + "元");
-            storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
+            storeOrderStatus.setChangeTime(new Date());
 
             yxStoreOrderStatusService.save(storeOrderStatus);
         } else {
             BigDecimal bigDecimal = new BigDecimal("100");
             try {
-                if (OrderInfoEnum.PAY_CHANNEL_1.getValue().equals(resources.getIsChannel())) {
-                    miniPayService.refundOrder(resources.getOrderId(),
-                            bigDecimal.multiply(resources.getPayPrice()).intValue());
-                } else {
-                    payService.refundOrder(resources.getOrderId(),
-                            bigDecimal.multiply(resources.getPayPrice()).intValue());
-                }
+                payService.refundOrder(resources.getOrderId(),
+                        bigDecimal.multiply(resources.getPayPrice()).intValue());
 
             } catch (WxPayException e) {
                 log.info("refund-error:{}", e.getMessage());

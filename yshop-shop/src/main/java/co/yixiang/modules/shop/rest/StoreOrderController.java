@@ -6,6 +6,7 @@
  */
 package co.yixiang.modules.shop.rest;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -19,11 +20,11 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.shop.domain.YxStoreOrder;
 import co.yixiang.modules.shop.domain.YxStoreOrderStatus;
-import co.yixiang.modules.shop.domain.YxWechatUser;
+import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxExpressService;
 import co.yixiang.modules.shop.service.YxStoreOrderService;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
-import co.yixiang.modules.shop.service.YxWechatUserService;
+import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.dto.*;
 import co.yixiang.modules.shop.service.param.ExpressParam;
 import co.yixiang.mp.service.YxTemplateService;
@@ -51,6 +52,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -72,14 +74,14 @@ public class StoreOrderController {
     private final YxStoreOrderService yxStoreOrderService;
     private final YxStoreOrderStatusService yxStoreOrderStatusService;
     private final YxExpressService yxExpressService;
-    private final YxWechatUserService wechatUserService;
+    private final YxUserService userService;
     private final RedisTemplate<String, String> redisTemplate;
     private final YxTemplateService templateService;
     private final ExpressService expressService;
 
 
     public StoreOrderController(IGenerator generator, YxStoreOrderService yxStoreOrderService, YxStoreOrderStatusService yxStoreOrderStatusService,
-                                YxExpressService yxExpressService, YxWechatUserService wechatUserService,
+                                YxExpressService yxExpressService, YxUserService  userService,
                                 RedisTemplate<String, String> redisTemplate,
                                 YxTemplateService templateService, YxStorePinkService storePinkService,
                                 ExpressService expressService) {
@@ -87,7 +89,7 @@ public class StoreOrderController {
         this.yxStoreOrderService = yxStoreOrderService;
         this.yxStoreOrderStatusService = yxStoreOrderStatusService;
         this.yxExpressService = yxExpressService;
-        this.wechatUserService = wechatUserService;
+        this.userService = userService;
         this.redisTemplate = redisTemplate;
         this.templateService = templateService;
         this.expressService = expressService;
@@ -166,11 +168,6 @@ public class StoreOrderController {
                 case "-4":
                     criteria.setIsDel(1);
                     break;
-                default:
-                    criteria.setIsDel(0);
-                    criteria.setPaid(0);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
             }
         }
         //订单类型查询
@@ -227,19 +224,16 @@ public class StoreOrderController {
         storeOrderStatus.setChangeType("delivery_goods");
         storeOrderStatus.setChangeMessage("已发货 快递公司：" + resources.getDeliveryName()
                 + " 快递单号：" + resources.getDeliveryId());
-        storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
+        storeOrderStatus.setChangeTime(new Date());
 
         yxStoreOrderStatusService.save(storeOrderStatus);
 
         //模板消息通知
         try {
-            YxWechatUserDto wechatUser = generator.convert(wechatUserService.getOne(new LambdaQueryWrapper<YxWechatUser>().eq(YxWechatUser::getUid, resources.getUid())), YxWechatUserDto.class);
-            if (ObjectUtil.isNotNull(wechatUser)) {
-                //公众号与小程序打通统一公众号模板通知
-                if (StrUtil.isNotBlank(wechatUser.getOpenid())) {
-                    templateService.deliverySuccessNotice(resources.getOrderId(),
-                            expressDTO.getName(), resources.getDeliveryId(), wechatUser.getOpenid());
-                }
+            String openid = this.getUserOpenid(resources.getUid());
+            if(StrUtil.isNotBlank(openid)){
+                templateService.deliverySuccessNotice(resources.getOrderId(),
+                        expressDTO.getName(), resources.getDeliveryId(), openid);
             }
         } catch (Exception e) {
             log.info("当前用户不是微信用户不能发送模板消息哦!");
@@ -309,14 +303,10 @@ public class StoreOrderController {
 
         //模板消息通知
         try {
-            YxWechatUserDto wechatUser = generator.convert(wechatUserService.getOne(new LambdaQueryWrapper<YxWechatUser>().eq(YxWechatUser::getUid, resources.getUid())), YxWechatUserDto.class);
-            if (ObjectUtil.isNotNull(wechatUser)) {
-                //公众号与小程序打通统一公众号模板通知
-                if (StrUtil.isNotBlank(wechatUser.getOpenid())) {
-                    templateService.refundSuccessNotice(resources.getOrderId(),
-                            resources.getPayPrice().toString(), wechatUser.getOpenid(),
-                            OrderUtil.stampToDate(resources.getAddTime().toString()));
-                }
+            String openid = this.getUserOpenid(resources.getUid());
+            if(StrUtil.isNotBlank(openid)){
+                templateService.refundSuccessNotice(resources.getOrderId(),
+                        resources.getPayPrice().toString(), openid, DateUtil.formatTime(new Date()));
             }
         } catch (Exception e) {
             log.info("当前用户不是微信用户不能发送模板消息哦!");
@@ -366,7 +356,7 @@ public class StoreOrderController {
         storeOrderStatus.setOid(resources.getId());
         storeOrderStatus.setChangeType("order_edit");
         storeOrderStatus.setChangeMessage("修改订单价格为：" + resources.getPayPrice());
-        storeOrderStatus.setChangeTime(OrderUtil.getSecondTimestampTwo());
+        storeOrderStatus.setChangeTime(new Date());
 
         yxStoreOrderStatusService.save(storeOrderStatus);
         return new ResponseEntity(HttpStatus.OK);
@@ -428,36 +418,30 @@ public class StoreOrderController {
         if (StrUtil.isNotEmpty(orderStatus)) {
             switch (orderStatus) {
                 case "1":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setStatus(0);
                     criteria.setRefundStatus(0);
                     break;
                 case "2":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setStatus(1);
                     criteria.setRefundStatus(0);
                     break;
                 case "3":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setStatus(2);
                     criteria.setRefundStatus(0);
                     break;
                 case "4":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setStatus(3);
                     criteria.setRefundStatus(0);
                     break;
                 case "-1":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setRefundStatus(1);
                     break;
                 case "-2":
-                    criteria.setIsDel(0);
                     criteria.setPaid(1);
                     criteria.setRefundStatus(2);
                     break;
@@ -465,7 +449,6 @@ public class StoreOrderController {
                     criteria.setIsDel(1);
                     break;
                 default:
-                    criteria.setIsDel(0);
                     criteria.setPaid(0);
                     criteria.setStatus(0);
                     criteria.setRefundStatus(0);
@@ -493,6 +476,28 @@ public class StoreOrderController {
             }
         }
         return yxStoreOrderService.queryAll(criteria, pageable);
+    }
+
+    /**
+     * 获取openid
+     * @param uid uid
+     * @return String
+     */
+    private String getUserOpenid(Long uid){
+        YxUser yxUser = userService.getById(uid);
+        if(yxUser == null) {
+            return "";
+        }
+
+        WechatUserDto wechatUserDto = yxUser.getWxProfile();
+        if(wechatUserDto == null) {
+            return "";
+        }
+        if(StrUtil.isBlank(wechatUserDto.getOpenid())) {
+            return "";
+        }
+        return wechatUserDto.getOpenid();
+
     }
 
 

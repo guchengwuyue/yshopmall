@@ -8,12 +8,14 @@ package co.yixiang.modules.activity.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -21,11 +23,11 @@ import java.math.BigDecimal;
  */
 @Data
 @TableName("yx_store_coupon_user")
-public class YxStoreCouponUser implements Serializable {
+public class YxStoreCouponUser extends BaseDomain {
 
     /** 优惠券发放记录id */
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 兑换的项目id */
@@ -33,7 +35,7 @@ public class YxStoreCouponUser implements Serializable {
 
 
     /** 优惠券所属用户 */
-    private Integer uid;
+    private Long uid;
 
 
     /** 优惠券名称 */
@@ -48,16 +50,12 @@ public class YxStoreCouponUser implements Serializable {
     private BigDecimal useMinPrice;
 
 
-    /** 优惠券创建时间 */
-    private Integer addTime;
-
-
     /** 优惠券结束时间 */
-    private Integer endTime;
+    private Date endTime;
 
 
     /** 使用时间 */
-    private Integer useTime;
+    private Date useTime;
 
 
     /** 获取方式 */

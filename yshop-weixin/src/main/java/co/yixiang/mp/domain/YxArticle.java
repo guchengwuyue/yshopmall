@@ -8,6 +8,7 @@ package co.yixiang.mp.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -23,7 +24,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("yx_article")
-public class YxArticle implements Serializable {
+public class YxArticle extends BaseDomain {
 
     /** 文章管理ID */
     @TableId
@@ -81,34 +82,6 @@ public class YxArticle implements Serializable {
     /** 状态 */
     private Integer status;
 
-
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private String addTime;
-
-
-    /** 是否隐藏 */
-    private Integer hide;
-
-
-    /** 管理员id */
-    private Integer adminId;
-
-
-    /** 商户id */
-    private Integer merId;
-
-
-    /** 产品关联id */
-    private Integer productId;
-
-
-    /** 是否热门(小程序) */
-    private Integer isHot;
-
-
-    /** 是否轮播图(小程序) */
-    private Integer isBanner;
 
 
     public void copy(YxArticle source) {

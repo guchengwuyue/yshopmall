@@ -79,7 +79,6 @@ public class YxUserBillServiceImpl extends BaseServiceImpl<UserBillMapper, YxUse
             map.put("明细数字", yxUserBill.getNumber());
             map.put("剩余", yxUserBill.getBalance());
             map.put("备注", yxUserBill.getMark());
-            map.put("添加时间", yxUserBill.getAddTime());
             map.put("0 = 带确定 1 = 有效 -1 = 无效", yxUserBill.getStatus());
             list.add(map);
         }

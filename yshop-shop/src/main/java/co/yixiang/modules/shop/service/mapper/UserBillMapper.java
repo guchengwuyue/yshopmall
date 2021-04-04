@@ -24,7 +24,7 @@ import java.util.List;
 @Mapper
 public interface UserBillMapper extends CoreMapper<YxUserBill> {
 
-    @Select("<script> select b.title,b.pm,b.category,b.type,b.number,b.add_time ,u.nickname " +
+    @Select("<script> select b.title,b.pm,b.category,b.type,b.number,b.create_time ,u.nickname " +
             "from yx_user_bill b left join yx_user u on u.uid=b.uid  where 1=1  " +
             "<if test =\"category !=''\">and b.category=#{category}</if> " +
             "<if test =\"type !=''\">and b.type=#{type}</if> " +

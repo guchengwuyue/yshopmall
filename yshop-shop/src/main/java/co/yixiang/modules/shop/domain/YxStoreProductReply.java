@@ -8,12 +8,14 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author hupeng
@@ -22,19 +24,19 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_store_product_reply")
-public class YxStoreProductReply implements Serializable {
+public class YxStoreProductReply extends BaseDomain {
 
     /** 评论ID */
     @TableId
-    private Integer id;
+    private Long id;
 
 
     /** 用户ID */
-    private Integer uid;
+    private Long uid;
 
 
     /** 订单ID */
-    private Integer oid;
+    private Long oid;
 
 
     /** 唯一id */
@@ -43,7 +45,7 @@ public class YxStoreProductReply implements Serializable {
 
 
     /** 产品id */
-    private Integer productId;
+    private Long productId;
 
 
     /** 某种商品类型(普通商品、秒杀商品） */
@@ -66,20 +68,12 @@ public class YxStoreProductReply implements Serializable {
     private String pics;
 
 
-    /** 评论时间 */
-    private Integer addTime;
-
-
     /** 管理员回复内容 */
     private String merchantReplyContent;
 
 
     /** 管理员回复时间 */
-    private Integer merchantReplyTime;
-
-
-    /** 0未删除1已删除 */
-    private Integer isDel;
+    private Date merchantReplyTime;
 
 
     /** 0未回复1已回复 */

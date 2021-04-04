@@ -50,7 +50,6 @@ public class WechatArticleController {
     @PostMapping(value = "/yxArticle")
     @PreAuthorize("hasAnyRole('admin','YXARTICLE_ALL','YXARTICLE_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxArticle resources) {
-        resources.setAddTime(DateUtil.format(new Date(), "yyyy-MM-dd HH:mm"));
         return new ResponseEntity(yxArticleService.save(resources), HttpStatus.CREATED);
     }
 

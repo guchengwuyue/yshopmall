@@ -48,8 +48,6 @@ public class SystemUserLevelController {
     @PostMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxSystemUserLevel resources) {
-
-        resources.setAddTime(OrderUtil.getSecondTimestampTwo());
         return new ResponseEntity(yxSystemUserLevelService.save(resources), HttpStatus.CREATED);
     }
 
@@ -58,7 +56,6 @@ public class SystemUserLevelController {
     @PutMapping(value = "/yxSystemUserLevel")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxSystemUserLevel resources) {
-
         yxSystemUserLevelService.saveOrUpdate(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -68,7 +65,6 @@ public class SystemUserLevelController {
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
         yxSystemUserLevelService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }

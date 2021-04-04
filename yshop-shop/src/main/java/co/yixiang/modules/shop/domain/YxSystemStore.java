@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -25,7 +26,7 @@ import java.util.Date;
 
 @Data
 @TableName("yx_system_store")
-public class YxSystemStore implements Serializable {
+public class YxSystemStore extends BaseDomain {
 
     @TableId
     private Integer id;
@@ -80,17 +81,8 @@ public class YxSystemStore implements Serializable {
     private String dayTime;
 
 
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
-
-
     /** 是否显示 */
     private Integer isShow;
-
-
-    /** 是否删除 */
-    private Integer isDel;
 
     private Date validTimeEnd;
 

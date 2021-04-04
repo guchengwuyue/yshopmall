@@ -8,6 +8,7 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -25,7 +26,7 @@ import java.util.Set;
  */
 @Data
 @TableName("role")
-public class Role implements Serializable {
+public class Role extends BaseDomain {
 
     /** ID */
     @TableId
@@ -54,9 +55,6 @@ public class Role implements Serializable {
     @TableField(exist = false)
     private Set<Dept> depts;
 
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     /** 功能权限 */

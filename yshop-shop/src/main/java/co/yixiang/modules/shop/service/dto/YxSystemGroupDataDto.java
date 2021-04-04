@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.service.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public class YxSystemGroupDataDto implements Serializable {
     private Map<String, Object> map;
 
     // 添加数据时间
-    private Integer addTime;
+    private Date createTime;
 
     // 数据排序
     private Integer sort;

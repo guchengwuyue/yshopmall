@@ -8,6 +8,7 @@ package co.yixiang.mp.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -22,7 +23,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("yx_wechat_template")
-public class YxWechatTemplate implements Serializable {
+public class YxWechatTemplate extends BaseDomain {
 
     /** 模板id */
     @TableId
@@ -43,11 +44,6 @@ public class YxWechatTemplate implements Serializable {
 
     /** 模板ID */
     private String tempid;
-
-
-    /** 添加时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private String addTime;
 
 
     /** 状态 */

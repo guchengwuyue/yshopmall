@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -23,7 +24,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("yx_system_user_task")
-public class YxSystemUserTask implements Serializable {
+public class YxSystemUserTask extends BaseDomain {
 
     @TableId
     private Integer id;
@@ -64,10 +65,6 @@ public class YxSystemUserTask implements Serializable {
     /** 任务说明 */
     private String illustrate;
 
-
-    /** 新增时间 */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer addTime;
 
 
     public void copy(YxSystemUserTask source) {

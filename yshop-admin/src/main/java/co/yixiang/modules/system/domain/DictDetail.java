@@ -8,6 +8,7 @@ package co.yixiang.modules.system.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -23,7 +24,7 @@ import java.sql.Timestamp;
  */
 @Data
 @TableName("dict_detail")
-public class DictDetail implements Serializable {
+public class DictDetail extends BaseDomain {
 
     /** 字典详细 */
     @TableId
@@ -49,9 +50,6 @@ public class DictDetail implements Serializable {
     private Dict dict;
 
 
-    /** 创建日期 */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
 
     public void copy(DictDetail source) {

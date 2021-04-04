@@ -76,7 +76,6 @@ public class YxUserRechargeServiceImpl extends BaseServiceImpl<UserRechargeMappe
             map.put("充值类型", yxUserRecharge.getRechargeType());
             map.put("是否充值", yxUserRecharge.getPaid());
             map.put("充值支付时间", yxUserRecharge.getPayTime());
-            map.put("充值时间", yxUserRecharge.getAddTime());
             map.put("退款金额", yxUserRecharge.getRefundPrice());
             map.put("昵称", yxUserRecharge.getNickname());
             list.add(map);

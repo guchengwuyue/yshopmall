@@ -96,7 +96,6 @@ public class SystemGroupDataController {
         yxSystemGroupData.setValue(jsonObject.toJSONString());
         yxSystemGroupData.setStatus(jsonObject.getInteger("status"));
         yxSystemGroupData.setSort(jsonObject.getInteger("sort"));
-        yxSystemGroupData.setAddTime(OrderUtil.getSecondTimestampTwo());
 
         return new ResponseEntity(yxSystemGroupDataService.save(yxSystemGroupData), HttpStatus.CREATED);
     }
