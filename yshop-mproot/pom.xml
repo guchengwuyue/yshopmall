@@ -13,7 +13,7 @@
 
     <properties>
         <jjwt.version>0.10.6</jjwt.version>
-        <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
     </properties>
     <dependencies>
         <dependency>

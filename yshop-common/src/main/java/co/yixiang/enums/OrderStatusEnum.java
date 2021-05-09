@@ -26,7 +26,8 @@ public enum OrderStatusEnum {
     STATUS_4(4, "已完成"),
     STATUS_MINUS_1(-1, "退款中"),
     STATUS_MINUS_2(-2, "已退款"),
-    STATUS_MINUS_3(-3, "退款");
+    STATUS_MINUS_3(-3, "退款"),
+    STATUS_MINUS_4(-4, "已删除");
 
 
     private Integer value;

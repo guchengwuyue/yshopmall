@@ -8,12 +8,12 @@ package co.yixiang.modules.shop.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -24,7 +24,7 @@ import java.util.Date;
 
 @Data
 @TableName("yx_store_order")
-public class YxStoreOrder implements Serializable {
+public class YxStoreOrder extends BaseDomain {
 
     /** 订单ID */
     @TableId

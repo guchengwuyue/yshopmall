@@ -15,6 +15,7 @@ import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.OrderInfoEnum;
+import co.yixiang.enums.OrderLogEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStorePinkService;
@@ -25,16 +26,18 @@ import co.yixiang.modules.shop.service.YxExpressService;
 import co.yixiang.modules.shop.service.YxStoreOrderService;
 import co.yixiang.modules.shop.service.YxStoreOrderStatusService;
 import co.yixiang.modules.shop.service.YxUserService;
-import co.yixiang.modules.shop.service.dto.*;
+import co.yixiang.modules.shop.service.dto.OrderCountDto;
+import co.yixiang.modules.shop.service.dto.WechatUserDto;
+import co.yixiang.modules.shop.service.dto.YxExpressDto;
+import co.yixiang.modules.shop.service.dto.YxStoreOrderDto;
+import co.yixiang.modules.shop.service.dto.YxStoreOrderQueryCriteria;
 import co.yixiang.modules.shop.service.param.ExpressParam;
 import co.yixiang.mp.service.YxTemplateService;
 import co.yixiang.tools.express.ExpressService;
 import co.yixiang.tools.express.dao.ExpressInfo;
-import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +49,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
@@ -81,10 +92,10 @@ public class StoreOrderController {
 
 
     public StoreOrderController(IGenerator generator, YxStoreOrderService yxStoreOrderService, YxStoreOrderStatusService yxStoreOrderStatusService,
-                                YxExpressService yxExpressService, YxUserService  userService,
-                                RedisTemplate<String, String> redisTemplate,
-                                YxTemplateService templateService, YxStorePinkService storePinkService,
-                                ExpressService expressService) {
+                                 YxExpressService yxExpressService, YxUserService  userService,
+                                 RedisTemplate<String, String> redisTemplate,
+                                 YxTemplateService templateService, YxStorePinkService storePinkService,
+                                 ExpressService expressService) {
         this.generator = generator;
         this.yxStoreOrderService = yxStoreOrderService;
         this.yxStoreOrderStatusService = yxStoreOrderStatusService;
@@ -126,74 +137,7 @@ public class StoreOrderController {
                                            @RequestParam(name = "orderStatus") String orderStatus,
                                            @RequestParam(name = "orderType") String orderType) {
 
-
-        criteria.setShippingType(1);//默认查询所有快递订单
-        //订单状态查询
-        if (StrUtil.isNotEmpty(orderStatus)) {
-            switch (orderStatus) {
-                case "1":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "2":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setStatus(1);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "3":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setStatus(2);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "4":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setStatus(3);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "-1":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setRefundStatus(1);
-                    break;
-                case "-2":
-                    criteria.setIsDel(0);
-                    criteria.setPaid(1);
-                    criteria.setRefundStatus(2);
-                    break;
-                case "-4":
-                    criteria.setIsDel(1);
-                    break;
-            }
-        }
-        //订单类型查询
-        if (StrUtil.isNotEmpty(orderType)) {
-            switch (orderType) {
-                case "2":
-                    criteria.setNewCombinationId(0);
-                    break;
-                case "3":
-                    criteria.setNewSeckillId(0);
-                    break;
-                case "4":
-                    criteria.setNewBargainId(0);
-                    break;
-                case "5":
-                    criteria.setShippingType(2);
-                    break;
-                default:
-                    criteria.setBargainId(0);
-                    criteria.setCombinationId(0);
-                    criteria.setSeckillId(0);
-            }
-        }
-
-
-        return new ResponseEntity(yxStoreOrderService.queryAll(criteria, pageable), HttpStatus.OK);
+        return new ResponseEntity(yxStoreOrderService.queryAll(handleQuery(criteria,orderStatus,orderType), pageable), HttpStatus.OK);
     }
 
 
@@ -354,7 +298,7 @@ public class StoreOrderController {
 
         YxStoreOrderStatus storeOrderStatus = new YxStoreOrderStatus();
         storeOrderStatus.setOid(resources.getId());
-        storeOrderStatus.setChangeType("order_edit");
+        storeOrderStatus.setChangeType(OrderLogEnum.ORDER_EDIT.getValue());
         storeOrderStatus.setChangeMessage("修改订单价格为：" + resources.getPayPrice());
         storeOrderStatus.setChangeTime(new Date());
 
@@ -413,69 +357,8 @@ public class StoreOrderController {
                                               Pageable pageable,
                                               String orderStatus,
                                               String orderType) {
-        criteria.setShippingType(1);//默认查询所有快递订单
-        //订单状态查询
-        if (StrUtil.isNotEmpty(orderStatus)) {
-            switch (orderStatus) {
-                case "1":
-                    criteria.setPaid(1);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "2":
-                    criteria.setPaid(1);
-                    criteria.setStatus(1);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "3":
-                    criteria.setPaid(1);
-                    criteria.setStatus(2);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "4":
-                    criteria.setPaid(1);
-                    criteria.setStatus(3);
-                    criteria.setRefundStatus(0);
-                    break;
-                case "-1":
-                    criteria.setPaid(1);
-                    criteria.setRefundStatus(1);
-                    break;
-                case "-2":
-                    criteria.setPaid(1);
-                    criteria.setRefundStatus(2);
-                    break;
-                case "-4":
-                    criteria.setIsDel(1);
-                    break;
-                default:
-                    criteria.setPaid(0);
-                    criteria.setStatus(0);
-                    criteria.setRefundStatus(0);
-            }
-        }
-        //订单类型查询
-        if (StrUtil.isNotEmpty(orderType)) {
-            switch (orderType) {
-                case "2":
-                    criteria.setNewCombinationId(0);
-                    break;
-                case "3":
-                    criteria.setNewSeckillId(0);
-                    break;
-                case "4":
-                    criteria.setNewBargainId(0);
-                    break;
-                case "5":
-                    criteria.setShippingType(2);
-                    break;
-                default:
-                    criteria.setBargainId(0);
-                    criteria.setCombinationId(0);
-                    criteria.setSeckillId(0);
-            }
-        }
-        return yxStoreOrderService.queryAll(criteria, pageable);
+
+        return yxStoreOrderService.queryAll(handleQuery(criteria, orderStatus, orderType), pageable);
     }
 
     /**
@@ -498,6 +381,84 @@ public class StoreOrderController {
         }
         return wechatUserDto.getOpenid();
 
+    }
+
+    /**
+     * 处理订单查询
+     * @param criteria YxStoreOrderQueryCriteria
+     * @param orderStatus 订单状态
+     * @param orderType 订单类型
+     * @return YxStoreOrderQueryCriteria
+     */
+    private YxStoreOrderQueryCriteria handleQuery(YxStoreOrderQueryCriteria criteria,String orderStatus,
+                                                  String orderType){
+
+        //默认查询所有快递订单
+        criteria.setShippingType(OrderInfoEnum.SHIPPIING_TYPE_1.getValue());
+        //订单状态查询
+        if (StrUtil.isNotEmpty(orderStatus)) {
+            switch (orderStatus) {
+                case "0":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_0.getValue());
+                    criteria.setStatus(OrderInfoEnum.STATUS_0.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_0.getValue());
+                    break;
+                case "1":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setStatus(OrderInfoEnum.STATUS_0.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_0.getValue());
+                    break;
+                case "2":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setStatus(OrderInfoEnum.STATUS_1.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_0.getValue());
+                    break;
+                case "3":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setStatus(OrderInfoEnum.STATUS_2.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_0.getValue());
+                    break;
+                case "4":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setStatus(OrderInfoEnum.STATUS_3.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_0.getValue());
+                    break;
+                case "-1":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_1.getValue());
+                    break;
+                case "-2":
+                    criteria.setPaid(OrderInfoEnum.PAY_STATUS_1.getValue());
+                    criteria.setRefundStatus(OrderInfoEnum.REFUND_STATUS_2.getValue());
+                    break;
+                default:
+            }
+        }
+        //订单类型查询
+        if (StrUtil.isNotEmpty(orderType)) {
+            switch (orderType) {
+                case "1":
+                    criteria.setBargainId(0);
+                    criteria.setCombinationId(0);
+                    criteria.setSeckillId(0);
+                    break;
+                case "2":
+                    criteria.setNewCombinationId(0);
+                    break;
+                case "3":
+                    criteria.setNewSeckillId(0);
+                    break;
+                case "4":
+                    criteria.setNewBargainId(0);
+                    break;
+                case "5":
+                    criteria.setShippingType(2);
+                    break;
+                default:
+            }
+        }
+
+        return criteria;
     }
 
 
