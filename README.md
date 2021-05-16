@@ -38,7 +38,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 ### 开发工具
 Idea、webstorm、vscode
 
-# 本地安装
+### 本地安装
 
 ### 后台系统工程（JAVA端）
 
