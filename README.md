@@ -29,6 +29,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 | 关注公众号点击单商户体验小程序与H5  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
 
 
+#本地安装
 ### 基本环境（必备）
 - 1、JDK：8+
 - 2、Redis 3.0+
@@ -37,8 +38,6 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 - 5、Node v8+
 ### 开发工具
 Idea、webstorm、vscode
-
-### 本地安装
 
 ### 后台系统工程（JAVA端）
 
@@ -209,7 +208,7 @@ server
 不需要证书如上面Java端配置一样去掉相关证书配置 改监听端口80即可
 
 
-### docker部署
+# docker部署
 
 - 1、创建一个存储第三方软件服务Docker Compose文件目录：
 ```
@@ -240,6 +239,7 @@ server
   docker build -t yshop-admin .  
   ```
 
+#项目说明
 #### 项目源码
 
 |     |  后台系统源码 |   后台系统前端源码  |
@@ -249,7 +249,7 @@ server
 
 
 
-## 商城功能
+### 商城功能
 
 * 一：商品模块：商品添加、规格设置，商品上下架等
 * 二：订单模块：下单、购物车、支付，发货、收货、评价、退款等
@@ -294,7 +294,7 @@ server
 </table>
 
 
-## 技术选型
+### 技术选型
 * 1 后端使用技术
     * 1.1 SpringBoot2
     * 1.2 mybatis、MyBatis-Plus
