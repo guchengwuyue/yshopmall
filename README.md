@@ -50,24 +50,22 @@ git clone https://gitee.com/guchengwuyue/yshopmall.git
 ```
 3、idea打开项目加载依赖目录如下：
 
-< img src="/img/test1.png"/>
+<img src="https://doc.yixiang.co/img/test1.png"/>
 
 4、导入数据库，配置开发环境数据库信息及其redis信息，文件路径如下：
-< img src="/img/test2.png"/>
-< img src="/img/test3.png"/>
-< img src="/img/test4.png"/>
+
+<img src="https://doc.yixiang.co/img/test2.png"/>
+<img src="https://doc.yixiang.co/img/test3.png"/>
+<img src="https://doc.yixiang.co/img/test4.png"/>
 
 5、然后在父级pom.xml输入命令 mvn clean install 或者用idea工具操作
 
-< img src="/img/test5.png"/>
+<img src="https://doc.yixiang.co/img/test5.png"/>
 
 6、启动程序，启动程序路径如下：
 
-< img src="/img/test6.png"/>
+<img src="https://doc.yixiang.co/img/test6.png"/>
 
-7、出现如下表示success：
-
-< img src="/img/test7.png"/>
 
 
 ### 后台前端工程（VUE端）
@@ -78,13 +76,13 @@ git clone https://gitee.com/guchengwuyue/yshopmall.git
 git clone https://gitee.com/guchengwuyue/yshopmall_qd
 ```
 3、cnpm install或者yarn install,当前所有命令必须当前工程目录下进行，目录结构如下：
-< img src="/img/test8.png"/>
+
+<img src="https://doc.yixiang.co/img/test8.png"/>
 
 4、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
-< img src="/img/test9.png"/>
+<img src="https://doc.yixiang.co/img/test9.png"/>
 
 5、打开浏览器输入地址如图：
-< img src="/img/test10.png"/>
 
 默认超管账户密码：admin/123456
 
@@ -173,7 +171,42 @@ server
  ssl_session_timeout 5m;
  ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer
+    ssl_prefer_server_ciphers on;
+    index index.html;
+    root /home/wwwroot/system/yshop;
+
+
+    location / {
+        try_files $uri $uri/ @router;
+        index index.html;
+·   }
+ location @router {
+  rewrite ^.*$ /index.html last;
+ } 
+
+
+ location ~* \.(eot|ttf|woff)$ {
+              #  add_header Access-Control-Allow-Origin *;
+        }
+
+        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+        {
+            expires      30d;
+        }
+
+        location ~ .*\.(js|css)?$
+        {
+            expires      12h;
+        }
+ 
+      
+ access_log  /home/wwwlogs/yshop.log;
+ 
+}
+
+```
+
+不需要证书如上面Java端配置一样去掉相关证书配置 改监听端口80即可
 
 
 ### docker部署
