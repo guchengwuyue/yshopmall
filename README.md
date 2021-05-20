@@ -1,22 +1,9 @@
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
 #### B2C微服务(SpringCloud)V1.2版本已经正式发布啦！：
-1、同步springboot版本最新uniapp ui
-
-2、集成oss分布式存储
-
-3、升级SpringCloud2020
-
-4、集成SpringCloudStream3.0与rabbitmq
-
-5、集成xxjob分布式任务
-
-6、关键bug修复：
-  - 修复退款没有反应
-  - 修改分页问题
-  - 修复分销问题
-  - 修复小程序登陆问题
-  - 等等
+https://www.yixiang.co/p/YshopdanshanghuB2Cweifuwubanben.html
+#### 多商户多店铺(B2B2C)V1.4版本已经正式发布啦！：
+https://www.yixiang.co/p/YshopduoshanghuduodianpuB2B2Cjieshaojiqiyanshi.html
 #### 项目简介
 yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商城、小程序直播、拼团、砍价、商户管理、 秒杀、优惠券、积分、分销、会员、充值、多门店等功能，更适合企业或个人二次开发；
 
