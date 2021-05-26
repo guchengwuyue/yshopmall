@@ -6,15 +6,28 @@
  */
 package co.yixiang.modules.activity.service.impl;
 
+import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.enums.ShopCommonEnum;
+import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.activity.domain.YxUserExtract;
 import co.yixiang.modules.activity.service.YxUserExtractService;
 import co.yixiang.modules.activity.service.dto.YxUserExtractDto;
 import co.yixiang.modules.activity.service.dto.YxUserExtractQueryCriteria;
 import co.yixiang.modules.activity.service.mapper.YxUserExtractMapper;
+import co.yixiang.modules.shop.domain.YxUser;
+import co.yixiang.modules.shop.domain.YxUserBill;
+import co.yixiang.modules.shop.service.YxUserBillService;
+import co.yixiang.modules.shop.service.YxUserService;
+import co.yixiang.modules.shop.service.dto.WechatUserDto;
+import co.yixiang.modules.shop.service.dto.YxUserDto;
+import co.yixiang.mp.service.YxPayService;
 import co.yixiang.utils.FileUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +37,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +60,9 @@ import java.util.Map;
 public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMapper, YxUserExtract> implements YxUserExtractService {
 
     private final IGenerator generator;
+    private final YxUserService yxUserService;
+    private final YxUserBillService billService;
+    private final YxPayService payService;
 
     @Override
     //@Cacheable
@@ -86,5 +104,85 @@ public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMappe
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    public void doExtract(YxUserExtract resources) {
+        if (resources.getStatus() == null) {
+            throw new BadRequestException("请选择审核状态");
+        }
+
+        if(ShopCommonEnum.EXTRACT_0.getValue().equals(resources.getStatus())){
+            throw new BadRequestException("请选择审核状态");
+        }
+
+        if(ShopCommonEnum.EXTRACT_MINUS_1.getValue().equals(resources.getStatus())){
+            if (StrUtil.isEmpty(resources.getFailMsg())) {
+                throw new BadRequestException("请填写失败原因");
+            }
+            String mark = "提现失败,退回佣金" + resources.getExtractPrice() + "元";
+            YxUserDto userDTO = generator.convert(yxUserService.getOne(new LambdaQueryWrapper<YxUser>().eq(YxUser::getUid, resources.getUid())), YxUserDto.class);
+
+            //增加流水
+            YxUserBill userBill = new YxUserBill();
+            userBill.setTitle("提现失败");
+            userBill.setUid(resources.getUid());
+            userBill.setCategory("now_money");
+            userBill.setType("extract");
+            userBill.setNumber(resources.getExtractPrice());
+            userBill.setLinkId(resources.getId().toString());
+            userBill.setBalance(NumberUtil.add(userDTO.getBrokeragePrice(), resources.getExtractPrice()));
+            userBill.setMark(mark);
+            userBill.setStatus(1);
+            userBill.setPm(1);
+            billService.save(userBill);
+
+            //返回提现金额
+            yxUserService.incBrokeragePrice(resources.getExtractPrice().doubleValue()
+                    , resources.getUid());
+
+            resources.setFailTime(new Date());
+
+        }
+        //todo 此处为企业付款，没经过测试
+        boolean isTest = true;
+        if (!isTest) {
+            String openid = this.getUserOpenid(resources.getUid());
+            if (StrUtil.isNotBlank(openid)) {
+                try {
+                    payService.entPay(openid, resources.getId().toString(),
+                            resources.getRealName(),
+                            resources.getExtractPrice().multiply(new BigDecimal(100)).intValue());
+                } catch (WxPayException e) {
+                    throw new BadRequestException(e.getMessage());
+                }
+            } else {
+                throw new BadRequestException("不是微信用户无法退款");
+            }
+
+        }
+        this.saveOrUpdate(resources);
+    }
+
+    /**
+     * 获取openid
+     * @param uid uid
+     * @return String
+     */
+    private String getUserOpenid(Long uid){
+        YxUser yxUser = yxUserService.getById(uid);
+        if(yxUser == null) {
+            return "";
+        }
+
+        WechatUserDto wechatUserDto = yxUser.getWxProfile();
+        if(wechatUserDto == null) {
+            return "";
+        }
+        if(StrUtil.isBlank(wechatUserDto.getOpenid())) {
+            return "";
+        }
+        return wechatUserDto.getOpenid();
+
     }
 }
