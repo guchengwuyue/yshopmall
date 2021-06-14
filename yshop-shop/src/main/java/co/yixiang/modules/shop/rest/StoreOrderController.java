@@ -19,6 +19,7 @@ import co.yixiang.enums.OrderLogEnum;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStorePinkService;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxStoreOrder;
 import co.yixiang.modules.shop.domain.YxStoreOrderStatus;
 import co.yixiang.modules.shop.domain.YxUser;
@@ -141,6 +142,7 @@ public class StoreOrderController {
     }
 
 
+    @NoRepeatSubmit
     @ApiOperation(value = "发货")
     @PutMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
