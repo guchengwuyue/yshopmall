@@ -7,6 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemUserTask;
 import co.yixiang.modules.shop.service.YxSystemUserTaskService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserTaskQueryCriteria;
@@ -50,6 +51,7 @@ public class SystemUserTaskController {
                 HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserTask")
@@ -58,6 +60,7 @@ public class SystemUserTaskController {
         return new ResponseEntity(yxSystemUserTaskService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserTask")
@@ -68,6 +71,7 @@ public class SystemUserTaskController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserTask/{id}")

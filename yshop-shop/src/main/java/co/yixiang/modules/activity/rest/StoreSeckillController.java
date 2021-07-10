@@ -11,6 +11,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreSeckill;
 import co.yixiang.modules.activity.service.YxStoreSeckillService;
 import co.yixiang.modules.activity.service.dto.YxStoreSeckillQueryCriteria;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.utils.OrderUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,6 +59,7 @@ public class StoreSeckillController {
         }
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreSeckill/{id}")

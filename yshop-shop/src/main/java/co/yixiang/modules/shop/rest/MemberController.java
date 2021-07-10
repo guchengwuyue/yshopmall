@@ -9,6 +9,7 @@ package co.yixiang.modules.shop.rest;
 import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.constant.SystemConfigConstants;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.YxUserService;
@@ -59,6 +60,7 @@ public class MemberController {
         return new ResponseEntity(yxUserService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增用户")
     @ApiOperation(value = "新增用户")
     @PostMapping(value = "/yxUser")
@@ -67,6 +69,7 @@ public class MemberController {
         return new ResponseEntity(yxUserService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改用户")
     @ApiOperation(value = "修改用户")
     @PutMapping(value = "/yxUser")
@@ -76,6 +79,7 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除用户")
     @ApiOperation(value = "删除用户")
     @DeleteMapping(value = "/yxUser/{uid}")

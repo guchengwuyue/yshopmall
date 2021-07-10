@@ -10,6 +10,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxUserExtract;
 import co.yixiang.modules.activity.service.YxUserExtractService;
 import co.yixiang.modules.activity.service.dto.YxUserExtractQueryCriteria;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,7 @@ public class UserExtractController {
         return new ResponseEntity(yxUserExtractService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
-
+    @NoRepeatSubmit
     @Log("操作提现")
     @ApiOperation(value = "操作提现")
     @PutMapping(value = "/yxUserExtract")

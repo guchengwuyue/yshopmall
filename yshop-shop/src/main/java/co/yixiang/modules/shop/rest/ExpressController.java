@@ -7,6 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxExpress;
 import co.yixiang.modules.shop.service.YxExpressService;
 import co.yixiang.modules.shop.service.dto.YxExpressQueryCriteria;
@@ -43,6 +44,7 @@ public class ExpressController {
         return new ResponseEntity(yxExpressService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增快递")
     @ApiOperation(value = "新增快递")
     @PostMapping(value = "/yxExpress")
@@ -52,6 +54,7 @@ public class ExpressController {
         return new ResponseEntity(yxExpressService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改快递")
     @ApiOperation(value = "修改快递")
     @PutMapping(value = "/yxExpress")
@@ -62,6 +65,7 @@ public class ExpressController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除快递")
     @ApiOperation(value = "删除快递")
     @DeleteMapping(value = "/yxExpress/{id}")

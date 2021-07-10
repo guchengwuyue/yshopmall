@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.rest;
 
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxMaterial;
 import co.yixiang.modules.shop.service.YxMaterialService;
 import co.yixiang.modules.shop.service.dto.YxMaterialQueryCriteria;
@@ -43,6 +44,7 @@ public class MaterialController {
         return new ResponseEntity<>(yxMaterialService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @PostMapping
     @Log("新增素材管理")
     @ApiOperation("新增素材管理")
@@ -51,6 +53,7 @@ public class MaterialController {
         return new ResponseEntity<>(yxMaterialService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @PutMapping
     @Log("修改素材管理")
     @ApiOperation("修改素材管理")
@@ -59,6 +62,7 @@ public class MaterialController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除素材管理")
     @ApiOperation("删除素材管理")
     @DeleteMapping(value = "/{id}")

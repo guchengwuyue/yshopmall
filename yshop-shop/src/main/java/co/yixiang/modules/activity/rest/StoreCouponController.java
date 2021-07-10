@@ -10,7 +10,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCoupon;
 import co.yixiang.modules.activity.service.YxStoreCouponService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponQueryCriteria;
-import co.yixiang.utils.OrderUtil;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +43,7 @@ public class StoreCouponController {
         return new ResponseEntity(yxStoreCouponService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxStoreCoupon")
@@ -51,6 +52,7 @@ public class StoreCouponController {
         return new ResponseEntity(yxStoreCouponService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreCoupon")
@@ -60,6 +62,7 @@ public class StoreCouponController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreCoupon/{id}")

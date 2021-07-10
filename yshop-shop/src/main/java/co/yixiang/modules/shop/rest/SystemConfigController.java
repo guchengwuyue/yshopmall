@@ -10,6 +10,7 @@ import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.constant.SystemConfigConstants;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemConfig;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.dto.YxSystemConfigQueryCriteria;
@@ -51,6 +52,7 @@ public class SystemConfigController {
         return new ResponseEntity(yxSystemConfigService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增或修改")
     @ApiOperation(value = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")

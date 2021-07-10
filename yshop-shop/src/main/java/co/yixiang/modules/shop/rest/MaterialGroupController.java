@@ -7,6 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxMaterialGroup;
 import co.yixiang.modules.shop.service.YxMaterialGroupService;
 import co.yixiang.modules.shop.service.dto.YxMaterialGroupQueryCriteria;
@@ -41,6 +42,7 @@ public class MaterialGroupController {
         return new ResponseEntity<>(yxMaterialGroupService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @PostMapping
     @Log("新增素材分组")
     @ApiOperation("新增素材分组")
@@ -48,6 +50,7 @@ public class MaterialGroupController {
         return new ResponseEntity<>(yxMaterialGroupService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @PutMapping
     @Log("修改素材分组")
     @ApiOperation("修改素材分组")
@@ -56,6 +59,7 @@ public class MaterialGroupController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除素材分组")
     @ApiOperation("删除素材分组")
     @DeleteMapping(value = "/{id}")

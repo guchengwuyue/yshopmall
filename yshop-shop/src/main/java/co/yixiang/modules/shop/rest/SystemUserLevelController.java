@@ -7,6 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemUserLevelService;
 import co.yixiang.modules.shop.service.dto.YxSystemUserLevelQueryCriteria;
@@ -43,6 +44,7 @@ public class SystemUserLevelController {
         return new ResponseEntity(yxSystemUserLevelService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增")
     @ApiOperation(value = "新增")
     @PostMapping(value = "/yxSystemUserLevel")
@@ -51,6 +53,7 @@ public class SystemUserLevelController {
         return new ResponseEntity(yxSystemUserLevelService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxSystemUserLevel")
@@ -60,6 +63,7 @@ public class SystemUserLevelController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxSystemUserLevel/{id}")

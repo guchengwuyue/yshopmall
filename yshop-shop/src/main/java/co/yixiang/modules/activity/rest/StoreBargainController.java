@@ -11,6 +11,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreBargain;
 import co.yixiang.modules.activity.service.YxStoreBargainService;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainQueryCriteria;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.utils.OrderUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +45,7 @@ public class StoreBargainController {
         return new ResponseEntity(yxStoreBargainService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
-
+    @NoRepeatSubmit
     @Log("修改砍价")
     @ApiOperation(value = "修改砍价")
     @PutMapping(value = "/yxStoreBargain")
@@ -58,6 +59,7 @@ public class StoreBargainController {
         }
     }
 
+    @NoRepeatSubmit
     @Log("删除砍价")
     @ApiOperation(value = "删除砍价")
     @DeleteMapping(value = "/yxStoreBargain/{id}")

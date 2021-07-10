@@ -195,6 +195,7 @@ public class StoreOrderController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @ApiOperation(value = "订单核销")
     @PutMapping(value = "/yxStoreOrder/check")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
@@ -241,6 +242,7 @@ public class StoreOrderController {
     }
 
 
+    @NoRepeatSubmit
     @ApiOperation(value = "退款")
     @PostMapping(value = "/yxStoreOrder/refund")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
@@ -273,7 +275,7 @@ public class StoreOrderController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
+    @NoRepeatSubmit
     @Log("修改订单")
     @ApiOperation(value = "修改订单")
     @PostMapping(value = "/yxStoreOrder/edit")
@@ -308,6 +310,7 @@ public class StoreOrderController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("修改订单备注")
     @ApiOperation(value = "修改订单备注")
     @PostMapping(value = "/yxStoreOrder/remark")

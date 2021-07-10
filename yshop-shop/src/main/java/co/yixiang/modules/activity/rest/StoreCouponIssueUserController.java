@@ -10,6 +10,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -59,6 +60,7 @@ public class StoreCouponIssueUserController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreCouponIssueUser/{id}")

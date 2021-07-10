@@ -7,6 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxStoreProductReply;
 import co.yixiang.modules.shop.service.YxStoreProductReplyService;
 import co.yixiang.modules.shop.service.dto.YxStoreProductReplyQueryCriteria;
@@ -43,7 +44,7 @@ public class StoreProductReplyController {
         return new ResponseEntity(yxStoreProductReplyService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
-
+    @NoRepeatSubmit
     @Log("修改")
     @ApiOperation(value = "修改")
     @PutMapping(value = "/yxStoreProductReply")
@@ -53,6 +54,7 @@ public class StoreProductReplyController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除")
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreProductReply/{id}")

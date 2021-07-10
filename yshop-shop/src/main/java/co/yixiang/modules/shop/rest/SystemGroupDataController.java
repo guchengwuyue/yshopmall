@@ -11,6 +11,7 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemGroupData;
 import co.yixiang.modules.shop.service.YxSystemGroupDataService;
 import co.yixiang.modules.shop.service.dto.YxSystemGroupDataQueryCriteria;
@@ -56,6 +57,7 @@ public class SystemGroupDataController {
         return new ResponseEntity(yxSystemGroupDataService.queryAll(criteria, pageableT), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增数据配置")
     @ApiOperation(value = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
@@ -100,6 +102,7 @@ public class SystemGroupDataController {
         return new ResponseEntity(yxSystemGroupDataService.save(yxSystemGroupData), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改数据配置")
     @ApiOperation(value = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
@@ -149,6 +152,7 @@ public class SystemGroupDataController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除数据配置")
     @ApiOperation(value = "删除数据配置")
     @DeleteMapping(value = "/yxSystemGroupData/{id}")

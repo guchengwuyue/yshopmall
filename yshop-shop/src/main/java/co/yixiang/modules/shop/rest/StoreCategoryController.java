@@ -10,6 +10,7 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxStoreCategory;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.service.YxStoreCategoryService;
@@ -91,6 +92,7 @@ public class StoreCategoryController {
         return new ResponseEntity(yxStoreCategoryService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改商品分类")
     @ApiOperation(value = "修改商品分类")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)

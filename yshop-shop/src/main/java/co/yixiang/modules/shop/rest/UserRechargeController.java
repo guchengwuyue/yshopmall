@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.rest;
 
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxUserRecharge;
 import co.yixiang.modules.shop.service.YxUserRechargeService;
 import co.yixiang.modules.shop.service.dto.YxUserRechargeDto;
@@ -59,6 +60,7 @@ public class UserRechargeController {
         return new ResponseEntity<>(yxUserRechargeService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @PostMapping
     @Log("新增充值管理")
     @ApiOperation("新增充值管理")
@@ -67,7 +69,7 @@ public class UserRechargeController {
         return new ResponseEntity<>(yxUserRechargeService.save(resources), HttpStatus.CREATED);
     }
 
-
+    @NoRepeatSubmit
     @Log("删除充值管理")
     @ApiOperation("删除充值管理")
     @PreAuthorize("@el.check('yxUserRecharge:del')")

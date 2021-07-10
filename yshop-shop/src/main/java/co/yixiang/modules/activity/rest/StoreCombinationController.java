@@ -11,6 +11,7 @@ import co.yixiang.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
 import co.yixiang.modules.activity.service.YxStoreCombinationService;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationQueryCriteria;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -47,7 +48,7 @@ public class StoreCombinationController {
         return new ResponseEntity(yxStoreCombinationService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
-
+    @NoRepeatSubmit
     @Log("修改拼团")
     @ApiOperation(value = "新增/修改拼团")
     @PutMapping(value = "/yxStoreCombination")
@@ -71,6 +72,7 @@ public class StoreCombinationController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("删除拼团")
     @ApiOperation(value = "删除拼团")
     @DeleteMapping(value = "/yxStoreCombination/{id}")

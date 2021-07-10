@@ -8,6 +8,7 @@ package co.yixiang.modules.shop.rest;
 
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemStore;
 import co.yixiang.modules.shop.domain.YxSystemStoreStaff;
 import co.yixiang.modules.shop.service.YxSystemStoreService;
@@ -65,6 +66,7 @@ public class SystemStoreStaffController {
         return new ResponseEntity<>(yxSystemStoreStaffService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @PostMapping
     @Log("新增门店店员")
     @ApiOperation("新增门店店员")
@@ -76,6 +78,7 @@ public class SystemStoreStaffController {
         return new ResponseEntity<>(yxSystemStoreStaffService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @PutMapping
     @Log("修改门店店员")
     @ApiOperation("修改门店店员")
@@ -88,6 +91,7 @@ public class SystemStoreStaffController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除门店店员")
     @ApiOperation("删除门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:del')")

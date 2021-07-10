@@ -10,6 +10,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxStoreProduct;
 import co.yixiang.modules.shop.service.YxStoreProductService;
 import co.yixiang.modules.shop.service.dto.YxStoreProductQueryCriteria;
@@ -51,6 +52,7 @@ public class StoreProductController {
         return new ResponseEntity(yxStoreProductService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @NoRepeatSubmit
     @Log("新增商品")
     @ApiOperation(value = "新增商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
@@ -66,6 +68,7 @@ public class StoreProductController {
         return new ResponseEntity(yxStoreProductService.saveProduct(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @Log("修改商品")
     @ApiOperation(value = "修改商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
@@ -77,6 +80,7 @@ public class StoreProductController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除商品")
     @ApiOperation(value = "删除商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)

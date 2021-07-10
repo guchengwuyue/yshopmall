@@ -12,6 +12,7 @@ import co.yixiang.constant.ShopConstants;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemStore;
 import co.yixiang.modules.shop.service.YxSystemStoreService;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreDto;
@@ -93,6 +94,7 @@ public class SystemStoreController {
         return new ResponseEntity<>(json, HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @PostMapping
     @Log("新增门店")
     @ApiOperation("新增门店")
@@ -101,6 +103,7 @@ public class SystemStoreController {
         return new ResponseEntity<>(yxSystemStoreService.save(resources), HttpStatus.CREATED);
     }
 
+    @NoRepeatSubmit
     @PutMapping
     @Log("修改门店")
     @ApiOperation("修改门店")
@@ -111,6 +114,7 @@ public class SystemStoreController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @NoRepeatSubmit
     @Log("删除门店")
     @ApiOperation("删除门店")
     @PreAuthorize("hasAnyRole('yxSystemStore:del')")
