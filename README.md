@@ -32,21 +32,21 @@ git clone https://gitee.com/guchengwuyue/yshopmall.git
 ```
 3、idea打开项目加载依赖目录如下：
 
-<img src="https://doc.yixiang.co/img/test1.png"/>
+![test1](./imgs/test1.png)
 
 4、导入数据库，配置开发环境数据库信息及其redis信息，文件路径如下：
 
-<img src="https://doc.yixiang.co/img/test2.png"/>
-<img src="https://doc.yixiang.co/img/test3.png"/>
-<img src="https://doc.yixiang.co/img/test4.png"/>
+![test2](./imgs/test2.png)
+![test3](./imgs/test3.png)
+![test4](./imgs/test4.png)
 
 5、然后在父级pom.xml输入命令 mvn clean install 或者用idea工具操作
 
-<img src="https://doc.yixiang.co/img/test5.png"/>
+![test5](./imgs/test5.png)
 
 6、启动程序，启动程序路径如下：
 
-<img src="https://doc.yixiang.co/img/test6.png"/>
+![test6](./imgs/test6.png)
 
 
 
@@ -59,10 +59,10 @@ git clone https://gitee.com/guchengwuyue/yshopmall_qd
 ```
 3、cnpm install或者yarn install,当前所有命令必须当前工程目录下进行，目录结构如下：
 
-<img src="https://doc.yixiang.co/img/test8.png"/>
+![test8](./imgs/test8.png)
 
 4、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
-<img src="https://doc.yixiang.co/img/test9.png"/>
+![test9](./imgs/test9.png)
 
 5、打开浏览器输入地址如图：
 
