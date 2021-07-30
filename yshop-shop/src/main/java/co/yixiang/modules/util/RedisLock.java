@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 
@@ -34,18 +35,18 @@ public class RedisLock {
     /**
      * 该加锁方法仅针对单实例 Redis 可实现分布式加锁
      * 对于 Redis 集群则无法使用
-     *
+     * <p>
      * 支持重复，线程安全
      *
-     * @param lockKey   加锁键
-     * @param clientId  加锁客户端唯一标识(采用UUID)
-     * @param seconds   锁过期时间
+     * @param lockKey  加锁键
+     * @param clientId 加锁客户端唯一标识(采用UUID)
+     * @param seconds  锁过期时间
      * @return
      */
-    public boolean tryLock(String lockKey, String clientId, long seconds) {
+    public boolean tryLock(String lockKey, String clientId, int seconds) {
         return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
             Jedis jedis = (Jedis) redisConnection.getNativeConnection();
-            String result = jedis.set(lockKey, clientId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, seconds);
+            String result = jedis.set(lockKey, clientId, SetParams.setParams().nx().ex(seconds));
             if (LOCK_SUCCESS.equals(result)) {
                 return true;
             }
