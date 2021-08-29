@@ -20,15 +20,16 @@ import org.springframework.core.Ordered;
 import org.springframework.data.domain.Pageable;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.schema.AlternateTypeRuleConvention;
-import springfox.documentation.schema.ModelRef;
+import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.Parameter;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -71,23 +72,21 @@ public class SwaggerConfig {
     @Bean
     @SuppressWarnings("all")
     public Docket createRestApi() {
-        ParameterBuilder ticketPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<>();
-        ticketPar.name(tokenHeader).description("token")
-                .modelRef(new ModelRef("string"))
-                .parameterType("header")
-                .defaultValue(tokenStartWith + " ")
-                .required(true)
-                .build();
+        RequestParameterBuilder ticketPar = new RequestParameterBuilder();
+        List<RequestParameter> pars = new ArrayList<>();
+        ticketPar.description("token").name(tokenHeader)
+                .in(ParameterType.HEADER).required(true)
+                .query(param -> param.model(model -> model.scalarModel(ScalarType.STRING)));
         pars.add(ticketPar.build());
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enabled)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("co.yixiang.modules"))
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .paths(PathSelectors.regex("/error.*").negate())
                 .build()
-                .globalOperationParameters(pars);
+                .globalRequestParameters(pars);
     }
 
     private ApiInfo apiInfo() {
