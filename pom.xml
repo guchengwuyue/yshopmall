@@ -35,8 +35,8 @@
         <jedis.version>2.9.0</jedis.version>
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>1.2.75</fastjson.version>
-        <druid.version>1.1.10</druid.version>
-        <hutool.version>5.7.9</hutool.version>
+        <druid.version>1.2.4</druid.version>
+        <hutool.version>5.7.12</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
     </properties>
