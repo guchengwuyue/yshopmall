@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018-2020
+ * Copyright (C) 2018-2021
  * All rights reserved, Designed By www.yixiang.co
  * 注意：
  * 本软件为www.yixiang.co开发研制
@@ -10,7 +10,7 @@ import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.modules.security.security.JwtAccessDeniedHandler;
 import co.yixiang.modules.security.security.JwtAuthenticationEntryPoint;
 import co.yixiang.modules.security.security.TokenConfigurer;
-import co.yixiang.modules.security.security.TokenProvider;
+import co.yixiang.modules.security.security.TokenUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,19 +36,19 @@ import java.util.Set;
 /**
  * @author hupeng
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenProvider tokenProvider;
+    private final TokenUtil tokenUtil;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
 
-    public SecurityConfig(TokenProvider tokenProvider, CorsFilter corsFilter, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler, ApplicationContext applicationContext) {
-        this.tokenProvider = tokenProvider;
+    public SecurityConfig(TokenUtil tokenUtil, CorsFilter corsFilter, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler, ApplicationContext applicationContext) {
+        this.tokenUtil = tokenUtil;
         this.corsFilter = corsFilter;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
@@ -123,6 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/file/**").permitAll()
                 // 阿里巴巴 druid
                 .antMatchers("/druid/**").permitAll()
+                .antMatchers("/api/canvas/**").permitAll()
                 // 放行OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
@@ -134,6 +135,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private TokenConfigurer securityConfigurerAdapter() {
-        return new TokenConfigurer(tokenProvider);
+        return new TokenConfigurer(tokenUtil);
     }
 }

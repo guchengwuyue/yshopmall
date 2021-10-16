@@ -1,8 +1,7 @@
 /**
- * Copyright (C) 2018-2020
+ * Copyright (C) 2018-2021
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.security.security;
 
@@ -16,15 +15,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    private final TokenProvider tokenProvider;
+    private final TokenUtil tokenUtil;
 
-    public TokenConfigurer(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
+    public TokenConfigurer(TokenUtil tokenUtil){
+        this.tokenUtil = tokenUtil;
     }
 
     @Override
     public void configure(HttpSecurity http) {
-        TokenFilter customFilter = new TokenFilter(tokenProvider);
+        TokenFilter customFilter = new TokenFilter(tokenUtil);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

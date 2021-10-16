@@ -161,8 +161,8 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
      */
     @Override
     public void delDepts(List<Long> deptIds) {
-        int jobCount = jobMapper.selectCount(Wrappers.<Job>lambdaQuery().in(Job::getDeptId, deptIds));
-        int roleCount = rolesDeptsMapper.selectCount(Wrappers.<RolesDepts>lambdaQuery()
+        Long jobCount = jobMapper.selectCount(Wrappers.<Job>lambdaQuery().in(Job::getDeptId, deptIds));
+        Long roleCount = rolesDeptsMapper.selectCount(Wrappers.<RolesDepts>lambdaQuery()
                 .in(RolesDepts::getDeptId, deptIds));
         if (jobCount > 0) {
             throw new BadRequestException("所选部门中存在与岗位关联，请取消关联后再试");

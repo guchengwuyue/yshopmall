@@ -25,7 +25,7 @@ import java.sql.Timestamp;
 public class YxMaterial extends BaseDomain {
 
     /** PK */
-    @TableId(type = IdType.UUID)
+    @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
 

@@ -138,14 +138,14 @@ public class StoreCategoryController {
      * @param id 分类id
      */
     private void delCheck(Integer id) {
-        int count = yxStoreCategoryService.lambdaQuery()
+        Long count = yxStoreCategoryService.lambdaQuery()
                 .eq(YxStoreCategory::getPid, id)
                 .count();
         if (count > 0) {
             throw new BadRequestException("请先删除子分类");
         }
 
-        int countP = yxStoreProductService.lambdaQuery()
+        Long countP = yxStoreProductService.lambdaQuery()
                 .eq(YxStoreProduct::getCateId, id)
                 .count();
 

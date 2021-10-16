@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018-2020
+ * Copyright (C) 2018-2021
  * All rights reserved, Designed By www.yixiang.co
  * 注意：
  * 本软件为www.yixiang.co开发研制
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2019年11月28日
  */
 @Data
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConfigurationProperties(prefix = "jwt")
 public class SecurityProperties {
 
@@ -28,7 +28,7 @@ public class SecurityProperties {
 
     /** 必须使用最少88位的Base64对该令牌进行编码 */
     private String base64Secret;
-
+    private String secret;
     /** 令牌过期时间 此处单位/毫秒 */
     private Long tokenValidityInSeconds;
 
