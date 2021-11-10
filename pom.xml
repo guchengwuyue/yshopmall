@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.11</version>
+        <version>2.4.12</version>
     </parent>
 
     <properties>
@@ -39,6 +39,16 @@
         <hutool.version>5.7.12</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <apachepoi.version>3.17</apachepoi.version>
+        <annotations.version>1.5.21</annotations.version>
+        <models.version>1.5.24</models.version>
+        <xiaoymin.version>3.0.3</xiaoymin.version>
+        <xerces.version>2.11.0</xerces.version>
+        <javax.version>1</javax.version>
+        <whvcse.version>1.6.2</whvcse.version>
+        <bitwalker.version>1.20</bitwalker.version>
+        <jedis.version>3.3.0</jedis.version>
+        <validator.version>6.1.6.Final</validator.version>
     </properties>
 
 
@@ -60,7 +70,7 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.1.6.Final</version>
+            <version>${validator.version}</version>
         </dependency>
 
         <dependency>
@@ -122,18 +132,18 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.5.21</version>
+            <version>${annotations.version}</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
-            <version>1.5.24</version>
+            <version>${models.version}</version>
         </dependency>
         <!--单应用-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
+            <version>${xiaoymin.version}</version>
         </dependency>
         <!--Mysql依赖包-->
         <dependency>
@@ -165,18 +175,18 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.17</version>
+            <version>${apachepoi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
+            <version>${apachepoi.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
-            <version>2.11.0</version>
+            <version>${xerces.version}</version>
         </dependency>
 
         <!-- fastjson -->
@@ -200,22 +210,22 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <version>${javax.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
-            <version>1.6.2</version>
+            <version>${whvcse.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
-            <version>1.20</version>
+            <version>${bitwalker.version}</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.3.0</version>
+            <version>${jedis.version}</version>
         </dependency>
     </dependencies>
 
