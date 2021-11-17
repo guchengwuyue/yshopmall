@@ -42,7 +42,7 @@
         <annotations.version>1.5.21</annotations.version>
         <models.version>1.5.24</models.version>
         <xiaoymin.version>3.0.3</xiaoymin.version>
-        <xerces.version>2.11.0</xerces.version>
+        <xerces.version>2.12.0</xerces.version>
         <javax.version>1</javax.version>
         <whvcse.version>1.6.2</whvcse.version>
         <bitwalker.version>1.20</bitwalker.version>
