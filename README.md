@@ -61,8 +61,22 @@ git clone https://gitee.com/guchengwuyue/yshopmall_qd
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163159_895e12de_477893.png "test8.png")
 
-4、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
+4、安装依赖失败
+```
+npm config set registry https://registry.npm.taobao.org
+配置后可通过下面方式来验证是否成功
+npm config get registry
+
+在 ~/.npmrc 加入下面内容，可以避免安装 node-sass 失败
+sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+
+.npmrc 文件位于
+win：C:\Users\[你的账户名称]\.npmrc
+linux：直接使用 vi ~/.npmrc
+```
+5、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163209_09ed1793_477893.png "test9.png")
+
 
 5、打开浏览器输入地址如图：
 
