@@ -6,7 +6,11 @@
  */
 package co.yixiang.modules.system.service.dto;
 
+import co.yixiang.annotation.Query;
 import lombok.Data;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author hupeng
@@ -14,4 +18,10 @@ import lombok.Data;
  */
 @Data
 public class RoleQueryCriteria {
+
+    @Query(blurry = "name")
+    private String blurry;
+
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> createTime;
 }
