@@ -36,7 +36,7 @@
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>1.2.79</fastjson.version>
         <druid.version>1.2.8</druid.version>
-        <hutool.version>5.7.12</hutool.version>
+        <hutool.version>5.7.15</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
         <apachepoi.version>4.0.1</apachepoi.version>
