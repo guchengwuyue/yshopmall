@@ -174,8 +174,11 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 yxStoreOrder.getRefundStatus());
 
         if (yxStoreOrder.getStoreId() > 0) {
-            String storeName = systemStoreService.getById(yxStoreOrder.getStoreId()).getName();
-            yxStoreOrderDto.setStoreName(storeName);
+            YxSystemStore systemStore = systemStoreService.getById(yxStoreOrder.getStoreId());
+            if (Objects.nonNull(systemStore)) {
+                String storeName = systemStore.getName();
+                yxStoreOrderDto.setStoreName(storeName);
+            }
         }
 
         //订单状态
