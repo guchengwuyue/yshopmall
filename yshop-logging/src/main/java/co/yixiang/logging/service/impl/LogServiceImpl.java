@@ -12,6 +12,8 @@ import cn.hutool.json.JSONObject;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.enums.LogTypeEnum;
+import co.yixiang.enums.YesNoEnum;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.logging.service.LogService;
 import co.yixiang.logging.service.dto.LogErrorDTO;
@@ -19,6 +21,7 @@ import co.yixiang.logging.service.dto.LogQueryCriteria;
 import co.yixiang.logging.service.dto.LogSmallDTO;
 import co.yixiang.logging.service.mapper.LogMapper;
 import co.yixiang.utils.FileUtil;
+import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import co.yixiang.utils.ValidationUtil;
 import com.github.pagehelper.PageInfo;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author hupeng
@@ -56,9 +60,11 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
     }
 
     @Override
-    public Object findAllByPageable(String nickname, Pageable pageable) {
+    public Object findAllByPageable(LogQueryCriteria criteria, Pageable pageable) {
+        criteria.setLogType(LogTypeEnum.INFO.getDesc());
+        criteria.setType(YesNoEnum.YES_NO_1.getValue());
         getPage(pageable);
-        PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(logMapper.findAllByPageable(nickname));
+        PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(logMapper.findAllByPageable(criteria.getBlurry()));
         Map<String, Object> map = new LinkedHashMap<>(2);
         map.put("content", page.getList());
         map.put("totalElements", page.getTotal());
@@ -68,11 +74,16 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
 
     @Override
     public Object queryAll(LogQueryCriteria criteria, Pageable pageable) {
-
+        if (Objects.equals(criteria.getType(),YesNoEnum.YES_NO_0.getValue())){
+            criteria.setLogType(LogTypeEnum.INFO.getDesc());
+            criteria.setType(YesNoEnum.YES_NO_0.getValue());
+        } else {
+            criteria.setLogType(LogTypeEnum.ERROR.getDesc());
+        }
         getPage(pageable);
         PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(queryAll(criteria));
         Map<String, Object> map = new LinkedHashMap<>(2);
-        String status = "ERROR";
+        String status = LogTypeEnum.ERROR.getDesc();
         if (status.equals(criteria.getLogType())) {
             map.put("content", generator.convert(page.getList(), LogErrorDTO.class));
             map.put("totalElements", page.getTotal());
@@ -89,6 +100,8 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
 
     @Override
     public Object queryAllByUser(LogQueryCriteria criteria, Pageable pageable) {
+        criteria.setLogType(LogTypeEnum.INFO.getDesc());
+        criteria.setBlurry(SecurityUtils.getUsername());
         getPage(pageable);
         PageInfo<co.yixiang.logging.domain.Log> page = new PageInfo<>(queryAll(criteria));
         Map<String, Object> map = new LinkedHashMap<>(2);
@@ -177,12 +190,12 @@ public class LogServiceImpl extends BaseServiceImpl<LogMapper, co.yixiang.loggin
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delAllByError() {
-        logMapper.deleteByLogType("ERROR");
+        logMapper.deleteByLogType(LogTypeEnum.ERROR.getDesc());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delAllByInfo() {
-        logMapper.deleteByLogType("INFO");
+        logMapper.deleteByLogType(LogTypeEnum.INFO.getDesc());
     }
 }

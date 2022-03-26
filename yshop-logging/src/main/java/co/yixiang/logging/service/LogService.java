@@ -24,7 +24,14 @@ import java.util.List;
 public interface LogService extends BaseService<Log> {
 
 
-    Object findAllByPageable(String nickname, Pageable pageable);
+    /**
+     * 分页查询日志
+     *
+     * @param criteria 标准
+     * @param pageable 可分页
+     * @return {@link Object}
+     */
+    Object findAllByPageable(LogQueryCriteria criteria, Pageable pageable);
 
     /**
      * 分页查询
@@ -51,11 +58,12 @@ public interface LogService extends BaseService<Log> {
 
     /**
      * 保存日志数据
-     * @param username 用户
-     * @param browser 浏览器
-     * @param ip 请求IP
+     *
+     * @param username  用户
+     * @param ip        请求IP
      * @param joinPoint /
-     * @param log 日志实体
+     * @param log       日志实体
+     * @param uid       uid
      */
     @Async
     void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log, Long uid);

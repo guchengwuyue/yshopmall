@@ -6,10 +6,10 @@
  */
 package co.yixiang.logging.rest;
 
+import co.yixiang.enums.LogTypeEnum;
 import co.yixiang.logging.aop.log.Log;
 import co.yixiang.logging.service.LogService;
 import co.yixiang.logging.service.dto.LogQueryCriteria;
-import co.yixiang.utils.SecurityUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +42,7 @@ public class LogController {
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','log:list')")
     public void download(HttpServletResponse response, LogQueryCriteria criteria) throws IOException {
-        criteria.setLogType("INFO");
+        criteria.setLogType(LogTypeEnum.INFO.getDesc());
         logService.download(logService.queryAll(criteria), response);
     }
 
@@ -51,7 +51,7 @@ public class LogController {
     @GetMapping(value = "/error/download")
     @PreAuthorize("@el.check('admin','log:list')")
     public void errorDownload(HttpServletResponse response, LogQueryCriteria criteria) throws IOException {
-        criteria.setLogType("ERROR");
+        criteria.setLogType(LogTypeEnum.ERROR.getDesc());
         logService.download(logService.queryAll(criteria), response);
     }
 
@@ -59,24 +59,18 @@ public class LogController {
     @ApiOperation("日志查询")
     @PreAuthorize("@el.check('admin','log:list')")
     public ResponseEntity<Object> getLogs(LogQueryCriteria criteria, Pageable pageable) {
-        criteria.setLogType("INFO");
-        criteria.setType(0);
         return new ResponseEntity<>(logService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mlogs")
     @PreAuthorize("@el.check('admin','log:list')")
     public ResponseEntity getApiLogs(LogQueryCriteria criteria, Pageable pageable) {
-        criteria.setLogType("INFO");
-        criteria.setType(1);
-        return new ResponseEntity(logService.findAllByPageable(criteria.getBlurry(), pageable), HttpStatus.OK);
+        return new ResponseEntity(logService.findAllByPageable(criteria, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/user")
     @ApiOperation("用户日志查询")
     public ResponseEntity<Object> getUserLogs(LogQueryCriteria criteria, Pageable pageable) {
-        criteria.setLogType("INFO");
-        criteria.setBlurry(SecurityUtils.getUsername());
         return new ResponseEntity<>(logService.queryAllByUser(criteria, pageable), HttpStatus.OK);
     }
 
@@ -84,7 +78,6 @@ public class LogController {
     @ApiOperation("错误日志查询")
     @PreAuthorize("@el.check('admin','logError:list')")
     public ResponseEntity<Object> getErrorLogs(LogQueryCriteria criteria, Pageable pageable) {
-        criteria.setLogType("ERROR");
         return new ResponseEntity<>(logService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
