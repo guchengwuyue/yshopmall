@@ -46,7 +46,7 @@ public class DictDetailController {
     @ApiOperation("查询字典详情")
     @GetMapping
     public ResponseEntity<Object> getDictDetails(DictDetailQueryCriteria criteria,
-                                                 @PageableDefault(sort = {"sort"}, direction = Sort.Direction.ASC) Pageable pageable) {
+                                                 @PageableDefault(sort = {"sort + 0"}, direction = Sort.Direction.ASC) Pageable pageable) {
         return new ResponseEntity<>(dictDetailService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
@@ -54,7 +54,7 @@ public class DictDetailController {
     @ApiOperation("查询多个字典详情")
     @GetMapping(value = "/map")
     public ResponseEntity<Object> getDictDetailMaps(DictDetailQueryCriteria criteria,
-                                                    @PageableDefault(sort = {"sort"}, direction = Sort.Direction.ASC) Pageable pageable) {
+                                                    @PageableDefault(sort = {"sort + 0"}, direction = Sort.Direction.ASC) Pageable pageable) {
         String[] names = criteria.getDictName().split(",");
         Map<String, Object> map = new HashMap<>(names.length);
         for (String name : names) {
