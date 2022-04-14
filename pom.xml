@@ -174,16 +174,16 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>${annotations.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>${models.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.swagger</groupId>-->
+<!--            <artifactId>swagger-annotations</artifactId>-->
+<!--            <version>${annotations.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.swagger</groupId>-->
+<!--            <artifactId>swagger-models</artifactId>-->
+<!--            <version>${models.version}</version>-->
+<!--        </dependency>-->
         <!--单应用-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
