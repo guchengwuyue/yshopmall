@@ -10,7 +10,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Dept;
 import co.yixiang.modules.system.service.DeptService;

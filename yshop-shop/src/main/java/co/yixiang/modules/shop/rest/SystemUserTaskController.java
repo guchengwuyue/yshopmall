@@ -6,7 +6,7 @@
  */
 package co.yixiang.modules.shop.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxSystemUserTask;
 import co.yixiang.modules.shop.service.YxSystemUserTaskService;

@@ -24,7 +24,7 @@ import co.yixiang.modules.shop.service.YxUserBillService;
 import co.yixiang.modules.shop.service.YxUserService;
 import co.yixiang.modules.shop.service.dto.WechatUserDto;
 import co.yixiang.modules.shop.service.dto.YxUserDto;
-import co.yixiang.mp.service.YxPayService;
+import co.yixiang.modules.mp.service.YxPayService;
 import co.yixiang.utils.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.binarywang.wxpay.exception.WxPayException;

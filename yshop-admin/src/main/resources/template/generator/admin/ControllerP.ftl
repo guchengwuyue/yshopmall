@@ -8,7 +8,7 @@ package ${package}.rest;
 import java.util.Arrays;
 import co.yixiang.dozer.service.IGenerator;
 import lombok.AllArgsConstructor;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import ${package}.domain.${className};
 import ${package}.service.${className}Service;
 import ${package}.service.dto.${className}QueryCriteria;

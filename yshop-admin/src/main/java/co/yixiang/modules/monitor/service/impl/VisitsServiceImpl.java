@@ -1,7 +1,7 @@
 package co.yixiang.modules.monitor.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
-import co.yixiang.logging.service.mapper.LogMapper;
+import co.yixiang.modules.logging.service.mapper.LogMapper;
 import co.yixiang.modules.monitor.domain.Visits;
 import co.yixiang.modules.monitor.service.VisitsService;
 import co.yixiang.modules.monitor.service.mapper.VisitsMapper;

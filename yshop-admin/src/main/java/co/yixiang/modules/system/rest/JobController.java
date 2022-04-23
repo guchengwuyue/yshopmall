@@ -9,7 +9,7 @@ package co.yixiang.modules.system.rest;
 import co.yixiang.config.DataScope;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.system.domain.Job;
 import co.yixiang.modules.system.service.JobService;

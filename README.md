@@ -17,6 +17,17 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 - 方式二：不更新代码，直接加启动参数，如下：
 - java -Dlog4j2.formatMsgNoLookups=true -jar yshop-admin-2.3.jar
 
+#### 核心依赖
+
+| 依赖              | 版本     |
+|-----------------|--------|
+| Spring Boot     | 2.6.7  |
+| weixin-java     | 4.3.0  |
+| Spring Security | 2.6.7  |
+| Mybatis Plus    | 3.5.1  |
+| hutool          | 5.7.22 |
+| swagger         | 3.0.0  |
+
 # 本地安装
 ### 基本环境（必备）
 - 1、JDK：8+

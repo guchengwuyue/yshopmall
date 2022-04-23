@@ -8,7 +8,7 @@ package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.constant.SystemConfigConstants;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxUser;
 import co.yixiang.modules.shop.service.YxSystemConfigService;

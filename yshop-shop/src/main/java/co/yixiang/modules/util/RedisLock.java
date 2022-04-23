@@ -6,18 +6,17 @@ package co.yixiang.modules.util;
  * 注意：
  * 本软件为www.yixiang.co开发研制
  */
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.params.SetParams;
-
-import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis 分布式锁实现
  */
+@Slf4j
 @Service
 public class RedisLock {
 
@@ -44,14 +43,30 @@ public class RedisLock {
      * @return
      */
     public boolean tryLock(String lockKey, String clientId, int seconds) {
-        return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
-            Jedis jedis = (Jedis) redisConnection.getNativeConnection();
-            String result = jedis.set(lockKey, clientId, SetParams.setParams().nx().ex(seconds));
-            if (LOCK_SUCCESS.equals(result)) {
+        //return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
+        //    Jedis jedis = (Jedis) redisConnection.getNativeConnection();
+        //    String result = jedis.set(lockKey, clientId, SetParams.setParams().nx().ex(seconds));
+        //    if (LOCK_SUCCESS.equals(result)) {
+        //        return true;
+        //    }
+        //    return false;
+        //});
+        if(redisTemplate.opsForValue().setIfAbsent(lockKey,clientId)){
+            return true;
+        }
+        String currentValue = redisTemplate.opsForValue().get(lockKey);
+
+        if(!StringUtils.isEmpty(currentValue) &&
+                Long.parseLong(currentValue)<System.currentTimeMillis()){
+            String oldValue =redisTemplate.opsForValue().getAndSet(lockKey,clientId);
+            if (seconds > 0) {
+                redisTemplate.expire(lockKey, seconds, TimeUnit.SECONDS);
+            }
+            if(!StringUtils.isEmpty(oldValue)&& oldValue.equals(currentValue)){
                 return true;
             }
-            return false;
-        });
+        }
+        return false;
     }
 
     /**
@@ -62,14 +77,24 @@ public class RedisLock {
      * @return
      */
     public boolean releaseLock(String lockKey, String clientId) {
-        return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
-            Jedis jedis = (Jedis) redisConnection.getNativeConnection();
-            Object result = jedis.eval(RELEASE_LOCK_SCRIPT, Collections.singletonList(lockKey),
-                    Collections.singletonList(clientId));
-            if (RELEASE_SUCCESS.equals(result)) {
-                return true;
+        //return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
+        //    Jedis jedis = (Jedis) redisConnection.getNativeConnection();
+        //    Object result = jedis.eval(RELEASE_LOCK_SCRIPT, Collections.singletonList(lockKey),
+        //            Collections.singletonList(clientId));
+        //    if (RELEASE_SUCCESS.equals(result)) {
+        //        return true;
+        //    }
+        //    return false;
+        //});
+        try {
+            String currentValue = redisTemplate.opsForValue().get(lockKey);
+            if (!StringUtils.isEmpty(currentValue) && currentValue.equals(clientId)) {
+                redisTemplate.opsForValue().getOperations().delete(lockKey);
             }
+            return true;
+        } catch (Exception e){
+            log.error("【redis分布式锁异常】{}",e);
             return false;
-        });
+        }
     }
 }

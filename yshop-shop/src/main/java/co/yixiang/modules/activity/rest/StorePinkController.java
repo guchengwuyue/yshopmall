@@ -6,7 +6,7 @@
  */
 package co.yixiang.modules.activity.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.activity.service.dto.YxStorePinkQueryCriteria;
 import io.swagger.annotations.Api;

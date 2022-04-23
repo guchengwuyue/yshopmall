@@ -1,6 +1,6 @@
 package co.yixiang.modules.monitor.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.monitor.domain.vo.RedisVo;
 import co.yixiang.modules.monitor.service.RedisService;

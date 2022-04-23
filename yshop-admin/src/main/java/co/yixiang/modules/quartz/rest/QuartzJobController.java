@@ -8,7 +8,7 @@ package co.yixiang.modules.quartz.rest;
 
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.quartz.domain.QuartzJob;
 import co.yixiang.modules.quartz.service.QuartzJobService;

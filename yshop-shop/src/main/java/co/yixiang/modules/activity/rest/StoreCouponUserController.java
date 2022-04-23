@@ -6,7 +6,7 @@
  */
 package co.yixiang.modules.activity.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponUserQueryCriteria;
 import io.swagger.annotations.Api;

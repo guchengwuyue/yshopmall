@@ -6,7 +6,7 @@
  */
 package co.yixiang.modules.activity.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCouponIssueUser;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;

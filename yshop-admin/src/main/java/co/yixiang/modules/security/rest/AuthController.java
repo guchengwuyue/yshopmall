@@ -11,7 +11,7 @@ import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.security.config.SecurityProperties;
 import co.yixiang.modules.security.security.TokenUtil;
 import co.yixiang.modules.security.security.vo.AuthUser;

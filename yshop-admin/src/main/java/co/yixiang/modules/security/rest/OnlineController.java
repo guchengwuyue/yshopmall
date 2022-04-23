@@ -6,7 +6,7 @@
  */
 package co.yixiang.modules.security.rest;
 
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.security.service.OnlineUserService;
 import io.swagger.annotations.Api;

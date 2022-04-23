@@ -2,6 +2,8 @@ server:
   port: 8000
 
 spring:
+  main:
+    allow-circular-references: true
   freemarker:
     check-template-location: false
   profiles:

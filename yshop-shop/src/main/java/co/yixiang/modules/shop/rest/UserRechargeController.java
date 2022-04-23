@@ -7,7 +7,7 @@
 package co.yixiang.modules.shop.rest;
 
 import co.yixiang.dozer.service.IGenerator;
-import co.yixiang.logging.aop.log.Log;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.NoRepeatSubmit;
 import co.yixiang.modules.shop.domain.YxUserRecharge;
 import co.yixiang.modules.shop.service.YxUserRechargeService;
