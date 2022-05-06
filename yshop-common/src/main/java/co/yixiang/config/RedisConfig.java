@@ -71,7 +71,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
         // 全局开启AutoType，这里方便开发，使用全局的方式
-        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        ParserConfig.getGlobalInstance();
         // 建议使用这种方式，小范围指定白名单
         // ParserConfig.getGlobalInstance().addAccept("me.zhengjie.domain");
         // key的序列化采用StringRedisSerializer
