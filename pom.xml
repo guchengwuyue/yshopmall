@@ -29,7 +29,6 @@
     </parent>
 
     <properties>
-        <logback.version>1.2.11</logback.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -49,7 +48,7 @@
         <bitwalker.version>1.21</bitwalker.version>
         <!--<jedis.version>3.3.0</jedis.version>-->
         <validator.version>6.1.7.Final</validator.version>
-        <tlog.version>1.3.6</tlog.version>
+        <tlog.version>1.4.0</tlog.version>
     </properties>
 
 
@@ -68,24 +67,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
         </dependency>
 
         <dependency>
