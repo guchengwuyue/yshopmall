@@ -34,7 +34,7 @@
         <java.version>1.8</java.version>
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>2.0.2</fastjson.version>
-        <druid.version>1.2.8</druid.version>
+        <druid.version>1.2.9</druid.version>
         <hutool.version>5.7.22</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
