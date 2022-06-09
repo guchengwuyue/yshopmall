@@ -48,7 +48,7 @@
         <bitwalker.version>1.21</bitwalker.version>
         <!--<jedis.version>3.3.0</jedis.version>-->
         <validator.version>6.1.7.Final</validator.version>
-        <tlog.version>1.4.3</tlog.version>
+        <tlog.version>1.4.1</tlog.version>
     </properties>
 
 
