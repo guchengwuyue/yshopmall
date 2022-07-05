@@ -6,15 +6,16 @@
  */
 package co.yixiang.modules.shop.service.mapper;
 
-import co.yixiang.common.mapper.CoreMapper;
-import co.yixiang.modules.shop.domain.YxStoreOrder;
-import co.yixiang.modules.shop.service.dto.ChartDataDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import co.yixiang.common.mapper.CoreMapper;
+import co.yixiang.modules.shop.domain.YxStoreOrder;
+import co.yixiang.modules.shop.service.dto.ChartDataDto;
 
 /**
  * @author hupeng
@@ -34,17 +35,19 @@ public interface StoreOrderMapper extends CoreMapper<YxStoreOrder> {
             "where refund_status=0 and is_del=0 and paid=1")
     Double sumTotalPrice();
 
+    //修复了“错误代码1055与sql_mode = only_full_group_by不兼容”问题
+    //修复方式create_time外面包裹ANY_VALUE关键字
     @Select("SELECT IFNULL(sum(pay_price),0) as num," +
-            "FROM_UNIXTIME(create_time, '%m-%d') as time " +
+            "FROM_UNIXTIME(ANY_VALUE(create_time), '%m-%d') as time " +
             " FROM yx_store_order where refund_status=0 and is_del=0 and paid=1 and pay_time >= ${time}" +
-            " GROUP BY FROM_UNIXTIME(create_time,'%Y-%m-%d') " +
-            " ORDER BY create_time ASC")
+            " GROUP BY FROM_UNIXTIME(ANY_VALUE(create_time),'%Y-%m-%d') " +
+            " ORDER BY ANY_VALUE(create_time) ASC")
     List<ChartDataDto> chartList(@Param("time") int time);
 
     @Select("SELECT count(id) as num," +
-            "FROM_UNIXTIME(create_time, '%m-%d') as time " +
+            "FROM_UNIXTIME(ANY_VALUE(create_time), '%m-%d') as time " +
             " FROM yx_store_order where refund_status=0 and is_del=0 and paid=1 and pay_time >= ${time}" +
-            " GROUP BY FROM_UNIXTIME(create_time,'%Y-%m-%d') " +
-            " ORDER BY create_time ASC")
+            " GROUP BY FROM_UNIXTIME(ANY_VALUE(create_time),'%Y-%m-%d') " +
+            " ORDER BY ANY_VALUE(create_time) ASC")
     List<ChartDataDto> chartListT(@Param("time") int time);
 }
