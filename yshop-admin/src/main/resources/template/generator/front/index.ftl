@@ -161,8 +161,6 @@
     import pagination from '@crud/Pagination'
     import MaterialList from "@/components/material";
 
-    </#if>
-
     // crud交由presenter持有
     const defaultCrud = CRUD({
         title: '${apiAlias}',
