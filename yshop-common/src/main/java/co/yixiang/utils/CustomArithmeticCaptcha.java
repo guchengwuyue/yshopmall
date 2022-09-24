@@ -1,7 +1,6 @@
 package co.yixiang.utils;
 
 import com.wf.captcha.ArithmeticCaptcha;
-import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -48,7 +47,8 @@ public class CustomArithmeticCaptcha extends ArithmeticCaptcha {
         }
         ScriptEngineManager manager = new ScriptEngineManager();
         //添加这一行  该行要把外部js引擎注入js引擎管理里；其他不用调整，维持即可
-        manager.registerEngineName("customScriptEngineFactory", new NashornScriptEngineFactory());
+        // open jdk 8这行有问题，如果jdk>=9可以放开这行，并把pom文件里面的org.openjdk.nashorn放开
+        // manager.registerEngineName("customScriptEngineFactory", new NashornScriptEngineFactory());
         ScriptEngine engine = manager.getEngineByName("javascript");
         try {
             chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*")));

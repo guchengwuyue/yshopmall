@@ -21,11 +21,11 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 | 依赖              | 版本    |
 |-----------------|-------|
-| Spring Boot     | 2.7.3 |
+| Spring Boot     | 2.7.4 |
 | weixin-java     | 4.4.0 |
-| Spring Security | 2.7.3 |
+| Spring Security | 2.7.4 |
 | Mybatis Plus    | 3.5.2 |
-| hutool          | 5.8.5 |
+| hutool          | 5.8.7 |
 | swagger         | 3.0.0 |
 
 # 本地安装
