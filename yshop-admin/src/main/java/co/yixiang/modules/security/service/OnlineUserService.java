@@ -11,6 +11,7 @@ import co.yixiang.modules.security.security.vo.JwtUser;
 import co.yixiang.modules.security.security.vo.OnlineUser;
 import co.yixiang.utils.*;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -87,14 +88,18 @@ public class OnlineUserService {
         Collections.reverse(keys);
         List<OnlineUser> onlineUsers = new ArrayList<>();
         for (String key : keys) {
-            OnlineUser onlineUser = (OnlineUser) redisUtils.get(key);
-            if (StringUtils.isNotBlank(filter)) {
-                if (onlineUser.toString().contains(filter)) {
-                    onlineUsers.add(onlineUser);
-                }
+            OnlineUser onlineUser;
+            Object obj = redisUtils.get(key);
+            if (obj instanceof OnlineUser) {
+                onlineUser = (OnlineUser) obj;
+            } else if (obj instanceof JSONObject) {
+                onlineUser = JSONObject.parseObject(JSONObject.toJSONString(obj), OnlineUser.class);
+            } else if (obj instanceof String) {
+                onlineUser = JSONObject.parseObject((String) obj, OnlineUser.class);
             } else {
-                onlineUsers.add(onlineUser);
+                continue;
             }
+            onlineUsers.add(onlineUser);
         }
         onlineUsers.sort((o1, o2) -> o2.getLoginTime().compareTo(o1.getLoginTime()));
         return onlineUsers;
