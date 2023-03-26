@@ -256,14 +256,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserMapper, User> imp
         user.setSex(resources.getSex());
         boolean result = this.saveOrUpdate(user);
         usersRolesService.lambdaUpdate().eq(UsersRoles::getUserId, resources.getId()).remove();
-        UsersRoles usersRoles = new UsersRoles();
-        usersRoles.setUserId(resources.getId());
+        List<UsersRoles> usersRolesList = new ArrayList<>();
         Set<Role> set = resources.getRoles();
         for (Role roleIds : set) {
+            UsersRoles usersRoles = new UsersRoles();
+            usersRoles.setUserId(resources.getId());
             usersRoles.setRoleId(roleIds.getId());
+            usersRolesList.add(usersRoles);
         }
         if (result) {
-            usersRolesService.save(usersRoles);
+            usersRolesService.saveBatch(usersRolesList);
         }
 
         // 如果用户的角色改变了，需要手动清理下缓存
