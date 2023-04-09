@@ -20,6 +20,16 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
+            <exclusions>
+                <exclusion>
+                   <artifactId>annotations</artifactId>
+                   <groupId>org.jetbrains</groupId>
+                </exclusion>
+                <exclusion>
+                   <artifactId>kotlin-stdlib-jdk7</artifactId>
+                   <groupId>org.jetbrains.kotlin</groupId>
+                </exclusion>
+           </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
@@ -38,5 +48,108 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+               <groupId>eu.bitwalker</groupId>
+               <artifactId>UserAgentUtils</artifactId>
+               <version>1.21</version>
+               <scope>provided</scope>
+       </dependency>
+       <dependency>
+               <groupId>javax.inject</groupId>
+               <artifactId>javax.inject</artifactId>
+               <version>1</version>
+               <scope>provided</scope>
+       </dependency>
+       <dependency>
+               <groupId>org.projectlombok</groupId>
+               <artifactId>lombok</artifactId>
+               <version>1.18.24</version>
+               <scope>provided</scope>
+               <optional>true</optional>
+       </dependency>
+       <dependency>
+               <groupId>com.github.whvcse</groupId>
+               <artifactId>easy-captcha</artifactId>
+               <version>1.6.2</version>
+               <scope>provided</scope>
+       </dependency>
+       <dependency>
+               <groupId>javax.xml.bind</groupId>
+               <artifactId>jaxb-api</artifactId>
+               <version>2.3.0</version>
+               <scope>provided</scope>
+       </dependency>
+       <dependency>
+               <groupId>com.yomahub</groupId>
+               <artifactId>tlog-web-spring-boot-starter</artifactId>
+               <version>1.4.1</version>
+               <scope>compile</scope>
+               <exclusions>
+                 <exclusion>
+                   <artifactId>tlog-spring-boot-configuration</artifactId>
+                   <groupId>com.yomahub</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>tlog-okhttp</artifactId>
+                   <groupId>com.yomahub</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>tlog-task</artifactId>
+                   <groupId>com.yomahub</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>tlog-forest</artifactId>
+                   <groupId>com.yomahub</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>hutool-core</artifactId>
+                   <groupId>cn.hutool</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>dom4j</artifactId>
+                   <groupId>dom4j</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>commons-lang</artifactId>
+                   <groupId>commons-lang</groupId>
+                 </exclusion>
+               </exclusions>
+       </dependency>
+       <dependency>
+               <groupId>io.springfox</groupId>
+               <artifactId>springfox-swagger2</artifactId>
+               <version>3.0.0</version>
+               <scope>compile</scope>
+               <exclusions>
+                 <exclusion>
+                   <artifactId>swagger-annotations</artifactId>
+                   <groupId>io.swagger</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>swagger-models</artifactId>
+                   <groupId>io.swagger</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>byte-buddy</artifactId>
+                   <groupId>net.bytebuddy</groupId>
+                 </exclusion>
+                 <exclusion>
+                   <artifactId>classgraph</artifactId>
+                   <groupId>io.github.classgraph</groupId>
+                 </exclusion>
+               </exclusions>
+       </dependency>
+       <dependency>
+               <groupId>org.apache.poi</groupId>
+               <artifactId>poi-ooxml</artifactId>
+               <version>4.1.2</version>
+               <scope>compile</scope>
+               <exclusions>
+                 <exclusion>
+                   <artifactId>curvesapi</artifactId>
+                   <groupId>com.github.virtuald</groupId>
+                 </exclusion>
+               </exclusions>
+       </dependency>
     </dependencies>
 </project>
