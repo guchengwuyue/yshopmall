@@ -100,3 +100,12 @@ file:
   maxSize: 100
   avatarMaxSize: 5
   localUrl:
+
+
+#oss配置
+oss:
+  endpoint: http://oss-cn-shenzhen.aliyuncs.com
+  custom-domain: https://xxxxx//%s
+  access-key: xxxxx
+  secret-key: xxxx
+  bucket-name: xxxx

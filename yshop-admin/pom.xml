@@ -36,6 +36,11 @@
         </dependency>
         <dependency>
             <groupId>co.yixiang</groupId>
+            <artifactId>yshop-oss</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>co.yixiang</groupId>
             <artifactId>yshop-mproot</artifactId>
             <version>2.3</version>
         </dependency>

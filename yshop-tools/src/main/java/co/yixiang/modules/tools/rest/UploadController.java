@@ -6,15 +6,13 @@
  */
 package co.yixiang.modules.tools.rest;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import co.yixiang.annotation.AnonymousAccess;
-import co.yixiang.modules.tools.domain.QiniuContent;
-import co.yixiang.modules.tools.service.LocalStorageService;
-import co.yixiang.modules.tools.service.QiNiuService;
-import co.yixiang.modules.tools.service.dto.LocalStorageDto;
+import co.yixiang.oss.config.OssProperties;
+import co.yixiang.oss.service.OssTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,47 +34,29 @@ import java.util.Map;
 @SuppressWarnings("unchecked")
 public class UploadController {
 
-    @Value("${file.localUrl}")
-    private String localUrl;
-
-    private final LocalStorageService localStorageService;
-
-    private final QiNiuService qiNiuService;
-
-    public UploadController(LocalStorageService localStorageService, QiNiuService qiNiuService) {
-        this.localStorageService = localStorageService;
-        this.qiNiuService = qiNiuService;
+    private final OssProperties ossProperties;
+    private final OssTemplate ossTemplate;
+    public UploadController(OssProperties ossProperties, OssTemplate ossTemplate) {
+        this.ossProperties = ossProperties;
+        this.ossTemplate = ossTemplate;
     }
 
 
     @ApiOperation("上传文件")
     @PostMapping
-    @AnonymousAccess
-    public ResponseEntity<Object> create(@RequestParam(defaultValue = "") String name, @RequestParam("file") MultipartFile[] files) {
-        StringBuilder url = new StringBuilder();
-        if (StrUtil.isNotEmpty(localUrl)) { //存在走本地
-            for (MultipartFile file : files) {
-                LocalStorageDto localStorageDTO = localStorageService.create(name, file);
-                if ("".equals(url.toString())) {
-                    url = url.append(localUrl + "/file/" + localStorageDTO.getType() + "/" + localStorageDTO.getRealName());
-                } else {
-                    url = url.append("," + localUrl + "/file/" + localStorageDTO.getType() + "/" + localStorageDTO.getRealName());
-                }
-            }
-        } else {//走七牛云
-            for (MultipartFile file : files) {
-                QiniuContent qiniuContent = qiNiuService.upload(file, qiNiuService.find());
-                if ("".equals(url.toString())) {
-                    url = url.append(qiniuContent.getUrl());
-                } else {
-                    url = url.append("," + qiniuContent.getUrl());
-                }
-            }
+    public ResponseEntity<Object> create(@RequestParam("file") MultipartFile file)  {
+        String [] originalFilename = file.getOriginalFilename().split("\\.");
+        String fileName = ossProperties.getBucketName()+"/file/"+originalFilename[0] + "-" +IdUtil.simpleUUID() + StrUtil.DOT + FileUtil.extName(file.getOriginalFilename());
+        try {
+            ossTemplate.putObject(ossProperties.getBucketName(), fileName, file.getInputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        String fileUrl = String.format(ossProperties.getCustomDomain(), fileName);
 
         Map<String, Object> map = new HashMap<>(2);
         map.put("errno", 0);
-        map.put("link", url);
+        map.put("link", fileUrl);
         return new ResponseEntity(map, HttpStatus.CREATED);
     }
 

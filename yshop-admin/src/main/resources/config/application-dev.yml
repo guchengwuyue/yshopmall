@@ -92,3 +92,10 @@ file:
   localUrl: http://127.0.0.1:8000
 
 
+#oss配置
+oss:
+  endpoint: http://oss-cn-shenzhen.aliyuncs.com
+  custom-domain: https://xxxxx//%s
+  access-key: xxxxx
+  secret-key: xxxx
+  bucket-name: xxxx

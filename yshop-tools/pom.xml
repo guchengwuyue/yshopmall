@@ -40,6 +40,13 @@
             <version>${qiniu.version}</version>
         </dependency>
 
+        <!--oss-->
+        <dependency>
+            <groupId>co.yixiang</groupId>
+            <artifactId>yshop-oss</artifactId>
+            <version>2.3</version>
+        </dependency>
+
         <!--支付宝依赖-->
         <dependency>
             <groupId>com.alipay.sdk</groupId>
