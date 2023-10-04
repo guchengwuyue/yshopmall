@@ -36,7 +36,7 @@
         <swagger.version>3.0.0</swagger.version>
         <fastjson.version>2.0.40</fastjson.version>
         <druid.version>1.2.16</druid.version>
-        <hutool.version>5.8.16</hutool.version>
+        <hutool.version>5.8.22</hutool.version>
         <commons-pool2.version>2.5.0</commons-pool2.version>
         <mapstruct.version>1.5.1.Final</mapstruct.version>
         <apachepoi.version>4.1.2</apachepoi.version>
@@ -86,11 +86,11 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.yomahub</groupId>
-            <artifactId>tlog-web-spring-boot-starter</artifactId>
-            <version>${tlog.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.yomahub</groupId>-->
+<!--            <artifactId>tlog-web-spring-boot-starter</artifactId>-->
+<!--            <version>${tlog.version}</version>-->
+<!--        </dependency>-->
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
