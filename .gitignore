@@ -1,11 +1,9 @@
-### IDEA ###
-.idea/*
+*.classpath
+*.project
 *.iml
-*/target/*
-*/*.iml
-fx.jpg
-poster.jpg
-simsunb.ttf
-spy.log
-Alibaba-PuHuiTi-Regular.otf
-logs/*
+*.factorypath
+target
+.idea/
+*.log
+logs
+*.DS_Store
