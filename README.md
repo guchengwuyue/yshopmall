@@ -43,6 +43,7 @@ Idea、webstorm、vscode
 git clone https://gitee.com/guchengwuyue/yshopmall.git
 ```
 3、idea打开项目加载依赖目录如下：
+
 ![输入图片说明](1.png)
 
 
