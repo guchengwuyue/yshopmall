@@ -1,15 +1,14 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service;
 
 import co.yixiang.common.service.BaseService;
-import co.yixiang.modules.tools.domain.LocalStorage;
 import co.yixiang.modules.tools.service.dto.LocalStorageDto;
 import co.yixiang.modules.tools.service.dto.LocalStorageQueryCriteria;
+import co.yixiang.modules.tools.domain.LocalStorage;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
-public interface LocalStorageService extends BaseService<LocalStorage> {
+* @author hupeng
+* @date 2020-05-13
+*/
+public interface LocalStorageService  extends BaseService<LocalStorage>{
 
     /**
      * 分页查询

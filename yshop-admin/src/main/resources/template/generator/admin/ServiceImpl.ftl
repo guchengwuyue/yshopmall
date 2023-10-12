@@ -2,7 +2,9 @@
 * Copyright (C) 2018-2022
 * All rights reserved, Designed By www.yixiang.co
 * 注意：
-* 本软件为www.yixiang.co开发研制
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
 */
 package ${package}.service.impl;
 
@@ -11,7 +13,7 @@ import ${package}.domain.${className};
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
             <#if column_index = 1>
-                import co.yixiang.exception.EntityExistException;
+import co.yixiang.exception.EntityExistException;
             </#if>
         </#if>
     </#list>
@@ -27,11 +29,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 <#if !auto && pkColumnType = 'Long'>
-    import cn.hutool.core.lang.Snowflake;
-    import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 </#if>
 <#if !auto && pkColumnType = 'String'>
-    import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.IdUtil;
 </#if>
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
@@ -55,119 +57,106 @@ import java.util.LinkedHashMap;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class ${className}ServiceImpl implements ${className}Service {
 
-private final ${className}Repository ${changeClassName}Repository;
+    private final ${className}Repository ${changeClassName}Repository;
 
-private final ${className}Mapper ${changeClassName}Mapper;
+    private final ${className}Mapper ${changeClassName}Mapper;
 
-public ${className}ServiceImpl(${className}Repository ${changeClassName}Repository, ${className}Mapper ${changeClassName}Mapper) {
-this.${changeClassName}Repository = ${changeClassName}Repository;
-this.${changeClassName}Mapper = ${changeClassName}Mapper;
-}
+    public ${className}ServiceImpl(${className}Repository ${changeClassName}Repository, ${className}Mapper ${changeClassName}Mapper) {
+        this.${changeClassName}Repository = ${changeClassName}Repository;
+        this.${changeClassName}Mapper = ${changeClassName}Mapper;
+    }
 
-@Override
-//@Cacheable
-public Map
-<String,Object> queryAll(${className}QueryCriteria criteria, Pageable pageable){
-Page<${className}> page = ${changeClassName}Repository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-return PageUtil.toPage(page.map(${changeClassName}Mapper::toDto));
-}
+    @Override
+    //@Cacheable
+    public Map<String,Object> queryAll(${className}QueryCriteria criteria, Pageable pageable){
+        Page<${className}> page = ${changeClassName}Repository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        return PageUtil.toPage(page.map(${changeClassName}Mapper::toDto));
+    }
 
-@Override
-//@Cacheable
-public List
-<${className}Dto> queryAll(${className}QueryCriteria criteria){
-    return ${changeClassName}Mapper.toDto(${changeClassName}Repository.findAll((root, criteriaQuery, criteriaBuilder) ->
-    QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    @Override
+    //@Cacheable
+    public List<${className}Dto> queryAll(${className}QueryCriteria criteria){
+        return ${changeClassName}Mapper.toDto(${changeClassName}Repository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
     //@Cacheable(key = "#p0")
     public ${className}Dto findById(${pkColumnType} ${pkChangeColName}) {
-    ${className} ${changeClassName} = ${changeClassName}Repository.findById(${pkChangeColName}).orElseGet(${className}
-    ::new);
-    ValidationUtil.isNull(${changeClassName}.get${pkCapitalColName}(),"${className}","${pkChangeColName}
-    ",${pkChangeColName});
-    return ${changeClassName}Mapper.toDto(${changeClassName});
+        ${className} ${changeClassName} = ${changeClassName}Repository.findById(${pkChangeColName}).orElseGet(${className}::new);
+        ValidationUtil.isNull(${changeClassName}.get${pkCapitalColName}(),"${className}","${pkChangeColName}",${pkChangeColName});
+        return ${changeClassName}Mapper.toDto(${changeClassName});
     }
 
     @Override
     //@CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public ${className}Dto create(${className} resources) {
-    <#if !auto && pkColumnType = 'Long'>
+<#if !auto && pkColumnType = 'Long'>
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         resources.set${pkCapitalColName}(snowflake.nextId());
-    </#if>
-    <#if !auto && pkColumnType = 'String'>
+</#if>
+<#if !auto && pkColumnType = 'String'>
         resources.set${pkCapitalColName}(IdUtil.simpleUUID());
+</#if>
+<#if columns??>
+    <#list columns as column>
+    <#if column.columnKey = 'UNI'>
+        if(${changeClassName}Repository.findBy${column.capitalColumnName}(resources.get${column.capitalColumnName}()) != null){
+            throw new EntityExistException(${className}.class,"${column.columnName}",resources.get${column.capitalColumnName}());
+        }
     </#if>
-    <#if columns??>
-        <#list columns as column>
-            <#if column.columnKey = 'UNI'>
-                if(${changeClassName}Repository.findBy${column.capitalColumnName}(resources.get${column.capitalColumnName}()) != null){
-                throw new EntityExistException(${className}.class,"${column.columnName}",resources.get${column.capitalColumnName}());
-                }
-            </#if>
-        </#list>
-    </#if>
-    return ${changeClassName}Mapper.toDto(${changeClassName}Repository.save(resources));
+    </#list>
+</#if>
+        return ${changeClassName}Mapper.toDto(${changeClassName}Repository.save(resources));
     }
 
     @Override
     //@CacheEvict(allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     public void update(${className} resources) {
-    ${className} ${changeClassName} = ${changeClassName}Repository.findById(resources.get${pkCapitalColName}
-    ()).orElseGet(${className}::new);
-    ValidationUtil.isNull( ${changeClassName}.get${pkCapitalColName}(),"${className}
-    ","id",resources.get${pkCapitalColName}());
-    <#if columns??>
-        <#list columns as column>
-            <#if column.columnKey = 'UNI'>
-                <#if column_index = 1>
-                    ${className} ${changeClassName}1 = null;
-                </#if>
-                ${changeClassName}1 = ${changeClassName}Repository.findBy${column.capitalColumnName}(resources.get${column.capitalColumnName}());
-                if(${changeClassName}1 != null && !${changeClassName}1.get${pkCapitalColName}().equals(${changeClassName}.get${pkCapitalColName}())){
-                throw new EntityExistException(${className}.class,"${column.columnName}",resources.get${column.capitalColumnName}());
-                }
-            </#if>
-        </#list>
-    </#if>
-    ${changeClassName}.copy(resources);
-    ${changeClassName}Repository.save(${changeClassName});
+        ${className} ${changeClassName} = ${changeClassName}Repository.findById(resources.get${pkCapitalColName}()).orElseGet(${className}::new);
+        ValidationUtil.isNull( ${changeClassName}.get${pkCapitalColName}(),"${className}","id",resources.get${pkCapitalColName}());
+<#if columns??>
+    <#list columns as column>
+        <#if column.columnKey = 'UNI'>
+        <#if column_index = 1>
+        ${className} ${changeClassName}1 = null;
+        </#if>
+        ${changeClassName}1 = ${changeClassName}Repository.findBy${column.capitalColumnName}(resources.get${column.capitalColumnName}());
+        if(${changeClassName}1 != null && !${changeClassName}1.get${pkCapitalColName}().equals(${changeClassName}.get${pkCapitalColName}())){
+            throw new EntityExistException(${className}.class,"${column.columnName}",resources.get${column.capitalColumnName}());
+        }
+        </#if>
+    </#list>
+</#if>
+        ${changeClassName}.copy(resources);
+        ${changeClassName}Repository.save(${changeClassName});
     }
 
     @Override
     //@CacheEvict(allEntries = true)
     public void deleteAll(${pkColumnType}[] ids) {
-    for (${pkColumnType} id : ids) {
-    ${changeClassName}Repository.deleteById(${pkChangeColName});
-    }
+        for (${pkColumnType} id : ids) {
+            ${changeClassName}Repository.deleteById(${pkChangeColName});
+        }
     }
 
     @Override
-    public void download(List
-    <${className}Dto> all, HttpServletResponse response) throws IOException {
-        List
-        <Map
-        <String
-        , Object>> list = new ArrayList<>();
+    public void download(List<${className}Dto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
         for (${className}Dto ${changeClassName} : all) {
-        Map
-        <String
-        ,Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
         <#list columns as column>
             <#if column.columnKey != 'PRI'>
-                <#if column.remark != ''>
-                    map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
-                <#else>
-                    map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
-                </#if>
+            <#if column.remark != ''>
+            map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
+            <#else>
+            map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
+            </#if>
             </#if>
         </#list>
-        list.add(map);
+            list.add(map);
         }
         FileUtil.downloadExcel(list, response);
-        }
-        }
+    }
+}

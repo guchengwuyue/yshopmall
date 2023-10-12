@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
@@ -27,9 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "emailConfig")
@@ -43,14 +42,14 @@ public class EmailConfigServiceImpl extends BaseServiceImpl<EmailConfigMapper, E
     @Transactional(rollbackFor = Exception.class)
     public void update(EmailConfig emailConfig, EmailConfig old) {
         try {
-            if (!emailConfig.getPass().equals(old.getPass())) {
+            if(!emailConfig.getPass().equals(old.getPass())){
                 // 对称加密
                 emailConfig.setPass(EncryptUtils.desEncrypt(emailConfig.getPass()));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.save(emailConfig);
+         this.saveOrUpdate(emailConfig);
     }
 
     @Override
@@ -62,12 +61,15 @@ public class EmailConfigServiceImpl extends BaseServiceImpl<EmailConfigMapper, E
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void send(EmailVo emailVo, EmailConfig emailConfig) {
-        if (emailConfig == null) {
+    public void send(EmailVo emailVo, EmailConfig emailConfig){
+        if(emailConfig == null){
             throw new BadRequestException("请先配置，再操作");
         }
         // 封装
         MailAccount account = new MailAccount();
+        // 设置用户
+        String user = emailConfig.getFromUser().split("@")[0];
+        account.setUser(user);
         account.setHost(emailConfig.getHost());
         account.setPort(Integer.parseInt(emailConfig.getPort()));
         account.setAuth(true);
@@ -77,7 +79,7 @@ public class EmailConfigServiceImpl extends BaseServiceImpl<EmailConfigMapper, E
         } catch (Exception e) {
             throw new BadRequestException(e.getMessage());
         }
-        account.setFrom(emailConfig.getUser() + "<" + emailConfig.getFromUser() + ">");
+        account.setFrom(emailConfig.getUser()+"<"+emailConfig.getFromUser()+">");
         // ssl方式发送
         account.setSslEnable(true);
         // 使用STARTTLS安全连接
@@ -94,7 +96,7 @@ public class EmailConfigServiceImpl extends BaseServiceImpl<EmailConfigMapper, E
                     //关闭session
                     .setUseGlobalSession(false)
                     .send();
-        } catch (Exception e) {
+        }catch (Exception e){
             throw new BadRequestException(e.getMessage());
         }
     }

@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.utils;
 
@@ -21,7 +20,7 @@ public class ThrowableUtil {
     /**
      * 获取堆栈信息
      */
-    public static String getStackTrace(Throwable throwable) {
+    public static String getStackTrace(Throwable throwable){
         StringWriter sw = new StringWriter();
         try (PrintWriter pw = new PrintWriter(sw)) {
             throwable.printStackTrace(pw);
@@ -29,7 +28,7 @@ public class ThrowableUtil {
         }
     }
 
-    public static void throwForeignKeyException(Throwable e, String msg) {
+    public static void throwForeignKeyException(Throwable e, String msg){
         Throwable t = e.getCause();
         while ((t != null) && !(t instanceof ConstraintViolationException)) {
             t = t.getCause();

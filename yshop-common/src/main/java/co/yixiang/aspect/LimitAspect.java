@@ -1,22 +1,22 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.aspect;
 
 import co.yixiang.annotation.Limit;
-import co.yixiang.exception.BadRequestException;
+import co.yixiang.exception.BadLimitRequestException;
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.StringUtils;
 import com.google.common.collect.ImmutableList;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -30,12 +30,12 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-@Slf4j
 public class LimitAspect {
 
-    private final RedisTemplate<Object, Object> redisTemplate;
+    private final RedisTemplate<Object,Object> redisTemplate;
+    private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 
-    public LimitAspect(RedisTemplate<Object, Object> redisTemplate) {
+    public LimitAspect(RedisTemplate<Object,Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -59,16 +59,16 @@ public class LimitAspect {
             }
         }
 
-        ImmutableList<Object> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/", "_")));
+        ImmutableList<Object> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/","_")));
 
         String luaScript = buildLuaScript();
-        RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = redisTemplate.execute(redisScript, keys, limit.count(), limit.period());
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
+        Long count = redisTemplate.execute(redisScript, keys, limit.count(), limit.period());
         if (null != count && count.intValue() <= limit.count()) {
-            log.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
+            logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
             return joinPoint.proceed();
         } else {
-            throw new BadRequestException("访问次数受限制");
+            throw new BadLimitRequestException("访问次数受限制");
         }
     }
 

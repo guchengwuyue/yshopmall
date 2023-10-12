@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.quartz.config;
 
@@ -36,7 +35,7 @@ public class JobRunner implements ApplicationRunner {
      * @param applicationArguments /
      */
     @Override
-    public void run(ApplicationArguments applicationArguments) {
+    public void run(ApplicationArguments applicationArguments){
         System.out.println("--------------------注入定时任务---------------------");
         List<QuartzJob> quartzJobs = quartzJobService.findByIsPauseIsFalse();
         quartzJobs.forEach(quartzManage::addJob);

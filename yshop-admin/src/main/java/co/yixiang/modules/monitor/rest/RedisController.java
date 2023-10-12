@@ -10,7 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Zheng Jie
@@ -27,16 +31,15 @@ public class RedisController {
     @Log("查询Redis缓存")
     @GetMapping(value = "/redis")
     @PreAuthorize("hasAnyRole('ADMIN','REDIS_ALL','REDIS_SELECT')")
-    public ResponseEntity getRedis(String key, Pageable pageable) {
-        return new ResponseEntity(redisService.findByKey(key, pageable), HttpStatus.OK);
+    public ResponseEntity getRedis(String key, Pageable pageable){
+        return new ResponseEntity(redisService.findByKey(key,pageable), HttpStatus.OK);
     }
 
     @ForbidSubmit
     @Log("删除Redis缓存")
     @DeleteMapping(value = "/redis")
     @PreAuthorize("hasAnyRole('ADMIN','REDIS_ALL','REDIS_DELETE')")
-    public ResponseEntity delete(@RequestBody RedisVo resources) {
-
+    public ResponseEntity delete(@RequestBody RedisVo resources){
         redisService.delete(resources.getKey());
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -45,8 +48,7 @@ public class RedisController {
     @Log("清空Redis缓存")
     @DeleteMapping(value = "/redis/all")
     @PreAuthorize("hasAnyRole('ADMIN','REDIS_ALL','REDIS_DELETE')")
-    public ResponseEntity deleteAll() {
-
+    public ResponseEntity deleteAll(){
         redisService.flushdb();
         return new ResponseEntity(HttpStatus.OK);
     }

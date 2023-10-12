@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.gen.utils;
 
@@ -23,10 +22,10 @@ public class ColUtil {
      * @param type 数据库字段类型
      * @return String
      */
-    static String cloToJava(String type) {
+    static String cloToJava(String type){
         Configuration config = getConfig();
         assert config != null;
-        return config.getString(type, "unknowType");
+        return config.getString(type,"unknowType");
     }
 
     /**
@@ -34,7 +33,7 @@ public class ColUtil {
      */
     public static PropertiesConfiguration getConfig() {
         try {
-            return new PropertiesConfiguration("generator.properties");
+            return new PropertiesConfiguration("generator.properties" );
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }

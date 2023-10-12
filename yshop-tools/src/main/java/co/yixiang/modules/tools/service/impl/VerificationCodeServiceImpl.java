@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
@@ -36,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCodeMapper, VerificationCode> implements VerificationCodeService {
+public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCodeMapper, VerificationCode>  implements VerificationCodeService {
 
     @Value("${code.expiration}")
     private Integer expiration;
@@ -48,20 +47,20 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
         EmailVo emailVo;
         String content;
         VerificationCode verificationCode = this.getOne(new LambdaQueryWrapper<VerificationCode>()
-                .eq(VerificationCode::getScenes, code.getScenes()).eq(VerificationCode::getType, code.getType()).eq(VerificationCode::getValue, code.getValue()));
+                .eq(VerificationCode::getScenes,code.getScenes()).eq(VerificationCode::getType,code.getType()).eq(VerificationCode::getValue,code.getValue()));
         // 如果不存在有效的验证码，就创建一个新的
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         Template template = engine.getTemplate("email/email.ftl");
-        if (verificationCode == null) {
-            code.setCode(RandomUtil.randomNumbers(6));
-            content = template.render(Dict.create().set("code", code.getCode()));
-            emailVo = new EmailVo(Collections.singletonList(code.getValue()), "yshop后台管理系统", content);
+        if(verificationCode == null){
+            code.setCode(RandomUtil.randomNumbers (6));
+            content = template.render(Dict.create().set("code",code.getCode()));
+            emailVo = new EmailVo(Collections.singletonList(code.getValue()),"yshop后台管理系统",content);
             this.save(code);
             timedDestruction(code);
-            // 存在就再次发送原来的验证码
+        // 存在就再次发送原来的验证码
         } else {
-            content = template.render(Dict.create().set("code", verificationCode.getCode()));
-            emailVo = new EmailVo(Collections.singletonList(verificationCode.getValue()), "yshop后台管理系统", content);
+            content = template.render(Dict.create().set("code",verificationCode.getCode()));
+            emailVo = new EmailVo(Collections.singletonList(verificationCode.getValue()),"yshop后台管理系统",content);
         }
         return emailVo;
     }
@@ -69,9 +68,9 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
     @Override
     public void validated(VerificationCode code) {
         VerificationCode verificationCode = this.getOne(new LambdaQueryWrapper<VerificationCode>()
-                .eq(VerificationCode::getScenes, code.getScenes()).eq(VerificationCode::getType, code.getType()).eq(VerificationCode::getValue, code.getValue())
-                .eq(VerificationCode::getStatus, true));
-        if (verificationCode == null || !verificationCode.getCode().equals(code.getCode())) {
+                .eq(VerificationCode::getScenes,code.getScenes()).eq(VerificationCode::getType,code.getType()).eq(VerificationCode::getValue,code.getValue())
+        .eq(VerificationCode::getStatus,true));
+        if(verificationCode == null || !verificationCode.getCode().equals(code.getCode())){
             throw new BadRequestException("无效验证码");
         } else {
             verificationCode.setStatus(false);
@@ -92,7 +91,7 @@ public class VerificationCodeServiceImpl extends BaseServiceImpl<VerificationCod
                 verifyCode.setStatus(false);
                 this.save(verifyCode);
             }, expiration * 60 * 1000L, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

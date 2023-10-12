@@ -1,9 +1,11 @@
 /**
- * Copyright (C) 2018-2022
- * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
- */
+* Copyright (C) 2018-2022
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -30,18 +32,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// 默认不使用缓存
-//import org.springframework.cache.annotation.CacheConfig;
-//import org.springframework.cache.annotation.CacheEvict;
-//import org.springframework.cache.annotation.Cacheable;
+
 
 /**
- * @author hupeng
- * @date 2020-05-14
- */
+* @author hupeng
+* @date 2020-05-14
+*/
+@SuppressWarnings("unchecked")
 @Service
 @AllArgsConstructor
-//@CacheConfig(cacheNames = "job")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements JobService {
 
@@ -63,17 +62,17 @@ public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements J
 
     @Override
     //@Cacheable
-    public List<Job> queryAll(JobQueryCriteria criteria) {
+    public List<Job> queryAll(JobQueryCriteria criteria){
         List<Job> jobList = baseMapper.selectList(QueryHelpPlus.getPredicate(Job.class, criteria));
-        if (criteria.getDeptIds().size() == 0) {
+        if(criteria.getDeptIds().size()==0){
             for (Job job : jobList) {
-                job.setDept(deptService.getById(job.getDeptId()));
+                    job.setDept(deptService.getById(job.getDeptId()));
             }
-        } else {
+        }else {
             //断权限范围
             for (Long deptId : criteria.getDeptIds()) {
                 for (Job job : jobList) {
-                    if (deptId.equals(job.getDeptId())) {
+                    if(deptId.equals(job.getDeptId())){
                         job.setDept(deptService.getById(job.getDeptId()));
                     }
                 }
@@ -87,7 +86,7 @@ public class JobServiceImpl extends BaseServiceImpl<JobMapper, Job> implements J
     public void download(List<JobDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (JobDto job : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("岗位名称", job.getName());
             map.put("岗位状态", job.getEnabled());
             map.put("岗位排序", job.getSort());

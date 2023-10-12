@@ -1,8 +1,6 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
  */
 package co.yixiang.modules.quartz.service.impl;
 
@@ -114,10 +112,11 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
         }
         if (quartzJob.getIsPause()) {
             quartzManage.resumeJob(quartzJob);
+            quartzJob.setIsPause(false);
         } else {
             quartzManage.pauseJob(quartzJob);
+            quartzJob.setIsPause(true);
         }
-        quartzJob.setIsPause(!quartzJob.getIsPause());
         this.saveOrUpdate(quartzJob);
     }
 

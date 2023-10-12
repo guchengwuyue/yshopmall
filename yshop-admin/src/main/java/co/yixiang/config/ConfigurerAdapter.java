@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.config;
 
@@ -16,13 +15,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * WebMvcConfigurer
  *
  * @author hupeng
  * @date 2018-11-30
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableWebMvc
 public class ConfigurerAdapter implements WebMvcConfigurer {
 
@@ -58,8 +60,8 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String avatarUtl = "file:" + avatar.replace("\\", "/");
-        String pathUtl = "file:" + path.replace("\\", "/");
+        String avatarUtl = "file:" + avatar.replace("\\","/");
+        String pathUtl = "file:" + path.replace("\\","/");
         registry.addResourceHandler("/avatar/**").addResourceLocations(avatarUtl).setCachePeriod(0);
         registry.addResourceHandler("/file/**").addResourceLocations(pathUtl).setCachePeriod(0);
         registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);

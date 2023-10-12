@@ -2,8 +2,8 @@ package co.yixiang.modules.monitor.service.impl;
 
 import co.yixiang.modules.monitor.domain.vo.RedisVo;
 import co.yixiang.modules.monitor.service.RedisService;
-import co.yixiang.modules.mp.config.ShopKeyUtils;
 import co.yixiang.utils.PageUtil;
+import co.yixiang.utils.ShopKeyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -31,9 +31,9 @@ public class RedisServiceImpl implements RedisService {
     private Long expiration;
 
     @Override
-    public Page<RedisVo> findByKey(String key, Pageable pageable) {
+    public Page<RedisVo> findByKey(String key, Pageable pageable){
         List<RedisVo> redisVos = new ArrayList<>();
-        if (!"*".equals(key)) {
+        if(!"*".equals(key)){
             key = "*" + key + "*";
         }
         for (Object s : redisTemplate.keys(key)) {
@@ -46,14 +46,14 @@ public class RedisServiceImpl implements RedisService {
                 continue;
             }
             DataType dataType = redisTemplate.type(s.toString());
-            if (!"string".equals(dataType.code())) {
+            if(!"string".equals(dataType.code())) {
                 continue;
             }
-            RedisVo redisVo = new RedisVo(s.toString(), redisTemplate.opsForValue().get(s.toString()).toString());
+            RedisVo redisVo = new RedisVo(s.toString(),redisTemplate.opsForValue().get(s.toString()).toString());
             redisVos.add(redisVo);
         }
         Page<RedisVo> page = new PageImpl<RedisVo>(
-                PageUtil.toPage(pageable.getPageNumber(), pageable.getPageSize(), redisVos),
+                PageUtil.toPage(pageable.getPageNumber(),pageable.getPageSize(),redisVos),
                 pageable,
                 redisVos.size());
         return page;
@@ -74,14 +74,14 @@ public class RedisServiceImpl implements RedisService {
         try {
             String value = redisTemplate.opsForValue().get(key).toString();
             return value;
-        } catch (Exception e) {
+        }catch (Exception e){
             return "";
         }
     }
 
     @Override
     public void saveCode(String key, Object val) {
-        redisTemplate.opsForValue().set(key, val);
-        redisTemplate.expire(key, expiration, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key,val);
+        redisTemplate.expire(key,expiration, TimeUnit.MINUTES);
     }
 }

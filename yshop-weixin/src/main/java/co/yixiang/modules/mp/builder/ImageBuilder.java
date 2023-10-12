@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.builder;
 
@@ -21,8 +20,8 @@ public class ImageBuilder extends AbstractBuilder {
                                    WxMpService service) {
 
         WxMpXmlOutImageMessage m = WxMpXmlOutMessage.IMAGE().mediaId(content)
-                .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
-                .build();
+            .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+            .build();
 
         return m;
     }

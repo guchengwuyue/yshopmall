@@ -1,8 +1,7 @@
 /**
- * Copyright (C) 2018-2021
+ * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.security.config;
 
@@ -131,7 +130,9 @@ public class SecurityConfig {
                 .antMatchers(anonymousUrls.toArray(new String[0])).permitAll()
                 // 所有请求都需要认证
                 .anyRequest().authenticated()
-                .and().apply(securityConfigurerAdapter()).and().build();
+                .and().apply(securityConfigurerAdapter())
+                .and()
+                .build();
     }
 
     private TokenConfigurer securityConfigurerAdapter() {

@@ -1,21 +1,25 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.rest;
 
 import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.tools.domain.EmailConfig;
-import co.yixiang.modules.tools.service.EmailConfigService;
 import co.yixiang.modules.tools.domain.vo.EmailVo;
+import co.yixiang.modules.tools.service.EmailConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 发送邮件
@@ -34,15 +38,15 @@ public class EmailController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> get() {
-        return new ResponseEntity<>(emailService.find(), HttpStatus.OK);
+    public ResponseEntity<Object> get(){
+        return new ResponseEntity<>(emailService.find(),HttpStatus.OK);
     }
 
     @Log("配置邮件")
     @PutMapping
     @ApiOperation("配置邮件")
-    public ResponseEntity<Object> emailConfig(@Validated @RequestBody EmailConfig emailConfig) {
-        emailService.update(emailConfig, emailService.find());
+    public ResponseEntity<Object> emailConfig(@Validated @RequestBody EmailConfig emailConfig){
+        emailService.update(emailConfig,emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -50,7 +54,7 @@ public class EmailController {
     @PostMapping
     @ApiOperation("发送邮件")
     public ResponseEntity<Object> send(@Validated @RequestBody EmailVo emailVo) throws Exception {
-        emailService.send(emailVo, emailService.find());
+        emailService.send(emailVo,emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.mapper;
 
@@ -33,12 +32,12 @@ public interface EntityMapper<D, E> {
      * @param dtoList
      * @return
      */
-    List<E> toEntity(List<D> dtoList);
+    List <E> toEntity(List<D> dtoList);
 
     /**
      * Entity集合转DTO集合
      * @param entityList
      * @return
      */
-    List<D> toDto(List<E> entityList);
+    List <D> toDto(List<E> entityList);
 }

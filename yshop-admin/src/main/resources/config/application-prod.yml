@@ -1,54 +1,62 @@
 #配置数据源
 spring:
   application:
-    name: yshop-admin
+    name: yshop-system
   datasource:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-      username: root
-      password: root
+      url: jdbc:mysql://localhost:3306/yshopb2c?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+      username: yshopb2c
+      password: bkfGfAimifjPZtNE
 
-      # 初始化配置
-      initial-size: 3
-      # 最小连接数
-      min-idle: 3
-      # 最大连接数
-      max-active: 15
-      # 获取连接超时时间
-      max-wait: 5000
-      # 连接有效性检测时间
-      time-between-eviction-runs-millis: 90000
-      # 最大空闲时间
-      min-evictable-idle-time-millis: 1800000
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
-      validation-query: select 1
-      # 配置监控统计拦截的filters
-      filters: stat
-
-      stat-view-servlet:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
         url-pattern: /druid/*
-        reset-enable: false
+        # 控制台管理用户名和密码
         login-username: admin
         login-password: 123456
-
-      web-stat-filter:
-        url-pattern: /*
-        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
 
   redis:
-    # 地址
-    host: localhost
-    # 端口，默认为6379
-    port: 6379
-    # 数据库索引
-    database: 13
-    # 密码
-    password:
-    # 连接超时时间
+    #数据库索引
+    database: 5
+    host: 127.0.0.1
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    #连接超时时间
     timeout: 5000
 
 # 是否限制单用户登录
@@ -86,26 +94,22 @@ swagger:
   enabled: false
   title: yshop商城管理后台API
   serverUrl: http://127.0.0.1:8000
-  version: 2.3
+  version: 3.3
 
-# 文件存储路径
-# 文件存储路径
-#  1.localUrl为空的话上传文件会走七牛云，请转向文档看七牛云配置
-#  2.如果想文件存在本地，并通过本地代理出去请填写localUrl： http://127.0.0.1:8000为本服务的ip+端口号
-#     线上的地址就是你通过nginx代理http://127.0.0.1:8000出来的地址。鉴于群里很多问的这里做个说明不在赘述
+
 file:
-  path: D:\upload\file\
-  avatar: D:\upload\avatar\
+  path: /home/yshop/file/
+  avatar: /home/yshop/avatar/
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5
-  localUrl:
-
 
 #oss配置
 oss:
   endpoint: http://oss-cn-shenzhen.aliyuncs.com
   custom-domain: https://xxxxx//%s
   access-key: xxxxx
-  secret-key: xxxx
-  bucket-name: xxxx
+  secret-key: xxxxx
+  bucket-name: xxxxx
+  defaultName: xxxxx
+

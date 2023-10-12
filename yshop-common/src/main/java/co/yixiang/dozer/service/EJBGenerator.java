@@ -1,12 +1,13 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.dozer.service;
 
 import co.yixiang.common.web.vo.Paging;
+import co.yixiang.domain.PageResult;
+import com.github.pagehelper.PageInfo;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * @version: 1.0
  */
 @Component
-@Lazy(true)
+@Lazy()
 public class EJBGenerator implements IGenerator {
 
     @Autowired
@@ -43,8 +44,8 @@ public class EJBGenerator implements IGenerator {
 
     @Override
     public <T, S> Paging<T> convertPaging(Paging<S> paging, Class<T> clz) {
-        Paging<T> pagingVo = new Paging<T>();
-        pagingVo.setRecords(convert(paging.getRecords(), clz));
+        Paging<T> pagingVo=new  Paging<T>();
+        pagingVo.setRecords(convert(paging.getRecords(),clz));
         pagingVo.setTotal(paging.getTotal());
         return pagingVo;
     }
@@ -65,5 +66,10 @@ public class EJBGenerator implements IGenerator {
             arr[i] = this.dozerMapper.map(s[i], clz);
         }
         return arr;
+    }
+
+    @Override
+    public <T, S> PageResult<T> convertPageInfo(PageInfo<S> s, Class<T> clz) {
+        return new PageResult(s.getTotal(), convert(s.getList(), clz));
     }
 }

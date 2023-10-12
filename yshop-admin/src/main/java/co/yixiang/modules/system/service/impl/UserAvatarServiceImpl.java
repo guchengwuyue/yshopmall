@@ -1,9 +1,11 @@
 /**
- * Copyright (C) 2018-2022
- * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
- */
+* Copyright (C) 2018-2022
+* All rights reserved, Designed By www.yixiang.co
+* 注意：
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
+*/
 package co.yixiang.modules.system.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
@@ -35,9 +37,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
- * @author hupeng
- * @date 2020-05-14
- */
+* @author hupeng
+* @date 2020-05-14
+*/
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "userAvatar")
@@ -60,7 +62,7 @@ public class UserAvatarServiceImpl extends BaseServiceImpl<UserAvatarMapper, Use
 
     @Override
     //@Cacheable
-    public List<UserAvatar> queryAll(UserAvatarQueryCriteria criteria) {
+    public List<UserAvatar> queryAll(UserAvatarQueryCriteria criteria){
         return baseMapper.selectList(QueryHelpPlus.getPredicate(UserAvatar.class, criteria));
     }
 
@@ -69,7 +71,7 @@ public class UserAvatarServiceImpl extends BaseServiceImpl<UserAvatarMapper, Use
     public void download(List<UserAvatarDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (UserAvatarDto userAvatar : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("真实文件名", userAvatar.getRealName());
             map.put("路径", userAvatar.getPath());
             map.put("大小", userAvatar.getSize());

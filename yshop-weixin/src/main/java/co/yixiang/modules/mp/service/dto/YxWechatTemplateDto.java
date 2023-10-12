@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.service.dto;
 
@@ -11,9 +10,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author hupeng
- * @date 2020-05-12
- */
+* @author hupeng
+* @date 2020-05-12
+*/
 @Data
 public class YxWechatTemplateDto implements Serializable {
 
@@ -37,4 +36,6 @@ public class YxWechatTemplateDto implements Serializable {
 
     /** 状态 */
     private Integer status;
+    /** 类型：template:模板消息 subscribe:订阅消息 */
+    private String type;
 }

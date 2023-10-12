@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.domain;
 
@@ -12,14 +11,16 @@ import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author hupeng
- * @date 2020-05-12
- */
+* @author hupeng
+* @date 2020-05-12
+*/
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("yx_article")
 public class YxArticle extends BaseDomain {
 
@@ -81,7 +82,31 @@ public class YxArticle extends BaseDomain {
 
 
 
-    public void copy(YxArticle source) {
-        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
+    /** 是否隐藏 */
+    private Integer hide;
+
+
+    /** 管理员id */
+    private Integer adminId;
+
+
+    /** 商户id */
+    private Integer merId;
+
+
+    /** 产品关联id */
+    private Integer productId;
+
+
+    /** 是否热门(小程序) */
+    private Integer isHot;
+
+
+    /** 是否轮播图(小程序) */
+    private Integer isBanner;
+
+
+    public void copy(YxArticle source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

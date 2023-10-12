@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.config;
 
@@ -12,12 +11,13 @@ import co.yixiang.modules.mp.handler.LogHandler;
 import co.yixiang.modules.mp.handler.MenuHandler;
 import co.yixiang.modules.mp.handler.MsgHandler;
 import co.yixiang.modules.mp.handler.NullHandler;
-import co.yixiang.modules.mp.handler.RedisHandler;
 import co.yixiang.modules.mp.handler.ScanHandler;
 import co.yixiang.modules.mp.handler.StoreCheckNotifyHandler;
 import co.yixiang.modules.mp.handler.SubscribeHandler;
 import co.yixiang.modules.mp.handler.UnsubscribeHandler;
 import co.yixiang.utils.RedisUtil;
+import co.yixiang.utils.RedisUtils;
+import co.yixiang.utils.ShopKeyUtils;
 import com.google.common.collect.Maps;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
@@ -25,6 +25,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import me.chanjar.weixin.mp.constant.WxMpEventConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
  * @author hupeng
  * @date 2020/01/20
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WxMpConfiguration {
 
     private static Map<String, WxMpService> mpServices = Maps.newHashMap();
@@ -53,13 +54,14 @@ public class WxMpConfiguration {
     private static UnsubscribeHandler unsubscribeHandler;
     private static SubscribeHandler subscribeHandler;
     private static ScanHandler scanHandler;
-    private static RedisHandler redisHandler;
+    private static RedisUtils redisUtils;
 
-    public WxMpConfiguration(LogHandler logHandler, NullHandler nullHandler, KfSessionHandler kfSessionHandler,
-                             StoreCheckNotifyHandler storeCheckNotifyHandler, LocationHandler locationHandler,
-                             MenuHandler menuHandler, MsgHandler msgHandler, UnsubscribeHandler unsubscribeHandler,
-                             SubscribeHandler subscribeHandler, ScanHandler scanHandler,
-                             RedisHandler redisHandler) {
+    @Autowired
+    public WxMpConfiguration(LogHandler logHandler,NullHandler nullHandler,KfSessionHandler kfSessionHandler,
+                             StoreCheckNotifyHandler storeCheckNotifyHandler,LocationHandler locationHandler,
+                             MenuHandler menuHandler,MsgHandler msgHandler,UnsubscribeHandler unsubscribeHandler,
+                             SubscribeHandler subscribeHandler,ScanHandler scanHandler,
+                             RedisUtils redisUtils){
         WxMpConfiguration.logHandler = logHandler;
         WxMpConfiguration.nullHandler = nullHandler;
         WxMpConfiguration.kfSessionHandler = kfSessionHandler;
@@ -70,7 +72,7 @@ public class WxMpConfiguration {
         WxMpConfiguration.unsubscribeHandler = unsubscribeHandler;
         WxMpConfiguration.subscribeHandler = subscribeHandler;
         WxMpConfiguration.scanHandler = scanHandler;
-        WxMpConfiguration.redisHandler = redisHandler;
+        WxMpConfiguration.redisUtils = redisUtils;
     }
 
 
@@ -82,7 +84,7 @@ public class WxMpConfiguration {
 
         WxMpService wxMpService = mpServices.get(ShopKeyUtils.getYshopWeiXinMpSevice());
         //增加一个redis标识
-        if (wxMpService == null || RedisUtil.get(ShopKeyUtils.getYshopWeiXinMpSevice()) == null) {
+        if(wxMpService == null || redisUtils.get(ShopKeyUtils.getYshopWeiXinMpSevice()) == null) {
             WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
             configStorage.setAppId(RedisUtil.get(ShopKeyUtils.getWechatAppId()));
             configStorage.setSecret(RedisUtil.get(ShopKeyUtils.getWechatAppSecret()));
@@ -94,7 +96,7 @@ public class WxMpConfiguration {
             routers.put(ShopKeyUtils.getYshopWeiXinMpSevice(), newRouter(wxMpService));
 
             //增加标识
-            RedisUtil.set(ShopKeyUtils.getYshopWeiXinMpSevice(), "yshop");
+            redisUtils.set(ShopKeyUtils.getYshopWeiXinMpSevice(),"yshop");
         }
         return wxMpService;
     }
@@ -102,8 +104,8 @@ public class WxMpConfiguration {
     /**
      * 移除WxMpService
      */
-    public static void removeWxMpService() {
-        RedisUtil.del(ShopKeyUtils.getYshopWeiXinMpSevice());
+    public static void removeWxMpService(){
+        redisUtils.del(ShopKeyUtils.getYshopWeiXinMpSevice());
         mpServices.remove(ShopKeyUtils.getYshopWeiXinMpSevice());
         routers.remove(ShopKeyUtils.getYshopWeiXinMpSevice());
     }

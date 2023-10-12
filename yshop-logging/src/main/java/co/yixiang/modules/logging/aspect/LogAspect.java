@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.logging.aspect;
 
@@ -58,12 +57,12 @@ public class LogAspect {
         Object result;
         currentTime.set(System.currentTimeMillis());
         result = joinPoint.proceed();
-        Log log = new Log("INFO", System.currentTimeMillis() - currentTime.get());
+        Log log = new Log("INFO",System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
         logService.save(getUsername(),
-                StringUtils.getIp(RequestHolder.getHttpServletRequest()), joinPoint,
-                log, getUid());
+                StringUtils.getIp(RequestHolder.getHttpServletRequest()),joinPoint,
+                log,getUid());
         return result;
     }
 
@@ -75,27 +74,27 @@ public class LogAspect {
      */
     @AfterThrowing(pointcut = "logPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        Log log = new Log("ERROR", System.currentTimeMillis() - currentTime.get());
+        Log log = new Log("ERROR",System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
         HttpServletRequest request = RequestHolder.getHttpServletRequest();
         logService.save(getUsername(),
                 StringUtils.getIp(RequestHolder.getHttpServletRequest()),
-                (ProceedingJoinPoint) joinPoint, log, getUid());
+                (ProceedingJoinPoint)joinPoint, log,getUid());
     }
 
     public String getUsername() {
         try {
             return SecurityUtils.getUsername();
-        } catch (Exception e) {
+        }catch (Exception e){
             return "";
         }
     }
 
-    public Long getUid() {
+    public Long getUid(){
         try {
             return SecurityUtils.getUserId();
-        } catch (Exception e) {
+        }catch (Exception e){
             return 0L;
         }
     }

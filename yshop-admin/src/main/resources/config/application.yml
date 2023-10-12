@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8001
 
 spring:
   main:
@@ -47,22 +47,17 @@ rsa:
 smms:
   token: 1oOP3ykFDI0K6ifmtvU7c8Y1eTWZSlyl
 
-#日志级别配置
+yshop:
+  # 配置
+  version: 3.3
+  apiUrl: http://127.0.0.1:8009/api
+
 logging:
   level:
     co.yixiang: DEBUG
-    org.springframework.web: ERROR
-    me.chanjar.weixin: ERROR
-
-yshop:
-  # 版本
-  version: 2.3
-  # 快鸟物流查询配置
-  express:
-    enable: true
-    appId: 1607734
-    appKey: 81f43a2e-f504-45c4-9b54-2637d59f8190
-  apiUrl: http://127.0.0.1:8009/api
+    org.springframework.web: DEBUG
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
 
 mybatis-plus:
   check-config-location: true

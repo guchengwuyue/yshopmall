@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
@@ -36,7 +35,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
@@ -44,9 +47,9 @@ import java.util.*;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 @Service
 //@AllArgsConstructor
 //@CacheConfig(cacheNames = "picture")
@@ -83,7 +86,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
 
     @Override
     //@Cacheable
-    public List<Picture> queryAll(PictureQueryCriteria criteria) {
+    public List<Picture> queryAll(PictureQueryCriteria criteria){
         return baseMapper.selectList(QueryHelpPlus.getPredicate(Picture.class, criteria));
     }
 
@@ -92,7 +95,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
     public void download(List<PictureDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (PictureDto picture : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("上传日期", picture.getCreateTime());
             map.put("删除的URL", picture.getDeleteUrl());
             map.put("图片名称", picture.getFilename());
@@ -112,27 +115,27 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
     public Picture upload(MultipartFile multipartFile, String username) {
         File file = FileUtil.toFile(multipartFile);
         // 验证是否重复上传
-        Picture picture = this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getMd5code, FileUtil.getMd5(file)));
-        if (picture != null) {
+        Picture picture = this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getMd5code,FileUtil.getMd5(file)));
+        if(picture != null){
             return picture;
         }
         HashMap<String, Object> paramMap = new HashMap<>(1);
         paramMap.put("smfile", file);
         // 上传文件
-        String result = HttpRequest.post(YshopConstant.Url.SM_MS_URL + "/v2/upload")
+        String result= HttpRequest.post(YshopConstant.Url.SM_MS_URL + "/v2/upload")
                 .header("Authorization", token)
                 .form(paramMap)
                 .timeout(20000)
                 .execute().body();
         JSONObject jsonObject = JSONUtil.parseObj(result);
-        if (!jsonObject.get(CODE).toString().equals(SUCCESS)) {
+        if(!jsonObject.get(CODE).toString().equals(SUCCESS)){
             throw new BadRequestException(TranslatorUtil.translate(jsonObject.get(MSG).toString()));
         }
         picture = JSON.parseObject(jsonObject.get("data").toString(), Picture.class);
         picture.setSize(FileUtil.getSize(Integer.parseInt(picture.getSize())));
         picture.setUsername(username);
         picture.setMd5code(FileUtil.getMd5(file));
-        picture.setFilename(FileUtil.getFileNameNoEx(multipartFile.getOriginalFilename()) + "." + FileUtil.getExtensionName(multipartFile.getOriginalFilename()));
+        picture.setFilename(FileUtil.getFileNameNoEx(multipartFile.getOriginalFilename())+"."+FileUtil.getExtensionName(multipartFile.getOriginalFilename()));
         this.save(picture);
         //删除临时文件
         FileUtil.del(file);
@@ -143,7 +146,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
     @Override
     public Picture findById(Long id) {
         Picture picture = this.getById(id);
-        ValidationUtil.isNull(picture.getId(), "Picture", "id", id);
+        ValidationUtil.isNull(picture.getId(),"Picture","id",id);
         return picture;
     }
 
@@ -154,7 +157,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
             try {
                 HttpUtil.get(picture.getDeleteUrl());
                 this.removeById(id);
-            } catch (Exception e) {
+            } catch(Exception e){
                 this.removeById(id);
             }
         }
@@ -171,7 +174,7 @@ public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> 
         JSONObject jsonObject = JSONUtil.parseObj(result);
         List<Picture> pictures = JSON.parseArray(jsonObject.get("data").toString(), Picture.class);
         for (Picture picture : pictures) {
-            if (this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getUrl, picture.getUrl())) == null) {
+            if(this.getOne(new LambdaQueryWrapper<Picture>().eq(Picture::getUrl,picture.getUrl()))==null){
                 picture.setSize(FileUtil.getSize(Integer.parseInt(picture.getSize())));
                 picture.setUsername("System Sync");
                 picture.setMd5code(null);

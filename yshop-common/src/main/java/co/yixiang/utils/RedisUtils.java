@@ -2,7 +2,9 @@
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
  * 注意：
- * 本软件为www.yixiang.co开发研制
+ * 本软件为www.yixiang.co开发研制，未经购买不得使用
+ * 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+ * 一经发现盗用、分享等行为，将追究法律责任，后果自负
  */
 package co.yixiang.utils;
 
@@ -16,14 +18,19 @@ import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author /
  */
 @Component
-@SuppressWarnings({"unchecked", "all"})
+@SuppressWarnings({"unchecked","all"})
 public class RedisUtils {
 
     private RedisTemplate<Object, Object> redisTemplate;
@@ -34,7 +41,7 @@ public class RedisUtils {
         this.redisTemplate = redisTemplate;
     }
 
-    // =============================common============================
+    // =============================commonold============================
 
     /**
      * 指定缓存失效时间
@@ -107,7 +114,7 @@ public class RedisUtils {
                 continue;
             }
             // 获取到满足条件的数据后,就可以退出了
-            if (tmpIndex >= toIndex) {
+            if(tmpIndex >=toIndex) {
                 break;
             }
             tmpIndex++;
@@ -160,15 +167,10 @@ public class RedisUtils {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
-    /**
-     * 普通缓存获取
-     *
-     * @param key 关键
-     * @return {@link String}
-     */
-    public String getString(String key){
+    public String getY(String key){
         return key == null || !redisTemplate.hasKey(key) ? "" : redisTemplate.opsForValue().get(key).toString();
     }
+
     /**
      * 批量获取
      * @param keys

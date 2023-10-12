@@ -5,7 +5,7 @@
     <parent>
         <artifactId>yshop</artifactId>
         <groupId>co.yixiang</groupId>
-        <version>2.3</version>
+        <version>3.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>co.yixiang</groupId>
             <artifactId>yshop-generator</artifactId>
-            <version>2.3</version>
+            <version>3.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>co.yixiang</groupId>
@@ -32,33 +32,13 @@
         <dependency>
             <groupId>co.yixiang</groupId>
             <artifactId>yshop-shop</artifactId>
-            <version>2.3</version>
+            <version>3.3</version>
         </dependency>
-        <dependency>
-            <groupId>co.yixiang</groupId>
-            <artifactId>yshop-oss</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>co.yixiang</groupId>
-            <artifactId>yshop-mproot</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>co.yixiang</groupId>-->
-        <!--            <artifactId>yshop-weixin</artifactId>-->
-        <!--            <version>2.3</version>-->
-        <!--            <exclusions>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>co.yixiang</groupId>-->
-        <!--                    <artifactId>yshop-common</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+
 
         <!--jwt-->
         <dependency>
@@ -84,22 +64,33 @@
 
         <!-- quartz -->
         <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
-
+        <!--weixinpay-->
         <dependency>
-            <groupId>ch.ethz.ganymed</groupId>
-            <artifactId>ganymed-ssh2</artifactId>
-            <version>build210</version>
+            <groupId>co.yixiang</groupId>
+            <artifactId>yshop-weixin</artifactId>
+            <version>3.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-security</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
         <dependency>
-            <groupId>com.jcraft</groupId>
-            <artifactId>jsch</artifactId>
-            <version>0.1.55</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

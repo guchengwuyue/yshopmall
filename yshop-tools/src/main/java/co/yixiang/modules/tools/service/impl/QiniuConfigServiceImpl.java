@@ -1,17 +1,16 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
-import co.yixiang.modules.tools.service.QiniuConfigService;
 import co.yixiang.modules.tools.service.mapper.QiniuConfigMapper;
 import co.yixiang.modules.tools.domain.QiniuConfig;
+import co.yixiang.modules.tools.service.QiniuConfigService;
 import co.yixiang.modules.tools.service.dto.QiniuConfigDto;
 import co.yixiang.modules.tools.service.dto.QiniuQueryCriteria;
 import co.yixiang.utils.FileUtil;
@@ -35,9 +34,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 @Service
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "qiniuConfig")
@@ -47,7 +46,6 @@ public class QiniuConfigServiceImpl extends BaseServiceImpl<QiniuConfigMapper, Q
     private final IGenerator generator;
 
     private final QiniuConfigMapper qiniuConfigMapper;
-
     @Override
     //@Cacheable
     public Map<String, Object> queryAll(QiniuQueryCriteria criteria, Pageable pageable) {
@@ -62,7 +60,7 @@ public class QiniuConfigServiceImpl extends BaseServiceImpl<QiniuConfigMapper, Q
 
     @Override
     //@Cacheable
-    public List<QiniuConfig> queryAll(QiniuQueryCriteria criteria) {
+    public List<QiniuConfig> queryAll(QiniuQueryCriteria criteria){
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QiniuConfig.class, criteria));
     }
 
@@ -71,7 +69,7 @@ public class QiniuConfigServiceImpl extends BaseServiceImpl<QiniuConfigMapper, Q
     public void download(List<QiniuConfigDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (QiniuConfigDto qiniuConfig : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("accessKey", qiniuConfig.getAccessKey());
             map.put("Bucket 识别符", qiniuConfig.getBucket());
             map.put("外链域名", qiniuConfig.getHost());

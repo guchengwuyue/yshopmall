@@ -1,14 +1,25 @@
 package com.github.xiaoymin.knife4j.spring.util;
 
 import io.swagger.models.Model;
-import io.swagger.models.properties.*;
+import io.swagger.models.properties.AbstractProperty;
+import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.DateTimeProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.ObjectProperty;
+import io.swagger.models.properties.Property;
+import io.swagger.models.properties.PropertyBuilder;
 import io.swagger.models.properties.PropertyBuilder.PropertyId;
+import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import org.springframework.beans.BeanUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  * @author LionCitys
  * @modified By：
  * @version: 1.0
@@ -46,7 +57,6 @@ public class SwaggerUtil {
 
     /**
      * 通过java类型获取Swagger类型
-     *
      * @param type javaType
      * @return swaggerType
      */
@@ -90,9 +100,8 @@ public class SwaggerUtil {
 
     /**
      * 获取对象类型，主要是剥离第一层<>
-     *
      * @param type JsonResult<Map<Operator, List<Map<String, Customer>>>>
-     * @return Map<Operator, List < Map < String, Customer>>>
+     * @return Map<Operator, List<Map<String, Customer>>>
      */
     public static String getRealType(String type) {
         try {
@@ -229,14 +238,14 @@ public class SwaggerUtil {
     }
 
     public static void main(String[] args) {
-        String[] ss = new String[]{"A«List«C1»»", "A«C2»", "A«B«String,«String,List«C4»»»»"};
+        String[] ss = new String[] { "A«List«C1»»", "A«C2»", "A«B«String,«String,List«C4»»»»" };
         for (String s : ss) {
             String c = SwaggerUtil.getRealType(s);
             System.out.println(c);
         }
 
-        String[] s2 = new String[]{"A,B«List«C1»»", "Map«A,B»,C«List«D»»",
-                "Map«Map«A,B»,C«List«D»»,Map«A,B»,C«List«D»»»,C«List«D»»"};
+        String[] s2 = new String[] { "A,B«List«C1»»", "Map«A,B»,C«List«D»»",
+                "Map«Map«A,B»,C«List«D»»,Map«A,B»,C«List«D»»»,C«List«D»»" };
         for (String s : s2) {
             String[] arr = SwaggerUtil.splitByComma(s);
             System.out.println(arr[0]);

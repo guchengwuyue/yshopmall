@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.config;
 
@@ -17,7 +16,7 @@ import java.io.File;
  * @date 2018-12-28
  * @author https://blog.csdn.net/llibin1024530411/article/details/79474953
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MultipartConfig {
 
     /**

@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,17 @@ import java.util.Date;
  *
  * @author lioncity
  */
-@Slf4j
+
 @Component
 public class TokenUtil {
-
     @Autowired
     private SecurityProperties properties;
+
+    /**
+     * Logger
+     */
+
+    protected static final Logger LOGGER = LoggerFactory.getLogger(TokenUtil.class);
 
 
     /**
@@ -89,7 +93,7 @@ public class TokenUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            log.warn("getClaimsFromToken exception", e);
+            LOGGER.warn("getClaimsFromToken exception", e);
             claims = null;
         }
         return claims;

@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.gen.service.impl;
 
@@ -27,8 +26,8 @@ public class GenConfigServiceImpl extends BaseServiceImpl<GenConfigMapper, GenCo
     @Override
 //    @Cacheable(key = "#p0")
     public GenConfig find(String tableName) {
-        GenConfig genConfig = this.getOne(new LambdaQueryWrapper<GenConfig>().eq(GenConfig::getTableName, tableName));
-        if (genConfig == null) {
+        GenConfig genConfig = this.getOne(new LambdaQueryWrapper<GenConfig>().eq(GenConfig::getTableName,tableName));
+        if(genConfig == null){
             return new GenConfig(tableName);
         }
         return genConfig;
@@ -38,7 +37,7 @@ public class GenConfigServiceImpl extends BaseServiceImpl<GenConfigMapper, GenCo
 //    @CachePut(key = "#p0")
     public GenConfig update(String tableName, GenConfig genConfig) {
         // 如果 api 路径为空，则自动生成路径
-        if (StringUtils.isBlank(genConfig.getApiPath())) {
+        if(StringUtils.isBlank(genConfig.getApiPath())){
             String separator = File.separator;
             String[] paths;
             String symbol = "\\";

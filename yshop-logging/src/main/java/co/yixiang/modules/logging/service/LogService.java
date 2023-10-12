@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.logging.service;
 
@@ -24,15 +23,8 @@ import java.util.List;
 public interface LogService extends BaseService<Log> {
 
 
-    /**
-     * 分页查询日志
-     *
-     * @param criteria 标准
-     * @param pageable 可分页
-     * @return {@link Object}
-     */
-    Object findAllByPageable(LogQueryCriteria criteria, Pageable pageable);
 
+    Object findAllByPageable(String nickname, Pageable pageable);
     /**
      * 分页查询
      * @param criteria 查询条件
@@ -58,16 +50,23 @@ public interface LogService extends BaseService<Log> {
 
     /**
      * 保存日志数据
-     *
-     * @param username  用户
-     * @param ip        请求IP
+     * @param username 用户
+     * @param ip 请求IP
      * @param joinPoint /
-     * @param log       日志实体
-     * @param uid       uid
+     * @param log 日志实体
      */
     @Async
-    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log, Long uid);
+    void save(String username, String ip, ProceedingJoinPoint joinPoint, Log log,Long uid);
 
+    /**
+     * 保存app日志数据
+     * @param username 用户
+     * @param ip 请求IP
+     * @param joinPoint /
+     * @param log 日志实体
+     */
+    @Async
+    void saveApp(String username, String ip, ProceedingJoinPoint joinPoint, Log log,Long uid);
     /**
      * 查询异常详情
      * @param id 日志ID

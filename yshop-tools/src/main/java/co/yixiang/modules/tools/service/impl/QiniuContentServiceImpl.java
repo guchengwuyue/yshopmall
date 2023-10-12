@@ -1,19 +1,18 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.modules.tools.service.mapper.QiniuContentMapper;
 import co.yixiang.modules.tools.domain.QiniuContent;
 import co.yixiang.modules.tools.service.QiniuContentService;
 import co.yixiang.modules.tools.service.dto.QiniuContentDto;
 import co.yixiang.modules.tools.service.dto.QiniuQueryCriteria;
-import co.yixiang.modules.tools.service.mapper.QiniuContentMapper;
 import co.yixiang.utils.FileUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
@@ -29,18 +28,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// 默认不使用缓存
-//import org.springframework.cache.annotation.CacheConfig;
-//import org.springframework.cache.annotation.CacheEvict;
-//import org.springframework.cache.annotation.Cacheable;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 @Service
 @AllArgsConstructor
-//@CacheConfig(cacheNames = "qiniuContent")
+@SuppressWarnings("unchecked")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class QiniuContentServiceImpl extends BaseServiceImpl<QiniuContentMapper, QiniuContent> implements QiniuContentService {
 
@@ -60,7 +55,7 @@ public class QiniuContentServiceImpl extends BaseServiceImpl<QiniuContentMapper,
 
     @Override
     //@Cacheable
-    public List<QiniuContent> queryAll(QiniuQueryCriteria criteria) {
+    public List<QiniuContent> queryAll(QiniuQueryCriteria criteria){
         return baseMapper.selectList(QueryHelpPlus.getPredicate(QiniuContent.class, criteria));
     }
 
@@ -69,14 +64,14 @@ public class QiniuContentServiceImpl extends BaseServiceImpl<QiniuContentMapper,
     public void download(List<QiniuContentDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (QiniuContentDto qiniuContent : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("Bucket 识别符", qiniuContent.getBucket());
             map.put("文件名称", qiniuContent.getKey());
             map.put("文件大小", qiniuContent.getSize());
             map.put("文件类型：私有或公开", qiniuContent.getType());
             map.put("上传或同步的时间", qiniuContent.getUpdateTime());
             map.put("文件url", qiniuContent.getUrl());
-            map.put(" suffix", qiniuContent.getSuffix());
+            map.put(" suffix",  qiniuContent.getSuffix());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

@@ -1,27 +1,24 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.logging.domain;
 
 import co.yixiang.domain.BaseDomain;
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * @author hupeng
  * @date 2018-11-24
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("log")
 @NoArgsConstructor
 public class Log extends BaseDomain {
@@ -65,6 +62,7 @@ public class Log extends BaseDomain {
 
     /** 异常详细  */
     private byte[] exceptionDetail;
+
 
     public Log(String logType, Long time) {
         this.logType = logType;

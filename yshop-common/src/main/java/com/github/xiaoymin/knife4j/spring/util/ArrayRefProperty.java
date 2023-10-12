@@ -1,5 +1,4 @@
 package com.github.xiaoymin.knife4j.spring.util;
-
 import io.swagger.models.properties.ArrayProperty;
 import io.swagger.models.properties.RefProperty;
 import io.swagger.models.refs.GenericRef;

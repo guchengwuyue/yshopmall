@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.utils;
 
@@ -24,13 +23,23 @@ public class OrderUtil {
 
 
     /**
+     * 获取精确到秒的时间戳
+     * @return
+     **/
+    public static int getSecondTimestamp(){
+        String timestamp = String.valueOf(System.currentTimeMillis()/1000);
+        return Integer.valueOf(timestamp);
+    }
+
+
+    /**
      * 返回活动状态
      * @param starTime 开始时间
      * @param endTime 结束时间
      * @param status  0-关闭 其他表示相反
      * @return String
      */
-    public static String checkActivityStatus(Date starTime, Date endTime, int status) {
+    public static String checkActivityStatus(Date starTime,Date endTime,Integer status){
         Date nowTime = new Date();
 
         if(ShopCommonEnum.IS_STATUS_0.getValue().equals(status)) {
@@ -152,7 +161,7 @@ public class OrderUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = simpleDateFormat.parse(str);
         long ts = date.getTime();
-        return ts / 1000;
+        return ts/1000;
     }
 
     /**
@@ -240,6 +249,9 @@ public class OrderUtil {
                     break;
                 case "yue":
                     payTypeName = "余额支付";
+                    break;
+                case "integral":
+                    payTypeName = "积分兑换";
                     break;
                 case "offline":
                     payTypeName = "线下支付";

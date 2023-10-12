@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.config.thread;
 
@@ -21,7 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2019年10月31日15:06:18
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class AsyncTaskExecutePool implements AsyncConfigurer {
 
     /** 注入配置类 */
@@ -54,8 +53,8 @@ public class AsyncTaskExecutePool implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (throwable, method, objects) -> {
-            log.error("====" + throwable.getMessage() + "====", throwable);
-            log.error("exception method:" + method.getName());
+            log.error("===="+throwable.getMessage()+"====", throwable);
+            log.error("exception method:"+method.getName());
         };
     }
 }

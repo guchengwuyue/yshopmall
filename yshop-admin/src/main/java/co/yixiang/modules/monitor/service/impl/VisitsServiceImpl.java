@@ -42,8 +42,8 @@ public class VisitsServiceImpl extends BaseServiceImpl<VisitsMapper, Visits> imp
     public void save() {
         LocalDate localDate = LocalDate.now();
         Visits visits = this.getOne(new LambdaQueryWrapper<Visits>()
-                .eq(Visits::getDate, localDate.toString()));
-        if (visits == null) {
+        .eq(Visits::getDate,localDate.toString()));
+        if(visits == null){
             visits = new Visits();
             visits.setWeekDay(StringUtils.getWeekDay());
             visits.setPvCounts(1L);
@@ -71,27 +71,27 @@ public class VisitsServiceImpl extends BaseServiceImpl<VisitsMapper, Visits> imp
 
     @Override
     public Object get() {
-        Map<String, Object> map = new HashMap<>(4);
+        Map<String,Object> map = new HashMap<>(4);
         LocalDate localDate = LocalDate.now();
         Visits visits = this.getOne(new LambdaQueryWrapper<Visits>()
-                .eq(Visits::getDate, localDate.toString()));
-        List<Visits> list = visitsMapper.findAllVisits(localDate.minusDays(6).toString(), localDate.plusDays(1).toString());
+                .eq(Visits::getDate,localDate.toString()));
+        List<Visits> list = visitsMapper.findAllVisits(localDate.minusDays(6).toString(),localDate.plusDays(1).toString());
 
         long recentVisits = 0, recentIp = 0;
         for (Visits data : list) {
             recentVisits += data.getPvCounts();
             recentIp += data.getIpCounts();
         }
-        map.put("newVisits", visits.getPvCounts());
-        map.put("newIp", visits.getIpCounts());
-        map.put("recentVisits", recentVisits);
-        map.put("recentIp", recentIp);
+        map.put("newVisits",visits.getPvCounts());
+        map.put("newIp",visits.getIpCounts());
+        map.put("recentVisits",recentVisits);
+        map.put("recentIp",recentIp);
         return map;
     }
 
     @Override
     public Object getChartData() {
-        Map<String, Object> map = new HashMap<>(3);
+        Map<String,Object> map = new HashMap<>(3);
 //        LocalDate localDate = LocalDate.now();
 //        List<Visits> list = visitsRepository.findAllVisits(localDate.minusDays(6).toString(),localDate.plusDays(1).toString());
 //        map.put("weekDays",list.stream().map(Visits::getWeekDay).collect(Collectors.toList()));

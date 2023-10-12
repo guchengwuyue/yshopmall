@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.config;
 
@@ -20,6 +19,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * 处理新增和更新的基础数据填充，配合BaseEntity和MyBatisPlusConfig使用
@@ -37,7 +37,7 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         try {
-            Timestamp time = new Timestamp(System.currentTimeMillis());
+            Timestamp time=new Timestamp(System.currentTimeMillis());
             if (metaObject.hasSetter("createTime")) {
                 log.debug("自动插入 createTime");
                 this.setFieldValByName("createTime", time, metaObject);
@@ -58,6 +58,14 @@ public class MetaHandler implements MetaObjectHandler {
                 log.debug("自动插入 delFlag");
                 this.setFieldValByName("delFlag", false, metaObject);
             }
+            if (metaObject.hasSetter("isDel")) {
+                log.debug("自动插入 isDel");
+                this.setFieldValByName("isDel", 0, metaObject);
+            }
+            if (metaObject.hasSetter("addTime")) {
+                String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+                this.setFieldValByName("addTime", Integer.valueOf(timestamp), metaObject);
+            }
         } catch (Exception e) {
             log.error("自动注入失败:{}", e);
         }
@@ -71,7 +79,7 @@ public class MetaHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         try {
-            Timestamp time = new Timestamp(System.currentTimeMillis());
+            Timestamp time=new Timestamp(System.currentTimeMillis());
             if (metaObject.hasSetter("updateTime")) {
                 log.debug("自动插入 updateTime");
                 this.setFieldValByName("updateTime", time, metaObject);

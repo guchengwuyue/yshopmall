@@ -2,7 +2,9 @@
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
  * 注意：
- * 本软件为www.yixiang.co开发研制
+ * 本软件为www.yixiang.co开发研制，未经购买不得使用
+ * 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+ * 一经发现盗用、分享等行为，将追究法律责任，后果自负
  */
 package co.yixiang.modules.system.service.impl;
 
@@ -10,7 +12,11 @@ import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.EntityExistException;
-import co.yixiang.modules.system.domain.*;
+import co.yixiang.modules.system.domain.Dept;
+import co.yixiang.modules.system.domain.Menu;
+import co.yixiang.modules.system.domain.Role;
+import co.yixiang.modules.system.domain.RolesDepts;
+import co.yixiang.modules.system.domain.RolesMenus;
 import co.yixiang.modules.system.service.RoleService;
 import co.yixiang.modules.system.service.RolesDeptsService;
 import co.yixiang.modules.system.service.RolesMenusService;
@@ -34,7 +40,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 // 默认不使用缓存
@@ -246,11 +259,20 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
             role.setDepts(deptSet);
         }
         Set<String> permissions = roles.stream().filter(role -> StringUtils.isNotBlank(role.getPermission())).map(Role::getPermission).collect(Collectors.toSet());
-        permissions.addAll(
-                roles.stream().flatMap(role -> role.getMenus().stream())
-                        .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
-                        .map(Menu::getPermission).collect(Collectors.toSet())
-        );
+//        permissions.addAll(
+//                roles.stream().flatMap(role -> role.getMenus().stream())
+//                        .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
+//                        .map(Menu::getPermission).collect(Collectors.toSet())
+//        );
+        roles.stream().flatMap(role -> role.getMenus().stream())
+                .filter(menu -> StringUtils.isNotBlank(menu.getPermission()))
+                .forEach(menu -> {
+                    // 添加基于Permission的权限信息
+                    for (String permission : StringUtils.split(menu.getPermission(), ",")) {
+                        permissions.add(permission);
+                    }
+                });
+
         return permissions.stream().map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

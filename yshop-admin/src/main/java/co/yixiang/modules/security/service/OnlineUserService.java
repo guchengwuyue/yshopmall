@@ -1,17 +1,15 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
  */
 package co.yixiang.modules.security.service;
 
+import cn.hutool.core.util.StrUtil;
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.modules.security.config.SecurityProperties;
 import co.yixiang.modules.security.security.vo.JwtUser;
-import co.yixiang.modules.security.security.vo.OnlineUser;
+import co.yixiang.modules.user.vo.OnlineUser;
 import co.yixiang.utils.*;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -79,7 +77,7 @@ public class OnlineUserService {
     public List<OnlineUser> getAll(String filter, int type) {
         List<String> keys = null;
         if (type == 1) {
-            keys = redisUtils.scan("m-online-token*");
+            keys = redisUtils.scan(ShopConstants.YSHOP_APP_LOGIN_USER + "*");
         } else {
             keys = redisUtils.scan(properties.getOnlineKey() + "*");
         }
@@ -88,18 +86,14 @@ public class OnlineUserService {
         Collections.reverse(keys);
         List<OnlineUser> onlineUsers = new ArrayList<>();
         for (String key : keys) {
-            OnlineUser onlineUser;
-            Object obj = redisUtils.get(key);
-            if (obj instanceof OnlineUser) {
-                onlineUser = (OnlineUser) obj;
-            } else if (obj instanceof JSONObject) {
-                onlineUser = JSONObject.parseObject(JSONObject.toJSONString(obj), OnlineUser.class);
-            } else if (obj instanceof String) {
-                onlineUser = JSONObject.parseObject((String) obj, OnlineUser.class);
+            OnlineUser onlineUser = (OnlineUser) redisUtils.get(key);
+            if (StringUtils.isNotBlank(filter)) {
+                if (onlineUser.toString().contains(filter)) {
+                    onlineUsers.add(onlineUser);
+                }
             } else {
-                continue;
+                onlineUsers.add(onlineUser);
             }
-            onlineUsers.add(onlineUser);
         }
         onlineUsers.sort((o1, o2) -> o2.getLoginTime().compareTo(o1.getLoginTime()));
         return onlineUsers;
@@ -122,8 +116,8 @@ public class OnlineUserService {
      * @throws Exception /
      */
     public void kickOutT(String key) throws Exception {
-
-        String keyt = "m-online-token" + EncryptUtils.desDecrypt(key);
+        String[] split = StrUtil.split(key, StrUtil.COLON);
+        String keyt = ShopConstants.YSHOP_APP_LOGIN_USER + split[0] + StrUtil.COLON + EncryptUtils.desDecrypt(split[1]);
         redisUtils.del(keyt);
 
     }
@@ -164,7 +158,7 @@ public class OnlineUserService {
      * @return /
      */
     public OnlineUser getOne(String key) {
-        return JSON.parseObject(redisUtils.getString(key), OnlineUser.class);
+        return (OnlineUser) redisUtils.get(key);
     }
 
     /**

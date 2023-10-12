@@ -1,30 +1,27 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.quartz.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
+import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
+import lombok.EqualsAndHashCode;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName("quartz_job")
-public class QuartzJob implements Serializable {
+public class QuartzJob extends BaseDomain {
 
     public static final String JOB_KEY = "JOB_KEY";
 
@@ -60,11 +57,9 @@ public class QuartzJob implements Serializable {
     /** 备注 */
     private String remark;
 
-    /** 创建时间  */
-    @TableField(fill = FieldFill.INSERT)
-    private Timestamp createTime;
 
-    public void copy(QuartzJob source) {
-        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
+
+    public void copy(QuartzJob source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

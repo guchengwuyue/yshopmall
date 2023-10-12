@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service.impl;
 
@@ -11,13 +10,12 @@ import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.exception.BadRequestException;
-import co.yixiang.modules.tools.service.LocalStorageService;
-import co.yixiang.modules.tools.service.mapper.LocalStorageMapper;
 import co.yixiang.modules.tools.domain.LocalStorage;
+import co.yixiang.modules.tools.service.LocalStorageService;
 import co.yixiang.modules.tools.service.dto.LocalStorageDto;
 import co.yixiang.modules.tools.service.dto.LocalStorageQueryCriteria;
+import co.yixiang.modules.tools.service.mapper.LocalStorageMapper;
 import co.yixiang.utils.FileUtil;
-import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
@@ -42,9 +40,9 @@ import java.util.Map;
 //import org.springframework.cache.annotation.Cacheable;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
+* @author hupeng
+* @date 2020-05-13
+*/
 @Service
 //@CacheConfig(cacheNames = "localStorage")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -75,14 +73,14 @@ public class LocalStorageServiceImpl extends BaseServiceImpl<LocalStorageMapper,
 
     @Override
     //@Cacheable
-    public List<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria) {
-        return generator.convert(baseMapper.selectList(QueryHelpPlus.getPredicate(LocalStorage.class, criteria)), LocalStorageDto.class);
+    public List<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria){
+        return generator.convert(baseMapper.selectList(QueryHelpPlus.getPredicate(LocalStorage.class, criteria)),LocalStorageDto.class);
     }
 
     @Override
     public LocalStorageDto findById(Long id) {
         LocalStorage localStorage = this.getById(id);
-        return generator.convert(localStorage, LocalStorageDto.class);
+        return generator.convert(localStorage,LocalStorageDto.class);
     }
 
     @Override
@@ -90,8 +88,8 @@ public class LocalStorageServiceImpl extends BaseServiceImpl<LocalStorageMapper,
         FileUtil.checkSize(maxSize, multipartFile.getSize());
         String suffix = FileUtil.getExtensionName(multipartFile.getOriginalFilename());
         String type = FileUtil.getFileType(suffix);
-        File file = FileUtil.upload(multipartFile, path + type + File.separator);
-        if (ObjectUtil.isNull(file)) {
+        File file = FileUtil.upload(multipartFile, path + type +  File.separator);
+        if(ObjectUtil.isNull(file)){
             throw new BadRequestException("上传失败");
         }
         try {
@@ -103,11 +101,11 @@ public class LocalStorageServiceImpl extends BaseServiceImpl<LocalStorageMapper,
                     file.getPath(),
                     type,
                     FileUtil.getSize(multipartFile.getSize()),
-                    SecurityUtils.getUsername()
+                    "yshop"
             );
             this.save(localStorage);
-            return generator.convert(localStorage, LocalStorageDto.class);
-        } catch (Exception e) {
+            return generator.convert(localStorage,LocalStorageDto.class);
+        }catch (Exception e){
             FileUtil.del(file);
             throw e;
         }
@@ -128,7 +126,7 @@ public class LocalStorageServiceImpl extends BaseServiceImpl<LocalStorageMapper,
     public void download(List<LocalStorageDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (LocalStorageDto localStorage : all) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String,Object> map = new LinkedHashMap<>();
             map.put("文件真实的名称", localStorage.getRealName());
             map.put("文件名", localStorage.getName());
             map.put("后缀", localStorage.getSuffix());
@@ -145,7 +143,7 @@ public class LocalStorageServiceImpl extends BaseServiceImpl<LocalStorageMapper,
     @Override
     public void updateLocalStorage(LocalStorageDto resources) {
         LocalStorage localStorage = this.getById(resources.getId());
-        BeanUtils.copyProperties(resources, localStorage);
+        BeanUtils.copyProperties(resources,localStorage);
         this.saveOrUpdate(localStorage);
     }
 }

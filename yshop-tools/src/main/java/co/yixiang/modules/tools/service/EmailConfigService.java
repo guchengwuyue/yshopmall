@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.service;
 
@@ -12,10 +11,10 @@ import co.yixiang.modules.tools.domain.vo.EmailVo;
 import org.springframework.scheduling.annotation.Async;
 
 /**
- * @author hupeng
- * @date 2020-05-13
- */
-public interface EmailConfigService extends BaseService<EmailConfig> {
+* @author hupeng
+* @date 2020-05-13
+*/
+public interface EmailConfigService  extends BaseService<EmailConfig>{
     /**
      * 更新邮件配置
      * @param emailConfig 邮件配置

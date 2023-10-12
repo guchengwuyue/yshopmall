@@ -1,22 +1,22 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
  */
 package co.yixiang.modules.shop.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.exception.BadRequestException;
 import co.yixiang.modules.logging.aop.log.Log;
-import co.yixiang.modules.aop.NoRepeatSubmit;
+import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.shop.domain.YxSystemGroupData;
 import co.yixiang.modules.shop.service.YxSystemGroupDataService;
 import co.yixiang.modules.shop.service.dto.YxSystemGroupDataQueryCriteria;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.CacheEvict;
@@ -27,6 +27,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import static co.yixiang.constant.ShopConstants.YSHOP_SECKILL_TIME;
 
 /**
  * @author hupeng
@@ -53,43 +59,18 @@ public class SystemGroupDataController {
         Pageable pageableT = PageRequest.of(pageable.getPageNumber(),
                 pageable.getPageSize(),
                 sort);
-        return new ResponseEntity(yxSystemGroupDataService.queryAll(criteria, pageableT), HttpStatus.OK);
+        return new ResponseEntity<>(yxSystemGroupDataService.queryAll(criteria, pageableT), HttpStatus.OK);
     }
 
-    @NoRepeatSubmit
+    @ForbidSubmit
     @Log("新增数据配置")
     @ApiOperation(value = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr) {
-
         JSONObject jsonObject = JSON.parseObject(jsonStr);
-
-        if (ObjectUtil.isNotNull(jsonObject.get("name"))) {
-            if (StrUtil.isEmpty(jsonObject.get("name").toString())) {
-                throw new BadRequestException("名称必须填写");
-            }
-        }
-
-        if (ObjectUtil.isNotNull(jsonObject.get("title"))) {
-            if (StrUtil.isEmpty(jsonObject.get("title").toString())) {
-                throw new BadRequestException("标题必须填写");
-            }
-        }
-
-        if (ObjectUtil.isNotNull(jsonObject.get("info"))) {
-            if (StrUtil.isEmpty(jsonObject.get("info").toString())) {
-                throw new BadRequestException("简介必须填写");
-            }
-        }
-
-        if (ObjectUtil.isNotNull(jsonObject.get("pic"))) {
-            if (StrUtil.isEmpty(jsonObject.get("pic").toString())) {
-                throw new BadRequestException("图片必须上传");
-            }
-        }
-
+        this.checkParam(jsonObject);
 
         YxSystemGroupData yxSystemGroupData = new YxSystemGroupData();
         yxSystemGroupData.setGroupName(jsonObject.get("groupName").toString());
@@ -98,41 +79,48 @@ public class SystemGroupDataController {
         yxSystemGroupData.setStatus(jsonObject.getInteger("status"));
         yxSystemGroupData.setSort(jsonObject.getInteger("sort"));
 
-        return new ResponseEntity(yxSystemGroupDataService.save(yxSystemGroupData), HttpStatus.CREATED);
+        List<YxSystemGroupData> yxSeckillTime = yxSystemGroupDataService.list(Wrappers.<YxSystemGroupData>lambdaQuery()
+                .eq(YxSystemGroupData::getGroupName, YSHOP_SECKILL_TIME));
+        if (yxSystemGroupData.getStatus() == 1) {
+            yxSeckillTime.forEach(item -> {
+                Map map = JSONUtil.toBean(item.getValue(), Map.class);
+                if (Objects.nonNull(jsonObject.getInteger("time")) && jsonObject.getInteger("time").equals(map.get("time"))) {
+                    throw new BadRequestException("不能同时开启同一时间点");
+                }
+            });
+        }
+
+        return new ResponseEntity<>(yxSystemGroupDataService.save(yxSystemGroupData), HttpStatus.CREATED);
     }
 
-    @NoRepeatSubmit
+    @ForbidSubmit
     @Log("修改数据配置")
     @ApiOperation(value = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
     public ResponseEntity update(@RequestBody String jsonStr) {
-
         JSONObject jsonObject = JSON.parseObject(jsonStr);
-        if (ObjectUtil.isNotNull(jsonObject.get("name"))) {
-            if (StrUtil.isEmpty(jsonObject.get("name").toString())) {
-                throw new BadRequestException("名称必须填写");
-            }
-        }
-
-        if (ObjectUtil.isNotNull(jsonObject.get("title"))) {
-            if (StrUtil.isEmpty(jsonObject.get("title").toString())) {
-                throw new BadRequestException("标题必须填写");
-            }
-        }
-
-        if (ObjectUtil.isNotNull(jsonObject.get("pic"))) {
-            if (StrUtil.isEmpty(jsonObject.get("pic").toString())) {
-                throw new BadRequestException("图片必须上传");
-            }
-        }
+        this.checkParam(jsonObject);
 
         YxSystemGroupData yxSystemGroupData = new YxSystemGroupData();
 
         yxSystemGroupData.setGroupName(jsonObject.get("groupName").toString());
         jsonObject.remove("groupName");
         yxSystemGroupData.setValue(jsonObject.toJSONString());
+        yxSystemGroupData.setStatus(jsonObject.getInteger("status"));
+
+        List<YxSystemGroupData> yshop_seckill_time = yxSystemGroupDataService.list(Wrappers.<YxSystemGroupData>lambdaQuery()
+                .eq(YxSystemGroupData::getGroupName, "yshop_seckill_time"));
+        if (yxSystemGroupData.getStatus() == 1 && ObjectUtil.isNotEmpty(jsonObject.getInteger("time"))) {
+            yshop_seckill_time.forEach(item -> {
+                Map map = JSONUtil.toBean(item.getValue(), Map.class);
+                if (jsonObject.getInteger("time").equals(map.get("time"))) {
+                    throw new BadRequestException("不能同时开启同一时间点");
+                }
+            });
+        }
+
         if (jsonObject.getInteger("status") == null) {
             yxSystemGroupData.setStatus(1);
         } else {
@@ -151,14 +139,46 @@ public class SystemGroupDataController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @NoRepeatSubmit
+    @ForbidSubmit
     @Log("删除数据配置")
     @ApiOperation(value = "删除数据配置")
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {
-
         yxSystemGroupDataService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    /**
+     * 检测参数
+     *
+     * @param jsonObject
+     */
+    private void checkParam(JSONObject jsonObject) {
+        if (ObjectUtil.isNotNull(jsonObject.get("name"))) {
+            if (StrUtil.isEmpty(jsonObject.getString("name"))) {
+                throw new BadRequestException("名称必须填写");
+            }
+        }
+
+        if (ObjectUtil.isNotNull(jsonObject.get("title"))) {
+            if (StrUtil.isEmpty(jsonObject.getString("title"))) {
+                throw new BadRequestException("标题必须填写");
+            }
+        }
+
+        if (ObjectUtil.isNotNull(jsonObject.get("pic"))) {
+            if (StrUtil.isEmpty(jsonObject.getString("pic"))) {
+                throw new BadRequestException("图片必须上传");
+            }
+        }
+
+
+        if (ObjectUtil.isNotNull(jsonObject.get("info"))) {
+            if (StrUtil.isEmpty(jsonObject.getString("info"))) {
+                throw new BadRequestException("简介必须填写");
+            }
+        }
+
     }
 }

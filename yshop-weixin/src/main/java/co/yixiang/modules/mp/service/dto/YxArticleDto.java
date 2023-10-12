@@ -1,19 +1,20 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * @author hupeng
- * @date 2020-05-12
- */
+* @author hupeng
+* @date 2020-05-12
+*/
 @Data
 public class YxArticleDto implements Serializable {
 
@@ -56,7 +57,8 @@ public class YxArticleDto implements Serializable {
     private Integer status;
 
     /** 添加时间 */
-    private String addTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date createTime;
 
     /** 是否隐藏 */
     private Integer hide;

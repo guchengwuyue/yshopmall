@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.config;
 
@@ -20,17 +19,21 @@ import org.springframework.core.Ordered;
 import org.springframework.data.domain.Pageable;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.schema.AlternateTypeRule;
 import springfox.documentation.schema.AlternateTypeRuleConvention;
-import springfox.documentation.schema.ScalarType;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.ParameterType;
-import springfox.documentation.service.RequestParameter;
+import springfox.documentation.service.Parameter;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -47,7 +50,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
  * @Date 2019/1/9
  **/
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableSwagger2
 public class SwaggerConfig {
 
@@ -72,13 +75,15 @@ public class SwaggerConfig {
     @Bean
     @SuppressWarnings("all")
     public Docket createRestApi() {
-        RequestParameterBuilder ticketPar = new RequestParameterBuilder();
-        List<RequestParameter> pars = new ArrayList<>();
-        ticketPar.description("token").name(tokenHeader)
-                .in(ParameterType.HEADER).required(true)
-                .query(param -> param.model(model -> model.scalarModel(ScalarType.STRING)));
+        ParameterBuilder ticketPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<>();
+        ticketPar.name(tokenHeader).description("token")
+                .modelRef(new ModelRef("string"))
+                .parameterType("header")
+                .defaultValue(tokenStartWith + " ")
+                .required(true)
+                .build();
         pars.add(ticketPar.build());
-
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enabled)
                 .apiInfo(apiInfo())
@@ -86,7 +91,10 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("co.yixiang.modules"))
                 .paths(PathSelectors.regex("/error.*").negate())
                 .build()
-                .globalRequestParameters(pars);
+                .globalOperationParameters(pars)
+                //添加登陆认证
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {
@@ -95,8 +103,41 @@ public class SwaggerConfig {
                 .termsOfServiceUrl(serverUrl)
                 .description(title)
                 .version(version)
-                .contact(new Contact("hupeng", "https://www.yixiang.co", "guchengwuyue@163.com"))
+                .contact(new Contact("hupeng","https://www.yixiang.co","guchengwuyue@163.com"))
                 .build();
+    }
+
+    private List<SecurityScheme> securitySchemes() {
+        //设置请求头信息
+        List<SecurityScheme> securitySchemes = new ArrayList<>();
+        ApiKey apiKey = new ApiKey(tokenHeader, tokenHeader, "header");
+        securitySchemes.add(apiKey);
+        return securitySchemes;
+    }
+
+    private List<SecurityContext> securityContexts() {
+        //设置需要登录认证的路径
+        List<SecurityContext> securityContexts = new ArrayList<>();
+        // ^(?!auth).*$ 表示所有包含auth的接口不需要使用securitySchemes即不需要带token
+        // ^标识开始  ()里是一子表达式  ?!/auth表示匹配不是/auth的位置，匹配上则添加请求头，注意路径已/开头  .表示任意字符  *表示前面的字符匹配多次 $标识结束
+        securityContexts.add(getContextByPath());
+        return securityContexts;
+    }
+
+    private SecurityContext getContextByPath() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("^(?!/auth).*$"))
+                .build();
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        List<SecurityReference> securityReferences = new ArrayList<>();
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        securityReferences.add(new SecurityReference(tokenHeader, authorizationScopes));
+        return securityReferences;
     }
 
 }
@@ -104,7 +145,7 @@ public class SwaggerConfig {
 /**
  *  将Pageable转换展示在swagger中
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableSwagger2
 @EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)

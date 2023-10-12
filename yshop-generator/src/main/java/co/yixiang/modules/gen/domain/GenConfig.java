@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.gen.domain;
 
@@ -23,7 +22,9 @@ public class GenConfig {
 
     public GenConfig(String tableName) {
         this.cover = false;
-        this.moduleName = "yshop-admin";
+        this.moduleName = "yshop-mall";
+        this.author = "hupeng";
+        this.pack = "co.yixiang.modules";
         this.tableName = tableName;
     }
 

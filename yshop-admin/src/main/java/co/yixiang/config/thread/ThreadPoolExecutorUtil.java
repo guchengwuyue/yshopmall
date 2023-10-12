@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.config.thread;
 
@@ -19,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolExecutorUtil {
 
-    public static ThreadPoolExecutor getPoll() {
+    public static ThreadPoolExecutor getPoll(){
         AsyncTaskProperties properties = SpringContextHolder.getBean(AsyncTaskProperties.class);
         return new ThreadPoolExecutor(
                 properties.getCorePoolSize(),

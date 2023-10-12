@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.mp.domain;
 
@@ -16,9 +15,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author hupeng
- * @date 2020-05-12
- */
+* @author hupeng
+* @date 2020-05-12
+*/
 @Data
 @TableName("yx_wechat_reply")
 public class YxWechatReply implements Serializable {
@@ -49,7 +48,7 @@ public class YxWechatReply implements Serializable {
     private Integer hide;
 
 
-    public void copy(YxWechatReply source) {
-        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(YxWechatReply source){
+        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

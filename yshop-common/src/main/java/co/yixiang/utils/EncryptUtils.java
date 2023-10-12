@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.utils;
 
@@ -29,7 +28,7 @@ public class EncryptUtils {
     private static IvParameterSpec iv = new IvParameterSpec(strParam.getBytes(StandardCharsets.UTF_8));
 
     private static DESKeySpec getDesKeySpec(String source) throws Exception {
-        if (source == null || source.length() == 0) {
+        if (source == null || source.length() == 0){
             return null;
         }
         cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
@@ -79,7 +78,7 @@ public class EncryptUtils {
 
     private static byte[] hex2byte(byte[] b) {
         int size = 2;
-        if ((b.length % size) != 0) {
+        if ((b.length % size) != 0){
             throw new IllegalArgumentException("长度不是偶数");
         }
         byte[] b2 = new byte[b.length / 2];
@@ -95,7 +94,7 @@ public class EncryptUtils {
      * @param password
      * @return
      */
-    public static String encryptPassword(String password) {
-        return DigestUtils.md5DigestAsHex(password.getBytes());
+    public static String encryptPassword(String password){
+        return  DigestUtils.md5DigestAsHex(password.getBytes());
     }
 }

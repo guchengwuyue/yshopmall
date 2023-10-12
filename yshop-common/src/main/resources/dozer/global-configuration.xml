@@ -8,7 +8,7 @@
         <trim-strings>false</trim-strings>
         <!-- 自定义的枚举与Integer转换器, 下节介绍 -->
         <!--<custom-converters>
-            <converter type="com.dongao.beacon.ds.web.admin.tookit.EnumIntegerBiDirectionalDozerConverter">
+            <converter type="com.dongao.beacon.ds.rest.admin.tookit.EnumIntegerBiDirectionalDozerConverter">
                 <class-a>java.lang.Enum</class-a>
                 <class-b>java.lang.Integer</class-b>
             </converter>

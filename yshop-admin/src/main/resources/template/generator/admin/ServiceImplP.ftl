@@ -2,7 +2,9 @@
 * Copyright (C) 2018-2022
 * All rights reserved, Designed By www.yixiang.co
 * 注意：
-* 本软件为www.yixiang.co开发研制
+* 本软件为www.yixiang.co开发研制，未经购买不得使用
+* 购买后可获得全部源代码（禁止转卖、分享、上传到码云、github等开源平台）
+* 一经发现盗用、分享等行为，将追究法律责任，后果自负
 */
 package ${package}.service.impl;
 
@@ -11,7 +13,7 @@ import ${package}.domain.${className};
     <#list columns as column>
         <#if column.columnKey = 'UNI'>
             <#if column_index = 1>
-                import co.yixiang.exception.EntityExistException;
+import co.yixiang.exception.EntityExistException;
             </#if>
         </#if>
     </#list>
@@ -32,11 +34,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 <#if !auto && pkColumnType = 'Long'>
-    import cn.hutool.core.lang.Snowflake;
-    import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 </#if>
 <#if !auto && pkColumnType = 'String'>
-    import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.IdUtil;
 </#if>
 // 默认不使用缓存
 //import org.springframework.cache.annotation.CacheConfig;
@@ -50,7 +52,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
+import co.yixiang.domain.PageResult;
 /**
 * @author ${author}
 * @date ${date}
@@ -59,54 +61,42 @@ import java.util.LinkedHashMap;
 @AllArgsConstructor
 //@CacheConfig(cacheNames = "${changeClassName}")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class ${className}ServiceImpl extends BaseServiceImpl
-<${className}Mapper, ${className}> implements ${className}Service {
+public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
 
-private final IGenerator generator;
+    private final IGenerator generator;
 
-@Override
-//@Cacheable
-public Map
-<String, Object> queryAll(${className}QueryCriteria criteria, Pageable pageable) {
-getPage(pageable);
-PageInfo<${className}> page = new PageInfo<>(queryAll(criteria));
-Map
-<String, Object> map = new LinkedHashMap<>(2);
-map.put("content", generator.convert(page.getList(), ${className}Dto.class));
-map.put("totalElements", page.getTotal());
-return map;
-}
+    @Override
+    //@Cacheable
+    public PageResult<${className}Dto> queryAll(${className}QueryCriteria criteria, Pageable pageable) {
+        getPage(pageable);
+        PageInfo<${className}> page = new PageInfo<>(queryAll(criteria));
+        return generator.convertPageInfo(page,${className}Dto.class);
+    }
 
 
-@Override
-//@Cacheable
-public List<${className}> queryAll(${className}QueryCriteria criteria){
-return baseMapper.selectList(QueryHelpPlus.getPredicate(${className}.class, criteria));
-}
+    @Override
+    //@Cacheable
+    public List<${className}> queryAll(${className}QueryCriteria criteria){
+        return baseMapper.selectList(QueryHelpPlus.getPredicate(${className}.class, criteria));
+    }
 
 
-@Override
-public void download(List
-<${className}Dto> all, HttpServletResponse response) throws IOException {
-    List
-    <Map
-    <String
-    , Object>> list = new ArrayList<>();
-    for (${className}Dto ${changeClassName} : all) {
-    Map
-    <String
-    ,Object> map = new LinkedHashMap<>();
-    <#list columns as column>
-        <#if column.columnKey != 'PRI'>
+    @Override
+    public void download(List<${className}Dto> all, HttpServletResponse response) throws IOException {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (${className}Dto ${changeClassName} : all) {
+            Map<String,Object> map = new LinkedHashMap<>();
+        <#list columns as column>
+            <#if column.columnKey != 'PRI'>
             <#if column.remark != ''>
-                map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
+            map.put("${column.remark}", ${changeClassName}.get${column.capitalColumnName}());
             <#else>
-                map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
+            map.put(" ${column.changeColumnName}",  ${changeClassName}.get${column.capitalColumnName}());
             </#if>
-        </#if>
-    </#list>
-    list.add(map);
+            </#if>
+        </#list>
+            list.add(map);
+        }
+        FileUtil.downloadExcel(list, response);
     }
-    FileUtil.downloadExcel(list, response);
-    }
-    }
+}

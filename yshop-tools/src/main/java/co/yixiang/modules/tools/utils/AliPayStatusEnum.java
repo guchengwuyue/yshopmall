@@ -1,8 +1,7 @@
 /**
  * Copyright (C) 2018-2022
  * All rights reserved, Designed By www.yixiang.co
- * 注意：
- * 本软件为www.yixiang.co开发研制
+
  */
 package co.yixiang.modules.tools.utils;
 
@@ -11,7 +10,7 @@ package co.yixiang.modules.tools.utils;
  * @author zhengjie
  * @date 2018/08/01 16:45:43
  */
-public enum AliPayStatusEnum {
+public enum  AliPayStatusEnum {
 
     /** 交易成功 */
     FINISHED("交易成功", "TRADE_FINISHED"),
