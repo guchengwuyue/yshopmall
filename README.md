@@ -17,7 +17,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 | 依赖              | 版本     |
 |-----------------|--------|
-| Spring Boot     | 2.7.10 |
+| Spring Boot     | 2.7.x |
 | weixin-java     | 4.4.0  |
 | Spring Security | 2.7.10 |
 | Mybatis Plus    | 3.5.2  |
@@ -43,8 +43,8 @@ Idea、webstorm、vscode
 git clone https://gitee.com/guchengwuyue/yshopmall.git
 ```
 3、idea打开项目加载依赖目录如下：
+![输入图片说明](1.png)
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163004_833fc53d_477893.png "test1.png")
 
 4、导入数据库，配置开发环境数据库信息及其redis信息，文件路径如下：
 
