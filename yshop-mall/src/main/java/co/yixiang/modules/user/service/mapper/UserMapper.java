@@ -37,7 +37,7 @@ public interface UserMapper extends CoreMapper<YxUser> {
             "   #{id}" +
             " </foreach> <if test='keyword != null'>" +
             " AND ( u.nickname LIKE CONCAT(CONCAT('%',#{keyword}),'%') OR u.phone LIKE CONCAT(CONCAT('%',#{keyword}),'%'))</if>" +
-            " GROUP BY u.uid ORDER BY #{orderByStr} " +
+            " GROUP BY u.uid ORDER BY ${orderByStr} " +
             "</script>")
     List<PromUserDto> getUserSpreadCountList(Page page,
                                              @Param("uids") List uids,
