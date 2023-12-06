@@ -116,7 +116,12 @@ public class StoreAfterSalesServiceImpl extends BaseServiceImpl<StoreAfterSalesM
         //生成售后订单
         StoreAfterSales storeAfterSales = new StoreAfterSales();
         storeAfterSales.setOrderCode(storeAfterSalesParam.getOrderCode());
-        storeAfterSales.setRefundAmount(totalPrice);
+        //此处需要对比原来订单的支付价格
+        if(totalPrice.compareTo(yxStoreOrder.getPayPrice()) > 0){
+            storeAfterSales.setRefundAmount(yxStoreOrder.getPayPrice());
+        }else{
+            storeAfterSales.setRefundAmount(totalPrice);
+        }
         storeAfterSales.setServiceType(storeAfterSalesParam.getServiceType());
         storeAfterSales.setReasons(storeAfterSalesParam.getReasonForApplication());
         storeAfterSales.setExplains(storeAfterSalesParam.getApplicationInstructions());
