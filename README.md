@@ -1,5 +1,7 @@
 ###  **[B2C微服务系统、B2B2C多商户系统、餐饮点餐系统，请移步](https://www.yixiang.co)** 
 
+[yshop意向点餐系统开源啦，点赞star，可以进群获取资料，且能领取优惠券一张](https://gitee.com/guchengwuyue/yshop-drink)
+
 
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
