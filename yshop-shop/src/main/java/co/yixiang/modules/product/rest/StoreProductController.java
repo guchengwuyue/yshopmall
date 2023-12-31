@@ -195,8 +195,8 @@ public class StoreProductController {
             productDto.setAttrs(productFormatDtos);
             productDto.setItems(result.getObject("attr",ArrayList.class));
         }else{
-
-            productFromat(productDto, result);
+            productFromatNew(productDto, attrValues.get(0));
+           // productFromat(productDto, result);
         }
 
         map.put("productInfo",productDto);
@@ -204,11 +204,40 @@ public class StoreProductController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
+
     /**
      * 获取商品属性
      * @param productDto
      * @param result
      */
+    private void productFromatNew(ProductDto productDto, YxStoreProductAttrValue result) {
+        ProductFormatDto productFormatDto = ProductFormatDto.builder()
+                .pic(result.getImage())
+                .price(result.getPrice().doubleValue())
+                .cost(result.getCost().doubleValue())
+                .otPrice(result.getOtPrice().doubleValue())
+                .stock(result.getStock())
+                .barCode(result.getBarCode())
+                .weight(result.getWeight().doubleValue())
+                .volume(result.getVolume().doubleValue())
+                .value1("规格")
+                .integral(result.getIntegral())
+                .brokerage(result.getBrokerage().doubleValue())
+                .brokerageTwo(result.getBrokerageTwo().doubleValue())
+                .pinkPrice(result.getPinkPrice().doubleValue())
+                .pinkStock(result.getPinkStock())
+                .seckillPrice(result.getSeckillPrice().doubleValue())
+                .seckillStock(result.getSeckillStock())
+                .build();
+        productDto.setAttr(productFormatDto);
+    }
+
+    /**
+     * 获取商品属性
+     * @param productDto
+     * @param result
+     */
+    @Deprecated
     private void productFromat(ProductDto productDto, JSONObject result) {
         Map<String,Object> mapAttr = (Map<String,Object>) result.getObject("value",ArrayList.class).get(0);
         ProductFormatDto productFormatDto = ProductFormatDto.builder()
