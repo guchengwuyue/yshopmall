@@ -12,6 +12,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProductTypeEnum {
+    PRODUCT("product","普通商品"),
 
     PINK("pink","拼团"),
 

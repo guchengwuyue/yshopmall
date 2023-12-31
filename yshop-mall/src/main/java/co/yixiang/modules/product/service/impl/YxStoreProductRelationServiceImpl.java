@@ -8,11 +8,19 @@
  */
 package co.yixiang.modules.product.service.impl;
 
+import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.util.ArrayUtil;
 import co.yixiang.api.YshopException;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.domain.PageResult;
 import co.yixiang.dozer.service.IGenerator;
+import co.yixiang.enums.ProductTypeEnum;
+import co.yixiang.modules.activity.domain.YxStoreCombination;
+import co.yixiang.modules.activity.domain.YxStoreSeckill;
+import co.yixiang.modules.activity.service.YxStoreCombinationService;
+import co.yixiang.modules.activity.service.YxStoreSeckillService;
+import co.yixiang.modules.product.domain.YxStoreProduct;
 import co.yixiang.modules.product.domain.YxStoreProductRelation;
 import co.yixiang.modules.product.service.YxStoreProductRelationService;
 import co.yixiang.modules.product.service.YxStoreProductService;
@@ -22,6 +30,8 @@ import co.yixiang.modules.product.service.mapper.YxStoreProductRelationMapper;
 import co.yixiang.modules.product.vo.YxStoreProductRelationQueryVo;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.utils.FileUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
@@ -57,6 +67,8 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
     private final YxStoreProductService storeProductService;
     private final YxUserService userService;
     private final IGenerator generator;
+    private final YxStoreCombinationService storeCombinationService;
+    private final YxStoreSeckillService storeSeckillService;
 
     /**
      * 获取用户收藏列表
@@ -68,7 +80,39 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
     @Override
     public List<YxStoreProductRelationQueryVo> userCollectProduct(int page, int limit, Long uid,String type) {
         Page<YxStoreProductRelation> pageModel = new Page<>(page, limit);
-        List<YxStoreProductRelationQueryVo> list = yxStoreProductRelationMapper.selectRelationList(pageModel,uid,type);
+        IPage<YxStoreProductRelation> pageList = yxStoreProductRelationMapper.selectPage(pageModel
+                ,new LambdaQueryWrapper<YxStoreProductRelation>().eq(YxStoreProductRelation::getUid,uid)
+                        .eq(YxStoreProductRelation::getType,type));
+        List<YxStoreProductRelationQueryVo> list = ListUtil.list(false);
+        for (YxStoreProductRelation yxStoreProductRelation : pageList.getRecords()) {
+            YxStoreProductRelationQueryVo relationQueryVo = generator
+                    .convert(yxStoreProductRelation,YxStoreProductRelationQueryVo.class);
+            String storeName = "";
+            String image = "";
+            Double price = 0d;
+            if(ProductTypeEnum.PRODUCT.getValue().equals(yxStoreProductRelation.getCategory())){
+                YxStoreProduct yxStoreProduct = storeProductService.getById(yxStoreProductRelation.getProductId());
+                storeName = yxStoreProduct.getStoreName();
+                image = yxStoreProduct.getImage();
+                price = yxStoreProduct.getPrice().doubleValue();
+                relationQueryVo.setIsIntegral(yxStoreProduct.getIsIntegral());
+            }else if(ProductTypeEnum.COMBINATION.getValue().equals(yxStoreProductRelation.getCategory())){
+                YxStoreCombination yxStoreCombination = storeCombinationService.getById(yxStoreProductRelation.getProductId());
+                storeName = yxStoreCombination.getTitle();
+                image = yxStoreCombination.getImage();
+                price = yxStoreCombination.getPrice().doubleValue();
+            }else if(ProductTypeEnum.SECKILL.getValue().equals(yxStoreProductRelation.getCategory())){
+                YxStoreSeckill yxStoreSeckill = storeSeckillService.getById(yxStoreProductRelation.getProductId());
+                storeName = yxStoreSeckill.getTitle();
+                image = yxStoreSeckill.getImage();
+                price = yxStoreSeckill.getPrice().doubleValue();
+            }
+            relationQueryVo.setStoreName(storeName);
+            relationQueryVo.setImage(image);
+            relationQueryVo.setPrice(price);
+            list.add(relationQueryVo);
+        }
+        // List<YxStoreProductRelationQueryVo> list = yxStoreProductRelationMapper.selectRelationList(pageModel,uid,type);
         return list;
     }
 
@@ -78,14 +122,15 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
      * @param uid 用户id
      */
     @Override
-    public void addRroductRelation(long productId,long uid,String category) {
-        if(isProductRelation(productId,uid)) {
+    public void addRroductRelation(long productId,long uid,String category,String type) {
+        if(isProductRelation(productId,uid,category)) {
             throw new YshopException("已收藏");
         }
         YxStoreProductRelation storeProductRelation = YxStoreProductRelation.builder()
                 .productId(productId)
                 .uid(uid)
-                .type(category)
+                .type(type)
+                .category(category)
                 .build();
         yxStoreProductRelationMapper.insert(storeProductRelation);
     }
@@ -96,11 +141,12 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
      * @param uid 用户id
      */
     @Override
-    public void delRroductRelation(long productId,long uid,String category) {
+    public void delRroductRelation(long productId,long uid,String category,String type) {
         YxStoreProductRelation productRelation = this.lambdaQuery()
                 .eq(YxStoreProductRelation::getProductId,productId)
                 .eq(YxStoreProductRelation::getUid,uid)
-                .eq(YxStoreProductRelation::getType,category)
+                .eq(YxStoreProductRelation::getType,type)
+                .eq(YxStoreProductRelation::getCategory,category)
                 .one();
         if(productRelation == null) {
             throw new YshopException("已取消");
@@ -116,11 +162,12 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
      * @return Boolean
      */
     @Override
-    public Boolean isProductRelation(long productId, long uid) {
+    public Boolean isProductRelation(long productId, long uid,String category) {
         Long count = yxStoreProductRelationMapper
                 .selectCount(Wrappers.<YxStoreProductRelation>lambdaQuery()
                         .eq(YxStoreProductRelation::getUid,uid)
                         .eq(YxStoreProductRelation::getType,"collect")
+                        .eq(YxStoreProductRelation::getCategory,category)
                         .eq(YxStoreProductRelation::getProductId,productId));
         if(count > 0) {
             return true;

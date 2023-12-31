@@ -36,21 +36,21 @@ public interface YxStoreProductRelationService extends BaseService<YxStoreProduc
      * @param uid 用户ID
      * @return Boolean
      */
-    Boolean isProductRelation(long productId, long uid);
+    Boolean isProductRelation(long productId, long uid,String category);
 
     /**
      *添加收藏
      * @param productId 商品id
      * @param uid 用户id
      */
-    void addRroductRelation(long productId,long uid,String category);
+    void addRroductRelation(long productId,long uid,String category,String type);
 
     /**
      * 取消收藏
      * @param productId 商品id
      * @param uid 用户id
      */
-    void delRroductRelation(long productId,long uid,String category);
+    void delRroductRelation(long productId,long uid,String category,String type);
 
     /**
      * 获取用户收藏列表

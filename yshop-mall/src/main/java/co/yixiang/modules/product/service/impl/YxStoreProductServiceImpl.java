@@ -169,7 +169,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
 
     @Override
     public YxStoreProduct getProductInfo(Long id) {
-       LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(YxStoreProduct::getIsShow, 1).eq(YxStoreProduct::getId, id);
         YxStoreProduct storeProduct = this.baseMapper.selectOne(wrapper);
         if (ObjectUtil.isNull(storeProduct)) {
@@ -298,7 +298,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
      */
     @Override
     public ProductVo goodsDetail(Long id, Long uid, String latitude, String longitude) {
-       LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(YxStoreProduct::getIsShow, ShopCommonEnum.SHOW_1.getValue())
                 .eq(YxStoreProduct::getId, id);
         YxStoreProduct storeProduct = storeProductMapper.selectOne(wrapper);
@@ -321,7 +321,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             storeProductQueryVo.setVipPrice(BigDecimal.valueOf(vipPrice));
 
             //收藏
-            boolean isCollect = relationService.isProductRelation(id, uid);
+            boolean isCollect = relationService.isProductRelation(id, uid,ProductTypeEnum.PRODUCT.getValue());
             storeProductQueryVo.setUserCollect(isCollect);
         }
         //总条数
@@ -368,6 +368,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
             YxStoreProductRelation foot = relationService.getOne(new LambdaQueryWrapper<YxStoreProductRelation>()
                     .eq(YxStoreProductRelation::getUid, uid)
                     .eq(YxStoreProductRelation::getProductId, storeProductQueryVo.getId())
+                    .eq(YxStoreProductRelation::getCategory,ProductTypeEnum.PRODUCT.getValue())
                     .eq(YxStoreProductRelation::getType, "foot"));
 
             if (ObjectUtil.isNotNull(foot)) {
@@ -379,6 +380,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
                 storeProductRelation.setUid(uid);
                 storeProductRelation.setCreateTime(new Date());
                 storeProductRelation.setType("foot");
+                storeProductRelation.setCategory(ProductTypeEnum.PRODUCT.getValue());
                 relationService.save(storeProductRelation);
             }
         }
@@ -408,8 +410,8 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     @Override
     public List<YxStoreProductQueryVo> getList(int page, int limit, int order) {
 
-       LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
-       wrapper.eq(YxStoreProduct::getIsShow, ShopCommonEnum.SHOW_1.getValue())
+        LambdaQueryWrapper<YxStoreProduct> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(YxStoreProduct::getIsShow, ShopCommonEnum.SHOW_1.getValue())
                 .eq(YxStoreProduct::getIsDel,ShopCommonEnum.DELETE_0.getValue())
                 .orderByDesc(YxStoreProduct::getSort);
         wrapper.eq(YxStoreProduct::getIsIntegral,0);
