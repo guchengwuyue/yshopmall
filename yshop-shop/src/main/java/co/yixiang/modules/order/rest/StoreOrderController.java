@@ -268,7 +268,7 @@ public class StoreOrderController {
     @ApiOperation(value = "删除")
     @DeleteMapping(value = "/yxStoreOrder/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         yxStoreOrderService.removeById(id);
         return new ResponseEntity(HttpStatus.OK);
     }
