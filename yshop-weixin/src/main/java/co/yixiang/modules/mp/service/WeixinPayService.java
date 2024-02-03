@@ -26,8 +26,8 @@ import co.yixiang.modules.user.service.YxUserRechargeService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.dto.WechatUserDto;
 import co.yixiang.modules.mp.config.WxPayConfiguration;
-import co.yixiang.utils.IpUtil;
 import co.yixiang.utils.RedisUtils;
+import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.ShopKeyUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
@@ -124,7 +124,7 @@ public class WeixinPayService {
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
         orderRequest.setOutTradeNo(orderId);
         orderRequest.setTotalFee(payPrice);
-        orderRequest.setSpbillCreateIp(IpUtil.getLocalIP());
+        orderRequest.setSpbillCreateIp(RequestHolder.getClientIP());
         orderRequest.setNotifyUrl(this.getApiUrl() + "/api/wechat/notify");
         orderRequest.setBody(body);
         orderRequest.setAttach(attach);
@@ -214,7 +214,7 @@ public class WeixinPayService {
         entPayRequest.setReUserName(userName);
         entPayRequest.setAmount(amount);
         entPayRequest.setDescription("提现");
-        entPayRequest.setSpbillCreateIp(IpUtil.getLocalIP());
+        entPayRequest.setSpbillCreateIp(RequestHolder.getClientIP());
         wxPayService.getEntPayService().entPay(entPayRequest);
 
     }
