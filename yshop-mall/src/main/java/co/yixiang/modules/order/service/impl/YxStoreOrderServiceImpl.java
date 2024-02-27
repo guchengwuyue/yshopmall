@@ -78,9 +78,7 @@ import co.yixiang.modules.user.vo.YxUserQueryVo;
 import co.yixiang.modules.tools.domain.AlipayConfig;
 import co.yixiang.modules.tools.domain.vo.TradeVo;
 import co.yixiang.modules.tools.service.AlipayConfigService;
-import co.yixiang.utils.FileUtil;
-import co.yixiang.utils.OrderUtil;
-import co.yixiang.utils.RedisUtils;
+import co.yixiang.utils.*;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -272,6 +270,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
                 .enableIntegral(enableIntegral)
                 .enableIntegralNum(Double.valueOf(other.getIntegralMax()))
                 //.integralRatio(d)
+                .storeSelfMention(Integer.valueOf(RedisUtil.get(ShopKeyUtils.getStoreSelfMention())))
                 .usableCoupon(storeCouponUser)
                 .systemStore(systemStoreService.getStoreInfo("", ""))
                 .build();
