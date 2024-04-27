@@ -23,6 +23,6 @@ import java.util.List;
 @Repository
 public interface DictDetailMapper extends CoreMapper<DictDetail> {
 
-    @Select("<script>SELECT d.* from dict_detail d LEFT JOIN dict t on d.dict_id = t.id where d.is_del=0 <if test = \"label !=null\" > and d.label LIKE concat('%', #{label}, '%') </if> <if test = \"dictName != ''||dictName !=null\" > AND t.name = #{dictName} order by d.sort asc</if></script>")
+    @Select("<script>SELECT d.* from sys_dict_detail d LEFT JOIN sys_dict t on d.dict_id = t.id where d.is_del=0 <if test = \"label !=null\" > and d.label LIKE concat('%', #{label}, '%') </if> <if test = \"dictName != ''||dictName !=null\" > AND t.name = #{dictName} order by d.sort asc</if></script>")
     List<DictDetail> selectDictDetailList(@Param("label") String label,@Param("dictName") String dictName);
 }

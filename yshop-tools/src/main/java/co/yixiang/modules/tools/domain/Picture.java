@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 */
 
 @Data
-@TableName("picture")
+@TableName("tools_picture")
 public class Picture implements Serializable {
 
     /** ID */

@@ -162,7 +162,7 @@
       "chnname": "工具模块",
       "entities": [
         {
-          "title": "email_config",
+          "title": "tools_email_config",
           "chnname": "邮箱配置",
           "fields": [
             {
@@ -216,7 +216,7 @@
               "defaultValue": ""
             },
             {
-              "name": "user",
+              "name": "sys_user",
               "type": "VARCHAR_255",
               "chnname": "发件者用户名",
               "remark": "",
@@ -228,7 +228,7 @@
           ]
         },
         {
-          "title": "local_storage",
+          "title": "tools_local_storage",
           "chnname": "本地存储",
           "fields": [
             {
@@ -324,7 +324,7 @@
           ]
         },
         {
-          "title": "picture",
+          "title": "tools_picture",
           "chnname": "Sm.Ms图床",
           "fields": [
             {
@@ -430,7 +430,7 @@
           ]
         },
         {
-          "title": "qiniu_config",
+          "title": "tools_qiniu_config",
           "chnname": "七牛云配置",
           "fields": [
             {
@@ -506,7 +506,7 @@
           ]
         },
         {
-          "title": "qiniu_content",
+          "title": "tools_qiniu_content",
           "chnname": "七牛云文件存储",
           "fields": [
             {
@@ -592,7 +592,7 @@
           ]
         },
         {
-          "title": "verification_code",
+          "title": "tools_verification_code",
           "chnname": "验证码",
           "fields": [
             {
@@ -668,7 +668,7 @@
           ]
         },
         {
-          "title": "alipay_config",
+          "title": "tools_alipay_config",
           "chnname": "支付宝配置类",
           "fields": [
             {
@@ -794,7 +794,7 @@
       "chnname": "日志",
       "entities": [
         {
-          "title": "log",
+          "title": "sys_log",
           "chnname": "系统日志",
           "fields": [
             {
@@ -1297,7 +1297,7 @@
       "chnname": "",
       "entities": [
         {
-          "title": "visits",
+          "title": "sys_visits",
           "chnname": "访客记录",
           "fields": [
             {
@@ -1676,7 +1676,7 @@
       "chnname": "系统模块",
       "entities": [
         {
-          "title": "users_roles",
+          "title": "sys_users_roles",
           "chnname": "用户角色关联",
           "fields": [
             {
@@ -1702,7 +1702,7 @@
           ]
         },
         {
-          "title": "roles_menus",
+          "title": "sys_roles_menus",
           "chnname": "角色菜单关联",
           "fields": [
             {
@@ -1728,7 +1728,7 @@
           ]
         },
         {
-          "title": "roles_depts",
+          "title": "sys_roles_depts",
           "chnname": "角色部门关联",
           "fields": [
             {
@@ -1754,7 +1754,7 @@
           ]
         },
         {
-          "title": "user_avatar",
+          "title": "sys_user_avatar",
           "chnname": "系统用户头像",
           "fields": [
             {
@@ -1810,7 +1810,7 @@
           ]
         },
         {
-          "title": "role",
+          "title": "sys_role",
           "chnname": "角色表",
           "fields": [
             {
@@ -1906,7 +1906,7 @@
           ]
         },
         {
-          "title": "dict",
+          "title": "sys_dict",
           "chnname": "数据字典",
           "fields": [
             {
@@ -1972,7 +1972,7 @@
           ]
         },
         {
-          "title": "dict_detail",
+          "title": "sys_dict_detail",
           "chnname": "数据字典详情",
           "fields": [
             {
@@ -2058,7 +2058,7 @@
           ]
         },
         {
-          "title": "dept",
+          "title": "sys_dept",
           "chnname": "部门",
           "fields": [
             {
@@ -2134,7 +2134,7 @@
           ]
         },
         {
-          "title": "menu",
+          "title": "sys_menu",
           "chnname": "",
           "fields": [
             {
@@ -2300,7 +2300,7 @@
           ]
         },
         {
-          "title": "job",
+          "title": "sys_job",
           "chnname": "岗位",
           "fields": [
             {
@@ -2386,7 +2386,7 @@
           ]
         },
         {
-          "title": "user",
+          "title": "sys_user",
           "chnname": "系统用户",
           "fields": [
             {
@@ -2546,7 +2546,7 @@
         "nodes": [
           {
             "shape": "table",
-            "title": "user",
+            "title": "sys_user",
             "moduleName": false,
             "x": 730,
             "y": 200,
@@ -2554,7 +2554,7 @@
           },
           {
             "shape": "table",
-            "title": "menu",
+            "title": "sys_menu",
             "moduleName": false,
             "x": 230,
             "y": 580,
@@ -2562,7 +2562,7 @@
           },
           {
             "shape": "table",
-            "title": "dict_detail",
+            "title": "sys_dict_detail",
             "moduleName": false,
             "x": 1440,
             "y": 720,
@@ -2570,7 +2570,7 @@
           },
           {
             "shape": "table",
-            "title": "dict",
+            "title": "sys_dict",
             "moduleName": false,
             "x": 1080,
             "y": 770,
@@ -2578,7 +2578,7 @@
           },
           {
             "shape": "table",
-            "title": "user_avatar",
+            "title": "sys_user_avatar",
             "moduleName": false,
             "x": 220,
             "y": 100,
@@ -2586,7 +2586,7 @@
           },
           {
             "shape": "table",
-            "title": "job",
+            "title": "sys_job",
             "moduleName": false,
             "x": 240,
             "y": 290,
@@ -2594,7 +2594,7 @@
           },
           {
             "shape": "table",
-            "title": "roles_menus",
+            "title": "sys_roles_menus",
             "moduleName": false,
             "x": 550,
             "y": 490,
@@ -2602,7 +2602,7 @@
           },
           {
             "shape": "table",
-            "title": "role",
+            "title": "sys_role",
             "moduleName": false,
             "x": 850,
             "y": 570,
@@ -2610,7 +2610,7 @@
           },
           {
             "shape": "table",
-            "title": "roles_depts",
+            "title": "sys_roles_depts",
             "moduleName": false,
             "x": 1140,
             "y": 490,
@@ -2618,7 +2618,7 @@
           },
           {
             "shape": "table",
-            "title": "users_roles",
+            "title": "sys_users_roles",
             "moduleName": false,
             "x": 1210,
             "y": 50,
@@ -2626,7 +2626,7 @@
           },
           {
             "shape": "table",
-            "title": "dept",
+            "title": "sys_dept",
             "moduleName": false,
             "x": 1200,
             "y": 240,
@@ -2850,110 +2850,110 @@
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "user",
+            "entity": "sys_user",
             "field": "job_id"
           },
           "to": {
-            "entity": "job",
+            "entity": "sys_job",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "user",
+            "entity": "sys_user",
             "field": "dept_id"
           },
           "to": {
-            "entity": "dept",
+            "entity": "sys_dept",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "dict_detail",
+            "entity": "sys_dict_detail",
             "field": "dict_id"
           },
           "to": {
-            "entity": "dict",
+            "entity": "sys_dict",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "user",
+            "entity": "sys_user",
             "field": "avatar_id"
           },
           "to": {
-            "entity": "user_avatar",
+            "entity": "sys_user_avatar",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "roles_menus",
+            "entity": "sys_roles_menus",
             "field": "menu_id"
           },
           "to": {
-            "entity": "menu",
+            "entity": "sys_menu",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "roles_menus",
+            "entity": "sys_roles_menus",
             "field": "role_id"
           },
           "to": {
-            "entity": "role",
+            "entity": "sys_role",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "roles_depts",
+            "entity": "sys_roles_depts",
             "field": "role_id"
           },
           "to": {
-            "entity": "role",
+            "entity": "sys_role",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "roles_depts",
+            "entity": "sys_roles_depts",
             "field": "dept_id"
           },
           "to": {
-            "entity": "dept",
+            "entity": "sys_dept",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "users_roles",
+            "entity": "sys_users_roles",
             "field": "user_id"
           },
           "to": {
-            "entity": "user",
+            "entity": "sys_user",
             "field": "id"
           }
         },
         {
           "relation": "0,n:1",
           "from": {
-            "entity": "users_roles",
+            "entity": "sys_users_roles",
             "field": "role_id"
           },
           "to": {
-            "entity": "role",
+            "entity": "sys_role",
             "field": "id"
           }
         }
@@ -8918,7 +8918,7 @@
       "associations": []
     },
     {
-      "name": "user",
+      "name": "sys_user",
       "chnname": "用户模块",
       "entities": [
         {

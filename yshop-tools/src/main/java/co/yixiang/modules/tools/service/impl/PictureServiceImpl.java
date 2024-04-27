@@ -52,7 +52,7 @@ import java.util.Map;
 */
 @Service
 //@AllArgsConstructor
-//@CacheConfig(cacheNames = "picture")
+//@CacheConfig(cacheNames = "tools_picture")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class PictureServiceImpl extends BaseServiceImpl<PictureMapper, Picture> implements PictureService {
 

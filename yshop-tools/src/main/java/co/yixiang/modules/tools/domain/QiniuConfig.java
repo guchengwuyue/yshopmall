@@ -19,7 +19,7 @@ import java.io.Serializable;
 */
 
 @Data
-@TableName("qiniu_config")
+@TableName("tools_qiniu_config")
 public class QiniuConfig implements Serializable {
 
     /** ID */

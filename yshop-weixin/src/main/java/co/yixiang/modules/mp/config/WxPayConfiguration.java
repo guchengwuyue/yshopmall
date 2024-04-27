@@ -61,6 +61,12 @@ public class WxPayConfiguration {
 			payConfig.setMchId(redisUtils.getY(ShopKeyUtils.getWxPayMchId()));
 			payConfig.setMchKey(redisUtils.getY(ShopKeyUtils.getWxPayMchKey()));
 			payConfig.setKeyPath(redisUtils.getY(ShopKeyUtils.getWxPayKeyPath()));
+			// todo 使用v3证书需要的字段
+			// payConfig.setMchId();
+			// payConfig.setApiV3Key();
+			// payConfig.setCertSerialNo();
+			// payConfig.setPrivateKeyPath();
+			// payConfig.setPrivateCertPath();
 			// 可以指定是否使用沙箱环境
 			payConfig.setUseSandboxEnv(false);
 			wxPayService = new WxPayServiceImpl();

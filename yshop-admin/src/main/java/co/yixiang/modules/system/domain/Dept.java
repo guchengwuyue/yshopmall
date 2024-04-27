@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("dept")
+@TableName("sys_dept")
 public class Dept extends BaseDomain {
 
     /** ID */

@@ -24,7 +24,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("verification_code")
+@TableName("tools_verification_code")
 public class VerificationCode  implements Serializable {
 
     @TableId

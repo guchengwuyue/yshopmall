@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface VisitsMapper extends CoreMapper<Visits> {
-    @Select("select * FROM visits where create_time between #{time1} and #{time2}")
+    @Select("select * FROM sys_visits where create_time between #{time1} and #{time2}")
     List<Visits> findAllVisits(@Param("time1") String time1, @Param("time2")String time2);
 }

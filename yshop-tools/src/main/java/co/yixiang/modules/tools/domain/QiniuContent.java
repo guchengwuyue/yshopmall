@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 */
 
 @Data
-@TableName("qiniu_content")
+@TableName("tools_qiniu_content")
 public class QiniuContent implements Serializable {
 
     /** ID */

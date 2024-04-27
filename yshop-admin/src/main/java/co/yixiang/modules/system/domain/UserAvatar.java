@@ -24,7 +24,7 @@ import java.sql.Timestamp;
 * @date 2020-05-14
 */
 @Data
-@TableName("user_avatar")
+@TableName("sys_user_avatar")
 public class UserAvatar implements Serializable {
 
     @TableId

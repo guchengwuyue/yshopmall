@@ -19,7 +19,7 @@ import java.io.Serializable;
 */
 
 @Data
-@TableName("alipay_config")
+@TableName("tools_alipay_config")
 public class AlipayConfig implements Serializable {
 
     /** 主键 */

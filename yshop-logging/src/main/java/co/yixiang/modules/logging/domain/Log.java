@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("log")
+@TableName("sys_log")
 @NoArgsConstructor
 public class Log extends BaseDomain {
 

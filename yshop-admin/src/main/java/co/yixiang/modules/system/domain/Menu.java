@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("menu")
+@TableName("sys_menu")
 public class Menu extends BaseDomain {
 
     /** ID */

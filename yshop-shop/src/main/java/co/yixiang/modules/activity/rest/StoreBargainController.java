@@ -10,11 +10,11 @@ package co.yixiang.modules.activity.rest;
 
 import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.api.YshopException;
-import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreBargain;
 import co.yixiang.modules.activity.service.YxStoreBargainService;
 import co.yixiang.modules.activity.service.dto.YxStoreBargainQueryCriteria;
 import co.yixiang.modules.aop.ForbidSubmit;
+import co.yixiang.modules.logging.aop.log.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
@@ -54,7 +54,7 @@ public class StoreBargainController {
     }
 
 
-
+    @ForbidSubmit
     @Log("修改砍价")
     @ApiOperation(value = "修改砍价")
     @PutMapping(value = "/yxStoreBargain")

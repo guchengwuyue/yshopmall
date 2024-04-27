@@ -21,7 +21,7 @@ import lombok.Data;
 * @date 2020-05-14
 */
 @Data
-@TableName("dict_detail")
+@TableName("sys_dict_detail")
 public class DictDetail extends BaseDomain {
 
     /** 字典详细 */

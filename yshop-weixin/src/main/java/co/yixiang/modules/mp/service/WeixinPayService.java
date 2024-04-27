@@ -7,6 +7,7 @@
  * 一经发现盗用、分享等行为，将追究法律责任，后果自负
  */
 package co.yixiang.modules.mp.service;
+
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
@@ -18,6 +19,7 @@ import co.yixiang.enums.BillDetailEnum;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.enums.PayMethodEnum;
 import co.yixiang.enums.PayTypeEnum;
+import co.yixiang.modules.mp.config.WxPayConfiguration;
 import co.yixiang.modules.order.service.YxStoreOrderService;
 import co.yixiang.modules.order.vo.YxStoreOrderQueryVo;
 import co.yixiang.modules.user.domain.YxUser;
@@ -25,12 +27,12 @@ import co.yixiang.modules.user.domain.YxUserRecharge;
 import co.yixiang.modules.user.service.YxUserRechargeService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.dto.WechatUserDto;
-import co.yixiang.modules.mp.config.WxPayConfiguration;
 import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.ShopKeyUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
+import com.github.binarywang.wxpay.bean.marketing.transfer.PartnerTransferRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
@@ -40,6 +42,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName 微信支付WeixinPayService
@@ -216,6 +220,42 @@ public class WeixinPayService {
         entPayRequest.setDescription("提现");
         entPayRequest.setSpbillCreateIp(RequestHolder.getClientIP());
         wxPayService.getEntPayService().entPay(entPayRequest);
+
+    }
+
+    /**
+     * 企业打款v3 https://pay.weixin.qq.com/wiki/doc/apiv3_partner/Offline/apis/chapter4_3_1.shtml
+     * todo 需要使用v3证书，需要把WxPayService类里面的getPayService 里面的v3参数赋值到payConfig里面去
+     * todo 未测试 自行对接具体的接口测试，去看上面具体的微信文档
+     * todo 这个方法只是一个demo，需要自行去对接。因为之前老用户用老的方法提现是可以的，现在微信修改了
+     * todo 需要自行对接
+     * @param openid 微信openid
+     * @param no 单号
+     * @param userName 用户姓名
+     * @param amount 金额
+     * @throws WxPayException
+     */
+    public void entPayV3(String subMchid,String openid,String no,String userName,Integer amount) throws WxPayException {
+        WxPayService wxPayService = WxPayConfiguration.getPayService(PayMethodEnum.WECHAT);
+        PartnerTransferRequest partnerTransferRequest = new PartnerTransferRequest();
+        partnerTransferRequest.setSubMchid(subMchid);
+        // todo 根据文档自行修改
+        partnerTransferRequest.setAuthorizationType("INFORMATION_AUTHORIZATION_TYPE");
+        partnerTransferRequest.setOutBatchNo(no);
+        partnerTransferRequest.setBatchName("提现");
+        partnerTransferRequest.setBatchRemark("提现");
+        partnerTransferRequest.setTotalAmount(amount);
+        partnerTransferRequest.setTotalNum(1);
+
+        List<PartnerTransferRequest.TransferDetail> transferDetailList = new ArrayList<>();
+        PartnerTransferRequest.TransferDetail transferDetail = new PartnerTransferRequest.TransferDetail();
+        transferDetail.setOpenid(openid);
+        transferDetail.setUserName(userName);
+        transferDetail.setOutDetailNo(no);
+        transferDetail.setTransferAmount(amount);
+        transferDetail.setTransferRemark("提现");
+        partnerTransferRequest.setTransferDetailList(transferDetailList);
+        wxPayService.getPartnerTransferService().batchTransfer(partnerTransferRequest);
 
     }
 

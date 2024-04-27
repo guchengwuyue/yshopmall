@@ -24,7 +24,7 @@ import javax.validation.constraints.NotBlank;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("dict")
+@TableName("sys_dict")
 public class Dict extends BaseDomain {
 
     /** 字典ID */

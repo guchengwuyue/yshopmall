@@ -20,7 +20,7 @@ import java.io.Serializable;
 * @date 2020-05-16
 */
 @Data
-@TableName("roles_menus")
+@TableName("sys_roles_menus")
 public class RolesMenus implements Serializable {
 
     /** 菜单ID */

@@ -20,7 +20,7 @@ import java.io.Serializable;
 * @date 2020-05-16
 */
 @Data
-@TableName("roles_depts")
+@TableName("sys_roles_depts")
 public class RolesDepts implements Serializable {
 
     /** 角色ID */

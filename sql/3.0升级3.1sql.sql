@@ -33,47 +33,47 @@ INSERT INTO `yx_system_group_data` VALUES (225, 'yshop_my_menus', '{\"imageArr\"
 -- ----------------------------
 -- 菜单添加
 -- ----------------------------
-INSERT INTO `menu` VALUES (237, b'0', '规格新增、修改', NULL, 233, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-28 16:35:00', 'yxStoreProductRule:add', 2, '2020-07-16 20:09:03', 0);
-INSERT INTO `menu` VALUES (238, b'0', '规格删除', NULL, 233, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-28 16:35:00', 'yxStoreProductRule:del', 2, '2020-07-16 20:08:57', 0);
-INSERT INTO `menu` VALUES (240, b'0', '新增、修改模板', NULL, 234, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-29 17:16:06', 'yxShippingTemplates:add', 2, '2020-07-16 20:09:11', 0);
-INSERT INTO `menu` VALUES (241, b'0', '删除模板', NULL, 234, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-29 17:16:06', 'yxShippingTemplates:del', 2, '2020-07-16 20:09:16', 0);
-INSERT INTO `menu` VALUES (242, b'0', '直播管理', 'wechat/live/index', 48, 999, 'weixin', 'wxlive', b'0', b'0', 'Wxlive', '2020-08-10 17:20:54', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (243, b'0', '直播商品管理', 'wechat/goods/index', 48, 999, 'weixin', 'wxlivegoods', b'0', b'0', 'WxliveGoods', '2020-08-10 17:20:54', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (244, b'0', '拼团商品添加', 'activity/combination/form', 63, 999, NULL, 'combinationAdd', b'0', b'1', 'CombinationAdd', '2020-08-13 21:28:45', 'YXSTORECOMBINATION_EDIT', 1, '2020-08-13 21:31:26', 0);
-INSERT INTO `menu` VALUES (245, b'0', '拼团商品修改', 'activity/combination/form', 63, 3, 'anq', 'combinationEdit/:id', b'0', b'1', 'CombinationEdit', '2019-12-24 13:02:23', 'YXSTORECOMBINATION_EDIT', 1, '2020-07-10 16:45:33', 0);
-INSERT INTO `menu` VALUES (246, b'0', '秒杀商品添加', 'activity/seckill/form', 63, 999, NULL, 'secKillAdd', b'0', b'1', 'SecKillAdd', '2020-08-13 21:28:45', 'YXSTORESECKILL_EDIT', 1, '2020-08-13 21:31:26', 0);
-INSERT INTO `menu` VALUES (247, b'0', '秒杀商品修改', 'activity/seckill/form', 63, 3, 'anq', 'secKillEdit/:id', b'0', b'1', 'SecKillEdit', '2019-12-24 13:02:23', 'YXSTORESECKILL_EDIT', 1, '2020-07-10 16:45:33', 0);
-INSERT INTO `menu` VALUES (248, b'0', '多级菜单', NULL, 0, 999, 'menu', 'nested', b'0', b'0', '-', '2020-08-19 11:31:10', NULL, 0, NULL, 0);
-INSERT INTO `menu` VALUES (249, b'0', '二级菜单1', 'nested/menu1/index', 248, 999, 'menu', 'menu1', b'0', b'0', '-', '2020-08-19 11:34:34', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (250, b'0', '三级菜单1', 'nested/menu1/menu1-1', 249, 999, 'menu', 'menu1-1', b'0', b'0', '-', '2020-08-19 11:35:52', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (251, b'0', '三级菜单2', 'nested/menu1/menu1-2', 249, 999, 'menu', 'menu1-2', b'0', b'0', '-', '2020-08-19 11:37:48', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (252, b'0', '二级菜单2', 'nested/menu2/index', 248, 999, 'menu', 'menu2', b'0', b'0', '-', '2020-08-19 11:38:35', NULL, 1, NULL, 0);
-INSERT INTO `menu` VALUES (253, b'0', '浏览记录', 'monitor/log/mlog', 40, 15, 'log', 'viewlog', b'0', b'0', 'Viewlog', '2020-07-31 09:47:11', 'log:list', 1, '2020-07-31 09:49:39', 0);
-INSERT INTO `menu` VALUES (256, b'0', '商品收藏', 'shop/collect/index', 40, 16, 'menu', 'productRelation', b'0', b'0', 'ProductRelation', '2020-09-03 14:32:49', 'yxStoreProductRelation:list', 1, '2020-09-03 16:21:08', 0);
-INSERT INTO `menu` VALUES (257, b'0', '用户足迹', 'shop/foot/index', 40, 17, 'list', 'footRelation', b'0', b'0', 'FootRelation', '2020-09-03 16:20:21', 'yxStoreProductRelation:list', 1, '2020-09-03 16:21:16', 0);
-INSERT INTO `menu` VALUES (258, b'0', '订单详情', 'shop/order/detail', 53, 999, 'sqlMonitor', 'detail/:id', b'0', b'1', 'Detail', '2020-09-10 07:29:34', NULL, 1, '2020-09-10 08:52:09', 0);
+INSERT INTO `sys_menu` VALUES (237, b'0', '规格新增、修改', NULL, 233, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-28 16:35:00', 'yxStoreProductRule:add', 2, '2020-07-16 20:09:03', 0);
+INSERT INTO `sys_menu` VALUES (238, b'0', '规格删除', NULL, 233, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-28 16:35:00', 'yxStoreProductRule:del', 2, '2020-07-16 20:08:57', 0);
+INSERT INTO `sys_menu` VALUES (240, b'0', '新增、修改模板', NULL, 234, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-29 17:16:06', 'yxShippingTemplates:add', 2, '2020-07-16 20:09:11', 0);
+INSERT INTO `sys_menu` VALUES (241, b'0', '删除模板', NULL, 234, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-29 17:16:06', 'yxShippingTemplates:del', 2, '2020-07-16 20:09:16', 0);
+INSERT INTO `sys_menu` VALUES (242, b'0', '直播管理', 'wechat/live/index', 48, 999, 'weixin', 'wxlive', b'0', b'0', 'Wxlive', '2020-08-10 17:20:54', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (243, b'0', '直播商品管理', 'wechat/goods/index', 48, 999, 'weixin', 'wxlivegoods', b'0', b'0', 'WxliveGoods', '2020-08-10 17:20:54', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (244, b'0', '拼团商品添加', 'activity/combination/form', 63, 999, NULL, 'combinationAdd', b'0', b'1', 'CombinationAdd', '2020-08-13 21:28:45', 'YXSTORECOMBINATION_EDIT', 1, '2020-08-13 21:31:26', 0);
+INSERT INTO `sys_menu` VALUES (245, b'0', '拼团商品修改', 'activity/combination/form', 63, 3, 'anq', 'combinationEdit/:id', b'0', b'1', 'CombinationEdit', '2019-12-24 13:02:23', 'YXSTORECOMBINATION_EDIT', 1, '2020-07-10 16:45:33', 0);
+INSERT INTO `sys_menu` VALUES (246, b'0', '秒杀商品添加', 'activity/seckill/form', 63, 999, NULL, 'secKillAdd', b'0', b'1', 'SecKillAdd', '2020-08-13 21:28:45', 'YXSTORESECKILL_EDIT', 1, '2020-08-13 21:31:26', 0);
+INSERT INTO `sys_menu` VALUES (247, b'0', '秒杀商品修改', 'activity/seckill/form', 63, 3, 'anq', 'secKillEdit/:id', b'0', b'1', 'SecKillEdit', '2019-12-24 13:02:23', 'YXSTORESECKILL_EDIT', 1, '2020-07-10 16:45:33', 0);
+INSERT INTO `sys_menu` VALUES (248, b'0', '多级菜单', NULL, 0, 999, 'menu', 'nested', b'0', b'0', '-', '2020-08-19 11:31:10', NULL, 0, NULL, 0);
+INSERT INTO `sys_menu` VALUES (249, b'0', '二级菜单1', 'nested/menu1/index', 248, 999, 'menu', 'menu1', b'0', b'0', '-', '2020-08-19 11:34:34', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (250, b'0', '三级菜单1', 'nested/menu1/menu1-1', 249, 999, 'menu', 'menu1-1', b'0', b'0', '-', '2020-08-19 11:35:52', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (251, b'0', '三级菜单2', 'nested/menu1/menu1-2', 249, 999, 'menu', 'menu1-2', b'0', b'0', '-', '2020-08-19 11:37:48', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (252, b'0', '二级菜单2', 'nested/menu2/index', 248, 999, 'menu', 'menu2', b'0', b'0', '-', '2020-08-19 11:38:35', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (253, b'0', '浏览记录', 'monitor/log/mlog', 40, 15, 'log', 'viewlog', b'0', b'0', 'Viewlog', '2020-07-31 09:47:11', 'log:list', 1, '2020-07-31 09:49:39', 0);
+INSERT INTO `sys_menu` VALUES (256, b'0', '商品收藏', 'shop/collect/index', 40, 16, 'menu', 'productRelation', b'0', b'0', 'ProductRelation', '2020-09-03 14:32:49', 'yxStoreProductRelation:list', 1, '2020-09-03 16:21:08', 0);
+INSERT INTO `sys_menu` VALUES (257, b'0', '用户足迹', 'shop/foot/index', 40, 17, 'list', 'footRelation', b'0', b'0', 'FootRelation', '2020-09-03 16:20:21', 'yxStoreProductRelation:list', 1, '2020-09-03 16:21:16', 0);
+INSERT INTO `sys_menu` VALUES (258, b'0', '订单详情', 'shop/order/detail', 53, 999, 'sqlMonitor', 'detail/:id', b'0', b'1', 'Detail', '2020-09-10 07:29:34', NULL, 1, '2020-09-10 08:52:09', 0);
 -- ----------------------------
 -- 菜单添加权限
 -- ----------------------------
-INSERT INTO `roles_menus` VALUES (237, 1);
-INSERT INTO `roles_menus` VALUES (238, 1);
-INSERT INTO `roles_menus` VALUES (240, 1);
-INSERT INTO `roles_menus` VALUES (241, 1);
-INSERT INTO `roles_menus` VALUES (242, 1);
-INSERT INTO `roles_menus` VALUES (243, 1);
-INSERT INTO `roles_menus` VALUES (244, 1);
-INSERT INTO `roles_menus` VALUES (245, 1);
-INSERT INTO `roles_menus` VALUES (246, 1);
-INSERT INTO `roles_menus` VALUES (247, 1);
-INSERT INTO `roles_menus` VALUES (248, 1);
-INSERT INTO `roles_menus` VALUES (249, 1);
-INSERT INTO `roles_menus` VALUES (250, 1);
-INSERT INTO `roles_menus` VALUES (251, 1);
-INSERT INTO `roles_menus` VALUES (252, 1);
-INSERT INTO `roles_menus` VALUES (253, 1);
-INSERT INTO `roles_menus` VALUES (256, 1);
-INSERT INTO `roles_menus` VALUES (257, 1);
-INSERT INTO `roles_menus` VALUES (258, 1);
+INSERT INTO `sys_roles_menus` VALUES (237, 1);
+INSERT INTO `sys_roles_menus` VALUES (238, 1);
+INSERT INTO `sys_roles_menus` VALUES (240, 1);
+INSERT INTO `sys_roles_menus` VALUES (241, 1);
+INSERT INTO `sys_roles_menus` VALUES (242, 1);
+INSERT INTO `sys_roles_menus` VALUES (243, 1);
+INSERT INTO `sys_roles_menus` VALUES (244, 1);
+INSERT INTO `sys_roles_menus` VALUES (245, 1);
+INSERT INTO `sys_roles_menus` VALUES (246, 1);
+INSERT INTO `sys_roles_menus` VALUES (247, 1);
+INSERT INTO `sys_roles_menus` VALUES (248, 1);
+INSERT INTO `sys_roles_menus` VALUES (249, 1);
+INSERT INTO `sys_roles_menus` VALUES (250, 1);
+INSERT INTO `sys_roles_menus` VALUES (251, 1);
+INSERT INTO `sys_roles_menus` VALUES (252, 1);
+INSERT INTO `sys_roles_menus` VALUES (253, 1);
+INSERT INTO `sys_roles_menus` VALUES (256, 1);
+INSERT INTO `sys_roles_menus` VALUES (257, 1);
+INSERT INTO `sys_roles_menus` VALUES (258, 1);
 
 
 

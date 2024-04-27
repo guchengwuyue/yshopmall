@@ -10,12 +10,12 @@ import cn.hutool.core.util.ObjectUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.SpecTypeEnum;
-import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxStoreCombination;
 import co.yixiang.modules.activity.service.YxStoreCombinationService;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationDto;
 import co.yixiang.modules.activity.service.dto.YxStoreCombinationQueryCriteria;
 import co.yixiang.modules.aop.ForbidSubmit;
+import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.product.domain.YxStoreProductAttrResult;
 import co.yixiang.modules.product.domain.YxStoreProductAttrValue;
 import co.yixiang.modules.product.service.YxStoreProductAttrResultService;
@@ -85,6 +85,7 @@ public class StoreCombinationController {
         return new ResponseEntity<>(yxStoreCombinationService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @ForbidSubmit
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @Log("新增拼团")
     @ApiOperation(value = "新增拼团")

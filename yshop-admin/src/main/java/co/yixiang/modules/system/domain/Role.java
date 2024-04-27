@@ -26,7 +26,7 @@ import java.util.Set;
 */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("role")
+@TableName("sys_role")
 public class Role extends BaseDomain {
 
     /** ID */

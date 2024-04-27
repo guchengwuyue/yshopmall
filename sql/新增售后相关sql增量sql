@@ -44,12 +44,12 @@ CREATE TABLE `yx_store_after_sales` (
 ALTER TABLE yx_store_order_cart_info ADD COLUMN is_after_sales tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '是否能售后 0不能1能';
 
 
-INSERT INTO `menu` VALUES (266, b'0', '售后', 'shop/afterSeals/index', 53, 44, 'order', 'afterSeals', b'0', b'0', 'AfterSeals', '2021-06-30 15:23:38', 'yxStoreAfterSales:list', 1, '2021-06-30 15:33:14', 0);
-INSERT INTO `menu` VALUES (267, b'0', '新增', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:17', 'yxStoreAfterSales:add', 2, NULL, 0);
-INSERT INTO `menu` VALUES (268, b'0', '修改', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:39', 'yxStoreAfterSales:edit', 2, NULL, 0);
-INSERT INTO `menu` VALUES (269, b'0', '删除', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:55', 'yxStoreAfterSales:del', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (266, b'0', '售后', 'shop/afterSeals/index', 53, 44, 'order', 'afterSeals', b'0', b'0', 'AfterSeals', '2021-06-30 15:23:38', 'yxStoreAfterSales:list', 1, '2021-06-30 15:33:14', 0);
+INSERT INTO `sys_menu` VALUES (267, b'0', '新增', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:17', 'yxStoreAfterSales:add', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (268, b'0', '修改', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:39', 'yxStoreAfterSales:edit', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (269, b'0', '删除', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:55', 'yxStoreAfterSales:del', 2, NULL, 0);
 
-INSERT INTO `roles_menus` VALUES (266, 1);
-INSERT INTO `roles_menus` VALUES (267, 1);
-INSERT INTO `roles_menus` VALUES (268, 1);
-INSERT INTO `roles_menus` VALUES (269, 1);
+INSERT INTO `sys_roles_menus` VALUES (266, 1);
+INSERT INTO `sys_roles_menus` VALUES (267, 1);
+INSERT INTO `sys_roles_menus` VALUES (268, 1);
+INSERT INTO `sys_roles_menus` VALUES (269, 1);
