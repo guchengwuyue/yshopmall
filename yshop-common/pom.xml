@@ -12,7 +12,7 @@
     <artifactId>yshop-common</artifactId>
     <name>公共模块</name>
     <properties>
-        <weixin-java.version>4.3.0</weixin-java.version>
+        <weixin-java.version>4.6.0</weixin-java.version>
     </properties>
     <dependencies>
         <dependency>

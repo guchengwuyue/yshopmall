@@ -30,4 +30,12 @@ public class TemplateBean {
      */
     private Long extractId;
 
+    /**
+     * 微信发货sf的时候必传收件人联系方式
+     */
+    private String phone;
+    /**
+     * 必填 商品信息，例如：微信红包抱枕*1个，限120个字以内
+     */
+    private String productName;
 }

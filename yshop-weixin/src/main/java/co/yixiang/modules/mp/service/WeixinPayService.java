@@ -8,17 +8,26 @@
  */
 package co.yixiang.modules.mp.service;
 
+import cn.binarywang.wx.miniapp.api.WxMaOrderShippingService;
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.shop.request.shipping.ContactBean;
+import cn.binarywang.wx.miniapp.bean.shop.request.shipping.OrderKeyBean;
+import cn.binarywang.wx.miniapp.bean.shop.request.shipping.PayerBean;
+import cn.binarywang.wx.miniapp.bean.shop.request.shipping.ShippingListBean;
+import cn.binarywang.wx.miniapp.bean.shop.request.shipping.WxMaOrderShippingInfoUploadRequest;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.api.BusinessException;
 import co.yixiang.api.YshopException;
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.enums.AppFromEnum;
 import co.yixiang.enums.BillDetailEnum;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.enums.PayMethodEnum;
 import co.yixiang.enums.PayTypeEnum;
+import co.yixiang.modules.mp.config.WxMaConfiguration;
 import co.yixiang.modules.mp.config.WxPayConfiguration;
 import co.yixiang.modules.order.service.YxStoreOrderService;
 import co.yixiang.modules.order.vo.YxStoreOrderQueryVo;
@@ -27,9 +36,11 @@ import co.yixiang.modules.user.domain.YxUserRecharge;
 import co.yixiang.modules.user.service.YxUserRechargeService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.dto.WechatUserDto;
+import co.yixiang.utils.DateUtils;
 import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.RequestHolder;
 import co.yixiang.utils.ShopKeyUtils;
+import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.binarywang.wxpay.bean.entpay.EntPayRequest;
 import com.github.binarywang.wxpay.bean.marketing.transfer.PartnerTransferRequest;
@@ -38,12 +49,15 @@ import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static co.yixiang.utils.DateUtils.DATE_FORMAT_RFC_3339;
 
 /**
  * @ClassName 微信支付WeixinPayService
@@ -259,6 +273,52 @@ public class WeixinPayService {
 
     }
 
+    /**
+     * 微信发货信息录入
+     *
+     * @param orderId        订单 ID
+     * @param trackingNo     物流单号
+     * @param itemDesc       必填 商品信息，例如：微信红包抱枕*1个，限120个字以内
+     * @param expressCompany 快递公司
+     * @param phone          sf的时候必传收件人联系方式
+     * @param openId         必填 用户标识，用户在小程序appid下的唯一标识
+     */
+    public void uploadShippingInfo(String orderId,String trackingNo,String expressCompany,String itemDesc,String phone,String openId) {
+        WxMaService wxMaService = WxMaConfiguration.getWxMaService();
+        WxMaOrderShippingService wxMaOrderShippingService = wxMaService.getWxMaOrderShippingService();
+        WxMaOrderShippingInfoUploadRequest orderRequest = new WxMaOrderShippingInfoUploadRequest();
+        OrderKeyBean orderKeyBean = new OrderKeyBean();
+        orderKeyBean.setOrderNumberType(ShopConstants.YSHOP_ONE_NUM);
+        orderKeyBean.setTransactionId(orderId);
+        orderKeyBean.setMchId(redisUtils.getY(ShopKeyUtils.getWxPayMchId()));
+        orderKeyBean.setOutTradeNo(orderId);
+        orderRequest.setOrderKey(orderKeyBean);
+        orderRequest.setLogisticsType(ShopConstants.YSHOP_ONE_NUM);
+        orderRequest.setDeliveryMode(ShopConstants.YSHOP_ONE_NUM);
+        orderRequest.setUploadTime(DateUtils.dateTimeNow(DATE_FORMAT_RFC_3339));
+        List<ShippingListBean> shippingList = new ArrayList<>();
+        ShippingListBean shippingListBean = new ShippingListBean();
+        shippingListBean.setTrackingNo(trackingNo);
+        shippingListBean.setExpressCompany(orderId);
+        shippingListBean.setItemDesc(itemDesc);
+        if (expressCompany.equals("SF")) {
+            ContactBean contactBean = new ContactBean();
+            contactBean.setReceiverContact(StringUtils.maskMobile(phone));
+            shippingListBean.setContact(contactBean);
+        }
+        shippingList.add(shippingListBean);
+        PayerBean payerBean = new PayerBean();
+        payerBean.setOpenid(openId);
+        orderRequest.setPayer(payerBean);
+        orderRequest.setShippingList(shippingList);
+        try {
+            wxMaOrderShippingService.upload(orderRequest);
+        } catch (WxErrorException e) {
+            log.info("发货信息录入错误信息：{}",e.getMessage());
+            throw new BusinessException(e.getMessage());
+        }
+
+    }
 
     /**
      * 返回H5 url

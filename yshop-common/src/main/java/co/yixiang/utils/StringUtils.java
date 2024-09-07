@@ -5,6 +5,7 @@
  */
 package co.yixiang.utils;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -72,6 +73,18 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         s = toCamelCase(s);
         return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+    /**
+     * 手机号脱敏处理
+     *
+     * @param phone 手机号
+     */
+    public static String maskMobile(String phone) {
+        if (StrUtil.isBlank(phone)) {
+            return "";
+        }
+        return phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
     }
 
     /**

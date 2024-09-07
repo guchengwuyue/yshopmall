@@ -101,8 +101,7 @@ public class YxStoreProductAttrServiceImpl extends BaseServiceImpl<StoreProductA
             if(productFormatDto.getPinkStock()>productFormatDto.getStock() || productFormatDto.getSeckillStock()>productFormatDto.getStock()){
                 throw new BadRequestException("活动商品库存不能大于原有商品库存");
             }
-            List<String> stringList = new ArrayList<>(productFormatDto.getDetail().values());
-            Collections.sort(stringList);
+            List<String> stringList = getStrings(productFormatDto);
             YxStoreProductAttrValue oldAttrValue = storeProductAttrValueService.getOne(new LambdaQueryWrapper<YxStoreProductAttrValue>()
                     .eq(YxStoreProductAttrValue::getSku, productFormatDto.getSku())
                     .eq(YxStoreProductAttrValue::getProductId, productId));
@@ -153,6 +152,28 @@ public class YxStoreProductAttrServiceImpl extends BaseServiceImpl<StoreProductA
         map.put("value",attrs);
 
         storeProductAttrResultService.insertYxStoreProductAttrResult(map,productId);
+    }
+
+    /**
+     * 排序
+     *
+     * @param productFormatDto 产品格式 DTO
+     * @return {@link List }<{@link String }>
+     */
+    private static List<String> getStrings(ProductFormatDto productFormatDto) {
+        List<String> stringList = new ArrayList<>(productFormatDto.getDetail().values());
+        stringList.sort((s1, s2) -> {
+            try {
+                // 将字符串转换为数值并比较
+                BigDecimal num1 = new BigDecimal(s1);
+                BigDecimal num2 = new BigDecimal(s2);
+                return num1.compareTo(num2);
+            } catch (NumberFormatException e) {
+                // 如果不能转换为数值，按照字典顺序排序
+                return s1.compareTo(s2);
+            }
+        });
+        return stringList;
     }
 
     /**

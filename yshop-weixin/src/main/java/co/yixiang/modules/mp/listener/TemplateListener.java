@@ -177,6 +177,16 @@ public class TemplateListener implements SmartApplicationListener {
                     log.error("消息发送失败:{}", e);
                 }
                 break;
+            case TYPE_10:
+                YxUser userShipping = userService.getById(templateBean.getUid());
+                if (userShipping != null) {
+                    WechatUserDto wechatUser = userShipping.getWxProfile();
+                    if (ObjectUtil.isNotNull(wechatUser) && ObjectUtil.isNotNull(wechatUser.getRoutineOpenid())) {
+                        weixinPayService.uploadShippingInfo(templateBean.getOrderId(), templateBean.getDeliveryId(),templateBean.getDeliveryName(),
+                                templateBean.getProductName(), templateBean.getPhone(),wechatUser.getRoutineOpenid());
+                    }
+                }
+                break;
             default:
                 //todo
         }

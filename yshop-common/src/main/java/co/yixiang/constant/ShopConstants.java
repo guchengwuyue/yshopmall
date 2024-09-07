@@ -181,4 +181,7 @@ public interface ShopConstants {
 	String WECHAT_FOLLOW_IMG="wechat_follow_img";
 	/**后台api地址*/
 	String ADMIN_API_URL="admin_api_url";
+
+	/**微信发货管理配置开关*/
+	String YSHOP_WECHAT_ROUTINE_SHIPPING = "yshop_wechat_routine_shipping";
 }
