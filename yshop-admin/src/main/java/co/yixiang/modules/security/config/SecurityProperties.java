@@ -37,6 +37,16 @@ public class SecurityProperties {
     /** 验证码 key */
     private String codeKey;
 
+    /**
+     * token 续期检查
+     */
+    private Long detect;
+
+    /**
+     * 续期时间
+     */
+    private Long renew;
+
     public String getTokenStartWith() {
         return tokenStartWith + " ";
     }

@@ -1,6 +1,9 @@
 
 package co.yixiang.modules.security.security;
 
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import co.yixiang.modules.security.config.SecurityProperties;
 import co.yixiang.modules.security.security.vo.JwtUser;
 import co.yixiang.utils.RedisUtils;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Token 工具类
@@ -130,8 +134,9 @@ public class TokenUtil {
     public String generateToken(UserDetails userDetails) {
         String secret=properties.getSecret();
         String token = Jwts.builder()
+                .setId(IdUtil.simpleUUID())
                 .setSubject(userDetails.getUsername())
-                .setExpiration(generateExpired())
+                // .setExpiration(generateExpired())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
 
@@ -166,7 +171,9 @@ public class TokenUtil {
         final String username = getUsernameFromToken(token);
         String key = REDIS_PREFIX_AUTH + username+ ":" + token;
         redisUtils.del(key);
-        delUserDetails(username);
+        if(redisUtils.scanKeys(REDIS_PREFIX_AUTH + username+ ":*")<=0){
+            delUserDetails(username);
+        }
     }
 
     /**
@@ -207,6 +214,29 @@ public class TokenUtil {
     private void putUserDetails(UserDetails userDetails) {
         String key = REDIS_PREFIX_USER + userDetails.getUsername();
         redisUtils.set(key, new Gson().toJson(userDetails), properties.getTokenValidityInSeconds() / 1000);
+    }
+
+    /**
+     * 检查更新token
+     *
+     * @param token 需要检查的token
+     */
+    public void checkRenewal(String token) {
+        // 判断是否续期token,计算token的过期时间
+        long time = RedisUtils.getExpire(properties.getOnlineKey() + token);
+        Date expireDate = DateUtil.offset(new Date(), DateField.MILLISECOND, (int) time);
+        // 判断当前时间与过期时间的时间差
+        long differ = expireDate.getTime() - System.currentTimeMillis();
+        // 如果在续期检查的范围内，则续期
+        if (differ <= properties.getDetect()) {
+            long renew = time + properties.getRenew();
+            RedisUtils.expire(properties.getOnlineKey() + token, renew, TimeUnit.MILLISECONDS);
+            final String username = getUsernameFromToken(token);
+            String key = REDIS_PREFIX_USER + username;
+            RedisUtils.expire(key, renew + 1000, TimeUnit.MILLISECONDS);
+            String keys = REDIS_PREFIX_AUTH + username + ":" + token;
+            RedisUtils.expire(keys, renew + 1000, TimeUnit.MILLISECONDS);
+        }
     }
 
 

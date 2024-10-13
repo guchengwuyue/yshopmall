@@ -10,6 +10,7 @@ import co.yixiang.modules.security.security.JwtAccessDeniedHandler;
 import co.yixiang.modules.security.security.JwtAuthenticationEntryPoint;
 import co.yixiang.modules.security.security.TokenConfigurer;
 import co.yixiang.modules.security.security.TokenUtil;
+import co.yixiang.modules.security.service.OnlineUserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,12 +47,18 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
 
-    public SecurityConfig(TokenUtil tokenUtil, CorsFilter corsFilter, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler, ApplicationContext applicationContext) {
+    private final SecurityProperties properties;
+
+    private final OnlineUserService onlineUserService;
+
+    public SecurityConfig(TokenUtil tokenUtil, CorsFilter corsFilter, JwtAuthenticationEntryPoint authenticationErrorHandler, JwtAccessDeniedHandler jwtAccessDeniedHandler, ApplicationContext applicationContext, SecurityProperties properties, OnlineUserService onlineUserService) {
         this.tokenUtil = tokenUtil;
         this.corsFilter = corsFilter;
         this.authenticationErrorHandler = authenticationErrorHandler;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.applicationContext = applicationContext;
+        this.properties = properties;
+        this.onlineUserService = onlineUserService;
     }
 
     @Bean
@@ -136,6 +143,6 @@ public class SecurityConfig {
     }
 
     private TokenConfigurer securityConfigurerAdapter() {
-        return new TokenConfigurer(tokenUtil);
+        return new TokenConfigurer(tokenUtil, properties, onlineUserService);
     }
 }
