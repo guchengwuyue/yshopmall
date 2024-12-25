@@ -1,4 +1,4 @@
-###  **[B2C微服务系统、B2B2C多商户系统、餐饮点餐系统、家政预约系统、跨境电商独立站系统,请移步](https://www.yixiang.co)** 
+###  **[B2C微服务系统、B2B2C多商户系统、餐饮点餐系统,请移步](https://www.yixiang.co)** 
 
 
 
@@ -263,7 +263,6 @@ server
 
 |     |  后台系统源码 |   后台系统前端源码  |
 |---  |--- | --- |
-|   码云  |  https://gitee.com/guchengwuyue/yshopmall  | https://gitee.com/guchengwuyue/yshopmall_qd |
 |   github   |  https://github.com/guchengwuyue/yshopmall |https://github.com/guchengwuyue/yshopmall_qd  |
 
 
