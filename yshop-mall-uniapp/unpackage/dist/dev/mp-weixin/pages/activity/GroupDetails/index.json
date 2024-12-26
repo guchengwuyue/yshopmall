@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "团购商品详情",
+  "usingComponents": {
+    "tui-button": "/components/tui-button/tui-button",
+    "product-con-swiper": "/components/ProductConSwiper",
+    "count-down": "/components/CountDown",
+    "user-evaluation": "/components/UserEvaluation",
+    "product-window": "/components/ProductWindow",
+    "store-poster": "/components/StorePoster"
+  }
+}

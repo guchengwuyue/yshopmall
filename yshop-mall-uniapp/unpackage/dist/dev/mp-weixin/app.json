@@ -1,0 +1,132 @@
+{
+  "pages": [
+    "pages/Loading/index",
+    "pages/authorization/index",
+    "pages/user/Login/index",
+    "pages/user/Register/index",
+    "pages/user/ChangePassword/index",
+    "pages/launch/index",
+    "pages/home/index",
+    "pages/shop/GoodSearch/index",
+    "pages/shop/GoodsClass/index",
+    "pages/shop/ShoppingCart/index",
+    "pages/shop/StoreList/index",
+    "pages/shop/GoodsList/index",
+    "pages/NotDefined/index",
+    "pages/user/User/index",
+    "pages/shop/GoodsCollection/index",
+    "pages/shop/GoodsFoot/index",
+    "pages/shop/news/NewsDetail/index",
+    "pages/shop/news/NewsList/index",
+    "pages/shop/EvaluateList/index",
+    "pages/shop/GoodsEvaluate/index",
+    "pages/shop/GoodsPromotion/index",
+    "pages/shop/HotNewGoods/index",
+    "pages/shop/GoodsCon/index",
+    "pages/shop/IntegralGoodsCon/index",
+    "pages/user/BindingPhone/index",
+    "pages/user/address/AddAddress/index",
+    "pages/user/UserAccount/index",
+    "pages/user/address/AddressManagement/index",
+    "pages/user/promotion/Poster/index",
+    "pages/user/signIn/Sign/index",
+    "pages/user/signIn/SignRecord/index",
+    "pages/user/promotion/CashAudit/index",
+    "pages/user/promotion/PromoterOrder/index",
+    "pages/user/promotion/PromoterList/index",
+    "pages/user/promotion/UserPromotion/index",
+    "pages/user/UserBill/index",
+    "pages/user/promotion/CashRecord/index",
+    "pages/user/promotion/CommissionDetails/index",
+    "pages/user/signIn/Integral/index",
+    "pages/user/UserVip/index",
+    "pages/user/PersonalData/index",
+    "pages/user/coupon/UserCoupon/index",
+    "pages/user/coupon/GetCoupon/index",
+    "pages/user/promotion/UserCash/index",
+    "pages/user/CustomerList/index",
+    "pages/user/Recharge/index",
+    "pages/order/MyOrder/index",
+    "pages/order/Logistics/index",
+    "pages/order/OrderDetails/index",
+    "pages/order/OrderReturnDetail/index",
+    "pages/order/OrderSubmission/index",
+    "pages/order/PaymentStatus/index",
+    "pages/order/GoodsReturn/index",
+    "pages/order/ReturnList/index",
+    "pages/order/submitExpress/index",
+    "pages/orderAdmin/OrderIndex/index",
+    "pages/orderAdmin/AdminOrderList/index",
+    "pages/orderAdmin/GoodsDeliver/index",
+    "pages/orderAdmin/AdminOrder/index",
+    "pages/orderAdmin/Statistics/index",
+    "pages/orderAdmin/OrderCancellation/index",
+    "pages/activity/Poster/index",
+    "pages/activity/GoodsGroup/index",
+    "pages/activity/GroupDetails/index",
+    "pages/activity/GroupRule/index",
+    "pages/activity/GoodsSeckill/index",
+    "pages/activity/SeckillDetails/index",
+    "pages/map/index",
+    "pages/shop/Live/LiveList/index",
+    "pages/user/content/content"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Yshop",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "default"
+  },
+  "tabBar": {
+    "color": "#282828",
+    "selectedColor": "#eb3729",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "height": "50px",
+    "fontSize": "10px",
+    "iconWidth": "24px",
+    "spacing": "3px",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/icon-home.png",
+        "selectedIconPath": "static/icon-home-hot.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/shop/GoodsClass/index",
+        "iconPath": "static/icon-class.png",
+        "selectedIconPath": "static/icon-class-hot.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/shop/ShoppingCart/index",
+        "iconPath": "static/icon-cart.png",
+        "selectedIconPath": "static/icon-cart-hot.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/user/User/index",
+        "iconPath": "static/icon-user.png",
+        "selectedIconPath": "static/icon-user-hot.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "定位最近的门店"
+    }
+  },
+  "plugins": {
+    "live-player-plugin": {
+      "version": "1.2.8",
+      "provider": "wx2b03c6e691cd7370"
+    }
+  },
+  "usingComponents": {
+    "cu-custom": "/components/colorui/components/cu-custom"
+  }
+}

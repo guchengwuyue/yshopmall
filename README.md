@@ -1,16 +1,16 @@
-###  **[B2C微服务系统、B2B2C多商户系统、餐饮点餐系统,请移步](https://www.yixiang.co)** 
+###  **[B2C-PRO单商户、B2B2C多商户系统、餐饮点餐系统,请移步](https://www.yixiang.co)** 
 
 
 
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
-#### 项目简介
+## 项目简介
 yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含分类、sku、运费模板、素材库、小程序直播、拼团、砍价、商户管理、 秒杀、优惠券、积分、分销、会员、充值、多门店等功能，更适合企业或个人二次开发；
 
 
 
-# 官网体验地址（里面有演示地址与文档）
-|  官网文档地址  |  https://www.yixiang.co |
+## 官网体验地址
+|  官网地址  |  https://www.yixiang.co |
 |---|---|
 | 管理后台演示地址：  |   https://demo2.yixiang.co |
 | 关注公众号点击单商户体验小程序与H5  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
@@ -20,41 +20,32 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 交流QQ群：544263002
 
+## 项目说明
+```
+- yshop-mall-boot     java工程
+- yshop-mall-vue      后台前端工程
+- yshop-mall-uniapp   uniapp工程，支持小程序、h5
+
+```
 
 
-#### 核心依赖
-
-| 依赖              | 版本     |
-|-----------------|--------|
-| Spring Boot     | 2.7.x |
-| weixin-java     | 4.4.0  |
-| Spring Security | 2.7.10 |
-| Mybatis Plus    | 3.5.2  |
-| hutool          | 5.8.16 |
-| swagger         | 3.0.0  |
-
-# 本地安装
+## 本地安装
 ### 基本环境（必备）
-- 1、JDK：8+
+- 1、JDK：8
 - 2、Redis 3.0+
 - 3、Maven 3.0+
 - 4、MYSQL 5.7+
 - 5、Node v8+
 ### 开发工具
-Idea、webstorm、vscode
+Idea、hbuilder、vscode
 
 ### 后台系统工程（JAVA端）
 
 1、请确保redis已经安装启动
 
-2、下载代码
-```
-git clone https://gitee.com/guchengwuyue/yshopmall.git
-```
-3、idea打开项目加载依赖目录如下：
+2、idea打开yshop-mall-boot
 
-![输入图片说明](1.png)
-
+3、idea打开项目加载依赖目录如下
 
 4、导入数据库，配置开发环境数据库信息及其redis信息，文件路径如下：
 
@@ -66,46 +57,41 @@ git clone https://gitee.com/guchengwuyue/yshopmall.git
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163132_913fc5fd_477893.png "test5.png")
 
-6、启动程序，启动程序路径如下：
-
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163145_8f078abc_477893.png "test6.png")
+6、启动程序
 
 
 
 ### 后台前端工程（VUE端）
 1、请确保本地已经安装node,建议node8或者node10
 
-2、下载代码
-```
-git clone https://gitee.com/guchengwuyue/yshopmall_qd
-```
+2、vscode打开yshop-mall-vue
+
 3、cnpm install或者yarn install,当前所有命令必须当前工程目录下进行，目录结构如下：
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163159_895e12de_477893.png "test8.png")
 
-4、安装依赖失败
-```
-npm config set registry https://registry.npm.taobao.org
-配置后可通过下面方式来验证是否成功
-npm config get registry
 
-在 ~/.npmrc 加入下面内容，可以避免安装 node-sass 失败
-sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
-
-.npmrc 文件位于
-win：C:\Users\[你的账户名称]\.npmrc
-linux：直接使用 vi ~/.npmrc
-```
-5、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
+3、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163209_09ed1793_477893.png "test9.png")
 
 
-5、打开浏览器输入地址如图：
+4、打开浏览器输入地址如图：
 
 默认超管账户密码：admin/123456
 
+### 移动端工程（uniapp端）
 
-# nginx线上部署
+1、hbuilder打开yshop-mall-uniapp
+
+2、npm install
+
+3、然后直接运行即可
+
+4、详情教程可以加上面说的群交流获取更多文档
+
+
+
+## nginx线上部署
 
 ### 后台系统（Java端）
 
@@ -227,7 +213,7 @@ server
 不需要证书如上面Java端配置一样去掉相关证书配置 改监听端口80即可
 
 
-# docker部署
+## docker部署
 
 - 1、创建一个存储第三方软件服务Docker Compose文件目录：
 ```
@@ -258,16 +244,9 @@ server
   docker build -t yshop-admin .  
   ```
 
-# 项目说明
-#### 项目源码
-
-|     |  后台系统源码 |   后台系统前端源码  |
-|---  |--- | --- |
-|   github   |  https://github.com/guchengwuyue/yshopmall |https://github.com/guchengwuyue/yshopmall_qd  |
 
 
-
-### 商城功能
+## 商城功能
 
 * 一：商品模块：商品添加、规格设置，商品上下架等
 * 二：订单模块：下单、购物车、支付，发货、收货、评价、退款等
@@ -277,22 +256,22 @@ server
 * 六：用户模块：登陆、注册、会员卡、充值等
 * 七：其他等
 
-    
 
-
-#### 项目结构
-项目采用分模块开发方式
-- yshop-weixin        微信相关模块
-- yshop-common    公共模块
-- yshop-admin    后台模块
-- yshop-logging   日志模块
-- yshop-tools     第三方工具模块
-- yshop-generator 代码生成模块
-- yshop-shop      商城模块
-- yshop-mproot    mybatisPlus
 
 #### 系统预览
 <table>
+    <tr>
+        <td><img src="assets/5.jpg"/></td>
+        <td><img src="assets/6.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="assets/4.jpg"/></td>
+        <td><img src="assets/3.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="assets/2.jpg"/></td>
+        <td><img src="assets/1.jpg"/></td>
+    </tr>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/194017_9207632f_477893.png"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1121/230257_5844f5f1_477893.png"/></td>
@@ -304,10 +283,6 @@ server
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/1121/230224_5f0dec5d_477893.png"/></td>
         <td><img src="https://images.gitee.com/uploads/images/2019/1107/194207_7b3b1f53_477893.png"/></td>
-    </tr>
-    <tr>   
-         <td><img src="https://images.gitee.com/uploads/images/2019/1121/230424_f01fca77_477893.png"/></td>
-         <td><img src="https://images.gitee.com/uploads/images/2019/1127/211402_4103f8e0_477893.png"/></td>
     </tr>
 </table>
 

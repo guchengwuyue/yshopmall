@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "分销列表",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

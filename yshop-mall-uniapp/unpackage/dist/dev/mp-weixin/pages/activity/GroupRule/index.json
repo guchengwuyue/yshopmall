@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "团购规则",
+  "usingComponents": {
+    "tui-divider": "/components/tui-divider/tui-divider",
+    "tui-button": "/components/tui-button/tui-button",
+    "count-down": "/components/CountDown"
+  }
+}

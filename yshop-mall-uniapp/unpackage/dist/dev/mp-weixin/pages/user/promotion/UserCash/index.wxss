@@ -1,0 +1,4 @@
+.cash-withdrawal .pos-order-list .nav .item.on {
+  color: #eb3729;
+}
+

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "data-format-t": "/components/DataFormatT"
+  }
+}

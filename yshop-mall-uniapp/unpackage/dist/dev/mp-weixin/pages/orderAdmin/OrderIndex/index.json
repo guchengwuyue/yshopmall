@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商家订单统计",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

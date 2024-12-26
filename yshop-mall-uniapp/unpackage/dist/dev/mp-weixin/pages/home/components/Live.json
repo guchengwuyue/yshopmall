@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "shop-live-card": "/components/ShopLiveCard"
+  }
+}

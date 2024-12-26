@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的售后",
+  "usingComponents": {
+    "loading": "/components/Loading",
+    "list-item": "/pages/order/ReturnList/listItem"
+  }
+}

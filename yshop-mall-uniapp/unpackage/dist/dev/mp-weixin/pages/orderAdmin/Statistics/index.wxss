@@ -1,0 +1,25 @@
+.echarts.data-v-b4391e6a {
+  width: 100%;
+  height: 550rpx;
+}
+.calendar-wrapper.data-v-b4391e6a {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 66;
+  -webkit-transform: translate3d(0, 100%, 0);
+          transform: translate3d(0, 100%, 0);
+  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.calendar-wrapper.on.data-v-b4391e6a {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.statistical-page .wrapper .increase.data-v-b4391e6a {
+  font-size: 26rpx;
+}
+.statistical-page .wrapper .increase .iconfont.data-v-b4391e6a {
+  margin-left: 0;
+}
+

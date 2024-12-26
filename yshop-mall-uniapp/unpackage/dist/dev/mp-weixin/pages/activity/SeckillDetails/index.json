@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "秒杀详情",
+  "usingComponents": {
+    "tui-tag": "/components/tui-tag/tui-tag",
+    "tui-button": "/components/tui-button/tui-button",
+    "product-con-swiper": "/components/ProductConSwiper",
+    "count-down": "/components/CountDown",
+    "product-window": "/components/ProductWindow",
+    "store-poster": "/components/StorePoster"
+  }
+}

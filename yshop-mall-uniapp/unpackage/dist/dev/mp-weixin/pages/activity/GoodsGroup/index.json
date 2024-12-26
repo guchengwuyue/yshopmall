@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "团购商品列表",
+  "usingComponents": {
+    "activity-card": "/pages/activity/GoodsGroup/children/activity-card",
+    "loading": "/components/Loading"
+  }
+}

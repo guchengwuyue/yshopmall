@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "秒杀",
+  "usingComponents": {
+    "tui-divider": "/components/tui-divider/tui-divider",
+    "t-goods-item": "/components/t-goods-item/t-goods-item",
+    "count-down": "/components/CountDown"
+  }
+}

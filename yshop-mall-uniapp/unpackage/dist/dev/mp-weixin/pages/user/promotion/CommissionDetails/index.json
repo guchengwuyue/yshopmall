@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "佣金明细",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

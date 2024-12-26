@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "商家订单列表",
+  "usingComponents": {
+    "price-change": "/components/PriceChange",
+    "data-format": "/components/DataFormat"
+  }
+}

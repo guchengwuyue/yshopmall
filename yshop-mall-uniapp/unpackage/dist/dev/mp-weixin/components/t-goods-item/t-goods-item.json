@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tui-tag": "/components/tui-tag/tui-tag"
+  }
+}

@@ -1,0 +1,1 @@
+<block wx:if="{{status===false}}"><view class="poster-poster data-v-e58853f2"><view class="tip data-v-e58853f2"><text class="iconfont icon-shuoming data-v-e58853f2"></text>提示：长按图片保存至手机相册</view><view class="poster data-v-e58853f2"><image src="{{image}}" mode="widthFix" show-menu-by-longpress="{{true}}" class="data-v-e58853f2"></image></view></view></block>

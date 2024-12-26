@@ -1,0 +1,1 @@
+<view class="cash-audit"><view class="pictrue"><image src="{{$VUE_APP_RESOURCES_URL+'/images/examine.png'}}"></image></view><view class="tip">提现申请已提交，等待人工审核</view><view class="time">{{time}}</view><view data-event-opts="{{[['tap',[['goUserPromotion']]]]}}" class="bnt bg-color-red" bindtap="__e">好的</view></view>
