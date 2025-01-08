@@ -86,7 +86,7 @@ swagger:
   enabled: false
   title: yshop商城移动端API
   serverUrl: http://localhost:8009
-  version: 3.3
+  version: 1.9.0
 
 # 文件存储路径
 file:

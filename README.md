@@ -261,7 +261,7 @@ server
 #### 系统预览
 <table>
     <tr>
-        <td><img src="assets/5.jpg"/></td>
+        <td><img src="assets/55.jpg"/></td>
         <td><img src="assets/6.jpg"/></td>
     </tr>
     <tr>

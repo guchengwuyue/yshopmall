@@ -94,7 +94,7 @@ swagger:
   enabled: false
   title: yshop商城管理后台API
   serverUrl: http://127.0.0.1:8000
-  version: 3.3
+  version: 1.9.0
 
 
 file:
