@@ -315,6 +315,14 @@ server
 #### 反馈交流
 - 喜欢这个商城后台的小伙伴留下你的小星星啦,star,star哦！
 
+#### 使用须知
+- 允许个人学习使用
+- 允许用于学习、毕设等
+- 允许进行商业使用，请自觉遵守使用协议，如需要商业使用推荐购买[商业版源码](https://www.yixiang.co/p/B2CPRO.html)
+- 请遵守 Apache License2.0 协议，再次开源请注明出处
+
+
+
 ####  特别鸣谢
 - eladmin:https://github.com/elunez/eladmin
 - mybaitsplus:https://github.com/baomidou/mybatis-plus
