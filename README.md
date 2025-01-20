@@ -1,5 +1,3 @@
-###  **[B2C-PRO单商户、B2B2C多商户系统、餐饮点餐系统,请移步](https://www.yixiang.co)** 
-
 
 
 <h1 style="text-align: center">yshop意象商城系统</h1>
@@ -97,63 +95,7 @@ Idea、hbuilder、vscode
 
 1、mvn install 或者直接idea打成jar包
 
-2、配置nginx 反向代理如下：
-```
-server{ 
- listen 443 ssl;
- server_name yshopapi.dayouqiantu.cn;
-        #listen [::]:81 default_server ipv6only=on;
- #ssl on;
- ssl_certificate httpssl/3034302_yshopapi.dayouqiantu.cn.pem;
- ssl_certificate_key httpssl/3034302_yshopapi.dayouqiantu.cn.key;
- ssl_session_timeout 5m;
- ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
- ssl_prefer_server_ciphers on;
- 
-
- #error_page   404   /404.html;
- #include enable-php.conf;
-   
- location / {
-  proxy_pass http://127.0.0.1:8000;
-  proxy_set_header X-Forwarded-Proto $scheme;
-         proxy_set_header X-Forwarded-Port $server_port;
-         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "upgrade";
- }
- 
-      
- access_log  /home/wwwlogs/yshopapi.log;
- 
-}
-```
-
-我配置的了ssl证书，如果不需要证书配置如下即可：
-
-```
-server{ 
- listen 80;
- server_name yshopapi.dayouqiantu.cn;
-        #listen [::]:81 default_server ipv6only=on;
-
- #error_page   404   /404.html;
- #include enable-php.conf;
-   
- location / {
-  proxy_pass http://127.0.0.1:8000;
-  proxy_set_header X-Forwarded-Proto $scheme;
-         proxy_set_header X-Forwarded-Port $server_port;
-         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-         proxy_set_header Upgrade $http_upgrade;
-         proxy_set_header Connection "upgrade";
- }
-  
- access_log  /home/wwwlogs/yshopapi.log;
- 
-}
-```
+2、配置nginx ，加入交流群，群文件里有视频教程
 
 
 
@@ -162,55 +104,7 @@ server{
 
 2、把打包后的dist目录代码上传到服务器
 
-3、配置nginx如下：
-```
-server
-{
-        listen 443 ssl;
-        #listen [::]:81 default_server ipv6only=on;
- server_name www.yixiang.co;
- #ssl on;
- ssl_certificate httpssl/3414321_www.yixiang.co.pem;
- ssl_certificate_key httpssl/3414321_www.yixiang.co.key;
- ssl_session_timeout 5m;
- ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    index index.html;
-    root /home/wwwroot/system/yshop;
-
-
-    location / {
-        try_files $uri $uri/ @router;
-        index index.html;
-·   }
- location @router {
-  rewrite ^.*$ /index.html last;
- } 
-
-
- location ~* \.(eot|ttf|woff)$ {
-              #  add_header Access-Control-Allow-Origin *;
-        }
-
-        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
-        {
-            expires      30d;
-        }
-
-        location ~ .*\.(js|css)?$
-        {
-            expires      12h;
-        }
- 
-      
- access_log  /home/wwwlogs/yshop.log;
- 
-}
-
-```
-
-不需要证书如上面Java端配置一样去掉相关证书配置 改监听端口80即可
+3、配置nginx如下，加入交流群，群文件里有视频教程
 
 
 ## docker部署
