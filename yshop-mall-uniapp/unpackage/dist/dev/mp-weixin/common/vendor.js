@@ -18110,43 +18110,6 @@ var substr = 'ab'.substr(-1) === 'b'
 
 /***/ }),
 
-/***/ 579:
-/*!***************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/live.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getLiveReplay = getLiveReplay;
-exports.yxWechatLive = yxWechatLive;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-/**
- * 查询所有直播间
- */
-function yxWechatLive(data) {
-  return _request.default.get("/yxWechatLive", data, {
-    login: true
-  });
-}
-
-/**
- * 获取直播回放
- */
-function getLiveReplay(id, data) {
-  return _request.default.get("/yxWechatLive/getLiveReplay/" + id, data, {
-    login: false
-  });
-}
-
-/***/ }),
-
 /***/ 6:
 /*!***************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
@@ -18161,7 +18124,7 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 
 /***/ }),
 
-/***/ 650:
+/***/ 641:
 /*!*********************************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/miniapp-color-thief/index.js ***!
   \*********************************************************************************************************************/
@@ -18176,7 +18139,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 651));
+var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 642));
 var toString = function toString(array) {
   return "#".concat(((1 << 24) + (array[0] << 16) + (array[1] << 8) + array[2]).toString(16).slice(1));
 };
@@ -18259,7 +18222,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 651:
+/***/ 642:
 /*!*************************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/quantize/quantize.js ***!
   \*************************************************************************************************************/
@@ -19046,7 +19009,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 842:
+/***/ 819:
 /*!*********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-icons/icons.js ***!
   \*********************************************************************************************************/
@@ -19196,7 +19159,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 855:
+/***/ 832:
 /*!*********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/popup.js ***!
   \*********************************************************************************************************/
@@ -19211,7 +19174,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 856));
+var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 833));
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -19239,7 +19202,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 856:
+/***/ 833:
 /*!***********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/message.js ***!
   \***********************************************************************************************************/

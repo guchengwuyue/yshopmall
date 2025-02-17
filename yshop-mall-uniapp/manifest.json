@@ -243,7 +243,7 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx604d2ea4702620d2",
+        "appid" : "wx001e2dc50bf532df",
         "setting" : {
             "urlCheck" : false
         },
@@ -256,10 +256,7 @@
         // "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
         "plugins" : {
             // #ifdef MP-WEIXIN
-            "live-player-plugin" : {
-                "version" : "1.2.8",
-                "provider" : "wx2b03c6e691cd7370"
-            }
+ 
         }
     },
     // #endif

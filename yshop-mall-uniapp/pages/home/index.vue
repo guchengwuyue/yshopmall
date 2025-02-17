@@ -52,10 +52,6 @@
       <!-- 促销单品 -->
       <PromoteProduct v-if="item.type == 'promoteProduct'"
 	  :detail="benefit" />
-      <!-- 直播 -->
-      <!-- #ifdef MP-WEIXIN -->
-      <Live v-if="item.type == 'live'" :detail="live" />
-      <!-- #endif -->
       <!-- 为您推荐 -->
       <PromotionGood v-if="item.type == 'promotionGood'" :benefit="benefit" />
       <Coupon-window
@@ -82,7 +78,6 @@ import Banner from './components/Banner'
 import HotCommodity from './components/HotCommodity'
 import FirstNewProduct from './components/FirstNewProduct'
 import ProductsRecommended from './components/ProductsRecommended'
-import Live from './components/Live'
 
 import { getHomeData, getShare, getCanvas } from '@/api/public'
 import cookie from '@/utils/store/cookie'
@@ -108,7 +103,6 @@ export default {
     HotCommodity,
     FirstNewProduct,
     ProductsRecommended,
-    Live,
   },
   props: {},
   data: function() {

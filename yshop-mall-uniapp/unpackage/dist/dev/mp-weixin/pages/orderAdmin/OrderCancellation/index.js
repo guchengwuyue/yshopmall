@@ -145,7 +145,7 @@ var _utils = __webpack_require__(/*! @/utils */ 39);
 var _order = __webpack_require__(/*! @/api/order */ 50);
 var WriteOff = function WriteOff() {
   __webpack_require__.e(/*! require.ensure | components/WriteOff */ "components/WriteOff").then((function () {
-    return resolve(__webpack_require__(/*! @/components/WriteOff */ 790));
+    return resolve(__webpack_require__(/*! @/components/WriteOff */ 774));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var NAME = 'OrderCancellation';

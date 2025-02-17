@@ -531,7 +531,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var FooterComponents = function FooterComponents() {
   __webpack_require__.e(/*! require.ensure | components/Footer */ "components/Footer").then((function () {
-    return resolve(__webpack_require__(/*! @/components/Footer */ 595));
+    return resolve(__webpack_require__(/*! @/components/Footer */ 586));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
@@ -640,7 +640,7 @@ var components
 try {
   components = {
     uniNoticeBar: function () {
-      return __webpack_require__.e(/*! import() | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/components/uni-notice-bar/uni-notice-bar.vue */ 600))
+      return __webpack_require__.e(/*! import() | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/components/uni-notice-bar/uni-notice-bar.vue */ 591))
     },
   }
 } catch (e) {
@@ -714,62 +714,57 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var GoodList = function GoodList() {
   __webpack_require__.e(/*! require.ensure | components/GoodList */ "components/GoodList").then((function () {
-    return resolve(__webpack_require__(/*! @/components/GoodList */ 607));
+    return resolve(__webpack_require__(/*! @/components/GoodList */ 598));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var PromotionGood = function PromotionGood() {
   __webpack_require__.e(/*! require.ensure | components/PromotionGood */ "components/PromotionGood").then((function () {
-    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 612));
+    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 603));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var CouponWindow = function CouponWindow() {
   __webpack_require__.e(/*! require.ensure | components/CouponWindow */ "components/CouponWindow").then((function () {
-    return resolve(__webpack_require__(/*! @/components/CouponWindow */ 619));
+    return resolve(__webpack_require__(/*! @/components/CouponWindow */ 610));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Menu = function Menu() {
   __webpack_require__.e(/*! require.ensure | components/Menu */ "components/Menu").then((function () {
-    return resolve(__webpack_require__(/*! @/components/Menu */ 624));
+    return resolve(__webpack_require__(/*! @/components/Menu */ 615));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var UniNoticeBar = function UniNoticeBar() {
   __webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {
-    return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar */ 600));
+    return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar */ 591));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Adv = function Adv() {
   __webpack_require__.e(/*! require.ensure | components/sh-adv */ "components/sh-adv").then((function () {
-    return resolve(__webpack_require__(/*! @/components/sh-adv */ 631));
+    return resolve(__webpack_require__(/*! @/components/sh-adv */ 622));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Groupon = function Groupon() {
   __webpack_require__.e(/*! require.ensure | components/sh-groupon */ "components/sh-groupon").then((function () {
-    return resolve(__webpack_require__(/*! @/components/sh-groupon.vue */ 638));
+    return resolve(__webpack_require__(/*! @/components/sh-groupon.vue */ 629));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Banner = function Banner() {
   Promise.all(/*! require.ensure | pages/home/components/Banner */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/home/components/Banner")]).then((function () {
-    return resolve(__webpack_require__(/*! ./components/Banner */ 645));
+    return resolve(__webpack_require__(/*! ./components/Banner */ 636));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var HotCommodity = function HotCommodity() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/HotCommodity */ "pages/home/components/HotCommodity").then((function () {
-    return resolve(__webpack_require__(/*! ./components/HotCommodity */ 654));
+    return resolve(__webpack_require__(/*! ./components/HotCommodity */ 645));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var FirstNewProduct = function FirstNewProduct() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/FirstNewProduct */ "pages/home/components/FirstNewProduct").then((function () {
-    return resolve(__webpack_require__(/*! ./components/FirstNewProduct */ 661));
+    return resolve(__webpack_require__(/*! ./components/FirstNewProduct */ 652));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var ProductsRecommended = function ProductsRecommended() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/ProductsRecommended */ "pages/home/components/ProductsRecommended").then((function () {
-    return resolve(__webpack_require__(/*! ./components/ProductsRecommended */ 668));
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-var Live = function Live() {
-  Promise.all(/*! require.ensure | pages/home/components/Live */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/home/components/Live")]).then((function () {
-    return resolve(__webpack_require__(/*! ./components/Live */ 675));
+    return resolve(__webpack_require__(/*! ./components/ProductsRecommended */ 659));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var HAS_COUPON_WINDOW = 'has_coupon_window';
@@ -788,8 +783,7 @@ var _default = {
     Banner: Banner,
     HotCommodity: HotCommodity,
     FirstNewProduct: FirstNewProduct,
-    ProductsRecommended: ProductsRecommended,
-    Live: Live
+    ProductsRecommended: ProductsRecommended
   },
   props: {},
   data: function data() {
@@ -1526,7 +1520,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var Recommend = function Recommend() {
   Promise.all(/*! require.ensure | components/Recommend */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/Recommend")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/Recommend */ 682));
+    return resolve(__webpack_require__(/*! @/components/Recommend */ 666));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var CHECKED_IDS = "cart_checked";
@@ -2047,7 +2041,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var SwitchWindow = function SwitchWindow() {
   __webpack_require__.e(/*! require.ensure | components/SwitchWindow */ "components/SwitchWindow").then((function () {
-    return resolve(__webpack_require__(/*! @/components/SwitchWindow */ 687));
+    return resolve(__webpack_require__(/*! @/components/SwitchWindow */ 671));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var NAME = 'User';

@@ -68,7 +68,6 @@
     "pages/activity/GoodsSeckill/index",
     "pages/activity/SeckillDetails/index",
     "pages/map/index",
-    "pages/shop/Live/LiveList/index",
     "pages/user/content/content"
   ],
   "subPackages": [],
@@ -120,12 +119,7 @@
       "desc": "定位最近的门店"
     }
   },
-  "plugins": {
-    "live-player-plugin": {
-      "version": "1.2.8",
-      "provider": "wx2b03c6e691cd7370"
-    }
-  },
+  "plugins": {},
   "usingComponents": {
     "cu-custom": "/components/colorui/components/cu-custom"
   }

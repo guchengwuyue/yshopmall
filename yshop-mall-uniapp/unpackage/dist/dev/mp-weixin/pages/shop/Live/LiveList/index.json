@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "直播列表",
-  "usingComponents": {
-    "shop-live-card": "/components/ShopLiveCard",
-    "loading": "/components/Loading"
-  }
-}

@@ -13,7 +13,6 @@
     "banner": "/pages/home/components/Banner",
     "hot-commodity": "/pages/home/components/HotCommodity",
     "first-new-product": "/pages/home/components/FirstNewProduct",
-    "products-recommended": "/pages/home/components/ProductsRecommended",
-    "live": "/pages/home/components/Live"
+    "products-recommended": "/pages/home/components/ProductsRecommended"
   }
 }

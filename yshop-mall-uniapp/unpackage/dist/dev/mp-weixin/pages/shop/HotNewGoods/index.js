@@ -142,7 +142,7 @@ exports.default = void 0;
 var _store = __webpack_require__(/*! @/api/store */ 115);
 var GoodList = function GoodList() {
   __webpack_require__.e(/*! require.ensure | components/GoodList */ "components/GoodList").then((function () {
-    return resolve(__webpack_require__(/*! @/components/GoodList */ 607));
+    return resolve(__webpack_require__(/*! @/components/GoodList */ 598));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

@@ -101,7 +101,7 @@ var components
 try {
   components = {
     tuiButton: function () {
-      return __webpack_require__.e(/*! import() | components/tui-button/tui-button */ "components/tui-button/tui-button").then(__webpack_require__.bind(null, /*! @/components/tui-button/tui-button.vue */ 740))
+      return __webpack_require__.e(/*! import() | components/tui-button/tui-button */ "components/tui-button/tui-button").then(__webpack_require__.bind(null, /*! @/components/tui-button/tui-button.vue */ 724))
     },
   }
 } catch (e) {
@@ -233,7 +233,7 @@ var Loading = function Loading() {
 };
 var DataFormatT = function DataFormatT() {
   __webpack_require__.e(/*! require.ensure | components/DataFormatT */ "components/DataFormatT").then((function () {
-    return resolve(__webpack_require__(/*! @/components/DataFormatT */ 735));
+    return resolve(__webpack_require__(/*! @/components/DataFormatT */ 719));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

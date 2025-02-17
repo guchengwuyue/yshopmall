@@ -184,7 +184,7 @@ var _user = __webpack_require__(/*! @/api/user */ 40);
 //
 var DataFormatT = function DataFormatT() {
   __webpack_require__.e(/*! require.ensure | components/DataFormatT */ "components/DataFormatT").then((function () {
-    return resolve(__webpack_require__(/*! @/components/DataFormatT */ 735));
+    return resolve(__webpack_require__(/*! @/components/DataFormatT */ 719));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var NAME = 'UserCoupon';

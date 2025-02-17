@@ -144,7 +144,7 @@ exports.default = void 0;
 var _activity = __webpack_require__(/*! @/api/activity */ 515);
 var activityCard = function activityCard() {
   __webpack_require__.e(/*! require.ensure | pages/activity/GoodsGroup/children/activity-card */ "pages/activity/GoodsGroup/children/activity-card").then((function () {
-    return resolve(__webpack_require__(/*! ./children/activity-card.vue */ 797));
+    return resolve(__webpack_require__(/*! ./children/activity-card.vue */ 781));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Loading = function Loading() {

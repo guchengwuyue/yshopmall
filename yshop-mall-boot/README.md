@@ -4,7 +4,6 @@
 #### 项目简介
 yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+Jpa+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商城、拼团、砍价、商户管理、 秒杀、优惠券、积分、分销、会员、充值、到店核销等功能，更适合企业或个人二次开发；；
 
-**开发文档**  【[查看文档](https://gitee.com/guchengwuyue/yshopmall/wikis/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83?sort_id=1718722)】 
 
 #### 官网地址：https://www.yixiang.co 
 
@@ -27,8 +26,8 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 关于log4j2漏洞说明
 - 方式一：拉最新的代码，重新打包运行应用
 - 方式二：不更新代码，直接加启动参数，如下：
-- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-app-3.2.jar
-- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-admin-3.2.jar
+- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-app-1.9.0.jar
+- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-admin-1.9.0.jar
 
 #### 项目结构
 yshop3.0项目采用分模块开发方式

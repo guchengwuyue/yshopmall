@@ -27,7 +27,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 var cuCustom = function cuCustom() {
   __webpack_require__.e(/*! require.ensure | components/colorui/components/cu-custom */ "components/colorui/components/cu-custom").then((function () {
-    return resolve(__webpack_require__(/*! @/components/colorui/components/cu-custom.vue */ 588));
+    return resolve(__webpack_require__(/*! @/components/colorui/components/cu-custom.vue */ 579));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.component('cu-custom', cuCustom);

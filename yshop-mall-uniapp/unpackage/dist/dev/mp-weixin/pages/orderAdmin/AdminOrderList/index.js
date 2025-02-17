@@ -150,7 +150,7 @@ var _validate = __webpack_require__(/*! @/utils/validate */ 80);
 var _dialog = __webpack_require__(/*! @/utils/dialog */ 51);
 var PriceChange = function PriceChange() {
   __webpack_require__.e(/*! require.ensure | components/PriceChange */ "components/PriceChange").then((function () {
-    return resolve(__webpack_require__(/*! @/components/PriceChange */ 783));
+    return resolve(__webpack_require__(/*! @/components/PriceChange */ 767));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Loading = function Loading() {
@@ -160,7 +160,7 @@ var Loading = function Loading() {
 };
 var DataFormat = function DataFormat() {
   __webpack_require__.e(/*! require.ensure | components/DataFormat */ "components/DataFormat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/DataFormat */ 754));
+    return resolve(__webpack_require__(/*! @/components/DataFormat */ 738));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

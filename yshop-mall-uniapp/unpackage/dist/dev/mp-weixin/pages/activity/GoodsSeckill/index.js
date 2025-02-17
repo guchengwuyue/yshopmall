@@ -101,10 +101,10 @@ var components
 try {
   components = {
     tuiDivider: function () {
-      return __webpack_require__.e(/*! import() | components/tui-divider/tui-divider */ "components/tui-divider/tui-divider").then(__webpack_require__.bind(null, /*! @/components/tui-divider/tui-divider.vue */ 809))
+      return __webpack_require__.e(/*! import() | components/tui-divider/tui-divider */ "components/tui-divider/tui-divider").then(__webpack_require__.bind(null, /*! @/components/tui-divider/tui-divider.vue */ 793))
     },
     tGoodsItem: function () {
-      return __webpack_require__.e(/*! import() | components/t-goods-item/t-goods-item */ "components/t-goods-item/t-goods-item").then(__webpack_require__.bind(null, /*! @/components/t-goods-item/t-goods-item.vue */ 816))
+      return __webpack_require__.e(/*! import() | components/t-goods-item/t-goods-item */ "components/t-goods-item/t-goods-item").then(__webpack_require__.bind(null, /*! @/components/t-goods-item/t-goods-item.vue */ 800))
     },
   }
 } catch (e) {
@@ -243,7 +243,7 @@ var _Loading = _interopRequireDefault(__webpack_require__(/*! @/components/Loadi
 //
 var CountDown = function CountDown() {
   __webpack_require__.e(/*! require.ensure | components/CountDown */ "components/CountDown").then((function () {
-    return resolve(__webpack_require__(/*! @/components/CountDown */ 804));
+    return resolve(__webpack_require__(/*! @/components/CountDown */ 788));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

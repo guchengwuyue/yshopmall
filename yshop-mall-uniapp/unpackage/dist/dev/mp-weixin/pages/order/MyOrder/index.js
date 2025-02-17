@@ -335,12 +335,12 @@ var Loading = function Loading() {
 };
 var Payment = function Payment() {
   __webpack_require__.e(/*! require.ensure | components/Payment */ "components/Payment").then((function () {
-    return resolve(__webpack_require__(/*! @/components/Payment */ 747));
+    return resolve(__webpack_require__(/*! @/components/Payment */ 731));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var DataFormat = function DataFormat() {
   __webpack_require__.e(/*! require.ensure | components/DataFormat */ "components/DataFormat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/DataFormat */ 754));
+    return resolve(__webpack_require__(/*! @/components/DataFormat */ 738));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var STATUS = ['待付款', '待发货', '待收货', '待评价', '已完成', '', '', '', '', '待付款'];

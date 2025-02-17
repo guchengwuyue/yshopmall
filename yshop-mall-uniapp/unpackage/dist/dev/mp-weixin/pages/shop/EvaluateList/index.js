@@ -144,7 +144,7 @@ exports.default = void 0;
 var _store = __webpack_require__(/*! @/api/store */ 115);
 var UserEvaluation = function UserEvaluation() {
   __webpack_require__.e(/*! require.ensure | components/UserEvaluation */ "components/UserEvaluation").then((function () {
-    return resolve(__webpack_require__(/*! @/components/UserEvaluation */ 694));
+    return resolve(__webpack_require__(/*! @/components/UserEvaluation */ 678));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Loading = function Loading() {

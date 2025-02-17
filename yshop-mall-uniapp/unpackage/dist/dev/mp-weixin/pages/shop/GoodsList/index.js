@@ -155,7 +155,7 @@ exports.default = void 0;
 var _store = __webpack_require__(/*! @/api/store */ 115);
 var Recommend = function Recommend() {
   Promise.all(/*! require.ensure | components/Recommend */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/Recommend")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/Recommend */ 682));
+    return resolve(__webpack_require__(/*! @/components/Recommend */ 666));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Loading = function Loading() {
