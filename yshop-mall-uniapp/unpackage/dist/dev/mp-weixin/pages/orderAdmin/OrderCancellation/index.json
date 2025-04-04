@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "商家核销订单",
-  "usingComponents": {
-    "write-off": "/components/WriteOff"
-  }
-}

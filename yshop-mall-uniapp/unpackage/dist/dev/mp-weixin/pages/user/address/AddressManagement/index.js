@@ -236,7 +236,7 @@ var _utils = __webpack_require__(/*! @/utils */ 39);
 //
 var Loading = function Loading() {
   __webpack_require__.e(/*! require.ensure | components/Loading */ "components/Loading").then((function () {
-    return resolve(__webpack_require__(/*! @/components/Loading */ 548));
+    return resolve(__webpack_require__(/*! @/components/Loading */ 451));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 // import { openAddress } from "@/libs/wechat";

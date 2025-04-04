@@ -11687,6 +11687,100 @@ module.exports = index_cjs;
 
 /***/ }),
 
+/***/ 371:
+/*!*********************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/aftersales.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addExpressData = addExpressData;
+exports.deleteAfterSeals = deleteAfterSeals;
+exports.getAfterSalesDeatail = getAfterSalesDeatail;
+exports.getAfterSealsDetail = getAfterSealsDetail;
+exports.getAfterSealsList = getAfterSealsList;
+exports.getExpressData = getExpressData;
+exports.getRefundAmount = getRefundAmount;
+exports.rebackAfterSeals = rebackAfterSeals;
+exports.searchAfterSealsDetail = searchAfterSealsDetail;
+exports.submitAfterSealsOrder = submitAfterSealsOrder;
+var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
+// 提交售后
+/**
+ *
+ 订单号 orderCode;
+ 服务类型 0仅退款1退货退款 serviceType;
+ 申请原因 reasonForApplication;
+ 申请说明 applicationInstructions;
+ 申请说明图片 applicationDescriptionPicture;
+ 商品数据 productParamList;
+ */
+function submitAfterSealsOrder(data) {
+  return _request.default.post("/applyForAfterSales", data, {
+    login: true
+  });
+}
+
+// 售后订单列表
+function getAfterSealsList(params) {
+  return _request.default.get('/storeAfterSales/list', params, {
+    login: true
+  });
+}
+function getRefundAmount(data) {
+  return _request.default.post("/getRefundAmount", data, {
+    login: true
+  });
+}
+
+// 售后详情
+function getAfterSalesDeatail(key) {
+  return _request.default.get("/applyForAfterSales/".concat(key));
+}
+
+// 查询订单
+function getAfterSealsDetail(key, id) {
+  return _request.default.get("/store/detail/".concat(key, "/").concat(id));
+}
+
+// 搜索
+function searchAfterSealsDetail(key) {
+  return _request.default.get("/store/detail/".concat(key));
+}
+
+// 撤销售后订单
+function rebackAfterSeals(key, id) {
+  return _request.default.get("/revoke/".concat(key, "/").concat(id));
+}
+
+// 获取物流信息
+function getExpressData() {
+  return _request.default.get('/yxExpress');
+}
+
+// 添加快递单号
+function addExpressData(params) {
+  return _request.default.post('/addLogisticsInformation?' + "code=".concat(params.code, "&name=").concat(params.name, "&id=").concat(params.id, "&postalCode=").concat(params.postalCode, "&orderCode=").concat(params.orderCode, "&"), '', {
+    login: true
+  });
+}
+
+// 删除售后订单
+function deleteAfterSeals(params) {
+  return _request.default.delete('/deleteAfterSalesOrder', params, {
+    login: true
+  });
+}
+
+/***/ }),
+
 /***/ 38:
 /*!*************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/utils/store/cookie.js ***!
@@ -13536,6 +13630,100 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ 418:
+/*!*******************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/activity.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getCombinationDetail = getCombinationDetail;
+exports.getCombinationList = getCombinationList;
+exports.getCombinationPink = getCombinationPink;
+exports.getCombinationPoster = getCombinationPoster;
+exports.getCombinationRemove = getCombinationRemove;
+exports.getSeckillConfig = getSeckillConfig;
+exports.getSeckillDetail = getSeckillDetail;
+exports.getSeckillList = getSeckillList;
+var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
+/**
+ * 拼团列表
+ */
+function getCombinationList(data) {
+  return _request.default.get("/combination/list", data, {
+    login: false
+  });
+}
+
+/**
+ * 拼团产品详情
+ * @param {*} id
+ */
+function getCombinationDetail(id) {
+  return _request.default.get("/combination/detail/" + id, {}, {
+    login: true
+  });
+}
+
+/**
+ * 拼团 开团
+ * @param {*} id
+ */
+function getCombinationPink(id) {
+  return _request.default.get("/combination/pink/" + id);
+}
+
+/**
+ * 拼团 取消开团
+ */
+function getCombinationRemove(data) {
+  return _request.default.post("/combination/remove", data);
+}
+
+/**
+ * 拼团海报
+ * @param {*} id
+ */
+function getCombinationPoster(data) {
+  return _request.default.post("/combination/poster", data);
+}
+
+/**
+ * 秒杀列表配置
+ */
+function getSeckillConfig() {
+  return _request.default.get("/seckill/index", {}, {
+    login: false
+  });
+}
+
+/**
+ * 秒杀列表
+ */
+function getSeckillList(time, data) {
+  return _request.default.get("/seckill/list/" + time, data, {
+    login: false
+  });
+}
+
+/**
+ * 秒杀产品详情
+ */
+function getSeckillDetail(id) {
+  return _request.default.get("/seckill/detail/" + id, {}, {
+    login: true
+  });
+}
+
+/***/ }),
+
 /***/ 42:
 /*!************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/objectWithoutProperties.js ***!
@@ -13560,100 +13748,6 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 module.exports = _objectWithoutProperties, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 423:
-/*!*********************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/aftersales.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addExpressData = addExpressData;
-exports.deleteAfterSeals = deleteAfterSeals;
-exports.getAfterSalesDeatail = getAfterSalesDeatail;
-exports.getAfterSealsDetail = getAfterSealsDetail;
-exports.getAfterSealsList = getAfterSealsList;
-exports.getExpressData = getExpressData;
-exports.getRefundAmount = getRefundAmount;
-exports.rebackAfterSeals = rebackAfterSeals;
-exports.searchAfterSealsDetail = searchAfterSealsDetail;
-exports.submitAfterSealsOrder = submitAfterSealsOrder;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-// 提交售后
-/**
- *
- 订单号 orderCode;
- 服务类型 0仅退款1退货退款 serviceType;
- 申请原因 reasonForApplication;
- 申请说明 applicationInstructions;
- 申请说明图片 applicationDescriptionPicture;
- 商品数据 productParamList;
- */
-function submitAfterSealsOrder(data) {
-  return _request.default.post("/applyForAfterSales", data, {
-    login: true
-  });
-}
-
-// 售后订单列表
-function getAfterSealsList(params) {
-  return _request.default.get('/storeAfterSales/list', params, {
-    login: true
-  });
-}
-function getRefundAmount(data) {
-  return _request.default.post("/getRefundAmount", data, {
-    login: true
-  });
-}
-
-// 售后详情
-function getAfterSalesDeatail(key) {
-  return _request.default.get("/applyForAfterSales/".concat(key));
-}
-
-// 查询订单
-function getAfterSealsDetail(key, id) {
-  return _request.default.get("/store/detail/".concat(key, "/").concat(id));
-}
-
-// 搜索
-function searchAfterSealsDetail(key) {
-  return _request.default.get("/store/detail/".concat(key));
-}
-
-// 撤销售后订单
-function rebackAfterSeals(key, id) {
-  return _request.default.get("/revoke/".concat(key, "/").concat(id));
-}
-
-// 获取物流信息
-function getExpressData() {
-  return _request.default.get('/yxExpress');
-}
-
-// 添加快递单号
-function addExpressData(params) {
-  return _request.default.post('/addLogisticsInformation?' + "code=".concat(params.code, "&name=").concat(params.name, "&id=").concat(params.id, "&postalCode=").concat(params.postalCode, "&orderCode=").concat(params.orderCode, "&"), '', {
-    login: true
-  });
-}
-
-// 删除售后订单
-function deleteAfterSeals(params) {
-  return _request.default.delete('/deleteAfterSalesOrder', params, {
-    login: true
-  });
-}
 
 /***/ }),
 
@@ -14979,124 +15073,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 470:
-/*!****************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/admin.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getAdminOrderDelivery = getAdminOrderDelivery;
-exports.getAdminOrderDetail = getAdminOrderDetail;
-exports.getAdminOrderList = getAdminOrderList;
-exports.getStatisticsInfo = getStatisticsInfo;
-exports.getStatisticsMonth = getStatisticsMonth;
-exports.getStatisticsTime = getStatisticsTime;
-exports.setAdminOrderDelivery = setAdminOrderDelivery;
-exports.setAdminOrderPrice = setAdminOrderPrice;
-exports.setAdminOrderRemark = setAdminOrderRemark;
-exports.setOfflinePay = setOfflinePay;
-exports.setOrderRefund = setOrderRefund;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-/**
- * 统计数据
- */
-function getStatisticsInfo() {
-  return _request.default.get("/admin/order/statistics", {}, {
-    login: true
-  });
-}
-/**
- * 订单月统计
- */
-function getStatisticsMonth(where) {
-  return _request.default.get("/admin/order/data", where, {
-    login: true
-  });
-}
-/**
- * 订单月统计
- */
-function getAdminOrderList(where) {
-  return _request.default.get("/admin/order/list", where, {
-    login: true
-  });
-}
-/**
- * 订单改价
- */
-function setAdminOrderPrice(data) {
-  return _request.default.post("/admin/order/price", data, {
-    login: true
-  });
-}
-/**
- * 订单备注
- */
-function setAdminOrderRemark(data) {
-  return _request.default.post("/admin/order/remark", data, {
-    login: true
-  });
-}
-/**
- * 订单详情
- */
-function getAdminOrderDetail(orderId) {
-  return _request.default.get("/admin/order/detail/" + orderId, {}, {
-    login: true
-  });
-}
-/**
- * 订单发货信息获取
- */
-function getAdminOrderDelivery(orderId) {
-  return _request.default.get("/admin/order/detail/" + orderId, {}, {
-    login: true
-  });
-}
-
-/**
- * 订单发货保存
- */
-function setAdminOrderDelivery(data) {
-  return _request.default.post("/admin/order/delivery/keep", data, {
-    login: true
-  });
-}
-/**
- * 订单统计图
- */
-function getStatisticsTime(data) {
-  return _request.default.get("/admin/order/time", data, {
-    login: true
-  });
-}
-/**
- * 线下付款订单确认付款
- */
-function setOfflinePay(data) {
-  return _request.default.post("/admin/order/offline", data, {
-    login: true
-  });
-}
-/**
- * 订单确认退款
- */
-function setOrderRefund(data) {
-  return _request.default.post("/admin/order/refund", data, {
-    login: true
-  });
-}
-
-/***/ }),
-
 /***/ 48:
 /*!******************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/libs/wechat.js ***!
@@ -16148,100 +16124,6 @@ function validatorDefaultCatch(err) {
 var _default = dialog;
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 515:
-/*!*******************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/activity.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getCombinationDetail = getCombinationDetail;
-exports.getCombinationList = getCombinationList;
-exports.getCombinationPink = getCombinationPink;
-exports.getCombinationPoster = getCombinationPoster;
-exports.getCombinationRemove = getCombinationRemove;
-exports.getSeckillConfig = getSeckillConfig;
-exports.getSeckillDetail = getSeckillDetail;
-exports.getSeckillList = getSeckillList;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-/**
- * 拼团列表
- */
-function getCombinationList(data) {
-  return _request.default.get("/combination/list", data, {
-    login: false
-  });
-}
-
-/**
- * 拼团产品详情
- * @param {*} id
- */
-function getCombinationDetail(id) {
-  return _request.default.get("/combination/detail/" + id, {}, {
-    login: true
-  });
-}
-
-/**
- * 拼团 开团
- * @param {*} id
- */
-function getCombinationPink(id) {
-  return _request.default.get("/combination/pink/" + id);
-}
-
-/**
- * 拼团 取消开团
- */
-function getCombinationRemove(data) {
-  return _request.default.post("/combination/remove", data);
-}
-
-/**
- * 拼团海报
- * @param {*} id
- */
-function getCombinationPoster(data) {
-  return _request.default.post("/combination/poster", data);
-}
-
-/**
- * 秒杀列表配置
- */
-function getSeckillConfig() {
-  return _request.default.get("/seckill/index", {}, {
-    login: false
-  });
-}
-
-/**
- * 秒杀列表
- */
-function getSeckillList(time, data) {
-  return _request.default.get("/seckill/list/" + time, data, {
-    login: false
-  });
-}
-
-/**
- * 秒杀产品详情
- */
-function getSeckillDetail(id) {
-  return _request.default.get("/seckill/detail/" + id, {}, {
-    login: true
-  });
-}
 
 /***/ }),
 
@@ -17751,380 +17633,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 55:
-/*!********************************************************!*\
-  !*** ./node_modules/node-libs-browser/mock/process.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.nextTick = function nextTick(fn) {
-    var args = Array.prototype.slice.call(arguments);
-    args.shift();
-    setTimeout(function () {
-        fn.apply(null, args);
-    }, 0);
-};
-
-exports.platform = exports.arch = 
-exports.execPath = exports.title = 'browser';
-exports.pid = 1;
-exports.browser = true;
-exports.env = {};
-exports.argv = [];
-
-exports.binding = function (name) {
-	throw new Error('No such module. (Possibly not yet loaded)')
-};
-
-(function () {
-    var cwd = '/';
-    var path;
-    exports.cwd = function () { return cwd };
-    exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 56);
-        cwd = path.resolve(dir, cwd);
-    };
-})();
-
-exports.exit = exports.kill = 
-exports.umask = exports.dlopen = 
-exports.uptime = exports.memoryUsage = 
-exports.uvCounters = function() {};
-exports.features = {};
-
-
-/***/ }),
-
-/***/ 56:
-/*!***********************************************!*\
-  !*** ./node_modules/path-browserify/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
-// backported and transplited with Babel, with backwards-compat fixes
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  if (path.length === 0) return '.';
-  var code = path.charCodeAt(0);
-  var hasRoot = code === 47 /*/*/;
-  var end = -1;
-  var matchedSlash = true;
-  for (var i = path.length - 1; i >= 1; --i) {
-    code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        if (!matchedSlash) {
-          end = i;
-          break;
-        }
-      } else {
-      // We saw the first non-path separator
-      matchedSlash = false;
-    }
-  }
-
-  if (end === -1) return hasRoot ? '/' : '.';
-  if (hasRoot && end === 1) {
-    // return '//';
-    // Backwards-compat fix:
-    return '/';
-  }
-  return path.slice(0, end);
-};
-
-function basename(path) {
-  if (typeof path !== 'string') path = path + '';
-
-  var start = 0;
-  var end = -1;
-  var matchedSlash = true;
-  var i;
-
-  for (i = path.length - 1; i >= 0; --i) {
-    if (path.charCodeAt(i) === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          start = i + 1;
-          break;
-        }
-      } else if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // path component
-      matchedSlash = false;
-      end = i + 1;
-    }
-  }
-
-  if (end === -1) return '';
-  return path.slice(start, end);
-}
-
-// Uses a mixed approach for backwards-compatibility, as ext behavior changed
-// in new Node.js versions, so only basename() above is backported here
-exports.basename = function (path, ext) {
-  var f = basename(path);
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-exports.extname = function (path) {
-  if (typeof path !== 'string') path = path + '';
-  var startDot = -1;
-  var startPart = 0;
-  var end = -1;
-  var matchedSlash = true;
-  // Track the state of characters (if any) we see before our first dot and
-  // after any path separator we find
-  var preDotState = 0;
-  for (var i = path.length - 1; i >= 0; --i) {
-    var code = path.charCodeAt(i);
-    if (code === 47 /*/*/) {
-        // If we reached a path separator that was not part of a set of path
-        // separators at the end of the string, stop now
-        if (!matchedSlash) {
-          startPart = i + 1;
-          break;
-        }
-        continue;
-      }
-    if (end === -1) {
-      // We saw the first non-path separator, mark this as the end of our
-      // extension
-      matchedSlash = false;
-      end = i + 1;
-    }
-    if (code === 46 /*.*/) {
-        // If this is our first dot, mark it as the start of our extension
-        if (startDot === -1)
-          startDot = i;
-        else if (preDotState !== 1)
-          preDotState = 1;
-    } else if (startDot !== -1) {
-      // We saw a non-dot and non-path separator before our dot, so we should
-      // have a good chance at having a non-empty extension
-      preDotState = -1;
-    }
-  }
-
-  if (startDot === -1 || end === -1 ||
-      // We saw a non-dot character immediately before the dot
-      preDotState === 0 ||
-      // The (right-most) trimmed path component is exactly '..'
-      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
-    return '';
-  }
-  return path.slice(startDot, end);
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 55)))
-
-/***/ }),
-
-/***/ 6:
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 641:
+/***/ 544:
 /*!*********************************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/miniapp-color-thief/index.js ***!
   \*********************************************************************************************************************/
@@ -18139,7 +17648,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 642));
+var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 545));
 var toString = function toString(array) {
   return "#".concat(((1 << 24) + (array[0] << 16) + (array[1] << 8) + array[2]).toString(16).slice(1));
 };
@@ -18222,7 +17731,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 642:
+/***/ 545:
 /*!*************************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/quantize/quantize.js ***!
   \*************************************************************************************************************/
@@ -18722,6 +18231,379 @@ module.exports = MMCQ.quantize;
 
 /***/ }),
 
+/***/ 55:
+/*!********************************************************!*\
+  !*** ./node_modules/node-libs-browser/mock/process.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.nextTick = function nextTick(fn) {
+    var args = Array.prototype.slice.call(arguments);
+    args.shift();
+    setTimeout(function () {
+        fn.apply(null, args);
+    }, 0);
+};
+
+exports.platform = exports.arch = 
+exports.execPath = exports.title = 'browser';
+exports.pid = 1;
+exports.browser = true;
+exports.env = {};
+exports.argv = [];
+
+exports.binding = function (name) {
+	throw new Error('No such module. (Possibly not yet loaded)')
+};
+
+(function () {
+    var cwd = '/';
+    var path;
+    exports.cwd = function () { return cwd };
+    exports.chdir = function (dir) {
+        if (!path) path = __webpack_require__(/*! path */ 56);
+        cwd = path.resolve(dir, cwd);
+    };
+})();
+
+exports.exit = exports.kill = 
+exports.umask = exports.dlopen = 
+exports.uptime = exports.memoryUsage = 
+exports.uvCounters = function() {};
+exports.features = {};
+
+
+/***/ }),
+
+/***/ 56:
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 55)))
+
+/***/ }),
+
+/***/ 6:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
 /***/ 7:
 /*!*********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
@@ -18759,6 +18641,239 @@ function _iterableToArrayLimit(r, l) {
   }
 }
 module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 708:
+/*!*********************************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-icons/icons.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  "pulldown": "\uE588",
+  "refreshempty": "\uE461",
+  "back": "\uE471",
+  "forward": "\uE470",
+  "more": "\uE507",
+  "more-filled": "\uE537",
+  "scan": "\uE612",
+  "qq": "\uE264",
+  "weibo": "\uE260",
+  "weixin": "\uE261",
+  "pengyouquan": "\uE262",
+  "loop": "\uE565",
+  "refresh": "\uE407",
+  "refresh-filled": "\uE437",
+  "arrowthindown": "\uE585",
+  "arrowthinleft": "\uE586",
+  "arrowthinright": "\uE587",
+  "arrowthinup": "\uE584",
+  "undo-filled": "\uE7D6",
+  "undo": "\uE406",
+  "redo": "\uE405",
+  "redo-filled": "\uE7D9",
+  "bars": "\uE563",
+  "chatboxes": "\uE203",
+  "camera": "\uE301",
+  "chatboxes-filled": "\uE233",
+  "camera-filled": "\uE7EF",
+  "cart-filled": "\uE7F4",
+  "cart": "\uE7F5",
+  "checkbox-filled": "\uE442",
+  "checkbox": "\uE7FA",
+  "arrowleft": "\uE582",
+  "arrowdown": "\uE581",
+  "arrowright": "\uE583",
+  "smallcircle-filled": "\uE801",
+  "arrowup": "\uE580",
+  "circle": "\uE411",
+  "eye-filled": "\uE568",
+  "eye-slash-filled": "\uE822",
+  "eye-slash": "\uE823",
+  "eye": "\uE824",
+  "flag-filled": "\uE825",
+  "flag": "\uE508",
+  "gear-filled": "\uE532",
+  "reload": "\uE462",
+  "gear": "\uE502",
+  "hand-thumbsdown-filled": "\uE83B",
+  "hand-thumbsdown": "\uE83C",
+  "hand-thumbsup-filled": "\uE83D",
+  "heart-filled": "\uE83E",
+  "hand-thumbsup": "\uE83F",
+  "heart": "\uE840",
+  "home": "\uE500",
+  "info": "\uE504",
+  "home-filled": "\uE530",
+  "info-filled": "\uE534",
+  "circle-filled": "\uE441",
+  "chat-filled": "\uE847",
+  "chat": "\uE263",
+  "mail-open-filled": "\uE84D",
+  "email-filled": "\uE231",
+  "mail-open": "\uE84E",
+  "email": "\uE201",
+  "checkmarkempty": "\uE472",
+  "list": "\uE562",
+  "locked-filled": "\uE856",
+  "locked": "\uE506",
+  "map-filled": "\uE85C",
+  "map-pin": "\uE85E",
+  "map-pin-ellipse": "\uE864",
+  "map": "\uE364",
+  "minus-filled": "\uE440",
+  "mic-filled": "\uE332",
+  "minus": "\uE410",
+  "micoff": "\uE360",
+  "mic": "\uE302",
+  "clear": "\uE434",
+  "smallcircle": "\uE868",
+  "close": "\uE404",
+  "closeempty": "\uE460",
+  "paperclip": "\uE567",
+  "paperplane": "\uE503",
+  "paperplane-filled": "\uE86E",
+  "person-filled": "\uE131",
+  "contact-filled": "\uE130",
+  "person": "\uE101",
+  "contact": "\uE100",
+  "images-filled": "\uE87A",
+  "phone": "\uE200",
+  "images": "\uE87B",
+  "image": "\uE363",
+  "image-filled": "\uE877",
+  "location-filled": "\uE333",
+  "location": "\uE303",
+  "plus-filled": "\uE439",
+  "plus": "\uE409",
+  "plusempty": "\uE468",
+  "help-filled": "\uE535",
+  "help": "\uE505",
+  "navigate-filled": "\uE884",
+  "navigate": "\uE501",
+  "mic-slash-filled": "\uE892",
+  "search": "\uE466",
+  "settings": "\uE560",
+  "sound": "\uE590",
+  "sound-filled": "\uE8A1",
+  "spinner-cycle": "\uE465",
+  "download-filled": "\uE8A4",
+  "personadd-filled": "\uE132",
+  "videocam-filled": "\uE8AF",
+  "personadd": "\uE102",
+  "upload": "\uE402",
+  "upload-filled": "\uE8B1",
+  "starhalf": "\uE463",
+  "star-filled": "\uE438",
+  "star": "\uE408",
+  "trash": "\uE401",
+  "phone-filled": "\uE230",
+  "compose": "\uE400",
+  "videocam": "\uE300",
+  "trash-filled": "\uE8DC",
+  "download": "\uE403",
+  "chatbubble-filled": "\uE232",
+  "chatbubble": "\uE202",
+  "cloud-download": "\uE8E4",
+  "cloud-upload-filled": "\uE8E5",
+  "cloud-upload": "\uE8E6",
+  "cloud-download-filled": "\uE8E9",
+  "headphones": "\uE8BF",
+  "shop": "\uE609"
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 721:
+/*!*********************************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/popup.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 722));
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom'
+};
+var _default = {
+  data: function data() {
+    return {
+      config: config
+    };
+  },
+  mixins: [_message.default]
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ 722:
+/*!***********************************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/message.js ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 不显示遮罩
+      this.maskShow = false;
+      // 获取子组件对象
+      this.childrenMsg = null;
+    }
+  },
+  methods: {
+    customOpen: function customOpen() {
+      if (this.childrenMsg) {
+        this.childrenMsg.open();
+      }
+    },
+    customClose: function customClose() {
+      if (this.childrenMsg) {
+        this.childrenMsg.close();
+      }
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
 
@@ -19005,239 +19120,6 @@ var attrs = Object.keys(baseAttr).reduce(function (attrs, key) {
   return attrs;
 }, {});
 var _default = attrs;
-exports.default = _default;
-
-/***/ }),
-
-/***/ 819:
-/*!*********************************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-icons/icons.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  "pulldown": "\uE588",
-  "refreshempty": "\uE461",
-  "back": "\uE471",
-  "forward": "\uE470",
-  "more": "\uE507",
-  "more-filled": "\uE537",
-  "scan": "\uE612",
-  "qq": "\uE264",
-  "weibo": "\uE260",
-  "weixin": "\uE261",
-  "pengyouquan": "\uE262",
-  "loop": "\uE565",
-  "refresh": "\uE407",
-  "refresh-filled": "\uE437",
-  "arrowthindown": "\uE585",
-  "arrowthinleft": "\uE586",
-  "arrowthinright": "\uE587",
-  "arrowthinup": "\uE584",
-  "undo-filled": "\uE7D6",
-  "undo": "\uE406",
-  "redo": "\uE405",
-  "redo-filled": "\uE7D9",
-  "bars": "\uE563",
-  "chatboxes": "\uE203",
-  "camera": "\uE301",
-  "chatboxes-filled": "\uE233",
-  "camera-filled": "\uE7EF",
-  "cart-filled": "\uE7F4",
-  "cart": "\uE7F5",
-  "checkbox-filled": "\uE442",
-  "checkbox": "\uE7FA",
-  "arrowleft": "\uE582",
-  "arrowdown": "\uE581",
-  "arrowright": "\uE583",
-  "smallcircle-filled": "\uE801",
-  "arrowup": "\uE580",
-  "circle": "\uE411",
-  "eye-filled": "\uE568",
-  "eye-slash-filled": "\uE822",
-  "eye-slash": "\uE823",
-  "eye": "\uE824",
-  "flag-filled": "\uE825",
-  "flag": "\uE508",
-  "gear-filled": "\uE532",
-  "reload": "\uE462",
-  "gear": "\uE502",
-  "hand-thumbsdown-filled": "\uE83B",
-  "hand-thumbsdown": "\uE83C",
-  "hand-thumbsup-filled": "\uE83D",
-  "heart-filled": "\uE83E",
-  "hand-thumbsup": "\uE83F",
-  "heart": "\uE840",
-  "home": "\uE500",
-  "info": "\uE504",
-  "home-filled": "\uE530",
-  "info-filled": "\uE534",
-  "circle-filled": "\uE441",
-  "chat-filled": "\uE847",
-  "chat": "\uE263",
-  "mail-open-filled": "\uE84D",
-  "email-filled": "\uE231",
-  "mail-open": "\uE84E",
-  "email": "\uE201",
-  "checkmarkempty": "\uE472",
-  "list": "\uE562",
-  "locked-filled": "\uE856",
-  "locked": "\uE506",
-  "map-filled": "\uE85C",
-  "map-pin": "\uE85E",
-  "map-pin-ellipse": "\uE864",
-  "map": "\uE364",
-  "minus-filled": "\uE440",
-  "mic-filled": "\uE332",
-  "minus": "\uE410",
-  "micoff": "\uE360",
-  "mic": "\uE302",
-  "clear": "\uE434",
-  "smallcircle": "\uE868",
-  "close": "\uE404",
-  "closeempty": "\uE460",
-  "paperclip": "\uE567",
-  "paperplane": "\uE503",
-  "paperplane-filled": "\uE86E",
-  "person-filled": "\uE131",
-  "contact-filled": "\uE130",
-  "person": "\uE101",
-  "contact": "\uE100",
-  "images-filled": "\uE87A",
-  "phone": "\uE200",
-  "images": "\uE87B",
-  "image": "\uE363",
-  "image-filled": "\uE877",
-  "location-filled": "\uE333",
-  "location": "\uE303",
-  "plus-filled": "\uE439",
-  "plus": "\uE409",
-  "plusempty": "\uE468",
-  "help-filled": "\uE535",
-  "help": "\uE505",
-  "navigate-filled": "\uE884",
-  "navigate": "\uE501",
-  "mic-slash-filled": "\uE892",
-  "search": "\uE466",
-  "settings": "\uE560",
-  "sound": "\uE590",
-  "sound-filled": "\uE8A1",
-  "spinner-cycle": "\uE465",
-  "download-filled": "\uE8A4",
-  "personadd-filled": "\uE132",
-  "videocam-filled": "\uE8AF",
-  "personadd": "\uE102",
-  "upload": "\uE402",
-  "upload-filled": "\uE8B1",
-  "starhalf": "\uE463",
-  "star-filled": "\uE438",
-  "star": "\uE408",
-  "trash": "\uE401",
-  "phone-filled": "\uE230",
-  "compose": "\uE400",
-  "videocam": "\uE300",
-  "trash-filled": "\uE8DC",
-  "download": "\uE403",
-  "chatbubble-filled": "\uE232",
-  "chatbubble": "\uE202",
-  "cloud-download": "\uE8E4",
-  "cloud-upload-filled": "\uE8E5",
-  "cloud-upload": "\uE8E6",
-  "cloud-download-filled": "\uE8E9",
-  "headphones": "\uE8BF",
-  "shop": "\uE609"
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 832:
-/*!*********************************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/popup.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 833));
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom'
-};
-var _default = {
-  data: function data() {
-    return {
-      config: config
-    };
-  },
-  mixins: [_message.default]
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ 833:
-/*!***********************************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/message.js ***!
-  \***********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 不显示遮罩
-      this.maskShow = false;
-      // 获取子组件对象
-      this.childrenMsg = null;
-    }
-  },
-  methods: {
-    customOpen: function customOpen() {
-      if (this.childrenMsg) {
-        this.childrenMsg.open();
-      }
-    },
-    customClose: function customClose() {
-      if (this.childrenMsg) {
-        this.childrenMsg.close();
-      }
-    }
-  }
-};
 exports.default = _default;
 
 /***/ }),

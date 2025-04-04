@@ -142,7 +142,7 @@ exports.default = void 0;
 var _store = __webpack_require__(/*! @/api/store */ 115);
 var PromotionGood = function PromotionGood() {
   __webpack_require__.e(/*! require.ensure | components/PromotionGood */ "components/PromotionGood").then((function () {
-    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 603));
+    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 506));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

@@ -142,7 +142,7 @@ exports.default = void 0;
 var _user = __webpack_require__(/*! @/api/user */ 40);
 var Recommend = function Recommend() {
   Promise.all(/*! require.ensure | components/Recommend */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/Recommend")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/Recommend */ 666));
+    return resolve(__webpack_require__(/*! @/components/Recommend */ 569));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

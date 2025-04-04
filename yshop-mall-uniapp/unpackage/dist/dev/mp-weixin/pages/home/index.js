@@ -80,7 +80,7 @@ var components
 try {
   components = {
     uniNoticeBar: function () {
-      return __webpack_require__.e(/*! import() | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/components/uni-notice-bar/uni-notice-bar.vue */ 591))
+      return __webpack_require__.e(/*! import() | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then(__webpack_require__.bind(null, /*! @/components/uni-notice-bar/uni-notice-bar.vue */ 494))
     },
   }
 } catch (e) {
@@ -156,57 +156,57 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var GoodList = function GoodList() {
   __webpack_require__.e(/*! require.ensure | components/GoodList */ "components/GoodList").then((function () {
-    return resolve(__webpack_require__(/*! @/components/GoodList */ 598));
+    return resolve(__webpack_require__(/*! @/components/GoodList */ 501));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var PromotionGood = function PromotionGood() {
   __webpack_require__.e(/*! require.ensure | components/PromotionGood */ "components/PromotionGood").then((function () {
-    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 603));
+    return resolve(__webpack_require__(/*! @/components/PromotionGood */ 506));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var CouponWindow = function CouponWindow() {
   __webpack_require__.e(/*! require.ensure | components/CouponWindow */ "components/CouponWindow").then((function () {
-    return resolve(__webpack_require__(/*! @/components/CouponWindow */ 610));
+    return resolve(__webpack_require__(/*! @/components/CouponWindow */ 513));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Menu = function Menu() {
   __webpack_require__.e(/*! require.ensure | components/Menu */ "components/Menu").then((function () {
-    return resolve(__webpack_require__(/*! @/components/Menu */ 615));
+    return resolve(__webpack_require__(/*! @/components/Menu */ 518));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var UniNoticeBar = function UniNoticeBar() {
   __webpack_require__.e(/*! require.ensure | components/uni-notice-bar/uni-notice-bar */ "components/uni-notice-bar/uni-notice-bar").then((function () {
-    return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar */ 591));
+    return resolve(__webpack_require__(/*! @/components/uni-notice-bar/uni-notice-bar */ 494));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Adv = function Adv() {
   __webpack_require__.e(/*! require.ensure | components/sh-adv */ "components/sh-adv").then((function () {
-    return resolve(__webpack_require__(/*! @/components/sh-adv */ 622));
+    return resolve(__webpack_require__(/*! @/components/sh-adv */ 525));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Groupon = function Groupon() {
   __webpack_require__.e(/*! require.ensure | components/sh-groupon */ "components/sh-groupon").then((function () {
-    return resolve(__webpack_require__(/*! @/components/sh-groupon.vue */ 629));
+    return resolve(__webpack_require__(/*! @/components/sh-groupon.vue */ 532));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var Banner = function Banner() {
   Promise.all(/*! require.ensure | pages/home/components/Banner */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/home/components/Banner")]).then((function () {
-    return resolve(__webpack_require__(/*! ./components/Banner */ 636));
+    return resolve(__webpack_require__(/*! ./components/Banner */ 539));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var HotCommodity = function HotCommodity() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/HotCommodity */ "pages/home/components/HotCommodity").then((function () {
-    return resolve(__webpack_require__(/*! ./components/HotCommodity */ 645));
+    return resolve(__webpack_require__(/*! ./components/HotCommodity */ 548));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var FirstNewProduct = function FirstNewProduct() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/FirstNewProduct */ "pages/home/components/FirstNewProduct").then((function () {
-    return resolve(__webpack_require__(/*! ./components/FirstNewProduct */ 652));
+    return resolve(__webpack_require__(/*! ./components/FirstNewProduct */ 555));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var ProductsRecommended = function ProductsRecommended() {
   __webpack_require__.e(/*! require.ensure | pages/home/components/ProductsRecommended */ "pages/home/components/ProductsRecommended").then((function () {
-    return resolve(__webpack_require__(/*! ./components/ProductsRecommended */ 659));
+    return resolve(__webpack_require__(/*! ./components/ProductsRecommended */ 562));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var HAS_COUPON_WINDOW = 'has_coupon_window';

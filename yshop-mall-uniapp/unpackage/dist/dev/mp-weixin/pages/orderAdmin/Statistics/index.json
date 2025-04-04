@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "商家统计数据",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

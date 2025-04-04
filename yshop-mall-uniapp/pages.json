@@ -172,12 +172,6 @@
       }
     },
     {
-      "path": "pages/user/promotion/Poster/index",
-      "style": {
-        "navigationBarTitleText": "推广名片"
-      }
-    },
-    {
       "path": "pages/user/signIn/Sign/index",
       "style": {
         "navigationBarTitleText": "签到"
@@ -190,45 +184,9 @@
       }
     },
     {
-      "path": "pages/user/promotion/CashAudit/index",
-      "style": {
-        "navigationBarTitleText": "提现结果"
-      }
-    },
-    {
-      "path": "pages/user/promotion/PromoterOrder/index",
-      "style": {
-        "navigationBarTitleText": "分销详情"
-      }
-    },
-    {
-      "path": "pages/user/promotion/PromoterList/index",
-      "style": {
-        "navigationBarTitleText": "分销列表"
-      }
-    },
-    {
-      "path": "pages/user/promotion/UserPromotion/index",
-      "style": {
-        "navigationBarTitleText": "佣金"
-      }
-    },
-    {
       "path": "pages/user/UserBill/index",
       "style": {
         "navigationBarTitleText": "账单记录"
-      }
-    },
-    {
-      "path": "pages/user/promotion/CashRecord/index",
-      "style": {
-        "navigationBarTitleText": "提现记录"
-      }
-    },
-    {
-      "path": "pages/user/promotion/CommissionDetails/index",
-      "style": {
-        "navigationBarTitleText": "佣金明细"
       }
     },
     {
@@ -259,12 +217,6 @@
       "path": "pages/user/coupon/GetCoupon/index",
       "style": {
         "navigationBarTitleText": "领取优惠券"
-      }
-    },
-    {
-      "path": "pages/user/promotion/UserCash/index",
-      "style": {
-        "navigationBarTitleText": "提现"
       }
     },
     {
@@ -333,42 +285,6 @@
 	    "navigationBarTitleText": "售后物流填写"
 	  }
 	},
-    {
-      "path": "pages/orderAdmin/OrderIndex/index",
-      "style": {
-        "navigationBarTitleText": "商家订单统计"
-      }
-    },
-    {
-      "path": "pages/orderAdmin/AdminOrderList/index",
-      "style": {
-        "navigationBarTitleText": "订单"
-      }
-    },
-    {
-      "path": "pages/orderAdmin/GoodsDeliver/index",
-      "style": {
-        "navigationBarTitleText": "发货"
-      }
-    },
-    {
-      "path": "pages/orderAdmin/AdminOrder/index",
-      "style": {
-        "navigationBarTitleText": "商家订单列表"
-      }
-    },
-    {
-      "path": "pages/orderAdmin/Statistics/index",
-      "style": {
-        "navigationBarTitleText": "商家统计数据"
-      }
-    },
-    {
-      "path": "pages/orderAdmin/OrderCancellation/index",
-      "style": {
-        "navigationBarTitleText": "商家核销订单"
-      }
-    },
     {
       "path": "pages/activity/Poster/index",
       "style": {

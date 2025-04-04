@@ -3,7 +3,7 @@
     <view class="allAddress" :style="systemStore ? '' : 'padding-top: 0.2*100rpx'">
       <view class="nav acea-row">
         <view class="item font-color-red" :class="shipping_type === 0 ? 'on' : 'on2'" @click="addressType(0)" v-if="systemStore"></view>
-        <view  class="item font-color-red" :class="shipping_type === 1 ? 'on' : 'on2'" @click="addressType(1)" v-if="storeSelfMention != 2 && systemStore && !isIntegral"></view>
+   <!--     <view  class="item font-color-red" :class="shipping_type === 1 ? 'on' : 'on2'" @click="addressType(1)" v-if="storeSelfMention != 2 && systemStore && !isIntegral"></view> -->
       </view>
       <view class="address acea-row row-between-wrapper" v-if="shipping_type === 0" @click="addressTap">
         <view class="addressCon" v-if="addressInfo.realName">
@@ -21,7 +21,7 @@
         </view>
         <view class="iconfont icon-jiantou"></view>
       </view>
-      <view class="address acea-row row-between-wrapper" v-if="shipping_type === 1" @click="showStoreList">
+ <!--     <view class="address acea-row row-between-wrapper" v-if="shipping_type === 1" @click="showStoreList">
         <view class="addressCon" v-if="storeItems">
           <view class="name">
             {{ storeItems.name }}
@@ -37,7 +37,7 @@
           <view>{{ systemStore.address }}</view>
         </view>
         <view class="iconfont icon-jiantou"></view>
-      </view>
+      </view> -->
       <view class="line">
         <image :src="`${$VUE_APP_RESOURCES_URL}/images/line.jpg`" />
       </view>

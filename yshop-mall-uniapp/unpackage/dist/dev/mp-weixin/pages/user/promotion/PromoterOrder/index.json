@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "分销详情",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

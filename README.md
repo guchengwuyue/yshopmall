@@ -3,7 +3,7 @@
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
 ## 项目简介
-yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含分类、sku、运费模板、素材库、拼团、商户管理、 秒杀、优惠券、积分、分销、会员、充值、多门店等功能，更适合企业或个人二次开发；
+yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值等功能，更适合企业或个人二次开发；
 
 
 
