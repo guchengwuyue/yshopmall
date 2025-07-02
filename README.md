@@ -7,11 +7,11 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 
 
-## 官网体验地址
+## 官网体验地址(商业版本是springboot3+jdk17+vue3版本)
 |  官网地址  |  https://www.yixiang.co |
 |---|---|
-| 管理后台演示地址：  |   https://b2c.yixiang.co |
-| 关注公众号点击单商户体验小程序与H5  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
+| 商业版管理后台演示地址：  |   https://b2c.yixiang.co |
+| 关注公众号体验商业版单商户H5  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
 
 ## 视频资料
 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！ QQ交流群 (入群前，请在网页右上角点 "Star" )，群里有视频教程与开发文档哦！！
