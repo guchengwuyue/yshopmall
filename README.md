@@ -3,11 +3,11 @@
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
 ## 项目简介
-yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值等功能，更适合企业或个人二次开发；
+yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+SpringBoot3+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值等功能，更适合企业或个人二次开发；
 
 
 
-## 官网体验地址(商业版是SpringBoot3+vue3+uniapp3+jdk17版本)
+## 官网体验地址
 |  官网地址  |  https://www.yixiang.co |
 |---|---|
 | 管理后台商业版演示地址：  |   https://b2c.yixiang.co |
@@ -29,7 +29,7 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 
 ## 本地安装
 ### 基本环境（必备）
-- 1、JDK：8
+- 1、JDK：8/17
 - 2、Redis 3.0+
 - 3、Maven 3.0+
 - 4、MYSQL 5.7+
