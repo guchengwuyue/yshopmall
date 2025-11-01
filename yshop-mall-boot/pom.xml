@@ -179,12 +179,11 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi</artifactId>-->
-<!--            <version>${poi.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -249,9 +248,18 @@
             <!-- 打包时跳过测试 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
                 <configuration>
-                    <skip>true</skip>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
@@ -262,7 +270,7 @@
         <repository>
             <id>aliyun</id>
             <name>aliyun-maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>spring-milestones</id>
@@ -272,7 +280,7 @@
         <repository>
             <id>central</id>
             <name>maven-central</name>
-            <url>http://central.maven.org/maven2/</url>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
     </repositories>
 
@@ -280,7 +288,7 @@
         <pluginRepository>
             <id>public</id>
             <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

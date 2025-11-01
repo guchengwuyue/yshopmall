@@ -6,9 +6,9 @@ spring:
     druid:
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/yshop-mall-boot?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://localhost:3306/yshop?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
       username: root
-      password: root
+      password: 123456
 
       # 初始连接数
       initialSize: 5
