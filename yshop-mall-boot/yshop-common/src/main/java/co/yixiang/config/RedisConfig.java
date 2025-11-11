@@ -10,6 +10,7 @@ import co.yixiang.utils.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.SerializeConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -69,10 +70,10 @@ public class RedisConfig extends CachingConfigurerSupport {
         // value值的序列化采用fastJsonRedisSerializer
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
-        // 全局开启AutoType，这里方便开发，使用全局的方式
-        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-        // 建议使用这种方式，小范围指定白名单
-        // ParserConfig.getGlobalInstance().addAccept("me.zhengjie.domain");
+        // SECURITY FIX (GHSL-2024-295): Disabled global AutoType support to prevent deserialization attacks
+        // Instead, use a whitelist approach for specific packages that need type information
+        // Example: ParserConfig.getGlobalInstance().addAccept("co.yixiang.");
+        ParserConfig.getGlobalInstance().addAccept("co.yixiang.");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
@@ -156,6 +157,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         if (t == null) {
             return new byte[0];
         }
+        // SECURITY FIX (GHSL-2024-295): Use WriteClassName only with whitelist protection
+        // The whitelist is configured in the redisTemplate bean method above
         return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(StandardCharsets.UTF_8);
     }
 
@@ -165,6 +168,8 @@ public class RedisConfig extends CachingConfigurerSupport {
             return null;
         }
         String str = new String(bytes, StandardCharsets.UTF_8);
+        // SECURITY FIX (GHSL-2024-295): Deserialize with whitelist protection
+        // Only classes in the accepted whitelist (co.yixiang.*) will be deserialized
         return JSON.parseObject(str, clazz);
     }
 
