@@ -3,15 +3,16 @@
 <h1 style="text-align: center">yshop意象商城系统</h1>
 
 ## 项目简介
-yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2+SpringBoot3+MybatisPlus+SpringSecurity+jwt+redis+Vue的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值等功能，更适合企业或个人二次开发；
+yshop基于当前流行技术组合的前后端分离B2C(单商户)、B2B2C(多商户)商城系统： SpringBoot2+SpringBoot3+MybatisPlus+SpringSecurity+jwt+redis+Vue+uniapp的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值等功能，更适合企业或个人二次开发；
 
 
 
 ## 官网体验地址
 |  官网地址  |  https://www.yixiang.co |
 |---|---|
-| 管理后台商业版演示地址：  |   https://b2c.yixiang.co |
-| 关注公众号点体验商业版单商户H5  |  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
+| 单商户演示地址：  |   https://www.yixiang.co/p/B2CPRO.html |
+| 多商户演示地址：  |   https://www.yixiang.co/p/YshopduoshanghuduodianpuB2B2Cjieshaojiqiyanshi.html|
+| 关注公众号点体验商业版移动端|  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
 
 ## 视频资料
 如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！ QQ交流群 (入群前，请在网页右上角点 "Star" )，群里有视频教程与开发文档哦！！
