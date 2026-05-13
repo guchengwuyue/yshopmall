@@ -35,17 +35,17 @@
         </el-col>
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
-            <router-link :to="{ path: '/activity/combination' }">
+            <router-link :to="{ path: '/syspoints/pointConfig' }">
               <i class="el-icon-postcard" style="color: #ffd666" />
-              <p>营销管理</p>
+              <p>积分管理</p>
             </router-link>
           </el-card>
         </el-col>
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
-            <router-link :to="{ path: '/promoter/promoterconfig' }">
+            <router-link :to="{ path: '/wechat/wemenu' }">
               <i class="el-icon-notebook-1" style="color: #5cdbd3" />
-              <p>分销管理</p>
+              <p>微信管理</p>
             </router-link>
           </el-card>
         </el-col>

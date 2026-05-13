@@ -13,9 +13,7 @@ import cn.hutool.core.io.resource.ClassPathResource;
 import co.yixiang.api.ApiResult;
 import co.yixiang.api.YshopException;
 import co.yixiang.constant.ShopConstants;
-import co.yixiang.enums.ProductEnum;
-import co.yixiang.modules.activity.service.YxStoreCombinationService;
-import co.yixiang.modules.activity.service.YxStoreSeckillService;
+import co.yixiang.enums.ProductEnum;;
 import co.yixiang.modules.canvas.domain.StoreCanvas;
 import co.yixiang.modules.canvas.service.StoreCanvasService;
 import co.yixiang.modules.product.service.YxStoreProductService;
@@ -66,8 +64,6 @@ public class IndexController {
     private final YxSystemGroupDataService systemGroupDataService;
     private final YxStoreProductService storeProductService;
     private final YxSystemStoreService systemStoreService;
-    private final YxStoreCombinationService storeCombinationService;
-    private final YxStoreSeckillService storeSeckillService;
 
 
     private final StoreCanvasService storeCanvasService;
@@ -89,13 +85,11 @@ public class IndexController {
                 .banner(systemGroupDataService.getDatas(ShopConstants.YSHOP_HOME_BANNER))
                 .bastList(storeProductService.getList(1,6, ProductEnum.TYPE_1.getValue()))
                 .benefit(storeProductService.getList(1,10,ProductEnum.TYPE_4.getValue()))
-                .combinationList(storeCombinationService.getList(1,8).getStoreCombinationQueryVos())
                 .firstList(storeProductService.getList(1,6,ProductEnum.TYPE_3.getValue()))
                 .likeInfo(storeProductService.getList(1,8,ProductEnum.TYPE_2.getValue()))
                 .mapKey(RedisUtil.get(ShopKeyUtils.getTengXunMapKey()))
                 .menus(systemGroupDataService.getDatas(ShopConstants.YSHOP_HOME_MENUS))
                 .roll(systemGroupDataService.getDatas(ShopConstants.YSHOP_HOME_ROLL_NEWS))
-                .seckillList(storeSeckillService.getList(1, 4))
                 .build();
         return ApiResult.ok(indexVo);
     }

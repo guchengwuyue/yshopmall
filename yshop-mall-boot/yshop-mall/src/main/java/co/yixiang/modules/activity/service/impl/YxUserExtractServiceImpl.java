@@ -227,8 +227,6 @@ public class YxUserExtractServiceImpl extends BaseServiceImpl<YxUserExtractMappe
                         BillDetailEnum.TYPE_4.getValue(),resources.getExtractPrice().doubleValue(),balance,
                         mark,resources.getId().toString());
 
-                //返回提现金额
-                userService.incBrokeragePrice(resources.getExtractPrice(),resources.getUid());
 
                 resources.setFailTime(new Date());
             }

@@ -47,14 +47,7 @@ public class MemberController {
         this.yxUserService = yxUserService;
     }
 
-    @Log("查看下级")
-    @ApiOperation(value = "查看下级")
-    @PostMapping(value = "/yxUser/spread")
-    @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_EDIT')")
-    public ResponseEntity getSpread(@RequestBody YxUserQueryCriteria criteria){
-        return new ResponseEntity<>(yxUserService.querySpread(criteria.getUid(),criteria.getGrade()),
-                HttpStatus.OK);
-    }
+
 
     @Log("查询用户")
     @ApiOperation(value = "查询用户")

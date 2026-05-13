@@ -13,8 +13,6 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.message.redis.config.RedisConfigProperties;
-import co.yixiang.modules.activity.domain.YxStorePink;
-import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.order.domain.YxStoreOrder;
 import co.yixiang.modules.order.service.YxStoreOrderService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -38,16 +36,14 @@ public class RedisKeyExpirationListener implements MessageListener {
 	private RedisTemplate<String, String> redisTemplate;
 	private RedisConfigProperties redisConfigProperties;
 	private YxStoreOrderService storeOrderService;
-	private YxStorePinkService storePinkService;
+
 
 	public RedisKeyExpirationListener(RedisTemplate<String, String> redisTemplate,
                                       RedisConfigProperties redisConfigProperties,
-									  YxStoreOrderService storeOrderService,
-									  YxStorePinkService storePinkService){
+									  YxStoreOrderService storeOrderService){
 		this.redisTemplate = redisTemplate;
 		this.redisConfigProperties = redisConfigProperties;
 		this.storeOrderService = storeOrderService;
-		this.storePinkService = storePinkService;
 	}
 	@Override
 	public void onMessage(Message message, byte[] bytes) {
@@ -87,22 +83,6 @@ public class RedisKeyExpirationListener implements MessageListener {
 				}
 			}
 
-			//拼团过期取消
-			if(body.contains(ShopConstants.REDIS_PINK_CANCEL_KEY)) {
-				body = body.replace(ShopConstants.REDIS_PINK_CANCEL_KEY, "");
-				log.info("body:{}",body);
-				String pinkId = body;
-				YxStorePink storePink = storePinkService.getOne(Wrappers.<YxStorePink>lambdaQuery()
-						.eq(YxStorePink::getId,pinkId)
-						.eq(YxStorePink::getStatus,OrderInfoEnum.PINK_STATUS_1.getValue())
-                        .eq(YxStorePink::getIsRefund,OrderInfoEnum.PINK_REFUND_STATUS_0.getValue()));
-
-				//取消拼团
-				if(storePink != null){
-					storePinkService.removePink(storePink.getUid(),storePink.getCid(),storePink.getId());
-					log.info("拼团订单id:{},未在规定时间完成取消成功",body);
-				}
-			}
 		}
 
 	}

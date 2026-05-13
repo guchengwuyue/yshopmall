@@ -17,9 +17,7 @@ import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.CartTypeEnum;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.enums.ProductTypeEnum;
-import co.yixiang.enums.ShopCommonEnum;
-import co.yixiang.modules.activity.service.mapper.YxStoreCombinationMapper;
-import co.yixiang.modules.activity.service.mapper.YxStoreSeckillMapper;
+import co.yixiang.enums.ShopCommonEnum;;
 import co.yixiang.modules.cart.domain.YxStoreCart;
 import co.yixiang.modules.cart.service.YxStoreCartService;
 import co.yixiang.modules.cart.service.dto.YxStoreCartDto;
@@ -67,10 +65,6 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
 
     @Autowired
     private StoreCartMapper yxStoreCartMapper;
-    @Autowired
-    private YxStoreSeckillMapper storeSeckillMapper;
-    @Autowired
-    private YxStoreCombinationMapper storeCombinationMapper;
     @Autowired
     private YxStoreProductService productService;
     @Autowired
@@ -160,16 +154,8 @@ public class YxStoreCartServiceImpl extends BaseServiceImpl<StoreCartMapper, YxS
         List<YxStoreCartQueryVo> invalid = new ArrayList<>();
 
         for (YxStoreCart storeCart : carts) {
-            YxStoreProductQueryVo storeProduct = null;
-            if (storeCart.getCombinationId() != null && storeCart.getCombinationId() > 0) {
-                storeProduct = ObjectUtil.clone(storeCombinationMapper.combinatiionInfo(storeCart.getCombinationId()));
-            } else if (storeCart.getSeckillId() != null && storeCart.getSeckillId() > 0) {
-                storeProduct = ObjectUtil.clone(storeSeckillMapper.seckillInfo(storeCart.getSeckillId()));
-            } else {
-                //必须得重新克隆创建一个新对象
-                storeProduct = ObjectUtil.clone(productService
-                        .getStoreProductById(storeCart.getProductId()));
-            }
+            YxStoreProductQueryVo storeProduct = productService
+                    .getStoreProductById(storeCart.getProductId());
 
             YxStoreCartQueryVo storeCartQueryVo = generator.convert(storeCart, YxStoreCartQueryVo.class);
 

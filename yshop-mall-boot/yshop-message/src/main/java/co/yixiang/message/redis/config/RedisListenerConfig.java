@@ -11,7 +11,6 @@ package co.yixiang.message.redis.config;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.message.redis.listener.RedisKeyExpirationListener;
-import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.order.service.YxStoreOrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +33,6 @@ public class RedisListenerConfig {
 	private final RedisTemplate<String, String> redisTemplate;
 	private final RedisConfigProperties redisConfigProperties;
 	private final YxStoreOrderService storeOrderService;
-	private final YxStorePinkService storePinkService;
 
 	@Bean
     RedisMessageListenerContainer container(RedisConnectionFactory factory) {
@@ -42,7 +40,7 @@ public class RedisListenerConfig {
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(factory);
 		container.addMessageListener(new RedisKeyExpirationListener(redisTemplate,redisConfigProperties
-		 ,storeOrderService,storePinkService), new PatternTopic(topic));
+		 ,storeOrderService), new PatternTopic(topic));
 		return container;
 	}
 }

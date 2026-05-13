@@ -29,9 +29,7 @@ import co.yixiang.exception.BadRequestException;
 import co.yixiang.exception.EntityExistException;
 import co.yixiang.exception.ErrorRequestException;
 import co.yixiang.modules.activity.domain.YxStoreCouponUser;
-import co.yixiang.modules.activity.domain.YxStorePink;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
-import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.activity.vo.StoreCouponUserVo;
 import co.yixiang.modules.cart.domain.YxStoreCart;
 import co.yixiang.modules.cart.service.YxStoreCartService;
@@ -69,7 +67,6 @@ import co.yixiang.modules.user.domain.YxUser;
 import co.yixiang.modules.user.domain.YxUserAddress;
 import co.yixiang.modules.user.service.YxUserAddressService;
 import co.yixiang.modules.user.service.YxUserBillService;
-import co.yixiang.modules.user.service.YxUserLevelService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.dto.YxUserDto;
 import co.yixiang.modules.user.vo.YxUserQueryVo;
@@ -88,6 +85,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -116,8 +114,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
 
 
     @Autowired
-    private YxStorePinkService storePinkService;
-    @Autowired
     private YxStoreOrderCartInfoService storeOrderCartInfoService;
     @Autowired
     private YxStoreCartService storeCartService;
@@ -129,14 +125,13 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     private YxStoreOrderStatusService orderStatusService;
     @Autowired
     private YxUserBillService billService;
+    @Lazy
     @Autowired
     private YxStoreCouponUserService couponUserService;
     @Autowired
     private YxUserService userService;
     @Autowired
     private YxStoreProductService productService;
-    @Autowired
-    private YxStorePinkService pinkService;
     @Autowired
     private YxExpressService expressService;
     @Autowired
@@ -157,8 +152,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
     private YxShippingTemplatesFreeService shippingTemplatesFreeService;
     @Autowired
     private YxSystemConfigService systemConfigService;
-    @Autowired
-    private YxUserLevelService userLevelService;
 
 
     @Autowired
@@ -749,13 +742,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             throw new YshopException("请后台先添加快递公司");
         }
 
-        //判断拼团产品
-        if (orderQueryVo.getPinkId() != null && orderQueryVo.getPinkId() > 0) {
-            YxStorePink pink = pinkService.getById(orderQueryVo.getPinkId());
-            if (!OrderInfoEnum.PINK_STATUS_2.getValue().equals(pink.getStatus())) {
-                throw new YshopException("拼团未成功不能发货");
-            }
-        }
+
 
         YxStoreOrder storeOrder = YxStoreOrder.builder()
                 .id(orderQueryVo.getId())
@@ -993,15 +980,8 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         //奖励积分
         this.gainUserIntegral(order);
 
-        //分销计算
-        // 过滤砍价、拼团、秒杀
-        if (storeOrder.getCombinationId() == 0
-                && storeOrder.getSeckillId() == 0) {
-            userService.backOrderBrokerage(order);
-        }
 
-        //检查是否符合会员升级条件
-        // userLevelService.setLevelComplete(uid);
+
     }
 
 
@@ -1035,13 +1015,6 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             throw new YshopException("订单已经核销");
         }
 
-        if (order.getCombinationId() != null && order.getCombinationId() > 0
-                && order.getPinkId() != null && order.getPinkId() > 0) {
-            YxStorePink storePink = storePinkService.getById(order.getPinkId());
-            if (!OrderInfoEnum.PINK_STATUS_2.getValue().equals(storePink.getStatus())) {
-                throw new YshopException("拼团订单暂未成功无法核销");
-            }
-        }
 
         YxStoreOrderQueryVo orderQueryVo = generator.convert(order, YxStoreOrderQueryVo.class);
         if (OrderInfoEnum.CONFIRM_STATUS_0.getValue().equals(isConfirm)) {
@@ -1060,14 +1033,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         //奖励积分
         this.gainUserIntegral(orderQueryVo);
 
-        //分销计算
-        // 过滤砍价、拼团、秒杀
-        if (orderQueryVo.getCombinationId() == 0
-                && orderQueryVo.getSeckillId() == 0) {
-            userService.backOrderBrokerage(orderQueryVo);
-        }
-        //检查是否符合会员升级条件
-        userLevelService.setLevelComplete(order.getUid());
+
 
         //
 
@@ -1472,31 +1438,16 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             statusDTO.set_type("-2");
             statusDTO.set_title("已退款");
         } else if (OrderInfoEnum.STATUS_0.getValue().equals(order.getStatus())) {
-            // 拼团
-            if (order.getPinkId() > 0) {
-                if (pinkService.pinkIngCount(order.getPinkId()) > 0) {
-                    statusDTO.set_class("state-nfh");
-                    statusDTO.set_msg("待其他人参加拼团");
-                    statusDTO.set_type("1");
-                    statusDTO.set_title("拼团中");
-                } else {
-                    statusDTO.set_class("state-nfh");
-                    statusDTO.set_msg("商家未发货,请耐心等待");
-                    statusDTO.set_type("1");
-                    statusDTO.set_title("未发货");
-                }
+            if (OrderInfoEnum.SHIPPIING_TYPE_1.getValue().equals(order.getShippingType())) {
+                statusDTO.set_class("state-nfh");
+                statusDTO.set_msg("商家未发货,请耐心等待");
+                statusDTO.set_type("1");
+                statusDTO.set_title("未发货");
             } else {
-                if (OrderInfoEnum.SHIPPIING_TYPE_1.getValue().equals(order.getShippingType())) {
-                    statusDTO.set_class("state-nfh");
-                    statusDTO.set_msg("商家未发货,请耐心等待");
-                    statusDTO.set_type("1");
-                    statusDTO.set_title("未发货");
-                } else {
-                    statusDTO.set_class("state-nfh");
-                    statusDTO.set_msg("待核销,请到核销点进行核销");
-                    statusDTO.set_type("1");
-                    statusDTO.set_title("待核销");
-                }
+                statusDTO.set_class("state-nfh");
+                statusDTO.set_msg("待核销,请到核销点进行核销");
+                statusDTO.set_type("1");
+                statusDTO.set_title("待核销");
             }
 
         } else if (OrderInfoEnum.STATUS_1.getValue().equals(order.getStatus())) {
@@ -1554,10 +1505,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
         //增加状态
         orderStatusService.create(orderInfo.getId(), OrderLogEnum.PAY_ORDER_SUCCESS.getValue(),
                 OrderLogEnum.PAY_ORDER_SUCCESS.getDesc());
-        //拼团
-        if (orderInfo.getCombinationId() > 0) {
-            pinkService.createPink(orderInfo);
-        }
+
 
 
         YxUser userInfo = userService.getById(orderInfo.getUid());
@@ -2546,27 +2494,7 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
      */
     private String orderType(Long id, Long pinkId, Long combinationId, Long seckillId, Integer shippingType, BigDecimal payIntegral) {
         String str = "[普通订单]";
-        if (pinkId > 0 || combinationId > 0) {
-            YxStorePink storePink = storePinkService.getOne(new LambdaQueryWrapper<YxStorePink>()
-                    .eq(YxStorePink::getOrderIdKey, id));
-            if (ObjectUtil.isNull(storePink)) {
-                str = "[拼团订单]";
-            } else {
-                if (OrderInfoEnum.PINK_STATUS_1.getValue().equals(storePink.getStatus())) {
-                    str = "[拼团订单]正在进行中";
-                } else if (OrderInfoEnum.PINK_STATUS_2.getValue().equals(storePink.getStatus())) {
-                    str = "[拼团订单]已完成";
-                } else if (OrderInfoEnum.PINK_STATUS_3.getValue().equals(storePink.getStatus())) {
-                    str = "[拼团订单]未完成";
-                } else {
-                    str = "[拼团订单]历史订单";
-                }
 
-            }
-
-        } else if (seckillId > 0) {
-            str = "[秒杀订单]";
-        }
 
         if (OrderInfoEnum.SHIPPIING_TYPE_2.getValue().equals(shippingType)) {
             str = "[核销订单]";

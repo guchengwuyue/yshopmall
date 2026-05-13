@@ -151,8 +151,6 @@ public class TemplateListener implements SmartApplicationListener {
                         billService.income(resources.getUid(), "提现失败", BillDetailEnum.CATEGORY_1.getValue(),
                                 BillDetailEnum.TYPE_4.getValue(), resources.getExtractPrice().doubleValue(), balance,
                                 mark, resources.getId().toString());
-                        //返回提现金额
-                        userService.incBrokeragePrice(resources.getExtractPrice(), resources.getUid());
                         resources.setFailMsg("提现失败");
                         resources.setFailTime(new Date());
                     }

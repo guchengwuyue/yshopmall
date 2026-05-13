@@ -17,7 +17,6 @@ import co.yixiang.enums.BillDetailEnum;
 import co.yixiang.enums.OrderInfoEnum;
 import co.yixiang.enums.OrderLogEnum;
 import co.yixiang.enums.PayTypeEnum;
-import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.cart.vo.YxStoreCartQueryVo;
 import co.yixiang.modules.order.domain.YxStoreOrder;
 import co.yixiang.modules.order.domain.YxStoreOrderCartInfo;
@@ -54,7 +53,6 @@ import java.util.Map;
 public class OrderSupplyService {
 
     private final YxStoreOrderService storeOrderService;
-    private final YxStorePinkService storePinkService;
     private final YxStoreOrderCartInfoService orderCartInfoService;
     private final WeixinPayService weixinPayService;
 
@@ -129,13 +127,7 @@ public class OrderSupplyService {
                     map.put("result",orderExtendDTO);
                     map.put("msg",OrderLogEnum.PINK_ORDER_FAIL_1.getDesc());
                 }
-                if(yxStoreOrder != null && storePinkService.getIsPinkUid(pinkId,uid)){
-                    map.put("status",OrderLogEnum.PINK_ORDER_FAIL_2.getValue());
-                    OrderExtendDto orderExtendDTO = new OrderExtendDto();
-                    orderExtendDTO.setOrderId(yxStoreOrder.getOrderId());
-                    map.put("result",orderExtendDTO);
-                    map.put("msg",OrderLogEnum.PINK_ORDER_FAIL_2.getDesc());
-                }
+
             }
 
         }

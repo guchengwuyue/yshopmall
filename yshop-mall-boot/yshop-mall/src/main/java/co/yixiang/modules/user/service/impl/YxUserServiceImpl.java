@@ -10,34 +10,23 @@ package co.yixiang.modules.user.service.impl;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
 import co.yixiang.api.ApiCode;
 import co.yixiang.api.UnAuthenticatedException;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.common.utils.QueryHelpPlus;
-import co.yixiang.constant.SystemConfigConstants;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.BillDetailEnum;
-import co.yixiang.enums.Brokerage;
 import co.yixiang.enums.ShopCommonEnum;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
-import co.yixiang.modules.cart.vo.YxStoreCartQueryVo;
-import co.yixiang.modules.order.domain.YxStoreOrderCartInfo;
 import co.yixiang.modules.order.service.YxStoreOrderCartInfoService;
 import co.yixiang.modules.order.service.YxStoreOrderService;
 import co.yixiang.modules.order.service.mapper.StoreOrderMapper;
-import co.yixiang.modules.order.vo.YxStoreOrderQueryVo;
-import co.yixiang.modules.product.vo.YxStoreProductQueryVo;
 import co.yixiang.modules.shop.domain.YxSystemUserLevel;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.shop.service.YxSystemStoreStaffService;
 import co.yixiang.modules.user.domain.YxUser;
-import co.yixiang.modules.user.domain.YxUserLevel;
-import co.yixiang.modules.user.service.YxSystemUserLevelService;
 import co.yixiang.modules.user.service.YxUserBillService;
-import co.yixiang.modules.user.service.YxUserLevelService;
 import co.yixiang.modules.user.service.YxUserService;
-import co.yixiang.modules.user.service.dto.PromUserDto;
 import co.yixiang.modules.user.service.dto.UserMoneyDto;
 import co.yixiang.modules.user.service.dto.YxUserDto;
 import co.yixiang.modules.user.service.dto.YxUserQueryCriteria;
@@ -45,12 +34,10 @@ import co.yixiang.modules.user.service.mapper.UserBillMapper;
 import co.yixiang.modules.user.service.mapper.UserMapper;
 import co.yixiang.modules.user.vo.YxUserQueryVo;
 import co.yixiang.utils.FileUtil;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -60,12 +47,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
 * @author hupeng
@@ -86,10 +70,7 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
     private UserBillMapper userBillMapper;
 
 
-    @Autowired
-    private YxSystemUserLevelService systemUserLevelService;
-    @Autowired
-    private YxUserLevelService userLevelService;
+    @Lazy
     @Autowired
     private YxStoreOrderService orderService;
     @Autowired
@@ -147,130 +128,6 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
     }
 
 
-    /**
-     * 获取我的分销下人员列表
-     * @param uid uid
-     * @param page page
-     * @param limit limit
-     * @param grade ShopCommonEnum.GRADE_0
-     * @param keyword 关键字搜索
-     * @param sort 排序
-     * @return list
-     */
-    @Override
-    public List<PromUserDto> getUserSpreadGrade(Long uid, int page, int limit, Integer grade,
-                                                String keyword, String sort) {
-        List<YxUser> userList = yxUserMapper.selectList(Wrappers.<YxUser>lambdaQuery()
-                .eq(YxUser::getSpreadUid, uid));
-        List<Long> userIds = userList.stream()
-                .map(YxUser::getUid)
-                .collect(Collectors.toList());
-
-        List<PromUserDto> list = new ArrayList<>();
-        if (userIds.isEmpty()) {
-            return list;
-        }
-
-        if (StrUtil.isBlank(sort)) {
-            sort = "u.uid desc";
-        }
-
-        Page<YxUser> pageModel = new Page<>(page, limit);
-        if (ShopCommonEnum.GRADE_0.getValue().equals(grade)) {//-级
-            list = yxUserMapper.getUserSpreadCountList(pageModel, userIds,
-                    keyword, sort);
-        } else {//二级
-            List<YxUser> userListT = yxUserMapper.selectList(Wrappers.<YxUser>lambdaQuery()
-                    .in(YxUser::getSpreadUid, userIds));
-            List<Long> userIdsT = userListT.stream()
-                    .map(YxUser::getUid)
-                    .collect(Collectors.toList());
-            if (userIdsT.isEmpty()) {
-                return list;
-            }
-            list = yxUserMapper.getUserSpreadCountList(pageModel, userIdsT,
-                    keyword, sort);
-
-        }
-        return list;
-    }
-
-    /**
-     * 统计分销人员
-     *
-     * @param uid uid
-     * @return map
-     */
-    @Override
-    public Map<String, Long> getSpreadCount(Long uid) {
-        Long countOne = yxUserMapper.selectCount(Wrappers.<YxUser>lambdaQuery()
-                .eq(YxUser::getSpreadUid,uid));
-
-        Long countTwo = 0L;
-        List<YxUser> userList = yxUserMapper.selectList((Wrappers.<YxUser>lambdaQuery()
-                .eq(YxUser::getSpreadUid,uid)));
-        List<Long> userIds = userList.stream().map(YxUser::getUid)
-                .collect(Collectors.toList());
-        if(!userIds.isEmpty()){
-            countTwo = yxUserMapper.selectCount(Wrappers.<YxUser>lambdaQuery()
-                    .in(YxUser::getSpreadUid,userIds));
-        }
-
-        Map<String,Long> map = new LinkedHashMap<>(2);
-        map.put("first",countOne); //一级
-        map.put("second",countTwo);//二级
-
-        return map;
-    }
-
-    /**
-     * 一级返佣
-     * @param order 订单
-     */
-    @Override
-    public void backOrderBrokerage(YxStoreOrderQueryVo order) {
-        //如果分销没开启直接返回
-        String open = systemConfigService.getData(SystemConfigConstants.STORE_BROKERAGE_OPEN);
-        if(StrUtil.isBlank(open) || ShopCommonEnum.ENABLE_2.getValue().toString().equals(open)) {
-            return;
-        }
-
-
-        //获取购买商品的用户
-        YxUser userInfo =  this.getById(order.getUid());
-        System.out.println("userInfo:"+userInfo);
-        //当前用户不存在 没有上级  直接返回
-        if(ObjectUtil.isNull(userInfo) || userInfo.getSpreadUid() == 0) {
-            return;
-        }
-
-
-        YxUser preUser = this.getById(userInfo.getSpreadUid());
-
-        //一级返佣金额
-        BigDecimal brokeragePrice = this.computeProductBrokerage(order, Brokerage.LEVEL_1);
-
-        //返佣金额小于等于0 直接返回不返佣金
-
-        if(brokeragePrice.compareTo(BigDecimal.ZERO) <= 0) {
-            return;
-        }
-
-        //计算上级推广员返佣之后的金额
-        double balance = NumberUtil.add(preUser.getBrokeragePrice(),brokeragePrice).doubleValue();
-        String mark = userInfo.getNickname()+"成功消费"+order.getPayPrice()+"元,奖励推广佣金"+
-                brokeragePrice;
-        //增加流水
-        billService.income(userInfo.getSpreadUid(),"获得推广佣金",BillDetailEnum.CATEGORY_1.getValue(),
-                BillDetailEnum.TYPE_2.getValue(),brokeragePrice.doubleValue(),balance, mark,order.getId().toString());
-
-        //添加用户余额
-        yxUserMapper.incBrokeragePrice(brokeragePrice, userInfo.getSpreadUid());
-
-        //一级返佣成功 跳转二级返佣
-        this.backOrderBrokerageTwo(order);
-
-    }
 
 
 
@@ -345,7 +202,7 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
         //获取核销权限
         userQueryVo.setCheckStatus(systemStoreStaffService.checkStatus(yxUser.getUid(),null));
 
-        this.setUserSpreadCount(yxUser);
+
         return userQueryVo;
     }
 
@@ -359,224 +216,22 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
      */
     @Override
     public double setLevelPrice(double price, long uid) {
-       LambdaQueryWrapper<YxUserLevel> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(YxUserLevel::getStatus, ShopCommonEnum.IS_STATUS_1.getValue())
-                .eq(YxUserLevel::getUid,uid)
-                .orderByDesc(YxUserLevel::getGrade)
-                .last("limit 1");
-        YxUserLevel userLevel = userLevelService.getOne(wrapper);
-        YxSystemUserLevel systemUserLevel = new YxSystemUserLevel();
-        if(ObjectUtil.isNotNull(userLevel)) {
-            systemUserLevel=  systemUserLevelService.getById(userLevel.getLevelId());
-        }
+
         int discount = 100;
-        if(ObjectUtil.isNotNull(userLevel)) {
-            discount = systemUserLevel.getDiscount().intValue();
-        }
         return NumberUtil.mul(NumberUtil.div(discount,100),price);
     }
 
 
-    /**
-     * 设置推广关系
-     * @param spread 上级人
-     * @param uid 本人
-     */
-    @Override
-    public void setSpread(String spread, long uid) {
-        if(StrUtil.isBlank(spread) || !NumberUtil.isNumber(spread)) {
-            return;
-        }
-
-        //如果分销没开启直接返回
-        String open = systemConfigService.getData(SystemConfigConstants.STORE_BROKERAGE_OPEN);
-        if(StrUtil.isBlank(open) || ShopCommonEnum.ENABLE_2.getValue().toString().equals(open)) {
-            return;
-        }
-        //当前用户信息
-        YxUser userInfo = this.getById(uid);
-        if(ObjectUtil.isNull(userInfo)) {
-            return;
-        }
-
-        //当前用户有上级直接返回
-        if(userInfo.getSpreadUid() != null && userInfo.getSpreadUid() > 0) {
-            return;
-        }
-        //没有推广编号直接返回
-        long spreadInt = Long.valueOf(spread);
-        if(spreadInt == 0) {
-            return;
-        }
-        if(spreadInt == uid) {
-            return;
-        }
-
-        //不能互相成为上下级
-        YxUser userInfoT = this.getById(spreadInt);
-        if(ObjectUtil.isNull(userInfoT)) {
-            return;
-        }
-
-        if(userInfoT.getSpreadUid() == uid) {
-            return;
-        }
-
-        YxUser yxUser = YxUser.builder()
-                .spreadUid(spreadInt)
-                .spreadTime(new Date())
-                .uid(uid)
-                .build();
-
-        yxUserMapper.updateById(yxUser);
-
-    }
-
-
-    /**
-     * 二级返佣
-     * @param order 订单
-     */
-    private void backOrderBrokerageTwo(YxStoreOrderQueryVo order) {
-
-        YxUser userInfo =  this.getById(order.getUid());
-
-        //获取上推广人
-        YxUser userInfoTwo = this.getById(userInfo.getSpreadUid());
-
-        //上推广人不存在 或者 上推广人没有上级    直接返回
-        if(ObjectUtil.isNull(userInfoTwo) || userInfoTwo.getSpreadUid() == 0) {
-            return;
-        }
-
-
-        //指定分销 判断 上上级是否时推广员  如果不是推广员直接返回
-        YxUser preUser = this.getById(userInfoTwo.getSpreadUid());
-
-
-        //二级返佣金额
-        BigDecimal brokeragePrice = this.computeProductBrokerage(order,Brokerage.LEVEL_2);
-
-        //返佣金额小于等于0 直接返回不返佣金
-        if(brokeragePrice.compareTo(BigDecimal.ZERO) <= 0) {
-            return;
-        }
-
-        //获取上上级推广员信息
-        double balance = NumberUtil.add(preUser.getBrokeragePrice(),brokeragePrice).doubleValue();
-        String mark = "二级推广人"+userInfo.getNickname()+"成功消费"+order.getPayPrice()+"元,奖励推广佣金"+
-                brokeragePrice;
-
-        //增加流水
-        billService.income(userInfoTwo.getSpreadUid(),"获得推广佣金",BillDetailEnum.CATEGORY_1.getValue(),
-                BillDetailEnum.TYPE_2.getValue(),brokeragePrice.doubleValue(),balance, mark,order.getId().toString());
-        //添加用户余额
-        yxUserMapper.incBrokeragePrice(brokeragePrice,
-                userInfoTwo.getSpreadUid());
-    }
-
-
-    /**
-     * 计算获取返佣金额
-     * @param order 订单信息
-     * @param level 分销级别
-     * @return double
-     */
-    private BigDecimal computeProductBrokerage(YxStoreOrderQueryVo order , Brokerage level){
-        List<YxStoreOrderCartInfo> storeOrderCartInfoList = storeOrderCartInfoService
-                .list(Wrappers.<YxStoreOrderCartInfo>lambdaQuery()
-                        .in(YxStoreOrderCartInfo::getCartId, Arrays.asList(order.getCartId().split(","))));
-        BigDecimal oneBrokerage = BigDecimal.ZERO;//一级返佣金额
-        BigDecimal twoBrokerage = BigDecimal.ZERO;//二级返佣金额
-
-        List<String> cartInfos = storeOrderCartInfoList.stream()
-                .map(YxStoreOrderCartInfo::getCartInfo)
-                .collect(Collectors.toList());
-
-        for (String cartInfo : cartInfos){
-            YxStoreCartQueryVo cart = JSON.parseObject(cartInfo,YxStoreCartQueryVo.class);
-
-            YxStoreProductQueryVo storeProductVO = cart.getProductInfo();
-            //产品是否单独分销
-            if(ShopCommonEnum.IS_SUB_1.getValue().equals(storeProductVO.getIsSub())){
-                oneBrokerage = NumberUtil.round(NumberUtil.add(oneBrokerage,
-                        NumberUtil.mul(cart.getCartNum(),storeProductVO.getAttrInfo().getBrokerage()))
-                        ,2);
-
-                twoBrokerage = NumberUtil.round(NumberUtil.add(twoBrokerage,
-                        NumberUtil.mul(cart.getCartNum(),storeProductVO.getAttrInfo().getBrokerageTwo()))
-                        ,2);
-            }
-
-        }
-
-        //获取后台一级返佣比例
-        String storeBrokerageRatioStr = systemConfigService.getData(SystemConfigConstants.STORE_BROKERAGE_RATIO);
-        String storeBrokerageTwoStr = systemConfigService.getData(SystemConfigConstants.STORE_BROKERAGE_TWO);
-
-
-        //一级返佣比例未设置直接返回
-        if(StrUtil.isBlank(storeBrokerageRatioStr)
-                || !NumberUtil.isNumber(storeBrokerageRatioStr)){
-            return oneBrokerage;
-        }
-        //二级返佣比例未设置直接返回
-        if(StrUtil.isBlank(storeBrokerageTwoStr)
-                || !NumberUtil.isNumber(storeBrokerageTwoStr)){
-            return twoBrokerage;
-        }
-
-
-        switch (level){
-            case LEVEL_1:
-                //根据订单获取一级返佣比例
-                BigDecimal storeBrokerageRatio = NumberUtil.round(NumberUtil.div(storeBrokerageRatioStr,"100"),2);
-                BigDecimal brokeragePrice = NumberUtil
-                        .round(NumberUtil.mul(order.getTotalPrice(),storeBrokerageRatio),2);
-                //固定返佣 + 比例返佣 = 总返佣金额
-                return NumberUtil.add(oneBrokerage,brokeragePrice);
-            case LEVEL_2:
-                //根据订单获取一级返佣比例
-                BigDecimal storeBrokerageTwo = NumberUtil.round(NumberUtil.div(storeBrokerageTwoStr,"100"),2);
-                BigDecimal storeBrokerageTwoPrice = NumberUtil
-                        .round(NumberUtil.mul(order.getTotalPrice(),storeBrokerageTwo),2);
-                //固定返佣 + 比例返佣 = 总返佣金额
-                return NumberUtil.add(twoBrokerage,storeBrokerageTwoPrice);
-            default:
-        }
-
-
-        return BigDecimal.ZERO;
-
-    }
 
 
 
-    /**
-     * 更新下级人数
-     * @param yxUser user
-     */
-    private void setUserSpreadCount(YxUser yxUser) {
-        Long count = yxUserMapper.selectCount(Wrappers.<YxUser>lambdaQuery()
-                .eq(YxUser::getSpreadUid,yxUser.getUid()));
-        yxUser.setSpreadCount(count);
-        yxUserMapper.updateById(yxUser);
-    }
+
 
 
     //===========后面管理后台部分=====================//
 
 
-    /**
-     * 查看下级
-     * @param uid uid
-     * @param grade 等级
-     * @return list
-     */
-    @Override
-    public List<PromUserDto> querySpread(Long uid, Integer grade) {
-        return this.getUserSpreadGrade(uid,1, 999,grade,"","");
-    }
+
 
 
     @Override
@@ -681,13 +336,4 @@ public class YxUserServiceImpl extends BaseServiceImpl<UserMapper, YxUser> imple
         saveOrUpdate(yxUser);
     }
 
-    /**
-     * 增加佣金
-     * @param price 金额
-     * @param uid 用户id
-     */
-    @Override
-    public void incBrokeragePrice(BigDecimal price, Long uid) {
-        yxUserMapper.incBrokeragePrice(price,uid);
-    }
 }

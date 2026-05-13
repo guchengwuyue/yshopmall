@@ -26,8 +26,8 @@ yshop基于当前流行技术组合的前后端分离商城系统： SpringBoot2
 关于log4j2漏洞说明
 - 方式一：拉最新的代码，重新打包运行应用
 - 方式二：不更新代码，直接加启动参数，如下：
-- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-app-1.9.0.jar
-- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-admin-1.9.0.jar
+- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-app-2.0.0.jar
+- java -Dlog4j2.formatMsgNoLookups=true -jar yshop-admin-2.0.0.jar
 
 #### 项目结构
 yshop3.0项目采用分模块开发方式

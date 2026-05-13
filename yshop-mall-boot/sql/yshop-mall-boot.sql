@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 04/04/2025 21:03:18
+ Date: 13/05/2026 11:36:40
 */
 
 SET NAMES utf8mb4;
@@ -1944,7 +1944,7 @@ CREATE TABLE `sys_log` (
   `update_time` datetime DEFAULT NULL,
   `is_del` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2137 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=2189 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -2123,6 +2123,58 @@ INSERT INTO `sys_log` VALUES (2133, '2025-04-04 11:08:32', '查询菜单', NULL,
 INSERT INTO `sys_log` VALUES (2134, '2025-04-04 11:08:38', '删除菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.delete()', '{ ids: [69] }', '192.168.31.39', 41, 'admin', '未知', NULL, 0, 1, NULL, 0);
 INSERT INTO `sys_log` VALUES (2135, '2025-04-04 11:08:38', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 37, 'admin', '未知', NULL, 0, 1, NULL, 0);
 INSERT INTO `sys_log` VALUES (2136, '2025-04-04 11:08:42', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 47, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2137, '2026-05-13 09:19:42', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@58837534] }', '192.168.31.39', 1250, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2138, '2026-05-13 09:25:44', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: sort: DESC] }', '192.168.31.39', 29, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2139, '2026-05-13 09:25:49', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 137, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2140, '2026-05-13 09:25:49', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 164, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2141, '2026-05-13 09:27:55', '新增或修改画布', NULL, 'INFO', 'co.yixiang.modules.canvas.rest.StoreCanvasController.create()', '{ resources: StoreCanvas(canvasId=11, terminal=3, json=[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123138639021.jpeg\"},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123218917756.jpg\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123331919460.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123351388600.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123503465659.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123632233356.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":6},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}], type=null, name=1, shopId=null) }', '192.168.31.39', 22, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2142, '2026-05-13 09:28:05', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 71, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2143, '2026-05-13 09:28:30', '删除菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.delete()', '{ ids: [74] }', '192.168.31.39', 39, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2144, '2026-05-13 09:28:30', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 29, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2145, '2026-05-13 09:28:36', '删除菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.delete()', '{ ids: [73] }', '192.168.31.39', 20, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2146, '2026-05-13 09:28:36', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 27, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2147, '2026-05-13 09:28:45', '删除菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.delete()', '{ ids: [63] }', '192.168.31.39', 57, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2148, '2026-05-13 09:28:45', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 18, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2149, '2026-05-13 09:29:01', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 48, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2150, '2026-05-13 09:29:01', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 72, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2151, '2026-05-13 09:30:16', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 56, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2152, '2026-05-13 09:30:16', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 39, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2153, '2026-05-13 09:30:19', '查询sku规则', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductRuleController.getYxStoreProductRules()', '{ criteria: YxStoreProductRuleQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 9, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2154, '2026-05-13 09:30:20', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 21, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2155, '2026-05-13 09:34:45', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 52, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2156, '2026-05-13 09:34:45', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 43, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2157, '2026-05-13 09:35:04', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 18, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2158, '2026-05-13 09:35:04', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 23, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2159, '2026-05-13 09:40:43', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 11, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2160, '2026-05-13 09:40:43', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 8, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2161, '2026-05-13 09:40:50', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 5, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2162, '2026-05-13 09:40:50', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 15, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2163, '2026-05-13 09:42:37', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 3, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2164, '2026-05-13 09:42:37', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 9, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2165, '2026-05-13 09:51:33', '签到用户信息', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.sign()', '{ }', '192.168.31.39', 12, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2166, '2026-05-13 09:51:33', '查看积分记录', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserBillController.userInfo()', '{ page: 1 limit: 15 }', '192.168.31.39', 8, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2167, '2026-05-13 10:42:36', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 102, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2168, '2026-05-13 10:45:19', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 9, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2169, '2026-05-13 10:47:18', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.SystemConfigController.getYxSystemConfigs()', '{ criteria: YxSystemConfigQueryCriteria() pageable: Page request [number: 0, size 500, sort: UNSORTED] }', '192.168.31.39', 58, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2170, '2026-05-13 10:52:51', '查看订单统计数据', NULL, 'INFO', 'co.yixiang.modules.user.rest.UserController.orderData()', '{ }', '192.168.31.39', 45, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2171, '2026-05-13 10:52:51', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 0 page: 1 limit: 20 }', '192.168.31.39', 37, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2172, '2026-05-13 10:52:55', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 2 page: 1 limit: 20 }', '192.168.31.39', 9, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2173, '2026-05-13 10:52:56', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 1 page: 1 limit: 20 }', '192.168.31.39', 144, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2174, '2026-05-13 10:52:57', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 2 page: 1 limit: 20 }', '192.168.31.39', 16, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2175, '2026-05-13 10:52:58', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 3 page: 1 limit: 20 }', '192.168.31.39', 7, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2176, '2026-05-13 10:52:59', '查看订单列表', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.orderList()', '{ type: 4 page: 1 limit: 20 }', '192.168.31.39', 6, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2177, '2026-05-13 10:53:45', '查询数据配置', NULL, 'INFO', 'co.yixiang.modules.shop.rest.SystemGroupDataController.getYxSystemGroupDatas()', '{ criteria: YxSystemGroupDataQueryCriteria(groupName=yshop_my_menus, status=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 40, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2178, '2026-05-13 10:53:53', '删除数据配置', NULL, 'INFO', 'co.yixiang.modules.shop.rest.SystemGroupDataController.delete()', '{ id: 189 }', '192.168.31.39', 13, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2179, '2026-05-13 10:53:53', '查询数据配置', NULL, 'INFO', 'co.yixiang.modules.shop.rest.SystemGroupDataController.getYxSystemGroupDatas()', '{ criteria: YxSystemGroupDataQueryCriteria(groupName=yshop_my_menus, status=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 14, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2180, '2026-05-13 10:54:05', '查询', NULL, 'INFO', 'co.yixiang.modules.shop.rest.SystemConfigController.getYxSystemConfigs()', '{ criteria: YxSystemConfigQueryCriteria() pageable: Page request [number: 0, size 500, sort: UNSORTED] }', '192.168.31.39', 43, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2181, '2026-05-13 10:54:54', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 67, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2182, '2026-05-13 10:55:03', '删除菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.delete()', '{ ids: [46] }', '192.168.31.39', 146, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2183, '2026-05-13 10:55:03', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 36, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2184, '2026-05-13 10:55:08', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '192.168.31.39', 17, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2185, '2026-05-13 11:24:32', '购物车 添加', NULL, 'INFO', 'co.yixiang.modules.cart.rest.StoreCartController.add()', '{ cartParam: co.yixiang.modules.cart.param.CartParam@4ee10499 }', '192.168.31.39', 115, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2186, '2026-05-13 11:24:33', '订单确认', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.confirm()', '{ param: co.yixiang.modules.order.param.ConfirmOrderParam@2fb51b5 }', '192.168.31.39', 232, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2187, '2026-05-13 11:24:37', '订单创建', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.create()', '{ param: OrderParam(addressId=5242, combinationId=null, couponId=0, from=routine, mark=, payType=yue, phone=, pinkId=0, realName=, seckillId=null, shippingType=1, useIntegral=0, isChannel=null, storeId=4) key: 4e51e3824645495a8ec49e245f19d374 }', '192.168.31.39', 220, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
+INSERT INTO `sys_log` VALUES (2188, '2026-05-13 11:24:38', '查看订单详情', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.detail()', '{ key: 2054402405981749248 }', '192.168.31.39', 31, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -2174,8 +2226,8 @@ INSERT INTO `sys_menu` VALUES (39, b'0', '字典管理', 'system/dict/index', 1,
 INSERT INTO `sys_menu` VALUES (40, b'0', '商品管理', '', 0, 1, 'shop', 'shop', b'1', b'0', '', '2019-10-03 17:40:19', NULL, 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (41, b'0', '商品分类', 'shop/cate/index', 40, 11, 'icon', 'cate', b'0', b'0', 'Cate', '2019-10-03 17:42:35', 'cate:list,YXSTORECATEGORY_ALL,YXSTORECATEGORY_SELECT', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (45, b'0', '管理商品', 'shop/goods/tab', 40, 12, 'develop', 'goods', b'1', b'0', 'Goods', '2019-10-04 15:34:35', 'YXSTOREPRODUCT_SELECT,YXSTORECATEGORY_ALL,YXSTORECATEGORY_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (46, b'0', '会员管理', '', 0, 2, 'peoples', 'member', b'0', b'0', '', '2019-10-06 16:18:05', NULL, 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (47, b'0', '会员', 'shop/user/index', 46, 21, 'peoples', 'member', b'0', b'0', 'Member', '2019-10-06 16:20:17', 'YXUSER_SELECT', 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (46, b'0', '会员管理', '', 0, 2, 'peoples', 'member', b'0', b'0', '', '2019-10-06 16:18:05', NULL, 1, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (47, b'0', '会员', 'shop/user/index', 46, 21, 'peoples', 'member', b'0', b'0', 'Member', '2019-10-06 16:20:17', 'YXUSER_SELECT', 1, '2026-05-13 10:55:02', 1);
 INSERT INTO `sys_menu` VALUES (48, b'0', '微信管理', '', 0, 14, 'weixin', 'wechat', b'0', b'0', '', '2019-10-06 18:28:54', NULL, 1, '2020-06-26 15:18:32', 0);
 INSERT INTO `sys_menu` VALUES (49, b'0', '微信菜单', 'wechat/menu/index', 48, 31, 'menu', 'wemenu', b'0', b'0', 'WeMenu', '2019-10-06 18:31:06', 'YxWechatMenu_ALL,YxWechatMenu_SELECT', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (50, b'0', '图文管理', 'wechat/article/index', 48, 32, 'article', 'wearticle', b'0', b'0', 'WeArticle', '2019-10-07 17:33:45', 'YXARTICLE_ALL,YXARTICLE_SELECT', 1, NULL, 0);
@@ -2190,7 +2242,7 @@ INSERT INTO `sys_menu` VALUES (59, b'0', '首页滚动新闻', 'shop/set/roll', 
 INSERT INTO `sys_menu` VALUES (60, b'0', '热门搜索', 'shop/set/hot', 55, 55, 'search', 'hot', b'0', b'0', 'Hot', '2019-10-26 18:21:54', 'YXSYSTEMGROUPDATA_ALL,YXSYSTEMGROUPDATA_SELECT', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (61, b'0', '个人中心菜单', 'shop/set/usermenu', 55, 56, 'menu', 'userMenu', b'0', b'0', 'UserMenu', '2019-10-26 18:42:18', 'YXSYSTEMGROUPDATA_ALL,YXSYSTEMGROUPDATA_SELECT', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (62, b'0', '评论管理', 'shop/reply/index', 53, 42, 'comment', 'reply', b'0', b'0', 'Reply', '2019-11-03 14:39:09', 'YXSTOREPRODUCTREPLY_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (63, b'0', '营销管理', '', 0, 6, 'yingxiao', 'activity', b'0', b'0', '', '2019-11-09 14:17:42', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (63, b'0', '营销管理', '', 0, 6, 'yingxiao', 'activity', b'0', b'0', '', '2019-11-09 14:17:42', NULL, 1, '2026-05-13 09:28:45', 1);
 INSERT INTO `sys_menu` VALUES (64, b'0', '优惠券制作', 'activity/coupon/index', 229, 61, 'coupon', 'coupon', b'0', b'0', 'Coupon', '2019-11-09 14:18:58', 'YXSTORECOUPON_SELECT', 1, '2020-06-26 15:16:40', 0);
 INSERT INTO `sys_menu` VALUES (65, b'0', '已发布优惠券', 'activity/couponissue/index', 229, 62, 'coupon2', 'couponissue', b'0', b'0', 'Couponissue', '2019-11-09 14:20:35', 'YXSTORECOUPONISSUE_SELECT', 1, '2020-06-26 15:16:48', 0);
 INSERT INTO `sys_menu` VALUES (66, b'0', '优惠券领取记录', 'activity/storecouponuser/index', 229, 63, 'log', 'couponuser', b'0', b'0', 'Couponuser', '2019-11-09 14:21:35', 'YXSTORECOUPONUSER_SELECT', 1, '2020-06-26 15:16:57', 0);
@@ -2199,18 +2251,18 @@ INSERT INTO `sys_menu` VALUES (69, b'0', '分销管理', '', 0, 7, 'fenxiao', 'p
 INSERT INTO `sys_menu` VALUES (70, b'0', '分销配置', 'wechat/config/promoter', 69, 71, 'configure', 'promoterconfig', b'0', b'0', 'Promoterconfig', '2019-11-11 10:48:37', 'YXSYSTEMCONFIG_SELECT', 1, '2025-04-04 11:08:38', 1);
 INSERT INTO `sys_menu` VALUES (71, b'0', '分销员', 'shop/user/aindex', 69, 72, 'user', 'agent', b'0', b'0', 'Agent', '2019-11-13 18:32:00', 'YXUSER_SELECT', 1, NULL, 1);
 INSERT INTO `sys_menu` VALUES (72, b'0', '提现管理', 'activity/extract/index', 176, 81, 'tixian', 'extract', b'0', b'0', 'Extract', '2019-11-14 10:49:39', 'YXUSEREXTRACT_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (73, b'0', '拼团产品', 'activity/combination/index', 63, 64, 'peoples', 'combination', b'0', b'0', 'Combination', '2019-11-18 14:23:04', 'YXSTORECOMBINATION_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (74, b'0', '拼团列表', 'activity/combinlist/index', 63, 65, 'list', 'pink', b'0', b'0', 'Pink', '2019-11-21 19:35:58', 'YXSTOREPINK_SELECT', 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (73, b'0', '拼团产品', 'activity/combination/index', 63, 64, 'peoples', 'combination', b'0', b'0', 'Combination', '2019-11-18 14:23:04', 'YXSTORECOMBINATION_SELECT', 1, '2026-05-13 09:28:36', 1);
+INSERT INTO `sys_menu` VALUES (74, b'0', '拼团列表', 'activity/combinlist/index', 63, 65, 'list', 'pink', b'0', b'0', 'Pink', '2019-11-21 19:35:58', 'YXSTOREPINK_SELECT', 1, '2026-05-13 09:28:30', 1);
 INSERT INTO `sys_menu` VALUES (75, b'0', '微信支付配置', 'wechat/config/pay', 48, 35, 'wxpay', 'wxpayconfig', b'0', b'0', 'Wxpayconfig', '2019-11-28 17:06:22', 'YXSYSTEMCONFIG_ALL', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (76, b'0', '小程序配置', 'wechat/config/wxapp', 48, 36, 'configure', 'wxapp', b'0', b'0', 'Wxapp', '2019-11-29 15:13:46', 'YXSYSTEMCONFIG_ALL', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (77, b'0', '会员等级', 'shop/userlevel/index', 46, 22, 'dengji', 'userlevel', b'0', b'0', 'Userlevel', '2019-12-04 16:35:41', 'YXSYSTEMUSERLEVEL_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (78, b'0', '等级任务', 'shop/usertask/index', 46, 23, 'task manege', 'usertask', b'0', b'0', 'Usertask', '2019-12-04 17:26:19', 'YXSYSTEMUSERTASK_SELECT', 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (77, b'0', '会员等级', 'shop/userlevel/index', 46, 22, 'dengji', 'userlevel', b'0', b'0', 'Userlevel', '2019-12-04 16:35:41', 'YXSYSTEMUSERLEVEL_SELECT', 1, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (78, b'0', '等级任务', 'shop/usertask/index', 46, 23, 'task manege', 'usertask', b'0', b'0', 'Usertask', '2019-12-04 17:26:19', 'YXSYSTEMUSERTASK_SELECT', 1, '2026-05-13 10:55:02', 1);
 INSERT INTO `sys_menu` VALUES (79, b'0', '签到天数配置', 'shop/set/sign', 227, 61, 'sign2', 'signday', b'0', b'0', 'Signday', '2019-12-05 14:12:16', 'YXSYSTEMGROUPDATA_ALL,YXSYSTEMGROUPDATA_SELECT', 1, '2020-06-26 15:09:25', 0);
-INSERT INTO `sys_menu` VALUES (80, b'0', '用户账单', 'shop/user/bill', 46, 24, 'list', 'bill', b'0', b'0', 'Bill', '2019-12-11 17:28:38', 'YXUSERBILL_ALL,YXUSERBILL_SELECT', 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (80, b'0', '用户账单', 'shop/user/bill', 46, 24, 'list', 'bill', b'0', b'0', 'Bill', '2019-12-11 17:28:38', 'YXUSERBILL_ALL,YXUSERBILL_SELECT', 1, '2026-05-13 10:55:02', 1);
 INSERT INTO `sys_menu` VALUES (81, b'0', '物流快递', 'shop/express/index', 53, 43, 'express', 'express', b'0', b'0', 'Express', '2019-12-12 16:36:00', 'YXEXPRESS_SELECT', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (82, b'0', '微信模板消息', 'wechat/template/index', 48, 35, 'anq', 'template', b'0', b'0', 'Template', '2019-12-13 14:42:50', 'yxWechatTemplate:list', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (83, b'0', '秒杀产品', 'activity/seckill/index', 63, 66, 'seckill', 'seckill', b'0', b'0', 'Seckill', '2019-12-16 13:06:29', 'YXSTORESECKILL_SELECT', 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (84, b'0', '秒杀配置', 'shop/set/seckill', 63, 67, 'configure', 'seckillconfig', b'0', b'0', 'Seckillconfig', '2019-12-16 16:07:42', 'YXSYSTEMGROUPDATA_SELECT', 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (83, b'0', '秒杀产品', 'activity/seckill/index', 63, 66, 'seckill', 'seckill', b'0', b'0', 'Seckill', '2019-12-16 13:06:29', 'YXSTORESECKILL_SELECT', 1, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (84, b'0', '秒杀配置', 'shop/set/seckill', 63, 67, 'configure', 'seckillconfig', b'0', b'0', 'Seckillconfig', '2019-12-16 16:07:42', 'YXSYSTEMGROUPDATA_SELECT', 1, '2026-05-13 09:28:45', 1);
 INSERT INTO `sys_menu` VALUES (86, b'0', '砍价产品', 'activity/bargain/index', 63, 956, 'Sign', 'bargain', b'0', b'0', 'Bargain', '2019-12-22 12:25:55', 'YXSTOREBARGAIN_SELECT', 1, '2024-12-26 11:35:32', 1);
 INSERT INTO `sys_menu` VALUES (87, b'0', '生成配置', 'generator/config', 36, 33, 'dev', 'generator/config/:tableName', b'1', b'1', 'GeneratorConfig', '2019-11-17 20:08:56', '', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (88, b'0', '生成预览', 'generator/preview', 36, 999, 'java', 'generator/preview/:tableName', b'1', b'1', 'Preview', '2019-11-26 14:54:36', NULL, 1, NULL, 0);
@@ -2222,7 +2274,7 @@ INSERT INTO `sys_menu` VALUES (120, b'0', '删除', NULL, 45, 4, NULL, NULL, b'0
 INSERT INTO `sys_menu` VALUES (121, b'0', '在线用户', 'monitor/online/index', 6, 10, 'Steve-Jobs', 'online', b'0', b'0', 'OnlineUser', '2020-01-06 22:46:43', NULL, 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (122, b'0', '浏览记录', 'monitor/log/mlog', 40, 13, 'log', 'viewlog', b'0', b'0', 'Viewlog', '2020-01-07 13:17:21', NULL, 1, NULL, 1);
 INSERT INTO `sys_menu` VALUES (123, b'0', '后台接口文档', 'tools/swagger/index', 36, 31, 'swagger', 'swagger2', b'0', b'0', 'Swagger', '2020-01-07 18:05:52', NULL, 1, NULL, 0);
-INSERT INTO `sys_menu` VALUES (124, b'0', '在线会员', 'monitor/online/indext', 46, 25, 'Steve-Jobs', 'onlinet', b'0', b'0', 'OnlineMember', '2020-01-13 10:53:07', NULL, 1, NULL, 0);
+INSERT INTO `sys_menu` VALUES (124, b'0', '在线会员', 'monitor/online/indext', 46, 25, 'Steve-Jobs', 'onlinet', b'0', b'0', 'OnlineMember', '2020-01-13 10:53:07', NULL, 1, '2026-05-13 10:55:02', 1);
 INSERT INTO `sys_menu` VALUES (125, b'0', '邮费配置', 'wechat/config/postage', 55, 58, 'configure', 'postageConfig', b'0', b'0', 'PostageConfig', '2020-02-13 15:38:24', 'YXSYSTEMCONFIG_SELECT', 1, NULL, 1);
 INSERT INTO `sys_menu` VALUES (126, b'0', '编辑', NULL, 54, 1, NULL, NULL, b'0', b'0', NULL, '2020-02-14 21:05:28', 'YXSTOREORDER_EDIT', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (127, b'0', '用户新增', NULL, 2, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 21:12:21', 'user:add', 2, NULL, 0);
@@ -2252,11 +2304,11 @@ INSERT INTO `sys_menu` VALUES (152, b'0', '任务删除', NULL, 28, 4, NULL, NUL
 INSERT INTO `sys_menu` VALUES (153, b'0', '新增分类', NULL, 41, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:00:41', 'YXSTORECATEGORY_CREATE', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (154, b'0', '分类编辑', NULL, 41, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:01:15', 'YXSTORECATEGORY_EDIT', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (155, b'0', '分类删除', NULL, 41, 4, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:01:37', 'YXSTORECATEGORY_DELETE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (156, b'0', '修改会员', NULL, 47, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:03:40', 'YXUSER_EDIT', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (157, b'0', '等级新增', NULL, 77, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:06:55', 'YXSYSTEMUSERLEVEL_CREATE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (158, b'0', '等级编辑', NULL, 77, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:08:03', 'YXSYSTEMUSERLEVEL_EDIT', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (159, b'0', '等级删除', NULL, 77, 4, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:08:41', 'YXSYSTEMUSERLEVEL_DELETE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (160, b'0', '编辑任务', NULL, 78, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:10:08', 'YXSYSTEMUSERTASK_EDIT', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (156, b'0', '修改会员', NULL, 47, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:03:40', 'YXUSER_EDIT', 2, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (157, b'0', '等级新增', NULL, 77, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:06:55', 'YXSYSTEMUSERLEVEL_CREATE', 2, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (158, b'0', '等级编辑', NULL, 77, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:08:03', 'YXSYSTEMUSERLEVEL_EDIT', 2, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (159, b'0', '等级删除', NULL, 77, 4, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:08:41', 'YXSYSTEMUSERLEVEL_DELETE', 2, '2026-05-13 10:55:02', 1);
+INSERT INTO `sys_menu` VALUES (160, b'0', '编辑任务', NULL, 78, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:10:08', 'YXSYSTEMUSERTASK_EDIT', 2, '2026-05-13 10:55:02', 1);
 INSERT INTO `sys_menu` VALUES (161, b'0', '评论删除', NULL, 62, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:14:22', 'YXSTOREPRODUCTREPLY_DELETE', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (162, b'0', '新增物流', NULL, 81, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:15:33', 'YXEXPRESS_CREATE', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (163, b'0', '编辑物流', NULL, 81, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:15:53', 'YXEXPRESS_EDIT', 2, NULL, 0);
@@ -2266,10 +2318,10 @@ INSERT INTO `sys_menu` VALUES (166, b'0', '编辑优惠券', NULL, 64, 3, NULL, 
 INSERT INTO `sys_menu` VALUES (167, b'0', '删除优惠券', NULL, 64, 4, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:19:10', 'YXSTORECOUPON_DELETE', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (168, b'0', '编辑已发布', NULL, 65, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:20:23', 'YXSTORECOUPONISSUE_EDIT', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (169, b'0', '删除已发布', NULL, 65, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:20:42', 'YXSTORECOUPONISSUE_DELETE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (170, b'0', '编辑拼团', NULL, 73, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:24:15', 'YXSTORECOMBINATION_EDIT', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (171, b'0', '删除拼团', NULL, 73, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:24:37', 'YXSTORECOMBINATION_DELETE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (172, b'0', '编辑秒杀', NULL, 83, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:25:23', 'YXSTORESECKILL_EDIT', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (173, b'0', '删除秒杀', NULL, 83, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:25:41', 'YXSTORESECKILL_DELETE', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (170, b'0', '编辑拼团', NULL, 73, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:24:15', 'YXSTORECOMBINATION_EDIT', 2, '2026-05-13 09:28:36', 1);
+INSERT INTO `sys_menu` VALUES (171, b'0', '删除拼团', NULL, 73, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:24:37', 'YXSTORECOMBINATION_DELETE', 2, '2026-05-13 09:28:36', 1);
+INSERT INTO `sys_menu` VALUES (172, b'0', '编辑秒杀', NULL, 83, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:25:23', 'YXSTORESECKILL_EDIT', 2, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (173, b'0', '删除秒杀', NULL, 83, 3, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:25:41', 'YXSTORESECKILL_DELETE', 2, '2026-05-13 09:28:45', 1);
 INSERT INTO `sys_menu` VALUES (174, b'0', '编辑砍价', NULL, 86, 2, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:26:20', 'YXSTOREBARGAIN_EDIT', 2, '2024-12-26 11:35:20', 1);
 INSERT INTO `sys_menu` VALUES (175, b'0', '删除砍价', NULL, 86, 999, NULL, NULL, b'0', b'0', NULL, '2020-02-14 22:26:40', 'YXSTOREBARGAIN_DELETE', 2, '2024-12-26 11:35:25', 1);
 INSERT INTO `sys_menu` VALUES (176, b'0', '财务管理', NULL, 0, 8, 'price', 'price', b'0', b'0', NULL, '2020-03-02 22:30:23', NULL, 1, NULL, 0);
@@ -2307,9 +2359,9 @@ INSERT INTO `sys_menu` VALUES (207, b'0', '新增邮费配置', NULL, 125, 1, NU
 INSERT INTO `sys_menu` VALUES (208, b'0', '新增充值金额', NULL, 182, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:30:59', 'YXSYSTEMGROUPDATA_CREATE', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (209, b'0', '修改充值金额', NULL, 182, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-14 22:30:30', 'YXSYSTEMGROUPDATA_EDIT', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (210, b'0', '删除充值金额', NULL, 182, 3, NULL, NULL, b'0', b'0', NULL, '2020-06-14 22:30:59', 'YXSYSTEMGROUPDATA_DELETE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (211, b'0', '新增秒杀配置', NULL, 84, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:43:36', 'YXSYSTEMGROUPDATA_CREATE', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (212, b'0', '修改秒杀配置', NULL, 84, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:43:56', 'YXSYSTEMGROUPDATA_EDIT', 2, NULL, 0);
-INSERT INTO `sys_menu` VALUES (213, b'0', '删除秒杀配置', NULL, 84, 3, NULL, NULL, b'0', b'0', NULL, '2020-06-14 22:23:36', 'YXSYSTEMGROUPDATA_DELETE', 2, NULL, 0);
+INSERT INTO `sys_menu` VALUES (211, b'0', '新增秒杀配置', NULL, 84, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:43:36', 'YXSYSTEMGROUPDATA_CREATE', 2, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (212, b'0', '修改秒杀配置', NULL, 84, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:43:56', 'YXSYSTEMGROUPDATA_EDIT', 2, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (213, b'0', '删除秒杀配置', NULL, 84, 3, NULL, NULL, b'0', b'0', NULL, '2020-06-14 22:23:36', 'YXSYSTEMGROUPDATA_DELETE', 2, '2026-05-13 09:28:45', 1);
 INSERT INTO `sys_menu` VALUES (214, b'0', '新增分销配置', NULL, 70, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:46:46', 'YXSYSTEMCONFIG_CREATE', 2, '2025-04-04 11:08:37', 1);
 INSERT INTO `sys_menu` VALUES (215, b'0', '提现审核', NULL, 72, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:56:11', 'YXUSEREXTRACT_EDIT', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (216, b'0', '删除充值', NULL, 177, 1, NULL, NULL, b'0', b'0', NULL, '2020-06-14 21:59:11', 'yxUserRecharge:del', 2, NULL, 0);
@@ -2339,10 +2391,10 @@ INSERT INTO `sys_menu` VALUES (240, b'0', '新增、修改模板', NULL, 234, 1,
 INSERT INTO `sys_menu` VALUES (241, b'0', '删除模板', NULL, 234, 2, NULL, NULL, b'0', b'0', NULL, '2020-06-29 17:16:06', 'yxShippingTemplates:del', 2, '2020-07-16 20:09:16', 0);
 INSERT INTO `sys_menu` VALUES (242, b'0', '直播管理', 'wechat/live/index', 48, 999, 'live', 'wxlive', b'0', b'0', 'Wxlive', '2020-08-10 17:20:54', NULL, 1, '2025-02-17 12:20:02', 1);
 INSERT INTO `sys_menu` VALUES (243, b'0', '直播商品管理', 'wechat/goods/index', 48, 999, 'shopping', 'wxlivegoods', b'0', b'0', 'WxliveGoods', '2020-08-10 17:20:54', NULL, 1, '2025-02-17 12:19:23', 1);
-INSERT INTO `sys_menu` VALUES (244, b'0', '拼团商品添加', 'activity/combination/form', 63, 999, NULL, 'combinationAdd', b'0', b'1', 'CombinationAdd', '2020-08-13 21:28:45', 'YXSTORECOMBINATION_EDIT', 1, '2020-08-13 21:31:26', 0);
-INSERT INTO `sys_menu` VALUES (245, b'0', '拼团商品修改', 'activity/combination/form', 63, 3, 'anq', 'combinationEdit/:id', b'0', b'1', 'CombinationEdit', '2019-12-24 13:02:23', 'YXSTORECOMBINATION_EDIT', 1, '2020-07-10 16:45:33', 0);
-INSERT INTO `sys_menu` VALUES (246, b'0', '秒杀商品添加', 'activity/seckill/form', 63, 999, NULL, 'secKillAdd', b'0', b'1', 'SecKillAdd', '2020-08-13 21:28:45', 'YXSTORESECKILL_EDIT', 1, '2020-08-13 21:31:26', 0);
-INSERT INTO `sys_menu` VALUES (247, b'0', '秒杀商品修改', 'activity/seckill/form', 63, 3, 'anq', 'secKillEdit/:id', b'0', b'1', 'SecKillEdit', '2019-12-24 13:02:23', 'YXSTORESECKILL_EDIT', 1, '2020-07-10 16:45:33', 0);
+INSERT INTO `sys_menu` VALUES (244, b'0', '拼团商品添加', 'activity/combination/form', 63, 999, NULL, 'combinationAdd', b'0', b'1', 'CombinationAdd', '2020-08-13 21:28:45', 'YXSTORECOMBINATION_EDIT', 1, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (245, b'0', '拼团商品修改', 'activity/combination/form', 63, 3, 'anq', 'combinationEdit/:id', b'0', b'1', 'CombinationEdit', '2019-12-24 13:02:23', 'YXSTORECOMBINATION_EDIT', 1, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (246, b'0', '秒杀商品添加', 'activity/seckill/form', 63, 999, NULL, 'secKillAdd', b'0', b'1', 'SecKillAdd', '2020-08-13 21:28:45', 'YXSTORESECKILL_EDIT', 1, '2026-05-13 09:28:45', 1);
+INSERT INTO `sys_menu` VALUES (247, b'0', '秒杀商品修改', 'activity/seckill/form', 63, 3, 'anq', 'secKillEdit/:id', b'0', b'1', 'SecKillEdit', '2019-12-24 13:02:23', 'YXSTORESECKILL_EDIT', 1, '2026-05-13 09:28:45', 1);
 INSERT INTO `sys_menu` VALUES (248, b'0', '多级菜单', NULL, 0, 999, 'menu', 'nested', b'0', b'1', '-', '2020-08-19 11:31:10', NULL, 0, '2020-09-14 15:41:09', 0);
 INSERT INTO `sys_menu` VALUES (249, b'0', '二级菜单1', 'nested/menu1/index', 248, 999, 'menu', 'menu1', b'0', b'0', '-', '2020-08-19 11:34:34', NULL, 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (250, b'0', '三级菜单1', 'nested/menu1/menu1-1', 249, 999, 'menu', 'menu1-1', b'0', b'0', '-', '2020-08-19 11:35:52', NULL, 1, NULL, 0);
@@ -2446,8 +2498,6 @@ INSERT INTO `sys_roles_menus` VALUES (39, 1);
 INSERT INTO `sys_roles_menus` VALUES (40, 1);
 INSERT INTO `sys_roles_menus` VALUES (41, 1);
 INSERT INTO `sys_roles_menus` VALUES (45, 1);
-INSERT INTO `sys_roles_menus` VALUES (46, 1);
-INSERT INTO `sys_roles_menus` VALUES (47, 1);
 INSERT INTO `sys_roles_menus` VALUES (48, 1);
 INSERT INTO `sys_roles_menus` VALUES (49, 1);
 INSERT INTO `sys_roles_menus` VALUES (50, 1);
@@ -2462,24 +2512,16 @@ INSERT INTO `sys_roles_menus` VALUES (59, 1);
 INSERT INTO `sys_roles_menus` VALUES (60, 1);
 INSERT INTO `sys_roles_menus` VALUES (61, 1);
 INSERT INTO `sys_roles_menus` VALUES (62, 1);
-INSERT INTO `sys_roles_menus` VALUES (63, 1);
 INSERT INTO `sys_roles_menus` VALUES (64, 1);
 INSERT INTO `sys_roles_menus` VALUES (65, 1);
 INSERT INTO `sys_roles_menus` VALUES (66, 1);
 INSERT INTO `sys_roles_menus` VALUES (68, 1);
 INSERT INTO `sys_roles_menus` VALUES (72, 1);
-INSERT INTO `sys_roles_menus` VALUES (73, 1);
-INSERT INTO `sys_roles_menus` VALUES (74, 1);
 INSERT INTO `sys_roles_menus` VALUES (75, 1);
 INSERT INTO `sys_roles_menus` VALUES (76, 1);
-INSERT INTO `sys_roles_menus` VALUES (77, 1);
-INSERT INTO `sys_roles_menus` VALUES (78, 1);
 INSERT INTO `sys_roles_menus` VALUES (79, 1);
-INSERT INTO `sys_roles_menus` VALUES (80, 1);
 INSERT INTO `sys_roles_menus` VALUES (81, 1);
 INSERT INTO `sys_roles_menus` VALUES (82, 1);
-INSERT INTO `sys_roles_menus` VALUES (83, 1);
-INSERT INTO `sys_roles_menus` VALUES (84, 1);
 INSERT INTO `sys_roles_menus` VALUES (87, 1);
 INSERT INTO `sys_roles_menus` VALUES (88, 1);
 INSERT INTO `sys_roles_menus` VALUES (116, 1);
@@ -2488,7 +2530,6 @@ INSERT INTO `sys_roles_menus` VALUES (119, 1);
 INSERT INTO `sys_roles_menus` VALUES (120, 1);
 INSERT INTO `sys_roles_menus` VALUES (121, 1);
 INSERT INTO `sys_roles_menus` VALUES (123, 1);
-INSERT INTO `sys_roles_menus` VALUES (124, 1);
 INSERT INTO `sys_roles_menus` VALUES (126, 1);
 INSERT INTO `sys_roles_menus` VALUES (127, 1);
 INSERT INTO `sys_roles_menus` VALUES (128, 1);
@@ -2517,11 +2558,6 @@ INSERT INTO `sys_roles_menus` VALUES (152, 1);
 INSERT INTO `sys_roles_menus` VALUES (153, 1);
 INSERT INTO `sys_roles_menus` VALUES (154, 1);
 INSERT INTO `sys_roles_menus` VALUES (155, 1);
-INSERT INTO `sys_roles_menus` VALUES (156, 1);
-INSERT INTO `sys_roles_menus` VALUES (157, 1);
-INSERT INTO `sys_roles_menus` VALUES (158, 1);
-INSERT INTO `sys_roles_menus` VALUES (159, 1);
-INSERT INTO `sys_roles_menus` VALUES (160, 1);
 INSERT INTO `sys_roles_menus` VALUES (161, 1);
 INSERT INTO `sys_roles_menus` VALUES (162, 1);
 INSERT INTO `sys_roles_menus` VALUES (163, 1);
@@ -2531,10 +2567,6 @@ INSERT INTO `sys_roles_menus` VALUES (166, 1);
 INSERT INTO `sys_roles_menus` VALUES (167, 1);
 INSERT INTO `sys_roles_menus` VALUES (168, 1);
 INSERT INTO `sys_roles_menus` VALUES (169, 1);
-INSERT INTO `sys_roles_menus` VALUES (170, 1);
-INSERT INTO `sys_roles_menus` VALUES (171, 1);
-INSERT INTO `sys_roles_menus` VALUES (172, 1);
-INSERT INTO `sys_roles_menus` VALUES (173, 1);
 INSERT INTO `sys_roles_menus` VALUES (176, 1);
 INSERT INTO `sys_roles_menus` VALUES (177, 1);
 INSERT INTO `sys_roles_menus` VALUES (182, 1);
@@ -2564,9 +2596,6 @@ INSERT INTO `sys_roles_menus` VALUES (206, 1);
 INSERT INTO `sys_roles_menus` VALUES (208, 1);
 INSERT INTO `sys_roles_menus` VALUES (209, 1);
 INSERT INTO `sys_roles_menus` VALUES (210, 1);
-INSERT INTO `sys_roles_menus` VALUES (211, 1);
-INSERT INTO `sys_roles_menus` VALUES (212, 1);
-INSERT INTO `sys_roles_menus` VALUES (213, 1);
 INSERT INTO `sys_roles_menus` VALUES (215, 1);
 INSERT INTO `sys_roles_menus` VALUES (216, 1);
 INSERT INTO `sys_roles_menus` VALUES (217, 1);
@@ -2584,10 +2613,6 @@ INSERT INTO `sys_roles_menus` VALUES (237, 1);
 INSERT INTO `sys_roles_menus` VALUES (238, 1);
 INSERT INTO `sys_roles_menus` VALUES (240, 1);
 INSERT INTO `sys_roles_menus` VALUES (241, 1);
-INSERT INTO `sys_roles_menus` VALUES (244, 1);
-INSERT INTO `sys_roles_menus` VALUES (245, 1);
-INSERT INTO `sys_roles_menus` VALUES (246, 1);
-INSERT INTO `sys_roles_menus` VALUES (247, 1);
 INSERT INTO `sys_roles_menus` VALUES (253, 1);
 INSERT INTO `sys_roles_menus` VALUES (256, 1);
 INSERT INTO `sys_roles_menus` VALUES (257, 1);
@@ -2637,8 +2662,6 @@ INSERT INTO `sys_roles_menus` VALUES (49, 2);
 INSERT INTO `sys_roles_menus` VALUES (50, 2);
 INSERT INTO `sys_roles_menus` VALUES (53, 2);
 INSERT INTO `sys_roles_menus` VALUES (54, 2);
-INSERT INTO `sys_roles_menus` VALUES (77, 2);
-INSERT INTO `sys_roles_menus` VALUES (78, 2);
 INSERT INTO `sys_roles_menus` VALUES (79, 2);
 INSERT INTO `sys_roles_menus` VALUES (118, 2);
 INSERT INTO `sys_roles_menus` VALUES (119, 2);
@@ -2745,7 +2768,7 @@ CREATE TABLE `sys_visits` (
   `week_day` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `UK_11aksgq87euk9bcyeesfs4vtp` (`date`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='访客记录';
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='访客记录';
 
 -- ----------------------------
 -- Records of sys_visits
@@ -2808,6 +2831,8 @@ INSERT INTO `sys_visits` VALUES (54, '2024-12-25 00:00:00', '2024-12-25', 59, 76
 INSERT INTO `sys_visits` VALUES (55, '2024-12-26 00:00:00', '2024-12-26', 6, 7, 'Thu');
 INSERT INTO `sys_visits` VALUES (56, '2025-02-17 11:45:32', NULL, 1, 1, NULL);
 INSERT INTO `sys_visits` VALUES (57, '2025-04-04 10:25:08', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (58, '2026-05-13 09:19:43', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (59, '2026-05-13 10:45:20', NULL, 1, 1, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -3757,7 +3782,7 @@ CREATE TABLE `yx_store_canvas` (
 -- Records of yx_store_canvas
 -- ----------------------------
 BEGIN;
-INSERT INTO `yx_store_canvas` VALUES (11, 3, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123138639021.jpeg\"},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123218917756.jpg\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123331919460.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123351388600.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123424391231.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123503465659.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123544727782.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123632233356.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123642753660.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/bargin.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"name\":\"积分兑换\",\"id\":217,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123717811167.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":6},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2025-02-17 11:51:34', 0);
+INSERT INTO `yx_store_canvas` VALUES (11, 3, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123138639021.jpeg\"},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123218917756.jpg\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123331919460.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123351388600.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123503465659.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123632233356.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":6},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2026-05-13 09:27:55', 0);
 INSERT INTO `yx_store_canvas` VALUES (12, 1, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213137611454.jpg\"}]},\"index\":2},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"http://img.yixiang.co/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"http://img.yixiang.con/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"http://img.yixiang.co/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"http://img.yixiang.co/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"http://img.yixiang.co/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"http://img.yixiang.co/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"http://img.yixiang.co/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"http://img.yixiang.co/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":5},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":9},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-01-20 12:14:21', 0);
 INSERT INTO `yx_store_canvas` VALUES (111, 32, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://image.dayouqiantu.cn/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://image.dayouqiantu.cn/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://image.dayouqiantu.cn/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://image.dayouqiantu.cn/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"https://image.dayouqiantu.cn/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-12-30 11:51:11', 0);
 INSERT INTO `yx_store_canvas` VALUES (113, 4, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":4},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://image.dayouqiantu.cn/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://image.dayouqiantu.cn/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://image.dayouqiantu.cn/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://image.dayouqiantu.cn/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"https://image.dayouqiantu.cn/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":7},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":11},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":12},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":13},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":13},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":15},{\"title\":\"轮播图\",\"type\":\"PcBanner\",\"componentContent\":{\"bannerList\":[{\"title\":\"轮播1\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/1.jpg\",\"url\":\"\",\"linkTo\":\"\"},{\"title\":\"轮播2\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/5c9f05aee5059.jpg\",\"url\":\"\",\"linkTo\":\"\"}]},\"index\":13},{\"title\":\"联系方式\",\"type\":\"Footer\",\"componentContent\":{\"publicList\":[{\"title\":\"客服电话\",\"des\":\"400 800 2100\"},{\"title\":\"营业时间\",\"des\":\"9:00-23:00\"},{\"title\":\"微信公众号\",\"des\":\"微信公众号\",\"pic\":\"/static/img/erweima@2x.png\",\"linkTo\":\"\"},{\"title\":\"小程序码\",\"des\":\"小程序码\",\"pic\":\"/static/img/xcxm.png\",\"linkTo\":\"\"}]},\"index\":15},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":13}]', 1, '1', 0, '2022-12-29 15:28:04', '2022-12-29 21:35:47', 0);
@@ -3788,7 +3813,7 @@ CREATE TABLE `yx_store_cart` (
   KEY `uid_2` (`uid`,`is_del`) USING BTREE,
   KEY `uid_3` (`uid`,`is_new`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='购物车表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='购物车表';
 
 -- ----------------------------
 -- Records of yx_store_cart
@@ -3805,6 +3830,7 @@ INSERT INTO `yx_store_cart` VALUES (8, 41315, 'product', 34, 'feff4937312f439eb1
 INSERT INTO `yx_store_cart` VALUES (9, 41315, 'product', 34, 'ca111c30eed945d38b298f5940a5d1b5', 1, '2025-04-04 10:30:42', NULL, 0, 0, 1, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (10, 41315, 'product', 36, 'c38b4340485b465d92b787dd68dcc26e', 1, '2025-04-04 10:36:38', NULL, 0, 0, 1, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (11, 41315, 'product', 35, 'bb527a974fff415d9c57db601bbfcb76', 1, '2025-04-04 10:38:45', '2025-04-04 10:41:30', 0, 0, 1, 0, 0);
+INSERT INTO `yx_store_cart` VALUES (12, 41315, 'product', 33, '4527a28e4fce4492831997c1b61df575', 1, '2026-05-13 11:24:32', '2026-05-13 11:24:37', 1, 0, 1, 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -3852,51 +3878,6 @@ INSERT INTO `yx_store_category` VALUES (37, 29, '沙发', 11, 'https://app2.yixi
 INSERT INTO `yx_store_category` VALUES (38, 30, '收纳', 12, 'https://app2.yixiang.co/file/pic/20241224125610387800.jpeg', 1, '2020-07-09 10:44:18', '2024-12-24 12:56:15', 0);
 INSERT INTO `yx_store_category` VALUES (39, 0, '电商影星', 13, '', 1, '2020-07-09 10:44:45', '2024-12-24 12:56:38', 0);
 INSERT INTO `yx_store_category` VALUES (40, 39, '影响', 14, 'https://app2.yixiang.co/file/pic/20241224125711317430.png', 1, '2020-07-09 10:45:01', '2024-12-24 12:57:15', 0);
-COMMIT;
-
--- ----------------------------
--- Table structure for yx_store_combination
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_combination`;
-CREATE TABLE `yx_store_combination` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL COMMENT '商品id',
-  `mer_id` int unsigned DEFAULT '0' COMMENT '商户id',
-  `image` varchar(255) NOT NULL COMMENT '推荐图',
-  `images` varchar(2000) NOT NULL COMMENT '轮播图',
-  `title` varchar(255) NOT NULL COMMENT '活动标题',
-  `attr` varchar(255) DEFAULT NULL COMMENT '活动属性',
-  `people` int unsigned NOT NULL COMMENT '参团人数',
-  `info` varchar(255) NOT NULL COMMENT '简介',
-  `price` decimal(10,2) unsigned DEFAULT '0.00' COMMENT '价格',
-  `product_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品原价',
-  `sort` int unsigned NOT NULL COMMENT '排序',
-  `sales` int unsigned NOT NULL DEFAULT '0' COMMENT '销量',
-  `stock` int unsigned DEFAULT '0' COMMENT '库存',
-  `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_host` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '推荐',
-  `is_show` tinyint unsigned NOT NULL COMMENT '产品状态',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0',
-  `combination` tinyint unsigned NOT NULL DEFAULT '1',
-  `mer_use` tinyint unsigned DEFAULT NULL COMMENT '商户是否可用1可用0不可用',
-  `description` text NOT NULL COMMENT '拼团内容',
-  `start_time` datetime NOT NULL COMMENT '拼团开始时间',
-  `stop_time` datetime NOT NULL COMMENT '拼团结束时间',
-  `effective_time` int NOT NULL DEFAULT '0' COMMENT '拼团订单有效时间',
-  `cost` int unsigned NOT NULL DEFAULT '0' COMMENT '拼图产品成本',
-  `browse` int DEFAULT '0' COMMENT '浏览量',
-  `unit_name` varchar(32) DEFAULT '' COMMENT '单位名',
-  `spec_type` tinyint(1) DEFAULT NULL COMMENT '规格 0单 1多',
-  `temp_id` int DEFAULT NULL COMMENT '运费模板ID',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='拼团产品表';
-
--- ----------------------------
--- Records of yx_store_combination
--- ----------------------------
-BEGIN;
-INSERT INTO `yx_store_combination` VALUES (1, 37, 0, 'https://app2.yixiang.co/file/pic/20241224125949157717.jpg', 'https://app2.yixiang.co/file/pic/20241224125949157717.jpg,https://app2.yixiang.co/file/pic/20241224125949122219.jpg', '小米电视5 55英寸 L55M6-5 4K超高清 5.9mm超薄全面屏', NULL, 2, '小米电视', 5.01, 6.00, 0, 1996, 999, '2024-12-24 13:37:36', NULL, 0, 1, 0, 1, NULL, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224125949157717.jpg\"/></p>', '2024-12-23 00:00:00', '2025-06-12 00:00:00', 1, 1, 0, '张', 0, 34);
 COMMIT;
 
 -- ----------------------------
@@ -4978,13 +4959,14 @@ CREATE TABLE `yx_store_order` (
   KEY `status` (`status`) USING BTREE,
   KEY `is_del` (`is_del`) USING BTREE,
   KEY `coupon_id` (`coupon_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13674 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=13675 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单表';
 
 -- ----------------------------
 -- Records of yx_store_order
 -- ----------------------------
 BEGIN;
 INSERT INTO `yx_store_order` VALUES (13673, '1872155091755073536', NULL, 41315, 'hupeng', '18000000000', '北京市 北京市 东城区 66', '8', 0.00, 1, 1.00, 0.00, 1.00, 0.00, 0.00, 0, 0.00, 1, '2024-12-26 13:38:52', 'yue', '2024-12-26 13:38:51', '2024-12-26 13:38:52', 0, 0, NULL, NULL, NULL, NULL, NULL, 0.00, '', NULL, NULL, NULL, 0.00, 0.00, 0.00, '', 0, '18c0e85e16b74a4a8aec77a3f50dd162', NULL, 0, 0, 0, 2.00, 0, '', 0, 1, 1, 0, 0.00);
+INSERT INTO `yx_store_order` VALUES (13674, '2054402405981749248', NULL, 41315, 'hupeng', '18000000000', '北京市 北京市 东城区 66', '12', 0.00, 1, 0.20, 1.00, 1.20, 1.00, 0.00, 0, 0.00, 1, '2026-05-13 11:24:37', 'yue', '2026-05-13 11:24:37', '2026-05-13 11:24:37', 0, 0, NULL, NULL, NULL, NULL, NULL, 0.00, '', NULL, NULL, NULL, 1.00, 0.00, 0.00, '', 0, '4e51e3824645495a8ec49e245f19d374', NULL, 0, 0, 0, 100.00, 0, '', 0, 1, 1, 0, 0.00);
 COMMIT;
 
 -- ----------------------------
@@ -5004,13 +4986,14 @@ CREATE TABLE `yx_store_order_cart_info` (
   UNIQUE KEY `oid` (`oid`,`unique`) USING BTREE,
   KEY `cart_id` (`cart_id`) USING BTREE,
   KEY `product_id` (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14225 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单购物详情表';
+) ENGINE=InnoDB AUTO_INCREMENT=14226 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单购物详情表';
 
 -- ----------------------------
 -- Records of yx_store_order_cart_info
 -- ----------------------------
 BEGIN;
 INSERT INTO `yx_store_order_cart_info` VALUES (14224, 13673, '1872155091755073536', 8, 34, '{\"productId\":34,\"seckillId\":0,\"vipTruePrice\":1.0,\"combinationId\":0,\"costPrice\":2.0,\"trueStock\":9884,\"truePrice\":1.0,\"type\":\"product\",\"cartNum\":1,\"productInfo\":{\"specType\":1,\"isIntegral\":0,\"otPrice\":33.00,\"userCollect\":false,\"description\":\"<p><br/></p><p><br/></p><p><img style=\\\"max-width: 100%;\\\" src=\\\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\\\"/></p>\",\"isPostage\":0,\"isSub\":0,\"image_base\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"sales\":2187,\"integral\":0,\"price\":1.00,\"userLike\":false,\"vipPrice\":0.00,\"storeName\":\"柏黛雅全套化妆刷套装眼影腮红修容刷子便携彩妆化妆工具官方正品\",\"id\":34,\"keyword\":\"柏黛雅\",\"stock\":37801,\"image\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"cost\":2.00,\"isGood\":0,\"unitName\":\"米\",\"giveIntegral\":0.00,\"sort\":0,\"sliderImageArr\":[\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\"],\"sliderImage\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg,https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"isShow\":1,\"postage\":0.00,\"cateId\":\"11\",\"isSeckill\":0,\"merId\":0,\"ficti\":0,\"storeInfo\":\"柏黛雅\",\"tempId\":34,\"attrInfo\":{\"brokerage\":0.00,\"image\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"cost\":2.00,\"productId\":34,\"otPrice\":34.00,\"weight\":0.00,\"sales\":0,\"barCode\":\"\",\"brokerageTwo\":0.00,\"volume\":0.00,\"integral\":0,\"price\":1.00,\"pinkStock\":0,\"seckillPrice\":0.01,\"unique\":\"feff4937312f439eb194ac09d142d9d4\",\"id\":3859,\"sku\":\"70,90m\",\"stock\":9884,\"pinkPrice\":0.01,\"seckillStock\":0},\"browse\":137694},\"uid\":41315,\"productAttrUnique\":\"feff4937312f439eb194ac09d142d9d4\",\"id\":8}', '94127666b2184f53bff5365bd704ba8c', 1);
+INSERT INTO `yx_store_order_cart_info` VALUES (14225, 13674, '2054402405981749248', 12, 33, '{\"productId\":33,\"seckillId\":0,\"vipTruePrice\":0.2,\"combinationId\":0,\"costPrice\":100.0,\"trueStock\":9999,\"truePrice\":0.2,\"type\":\"product\",\"cartNum\":1,\"productInfo\":{\"specType\":0,\"isIntegral\":0,\"otPrice\":200.00,\"userCollect\":false,\"description\":\"<p><br/></p><p><br/></p><p><img style=\\\"max-width: 100%;\\\" src=\\\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\\\"/></p>\",\"isPostage\":0,\"isSub\":0,\"image_base\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"sales\":1933,\"integral\":0,\"price\":0.20,\"userLike\":false,\"vipPrice\":0.00,\"storeName\":\"into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品\",\"id\":33,\"keyword\":\"into you\",\"stock\":9999,\"image\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"cost\":100.00,\"isGood\":0,\"unitName\":\"张\",\"giveIntegral\":1.00,\"sort\":0,\"sliderImageArr\":[\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\"],\"sliderImage\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"isShow\":1,\"postage\":0.00,\"cateId\":\"11\",\"isSeckill\":0,\"merId\":0,\"ficti\":10,\"storeInfo\":\"into you\",\"tempId\":35,\"attrInfo\":{\"brokerage\":0.00,\"image\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"cost\":100.00,\"productId\":33,\"otPrice\":200.00,\"weight\":0.00,\"sales\":0,\"barCode\":\"\",\"brokerageTwo\":0.00,\"volume\":0.00,\"integral\":0,\"price\":0.20,\"pinkStock\":0,\"seckillPrice\":0.00,\"unique\":\"4527a28e4fce4492831997c1b61df575\",\"id\":87228,\"sku\":\"默认\",\"stock\":9999,\"pinkPrice\":0.00,\"seckillStock\":0},\"browse\":135928},\"uid\":41315,\"productAttrUnique\":\"4527a28e4fce4492831997c1b61df575\",\"id\":12}', 'ae39975a06f547a3ac57c7cb5e4073f4', 1);
 COMMIT;
 
 -- ----------------------------
@@ -5026,7 +5009,7 @@ CREATE TABLE `yx_store_order_status` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `oid` (`oid`) USING BTREE,
   KEY `change_type` (`change_type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=26484 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单操作记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=26486 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单操作记录表';
 
 -- ----------------------------
 -- Records of yx_store_order_status
@@ -5034,39 +5017,8 @@ CREATE TABLE `yx_store_order_status` (
 BEGIN;
 INSERT INTO `yx_store_order_status` VALUES (26482, 13673, 'yshop_create_order', '订单生成', '2024-12-26 13:38:51');
 INSERT INTO `yx_store_order_status` VALUES (26483, 13673, 'pay_success', '用户付款成功', '2024-12-26 13:38:51');
-COMMIT;
-
--- ----------------------------
--- Table structure for yx_store_pink
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_pink`;
-CREATE TABLE `yx_store_pink` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint unsigned NOT NULL COMMENT '用户id',
-  `order_id` varchar(32) NOT NULL COMMENT '订单id 生成',
-  `order_id_key` int unsigned NOT NULL COMMENT '订单id  数据库',
-  `total_num` int unsigned NOT NULL COMMENT '购买商品个数',
-  `total_price` decimal(10,2) unsigned NOT NULL COMMENT '购买总金额',
-  `cid` bigint unsigned NOT NULL COMMENT '拼团产品id',
-  `pid` bigint unsigned NOT NULL COMMENT '产品id',
-  `people` int unsigned NOT NULL COMMENT '拼图总人数',
-  `price` decimal(10,2) unsigned NOT NULL COMMENT '拼团产品单价',
-  `create_time` datetime NOT NULL COMMENT '开始时间',
-  `update_time` datetime DEFAULT NULL,
-  `stop_time` datetime DEFAULT NULL,
-  `k_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '团长id 0为团长',
-  `is_tpl` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否发送模板消息0未发送1已发送',
-  `is_refund` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否退款 0未退款 1已退款',
-  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '状态1进行中2已完成3未完成',
-  `is_del` tinyint(1) DEFAULT '0',
-  `unique_id` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='拼团表';
-
--- ----------------------------
--- Records of yx_store_pink
--- ----------------------------
-BEGIN;
+INSERT INTO `yx_store_order_status` VALUES (26484, 13674, 'yshop_create_order', '订单生成', '2026-05-13 11:24:37');
+INSERT INTO `yx_store_order_status` VALUES (26485, 13674, 'pay_success', '用户付款成功', '2026-05-13 11:24:37');
 COMMIT;
 
 -- ----------------------------
@@ -5133,7 +5085,7 @@ CREATE TABLE `yx_store_product` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `yx_store_product` VALUES (32, 0, 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', 'TOMFORD汤姆福特唇膏4色TF口红黑管套装礼盒16', 'TOMFORD', 'TOMFORD', '', '11', 10.00, 0.00, 18.00, 0.00, '米', 0, 3369, 9981, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224131723895452.jpg\"/></p>', '2020-09-14 15:19:38', '2024-12-24 13:17:53', 0, 0, 0, 0, 0, 1.00, 8.00, 0, 0, 0, 142383, '', 1, 34, 0);
-INSERT INTO `yx_store_product` VALUES (33, 0, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品', 'into you', 'into you', '', '11', 0.20, 0.00, 200.00, 0.00, '张', 0, 1933, 9999, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\"/></p>', '2020-09-14 15:26:11', '2024-12-24 13:16:32', 0, 0, 0, 0, 0, 1.00, 100.00, 0, 0, 10, 135927, '', 0, 35, 0);
+INSERT INTO `yx_store_product` VALUES (33, 0, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品', 'into you', 'into you', '', '11', 0.20, 0.00, 200.00, 0.00, '张', 0, 1934, 9998, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\"/></p>', '2020-09-14 15:26:11', '2024-12-24 13:16:32', 0, 0, 0, 0, 0, 1.00, 100.00, 0, 0, 10, 135928, '', 0, 35, 0);
 INSERT INTO `yx_store_product` VALUES (34, 0, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg,https://app2.yixiang.co/file/pic/20241224130758625815.jpg', '柏黛雅全套化妆刷套装眼影腮红修容刷子便携彩妆化妆工具官方正品', '柏黛雅', '柏黛雅', '', '11', 1.00, 0.00, 33.00, 0.00, '米', 0, 2188, 37800, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\"/></p>', '2020-09-14 15:28:38', '2024-12-24 13:08:52', 0, 0, 0, 0, 0, 0.00, 2.00, 0, 0, 0, 137695, '', 0, 34, 1);
 INSERT INTO `yx_store_product` VALUES (35, 0, 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'Kaleidos万花镜欲场系列唇蜜腮红眼影盘套组唇釉005名利场', 'Kaleidos', 'Kaleidos', '', '11', 1.00, 0.00, 10.00, 0.00, '米', 0, 1237, 9996, 1, 1, 1, 1, 1, '<p><br/></p><p></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130632542464.jpg\"/></p>', '2020-09-14 15:29:58', '2024-12-24 13:07:01', 0, 0, 0, 9, 0, 0.00, 5.00, 0, 0, 0, 136865, '', 0, 34, 0);
 INSERT INTO `yx_store_product` VALUES (36, 0, 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg,https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '华为MateBook D 16 2024笔记本电脑 13代酷睿标压处理器/16英寸护眼大屏/轻薄办公本 ', '华为MateBook \n', '华为MateBook ', '', '31', 0.50, 0.00, 5.00, 0.00, '张', 0, 1435, 38534, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130323267952.jpg\"/></p>', '2020-09-14 15:32:14', '2024-12-24 13:05:15', 0, 0, 0, 0, 0, 1.00, 0.00, 0, 0, 10, 141780, '', 0, 34, 1);
@@ -5240,7 +5192,7 @@ INSERT INTO `yx_store_product_attr_value` VALUES (73073, 36, 'A4,白色', 8882, 
 INSERT INTO `yx_store_product_attr_value` VALUES (73074, 36, 'A4,红色', 9815, 0, 0.50, 'https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '12e088034fc3410caaef5f87b2bcc3cc', 0.00, '', 6.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.02, 0, 0);
 INSERT INTO `yx_store_product_attr_value` VALUES (73075, 36, 'A3,白色', 9941, 0, 2.00, 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', 'bef3fffa8c6d4e0599890bea3cfa407d', 1.00, '', 7.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.03, 0, 0);
 INSERT INTO `yx_store_product_attr_value` VALUES (73076, 36, 'A3,红色', 9896, 0, 3.00, 'https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '9dedfb55cb6947cb9bf22c15efce7c9b', 1.00, '', 8.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.04, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87228, 33, '默认', 9999, 0, 0.20, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', '4527a28e4fce4492831997c1b61df575', 100.00, '', 200.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87228, 33, '默认', 9998, 1, 0.20, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', '4527a28e4fce4492831997c1b61df575', 100.00, '', 200.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 0, 0);
 INSERT INTO `yx_store_product_attr_value` VALUES (87229, 32, '默认', 9981, 0, 10.00, 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', '2fbbc2085aef4103bba717eb6828b204', 8.00, '', 18.00, 0.00, 0.00, 1.00, 1.00, 0.01, 0, 1.00, 0, 0);
 INSERT INTO `yx_store_product_attr_value` VALUES (87231, 39, '默认', 8719, 0, 38.00, 'https://app2.yixiang.co/file/pic/20241224132443795949.jpeg', 'd5b3763dd52f4eefbbab72f423322e3a', 20.00, '', 66.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 20, 0);
 INSERT INTO `yx_store_product_attr_value` VALUES (87232, 38, '默认', 9999, 0, 20.00, 'https://app2.yixiang.co/file/pic/20241224133456540558.png', 'b625377a2d7c4208826f6ae2b9cb44dd', 15.00, '', 30.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0, 0.00, 10, 0);
@@ -5265,7 +5217,7 @@ CREATE TABLE `yx_store_product_relation` (
   UNIQUE KEY `uid` (`uid`,`product_id`,`type`,`category`) USING BTREE,
   KEY `type` (`type`) USING BTREE,
   KEY `category` (`category`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品点赞和收藏表';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品点赞和收藏表';
 
 -- ----------------------------
 -- Records of yx_store_product_relation
@@ -5275,6 +5227,7 @@ INSERT INTO `yx_store_product_relation` VALUES (23, 41315, 37, 'foot', 'product'
 INSERT INTO `yx_store_product_relation` VALUES (24, 41315, 34, 'foot', 'product', '2025-04-04 10:30:33', '2025-04-04 10:30:33', 0);
 INSERT INTO `yx_store_product_relation` VALUES (25, 41315, 35, 'foot', 'product', '2025-04-04 10:41:27', '2025-04-04 10:41:27', 0);
 INSERT INTO `yx_store_product_relation` VALUES (26, 41315, 36, 'foot', 'product', '2025-04-04 10:36:34', NULL, 0);
+INSERT INTO `yx_store_product_relation` VALUES (27, 41315, 33, 'foot', 'product', '2026-05-13 11:24:30', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -5337,58 +5290,6 @@ INSERT INTO `yx_store_product_rule` VALUES (26, '照片', '[{\"value\": \"尺寸
 INSERT INTO `yx_store_product_rule` VALUES (29, '手机', '[{\"value\": \"尺寸\", \"detail\": [\"7.5寸\", \"8\"]}, {\"value\": \"颜色\", \"detail\": [\"红色\", \"黑色\", \"白色\", \"蓝\"]}, {\"value\": \"重量\", \"detail\": [\"5kg\", \"10kg\"]}, {\"value\": \"a\", \"detail\": [\"b\", \"ssss\", \"aaa\", \"cc\"]}]', '2020-07-13 11:20:45', '2022-11-10 17:09:51', 0);
 INSERT INTO `yx_store_product_rule` VALUES (105951, '测试', '[{\"value\": \"颜色\", \"detail\": [\"红\", \"白\", \"蓝色\"]}, {\"value\": \"车型\", \"detail\": [\"大众\", \"宝马\", \"路虎\"]}, {\"value\": \"城市\", \"detail\": [\"北京\", \"上海\", \"南京\"]}]', '2022-11-08 13:28:13', '2022-11-09 14:26:39', 0);
 INSERT INTO `yx_store_product_rule` VALUES (105952, '斯特', '[{\"value\": \"图书\", \"detail\": []}, {\"value\": \"沙发沙发上\", \"detail\": [\"舒服舒服\"]}]', '2022-11-08 17:19:23', '2022-11-11 14:24:54', 0);
-COMMIT;
-
--- ----------------------------
--- Table structure for yx_store_seckill
--- ----------------------------
-DROP TABLE IF EXISTS `yx_store_seckill`;
-CREATE TABLE `yx_store_seckill` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '商品秒杀产品表id',
-  `product_id` bigint unsigned NOT NULL COMMENT '商品id',
-  `image` varchar(255) NOT NULL COMMENT '推荐图',
-  `images` varchar(2000) NOT NULL COMMENT '轮播图',
-  `title` varchar(255) NOT NULL COMMENT '活动标题',
-  `info` varchar(255) NOT NULL COMMENT '简介',
-  `price` decimal(10,2) unsigned DEFAULT NULL COMMENT '价格',
-  `cost` decimal(8,2) unsigned DEFAULT NULL COMMENT '成本',
-  `ot_price` decimal(10,2) unsigned DEFAULT NULL COMMENT '原价',
-  `give_integral` decimal(10,2) unsigned DEFAULT NULL COMMENT '返多少积分',
-  `sort` int unsigned NOT NULL COMMENT '排序',
-  `stock` int unsigned NOT NULL COMMENT '库存',
-  `sales` int unsigned NOT NULL DEFAULT '0' COMMENT '销量',
-  `unit_name` varchar(16) NOT NULL COMMENT '单位名',
-  `postage` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '邮费',
-  `description` text COMMENT '内容',
-  `start_time` date NOT NULL COMMENT '开始时间',
-  `stop_time` date NOT NULL COMMENT '结束时间',
-  `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `status` tinyint unsigned NOT NULL COMMENT '产品状态',
-  `is_postage` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否包邮',
-  `is_hot` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '热门推荐',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '删除 0未删除1已删除',
-  `num` int unsigned NOT NULL COMMENT '最多秒杀几个',
-  `is_show` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '显示',
-  `time_id` int unsigned DEFAULT '0' COMMENT '时间段id',
-  `spec_type` tinyint(1) DEFAULT NULL COMMENT '规格 0单 1多',
-  `temp_id` int DEFAULT NULL COMMENT '运费模板id',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `product_id` (`product_id`) USING BTREE,
-  KEY `start_time` (`start_time`,`stop_time`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE,
-  KEY `is_hot` (`is_hot`) USING BTREE,
-  KEY `is_show` (`status`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `sort` (`sort`) USING BTREE,
-  KEY `is_postage` (`is_postage`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品秒杀产品表';
-
--- ----------------------------
--- Records of yx_store_seckill
--- ----------------------------
-BEGIN;
-INSERT INTO `yx_store_seckill` VALUES (1, 35, 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'Kaleidos万花镜欲场系列唇蜜腮红眼影盘套组唇釉005名利场', 'Kaleidos', 100.00, 5.00, 10.00, NULL, 0, 888, 1237, '米', 0.00, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130632542464.jpg\"/></p>', '2024-12-23', '2025-10-08', '2024-12-24 13:38:17', NULL, 1, 0, 0, 0, 1, 1, 212, 0, 34);
 COMMIT;
 
 -- ----------------------------
@@ -9536,7 +9437,7 @@ INSERT INTO `yx_system_group_data` VALUES (183, 'yshop_hot_search', '{\"id\":183
 INSERT INTO `yx_system_group_data` VALUES (184, 'yshop_hot_search', '{\"id\":184,\"title\":\"springboot\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (187, 'yshop_home_roll_news', '{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"id\":187,\"sort\":1,\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-27 15:47:22', 4, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (188, 'yshop_hot_search', '{\"id\":188,\"title\":\"打印\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (189, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5dec896eeb25a.png\"],\"uniapp_url\":\"/pages/user/UserVip/index\",\"name\":\"会员中心\",\"id\":189,\"pic\":\"https://image.dayouqiantu.cn/44503fabb593c8a814858dafc522a90a.png\",\"sort\":9,\"url\":\"/user/vip\",\"wxapp_url\":\"/pages/user/UserVip/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 9, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (189, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5dec896eeb25a.png\"],\"uniapp_url\":\"/pages/user/UserVip/index\",\"name\":\"会员中心\",\"id\":189,\"pic\":\"https://image.dayouqiantu.cn/44503fabb593c8a814858dafc522a90a.png\",\"sort\":9,\"url\":\"/user/vip\",\"wxapp_url\":\"/pages/user/UserVip/main\",\"status\":1}', '0000-00-00 00:00:00', '2026-05-13 10:53:53', 9, 1, 1);
 INSERT INTO `yx_system_group_data` VALUES (190, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428984d64d.png\"],\"uniapp_url\":\"/pages/user/coupon/UserCoupon/index\",\"name\":\"优惠券\",\"id\":190,\"pic\":\"https://image.dayouqiantu.cn/5db428984d64d.png\",\"sort\":8,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/UserCoupon/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 8, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (191, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428a8d3ab0.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"收藏商品\",\"id\":191,\"pic\":\"https://image.dayouqiantu.cn/5db428a8d3ab0.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (192, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428bd61b73.png\"],\"uniapp_url\":\"/pages/user/address/AddressManagement/index\",\"name\":\"地址管理\",\"id\":192,\"pic\":\"https://image.dayouqiantu.cn/5db428bd61b73.png\",\"sort\":6,\"url\":\"/user/add_manage\",\"wxapp_url\":\"/pages/user/address/AddressManagement/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 6, 1, 0);
@@ -10141,7 +10042,7 @@ CREATE TABLE `yx_user` (
 -- Records of yx_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `yx_user` VALUES (41315, '15136175246', NULL, '', 0, '', '', 0, 0, '15136175246', 'https://image.dayouqiantu.cn/5e79f6cfd33b6.png', '15136175246', '127.0.0.1', '2024-12-26 13:18:08', '2025-04-04 10:45:34', '127.0.0.1', 9999.00, 0.00, 0.00, 0, 1, 0, 0, NULL, 'routine', 0, 1, 0, '', 0, '', '{\"sex\": null, \"city\": \"\", \"openid\": \"\", \"country\": \"\", \"unionId\": \"\", \"language\": \"\", \"nickname\": \"\", \"province\": \"\", \"subscribe\": null, \"headimgurl\": \"\", \"routineOpenid\": \"orIMY4xGhMmipwFZoSL1vOhUNFZ0\", \"subscribeTime\": null}', 0);
+INSERT INTO `yx_user` VALUES (41315, '15136175246', NULL, '', 0, '', '', 0, 0, '15136175246', 'https://image.dayouqiantu.cn/5e79f6cfd33b6.png', '15136175246', '127.0.0.1', '2024-12-26 13:18:08', '2026-05-13 10:53:08', '127.0.0.1', 9997.80, 0.00, 0.00, 0, 1, 0, 0, NULL, 'routine', 0, 2, 0, '', 0, '', '{\"sex\": null, \"city\": \"\", \"openid\": \"\", \"country\": \"\", \"unionId\": \"\", \"language\": \"\", \"nickname\": \"\", \"province\": \"\", \"subscribe\": null, \"headimgurl\": \"\", \"routineOpenid\": \"orIMY4xGhMmipwFZoSL1vOhUNFZ0\", \"subscribeTime\": null}', 0);
 COMMIT;
 
 -- ----------------------------
@@ -10203,7 +10104,7 @@ CREATE TABLE `yx_user_bill` (
   KEY `add_time` (`create_time`) USING BTREE,
   KEY `pm` (`pm`) USING BTREE,
   KEY `type` (`category`,`type`,`link_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16088 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户账单表';
+) ENGINE=InnoDB AUTO_INCREMENT=16089 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户账单表';
 
 -- ----------------------------
 -- Records of yx_user_bill
@@ -10211,6 +10112,7 @@ CREATE TABLE `yx_user_bill` (
 BEGIN;
 INSERT INTO `yx_user_bill` VALUES (16086, 41315, '', 1, '系统增加余额', 'now_money', 'system_add', 10000.00, 10000.00, '系统增加了10000.0余额', '2024-12-26 13:20:25', NULL, 1, 0);
 INSERT INTO `yx_user_bill` VALUES (16087, 41315, '0', 0, '购买商品', 'now_money', 'pay_product', 1.00, 9999.00, '余额支付1.00元购买商品', '2024-12-26 13:38:52', NULL, 1, 0);
+INSERT INTO `yx_user_bill` VALUES (16088, 41315, '0', 0, '购买商品', 'now_money', 'pay_product', 1.20, 9997.80, '余额支付1.20元购买商品', '2026-05-13 11:24:37', NULL, 1, 0);
 COMMIT;
 
 -- ----------------------------
@@ -10303,35 +10205,6 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
--- Table structure for yx_user_level
--- ----------------------------
-DROP TABLE IF EXISTS `yx_user_level`;
-CREATE TABLE `yx_user_level` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `uid` bigint NOT NULL DEFAULT '0' COMMENT '用户uid',
-  `level_id` int NOT NULL DEFAULT '0' COMMENT '等级vip',
-  `grade` int NOT NULL DEFAULT '0' COMMENT '会员等级',
-  `valid_time` int NOT NULL DEFAULT '0' COMMENT '过期时间',
-  `is_forever` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否永久',
-  `mer_id` int NOT NULL DEFAULT '0' COMMENT '商户id',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:禁止,1:正常',
-  `mark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
-  `remind` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已通知',
-  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除,0=未删除,1=删除',
-  `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `discount` int NOT NULL DEFAULT '0' COMMENT '享受折扣',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `id` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户等级记录表';
-
--- ----------------------------
--- Records of yx_user_level
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for yx_user_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_recharge`;
@@ -10381,28 +10254,6 @@ CREATE TABLE `yx_user_sign` (
 
 -- ----------------------------
 -- Records of yx_user_sign
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
--- Table structure for yx_user_task_finish
--- ----------------------------
-DROP TABLE IF EXISTS `yx_user_task_finish`;
-CREATE TABLE `yx_user_task_finish` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `task_id` int NOT NULL DEFAULT '0' COMMENT '任务id',
-  `uid` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否有效',
-  `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `id` (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4962 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户任务完成记录表';
-
--- ----------------------------
--- Records of yx_user_task_finish
 -- ----------------------------
 BEGIN;
 COMMIT;

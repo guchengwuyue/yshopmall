@@ -50,14 +50,6 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col :span="24">
-            <el-form-item label="开启积分兑换：" props="is_integral">
-              <el-radio-group v-model="formValidate.is_integral"  @change="changeSpec">
-                <el-radio :label="0" class="radio">不开启</el-radio>
-                <el-radio :label="1">开启</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
           <!-- 多规格添加-->
           <el-col :span="24" v-if="formValidate.spec_type === 1" class="noForm">
             <el-col :span="24">

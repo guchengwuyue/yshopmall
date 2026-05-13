@@ -37,33 +37,9 @@ public interface YxUserService  extends BaseService<YxUser>{
      */
     Double[] getUserMoney(Long uid);
 
-    /**
-     * 一级返佣
-     * @param order 订单
-     */
-    void backOrderBrokerage(YxStoreOrderQueryVo order);
 
 
 
-    /**
-     * 统计分销人员
-     *
-     * @param uid uid
-     * @return map
-     */
-    Map<String,Long> getSpreadCount(Long uid);
-
-    /**
-     * 获取我的分销下人员列表
-     * @param uid uid
-     * @param page page
-     * @param limit limit
-     * @param grade ShopCommonEnum.GRADE_0
-     * @param keyword 关键字搜索
-     * @param sort 排序
-     * @return list
-     */
-    List<PromUserDto> getUserSpreadGrade(Long uid, int page, int limit, Integer grade, String keyword, String sort);
 
     /**
      * 减去用户积分
@@ -115,12 +91,6 @@ public interface YxUserService  extends BaseService<YxUser>{
      */
     YxUserQueryVo getNewYxUserById(YxUser yxUser);
 
-    /**
-     * 转换用户信息
-     * @param yxUser user
-     * @return YxUserQueryVo
-     */
-    YxUserQueryVo handleUser(YxUser yxUser);
 
     /**
      * 返回会员价
@@ -130,21 +100,11 @@ public interface YxUserService  extends BaseService<YxUser>{
      */
     double setLevelPrice(double price, long uid);
 
-    /**
-     * 设置推广关系
-     * @param spread 上级人
-     * @param uid 本人
-     */
-    void setSpread(String spread, long uid);
+     YxUserQueryVo handleUser(YxUser yxUser);
 
 
-    /**
-     * 查看下级
-     * @param uid uid
-     * @param grade 等级
-     * @return list
-     */
-    List<PromUserDto> querySpread(Long uid, Integer grade);
+
+
 
     /**
     * 查询数据分页
@@ -182,12 +142,7 @@ public interface YxUserService  extends BaseService<YxUser>{
      */
     void updateMoney(UserMoneyDto param);
 
-    /**
-     * 增加佣金
-     * @param price 金额
-     * @param uid 用户id
-     */
-    void incBrokeragePrice(BigDecimal price, Long uid);
+
 
 
 }

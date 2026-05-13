@@ -171,7 +171,6 @@ public class AuthController {
             put("expires_time", expiresTimeStr);
         }};
 
-        userService.setSpread(loginDTO.getSpread(),yxUser.getUid());
 
         if(singleLogin){
             //踢掉之前已经登录的token
@@ -215,7 +214,6 @@ public class AuthController {
             put("expires_time", expiresTimeStr);
         }};
 
-        userService.setSpread(loginVerifyParam.getSpread(),yxUser.getUid());
 
         if(singleLogin){
             //踢掉之前已经登录的token

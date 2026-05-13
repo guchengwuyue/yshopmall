@@ -33,8 +33,6 @@ public class StoreSeckillVo implements Serializable {
     @ApiModelProperty(value = "秒杀产品评论数量")
     private Long replyCount;
 
-    @ApiModelProperty(value = "秒杀产品信息")
-    private YxStoreSeckillQueryVo storeInfo;
 
     @Builder.Default
     @ApiModelProperty(value = "秒杀产品用户是否收藏")

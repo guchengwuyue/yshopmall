@@ -1,8 +1,8 @@
 {
   "name": "yshop-web",
-  "version": "1.9.0",
-  "description": "yshop1.9 前端源码",
-  "author": "Zheng Jie",
+  "version": "2.0.0",
+  "description": "yshop2.0 前端源码",
+  "author": "yshop",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "vue-cli-service serve",

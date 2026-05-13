@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用户vip",
-  "usingComponents": {
-    "recommend": "/components/Recommend"
-  }
-}

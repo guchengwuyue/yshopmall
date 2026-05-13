@@ -152,12 +152,7 @@ public class UserBillController {
     public ApiResult<Map<String,Object>> spreadPeople(@Valid @RequestBody PromParam param){
         Long uid = LocalUser.getUser().getUid();
         Map<String,Object> map = new LinkedHashMap<>();
-        map.put("list",yxUserService.getUserSpreadGrade(uid,param.getPage(),param.getLimit()
-                ,param.getGrade(),param.getKeyword(),param.getSort()));
 
-        Map<String,Long> countMap = yxUserService.getSpreadCount(uid);
-        map.put("total",countMap.get("first"));
-        map.put("totalLevel",countMap.get("second"));
         return ApiResult.ok(map);
     }
 

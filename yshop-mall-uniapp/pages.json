@@ -196,12 +196,6 @@
       }
     },
     {
-      "path": "pages/user/UserVip/index",
-      "style": {
-        "navigationBarTitleText": "用户vip"
-      }
-    },
-    {
       "path": "pages/user/PersonalData/index",
       "style": {
         "navigationBarTitleText": "个人资料"
@@ -285,42 +279,6 @@
 	    "navigationBarTitleText": "售后物流填写"
 	  }
 	},
-    {
-      "path": "pages/activity/Poster/index",
-      "style": {
-        "navigationBarTitleText": "推广海报"
-      }
-    },
-    {
-      "path": "pages/activity/GoodsGroup/index",
-      "style": {
-        "navigationBarTitleText": "团购商品列表"
-      }
-    },
-    {
-      "path": "pages/activity/GroupDetails/index",
-      "style": {
-        "navigationBarTitleText": "团购商品详情"
-      }
-    },
-    {
-      "path": "pages/activity/GroupRule/index",
-      "style": {
-        "navigationBarTitleText": "团购规则"
-      }
-    },
-    {
-      "path": "pages/activity/GoodsSeckill/index",
-      "style": {
-        "navigationBarTitleText": "秒杀"
-      }
-    },
-    {
-      "path": "pages/activity/SeckillDetails/index",
-      "style": {
-        "navigationBarTitleText": "秒杀详情"
-      }
-    },
     {
       "path": "pages/map/index",
       "style": {

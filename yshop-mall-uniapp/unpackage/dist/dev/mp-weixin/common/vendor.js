@@ -10430,6 +10430,100 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ 363:
+/*!*********************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/aftersales.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addExpressData = addExpressData;
+exports.deleteAfterSeals = deleteAfterSeals;
+exports.getAfterSalesDeatail = getAfterSalesDeatail;
+exports.getAfterSealsDetail = getAfterSealsDetail;
+exports.getAfterSealsList = getAfterSealsList;
+exports.getExpressData = getExpressData;
+exports.getRefundAmount = getRefundAmount;
+exports.rebackAfterSeals = rebackAfterSeals;
+exports.searchAfterSealsDetail = searchAfterSealsDetail;
+exports.submitAfterSealsOrder = submitAfterSealsOrder;
+var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
+// 提交售后
+/**
+ *
+ 订单号 orderCode;
+ 服务类型 0仅退款1退货退款 serviceType;
+ 申请原因 reasonForApplication;
+ 申请说明 applicationInstructions;
+ 申请说明图片 applicationDescriptionPicture;
+ 商品数据 productParamList;
+ */
+function submitAfterSealsOrder(data) {
+  return _request.default.post("/applyForAfterSales", data, {
+    login: true
+  });
+}
+
+// 售后订单列表
+function getAfterSealsList(params) {
+  return _request.default.get('/storeAfterSales/list', params, {
+    login: true
+  });
+}
+function getRefundAmount(data) {
+  return _request.default.post("/getRefundAmount", data, {
+    login: true
+  });
+}
+
+// 售后详情
+function getAfterSalesDeatail(key) {
+  return _request.default.get("/applyForAfterSales/".concat(key));
+}
+
+// 查询订单
+function getAfterSealsDetail(key, id) {
+  return _request.default.get("/store/detail/".concat(key, "/").concat(id));
+}
+
+// 搜索
+function searchAfterSealsDetail(key) {
+  return _request.default.get("/store/detail/".concat(key));
+}
+
+// 撤销售后订单
+function rebackAfterSeals(key, id) {
+  return _request.default.get("/revoke/".concat(key, "/").concat(id));
+}
+
+// 获取物流信息
+function getExpressData() {
+  return _request.default.get('/yxExpress');
+}
+
+// 添加快递单号
+function addExpressData(params) {
+  return _request.default.post('/addLogisticsInformation?' + "code=".concat(params.code, "&name=").concat(params.name, "&id=").concat(params.id, "&postalCode=").concat(params.postalCode, "&orderCode=").concat(params.orderCode, "&"), '', {
+    login: true
+  });
+}
+
+// 删除售后订单
+function deleteAfterSeals(params) {
+  return _request.default.delete('/deleteAfterSalesOrder', params, {
+    login: true
+  });
+}
+
+/***/ }),
+
 /***/ 37:
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
@@ -11687,100 +11781,6 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 371:
-/*!*********************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/aftersales.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addExpressData = addExpressData;
-exports.deleteAfterSeals = deleteAfterSeals;
-exports.getAfterSalesDeatail = getAfterSalesDeatail;
-exports.getAfterSealsDetail = getAfterSealsDetail;
-exports.getAfterSealsList = getAfterSealsList;
-exports.getExpressData = getExpressData;
-exports.getRefundAmount = getRefundAmount;
-exports.rebackAfterSeals = rebackAfterSeals;
-exports.searchAfterSealsDetail = searchAfterSealsDetail;
-exports.submitAfterSealsOrder = submitAfterSealsOrder;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-// 提交售后
-/**
- *
- 订单号 orderCode;
- 服务类型 0仅退款1退货退款 serviceType;
- 申请原因 reasonForApplication;
- 申请说明 applicationInstructions;
- 申请说明图片 applicationDescriptionPicture;
- 商品数据 productParamList;
- */
-function submitAfterSealsOrder(data) {
-  return _request.default.post("/applyForAfterSales", data, {
-    login: true
-  });
-}
-
-// 售后订单列表
-function getAfterSealsList(params) {
-  return _request.default.get('/storeAfterSales/list', params, {
-    login: true
-  });
-}
-function getRefundAmount(data) {
-  return _request.default.post("/getRefundAmount", data, {
-    login: true
-  });
-}
-
-// 售后详情
-function getAfterSalesDeatail(key) {
-  return _request.default.get("/applyForAfterSales/".concat(key));
-}
-
-// 查询订单
-function getAfterSealsDetail(key, id) {
-  return _request.default.get("/store/detail/".concat(key, "/").concat(id));
-}
-
-// 搜索
-function searchAfterSealsDetail(key) {
-  return _request.default.get("/store/detail/".concat(key));
-}
-
-// 撤销售后订单
-function rebackAfterSeals(key, id) {
-  return _request.default.get("/revoke/".concat(key, "/").concat(id));
-}
-
-// 获取物流信息
-function getExpressData() {
-  return _request.default.get('/yxExpress');
-}
-
-// 添加快递单号
-function addExpressData(params) {
-  return _request.default.post('/addLogisticsInformation?' + "code=".concat(params.code, "&name=").concat(params.name, "&id=").concat(params.id, "&postalCode=").concat(params.postalCode, "&orderCode=").concat(params.orderCode, "&"), '', {
-    login: true
-  });
-}
-
-// 删除售后订单
-function deleteAfterSeals(params) {
-  return _request.default.delete('/deleteAfterSalesOrder', params, {
-    login: true
-  });
-}
-
-/***/ }),
-
 /***/ 38:
 /*!*************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/utils/store/cookie.js ***!
@@ -12961,7 +12961,6 @@ exports.getAddressList = getAddressList;
 exports.getAddressRemove = getAddressRemove;
 exports.getBalance = getBalance;
 exports.getBank = getBank;
-exports.getBrokerageRank = getBrokerageRank;
 exports.getChatRecord = getChatRecord;
 exports.getCity = getCity;
 exports.getCollectAdd = getCollectAdd;
@@ -12974,15 +12973,12 @@ exports.getCouponsUser = getCouponsUser;
 exports.getIntegralList = getIntegralList;
 exports.getLogout = getLogout;
 exports.getMenuUser = getMenuUser;
-exports.getRankList = getRankList;
 exports.getRechargeApi = getRechargeApi;
 exports.getSignConfig = getSignConfig;
 exports.getSignList = getSignList;
 exports.getSignMonth = getSignMonth;
-exports.getSpreadImg = getSpreadImg;
 exports.getSpreadInfo = getSpreadInfo;
 exports.getSpreadOrder = getSpreadOrder;
-exports.getSpreadUser = getSpreadUser;
 exports.getUser = getUser;
 exports.getUserInfo = getUserInfo;
 exports.getVipInfo = getVipInfo;
@@ -13000,7 +12996,6 @@ exports.register = register;
 exports.registerReset = registerReset;
 exports.registerVerify = registerVerify;
 exports.serviceList = serviceList;
-exports.setDetection = setDetection;
 exports.switchH5Login = switchH5Login;
 exports.wxappAuth = wxappAuth;
 exports.wxappBindingPhone = wxappBindingPhone;
@@ -13275,13 +13270,6 @@ function getSpreadInfo() {
 }
 
 /*
- * 推广人列表
- * */
-function getSpreadUser(screen) {
-  return _request.default.post('/spread/people', screen);
-}
-
-/*
  * 推广人订单
  * */
 function getSpreadOrder(where) {
@@ -13344,13 +13332,6 @@ function getActivityStatus() {
   return _request.default.get('/user/activity', {}, {
     login: false
   });
-}
-
-/*
- * 活动状态
- * */
-function getSpreadImg(data) {
-  return _request.default.get('/spread/banner', data);
 }
 
 /*
@@ -13417,25 +13398,6 @@ function switchH5Login() {
   return _request.default.post('switch_h5', {
     from: 'wechat'
   });
-}
-/*
- * 获取推广人排行
- * */
-function getRankList(q) {
-  return _request.default.get('rank', q);
-}
-/*
- * 获取佣金排名
- * */
-function getBrokerageRank(q) {
-  return _request.default.get('brokerage_rank', q);
-}
-
-/**
- * 检测会员等级
- */
-function setDetection() {
-  return _request.default.get('user/level/detection');
 }
 function getRechargeApi() {
   return _request.default.get('recharge/index');
@@ -13627,100 +13589,6 @@ var request = ['post', 'put', 'patch'].reduce(function (request, method) {
 var _default = request;
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-
-/***/ 418:
-/*!*******************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/api/activity.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getCombinationDetail = getCombinationDetail;
-exports.getCombinationList = getCombinationList;
-exports.getCombinationPink = getCombinationPink;
-exports.getCombinationPoster = getCombinationPoster;
-exports.getCombinationRemove = getCombinationRemove;
-exports.getSeckillConfig = getSeckillConfig;
-exports.getSeckillDetail = getSeckillDetail;
-exports.getSeckillList = getSeckillList;
-var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 41));
-/**
- * 拼团列表
- */
-function getCombinationList(data) {
-  return _request.default.get("/combination/list", data, {
-    login: false
-  });
-}
-
-/**
- * 拼团产品详情
- * @param {*} id
- */
-function getCombinationDetail(id) {
-  return _request.default.get("/combination/detail/" + id, {}, {
-    login: true
-  });
-}
-
-/**
- * 拼团 开团
- * @param {*} id
- */
-function getCombinationPink(id) {
-  return _request.default.get("/combination/pink/" + id);
-}
-
-/**
- * 拼团 取消开团
- */
-function getCombinationRemove(data) {
-  return _request.default.post("/combination/remove", data);
-}
-
-/**
- * 拼团海报
- * @param {*} id
- */
-function getCombinationPoster(data) {
-  return _request.default.post("/combination/poster", data);
-}
-
-/**
- * 秒杀列表配置
- */
-function getSeckillConfig() {
-  return _request.default.get("/seckill/index", {}, {
-    login: false
-  });
-}
-
-/**
- * 秒杀列表
- */
-function getSeckillList(time, data) {
-  return _request.default.get("/seckill/list/" + time, data, {
-    login: false
-  });
-}
-
-/**
- * 秒杀产品详情
- */
-function getSeckillDetail(id) {
-  return _request.default.get("/seckill/detail/" + id, {}, {
-    login: true
-  });
-}
 
 /***/ }),
 
@@ -15543,6 +15411,604 @@ function wxShowLocation() {
   });
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+
+/***/ 480:
+/*!*********************************************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/miniapp-color-thief/index.js ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 481));
+var toString = function toString(array) {
+  return "#".concat(((1 << 24) + (array[0] << 16) + (array[1] << 8) + array[2]).toString(16).slice(1));
+};
+var proxy = function proxy(data, fn) {
+  if (data.map(function (item) {
+    return Array.isArray(item);
+  }).includes(true)) {
+    return data.map(function (item) {
+      return fn(item);
+    });
+  } else {
+    return fn(data);
+  }
+};
+var _getGray = function getGray(rgb) {
+  return (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
+};
+var colorThief = function colorThief(pixels) {
+  return {
+    palette: function palette(count, quality) {
+      if (typeof count === "undefined" || count < 2 || count > 256) {
+        count = 10;
+      }
+      if (typeof quality === "undefined" || quality < 1) {
+        quality = 10;
+      }
+
+      // Store the RGB values in an array format suitable for quantize function
+      var pixelArray = [];
+      for (var i = 0, offset, r, g, b, a; i < pixels.length / 4; i = i + quality) {
+        offset = i * 4;
+        r = pixels[offset + 0];
+        g = pixels[offset + 1];
+        b = pixels[offset + 2];
+        a = pixels[offset + 3];
+        // If pixel is mostly opaque and not white
+        if (a >= 125) {
+          if (!(r > 250 && g > 250 && b > 250)) {
+            pixelArray.push([r, g, b]);
+          }
+        }
+      }
+      this._data = (0, _quantize.default)(pixelArray, count).palette() || null;
+      return this;
+    },
+    color: function color(quality) {
+      var palette = this.palette(5, quality)._data;
+      if (palette) {
+        this._data = palette[0];
+        return this;
+      } else {
+        console.error("[MiniApp Color Thief] getColor has error: palette length is zero.");
+      }
+    },
+    __proto__: {
+      get: function get() {
+        return this._data;
+      },
+      getHex: function getHex() {
+        return proxy(this._data, toString);
+      },
+      getGray: function getGray() {
+        return proxy(this._data, _getGray);
+      },
+      isDark: function isDark() {
+        return proxy(this._data, function (data) {
+          return _getGray(data) < 127.5;
+        });
+      },
+      isLight: function isLight() {
+        return proxy(this._data, function (data) {
+          return _getGray(data) >= 127.5;
+        });
+      }
+    }
+  };
+};
+var _default = colorThief;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 481:
+/*!*************************************************************************************************************!*\
+  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/quantize/quantize.js ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * quantize.js Copyright 2008 Nick Rabinowitz
+ * Ported to node.js by Olivier Lesnicki
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ */
+
+// fill out a couple protovis dependencies
+/*
+ * Block below copied from Protovis: http://mbostock.github.com/protovis/
+ * Copyright 2010 Stanford Visualization Group
+ * Licensed under the BSD License: http://www.opensource.org/licenses/bsd-license.php
+ */
+if (!pv) {
+  var pv = {
+    map: function map(array, f) {
+      var o = {};
+      return f ? array.map(function (d, i) {
+        o.index = i;
+        return f.call(o, d);
+      }) : array.slice();
+    },
+    naturalOrder: function naturalOrder(a, b) {
+      return a < b ? -1 : a > b ? 1 : 0;
+    },
+    sum: function sum(array, f) {
+      var o = {};
+      return array.reduce(f ? function (p, d, i) {
+        o.index = i;
+        return p + f.call(o, d);
+      } : function (p, d) {
+        return p + d;
+      }, 0);
+    },
+    max: function max(array, f) {
+      return Math.max.apply(null, f ? pv.map(array, f) : array);
+    }
+  };
+}
+
+/**
+ * Basic Javascript port of the MMCQ (modified median cut quantization)
+ * algorithm from the Leptonica library (http://www.leptonica.com/).
+ * Returns a color map you can use to map original pixels to the reduced
+ * palette. Still a work in progress.
+ * 
+ * @author Nick Rabinowitz
+ * @example
+ 
+// array of pixels as [R,G,B] arrays
+var myPixels = [[190,197,190], [202,204,200], [207,214,210], [211,214,211], [205,207,207]
+                // etc
+                ];
+var maxColors = 4;
+ 
+var cmap = MMCQ.quantize(myPixels, maxColors);
+var newPalette = cmap.palette();
+var newPixels = myPixels.map(function(p) { 
+    return cmap.map(p); 
+});
+ 
+ */
+var MMCQ = function () {
+  // private constants
+  var sigbits = 5,
+    rshift = 8 - sigbits,
+    maxIterations = 1000,
+    fractByPopulations = 0.75;
+
+  // get reduced-space color index for a pixel
+
+  function getColorIndex(r, g, b) {
+    return (r << 2 * sigbits) + (g << sigbits) + b;
+  }
+
+  // Simple priority queue
+
+  function PQueue(comparator) {
+    var contents = [],
+      sorted = false;
+    function sort() {
+      contents.sort(comparator);
+      sorted = true;
+    }
+    return {
+      push: function push(o) {
+        contents.push(o);
+        sorted = false;
+      },
+      peek: function peek(index) {
+        if (!sorted) sort();
+        if (index === undefined) index = contents.length - 1;
+        return contents[index];
+      },
+      pop: function pop() {
+        if (!sorted) sort();
+        return contents.pop();
+      },
+      size: function size() {
+        return contents.length;
+      },
+      map: function map(f) {
+        return contents.map(f);
+      },
+      debug: function debug() {
+        if (!sorted) sort();
+        return contents;
+      }
+    };
+  }
+
+  // 3d color space box
+
+  function VBox(r1, r2, g1, g2, b1, b2, histo) {
+    var vbox = this;
+    vbox.r1 = r1;
+    vbox.r2 = r2;
+    vbox.g1 = g1;
+    vbox.g2 = g2;
+    vbox.b1 = b1;
+    vbox.b2 = b2;
+    vbox.histo = histo;
+  }
+  VBox.prototype = {
+    volume: function volume(force) {
+      var vbox = this;
+      if (!vbox._volume || force) {
+        vbox._volume = (vbox.r2 - vbox.r1 + 1) * (vbox.g2 - vbox.g1 + 1) * (vbox.b2 - vbox.b1 + 1);
+      }
+      return vbox._volume;
+    },
+    count: function count(force) {
+      var vbox = this,
+        histo = vbox.histo;
+      if (!vbox._count_set || force) {
+        var npix = 0,
+          i,
+          j,
+          k,
+          index;
+        for (i = vbox.r1; i <= vbox.r2; i++) {
+          for (j = vbox.g1; j <= vbox.g2; j++) {
+            for (k = vbox.b1; k <= vbox.b2; k++) {
+              index = getColorIndex(i, j, k);
+              npix += histo[index] || 0;
+            }
+          }
+        }
+        vbox._count = npix;
+        vbox._count_set = true;
+      }
+      return vbox._count;
+    },
+    copy: function copy() {
+      var vbox = this;
+      return new VBox(vbox.r1, vbox.r2, vbox.g1, vbox.g2, vbox.b1, vbox.b2, vbox.histo);
+    },
+    avg: function avg(force) {
+      var vbox = this,
+        histo = vbox.histo;
+      if (!vbox._avg || force) {
+        var ntot = 0,
+          mult = 1 << 8 - sigbits,
+          rsum = 0,
+          gsum = 0,
+          bsum = 0,
+          hval,
+          i,
+          j,
+          k,
+          histoindex;
+        for (i = vbox.r1; i <= vbox.r2; i++) {
+          for (j = vbox.g1; j <= vbox.g2; j++) {
+            for (k = vbox.b1; k <= vbox.b2; k++) {
+              histoindex = getColorIndex(i, j, k);
+              hval = histo[histoindex] || 0;
+              ntot += hval;
+              rsum += hval * (i + 0.5) * mult;
+              gsum += hval * (j + 0.5) * mult;
+              bsum += hval * (k + 0.5) * mult;
+            }
+          }
+        }
+        if (ntot) {
+          vbox._avg = [~~(rsum / ntot), ~~(gsum / ntot), ~~(bsum / ntot)];
+        } else {
+          //console.log('empty box');
+          vbox._avg = [~~(mult * (vbox.r1 + vbox.r2 + 1) / 2), ~~(mult * (vbox.g1 + vbox.g2 + 1) / 2), ~~(mult * (vbox.b1 + vbox.b2 + 1) / 2)];
+        }
+      }
+      return vbox._avg;
+    },
+    contains: function contains(pixel) {
+      var vbox = this,
+        rval = pixel[0] >> rshift;
+      gval = pixel[1] >> rshift;
+      bval = pixel[2] >> rshift;
+      return rval >= vbox.r1 && rval <= vbox.r2 && gval >= vbox.g1 && gval <= vbox.g2 && bval >= vbox.b1 && bval <= vbox.b2;
+    }
+  };
+
+  // Color map
+
+  function CMap() {
+    this.vboxes = new PQueue(function (a, b) {
+      return pv.naturalOrder(a.vbox.count() * a.vbox.volume(), b.vbox.count() * b.vbox.volume());
+    });
+    ;
+  }
+  CMap.prototype = {
+    push: function push(vbox) {
+      this.vboxes.push({
+        vbox: vbox,
+        color: vbox.avg()
+      });
+    },
+    palette: function palette() {
+      return this.vboxes.map(function (vb) {
+        return vb.color;
+      });
+    },
+    size: function size() {
+      return this.vboxes.size();
+    },
+    map: function map(color) {
+      var vboxes = this.vboxes;
+      for (var i = 0; i < vboxes.size(); i++) {
+        if (vboxes.peek(i).vbox.contains(color)) {
+          return vboxes.peek(i).color;
+        }
+      }
+      return this.nearest(color);
+    },
+    nearest: function nearest(color) {
+      var vboxes = this.vboxes,
+        d1,
+        d2,
+        pColor;
+      for (var i = 0; i < vboxes.size(); i++) {
+        d2 = Math.sqrt(Math.pow(color[0] - vboxes.peek(i).color[0], 2) + Math.pow(color[1] - vboxes.peek(i).color[1], 2) + Math.pow(color[2] - vboxes.peek(i).color[2], 2));
+        if (d2 < d1 || d1 === undefined) {
+          d1 = d2;
+          pColor = vboxes.peek(i).color;
+        }
+      }
+      return pColor;
+    },
+    forcebw: function forcebw() {
+      // XXX: won't  work yet
+      var vboxes = this.vboxes;
+      vboxes.sort(function (a, b) {
+        return pv.naturalOrder(pv.sum(a.color), pv.sum(b.color));
+      });
+
+      // force darkest color to black if everything < 5
+      var lowest = vboxes[0].color;
+      if (lowest[0] < 5 && lowest[1] < 5 && lowest[2] < 5) vboxes[0].color = [0, 0, 0];
+
+      // force lightest color to white if everything > 251
+      var idx = vboxes.length - 1,
+        highest = vboxes[idx].color;
+      if (highest[0] > 251 && highest[1] > 251 && highest[2] > 251) vboxes[idx].color = [255, 255, 255];
+    }
+  };
+
+  // histo (1-d array, giving the number of pixels in
+  // each quantized region of color space), or null on error
+
+  function getHisto(pixels) {
+    var histosize = 1 << 3 * sigbits,
+      histo = new Array(histosize),
+      index,
+      rval,
+      gval,
+      bval;
+    pixels.forEach(function (pixel) {
+      rval = pixel[0] >> rshift;
+      gval = pixel[1] >> rshift;
+      bval = pixel[2] >> rshift;
+      index = getColorIndex(rval, gval, bval);
+      histo[index] = (histo[index] || 0) + 1;
+    });
+    return histo;
+  }
+  function vboxFromPixels(pixels, histo) {
+    var rmin = 1000000,
+      rmax = 0,
+      gmin = 1000000,
+      gmax = 0,
+      bmin = 1000000,
+      bmax = 0,
+      rval,
+      gval,
+      bval;
+    // find min/max
+    pixels.forEach(function (pixel) {
+      rval = pixel[0] >> rshift;
+      gval = pixel[1] >> rshift;
+      bval = pixel[2] >> rshift;
+      if (rval < rmin) rmin = rval;else if (rval > rmax) rmax = rval;
+      if (gval < gmin) gmin = gval;else if (gval > gmax) gmax = gval;
+      if (bval < bmin) bmin = bval;else if (bval > bmax) bmax = bval;
+    });
+    return new VBox(rmin, rmax, gmin, gmax, bmin, bmax, histo);
+  }
+  function medianCutApply(histo, vbox) {
+    if (!vbox.count()) return;
+    var rw = vbox.r2 - vbox.r1 + 1,
+      gw = vbox.g2 - vbox.g1 + 1,
+      bw = vbox.b2 - vbox.b1 + 1,
+      maxw = pv.max([rw, gw, bw]);
+    // only one pixel, no split
+    if (vbox.count() == 1) {
+      return [vbox.copy()];
+    }
+    /* Find the partial sum arrays along the selected axis. */
+    var total = 0,
+      partialsum = [],
+      lookaheadsum = [],
+      i,
+      j,
+      k,
+      sum,
+      index;
+    if (maxw == rw) {
+      for (i = vbox.r1; i <= vbox.r2; i++) {
+        sum = 0;
+        for (j = vbox.g1; j <= vbox.g2; j++) {
+          for (k = vbox.b1; k <= vbox.b2; k++) {
+            index = getColorIndex(i, j, k);
+            sum += histo[index] || 0;
+          }
+        }
+        total += sum;
+        partialsum[i] = total;
+      }
+    } else if (maxw == gw) {
+      for (i = vbox.g1; i <= vbox.g2; i++) {
+        sum = 0;
+        for (j = vbox.r1; j <= vbox.r2; j++) {
+          for (k = vbox.b1; k <= vbox.b2; k++) {
+            index = getColorIndex(j, i, k);
+            sum += histo[index] || 0;
+          }
+        }
+        total += sum;
+        partialsum[i] = total;
+      }
+    } else {
+      /* maxw == bw */
+      for (i = vbox.b1; i <= vbox.b2; i++) {
+        sum = 0;
+        for (j = vbox.r1; j <= vbox.r2; j++) {
+          for (k = vbox.g1; k <= vbox.g2; k++) {
+            index = getColorIndex(j, k, i);
+            sum += histo[index] || 0;
+          }
+        }
+        total += sum;
+        partialsum[i] = total;
+      }
+    }
+    partialsum.forEach(function (d, i) {
+      lookaheadsum[i] = total - d;
+    });
+    function doCut(color) {
+      var dim1 = color + '1',
+        dim2 = color + '2',
+        left,
+        right,
+        vbox1,
+        vbox2,
+        d2,
+        count2 = 0;
+      for (i = vbox[dim1]; i <= vbox[dim2]; i++) {
+        if (partialsum[i] > total / 2) {
+          vbox1 = vbox.copy();
+          vbox2 = vbox.copy();
+          left = i - vbox[dim1];
+          right = vbox[dim2] - i;
+          if (left <= right) d2 = Math.min(vbox[dim2] - 1, ~~(i + right / 2));else d2 = Math.max(vbox[dim1], ~~(i - 1 - left / 2));
+          // avoid 0-count boxes
+          while (!partialsum[d2]) {
+            d2++;
+          }
+          count2 = lookaheadsum[d2];
+          while (!count2 && partialsum[d2 - 1]) {
+            count2 = lookaheadsum[--d2];
+          }
+          // set dimensions
+          vbox1[dim2] = d2;
+          vbox2[dim1] = vbox1[dim2] + 1;
+          // console.log('vbox counts:', vbox.count(), vbox1.count(), vbox2.count());
+          return [vbox1, vbox2];
+        }
+      }
+    }
+    // determine the cut planes
+    return maxw == rw ? doCut('r') : maxw == gw ? doCut('g') : doCut('b');
+  }
+  function quantize(pixels, maxcolors) {
+    // short-circuit
+    if (!pixels.length || maxcolors < 2 || maxcolors > 256) {
+      // console.log('wrong number of maxcolors');
+      return false;
+    }
+
+    // XXX: check color content and convert to grayscale if insufficient
+
+    var histo = getHisto(pixels),
+      histosize = 1 << 3 * sigbits;
+
+    // check that we aren't below maxcolors already
+    var nColors = 0;
+    histo.forEach(function () {
+      nColors++;
+    });
+    if (nColors <= maxcolors) {
+      // XXX: generate the new colors from the histo and return
+    }
+
+    // get the beginning vbox from the colors
+    var vbox = vboxFromPixels(pixels, histo),
+      pq = new PQueue(function (a, b) {
+        return pv.naturalOrder(a.count(), b.count());
+      });
+    pq.push(vbox);
+
+    // inner function to do the iteration
+
+    function iter(lh, target) {
+      var ncolors = 1,
+        niters = 0,
+        vbox;
+      while (niters < maxIterations) {
+        vbox = lh.pop();
+        if (!vbox.count()) {
+          /* just put it back */
+          lh.push(vbox);
+          niters++;
+          continue;
+        }
+        // do the cut
+        var vboxes = medianCutApply(histo, vbox),
+          vbox1 = vboxes[0],
+          vbox2 = vboxes[1];
+        if (!vbox1) {
+          // console.log("vbox1 not defined; shouldn't happen!");
+          return;
+        }
+        lh.push(vbox1);
+        if (vbox2) {
+          /* vbox2 can be null */
+          lh.push(vbox2);
+          ncolors++;
+        }
+        if (ncolors >= target) return;
+        if (niters++ > maxIterations) {
+          // console.log("infinite loop; perhaps too few pixels!");
+          return;
+        }
+      }
+    }
+
+    // first set of colors, sorted by population
+    iter(pq, fractByPopulations * maxcolors);
+    // console.log(pq.size(), pq.debug().length, pq.debug().slice());
+
+    // Re-sort by the product of pixel occupancy times the size in color space.
+    var pq2 = new PQueue(function (a, b) {
+      return pv.naturalOrder(a.count() * a.volume(), b.count() * b.volume());
+    });
+    while (pq.size()) {
+      pq2.push(pq.pop());
+    }
+
+    // next set - generate the median cuts using the (npix * vol) sorting.
+    iter(pq2, maxcolors - pq2.size());
+
+    // calculate the actual colors
+    var cmap = new CMap();
+    while (pq2.size()) {
+      cmap.push(pq2.pop());
+    }
+    return cmap;
+  }
+  return {
+    quantize: quantize
+  };
+}();
+module.exports = MMCQ.quantize;
 
 /***/ }),
 
@@ -17633,604 +18099,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 544:
-/*!*********************************************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/miniapp-color-thief/index.js ***!
-  \*********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _quantize = _interopRequireDefault(__webpack_require__(/*! quantize */ 545));
-var toString = function toString(array) {
-  return "#".concat(((1 << 24) + (array[0] << 16) + (array[1] << 8) + array[2]).toString(16).slice(1));
-};
-var proxy = function proxy(data, fn) {
-  if (data.map(function (item) {
-    return Array.isArray(item);
-  }).includes(true)) {
-    return data.map(function (item) {
-      return fn(item);
-    });
-  } else {
-    return fn(data);
-  }
-};
-var _getGray = function getGray(rgb) {
-  return (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-};
-var colorThief = function colorThief(pixels) {
-  return {
-    palette: function palette(count, quality) {
-      if (typeof count === "undefined" || count < 2 || count > 256) {
-        count = 10;
-      }
-      if (typeof quality === "undefined" || quality < 1) {
-        quality = 10;
-      }
-
-      // Store the RGB values in an array format suitable for quantize function
-      var pixelArray = [];
-      for (var i = 0, offset, r, g, b, a; i < pixels.length / 4; i = i + quality) {
-        offset = i * 4;
-        r = pixels[offset + 0];
-        g = pixels[offset + 1];
-        b = pixels[offset + 2];
-        a = pixels[offset + 3];
-        // If pixel is mostly opaque and not white
-        if (a >= 125) {
-          if (!(r > 250 && g > 250 && b > 250)) {
-            pixelArray.push([r, g, b]);
-          }
-        }
-      }
-      this._data = (0, _quantize.default)(pixelArray, count).palette() || null;
-      return this;
-    },
-    color: function color(quality) {
-      var palette = this.palette(5, quality)._data;
-      if (palette) {
-        this._data = palette[0];
-        return this;
-      } else {
-        console.error("[MiniApp Color Thief] getColor has error: palette length is zero.");
-      }
-    },
-    __proto__: {
-      get: function get() {
-        return this._data;
-      },
-      getHex: function getHex() {
-        return proxy(this._data, toString);
-      },
-      getGray: function getGray() {
-        return proxy(this._data, _getGray);
-      },
-      isDark: function isDark() {
-        return proxy(this._data, function (data) {
-          return _getGray(data) < 127.5;
-        });
-      },
-      isLight: function isLight() {
-        return proxy(this._data, function (data) {
-          return _getGray(data) >= 127.5;
-        });
-      }
-    }
-  };
-};
-var _default = colorThief;
-exports.default = _default;
-
-/***/ }),
-
-/***/ 545:
-/*!*************************************************************************************************************!*\
-  !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/node_modules/quantize/quantize.js ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*
- * quantize.js Copyright 2008 Nick Rabinowitz
- * Ported to node.js by Olivier Lesnicki
- * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- */
-
-// fill out a couple protovis dependencies
-/*
- * Block below copied from Protovis: http://mbostock.github.com/protovis/
- * Copyright 2010 Stanford Visualization Group
- * Licensed under the BSD License: http://www.opensource.org/licenses/bsd-license.php
- */
-if (!pv) {
-  var pv = {
-    map: function map(array, f) {
-      var o = {};
-      return f ? array.map(function (d, i) {
-        o.index = i;
-        return f.call(o, d);
-      }) : array.slice();
-    },
-    naturalOrder: function naturalOrder(a, b) {
-      return a < b ? -1 : a > b ? 1 : 0;
-    },
-    sum: function sum(array, f) {
-      var o = {};
-      return array.reduce(f ? function (p, d, i) {
-        o.index = i;
-        return p + f.call(o, d);
-      } : function (p, d) {
-        return p + d;
-      }, 0);
-    },
-    max: function max(array, f) {
-      return Math.max.apply(null, f ? pv.map(array, f) : array);
-    }
-  };
-}
-
-/**
- * Basic Javascript port of the MMCQ (modified median cut quantization)
- * algorithm from the Leptonica library (http://www.leptonica.com/).
- * Returns a color map you can use to map original pixels to the reduced
- * palette. Still a work in progress.
- * 
- * @author Nick Rabinowitz
- * @example
- 
-// array of pixels as [R,G,B] arrays
-var myPixels = [[190,197,190], [202,204,200], [207,214,210], [211,214,211], [205,207,207]
-                // etc
-                ];
-var maxColors = 4;
- 
-var cmap = MMCQ.quantize(myPixels, maxColors);
-var newPalette = cmap.palette();
-var newPixels = myPixels.map(function(p) { 
-    return cmap.map(p); 
-});
- 
- */
-var MMCQ = function () {
-  // private constants
-  var sigbits = 5,
-    rshift = 8 - sigbits,
-    maxIterations = 1000,
-    fractByPopulations = 0.75;
-
-  // get reduced-space color index for a pixel
-
-  function getColorIndex(r, g, b) {
-    return (r << 2 * sigbits) + (g << sigbits) + b;
-  }
-
-  // Simple priority queue
-
-  function PQueue(comparator) {
-    var contents = [],
-      sorted = false;
-    function sort() {
-      contents.sort(comparator);
-      sorted = true;
-    }
-    return {
-      push: function push(o) {
-        contents.push(o);
-        sorted = false;
-      },
-      peek: function peek(index) {
-        if (!sorted) sort();
-        if (index === undefined) index = contents.length - 1;
-        return contents[index];
-      },
-      pop: function pop() {
-        if (!sorted) sort();
-        return contents.pop();
-      },
-      size: function size() {
-        return contents.length;
-      },
-      map: function map(f) {
-        return contents.map(f);
-      },
-      debug: function debug() {
-        if (!sorted) sort();
-        return contents;
-      }
-    };
-  }
-
-  // 3d color space box
-
-  function VBox(r1, r2, g1, g2, b1, b2, histo) {
-    var vbox = this;
-    vbox.r1 = r1;
-    vbox.r2 = r2;
-    vbox.g1 = g1;
-    vbox.g2 = g2;
-    vbox.b1 = b1;
-    vbox.b2 = b2;
-    vbox.histo = histo;
-  }
-  VBox.prototype = {
-    volume: function volume(force) {
-      var vbox = this;
-      if (!vbox._volume || force) {
-        vbox._volume = (vbox.r2 - vbox.r1 + 1) * (vbox.g2 - vbox.g1 + 1) * (vbox.b2 - vbox.b1 + 1);
-      }
-      return vbox._volume;
-    },
-    count: function count(force) {
-      var vbox = this,
-        histo = vbox.histo;
-      if (!vbox._count_set || force) {
-        var npix = 0,
-          i,
-          j,
-          k,
-          index;
-        for (i = vbox.r1; i <= vbox.r2; i++) {
-          for (j = vbox.g1; j <= vbox.g2; j++) {
-            for (k = vbox.b1; k <= vbox.b2; k++) {
-              index = getColorIndex(i, j, k);
-              npix += histo[index] || 0;
-            }
-          }
-        }
-        vbox._count = npix;
-        vbox._count_set = true;
-      }
-      return vbox._count;
-    },
-    copy: function copy() {
-      var vbox = this;
-      return new VBox(vbox.r1, vbox.r2, vbox.g1, vbox.g2, vbox.b1, vbox.b2, vbox.histo);
-    },
-    avg: function avg(force) {
-      var vbox = this,
-        histo = vbox.histo;
-      if (!vbox._avg || force) {
-        var ntot = 0,
-          mult = 1 << 8 - sigbits,
-          rsum = 0,
-          gsum = 0,
-          bsum = 0,
-          hval,
-          i,
-          j,
-          k,
-          histoindex;
-        for (i = vbox.r1; i <= vbox.r2; i++) {
-          for (j = vbox.g1; j <= vbox.g2; j++) {
-            for (k = vbox.b1; k <= vbox.b2; k++) {
-              histoindex = getColorIndex(i, j, k);
-              hval = histo[histoindex] || 0;
-              ntot += hval;
-              rsum += hval * (i + 0.5) * mult;
-              gsum += hval * (j + 0.5) * mult;
-              bsum += hval * (k + 0.5) * mult;
-            }
-          }
-        }
-        if (ntot) {
-          vbox._avg = [~~(rsum / ntot), ~~(gsum / ntot), ~~(bsum / ntot)];
-        } else {
-          //console.log('empty box');
-          vbox._avg = [~~(mult * (vbox.r1 + vbox.r2 + 1) / 2), ~~(mult * (vbox.g1 + vbox.g2 + 1) / 2), ~~(mult * (vbox.b1 + vbox.b2 + 1) / 2)];
-        }
-      }
-      return vbox._avg;
-    },
-    contains: function contains(pixel) {
-      var vbox = this,
-        rval = pixel[0] >> rshift;
-      gval = pixel[1] >> rshift;
-      bval = pixel[2] >> rshift;
-      return rval >= vbox.r1 && rval <= vbox.r2 && gval >= vbox.g1 && gval <= vbox.g2 && bval >= vbox.b1 && bval <= vbox.b2;
-    }
-  };
-
-  // Color map
-
-  function CMap() {
-    this.vboxes = new PQueue(function (a, b) {
-      return pv.naturalOrder(a.vbox.count() * a.vbox.volume(), b.vbox.count() * b.vbox.volume());
-    });
-    ;
-  }
-  CMap.prototype = {
-    push: function push(vbox) {
-      this.vboxes.push({
-        vbox: vbox,
-        color: vbox.avg()
-      });
-    },
-    palette: function palette() {
-      return this.vboxes.map(function (vb) {
-        return vb.color;
-      });
-    },
-    size: function size() {
-      return this.vboxes.size();
-    },
-    map: function map(color) {
-      var vboxes = this.vboxes;
-      for (var i = 0; i < vboxes.size(); i++) {
-        if (vboxes.peek(i).vbox.contains(color)) {
-          return vboxes.peek(i).color;
-        }
-      }
-      return this.nearest(color);
-    },
-    nearest: function nearest(color) {
-      var vboxes = this.vboxes,
-        d1,
-        d2,
-        pColor;
-      for (var i = 0; i < vboxes.size(); i++) {
-        d2 = Math.sqrt(Math.pow(color[0] - vboxes.peek(i).color[0], 2) + Math.pow(color[1] - vboxes.peek(i).color[1], 2) + Math.pow(color[2] - vboxes.peek(i).color[2], 2));
-        if (d2 < d1 || d1 === undefined) {
-          d1 = d2;
-          pColor = vboxes.peek(i).color;
-        }
-      }
-      return pColor;
-    },
-    forcebw: function forcebw() {
-      // XXX: won't  work yet
-      var vboxes = this.vboxes;
-      vboxes.sort(function (a, b) {
-        return pv.naturalOrder(pv.sum(a.color), pv.sum(b.color));
-      });
-
-      // force darkest color to black if everything < 5
-      var lowest = vboxes[0].color;
-      if (lowest[0] < 5 && lowest[1] < 5 && lowest[2] < 5) vboxes[0].color = [0, 0, 0];
-
-      // force lightest color to white if everything > 251
-      var idx = vboxes.length - 1,
-        highest = vboxes[idx].color;
-      if (highest[0] > 251 && highest[1] > 251 && highest[2] > 251) vboxes[idx].color = [255, 255, 255];
-    }
-  };
-
-  // histo (1-d array, giving the number of pixels in
-  // each quantized region of color space), or null on error
-
-  function getHisto(pixels) {
-    var histosize = 1 << 3 * sigbits,
-      histo = new Array(histosize),
-      index,
-      rval,
-      gval,
-      bval;
-    pixels.forEach(function (pixel) {
-      rval = pixel[0] >> rshift;
-      gval = pixel[1] >> rshift;
-      bval = pixel[2] >> rshift;
-      index = getColorIndex(rval, gval, bval);
-      histo[index] = (histo[index] || 0) + 1;
-    });
-    return histo;
-  }
-  function vboxFromPixels(pixels, histo) {
-    var rmin = 1000000,
-      rmax = 0,
-      gmin = 1000000,
-      gmax = 0,
-      bmin = 1000000,
-      bmax = 0,
-      rval,
-      gval,
-      bval;
-    // find min/max
-    pixels.forEach(function (pixel) {
-      rval = pixel[0] >> rshift;
-      gval = pixel[1] >> rshift;
-      bval = pixel[2] >> rshift;
-      if (rval < rmin) rmin = rval;else if (rval > rmax) rmax = rval;
-      if (gval < gmin) gmin = gval;else if (gval > gmax) gmax = gval;
-      if (bval < bmin) bmin = bval;else if (bval > bmax) bmax = bval;
-    });
-    return new VBox(rmin, rmax, gmin, gmax, bmin, bmax, histo);
-  }
-  function medianCutApply(histo, vbox) {
-    if (!vbox.count()) return;
-    var rw = vbox.r2 - vbox.r1 + 1,
-      gw = vbox.g2 - vbox.g1 + 1,
-      bw = vbox.b2 - vbox.b1 + 1,
-      maxw = pv.max([rw, gw, bw]);
-    // only one pixel, no split
-    if (vbox.count() == 1) {
-      return [vbox.copy()];
-    }
-    /* Find the partial sum arrays along the selected axis. */
-    var total = 0,
-      partialsum = [],
-      lookaheadsum = [],
-      i,
-      j,
-      k,
-      sum,
-      index;
-    if (maxw == rw) {
-      for (i = vbox.r1; i <= vbox.r2; i++) {
-        sum = 0;
-        for (j = vbox.g1; j <= vbox.g2; j++) {
-          for (k = vbox.b1; k <= vbox.b2; k++) {
-            index = getColorIndex(i, j, k);
-            sum += histo[index] || 0;
-          }
-        }
-        total += sum;
-        partialsum[i] = total;
-      }
-    } else if (maxw == gw) {
-      for (i = vbox.g1; i <= vbox.g2; i++) {
-        sum = 0;
-        for (j = vbox.r1; j <= vbox.r2; j++) {
-          for (k = vbox.b1; k <= vbox.b2; k++) {
-            index = getColorIndex(j, i, k);
-            sum += histo[index] || 0;
-          }
-        }
-        total += sum;
-        partialsum[i] = total;
-      }
-    } else {
-      /* maxw == bw */
-      for (i = vbox.b1; i <= vbox.b2; i++) {
-        sum = 0;
-        for (j = vbox.r1; j <= vbox.r2; j++) {
-          for (k = vbox.g1; k <= vbox.g2; k++) {
-            index = getColorIndex(j, k, i);
-            sum += histo[index] || 0;
-          }
-        }
-        total += sum;
-        partialsum[i] = total;
-      }
-    }
-    partialsum.forEach(function (d, i) {
-      lookaheadsum[i] = total - d;
-    });
-    function doCut(color) {
-      var dim1 = color + '1',
-        dim2 = color + '2',
-        left,
-        right,
-        vbox1,
-        vbox2,
-        d2,
-        count2 = 0;
-      for (i = vbox[dim1]; i <= vbox[dim2]; i++) {
-        if (partialsum[i] > total / 2) {
-          vbox1 = vbox.copy();
-          vbox2 = vbox.copy();
-          left = i - vbox[dim1];
-          right = vbox[dim2] - i;
-          if (left <= right) d2 = Math.min(vbox[dim2] - 1, ~~(i + right / 2));else d2 = Math.max(vbox[dim1], ~~(i - 1 - left / 2));
-          // avoid 0-count boxes
-          while (!partialsum[d2]) {
-            d2++;
-          }
-          count2 = lookaheadsum[d2];
-          while (!count2 && partialsum[d2 - 1]) {
-            count2 = lookaheadsum[--d2];
-          }
-          // set dimensions
-          vbox1[dim2] = d2;
-          vbox2[dim1] = vbox1[dim2] + 1;
-          // console.log('vbox counts:', vbox.count(), vbox1.count(), vbox2.count());
-          return [vbox1, vbox2];
-        }
-      }
-    }
-    // determine the cut planes
-    return maxw == rw ? doCut('r') : maxw == gw ? doCut('g') : doCut('b');
-  }
-  function quantize(pixels, maxcolors) {
-    // short-circuit
-    if (!pixels.length || maxcolors < 2 || maxcolors > 256) {
-      // console.log('wrong number of maxcolors');
-      return false;
-    }
-
-    // XXX: check color content and convert to grayscale if insufficient
-
-    var histo = getHisto(pixels),
-      histosize = 1 << 3 * sigbits;
-
-    // check that we aren't below maxcolors already
-    var nColors = 0;
-    histo.forEach(function () {
-      nColors++;
-    });
-    if (nColors <= maxcolors) {
-      // XXX: generate the new colors from the histo and return
-    }
-
-    // get the beginning vbox from the colors
-    var vbox = vboxFromPixels(pixels, histo),
-      pq = new PQueue(function (a, b) {
-        return pv.naturalOrder(a.count(), b.count());
-      });
-    pq.push(vbox);
-
-    // inner function to do the iteration
-
-    function iter(lh, target) {
-      var ncolors = 1,
-        niters = 0,
-        vbox;
-      while (niters < maxIterations) {
-        vbox = lh.pop();
-        if (!vbox.count()) {
-          /* just put it back */
-          lh.push(vbox);
-          niters++;
-          continue;
-        }
-        // do the cut
-        var vboxes = medianCutApply(histo, vbox),
-          vbox1 = vboxes[0],
-          vbox2 = vboxes[1];
-        if (!vbox1) {
-          // console.log("vbox1 not defined; shouldn't happen!");
-          return;
-        }
-        lh.push(vbox1);
-        if (vbox2) {
-          /* vbox2 can be null */
-          lh.push(vbox2);
-          ncolors++;
-        }
-        if (ncolors >= target) return;
-        if (niters++ > maxIterations) {
-          // console.log("infinite loop; perhaps too few pixels!");
-          return;
-        }
-      }
-    }
-
-    // first set of colors, sorted by population
-    iter(pq, fractByPopulations * maxcolors);
-    // console.log(pq.size(), pq.debug().length, pq.debug().slice());
-
-    // Re-sort by the product of pixel occupancy times the size in color space.
-    var pq2 = new PQueue(function (a, b) {
-      return pv.naturalOrder(a.count() * a.volume(), b.count() * b.volume());
-    });
-    while (pq.size()) {
-      pq2.push(pq.pop());
-    }
-
-    // next set - generate the median cuts using the (npix * vol) sorting.
-    iter(pq2, maxcolors - pq2.size());
-
-    // calculate the actual colors
-    var cmap = new CMap();
-    while (pq2.size()) {
-      cmap.push(pq2.pop());
-    }
-    return cmap;
-  }
-  return {
-    quantize: quantize
-  };
-}();
-module.exports = MMCQ.quantize;
-
-/***/ }),
-
 /***/ 55:
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
@@ -18604,47 +18472,7 @@ module.exports = _arrayWithHoles, module.exports.__esModule = true, module.expor
 
 /***/ }),
 
-/***/ 7:
-/*!*********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(r, l) {
-  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
-  if (null != t) {
-    var e,
-      n,
-      i,
-      u,
-      a = [],
-      f = !0,
-      o = !1;
-    try {
-      if (i = (t = t.call(r)).next, 0 === l) {
-        if (Object(t) !== t) return;
-        f = !1;
-      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) {
-        ;
-      }
-    } catch (r) {
-      o = !0, n = r;
-    } finally {
-      try {
-        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
-      } finally {
-        if (o) throw n;
-      }
-    }
-    return a;
-  }
-}
-module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-
-/***/ 708:
+/***/ 616:
 /*!*********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-icons/icons.js ***!
   \*********************************************************************************************************/
@@ -18794,7 +18622,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 721:
+/***/ 629:
 /*!*********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/popup.js ***!
   \*********************************************************************************************************/
@@ -18809,7 +18637,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 722));
+var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 630));
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -18837,7 +18665,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 722:
+/***/ 630:
 /*!***********************************************************************************************************!*\
   !*** /Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-uniapp/components/uni-popup/message.js ***!
   \***********************************************************************************************************/
@@ -18874,6 +18702,46 @@ var _default = {
   }
 };
 exports.default = _default;
+
+/***/ }),
+
+/***/ 7:
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) {
+        ;
+      }
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 

@@ -66,6 +66,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageInfo;
 import com.qiniu.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -96,6 +97,7 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
     private YxStoreProductAttrService yxStoreProductAttrService;
     @Autowired
     private YxStoreProductAttrValueService yxStoreProductAttrValueService;
+    @Lazy
     @Autowired
     private YxUserService userService;
     @Autowired
@@ -315,11 +317,6 @@ public class YxStoreProductServiceImpl extends BaseServiceImpl<StoreProductMappe
         storeProductQueryVo.setSales(storeProductQueryVo.getSales() + storeProductQueryVo.getFicti());
 
         if (uid.longValue() > 0) {
-            //设置VIP价格
-            double vipPrice = userService.setLevelPrice(
-                    storeProductQueryVo.getPrice().doubleValue(), uid);
-            storeProductQueryVo.setVipPrice(BigDecimal.valueOf(vipPrice));
-
             //收藏
             boolean isCollect = relationService.isProductRelation(id, uid,ProductTypeEnum.PRODUCT.getValue());
             storeProductQueryVo.setUserCollect(isCollect);

@@ -10,20 +10,14 @@ package co.yixiang.modules.services;
 
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
-import cn.hutool.http.HttpUtil;
 import co.yixiang.api.YshopException;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.constant.SystemConfigConstants;
 import co.yixiang.enums.AppFromEnum;
 import co.yixiang.enums.OrderInfoEnum;
-import co.yixiang.modules.activity.domain.YxStoreCombination;
-import co.yixiang.modules.activity.domain.YxStorePink;
-import co.yixiang.modules.activity.service.YxStoreCombinationService;
-import co.yixiang.modules.activity.service.YxStorePinkService;
 import co.yixiang.modules.order.vo.YxStoreOrderQueryVo;
 import co.yixiang.modules.product.domain.YxStoreProduct;
 import co.yixiang.modules.shop.domain.YxSystemAttachment;
@@ -41,11 +35,7 @@ import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,8 +55,6 @@ import static co.yixiang.utils.FileUtil.transformStyle;
 public class CreatShareProductService {
 
     private final YxSystemAttachmentService systemAttachmentService;
-    private final YxStorePinkService storePinkService;
-    private final YxStoreCombinationService storeCombinationService;
     private final YxSystemStoreService systemStoreService;
     private final YxSystemConfigService systemConfigService;
 
@@ -268,202 +256,6 @@ public class CreatShareProductService {
 
 
 
-    /**
-     * 获取拼团海报
-     * @param pinkId 拼团id
-     * @param userInfo 用户
-     * @param siteUrl h5地址
-     * @param apiUrl api地址
-     * @param path 本地图片路径
-     * @return url
-     */
-    public String getPinkPosterUrl(Long pinkId, YxUser userInfo,String siteUrl,
-                                      String apiUrl,String path,String from){
-        Long uid = userInfo.getUid();
-        YxStorePink storePink = storePinkService.getById(pinkId);
-        if(ObjectUtil.isNull(storePink)) {
-            throw new YshopException("拼团不存在");
-        }
-        YxStoreCombination storeCombination = storeCombinationService.getById(storePink.getCid());
-        if(ObjectUtil.isNull(storeCombination)) {
-            throw new YshopException("拼团产品不存在");
-        }
-
-
-        String name = pinkId+"_"+uid + "_"+from+"_pink_share_wap.jpg";
-        YxSystemAttachment attachment = systemAttachmentService.getInfo(name);
-        String fileDir = path+"qrcode"+ File.separator;
-        String qrcodeUrl = "";
-        if(ObjectUtil.isNull(attachment)){
-            //生成二维码
-            File file = FileUtil.mkdir(new File(fileDir));
-            if(AppFromEnum.ROUNTINE.getValue().equals(from)){
-                siteUrl = siteUrl+"/pink/";
-                QrCodeUtil.generate(siteUrl+"?pinkId="+pinkId+"&spread="+uid+"&pageType=group&codeType="+AppFromEnum.ROUNTINE.getValue(), 180, 180,
-                        FileUtil.file(fileDir+name));
-            }
-            else if(AppFromEnum.APP.getValue().equals(from)){
-                siteUrl = siteUrl+"/pink/";
-                QrCodeUtil.generate(siteUrl+"?pinkId="+pinkId+"&spread="+uid+"&pageType=group&codeType="+AppFromEnum.ROUNTINE.getValue(), 180, 180,
-                        FileUtil.file(fileDir+name));
-            }
-            else if(AppFromEnum.H5.getValue().equals(from)){
-                QrCodeUtil.generate(siteUrl+"/activity/group_rule/"+pinkId+"?spread="+uid, 180, 180,
-                        FileUtil.file(fileDir+name));
-            }else {
-                String uniUrl = systemConfigService.getData(SystemConfigConstants.UNI_SITE_URL);
-                siteUrl =  StrUtil.isNotBlank(uniUrl) ? uniUrl :  ShopConstants.DEFAULT_UNI_H5_URL;
-                QrCodeUtil.generate(siteUrl+"/pages/activity/GroupRule/index?id="+pinkId+"&spread="+uid, 180, 180,
-                        FileUtil.file(fileDir+name));
-            }
-
-
-            systemAttachmentService.attachmentAdd(name,String.valueOf(FileUtil.size(file)),
-                    fileDir+name,"qrcode/"+name);
-
-            qrcodeUrl = fileDir+name;
-        }else{
-            qrcodeUrl = attachment.getAttDir();
-        }
-
-        String spreadPicName = pinkId+"_"+uid + "_"+from+"_pink_user_spread.jpg";
-        String spreadPicPath = fileDir+spreadPicName;
-
-        YxSystemAttachment attachmentT = systemAttachmentService.getInfo(spreadPicName);
-        String spreadUrl = "";
-//        InputStream stream =  getClass().getClassLoader().getResourceAsStream("poster.jpg");
-//        InputStream streamT =  getClass().getClassLoader()
-//                .getResourceAsStream("simsunb.ttf");
-        File newFile = new File("poster.jpg");
-        File newFileT = new File("simsunb.ttf");
-        try {
-            if(!newFileT.exists()){
-                InputStream streamT =  getClass().getClassLoader()
-                        .getResourceAsStream("simsunb.ttf");
-                FileUtils.copyInputStreamToFile(streamT, newFileT);
-            }
-            if(!newFile.exists()){
-                InputStream stream =  getClass().getClassLoader().getResourceAsStream("poster.jpg");
-                FileUtils.copyInputStreamToFile(stream, newFile);
-            }
-
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new YshopException(e.getMessage());
-        }
-        if(ObjectUtil.isNull(attachmentT)){
-            try {
-
-                //第一步标题
-                Font font =  Font.createFont(Font.TRUETYPE_FONT, newFileT);
-                Font f= font.deriveFont(Font.PLAIN,40);
-                //font.
-                ImgUtil.pressText(//
-                        newFile,
-                        FileUtil.file(spreadPicPath),
-                        storeCombination.getTitle(),
-                        Color.BLACK,
-                        f, //字体
-                        0, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        -480, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.8f//透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-                );
-
-                Font f2= font.deriveFont(Font.PLAIN,45);
-                //第2步价格
-                ImgUtil.pressText(//
-                        FileUtil.file(spreadPicPath),
-                        FileUtil.file(spreadPicPath),
-                        storePink.getTotalPrice().toString(),
-                        Color.RED,
-                        f2, //字体
-                        -160, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        -350, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.8f//透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-                );
-
-                Font f3= font.deriveFont(Font.PLAIN,30);
-                //第3步几人团
-                ImgUtil.pressText(//
-                        FileUtil.file(spreadPicPath),
-                        FileUtil.file(spreadPicPath),
-                        storePink.getPeople()+"人团",
-                        Color.WHITE,
-                        f3, //字体
-                        90, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        -370, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.8f//透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-                );
-
-                //第4步介绍
-                String pro = "原价￥"+storeCombination.getProductPrice()+" 还差"
-                        +storePinkService.surplusPeople(storePink)+"人拼团成功";
-                ImgUtil.pressText(//
-                        FileUtil.file(spreadPicPath),
-                        FileUtil.file(spreadPicPath),
-                        pro,
-                        Color.BLACK,
-                        f3, //字体
-                        -50, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        -300, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.7f//透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-                );
-
-                //第5步商品图片
-                //下载图片
-//                String picImage = fileDir+pinkId+"_pink_image.jpg";
-//                HttpUtil.downloadFile(storeCombination.getImage(),
-//                        FileUtil.file(picImage));
-
-                String image = storeCombination.getImage();
-                String ext = image.substring(image.lastIndexOf("."));
-                String picImage = fileDir + "pink_product_" + pinkId + ext;
-                if(!new File(picImage).exists()){
-                    //下载商品图
-                    HttpUtil.downloadFile(image, FileUtil.file(picImage));
-                    //只缩放一次防止图片持续缩放导致图片没了
-                    ImgUtil.scale(
-                            FileUtil.file(picImage),
-                            FileUtil.file(picImage),
-                            0.5f//缩放比例
-                    );
-                }
-
-
-                ImgUtil.pressImage(
-                        FileUtil.file(spreadPicPath),
-                        FileUtil.file(spreadPicPath),
-                        ImgUtil.read(FileUtil.file(picImage)), //水印图片
-                        0, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.8f
-                );
-
-                ImgUtil.pressImage(
-                        FileUtil.file(spreadPicPath),
-                        FileUtil.file(spreadPicPath),
-                        ImgUtil.read(FileUtil.file(qrcodeUrl)), //水印图片
-                        0, //x坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        390, //y坐标修正值。 默认在中间，偏移量相对于中间偏移
-                        0.8f
-                );
-
-                systemAttachmentService.attachmentAdd(spreadPicName,
-                        String.valueOf(FileUtil.size(new File(spreadPicPath))),
-                        spreadPicPath,"qrcode/"+spreadPicName);
-
-                spreadUrl = apiUrl + "/api/file/qrcode/"+spreadPicName;
-
-            } catch (Exception e) {
-                log.error(e.getMessage());
-                throw new YshopException(e.getMessage());
-            }
-        }else{
-            spreadUrl = apiUrl + "/api/file/" + attachmentT.getSattDir();
-        }
-
-        return  spreadUrl;
-    }
 
 
     /**

@@ -87,7 +87,7 @@ swagger:
   enabled: true
   title: yshop商城管理后台API
   serverUrl:
-  version: 1.9.0
+  version: 2.0.0
 
 # 文件存储路径
 file:

@@ -22,6 +22,7 @@ import co.yixiang.modules.product.service.YxStoreProductService;
 import co.yixiang.utils.FileUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,6 +47,7 @@ import java.util.Map;
 public class YxStoreCouponServiceImpl extends BaseServiceImpl<YxStoreCouponMapper, YxStoreCoupon> implements YxStoreCouponService {
 
     private final IGenerator generator;
+    @Lazy
     private final YxStoreProductService storeProductService;
 
     @Override

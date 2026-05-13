@@ -21,7 +21,6 @@ import co.yixiang.modules.user.domain.YxUser;
 import co.yixiang.modules.user.domain.YxUserBill;
 import co.yixiang.modules.user.domain.YxUserSign;
 import co.yixiang.modules.user.service.YxUserBillService;
-import co.yixiang.modules.user.service.YxUserLevelService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.YxUserSignService;
 import co.yixiang.modules.user.service.mapper.UserBillMapper;
@@ -67,8 +66,6 @@ public class YxUserSignServiceImpl extends BaseServiceImpl<YxUserSignMapper, YxU
     private YxUserService yxUserService;
     @Autowired
     private YxUserBillService billService;
-    @Autowired
-    private YxUserLevelService userLevelService;
 
 
     /**
@@ -136,8 +133,6 @@ public class YxUserSignServiceImpl extends BaseServiceImpl<YxUserSignMapper, YxU
                 BillDetailEnum.TYPE_10.getValue(),signNumber,yxUser.getIntegral().doubleValue(),
                 "","");
 
-        //检查是否符合会员升级条件
-        userLevelService.setLevelComplete(yxUser.getUid());
         return signNumber;
     }
 

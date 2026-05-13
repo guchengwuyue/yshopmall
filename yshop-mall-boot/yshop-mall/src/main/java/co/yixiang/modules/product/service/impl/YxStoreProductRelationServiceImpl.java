@@ -16,10 +16,6 @@ import co.yixiang.common.utils.QueryHelpPlus;
 import co.yixiang.domain.PageResult;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.ProductTypeEnum;
-import co.yixiang.modules.activity.domain.YxStoreCombination;
-import co.yixiang.modules.activity.domain.YxStoreSeckill;
-import co.yixiang.modules.activity.service.YxStoreCombinationService;
-import co.yixiang.modules.activity.service.YxStoreSeckillService;
 import co.yixiang.modules.product.domain.YxStoreProduct;
 import co.yixiang.modules.product.domain.YxStoreProductRelation;
 import co.yixiang.modules.product.service.YxStoreProductRelationService;
@@ -67,8 +63,7 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
     private final YxStoreProductService storeProductService;
     private final YxUserService userService;
     private final IGenerator generator;
-    private final YxStoreCombinationService storeCombinationService;
-    private final YxStoreSeckillService storeSeckillService;
+
 
     /**
      * 获取用户收藏列表
@@ -96,16 +91,6 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
                 image = yxStoreProduct.getImage();
                 price = yxStoreProduct.getPrice().doubleValue();
                 relationQueryVo.setIsIntegral(yxStoreProduct.getIsIntegral());
-            }else if(ProductTypeEnum.COMBINATION.getValue().equals(yxStoreProductRelation.getCategory())){
-                YxStoreCombination yxStoreCombination = storeCombinationService.getById(yxStoreProductRelation.getProductId());
-                storeName = yxStoreCombination.getTitle();
-                image = yxStoreCombination.getImage();
-                price = yxStoreCombination.getPrice().doubleValue();
-            }else if(ProductTypeEnum.SECKILL.getValue().equals(yxStoreProductRelation.getCategory())){
-                YxStoreSeckill yxStoreSeckill = storeSeckillService.getById(yxStoreProductRelation.getProductId());
-                storeName = yxStoreSeckill.getTitle();
-                image = yxStoreSeckill.getImage();
-                price = yxStoreSeckill.getPrice().doubleValue();
             }
             relationQueryVo.setStoreName(storeName);
             relationQueryVo.setImage(image);

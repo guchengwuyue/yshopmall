@@ -273,12 +273,6 @@ export function getSpreadInfo() {
   return request.get('/commission')
 }
 
-/*
- * 推广人列表
- * */
-export function getSpreadUser(screen) {
-  return request.post('/spread/people', screen)
-}
 
 /*
  * 推广人订单
@@ -349,12 +343,6 @@ export function getActivityStatus() {
   )
 }
 
-/*
- * 活动状态
- * */
-export function getSpreadImg(data) {
-  return request.get('/spread/banner', data)
-}
 
 /*
  * 用户修改信息
@@ -421,25 +409,10 @@ export function switchH5Login() {
     from: 'wechat',
   })
 }
-/*
- * 获取推广人排行
- * */
-export function getRankList(q) {
-  return request.get('rank', q)
-}
-/*
- * 获取佣金排名
- * */
-export function getBrokerageRank(q) {
-  return request.get('brokerage_rank', q)
-}
 
-/**
- * 检测会员等级
- */
-export function setDetection() {
-  return request.get('user/level/detection')
-}
+
+
+
 
 export function getRechargeApi() {
   return request.get('recharge/index')

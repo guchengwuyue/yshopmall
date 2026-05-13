@@ -9,7 +9,6 @@
 package co.yixiang.modules.services;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.api.WxMaUserService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
@@ -17,7 +16,6 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import co.yixiang.api.YshopException;
-import co.yixiang.common.bean.LocalUser;
 import co.yixiang.common.util.IpUtil;
 import co.yixiang.constant.ShopConstants;
 import co.yixiang.enums.AppFromEnum;
@@ -25,13 +23,15 @@ import co.yixiang.modules.auth.param.LoginParam;
 import co.yixiang.modules.auth.param.RegParam;
 import co.yixiang.modules.mp.config.WxMaConfiguration;
 import co.yixiang.modules.mp.config.WxMpConfiguration;
-import co.yixiang.modules.shop.domain.YxSystemAttachment;
 import co.yixiang.modules.shop.service.YxSystemAttachmentService;
 import co.yixiang.modules.user.domain.YxUser;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.service.dto.WechatUserDto;
 import co.yixiang.modules.user.vo.OnlineUser;
-import co.yixiang.utils.*;
+import co.yixiang.utils.EncryptUtils;
+import co.yixiang.utils.RedisUtils;
+import co.yixiang.utils.ShopKeyUtils;
+import co.yixiang.utils.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,6 @@ import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -118,7 +117,6 @@ public class AuthService {
         wechatUserDTO.setHeadimgurl(wxMpUser.getAvatarUrl());
         yxUser.setWxProfile(wechatUserDTO);
         userService.updateById(yxUser);
-        userService.setSpread(spread, yxUser.getUid());
         return yxUser;
     }
 
@@ -194,7 +192,6 @@ public class AuthService {
                 yxUser.setUserType(AppFromEnum.ROUNTINE.getValue());
                 this.userService.updateById(yxUser);
             }
-            this.userService.setSpread(spread, yxUser.getUid());
             redisUtils.set(ShopConstants.YSHOP_MINI_SESSION_KET + yxUser.getUid(), session.getSessionKey());
             return yxUser;
         } catch (WxErrorException e) {
@@ -275,7 +272,6 @@ public class AuthService {
 
             }
 
-            userService.setSpread(spread, returnUser.getUid());
 
             log.error("spread:{}", spread);
 
@@ -312,14 +308,6 @@ public class AuthService {
 
         userService.save(user);
 
-        //设置推广关系
-        if (StrUtil.isNotBlank(param.getInviteCode())) {
-            YxSystemAttachment systemAttachment = systemAttachmentService.getByCode(param.getInviteCode());
-            if (systemAttachment != null) {
-                userService.setSpread(String.valueOf(systemAttachment.getUid()),
-                        user.getUid());
-            }
-        }
 
         return user;
 

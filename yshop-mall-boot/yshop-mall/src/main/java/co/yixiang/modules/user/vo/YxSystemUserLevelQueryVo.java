@@ -1,7 +1,6 @@
 package co.yixiang.modules.user.vo;
 
 
-import co.yixiang.modules.user.service.dto.TaskDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,7 +54,6 @@ public class YxSystemUserLevelQueryVo implements Serializable {
     @ApiModelProperty(value = "添加时间")
     private Integer addTime;
 
-    private TaskDto taskList;
 
     private Boolean isClear;
 
