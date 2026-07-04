@@ -103,6 +103,9 @@ public class CrmCluesRespVO {
     @Schema(description = "负责人")
     private String ownUserName;
 
+    @Schema(description = "负责人头像")
+    private String ownUserAvatar;
+
     @Schema(description = "创建人")
     private String createName;
 

@@ -2,6 +2,88 @@ import { EChartsOption } from 'echarts'
 
 const { t } = useI18n()
 
+const gaugeData = [
+  {
+    value: 20,
+    name: '合同金额',
+    title: {
+      offsetCenter: ['0%', '-33%']
+    },
+    detail: {
+      valueAnimation: true,
+      offsetCenter: ['0%', '-20%']
+    }
+  },
+  {
+    value: 40,
+    name: '回款金额',
+    title: {
+      offsetCenter: ['0%', '-2%']
+    },
+    detail: {
+      valueAnimation: true,
+      offsetCenter: ['0%', '10%']
+    }
+  }
+]
+
+export const clockOptions:  EChartsOption = {
+  series: [
+    {
+      type: 'gauge',
+      startAngle: 90,
+      endAngle: -270,
+      pointer: {
+        show: false
+      },
+      progress: {
+        show: true,
+        overlap: false,
+        roundCap: true,
+        clip: false,
+        itemStyle: {
+          borderWidth: 1,
+          borderColor: '#464646'
+        }
+      },
+      axisLine: {
+        lineStyle: {
+          width: 40
+        }
+      },
+      splitLine: {
+        show: false,
+        distance: 0,
+        length: 10
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        show: false,
+        distance: 50
+      },
+      data: gaugeData,
+      title: {
+        fontSize: 14,
+      },
+      detail: {
+        width: 50,
+        height: 14,
+        fontSize: 14,
+        color: 'inherit',
+        borderColor: 'inherit',
+        borderRadius: 20,
+        borderWidth: 1,
+        formatter: '{value}%'
+      }
+    }
+  ]
+}
+
+
+
+
 export const lineOptions: EChartsOption = {
   title: {
     text: t('analysis.monthlySales'),
@@ -110,8 +192,8 @@ export const pieOptions: EChartsOption = {
 
 export const barOptions: EChartsOption = {
   title: {
-    text: t('analysis.weeklyUserActivity'),
-    left: 'center'
+    text: '等级分析',
+    // left: 'center'
   },
   tooltip: {
     trigger: 'axis',
@@ -119,34 +201,31 @@ export const barOptions: EChartsOption = {
       type: 'shadow'
     }
   },
+  legend: {},
   grid: {
-    left: 50,
-    right: 20,
-    bottom: 20
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
   },
   xAxis: {
-    type: 'category',
-    data: [
-      t('analysis.monday'),
-      t('analysis.tuesday'),
-      t('analysis.wednesday'),
-      t('analysis.thursday'),
-      t('analysis.friday'),
-      t('analysis.saturday'),
-      t('analysis.sunday')
-    ],
-    axisTick: {
-      alignWithLabel: true
-    }
+    type: 'value',
+    boundaryGap: [0, 0.01]
   },
   yAxis: {
-    type: 'value'
+    type: 'category',
+    data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World']
   },
   series: [
     {
-      name: t('analysis.activeQuantity'),
-      data: [13253, 34235, 26321, 12340, 24643, 1322, 1324],
-      type: 'bar'
+      name: '全部客户',
+      type: 'bar',
+      data: [18203, 23489, 29034, 104970, 131744, 630230]
+    },
+    {
+      name: '成交客户',
+      type: 'bar',
+      data: [19325, 23438, 31000, 121594, 134141, 681807]
     }
   ]
 }

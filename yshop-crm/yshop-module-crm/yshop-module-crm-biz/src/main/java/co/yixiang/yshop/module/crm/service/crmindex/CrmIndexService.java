@@ -9,6 +9,6 @@ import co.yixiang.yshop.module.crm.controller.admin.crmindex.vo.CrmIndexRespVO;
  */
 public interface CrmIndexService {
 
-    CrmIndexRespVO getIndexCount();
+    CrmIndexRespVO getIndexCount(String relation);
 
 }

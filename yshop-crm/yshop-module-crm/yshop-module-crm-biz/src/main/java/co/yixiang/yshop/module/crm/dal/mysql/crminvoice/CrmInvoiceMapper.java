@@ -40,6 +40,7 @@ public interface CrmInvoiceMapper extends BaseMapperX<CrmInvoiceDO> {
                 .eqIfExists(CrmContractReceivablesDO::getContractId, reqVO.getContractId())
                 .in(!ids.isEmpty(), CrmInvoiceDO::getCreator,ids)
                 .apply(reqVO.getIsCheck(), "FIND_IN_SET ('" + loginAdminId + "',t.flow_admin_id)")
+                .orderByDesc(CrmInvoiceDO::getId)
         );
 
 

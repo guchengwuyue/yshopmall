@@ -1,4 +1,23 @@
 <template>
+  <ContentWrap  v-if="isDetail">
+    <!-- 搜索工作栏 -->
+    <el-form
+      class="-mb-15px"
+      :model="queryParams"
+      ref="queryFormRef"
+      :inline="true"
+      label-width="68px"
+    >
+      <el-form-item>
+        <el-button @click="resetQuery">刷新</el-button>
+        <el-button
+          type="primary"
+          @click="openForm('create')"
+        > 新增跟进
+        </el-button>
+      </el-form-item>
+    </el-form>
+  </ContentWrap>
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
@@ -32,6 +51,7 @@
       @pagination="getList"
     />
   </ContentWrap>
+  <RecordForm2 ref="formRef" @success="getList" />
 </template>
 
 <script setup lang="ts">
@@ -39,6 +59,7 @@ import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { RecordApi, RecordVO } from '@/api/crm/crmrecord'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
+import RecordForm2 from '@/views/crm/crmbusinessrecord/RecordForm2.vue'
 
 
 /** 跟进记录 列表 */
@@ -61,7 +82,8 @@ const exportLoading = ref(false) // 导出的加载中
 
 const props = defineProps<{
   myId: 0,
-  businessId: 0
+  businessId: 0,
+  isDetail: false
 }>()
 
 
@@ -112,11 +134,11 @@ const resetQuery = () => {
   handleQuery()
 }
 
-// /** 添加/修改操作 */
-// const formRef = ref()
-// const openForm = (type: string, id?: number) => {
-//   formRef.value.open(type, id)
-//}
+/** 添加/修改操作 */
+const formRef = ref()
+const openForm = (type: string) => {
+  formRef.value.open(type, props.businessId)
+}
 
 // /** 删除按钮操作 */
 // const handleDelete = async (id: number) => {

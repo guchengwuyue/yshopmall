@@ -1,13 +1,12 @@
 package co.yixiang.yshop.module.crm.service.crmflow;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.crm.controller.admin.crmflow.vo.CrmFlowPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmflow.vo.CrmFlowSaveReqVO;
+import java.util.*;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.crm.controller.admin.crmflow.vo.*;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
-import jakarta.validation.Valid;
-
-import java.util.List;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 
 /**
  * 审批流程 Service 接口
@@ -65,13 +64,39 @@ public interface CrmFlowService {
     List<CrmFlowStepDO> getFlowStepListByFlowId(Long flowId);
 
     /**
-     * 获取第一级审核人
+     * 获取审核流程
      * @param flowType
-     * @param stepId 不揍ID！
+     * @param dataId 数据ID！
      * @return
      */
-    List<Long> getFlowUserIds(String flowType,Long stepId);
+    List<CrmFlowStepRespVO> getFlowUserIds(String flowType,Long dataId);
 
+    /**
+     * 删除流程步骤
+     * @param id
+     */
     void deleteFlowStep(Long id);
+
+    /**
+     * 发送下个审核步骤
+     * @param flowType 流程类型
+     * @param dataId 关联 数据ID 比如合同 或者 收款
+     * @param checkedUserId 已审核人
+     * @return CrmFlowStepResultVO
+     */
+    CrmFlowStepResultVO sendNextStep(String flowType,Long dataId,String checkedUserId);
+
+    /**
+     * 添加通知消息
+     * @param type 通知类型
+     * @param RelationId 数据ID
+     * @param toUserId 接收人
+     * @param fromUserId 发送人
+     * @param content 内容
+     */
+    void addMessage(String type,Long RelationId,Long toUserId,Long fromUserId,String content);
+
+
+
 
 }

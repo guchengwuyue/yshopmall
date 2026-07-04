@@ -20,7 +20,7 @@ public class TenantPageReqVO extends PageParam {
     @Schema(description = "租户名", example = "yshop")
     private String name;
 
-    @Schema(description = "联系人", example = "芋艿")
+    @Schema(description = "联系人", example = "yshop")
     private String contactName;
 
     @Schema(description = "联系手机", example = "15601691300")

@@ -27,15 +27,14 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
-        <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
+        <el-button @click="handleQuery">搜索</el-button>
+        <el-button @click="resetQuery">重置</el-button>
         <el-button
           type="primary"
-          plain
           @click="openForm('create')"
           v-hasPermi="['crm:customer-contacts:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
+          v-if="props.customerPermission != 'read'"
+        > 新增联系人
         </el-button>
       </el-form-item>
     </el-form>
@@ -49,7 +48,7 @@
       <el-table-column label="手机" align="center" prop="mobile" width="120" />
       <el-table-column label="电话" align="center" prop="telephone" width="120" />
       <el-table-column label="微信号" align="center" prop="wechat" />
-      <el-table-column label="电子邮箱" align="center" prop="email" />
+      <el-table-column label="电子邮箱" align="center" prop="email"  width="120" />
       <el-table-column label="职务" align="center" prop="post" />
       <el-table-column label="性别" align="center" prop="sex">
        <template #default="scope">
@@ -83,7 +82,7 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center" fixed="right" width="150">
+      <el-table-column label="操作" align="center" fixed="right" width="150"  v-if="props.customerPermission == 'all'">
         <template #default="scope">
           <el-button
             link
@@ -145,7 +144,8 @@ const exportLoading = ref(false) // 导出的加载中
 
 const props = defineProps<{
   customerId: 0,
-  customerName: ''
+  customerName: '',
+  customerPermission: 'all'
 }>()
 
 /** 查询列表 */

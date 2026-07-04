@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(prefix = "yshop.tracer", value = "enable", matchIfMissing = true)
 public class YshopTracerAutoConfiguration {
 
-    // TODO @芋艿：重要。目前 opentracing 版本存在冲突，要么保证 skywalking，要么保证阿里云短信 sdk
+    // TODO @yshop：重要。目前 opentracing 版本存在冲突，要么保证 skywalking，要么保证阿里云短信 sdk
 //    @Bean
 //    public TracerProperties bizTracerProperties() {
 //        return new TracerProperties();

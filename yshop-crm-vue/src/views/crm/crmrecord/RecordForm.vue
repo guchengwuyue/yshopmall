@@ -11,26 +11,44 @@
               :model="formData"
               :rules="formRules"
               label-width="120px"
-              disabled
+         
             >
               <el-form-item label="客户名称" prop="name">
-                <el-input v-model="formData2.name" placeholder="请输入客户名称" />
+                <el-input v-model="formData2.name" disabled placeholder="请输入客户名称" />
               </el-form-item>
               <el-form-item label="手机" prop="mobile">
-                <el-input v-model="formData2.mobile" placeholder="请输入手机" />
+                <!-- <el-input v-model="formData2.mobile" placeholder="请输入手机" /> -->
+                <el-input
+                   v-model="formData2.mobile"
+                   placeholder="请输入手机"
+                   disabled
+                >
+                  <template #append>
+                    <el-button style="color:#ffffff;background-color:#F56C6C" @click="call(formData2.id,formData2.mobile)"><Icon icon="ep:phone" class="mr-5px" />云呼叫</el-button>
+                  </template>
+                </el-input>
               </el-form-item>
               <el-form-item label="电话" prop="telephone">
-                <el-input v-model="formData2.telephone" placeholder="请输入电话" />
+                <!-- <el-input v-model="formData2.telephone" placeholder="请输入电话" /> -->
+                <el-input
+                   v-model="formData2.telephone"
+                   placeholder="请输入电话"
+                   disabled
+                >
+                  <template #append>
+                    <el-button style="color:#ffffff;background-color:#F56C6C" @click="call(formData2.id,formData2.telephone)"><Icon icon="ep:phone" class="mr-5px" />云呼叫</el-button>
+                  </template>
+                </el-input>
               </el-form-item>
               <el-form-item label="微信" prop="weixin">
-                <el-input v-model="formData2.weixin" placeholder="请输入微信" />
+                <el-input v-model="formData2.weixin" disabled placeholder="请输入微信" />
               </el-form-item>
               <el-form-item label="QQ" prop="qq">
-                <el-input v-model="formData2.qq" placeholder="请输入QQ" />
+                <el-input v-model="formData2.qq" disabled placeholder="请输入QQ" />
               </el-form-item>
               <div v-if="moreShow">
                 <el-form-item label="客户级别" prop="level">
-                  <el-select v-model="formData2.level" clearable placeholder="请选择客户级别">
+                  <el-select v-model="formData2.level" disabled clearable placeholder="请选择客户级别">
                     <el-option
                         v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_LEVEL)"
                         :key="dict.value"
@@ -40,7 +58,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="客户行业" prop="industry">
-                  <el-select v-model="formData2.industry" clearable placeholder="请选择客户行业">
+                  <el-select v-model="formData2.industry" disabled clearable placeholder="请选择客户行业">
                     <el-option
                         v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_INDUSTRY)"
                         :key="dict.value"
@@ -50,7 +68,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="客户来源" prop="source">
-                  <el-select v-model="formData2.source" clearable placeholder="请选择客户行业">
+                  <el-select v-model="formData2.source" disabled clearable placeholder="请选择客户行业">
                     <el-option
                         v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_SOURCE)"
                         :key="dict.value"
@@ -61,6 +79,7 @@
                 </el-form-item>
                 <el-form-item label="地址" prop="city"  @change="handleChange">
                   <el-cascader
+                    disabled
                     v-model="cityArr"
                     :options="areaList"
                     :props="props"
@@ -68,10 +87,10 @@
                   />
                 </el-form-item>
                 <el-form-item label="详细地址" prop="detailAddress">
-                  <el-input v-model="formData2.detailAddress" placeholder="请输入详细地址" />
+                  <el-input v-model="formData2.detailAddress" disabled placeholder="请输入详细地址" />
                 </el-form-item>
                 <el-form-item label="跟进状态" prop="followStatus">
-                  <el-select v-model="formData2.followStatus" clearable placeholder="请选择跟进状态业">
+                  <el-select v-model="formData2.followStatus" disabled clearable placeholder="请选择跟进状态业">
                     <el-option
                         v-for="dict in getIntDictOptions(DICT_TYPE.CRM_FOLLOW_STATUS)"
                         :key="dict.value"
@@ -255,6 +274,7 @@ const submitForm = async () => {
         
     })
     data.followStatus = followStatusStr.value
+   
     myId.value = await RecordApi.createRecord(data)
     message.success(t('common.createSuccess'))
     formData.value.content = ''
@@ -265,6 +285,8 @@ const submitForm = async () => {
     formLoading.value = false
   }
 }
+
+
 
 /** 重置表单 */
 const resetForm = () => {

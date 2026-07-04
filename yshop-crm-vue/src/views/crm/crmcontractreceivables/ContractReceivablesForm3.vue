@@ -2,68 +2,37 @@
   <Dialog :title="dialogTitle" v-model="dialogVisible" width="50%">
     <el-card> 
       <template #header>
-        收款信息
+        <el-row>
+          <el-col :span="12">
+            <div style="display:flex;align-items: center;">
+              <el-image style="width: 40px; height: 30px" :src="customerinfoimg"  />
+              <span style="margin-left:8px;font-weight:bolder">{{formData.number}}</span>
+            </div>
+          </el-col>
+        </el-row>
       </template>
-      <el-form
-        ref="formRef"
-        :model="formData"
-        :rules="formRules"
-        label-width="100px"
-        v-loading="formLoading"
-        disabled
-      >
-        <el-form-item label="回款编号" prop="number">
-          <el-input v-model="formData.number" placeholder="请输入回款编号"  />
-        </el-form-item>
-        <el-form-item label="客户" prop="customerId">
-          <el-input v-model="formData.customerName" placeholder="请输入选择客户" />
-          <el-input v-model="formData.customerId" type="hidden" />
-        </el-form-item>
-        <el-form-item label="合同" prop="contractId">
-          <el-input v-model="formData.contractName" placeholder="请输入选择合同" />
-          <el-input v-model="formData.contractId" type="hidden" />
-        </el-form-item>
-        <el-form-item label="回款金额" prop="money">
-          <el-input v-model="formData.money" placeholder="请输入回款金额" />
-        </el-form-item>
-        <el-form-item label="回款账户" prop="accountId">
-          <el-select v-model="formData.accountId" clearable placeholder="请选择收款账户">
-            <el-option
-                v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PAYEE_TYPE)"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="回款日期" prop="returnTime">
-          <el-date-picker
-            v-model="formData.returnTime"
-            type="date"
-            value-format="x"
-            placeholder="选择回款日期"
-          />
-        </el-form-item>
-        <el-form-item label="审批人" prop="flowAdminId">
-          <el-select v-model="formData.flowAdminId"  multiple disabled placeholder="请去审批流程里配置合同审批">
-              <el-option
-                v-for="item in userList"
-                :key="item.id"
-                :label="item.nickname"
-                :value="item.id"
-              />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="formData.remark" type="textarea" :rows="2" placeholder="请输入备注" />
-        </el-form-item>
-      </el-form>
+
+      <div>
+        <el-descriptions title="基本信息">
+          <el-descriptions-item label="回款编号">{{formData.number}}</el-descriptions-item>
+          <el-descriptions-item label="客户">{{formData.customerName}}</el-descriptions-item>
+          <el-descriptions-item label="合同">{{formData.contractName}}</el-descriptions-item>
+          <el-descriptions-item label="回款金额">{{formData.money}}</el-descriptions-item>
+          <el-descriptions-item label="回款账户"> 
+            <span v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PAYEE_TYPE)" :key="dict.value">
+                <span v-if="formData.accountId == dict.value">{{dict.label}}</span>
+            </span>  
+          </el-descriptions-item>
+          <el-descriptions-item label="回款日期">{{formData.returnTime}}</el-descriptions-item>
+          <el-descriptions-item label="备注">{{formData.remark}}</el-descriptions-item>
+        </el-descriptions>
+      </div> 
     </el-card>
     <el-card> 
       <template #header>
         审核日志
       </template>
-      <LogList :receivablesId="receivablesId" />
+      <FlowStep :flowAdmins="flowAdmins" />
     </el-card> 
     <template #footer>
       <el-button @click="dialogVisible = false">取 消</el-button>
@@ -72,10 +41,12 @@
 </template>
 <script setup lang="ts">
 import { ContractReceivablesApi, ContractReceivablesVO } from '@/api/crm/crmcontractreceivables'
+import FlowStep from '@/views/components/flow/index.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import { FlowApi } from '@/api/crm/crmflow'
 import * as UserApi from '@/api/system/user'
 import LogList from './components/log/index.vue'
+import customerinfoimg from '@/assets/imgs/customerinfo.png'
 
 /** 回款 表单 */
 defineOptions({ name: 'ContractReceivablesForm' })
@@ -84,7 +55,7 @@ const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
-const dialogTitle = ref('详情') // 弹窗的标题
+const dialogTitle = ref('回款详情') // 弹窗的标题
 const formLoading = ref(false) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formData = ref({
@@ -119,19 +90,21 @@ const formRules = reactive({
 const formRef = ref() // 表单 Ref
 const userList = ref<UserApi.UserVO[]>([]) // 用户列表
 const receivablesId = ref(0)
+const flowAdmins = ref([])
 
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
   dialogVisible.value = true
   receivablesId.value = id
-  resetForm()
+  //resetForm()
   // 修改时，设置数据
   if (id) {
+    flowAdmins.value = await FlowApi.getFlowUserIds('receivables',id ? id : 0)
     formLoading.value = true
     try {
       formData.value = await ContractReceivablesApi.getContractReceivables(id)
       formData.value.agreeType = 1
-      formData.value.flowAdminId = formData.value.flowAdminId2
+      //formData.value.flowAdminId = formData.value.flowAdminId2
     } finally {
       formLoading.value = false
     }
@@ -143,27 +116,7 @@ defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
 
+
 /** 重置表单 */
-const resetForm = () => {
-  formData.value = {
-    id: undefined,
-    number: undefined,
-    customerId: undefined,
-    contractId: undefined,
-    returnTime: Date.parse(new Date()),
-    accountId: 1,
-    money: undefined,
-    checkStatus: undefined,
-    flowId: undefined,
-    stepId: undefined,
-    checkAdminId: undefined,
-    flowAdminId: undefined,
-    remark: undefined,
-    ownerUserId: undefined,
-    orderAdminId: undefined,
-    payStatus: undefined,
-    payType: undefined
-  }
-  formRef.value?.resetFields()
-}
+
 </script>

@@ -17,7 +17,7 @@ public class Demo03StudentRespVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @ExcelProperty("名字")
     private String name;
 

@@ -24,7 +24,7 @@ public class UserRespVO{
     @ExcelProperty("用户名称")
     private String username;
 
-    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @ExcelProperty("用户昵称")
     private String nickname;
 
@@ -71,5 +71,14 @@ public class UserRespVO{
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED, example = "时间戳格式")
     private LocalDateTime createTime;
+
+    @Schema(description = "流程审核时间")
+    private LocalDateTime flowCheckTime;
+
+    @Schema(description = "流程审核状态")
+    private Integer flowCheckStatus;
+
+    @Schema(description = "流程审核意见")
+    private String flowCheckRemark;
 
 }

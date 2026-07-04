@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum FlowStepEnum {
-    TYPE_2(2,"指定人员"),
-    TYPE_3(3,"指定部门");
+    TYPE_2(2,"指定人员一人或签"),
+    TYPE_3(3,"指定人员(多人会签)");
 
     private Integer value;
     private String desc;

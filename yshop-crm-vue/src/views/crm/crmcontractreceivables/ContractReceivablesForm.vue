@@ -2,6 +2,7 @@
   <Dialog :title="dialogTitle" v-model="dialogVisible">
     <el-alert title="审核通过，不可修改数据" type="success" v-if="formData.checkStatus == 2" style="margin-bottom:20px" />
     <el-alert title="审核中，不可修改数据" type="warning" v-else-if="formData.checkStatus == 1" style="margin-bottom:20px" />
+    <el-alert title="审核不通过，不可修改数据，请重新添加合同" type="error" v-else-if="formData.checkStatus == 3" style="margin-bottom:20px" />
     <el-form
       ref="formRef"
       :model="formData"
@@ -24,10 +25,16 @@
         </el-input>
         <el-input v-model="formData.contractId" type="hidden" />
       </el-form-item>
+      <el-form-item label="收款方式" prop="payType">
+        <el-radio-group v-model="formData.payType">
+          <el-radio :value="1">默认方式</el-radio>
+          <el-radio :value="2">在线收款</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="回款金额" prop="money">
         <el-input v-model="formData.money" placeholder="请输入回款金额" />
       </el-form-item>
-      <el-form-item label="回款账户" prop="accountId">
+      <el-form-item label="回款账户" prop="accountId" v-show="formData.payType == 1">
         <el-select v-model="formData.accountId" clearable placeholder="请选择收款账户">
           <el-option
               v-for="dict in getIntDictOptions(DICT_TYPE.CRM_PAYEE_TYPE)"
@@ -37,7 +44,7 @@
             />
         </el-select>
       </el-form-item>
-      <el-form-item label="回款日期" prop="returnTime">
+      <el-form-item label="回款日期" prop="returnTime" v-show="formData.payType == 1">
         <el-date-picker
           v-model="formData.returnTime"
           type="date"
@@ -45,7 +52,7 @@
           placeholder="选择回款日期"
         />
       </el-form-item>
-      <el-form-item label="审批人" prop="flowAdminId">
+      <!-- <el-form-item label="审批人" prop="flowAdminId">
         <el-select v-model="formData.flowAdminId"  multiple disabled placeholder="请去审批流程里配置合同审批">
             <el-option
               v-for="item in userList"
@@ -54,9 +61,12 @@
               :value="item.id"
             />
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="备注" prop="remark">
         <el-input v-model="formData.remark" type="textarea" :rows="2" placeholder="请输入备注" />
+      </el-form-item>
+      <el-form-item label="审批信息" prop="flowAdminId">
+        <FlowStep :flowAdmins="flowAdmins" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -71,6 +81,7 @@
 import { ContractReceivablesApi, ContractReceivablesVO } from '@/api/crm/crmcontractreceivables'
 import SelectCustomer from "@/views/components/customer/index.vue"
 import SelectContract from "@/views/components/contract/index.vue"
+import FlowStep from '@/views/components/flow/index.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import { FlowApi } from '@/api/crm/crmflow'
 import * as UserApi from '@/api/system/user'
@@ -115,6 +126,7 @@ const formRules = reactive({
 const formRef = ref() // 表单 Ref
 const userList = ref<UserApi.UserVO[]>([]) // 用户列表
 const formLoading2 = ref(false)
+const flowAdmins = ref([])
 
 /** 打开弹窗 */
 const open = async (type: string, id?: number) => {
@@ -122,21 +134,33 @@ const open = async (type: string, id?: number) => {
   dialogTitle.value = t('action.' + type)
   formType.value = type
   resetForm()
+  flowAdmins.value = await FlowApi.getFlowUserIds('receivables',id ? id : 0)
   // 修改时，设置数据
   if (id) {
     formLoading.value = true
     try {
       formData.value = await ContractReceivablesApi.getContractReceivables(id)
+      // formData.value.flowAdminId = formData.value.flowAdminId2
     } finally {
       formLoading.value = false
     }
-    if(formData.value.checkStatus == 2 || formData.value.checkStatus == 1){
+    if(formData.value.checkStatus == 2 || formData.value.checkStatus == 1 || formData.value.checkStatus == 3 ){
       formLoading2.value = true
     }
   }else{
     formLoading2.value = false
     formData.value.number = await ContractReceivablesApi.getCode()
-    formData.value.flowAdminId = await FlowApi.getFlowUserIds('receivables')
+    //formData.value.flowAdminId = await FlowApi.getFlowUserIds('receivables')
+    let flowAdminsId = "";
+    flowAdmins.value.forEach(item => {
+      if(flowAdminsId == ''){
+        flowAdminsId = item.adminIds
+      }else{
+        flowAdminsId = flowAdminsId + ',' + item.adminIds
+      }
+    })
+
+    formData.value.flowAdminId = flowAdminsId
   }
   userList.value = await UserApi.getSimpleUserList()
 }
@@ -151,7 +175,17 @@ const open2 = async (name, id) => {
   console.log('id:',id)
   console.log('name:',name)
   formData.value.number = await ContractReceivablesApi.getCode()
-  formData.value.flowAdminId = await FlowApi.getFlowUserIds('receivables')
+  flowAdmins.value = await FlowApi.getFlowUserIds('receivables',id ? id : 0)
+  let flowAdminsId = "";
+  flowAdmins.value.forEach(item => {
+    if(flowAdminsId == ''){
+      flowAdminsId = item.adminIds
+    }else{
+      flowAdminsId = flowAdminsId + ',' + item.adminIds
+    }
+  })
+
+  formData.value.flowAdminId = flowAdminsId
   userList.value = await UserApi.getSimpleUserList()
 }
 defineExpose({ open,open2}) // 提供 open 方法，用于打开弹窗
@@ -173,6 +207,10 @@ const submitForm = async () => {
       message.success(t('common.updateSuccess'))
     }
     dialogVisible.value = false
+    //支付
+    if(formData.value.payType == 2){
+      ContractReceivablesApi.pay({from:'',paytype:'weixin',uni:formData.value.number})
+    }
     // 发送操作成功的事件
     emit('success')
   } finally {
@@ -224,7 +262,7 @@ const resetForm = () => {
     ownerUserId: undefined,
     orderAdminId: undefined,
     payStatus: undefined,
-    payType: undefined
+    payType: 1
   }
   formRef.value?.resetFields()
 }

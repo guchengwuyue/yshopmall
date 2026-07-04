@@ -1,15 +1,10 @@
 package co.yixiang.yshop.module.pay.service.merchantdetails;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsCreateReqVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsExportReqVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsPageReqVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsUpdateReqVO;
+import java.util.*;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.*;
 import co.yixiang.yshop.module.pay.dal.dataobject.merchantdetails.MerchantDetailsDO;
-import jakarta.validation.Valid;
-
-import java.util.Collection;
-import java.util.List;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
 
 /**
  * 支付服务商配置 Service 接口

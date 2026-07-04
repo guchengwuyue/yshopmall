@@ -22,10 +22,7 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import java.sql.Connection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;

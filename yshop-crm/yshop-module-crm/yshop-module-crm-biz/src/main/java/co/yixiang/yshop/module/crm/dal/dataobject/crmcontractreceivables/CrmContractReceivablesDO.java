@@ -1,16 +1,14 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 import co.yixiang.yshop.framework.mybatis.core.type.LongListTypeHandler;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
+import java.util.*;
+import java.time.LocalDateTime;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 回款 DO
@@ -75,8 +73,7 @@ public class CrmContractReceivablesDO extends BaseDO {
     /**
      * 流程审批人ID
      */
-    @TableField(typeHandler = LongListTypeHandler.class)
-    private List<Long> flowAdminId;
+    private String flowAdminId;
     /**
      * 备注
      */
@@ -98,4 +95,19 @@ public class CrmContractReceivablesDO extends BaseDO {
      */
     private Integer payType;
 
+    /**
+     * 支付url
+     */
+    private String codeUrl;
+
+    /**
+     * 创建支付码时间
+     */
+    private LocalDateTime payTime;
+
+    @TableField(exist = false)
+    private BigDecimal count07;
+
+    @TableField(exist = false)
+    private BigDecimal count007;
 }

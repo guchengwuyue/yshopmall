@@ -124,6 +124,7 @@
             link
             type="success"
             @click="handleReceive(scope.row.id)"
+            v-hasPermi="['crm:clues:receive']"
           >
             领取
           </el-button>
@@ -223,6 +224,7 @@ const handleReceive = async (id: number) => {
     await getList()
   } catch {}
 }
+
 
 
 /** 初始化 **/

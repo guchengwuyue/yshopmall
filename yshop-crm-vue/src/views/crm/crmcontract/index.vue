@@ -100,7 +100,7 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
+    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" highlight-current-row @current-change="handleCurrentChange">
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="合同编号" align="center" prop="number" width="150">
         <template #default="scope">
@@ -159,17 +159,10 @@
           <el-button
             link
             type="success"
-            @click="openRece(scope.row.id,scope.row.name)"
+            @click="openRece(scope.row,scope.row.name)"
+            v-hasPermi="['crm:contract:pay']"
           >
             收款
-          </el-button>
-          <el-button
-            link
-            type="warning"
-            @click="openForm('check', scope.row.id)"
-            v-if="scope.row.isCheck"
-          >
-            审核
           </el-button>
           <el-button
             link
@@ -203,7 +196,7 @@
   <ContractForm ref="formRef" @success="getList" />
   <ContractForm2 ref="formRef2" @success="getList" />
   <ContractForm3 ref="formRef3"  />
-  <RecordForm ref="recordFormRef"  />
+  <CustomerDetail ref="recordFormRef"  />
   <ContractReceivablesForm ref="contractReceivablesFormRef"  />
 </template>
 
@@ -215,7 +208,7 @@ import ContractForm from './ContractForm.vue'
 import ContractForm2 from './ContractForm2.vue'
 import ContractForm3 from './ContractForm3.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
-import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 import ContractReceivablesForm from '@/views/crm/crmcontractreceivables/ContractReceivablesForm.vue'
 
 
@@ -243,14 +236,17 @@ const queryParams = reactive({
 const queryFormRef = ref() // 搜索的表单
 const exportLoading = ref(false) // 导出的加载中
 const activeIndex = ref('my')
+const selectRow = ref({})
+const isDisabled = ref(true)
 
 /** 查询列表 */
 const getList = async () => {
+  isDisabled.value = true
   loading.value = true
   try {
     const data = await ContractApi.getContractPage(queryParams)
     list.value = data.list
-    let now = new Date().getTime()
+    let now = new Date().getTime() - 86400000
     list.value.map((value) => {
       if(value.endTime < now){
         value.isExpire = '过期'
@@ -265,6 +261,12 @@ const getList = async () => {
     loading.value = false
   }
 }
+
+const handleCurrentChange = (val) => {
+  isDisabled.value = false
+  selectRow.value = val
+}
+
 
 const handleSelect = (key) => {
   queryParams.relation = key
@@ -304,8 +306,12 @@ const openDetail = (id?: number) => {
 }
 
 const contractReceivablesFormRef = ref()
-const openRece = (id,name) => {
-  contractReceivablesFormRef.value.open2(name, id)
+const openRece = (row,name) => {
+  if(row.checkStatus != 2){
+    message.error('只有审核通过的合同才能添加回款')
+    return
+  }
+  contractReceivablesFormRef.value.open2(name, row.id)
 }
 
 /** 删除按钮操作 */
@@ -341,3 +347,4 @@ onMounted(() => {
   getList()
 })
 </script>
+

@@ -2,9 +2,10 @@ package co.yixiang.yshop.module.pay.mq.producer;
 
 import co.yixiang.yshop.framework.mq.redis.core.RedisMQTemplate;
 import co.yixiang.yshop.module.pay.mq.message.PayNoticeMessage;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import jakarta.annotation.Resource;
 
 @Slf4j
 @Component

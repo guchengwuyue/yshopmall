@@ -36,6 +36,8 @@ public class CrmContractRespVO {
     @ExcelProperty("客户签约人（联系人ID）")
     private Long contactsId;
 
+    private String contactsName;
+
     @Schema(description = "客户来源ID", example = "15518")
     @ExcelProperty("客户来源ID")
     private Integer sourceId;

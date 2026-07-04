@@ -1,14 +1,11 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcustomercontacts.vo;
 
-import co.yixiang.yshop.framework.common.pojo.PageParam;
+import lombok.*;
+import java.util.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import static co.yixiang.yshop.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
@@ -24,7 +21,7 @@ public class CrmCustomerContactsPageReqVO extends PageParam {
     @Schema(description = "客户名称")
     private String customerName;
 
-    @Schema(description = "姓名", example = "芋艿")
+    @Schema(description = "姓名", example = "yshop")
     private String name;
 
     @Schema(description = "手机")

@@ -10,13 +10,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.builder.kefu.NewsBuilder;
 
+import jakarta.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -240,7 +238,7 @@ public class MpMessageDO extends BaseDO {
 
     }
 
-    // TODO @芋艿：可以找一些新的思路
+    // TODO @yshop：可以找一些新的思路
     public static class ArticleTypeHandler extends AbstractJsonTypeHandler<List<Article>> {
 
         @Override

@@ -14,7 +14,7 @@ import static co.yixiang.yshop.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class Demo03StudentPageReqVO extends PageParam {
 
-    @Schema(description = "名字", example = "芋艿")
+    @Schema(description = "名字", example = "yshop")
     private String name;
 
     @Schema(description = "性别")

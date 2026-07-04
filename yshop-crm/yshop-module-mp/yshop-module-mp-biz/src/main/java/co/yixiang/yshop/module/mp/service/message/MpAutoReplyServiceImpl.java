@@ -16,8 +16,6 @@ import co.yixiang.yshop.module.mp.enums.message.MpAutoReplyTypeEnum;
 import co.yixiang.yshop.module.mp.framework.mp.core.util.MpUtils;
 import co.yixiang.yshop.module.mp.service.account.MpAccountService;
 import co.yixiang.yshop.module.mp.service.message.bo.MpMessageSendOutReqBO;
-import jakarta.annotation.Resource;
-import jakarta.validation.Validator;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
@@ -25,6 +23,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.annotation.Resource;
+import jakarta.validation.Validator;
 import java.util.List;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -185,6 +185,8 @@ public class MpAutoReplyServiceImpl implements MpAutoReplyService {
         MpAutoReplyDO reply = CollUtil.isNotEmpty(replies) ? CollUtil.getFirst(replies)
                 : buildDefaultSubscribeAutoReply(appId); // 如果不存在，提供一个默认末班
 
+
+        reply.setResponseContent("我的openid:" + wxMessage.getFromUser());
         // 第二步，基于自动回复，创建消息
         MpMessageSendOutReqBO sendReqBO = MpAutoReplyConvert.INSTANCE.convert(wxMessage.getFromUser(), reply);
         return mpMessageService.sendOutMessage(sendReqBO);

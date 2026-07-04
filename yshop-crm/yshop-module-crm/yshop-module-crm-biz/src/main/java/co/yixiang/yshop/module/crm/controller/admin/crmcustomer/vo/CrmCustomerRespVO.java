@@ -1,12 +1,13 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import java.util.*;
 import java.math.BigDecimal;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
+import com.alibaba.excel.annotation.*;
 
 @Schema(description = "管理后台 - 客户 Response VO")
 @Data
@@ -74,6 +75,11 @@ public class CrmCustomerRespVO {
     @ExcelProperty("区域ID")
     private Integer area;
 
+    /**
+     * 地址组合字符串
+     */
+    private String addressStr;
+
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("详细地址")
     private String detailAddress;
@@ -123,9 +129,24 @@ public class CrmCustomerRespVO {
     private LocalDateTime createTime;
 
     @Schema(description = "负责人")
-    private String ownUserName;
+    private Long ownerUserId;
 
     @Schema(description = "负责人")
+    private String ownUserName;
+
+    @Schema(description = "负责人头像")
+    private String ownUserAvatar;
+
+    @Schema(description = "创建人")
     private String createName;
+
+    @Schema(description = "读写权限用户")
+    private String rwUserId;
+
+    @Schema(description = "只读权限用户")
+    private String roUserId;
+
+    @Schema(description = "all-所有权限(拥有者) edit-读写权限 read-只读权限")
+    private String permission;
 
 }

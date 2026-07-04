@@ -55,8 +55,13 @@ export default defineComponent({
 
     // 注册
     onMounted(() => {
-      const tableRef = unref(elTableRef)
-      emit('register', tableRef?.$parent, elTableRef)
+      const tableRef = unref(elTableRef)?.value // 获取实际 DOM 组件实例
+      if (!tableRef) {
+        console.warn('elTableRef is not available!')
+        return
+      }
+      const parent = tableRef.$parent ?? null
+      emit('register', parent, elTableRef.value) // 确保传递的是实际值
     })
 
     const pageSizeRef = ref(props.pageSize)

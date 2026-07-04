@@ -1,11 +1,13 @@
 package co.yixiang.yshop.module.crm.service.crminvoice;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
+import java.util.*;
+
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
-import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoicePageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceSaveReqVO;
-import jakarta.validation.Valid;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crminvoice.CrmInvoiceDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 
 /**
  * 发票 Service 接口
@@ -56,6 +58,7 @@ public interface CrmInvoiceService {
      * 审核发票
      * @param checkInfoVO
      */
+    @Deprecated
     void check(CheckInfoVO checkInfoVO);
 
     /**

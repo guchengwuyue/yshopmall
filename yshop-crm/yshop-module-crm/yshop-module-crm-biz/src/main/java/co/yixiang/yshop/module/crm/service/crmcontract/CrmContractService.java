@@ -1,14 +1,12 @@
 package co.yixiang.yshop.module.crm.service.crmcontract;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CrmContractPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CrmContractRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CrmContractSaveReqVO;
+import java.util.*;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractProductDO;
-import jakarta.validation.Valid;
-
-import java.util.List;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 
 /**
  * 合同 Service 接口
@@ -75,6 +73,7 @@ public interface CrmContractService {
      * 审核合同
      * @param checkInfoVO
      */
+    @Deprecated
     void check(CheckInfoVO checkInfoVO);
 
 }

@@ -31,8 +31,8 @@ export const FlowLogApi = {
   },
 
   // 修改审核日志
-  updateFlowLog: async (data: FlowLogVO) => {
-    return await request.put({ url: `/crm/flow-log/update`, data })
+  examine: async (data: FlowLogVO) => {
+    return await request.post({ url: `/crm/flow-log/examine`, data })
   },
 
   // 删除审核日志

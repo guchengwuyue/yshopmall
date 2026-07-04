@@ -1,35 +1,38 @@
 package co.yixiang.yshop.module.crm.service.crmbusiness;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
-import co.yixiang.yshop.module.crm.controller.admin.crmbusiness.vo.CrmBusinessPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmbusiness.vo.CrmBusinessRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmbusiness.vo.CrmBusinessSaveReqVO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessDO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessProductDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
-import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessMapper;
-import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessProductMapper;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmrecord.CrmRecordDO;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
+import co.yixiang.yshop.module.crm.dal.mysql.crmrecord.CrmRecordMapper;
+import co.yixiang.yshop.module.crm.enums.CustomerTypesEnum;
 import co.yixiang.yshop.module.crm.enums.RelationEnum;
 import co.yixiang.yshop.module.crm.enums.TypesEnum;
 import co.yixiang.yshop.module.crm.service.crmrecord.CrmRecordService;
+import co.yixiang.yshop.module.product.dal.dataobject.storeproduct.StoreProductDO;
 import co.yixiang.yshop.module.product.dal.dataobject.storeproductattrvalue.StoreProductAttrValueDO;
 import co.yixiang.yshop.module.product.dal.mysql.storeproduct.StoreProductMapper;
 import co.yixiang.yshop.module.product.dal.mysql.storeproductattrvalue.StoreProductAttrValueMapper;
 import co.yixiang.yshop.module.system.api.user.AdminUserApi;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import co.yixiang.yshop.module.crm.controller.admin.crmbusiness.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessProductDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
+import co.yixiang.yshop.framework.common.util.object.BeanUtils;
+
+import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessMapper;
+import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessProductMapper;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.BUSINESS_NOT_EXISTS;
+import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.*;
 
 /**
  * 商机 Service 实现类
@@ -52,6 +55,8 @@ public class CrmBusinessServiceImpl implements CrmBusinessService {
     private CrmCustomerMapper customerMapper;
     @Resource
     private AdminUserApi adminUserApi;
+    @Resource
+    private CrmRecordMapper crmRecordMapper;
     @Resource
     private CrmRecordService crmRecordService;
 
@@ -79,7 +84,9 @@ public class CrmBusinessServiceImpl implements CrmBusinessService {
         businessMapper.updateById(updateObj);
 
         // 更新子表
-        updateBusinessProductList(updateReqVO.getId(), updateReqVO.getBusinessProducts());
+        if(updateReqVO.getBusinessProducts() != null && !updateReqVO.getBusinessProducts().isEmpty()){
+            updateBusinessProductList(updateReqVO.getId(), updateReqVO.getBusinessProducts());
+        }
     }
 
     @Override
@@ -90,6 +97,10 @@ public class CrmBusinessServiceImpl implements CrmBusinessService {
         // 删除
         businessMapper.deleteById(id);
 
+        //删除记录
+//        crmRecordMapper.delete(new LambdaQueryWrapper<CrmRecordDO>()
+//                .eq(CrmRecordDO::getTypes, TypesEnum.BUSINESS.getValue())
+//                .eq(CrmRecordDO::getTypesId,id));
         crmRecordService.deleteByType(TypesEnum.BUSINESS.getValue(),id);
 
         // 删除子表
@@ -104,7 +115,6 @@ public class CrmBusinessServiceImpl implements CrmBusinessService {
 
     @Override
     public CrmBusinessRespVO getBusiness(Long id) {
-
         CrmBusinessDO businessDO = businessMapper.selectById(id);
         CrmBusinessRespVO businessRespVO = BeanUtils.toBean(businessDO,CrmBusinessRespVO.class);
         CrmCustomerDO customerDO = customerMapper.selectById(businessDO.getCustomerId());

@@ -93,20 +93,6 @@
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="跟进状态" prop="followStatus">
-          <el-select v-model="formData.followStatus" clearable placeholder="请选择跟进状态业">
-              <el-option
-                  v-for="dict in getIntDictOptions(DICT_TYPE.CRM_FOLLOW_STATUS)"
-                  :key="dict.value"
-                  :label="dict.label"
-                  :value="dict.value"
-                />
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
         <el-form-item label="客户标签" prop="tags">
           <el-input v-model="tagsStr"  @keydown.space="handleInput" placeholder="标签请按空格键" />
           <div style="margin-top:2px" class="gap-2">
@@ -116,6 +102,18 @@
           </div>
         </el-form-item>
       </el-col>
+    </el-row>
+    <el-row>
+      <!-- <el-col :span="12">
+        <el-form-item label="客户标签" prop="tags">
+          <el-input v-model="tagsStr"  @keydown.space="handleInput" placeholder="标签请按空格键" />
+          <div style="margin-top:2px" class="gap-2">
+            <el-tag v-for="(tag,idx) in tagsArr" :key="idx" closable type="danger"  @close="handleClose(idx)">
+              {{ tag }}
+            </el-tag>
+          </div>
+        </el-form-item>
+      </el-col> -->
       <el-col :span="12">
         <el-form-item label="备注" prop="remark">
           <el-input  type="textarea" :rows="2" v-model="formData.remark" placeholder="请输入备注" />
@@ -187,7 +185,18 @@ const open = async (type: string, id?: number) => {
   dialogTitle.value = t('action.' + type)
   formType.value = type
   resetForm()
-  areaList.value = await AreaApi.getAreaTree()
+
+  if(id){
+    try {
+      formLoading.value = true
+      areaList.value = await AreaApi.getAreaTree()
+    }finally {
+        formLoading.value = false
+    }
+  }else{
+    areaList.value = await AreaApi.getAreaTree()
+  }
+ 
   // 修改时，设置数据
   if (id) {
     formLoading.value = true
@@ -269,7 +278,7 @@ const resetForm = () => {
     city: undefined,
     area: undefined,
     detailAddress: undefined,
-    nextTime: Date.parse(new Date()),
+    nextTime: undefined,
     followTime: undefined,
     collectTime: undefined,
     followStatus: undefined

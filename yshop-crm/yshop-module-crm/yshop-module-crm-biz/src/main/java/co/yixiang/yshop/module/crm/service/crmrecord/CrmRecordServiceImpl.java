@@ -1,33 +1,39 @@
 package co.yixiang.yshop.module.crm.service.crmrecord;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
-import co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo.CrmRecordPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo.CrmRecordRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo.CrmRecordSaveReqVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmclues.CrmCluesDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmrecord.CrmRecordDO;
 import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmclues.CrmCluesMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
-import co.yixiang.yshop.module.crm.dal.mysql.crmrecord.CrmRecordMapper;
 import co.yixiang.yshop.module.crm.enums.RelationEnum;
 import co.yixiang.yshop.module.crm.enums.TypesEnum;
 import co.yixiang.yshop.module.system.api.user.AdminUserApi;
+import co.yixiang.yshop.module.system.api.user.dto.AdminUserRespDTO;
+import co.yixiang.yshop.module.system.dal.dataobject.dict.DictDataDO;
+import co.yixiang.yshop.module.system.service.dict.DictDataService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmrecord.CrmRecordDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
+import co.yixiang.yshop.framework.common.util.object.BeanUtils;
+
+import co.yixiang.yshop.module.crm.dal.mysql.crmrecord.CrmRecordMapper;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.RECORD_NOT_EXISTS;
+import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.*;
 
 /**
  * 跟进记录 Service 实现类
@@ -48,6 +54,8 @@ public class CrmRecordServiceImpl implements CrmRecordService {
     private CrmBusinessMapper crmBusinessMapper;
     @Resource
     private CrmCluesMapper cluesMapper;
+    @Resource
+    private DictDataService dictDataService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -62,6 +70,7 @@ public class CrmRecordServiceImpl implements CrmRecordService {
                     .id(createReqVO.getTypesId())
                     .nextTime(createReqVO.getNextTime())
                     .followStatus(createReqVO.getFollowStatus())
+                    .followTime(LocalDateTime.now())
                     .build());
         }else if(TypesEnum.BUSINESS.getValue().equals(createReqVO.getTypes())){
             //更新商机
@@ -71,6 +80,7 @@ public class CrmRecordServiceImpl implements CrmRecordService {
             customerMapper.updateById(CrmCustomerDO.builder()
                     .id(crmBusinessDO.getCustomerId())
                     .nextTime(createReqVO.getNextTime())
+                    .followTime(LocalDateTime.now())
                     .build());
         }else if(TypesEnum.CLUES.getValue().equals(createReqVO.getTypes())){
             //更新线索
@@ -78,6 +88,7 @@ public class CrmRecordServiceImpl implements CrmRecordService {
                     .id(createReqVO.getTypesId())
                     .followStatus(createReqVO.getFollowStatus())
                     .nextTime(createReqVO.getNextTime())
+                    .followTime(LocalDateTime.now())
                     .build());
         }
 
@@ -124,29 +135,43 @@ public class CrmRecordServiceImpl implements CrmRecordService {
             ids = adminUserApi.getUserListBySubordinateIds(adminId);
         }
         PageResult<CrmRecordDO> pageResult = recordMapper.selectPage(pageReqVO,ids);
+
+        if(pageReqVO.getIsNextTime()){
+            List<CrmRecordDO> crmRecordDOS = pageResult.getList().stream().collect(Collectors.toMap(
+                            CrmRecordDO::getTypesId,
+                            Function.identity(),
+                            (existing, replacement) -> existing
+                    ))
+                    .values()
+                    .stream()
+                    .collect(Collectors.toList());
+            pageResult.setList(crmRecordDOS);
+        }
+
+
         PageResult<CrmRecordRespVO> pageResult1 = BeanUtils.toBean(pageResult, CrmRecordRespVO.class);
         for(CrmRecordRespVO crmRecordRespVO : pageResult1.getList()){
-            if(TypesEnum.CUSTOMER.getValue().equals(pageReqVO.getTypes())){
+            DictDataDO dictDataDO = dictDataService.getDictData("follow_type",crmRecordRespVO.getRecordType().toString());
+            crmRecordRespVO.setRecordTypeName(dictDataDO.getLabel());
+            if(TypesEnum.CUSTOMER.getValue().equals(crmRecordRespVO.getTypes())){
                 CrmCustomerDO customerDO = customerMapper.selectById(crmRecordRespVO.getTypesId());
-                if (customerDO != null){
-                    crmRecordRespVO.setTypesName(customerDO.getName());
-                }
-            }else if(TypesEnum.BUSINESS.getValue().equals(pageReqVO.getTypes())){
+                crmRecordRespVO.setTypesName(customerDO.getName());
+            }else if(TypesEnum.BUSINESS.getValue().equals(crmRecordRespVO.getTypes())){
                 CrmBusinessDO crmBusinessDO = crmBusinessMapper.selectById(crmRecordRespVO.getTypesId());
-                if(crmBusinessDO != null){
-                    crmRecordRespVO.setTypesName(crmBusinessDO.getName());
-                }
-            }else if(TypesEnum.CLUES.getValue().equals(pageReqVO.getTypes())){
+                crmRecordRespVO.setTypesName(crmBusinessDO.getName());
+            }else if(TypesEnum.CLUES.getValue().equals(crmRecordRespVO.getTypes())){
                 CrmCluesDO crmCluesDO = cluesMapper.selectById(crmRecordRespVO.getTypesId());
-                if(crmCluesDO != null){
-                    crmRecordRespVO.setTypesName(crmCluesDO.getName());
-                }
-
+                crmRecordRespVO.setTypesName(crmCluesDO.getName());
             }
+            AdminUserRespDTO adminUserRespDTO = adminUserApi.getUser(crmRecordRespVO.getCreator());
+            crmRecordRespVO.setOwnUserName(adminUserRespDTO.getNickname());
+            crmRecordRespVO.setOwnUserAvatar(adminUserRespDTO.getAvatar());
+
 
         }
         return pageResult1;
     }
+
 
     @Override
     public void deleteByType(String type, Long typeId) {
@@ -154,5 +179,4 @@ public class CrmRecordServiceImpl implements CrmRecordService {
                 .eq(CrmRecordDO::getTypes,type)
                 .eq(CrmRecordDO::getTypesId,typeId));
     }
-
 }

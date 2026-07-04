@@ -39,6 +39,14 @@
       </el-tab-pane>
     </el-tabs>
     <template #footer>
+      <div class="mb-20px">
+        <el-alert type="warning">
+          <template #default>
+            <div style="text-align:left">当选择指定用户(任意一人)表示指定用户中任意一人审批即可</div>
+            <div style="text-align:left">当选择指定用户(多人会签)表示指定用户中所有人都要审批</div>    
+          </template>
+        </el-alert>
+      </div>
       <el-button @click="submitForm" type="primary" :disabled="formLoading">确 定</el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>

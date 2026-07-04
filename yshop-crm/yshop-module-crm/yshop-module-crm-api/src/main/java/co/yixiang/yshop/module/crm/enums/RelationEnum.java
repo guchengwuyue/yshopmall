@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RelationEnum {
+    ALL("all","全部"),
     MY("my","本人"),
     SUB("sub","下属");
 

@@ -22,6 +22,11 @@
             <artifactId>yshop-module-message-api</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>co.yixiang.boot</groupId>
+            <artifactId>yshop-module-mp-biz</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
         <dependency>
             <groupId>co.yixiang.boot</groupId>

@@ -4,10 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import co.yixiang.yshop.framework.common.pojo.CommonResult;
 import co.yixiang.yshop.framework.common.util.servlet.ServletUtils;
 import co.yixiang.yshop.framework.web.core.util.WebFrameworkUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import static co.yixiang.yshop.framework.common.exception.enums.GlobalErrorCodeConstants.DEMO_DENY;
 
@@ -30,7 +31,9 @@ public class DemoFilter extends OncePerRequestFilter {
         //系统模块特殊处理
         Boolean res2 = StrUtil.contains(path,"/admin-api/crm/flow/create");
         Boolean res22 = StrUtil.contains(path,"/admin-api/crm/flow/update");
-        if(res2 || res22){
+        Boolean resWx01 = StrUtil.contains(path,"/admin-api/crm/work-wx-user/create");
+        Boolean resWx02 = StrUtil.contains(path,"/admin-api/crm/work-wx-customer/create");
+        if(res2 || res22 || resWx01 || resWx02){
             return false;
         }
         Boolean res6 = StrUtil.contains(path,"/admin-api/crm/");

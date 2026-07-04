@@ -6,18 +6,21 @@ import co.yixiang.yshop.framework.excel.core.util.ExcelUtils;
 import co.yixiang.yshop.module.product.controller.admin.storeproduct.vo.*;
 import co.yixiang.yshop.module.product.convert.storeproduct.StoreProductConvert;
 import co.yixiang.yshop.module.product.dal.dataobject.storeproduct.StoreProductDO;
+import co.yixiang.yshop.module.product.dal.dataobject.storeproductattrvalue.StoreProductAttrValueDO;
 import co.yixiang.yshop.module.product.service.storeproduct.StoreProductService;
 import co.yixiang.yshop.module.product.service.storeproduct.dto.StoreProductDto;
+import co.yixiang.yshop.module.product.service.storeproductattrvalue.StoreProductAttrValueService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +36,8 @@ public class StoreProductController {
 
     @Resource
     private StoreProductService storeProductService;
+    @Resource
+    private StoreProductAttrValueService storeProductAttrValueService;
 
 
     @PostMapping("/create")
@@ -71,6 +76,7 @@ public class StoreProductController {
     @GetMapping("/list")
     @Operation(summary = "获得商品列表")
     @Parameter(name = "ids", description = "编号列表", required = true, example = "1024,2048")
+    @PreAuthorize("@ss.hasPermission('shop:store-product:query')")
     public CommonResult<List<StoreProductRespVO>> getStoreProductList(@RequestParam("ids") Collection<Long> ids) {
         List<StoreProductDO> list = storeProductService.getStoreProductList(ids);
         return success(StoreProductConvert.INSTANCE.convertList(list));
@@ -112,6 +118,14 @@ public class StoreProductController {
     public CommonResult<Boolean> onSale(@RequestParam("id") Long id,@RequestParam("type") int status){
         storeProductService.onSale(id,status);
         return success(true);
+    }
+
+    @Operation(summary = "获取某个商品sku")
+    @GetMapping(value = "/getSkus")
+    public CommonResult<List<StoreProductAttrValueDO>> getSkus(@RequestParam("id") Long id){
+        List<StoreProductAttrValueDO> list = storeProductAttrValueService.list(new LambdaQueryWrapper<StoreProductAttrValueDO>()
+                .eq(StoreProductAttrValueDO::getProductId,id));
+        return success(list);
     }
 
 }

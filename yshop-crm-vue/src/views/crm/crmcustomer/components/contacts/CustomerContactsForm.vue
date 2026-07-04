@@ -24,7 +24,7 @@
           v-model="formData.birthday"
           type="date"
           value-format="x"
-          placeholder="选择生日时间"
+          placeholder="选择下次联系时间"
         />
       </el-form-item>
       <el-form-item label="微信号" prop="wechat">
@@ -115,7 +115,7 @@ const open = async (type: string, id?: number,customerId,customerName) => {
   resetForm()
   formData.value.customerId = customerId
   formData.value.customerName = customerName
-  console.log(cunstomerId,cunstomerName)
+  console.log(customerId,customerName)
   // 修改时，设置数据
   if (id) {
     formLoading.value = true

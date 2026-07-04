@@ -54,6 +54,7 @@ public interface AdminAuthService {
      */
     AuthLoginRespVO smsLogin(AuthSmsLoginReqVO reqVO) ;
 
+
     /**
      * 社交快捷登录，使用 code 授权码
      *

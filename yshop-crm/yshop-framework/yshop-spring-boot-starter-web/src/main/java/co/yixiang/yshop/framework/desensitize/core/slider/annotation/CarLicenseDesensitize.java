@@ -4,7 +4,11 @@ import co.yixiang.yshop.framework.desensitize.core.base.annotation.DesensitizeBy
 import co.yixiang.yshop.framework.desensitize.core.slider.handler.CarLicenseDesensitization;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * 车牌号

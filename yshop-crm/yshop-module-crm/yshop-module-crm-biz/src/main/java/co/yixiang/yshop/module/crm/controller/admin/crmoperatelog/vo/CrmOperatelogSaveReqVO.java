@@ -1,9 +1,9 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmoperatelog.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
 
 @Schema(description = "管理后台 - 操作日志新增/修改 Request VO")
 @Data

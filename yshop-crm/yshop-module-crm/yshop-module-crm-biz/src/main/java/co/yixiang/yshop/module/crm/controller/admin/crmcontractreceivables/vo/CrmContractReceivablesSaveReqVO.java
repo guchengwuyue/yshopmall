@@ -1,13 +1,12 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Schema(description = "管理后台 - 回款新增/修改 Request VO")
 @Data
@@ -53,7 +52,7 @@ public class CrmContractReceivablesSaveReqVO {
 
     @Schema(description = "流程审批人ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "20164")
     @NotEmpty(message = "审批人不能为空")
-    private List<Long> flowAdminId;
+    private String flowAdminId;
 
     @Schema(description = "备注", example = "你猜")
     private String remark;

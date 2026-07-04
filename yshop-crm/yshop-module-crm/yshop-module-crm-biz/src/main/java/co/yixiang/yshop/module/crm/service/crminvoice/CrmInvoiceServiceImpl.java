@@ -2,16 +2,19 @@ package co.yixiang.yshop.module.crm.service.crminvoice;
 
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.yshop.framework.common.enums.ShopCommonEnum;
+import co.yixiang.yshop.framework.common.enums.UserTypeEnum;
 import co.yixiang.yshop.framework.common.exception.ErrorCode;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.mybatis.core.query.LambdaQueryWrapperX;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
+import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoicePageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceSaveReqVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
@@ -28,6 +31,7 @@ import co.yixiang.yshop.module.crm.service.crmflow.CrmFlowService;
 import co.yixiang.yshop.module.system.api.user.AdminUserApi;
 import co.yixiang.yshop.module.system.dal.dataobject.user.AdminUserDO;
 import co.yixiang.yshop.module.system.dal.mysql.user.AdminUserMapper;
+import co.yixiang.yshop.module.system.service.mail.MailSendService;
 import co.yixiang.yshop.module.system.service.user.AdminUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
@@ -39,13 +43,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.*;
+import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.FLOW_NOT_EXISTS;
 
 /**
  * 发票 Service 实现类
@@ -78,6 +81,8 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
     @Resource
     private CrmFlowLogMapper crmFlowLogMapper;
     @Resource
+    private MailSendService mailSendService;
+    @Resource
     private CrmFlowService flowService;
 
     private static final String LOCK_KEY = "invoice:check:lock";
@@ -92,6 +97,9 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
         invoiceMapper.insert(invoice);
 
         updateAfter(invoice.getId());
+
+        //发送审核
+        flowService.sendNextStep(TypesEnum.INVOICE.getValue(),invoice.getId(),"");
         // 返回
         return invoice.getId();
     }
@@ -107,13 +115,16 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
         updateObj.setCustomerId(crmContractDO.getCustomerId());
         invoiceMapper.updateById(updateObj);
 
-        updateAfter(updateReqVO.getId());
+        //updateAfter(updateReqVO.getId());
     }
 
     @Override
     public void deleteInvoice(Long id) {
         // 校验存在
-        validateInvoiceExists(id);
+        CrmInvoiceDO invoiceDO = validateInvoiceExists(id);
+        if(!ContractStatusEnum.STATUS_0.getValue().equals(invoiceDO.getCheckStatus())){
+            throw exception(new ErrorCode(202410103,"发票不是待审核状态不可以删除"));
+        }
         // 删除
         invoiceMapper.deleteById(id);
     }
@@ -128,9 +139,9 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
         }
         Integer[] checkStatus = {0, 1};
         Long count = invoiceMapper.selectCount(new LambdaQueryWrapper<CrmInvoiceDO>()
-                .eq(CrmInvoiceDO::getContractId,createReqVO.getContractId())
-                .and(q -> q.in(CrmInvoiceDO::getCheckStatus,checkStatus).or().in(CrmInvoiceDO::getStatus,checkStatus))
-        );
+                        .eq(CrmInvoiceDO::getContractId,createReqVO.getContractId())
+                        .and(q -> q.in(CrmInvoiceDO::getCheckStatus,checkStatus).or().in(CrmInvoiceDO::getStatus,checkStatus))
+                );
         if(createReqVO.getId() == null && count > 0){
             throw exception(new ErrorCode(202406161,"该合同还有未审核或者未开具发票申请,不可以继续申请发票"));
         }
@@ -159,17 +170,20 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
                 .flowId(crmFlowDO.getId()).build());
     }
 
-    private void validateInvoiceExists(Long id) {
-        if (invoiceMapper.selectById(id) == null) {
+    private CrmInvoiceDO validateInvoiceExists(Long id) {
+        CrmInvoiceDO invoiceDO = invoiceMapper.selectById(id);
+        if (invoiceDO == null) {
             throw exception(INVOICE_NOT_EXISTS);
         }
+
+        return invoiceDO;
     }
 
     @Override
     public CrmInvoiceRespVO getInvoice(Long id) {
         CrmInvoiceDO invoiceDO = invoiceMapper.selectById(id);
         CrmInvoiceRespVO invoiceRespVO = BeanUtils.toBean(invoiceDO,CrmInvoiceRespVO.class);
-        invoiceRespVO.setFlowAdminId2(invoiceDO.getFlowAdminId());
+        //invoiceRespVO.setFlowAdminId2(invoiceDO.getFlowAdminId());
         CrmCustomerDO customerDO = customerMapper.selectById(invoiceDO.getCustomerId());
         invoiceRespVO.setCustomerName(customerDO.getName());
         CrmContractDO crmContractDO = contractMapper.selectById(invoiceDO.getContractId());
@@ -201,6 +215,7 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Deprecated
     public void check(CheckInfoVO checkInfoVO) {
         CrmInvoiceDO invoiceDO = invoiceMapper.selectById(checkInfoVO.getId());
         if(invoiceDO == null){
@@ -211,12 +226,21 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
             throw exception(FLOW_NOT_EXISTS);
         }
         Long loginAdminId = SecurityFrameworkUtils.getLoginUserId();
-        if(!invoiceDO.getFlowAdminId().contains(loginAdminId)){
-            throw exception(new ErrorCode(202408161,"无权限审核"));
-        }
+//        if(!invoiceDO.getFlowAdminId().contains(loginAdminId)){
+//            throw exception(new ErrorCode(202408161,"无权限审核"));
+//        }
         if(invoiceDO.getCheckStatus() >= ContractStatusEnum.STATUS_2.getValue()){
             throw exception(new ErrorCode(202408160,"已经审核过"));
         }
+
+        CrmFlowStepDO crmFlowStepDO = flowStepMapper.selectById(invoiceDO.getStepId());
+        if(crmFlowStepDO == null){
+            throw exception(new ErrorCode(202412045,"当前审核人不存在无法审核！"));
+        }
+        //List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
+//        if(!userIds.contains(loginAdminId)){
+//            throw exception(new ErrorCode(202412046,"当前审核人已经变更无法审核！"));
+//        }
 
         //组合审批日志
         CrmFlowLogDO crmFlowLogDO = CrmFlowLogDO.builder()
@@ -226,15 +250,6 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
                 .adminId(SecurityFrameworkUtils.getLoginUserId())
                 .nickname(SecurityFrameworkUtils.getLoginUserNickname())
                 .build();
-
-        CrmFlowStepDO crmFlowStepDO = flowStepMapper.selectById(invoiceDO.getStepId());
-        if(crmFlowStepDO == null){
-            throw exception(new ErrorCode(202412045,"当前审核人不存在无法审核！"));
-        }
-        List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
-        if(!userIds.contains(loginAdminId)){
-            throw exception(new ErrorCode(202412046,"当前审核人已经变更无法审核！"));
-        }
 
         RLock lock = redissonClient.getLock(LOCK_KEY);
         if (lock.tryLock()) {
@@ -248,34 +263,35 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
                 invoiceDO.setCheckAdminId(checkAdminId);
                 if(ShopCommonEnum.AGREE_1.getValue().equals(checkInfoVO.getAgreeType())){
                     //查询当前合同处于那一步骤
+                   // CrmFlowStepDO crmFlowStepDO = flowStepMapper.selectById(invoiceDO.getStepId());
                     if(crmFlowStepDO.getRelation() < count){
                         invoiceDO.setCheckStatus(ContractStatusEnum.STATUS_1.getValue());
                         //判断当前步骤是不是最后一个人,如果是 开始审核后开始存储下一步信息
-                        if(invoiceDO.getFlowAdminId().size() == 1){
-                            List<Long> list = new  ArrayList<>();
-                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
-                                    .eq(CrmFlowStepDO::getFlowId,invoiceDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
-                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
-                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
-                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
-                                        .in(AdminUserDO::getDeptId,deptIds));
-                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
-                            }else{
-                                list.add(next.getAdminIds());
-                            }
-                            invoiceDO.setFlowAdminId(list);
-                            invoiceDO.setStepId(next.getId());
-                        }else {
-                            //移除已经审核等人
-                            List<Long> nowAdminId = invoiceDO.getFlowAdminId();
-                            nowAdminId.remove(loginAdminId);
-                            invoiceDO.setFlowAdminId(nowAdminId);
-                        }
+//                        if(invoiceDO.getFlowAdminId().size() == 1){
+//                            List<String> list = new  ArrayList<>();
+//                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
+//                                    .eq(CrmFlowStepDO::getFlowId,invoiceDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
+//                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
+////                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
+////                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
+////                                        .in(AdminUserDO::getDeptId,deptIds));
+////                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
+//                            }else{
+//                                list.add(next.getAdminIds());
+//                            }
+//                           // invoiceDO.setFlowAdminId(list);
+//                            invoiceDO.setStepId(next.getId());
+//                        }else {
+//                            //移除已经审核等人
+//                            List<Long> nowAdminId = invoiceDO.getFlowAdminId();
+//                            nowAdminId.remove(loginAdminId);
+//                            invoiceDO.setFlowAdminId(nowAdminId);
+//                        }
 
                     }else{
                         //步骤走完
                         invoiceDO.setCheckStatus(ContractStatusEnum.STATUS_2.getValue());
-                        invoiceDO.setFlowAdminId(new ArrayList<>());
+                        //invoiceDO.setFlowAdminId(new ArrayList<>());
                         crmFlowLogDO.setIsEnd(ShopCommonEnum.IS_STATUS_1.getValue());//审核结束
                     }
                     crmFlowLogDO.setStatus(ShopCommonEnum.IS_STATUS_1.getValue());//审核通过
@@ -283,7 +299,7 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
                     //拒绝
                     invoiceDO.setCheckStatus(ContractStatusEnum.STATUS_3.getValue());
                     invoiceDO.setCheckAdminId("");
-                    invoiceDO.setFlowAdminId(new ArrayList<>());
+                   // invoiceDO.setFlowAdminId(new ArrayList<>());
                     crmFlowLogDO.setRemark(checkInfoVO.getRemark());
                 }
                 invoiceMapper.updateById(invoiceDO);
@@ -313,6 +329,14 @@ public class CrmInvoiceServiceImpl implements CrmInvoiceService {
         BigDecimal money = crmContractDO.getInvoiceMoney().add(updateObj.getMoney());
         crmContractDO.setInvoiceMoney(money);
         contractMapper.updateById(crmContractDO);
+
+        //发送邮件
+        if(StrUtil.isNotEmpty(updateObj.getFiles()) && StrUtil.isNotEmpty(updateObj.getEmail())){
+            Map<String, Object> templateParams = new HashMap<>();
+            templateParams.put("files",updateObj.getFiles());
+            mailSendService.sendSingleMail(updateObj.getEmail(),updateObj.getCustomerId(), UserTypeEnum.CUSTOMER.getValue(),
+                    "invoice-send",templateParams);
+        }
 
     }
 }

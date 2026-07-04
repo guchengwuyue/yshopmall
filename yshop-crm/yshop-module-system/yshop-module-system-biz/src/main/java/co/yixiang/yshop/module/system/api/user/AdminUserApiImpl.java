@@ -4,17 +4,17 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
 import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.module.system.api.user.dto.AdminUserRespDTO;
+import co.yixiang.yshop.module.system.api.user.dto.UserSaveDTO;
+import co.yixiang.yshop.module.system.controller.admin.user.vo.user.UserSaveReqVO;
 import co.yixiang.yshop.module.system.dal.dataobject.dept.DeptDO;
 import co.yixiang.yshop.module.system.dal.dataobject.user.AdminUserDO;
 import co.yixiang.yshop.module.system.service.dept.DeptService;
+import co.yixiang.yshop.module.system.service.permission.PermissionService;
 import co.yixiang.yshop.module.system.service.user.AdminUserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static co.yixiang.yshop.framework.common.util.collection.CollectionUtils.convertSet;
@@ -31,6 +31,8 @@ public class AdminUserApiImpl implements AdminUserApi {
     private AdminUserService userService;
     @Resource
     private DeptService deptService;
+    @Resource
+    private PermissionService permissionService;
 
     @Override
     public AdminUserRespDTO getUser(Long id) {
@@ -99,4 +101,16 @@ public class AdminUserApiImpl implements AdminUserApi {
         userService.validateUserList(ids);
     }
 
+    @Override
+    public Long createNewUser(UserSaveDTO userSaveDTO) {
+        UserSaveReqVO userSaveReqVO = BeanUtils.toBean(userSaveDTO,UserSaveReqVO.class);
+        Long id = userService.createUser(userSaveReqVO);
+
+        //分配一个默认角色
+        Set<Long> roles = new HashSet<>();
+        roles.add(2L);
+        permissionService.assignUserRole(id,roles);
+
+        return id;
+    }
 }

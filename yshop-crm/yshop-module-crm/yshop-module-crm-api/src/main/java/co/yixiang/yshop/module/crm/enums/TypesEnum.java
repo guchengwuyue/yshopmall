@@ -3,6 +3,8 @@ package co.yixiang.yshop.module.crm.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.stream.Stream;
+
 /**
  * @author hupeng
  * 类型枚举
@@ -19,4 +21,11 @@ public enum TypesEnum {
 
     private String value;
     private String desc;
+
+    public static TypesEnum toType(String value) {
+        return Stream.of(TypesEnum.values())
+                .filter(p -> p.value.equals(value))
+                .findAny()
+                .orElse(null);
+    }
 }

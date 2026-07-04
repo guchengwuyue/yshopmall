@@ -4,6 +4,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.util.ClassUtils;
 
 import java.util.concurrent.TimeUnit;
 

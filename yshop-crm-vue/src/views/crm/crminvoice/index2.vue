@@ -71,7 +71,7 @@
       <el-table-column label="发票类型" align="center" prop="invoiceType">
         <template #default="scope">
           <div>
-            <el-tag v-if="scope.row.invoiceType === 1"  type="success">增普</el-tag>
+            <el-tag v-if="scope.row.status === 1"  type="success">增普</el-tag>
             <el-tag v-else  type="danger">增专</el-tag>
           </div>
         </template>

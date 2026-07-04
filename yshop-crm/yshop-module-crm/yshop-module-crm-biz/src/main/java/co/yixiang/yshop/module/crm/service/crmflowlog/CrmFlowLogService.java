@@ -2,6 +2,8 @@ package co.yixiang.yshop.module.crm.service.crmflowlog;
 
 import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.module.crm.controller.admin.crmflowlog.vo.CrmFlowLogPageReqVO;
+import co.yixiang.yshop.module.crm.controller.admin.crmflowlog.vo.CrmFlowLogRespVO;
+import co.yixiang.yshop.module.crm.controller.admin.crmflowlog.vo.CrmFlowLogSaveReqVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflowlog.CrmFlowLogDO;
 
 /**
@@ -18,6 +20,12 @@ public interface CrmFlowLogService {
      * @param pageReqVO 分页查询
      * @return 审核日志分页
      */
-    PageResult<CrmFlowLogDO> getFlowLogPage(CrmFlowLogPageReqVO pageReqVO);
+    PageResult<CrmFlowLogRespVO> getFlowLogPage(CrmFlowLogPageReqVO pageReqVO);
+
+    /**
+     * 审核
+     * @param saveReqVO 信息
+     */
+    void examine(CrmFlowLogSaveReqVO saveReqVO);
 
 }

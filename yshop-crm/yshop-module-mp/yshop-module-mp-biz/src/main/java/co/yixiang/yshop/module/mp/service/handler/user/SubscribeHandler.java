@@ -3,7 +3,6 @@ package co.yixiang.yshop.module.mp.service.handler.user;
 import co.yixiang.yshop.module.mp.framework.mp.core.context.MpContextHolder;
 import co.yixiang.yshop.module.mp.service.message.MpAutoReplyService;
 import co.yixiang.yshop.module.mp.service.user.MpUserService;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -14,6 +13,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.Resource;
 import java.util.Map;
 
 /**

@@ -1,10 +1,10 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 跟进记录新增/修改 Request VO")
@@ -21,6 +21,8 @@ public class CrmRecordSaveReqVO {
     @Schema(description = "类型ID（根据types变动而变动）", requiredMode = Schema.RequiredMode.REQUIRED, example = "3187")
     @NotNull(message = "类型ID不能为空")
     private Long typesId;
+
+    private String recordTypeName;
 
     @Schema(description = "跟进内容")
     private String content;

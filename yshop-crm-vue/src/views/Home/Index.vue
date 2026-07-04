@@ -1,154 +1,199 @@
 <template>
   <div>
     <div class="divBox">
-      <el-row :gutter="24" class="baseInfo">
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div  class="acea-row row-between-wrapper">
-                <span>需要跟进的客户</span>
-                <el-tag type="success">今日</el-tag>
+      <div style="background-color:#ffffff;padding:0 0 0px 20px">
+        <el-menu
+            :default-active="activeIndex"
+            mode="horizontal"
+            @select="handleSelect"
+          >
+            <el-menu-item index="my">我的简报</el-menu-item>
+            <el-menu-item index="sub">下属简报</el-menu-item>
+        </el-menu>
+      </div>
+      <div style="background-color:#ffffff;padding:0 0 0px 20px">
+        <div style="padding:20px 0;display: flex;align-items: center;">
+          <Icon color ="#67C23A" icon="ep:monitor" class="mr-3px" /><span style="font-weight:bold">销售简报</span>
+        </div>
+        <el-row :gutter="24" class="baseInfo">
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div  class="acea-row row-between-wrapper">
+                  <span>新增客户(人)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count03" :duration="2600" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.followCustomerCount" :duration="2600" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div class="acea-row row-between-wrapper">
-                <span>需要跟进的商机</span>
-                <el-tag type="success">今日</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count003}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per003}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div class="acea-row row-between-wrapper">
+                  <span>新增联系人(人)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count08" :duration="3000" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.followBusinessCount" :duration="3000" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div  class="acea-row row-between-wrapper">
-                <span>需要跟进进线索</span>
-                <el-tag type="success">今日</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count008}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per008}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div  class="acea-row row-between-wrapper">
+                  <span>新增商机(个)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count01" :duration="3200" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.followCluesCount" :duration="3200" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div class="acea-row row-between-wrapper">
-                <span>即将到期的合同</span>
-                <el-tag type="success">全部</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count001}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per001}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div class="acea-row row-between-wrapper">
+                  <span>新增合同(个)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count05" :duration="3600" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.contractDueCount" :duration="3600" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-      <el-row :gutter="24" class="baseInfo">
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div  class="acea-row row-between-wrapper">
-                <span>即将到期的客户</span>
-                <el-tag type="success">全部</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count005}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per005}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="24" class="baseInfo">
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div  class="acea-row row-between-wrapper">
+                  <span>合同金额(元)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count06" :duration="2600" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.customerDueCount" :duration="2600" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div class="acea-row row-between-wrapper">
-                <span>待回款的合同</span>
-                <el-tag type="success">全部</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count006}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per006}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div class="acea-row row-between-wrapper">
+                  <span>回款金额(元)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count07" :duration="3000" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.contractReturnCount" :duration="3000" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div  class="acea-row row-between-wrapper">
-                <span>我的发票</span>
-                <el-tag type="success">全部</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count007}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per007}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div  class="acea-row row-between-wrapper">
+                  <span>新增线索(个)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count02" :duration="3200" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.myInvoiceCount" :duration="3200" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
-          <el-card :bordered="false" dis-hover :padding="12">
-            <template #header>
-              <div class="acea-row row-between-wrapper">
-                <span>商品总数</span>
-                <el-tag type="success">全部</el-tag>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count002}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per002}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+          <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
+            <el-card :bordered="false" dis-hover :padding="12">
+              <template #header>
+                <div class="acea-row row-between-wrapper">
+                  <span>新增跟进记录(条)</span>
+                  <el-tag type="success">今日</el-tag>
+                </div>
+              </template>
+              <div class="content">
+                <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.count04" :duration="3600" class="card-panel-num" /></span>
               </div>
-            </template>
-            <div class="content">
-              <span class="content-number spBlock"><count-to :start-val="0" :end-val="count.productCount" :duration="3600" class="card-panel-num" /></span>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+              <template #footer>
+                <div  class="acea-row " style="align-items: center;">
+                  <span>昨日<span class="ml-1">{{count.count004}}</span></span>
+                  <span class="ml-5">较昨日<span class="ml-5px">{{count.per004}}%</span></span>
+                  <Icon color ="#67C23A" icon="ep:top" class="ml-3px" />
+                </div>
+              </template>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
     </div>
     <!-- <PanelGroupT /> -->
     <div class="divBox" style="background-color:#ffffff">
-      <el-tabs
-        v-model="activeName"
-        type="card"
-        class="demo-tabs"
-        @tab-click="handleClick"
-      >
-        <el-tab-pane name="first">
-          <template #label>
-              <span><el-badge :value="contractCheckCount" :hidden="contractCheckCount == 0">合同审批</el-badge></span>
-          </template>
-          <ContractList @get-contract-count="getContractCount" />
-        </el-tab-pane>
-        <el-tab-pane name="second">
-          <template #label>
-              <span><el-badge :value="receivablesCheckCount" :hidden="receivablesCheckCount == 0">回款审批</el-badge></span>
-          </template>
-          <ReceivablesList @get-receivables-count="getReceivablesCount" />
-        </el-tab-pane>
-        <el-tab-pane name="third">
-          <template #label>
-              <span><el-badge :value="invoiceCheckCount" :hidden="invoiceCheckCount == 0">发票审批</el-badge></span>
-          </template>
-          <InvoiceList @get-invoice-count="getInvoiceCount" />
-        </el-tab-pane>
-      </el-tabs>
+      <EchartClock />
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import * as NoticeApi from '@/api/system/notice'
-import PanelGroupT from './PanelGroupT.vue'
+import EchartClock from './components/echart/index.vue'
 import { formatTime } from '@/utils'
+
 import { useUserStore } from '@/store/modules/user'
 import avatarImg from '@/assets/imgs/avatar.gif'
-import ContractList from './components/contract/index.vue'
-import ReceivablesList from './components/receivables/index.vue'
-import InvoiceList from './components/invoice/index.vue'
 import { ContractApi } from '@/api/crm/crmcontract'
 
 const userStore = useUserStore()
@@ -168,29 +213,22 @@ const count = ref({
 })
 const loading = ref(true)
 const notice = ref([])
-const activeName = ref('first')
+const activeIndex = ref('my')
 const contractCheckCount = ref(0)
 const receivablesCheckCount = ref(0)
 const invoiceCheckCount = ref(0)
 
-const getContractCount = (count) => {
-  contractCheckCount.value = count
-}
-
-const getReceivablesCount = (count) => {
-  receivablesCheckCount.value = count
-}
-
-const getInvoiceCount = (count) => {
-  invoiceCheckCount.value = count
+const handleSelect = (key) => {
+  activeIndex.value = key
+  getData()
 }
 
 /** 查询列表 */
 const getData = async () => {
   try {
-    const data = await ContractApi.getIndexCount()
+    const data = await ContractApi.getIndexCount({relation:activeIndex.value})
 
-    count.value = data
+    count.value = data.brieCountVO
   } finally {
   }
 }
@@ -345,7 +383,8 @@ onMounted(() => {
 
 .content {
   &-number {
-    font-size: 24px;
+    font-size:30px;
+    font-weight:bold
   }
   &-time {
     font-size: 14px;

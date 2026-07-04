@@ -69,8 +69,8 @@ export const ContractApi = {
     return await request.post({ url: `/crm/contract/check`, data })
   },
 
-  getIndexCount: async () => {
-    return await request.get({ url: `/crm/index/getCount` })
+  getIndexCount: async (params) => {
+    return await request.get({ url: `/crm/index/getCount`,params })
   },
 
 

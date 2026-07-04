@@ -8,7 +8,6 @@ import co.yixiang.yshop.framework.common.util.servlet.ServletUtils;
 import co.yixiang.yshop.framework.common.util.validation.ValidationUtils;
 import co.yixiang.yshop.module.system.api.logger.dto.LoginLogCreateReqDTO;
 import co.yixiang.yshop.module.system.api.sms.SmsCodeApi;
-import co.yixiang.yshop.module.system.api.social.dto.SocialUserBindReqDTO;
 import co.yixiang.yshop.module.system.api.social.dto.SocialUserRespDTO;
 import co.yixiang.yshop.module.system.controller.admin.auth.vo.*;
 import co.yixiang.yshop.module.system.convert.auth.AuthConvert;
@@ -18,6 +17,7 @@ import co.yixiang.yshop.module.system.enums.logger.LoginLogTypeEnum;
 import co.yixiang.yshop.module.system.enums.logger.LoginResultEnum;
 import co.yixiang.yshop.module.system.enums.oauth2.OAuth2ClientConstants;
 import co.yixiang.yshop.module.system.enums.sms.SmsSceneEnum;
+import co.yixiang.yshop.module.system.enums.social.SocialTypeEnum;
 import co.yixiang.yshop.module.system.service.logger.LoginLogService;
 import co.yixiang.yshop.module.system.service.member.MemberService;
 import co.yixiang.yshop.module.system.service.oauth2.OAuth2TokenService;
@@ -27,12 +27,12 @@ import com.google.common.annotations.VisibleForTesting;
 import com.xingyuv.captcha.model.common.ResponseModel;
 import com.xingyuv.captcha.model.vo.CaptchaVO;
 import com.xingyuv.captcha.service.CaptchaService;
+import jakarta.annotation.Resource;
+import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.Resource;
-import jakarta.validation.Validator;
 import java.util.Objects;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
@@ -65,6 +65,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     @Resource
     private SmsCodeApi smsCodeApi;
 
+
     /**
      * 验证码的开关，默认为 true
      */
@@ -95,19 +96,22 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     @Override
     public AuthLoginRespVO login(AuthLoginReqVO reqVO) {
         // 校验验证码
-        validateCaptcha(reqVO);
+        if(!SocialTypeEnum.WECHAT_MINI_APP.getType().equals(reqVO.getSocialType())){
+            validateCaptcha(reqVO);
+        }
 
         // 使用账号密码，进行登录
         AdminUserDO user = authenticate(reqVO.getUsername(), reqVO.getPassword());
 
         // 如果 socialType 非空，说明需要绑定社交用户
-        if (reqVO.getSocialType() != null) {
-            socialUserService.bindSocialUser(new SocialUserBindReqDTO(user.getId(), getUserType().getValue(),
-                    reqVO.getSocialType(), reqVO.getSocialCode(), reqVO.getSocialState()));
-        }
+//        if (reqVO.getSocialType() != null) {
+//            socialUserService.bindSocialUser(new SocialUserBindReqDTO(user.getId(), getUserType().getValue(),
+//                    reqVO.getSocialType(), reqVO.getSocialCode(), reqVO.getSocialState()));
+//        }
         // 创建 Token 令牌，记录登录日志
         return createTokenAfterLoginSuccess(user.getId(), reqVO.getUsername(), LoginLogTypeEnum.LOGIN_USERNAME);
     }
+
 
     @Override
     public void sendSmsCode(AuthSmsSendReqVO reqVO) {
@@ -133,6 +137,8 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         // 创建 Token 令牌，记录登录日志
         return createTokenAfterLoginSuccess(user.getId(), reqVO.getMobile(), LoginLogTypeEnum.LOGIN_MOBILE);
     }
+
+
 
     private void createLoginLog(Long userId, String username,
                                 LoginLogTypeEnum logTypeEnum, LoginResultEnum loginResult) {

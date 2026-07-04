@@ -1,11 +1,8 @@
 package co.yixiang.yshop.module.pay.dal.dataobject.merchantdetails;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 支付服务商配置 DO

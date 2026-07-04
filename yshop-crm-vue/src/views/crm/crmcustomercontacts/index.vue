@@ -17,7 +17,7 @@
       :inline="true"
       label-width="68px"
     >
-      <el-form-item label="客户" prop="customerName">
+      <el-form-item label="客户" prop="customerId">
         <el-input
           v-model="queryParams.customerName"
           placeholder="请输入客户"
@@ -79,6 +79,7 @@
           plain
           @click="openSms"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:contacts:send-sms']"
         >
           <Icon icon="ep:notification" class="mr-5px" /> 发短信
         </el-button>
@@ -87,6 +88,7 @@
           plain
           @click="openMail"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:contacts:send-mail']"
         >
           <Icon icon="ep:message" class="mr-5px" /> 发邮件
         </el-button>
@@ -96,10 +98,18 @@
 
   <!-- 列表 -->
   <ContentWrap>
-    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="40" />
-      <el-table-column label="客户名称" align="center" prop="customerName" width="150"  />
-      <el-table-column label="姓名" align="center" prop="name" width="150"  />
+    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true"  @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="40" fixed />
+      <el-table-column label="姓名" align="center" prop="name" width="150" fixed >
+        <template #default="scope">
+          <div @click="openDetail2(scope.row.id)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="客户名称" align="center" prop="customerName" width="150">
+        <template #default="scope">
+          <div @click="openDetail(scope.row.customerId)" style="color:#409EFF;cursor: pointer">{{scope.row.customerName}}</div>
+        </template>
+      </el-table-column>
       <el-table-column label="手机" align="center" prop="mobile" width="120" />
       <el-table-column label="电话" align="center" prop="telephone" width="120" />
       <el-table-column label="微信号" align="center" prop="wechat" />
@@ -137,7 +147,7 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center" fixed="right" width="150">
+      <el-table-column label="操作" align="center" fixed="right" width="180">
         <template #default="scope">
           <el-button
             link
@@ -169,6 +179,8 @@
 
   <!-- 表单弹窗：添加/修改 -->
   <CustomerContactsForm ref="formRef" @success="getList" />
+  <ContactsDetail ref="detailRef"  />
+  <CustomerDetail ref="customerDetailRef" />
   <SmsTemplateSendForm ref="smsTemplateSendFormRef"  />
   <MailTemplateSendForm ref="mailTemplateSendFormRef"  />
 </template>
@@ -178,8 +190,11 @@ import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { CustomerContactsApi, CustomerContactsVO } from '@/api/crm/crmcustomercontacts'
 import CustomerContactsForm from './CustomerContactsForm.vue'
+import ContactsDetail from './ContactsDetail.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 import SmsTemplateSendForm from '@/views/components/sms/SmsTemplateSendForm.vue'
 import MailTemplateSendForm from '@/views/components/email/MailTemplateSendForm.vue'
+
 
 /** 联系人 列表 */
 defineOptions({ name: 'CrmCustomerContacts' })
@@ -212,6 +227,7 @@ const isDisabled = ref(true)
 
 /** 查询列表 */
 const getList = async () => {
+  isDisabled.value = true
   loading.value = true
   try {
     const data = await CustomerContactsApi.getCustomerContactsPage(queryParams)
@@ -221,6 +237,7 @@ const getList = async () => {
     loading.value = false
   }
 }
+
 
 const handleSelectionChange = (val) => {
   if(val.length > 0) {
@@ -289,6 +306,17 @@ const mailTemplateSendFormRef = ref()
 const openMail = () => {
   mailTemplateSendFormRef.value.open(selectCustomers.value,false)
 }
+
+const customerDetailRef = ref()
+const openDetail = (id?: number) => {
+  customerDetailRef.value.open('', id)
+}
+
+const detailRef = ref()
+const openDetail2 = (id?: number) => {
+  detailRef.value.open('', id)
+}
+
 
 
 /** 初始化 **/

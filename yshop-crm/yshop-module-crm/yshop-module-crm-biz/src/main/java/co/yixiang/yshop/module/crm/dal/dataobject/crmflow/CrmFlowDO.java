@@ -1,10 +1,11 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmflow;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 审批流程 DO
@@ -26,6 +27,11 @@ public class CrmFlowDO extends BaseDO {
      */
     @TableId
     private Long id;
+
+    /**
+     * 审批类型
+     */
+    private Integer category;
     /**
      * 审批流名称
      */

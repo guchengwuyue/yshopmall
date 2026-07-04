@@ -1,11 +1,13 @@
 package co.yixiang.yshop.module.crm.service.crmcontractreceivables;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
+import java.util.*;
+
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesSaveReqVO;
-import jakarta.validation.Valid;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 
 /**
  * 回款 Service 接口
@@ -62,6 +64,7 @@ public interface CrmContractReceivablesService {
      * 审核回款
      * @param checkInfoVO
      */
+    @Deprecated
     void check(CheckInfoVO checkInfoVO);
 
 

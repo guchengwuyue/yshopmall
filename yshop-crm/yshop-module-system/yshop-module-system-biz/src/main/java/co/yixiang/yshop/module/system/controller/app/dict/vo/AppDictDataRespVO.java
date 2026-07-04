@@ -1,5 +1,8 @@
 package co.yixiang.yshop.module.system.controller.app.dict.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +18,7 @@ public class AppDictDataRespVO {
     private Long id;
 
     @Schema(description = "字典标签", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
+    @JsonProperty("name")
     private String label;
 
     @Schema(description = "字典值", requiredMode = Schema.RequiredMode.REQUIRED, example = "yixiang.co")

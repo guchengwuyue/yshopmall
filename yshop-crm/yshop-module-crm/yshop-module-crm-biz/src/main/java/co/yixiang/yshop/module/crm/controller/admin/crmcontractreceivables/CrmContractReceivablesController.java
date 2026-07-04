@@ -2,10 +2,12 @@ package co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables;
 
 import co.yixiang.yshop.framework.common.pojo.CommonResult;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesPageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesSaveReqVO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
 import co.yixiang.yshop.module.crm.service.crmcontractreceivables.CrmContractReceivablesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -76,6 +78,7 @@ public class CrmContractReceivablesController {
 
     @PostMapping("/check")
     @Operation(summary = "审核回款")
+    @Deprecated
     public CommonResult<Boolean> check(@Valid @RequestBody CheckInfoVO checkInfoVO) {
         contractReceivablesService.check(checkInfoVO);
         return success(true);

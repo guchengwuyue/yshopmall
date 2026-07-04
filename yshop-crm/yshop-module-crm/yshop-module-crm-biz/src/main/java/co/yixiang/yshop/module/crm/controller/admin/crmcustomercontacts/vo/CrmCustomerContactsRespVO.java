@@ -1,30 +1,35 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcustomercontacts.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
+import java.util.*;
+import java.util.*;
 
+import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
+import com.alibaba.excel.annotation.*;
 
 @Schema(description = "管理后台 - 联系人 Response VO")
 @Data
 @ExcelIgnoreUnannotated
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = false) // 设置 chain = false，避免用户导入有问题
 public class CrmCustomerContactsRespVO {
 
     @Schema(description = "ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "31089")
-    @ExcelProperty("ID")
     private Long id;
 
     @Schema(description = "客户ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "12738")
-    @ExcelProperty("客户ID")
     private Long customerId;
 
     @Schema(description = "客户名称")
+    @ExcelProperty("客户名称")
     private String customerName;
 
-    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @ExcelProperty("姓名")
     private String name;
 
@@ -33,7 +38,6 @@ public class CrmCustomerContactsRespVO {
     private String mobile;
 
     @Schema(description = "生日")
-    @ExcelProperty("生日")
     private Date birthday;
 
     @Schema(description = "电话", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -76,11 +80,9 @@ public class CrmCustomerContactsRespVO {
     private String ownerUserName;
 
     @Schema(description = "下次联系时间")
-    @ExcelProperty("下次联系时间")
     private LocalDateTime nextTime;
 
     @Schema(description = "创建时间")
-    @ExcelProperty("创建时间")
     private LocalDateTime createTime;
 
 }

@@ -48,5 +48,9 @@ export const CustomerContactsApi = {
   // 导出联系人 Excel
   exportCustomerContacts: async (params) => {
     return await request.download({ url: `/crm/customer-contacts/export-excel`, params })
+  },
+
+  importTemplate: async() => {
+    return request.download({ url: '/crm/customer-contacts/get-import-template' })
   }
 }

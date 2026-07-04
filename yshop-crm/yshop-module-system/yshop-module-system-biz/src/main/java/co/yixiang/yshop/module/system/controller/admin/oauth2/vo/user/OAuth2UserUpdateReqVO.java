@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 @AllArgsConstructor
 public class OAuth2UserUpdateReqVO {
 
-    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @Size(max = 30, message = "用户昵称长度不能超过 30 个字符")
     private String nickname;
 

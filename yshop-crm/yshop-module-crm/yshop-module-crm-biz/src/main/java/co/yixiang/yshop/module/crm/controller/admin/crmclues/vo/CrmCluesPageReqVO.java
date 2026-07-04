@@ -75,7 +75,7 @@ public class CrmCluesPageReqVO extends PageParam {
 
     @Schema(description = "下次联系时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    private LocalDateTime[] nextTime;
+    private LocalDateTime[] nextTime = new LocalDateTime[2];;
 
     @Schema(description = "最后跟进时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)

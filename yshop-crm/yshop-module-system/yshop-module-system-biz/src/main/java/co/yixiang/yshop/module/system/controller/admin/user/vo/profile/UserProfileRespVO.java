@@ -19,7 +19,7 @@ public class UserProfileRespVO {
     @Schema(description = "用户账号", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     private String username;
 
-    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     private String nickname;
 
     @Schema(description = "用户邮箱", example = "yshop@yixiang.co")
@@ -42,6 +42,8 @@ public class UserProfileRespVO {
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED, example = "时间戳格式")
     private LocalDateTime createTime;
+
+    private String openid;
 
     /**
      * 所属角色

@@ -1,11 +1,10 @@
 package co.yixiang.yshop.module.product.dal.dataobject.storeproductattrresult;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
-import java.util.Date;
+import java.util.*;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 商品属性详情 DO

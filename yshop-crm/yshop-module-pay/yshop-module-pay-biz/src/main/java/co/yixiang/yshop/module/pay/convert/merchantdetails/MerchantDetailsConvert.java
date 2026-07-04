@@ -1,15 +1,13 @@
 package co.yixiang.yshop.module.pay.convert.merchantdetails;
 
+import java.util.*;
+
 import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsCreateReqVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsExcelVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsRespVO;
-import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.MerchantDetailsUpdateReqVO;
-import co.yixiang.yshop.module.pay.dal.dataobject.merchantdetails.MerchantDetailsDO;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
+import co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo.*;
+import co.yixiang.yshop.module.pay.dal.dataobject.merchantdetails.MerchantDetailsDO;
 
 /**
  * 支付服务商配置 Convert

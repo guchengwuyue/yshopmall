@@ -2,6 +2,7 @@ package co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -67,6 +68,11 @@ public class CrmCustomerSaveReqVO {
 
     @Schema(description = "区域ID")
     private Integer area;
+
+    /**
+     * 地址组合字符串
+     */
+    private String addressStr;
 
     @Schema(description = "详细地址", requiredMode = Schema.RequiredMode.REQUIRED)
     //@NotEmpty(message = "详细地址不能为空")

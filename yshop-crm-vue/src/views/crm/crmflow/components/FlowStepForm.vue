@@ -13,15 +13,15 @@
         <template #default="{ row, $index }">
           <el-form-item :prop="`${$index}.type`" :rules="formRules.type" class="mb-0px!">
             <el-select v-model="row.type" placeholder="请选择类型" @change="selectType(row)">
-                <el-option label="指定用户" :value="2" />
-                <el-option label="指定部门" :value="3" />
+                <el-option label="指定用户(任意一人)" :value="2" />
+                <el-option label="指定用户(多人会签)" :value="3" />
             </el-select>
           </el-form-item>
         </template>
       </el-table-column>
       <el-table-column label="选择对象" min-width="200">
         <template #default="{ row, $index }">
-          <el-form-item :prop="`${$index}.adminIds`" :rules="formRules.adminIds" class="mb-0px!">
+          <el-form-item :prop="`${$index}.adminIds`"  class="mb-0px!">
             <el-select v-model="row.adminIds" clearable placeholder="选择用户" v-if="row.type == 2">
               <el-option
                 v-for="item in userList"
@@ -30,7 +30,16 @@
                 :value="item.id"
               />
             </el-select>
-            <el-tree-select
+            <el-select v-model="row.adminIds2" multiple clearable  placeholder="选择用户" v-else-if="row.type == 3">
+              <el-option
+                v-for="item in userList"
+                :key="item.id"
+                :label="item.nickname"
+                :value="item.id"
+              />
+            </el-select>
+            
+            <!-- <el-tree-select
              v-else-if="row.type == 3"
               v-model="row.adminIds"
               :data="deptList"
@@ -38,7 +47,7 @@
               check-strictly
               node-key="id"
               placeholder="请选择归属部门"
-            />
+            /> -->
           </el-form-item>
         </template>
       </el-table-column>
@@ -88,8 +97,16 @@ watch(
     try {
       formLoading.value = true
       formData.value = await FlowApi.getFlowStepListByFlowId(val)
+      formData.value.forEach(item => {
+          if(item.type == 2){
+            item.adminIds = Number(item.adminIds)
+          }else{
+            item.adminIds2 =  item.adminIds.split(",").map(Number);
+          }
+          
+      });
       userList.value = await UserApi.getSimpleUserList()
-      deptList.value = handleTree(await DeptApi.getSimpleDeptList())
+      //deptList.value = handleTree(await DeptApi.getSimpleDeptList())
     } finally {
       formLoading.value = false
     }
@@ -104,6 +121,7 @@ const handleAdd = () => {
     flowId: undefined,
     type: undefined,
     adminIds: undefined,
+    adminIds2: undefined,
     relation: undefined
   }
   row.flowId = props.flowId
@@ -112,7 +130,6 @@ const handleAdd = () => {
 
 /** 删除按钮操作 */
 const handleDelete = async(index,id) => {
-  console.log(index,id)
   try {
     // 删除的二次确认
     await message.delConfirm()
@@ -120,11 +137,16 @@ const handleDelete = async(index,id) => {
     await FlowApi.deleteFlowStep(id)
     message.success(t('common.delSuccess'))
     formData.value.splice(index, 1)
-  } catch(e) {
-    console.log('e:',e)
-  }
+  } catch {}
 
 }
+
+// const selectUser = (row) => {
+//   console.log('row:',row.adminIds)
+//   row.adminIds = row.adminIds.toString()
+//   console.log('row2:',row.adminIds)
+// }
+
 /** 表单校验 */
 const validate = () => {
   return formRef.value.validate()
@@ -140,11 +162,12 @@ defineExpose({ validate, getData })
 const selectType = async(val) => {
   val.adminIds = undefined
   console.log('val:',val)
-  if(val.type == 2){
-    userList.value = await UserApi.getSimpleUserList()
-  }else if(val.type == 3){
-    deptList.value = handleTree(await DeptApi.getSimpleDeptList())
-  }
+  userList.value = await UserApi.getSimpleUserList()
+  // if(val.type == 2){
+  //   userList.value = await UserApi.getSimpleUserList()
+  // }else if(val.type == 3){
+  //   //deptList.value = handleTree(await DeptApi.getSimpleDeptList())
+  // }
 }
 
 </script>

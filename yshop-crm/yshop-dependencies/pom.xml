@@ -14,7 +14,7 @@
     <url>https://gitee.com/guchengwuyue/yshop-crm</url>
 
     <properties>
-        <revision>1.1.3</revision>
+        <revision>2.1.3</revision>
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <!-- 统一依赖管理 -->
         <spring.boot.version>3.2.2</spring.boot.version>
@@ -75,10 +75,11 @@
         <jimureport.version>1.6.6-beta2</jimureport.version>
         <xercesImpl.version>2.12.2</xercesImpl.version>
         <weixin-java.version>4.6.0</weixin-java.version>
-        <pay.boot.version>1.0.5</pay.boot.version>
-        <pay.version>2.14.9</pay.version>
+        <pay.boot.version>1.0.3</pay.boot.version>
+        <pay.version>2.14.5</pay.version>
         <zxing.version>3.3.3</zxing.version>
-        <langchain4j.version>1.0.0-beta3</langchain4j.version>
+        <dingsdk.version>2.0.0</dingsdk.version>
+        <new.dingsdk.version>2.2.25</new.dingsdk.version>
     </properties>
 
     <dependencyManagement>
@@ -88,20 +89,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>dev.langchain4j</groupId>
-                <artifactId>langchain4j-bom</artifactId>
-                <version>${langchain4j.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>dev.langchain4j</groupId>
-                <artifactId>langchain4j-community-bom</artifactId>
-                <version>${langchain4j.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -259,7 +246,6 @@
                 <artifactId>DmJdbcDriver18</artifactId>
                 <version>${dm8.jdbc.version}</version>
             </dependency>
-
 
             <!-- Job 定时任务相关 -->
             <dependency>
@@ -614,6 +600,12 @@
                 <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
                 <version>${weixin-java.version}</version>
             </dependency>
+            <!--企业微信-->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-cp</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
 
             <!-- 积木报表-->
             <dependency>
@@ -657,6 +649,16 @@
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
                 <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>alibaba-dingtalk-service-sdk</artifactId>
+                <version>${dingsdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dingtalk</artifactId>
+                <version>${new.dingsdk.version}</version>
             </dependency>
 
         </dependencies>

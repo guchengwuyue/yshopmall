@@ -124,6 +124,7 @@ public class AuthController {
         return success(authService.smsLogin(reqVO));
     }
 
+
     @PostMapping("/send-sms-code")
     @PermitAll
     @Operation(summary = "发送手机验证码")

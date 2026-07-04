@@ -5,11 +5,13 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.yshop.framework.common.enums.CommonStatusEnum;
+import co.yixiang.yshop.framework.common.exception.ErrorCode;
 import co.yixiang.yshop.framework.common.exception.ServiceException;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.framework.common.util.collection.CollectionUtils;
 import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.datapermission.core.util.DataPermissionUtils;
+import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
 import co.yixiang.yshop.module.infra.api.file.FileApi;
 import co.yixiang.yshop.module.system.controller.admin.user.vo.profile.UserProfileUpdatePasswordReqVO;
 import co.yixiang.yshop.module.system.controller.admin.user.vo.profile.UserProfileUpdateReqVO;
@@ -484,4 +486,14 @@ public class AdminUserServiceImpl implements AdminUserService {
         return passwordEncoder.encode(password);
     }
 
+    @Override
+    public void updateUserOpenid(String openid) {
+        Long adminId = SecurityFrameworkUtils.getLoginUserId();
+        AdminUserDO adminUserDO = userMapper.selectById(adminId);
+        if(StrUtil.isNotEmpty(adminUserDO.getOpenid())){
+            throw exception(new ErrorCode(202412130,"openid已经已经绑定过"));
+        }
+        adminUserDO.setOpenid(openid);
+        userMapper.updateById(adminUserDO);
+    }
 }

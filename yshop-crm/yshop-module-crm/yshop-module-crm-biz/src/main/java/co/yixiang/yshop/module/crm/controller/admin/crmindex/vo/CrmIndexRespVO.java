@@ -42,6 +42,8 @@ public class CrmIndexRespVO {
     @Schema(description = "待审核等发票")
     private Long invoiceCheckCount;
 
+    private BrieCountVO brieCountVO;
+
 
 
 }

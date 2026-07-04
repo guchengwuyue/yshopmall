@@ -1,14 +1,13 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo;
 
-import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractProductDO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
-import java.util.List;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractProductDO;
 
 @Schema(description = "管理后台 - 合同新增/修改 Request VO")
 @Data
@@ -66,9 +65,9 @@ public class CrmContractSaveReqVO {
     @Schema(description = "已经审批人IDs", requiredMode = Schema.RequiredMode.REQUIRED, example = "13317")
     private String checkAdminId;
 
-    @Schema(description = "当前需要审批的人", requiredMode = Schema.RequiredMode.REQUIRED, example = "27407")
-    @NotEmpty(message = "当前需要审批的人不能为空")
-    private List<Long> flowAdminId;
+    @Schema(description = "需要审批的人", requiredMode = Schema.RequiredMode.REQUIRED, example = "27407")
+    @NotEmpty(message = "需要审批的人不能为空")
+    private String flowAdminId;
 
     @Schema(description = "开始时间")
     private LocalDateTime startTime;

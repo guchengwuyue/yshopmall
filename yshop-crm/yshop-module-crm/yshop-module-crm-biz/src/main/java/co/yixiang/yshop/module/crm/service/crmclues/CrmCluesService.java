@@ -4,7 +4,6 @@ import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesPageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesSaveReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo.CrmCustomerSaveReqVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmclues.CrmCluesDO;
 import jakarta.validation.Valid;
 
@@ -65,10 +64,7 @@ public interface CrmCluesService {
      */
     void receiveClues(Long id);
 
-    /**
-     * 线索转换成客户
-     * @param createReqVO
-     */
-    void createCustomer(CrmCustomerSaveReqVO createReqVO);
+
+
 
 }

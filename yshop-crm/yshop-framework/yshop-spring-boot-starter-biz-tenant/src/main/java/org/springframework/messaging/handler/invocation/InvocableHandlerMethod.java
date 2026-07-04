@@ -16,6 +16,11 @@
 
 package org.springframework.messaging.handler.invocation;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+
 import co.yixiang.yshop.framework.tenant.core.context.TenantContextHolder;
 import co.yixiang.yshop.framework.tenant.core.util.TenantUtils;
 import org.springframework.core.DefaultParameterNameDiscoverer;
@@ -27,11 +32,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.HandlerMethod;
 import org.springframework.util.ObjectUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-
 import static co.yixiang.yshop.framework.web.core.util.WebFrameworkUtils.HEADER_TENANT_ID;
 
 /**
@@ -40,7 +40,7 @@ import static co.yixiang.yshop.framework.web.core.util.WebFrameworkUtils.HEADER_
  * {@link HandlerMethodArgumentResolver}.
  *
  * 针对 rabbitmq-spring 和 kafka-spring，不存在合适的拓展点，可以实现 Consumer 消费前，读取 Header 中的 tenant-id 设置到 {@link TenantContextHolder} 中
- * TODO 芋艿：持续跟进，看看有没新的拓展点
+ * TODO yshop：持续跟进，看看有没新的拓展点
  *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller

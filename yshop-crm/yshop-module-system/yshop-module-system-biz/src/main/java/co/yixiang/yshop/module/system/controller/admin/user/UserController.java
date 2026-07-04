@@ -89,7 +89,7 @@ public class UserController {
 
     @GetMapping("/page")
     @Operation(summary = "获得用户分页列表")
-    @PreAuthorize("@ss.hasPermission('system:user:list')")
+    //@PreAuthorize("@ss.hasPermission('system:user:list')")
     public CommonResult<PageResult<UserRespVO>> getUserPage(@Valid UserPageReqVO pageReqVO) {
         // 获得用户分页列表
         PageResult<AdminUserDO> pageResult = userService.getUserPage(pageReqVO);
@@ -167,6 +167,14 @@ public class UserController {
                                                       @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws Exception {
         List<UserImportExcelVO> list = ExcelUtils.read(file, UserImportExcelVO.class);
         return success(userService.importUserList(list, updateSupport));
+    }
+
+    @GetMapping("/updateOpenid")
+    @Operation(summary = "更新用户openid")
+    @Parameter(name = "openid", description = "openid", required = true, example = "1024")
+    public CommonResult<Boolean> updateOpenid(@RequestParam("openid") String openid) {
+        userService.updateUserOpenid(openid);
+        return success(true);
     }
 
 }

@@ -11,6 +11,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ShopCommonEnum {
 
+    ACH_1(1,"合同成交"),
+    ACH_2(2,"回收回款"),
+
+    AVG_1(1,"平均分配"),
+    AVG_2(2,"随机分配"),
+
     STORE_MODE_1(1,"本地存储"),
     STORE_MODE_2(2,"云存储"),
 
@@ -61,6 +67,9 @@ public enum ShopCommonEnum {
 
     SHOW_0(0,"不显示"),
     SHOW_1(1,"显示"),
+
+    PERMISSION_0(0,"只读"),
+    PERMISSION_1(1,"读写"),
 
     DEFAULT_0(0,"不是默认"),
     DEFAULT_1(1,"默认");

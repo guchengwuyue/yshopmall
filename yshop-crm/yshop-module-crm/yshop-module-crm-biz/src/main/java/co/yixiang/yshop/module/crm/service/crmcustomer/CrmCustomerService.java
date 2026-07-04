@@ -60,7 +60,7 @@ public interface CrmCustomerService {
      * @param pageReqVO 分页查询
      * @return 客户分页
      */
-    PageResult<CrmCustomerRespVO> getCustomerPage(CrmCustomerPageReqVO pageReqVO);
+    PageResult<CrmCustomerDO> getCustomerPage(CrmCustomerPageReqVO pageReqVO);
 
     /**
      * 获得客户分页2
@@ -69,6 +69,8 @@ public interface CrmCustomerService {
      * @return 客户分页
      */
     PageResult<CrmCustomerRespVO> getCustomerPage2(CrmCustomerPageReqVO pageReqVO);
+
+
 
     /**
      * 发送短信
@@ -83,7 +85,6 @@ public interface CrmCustomerService {
      * @return
      */
     void sendMail(MailTemplateSendVO sendVO);
-
 
 
 }

@@ -47,10 +47,6 @@
           <el-form-item label="客户行业" prop="industry">
             <el-select v-model="formData.industry" clearable placeholder="请选择客户行业">
               <el-option
-                  label="请选择客户行业"
-                  :value="0"
-                />
-              <el-option
                   v-for="dict in getIntDictOptions(DICT_TYPE.CRM_CUSTOMER_INDUSTRY)"
                   :key="dict.value"
                   :label="dict.label"
@@ -84,21 +80,6 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="地址" prop="city"  @change="handleChange">
-            <el-cascader
-              v-model="cityArr"
-              :options="areaList"
-              :props="props"
-              @change="handleChange"
-            />
-          </el-form-item>
-          <el-form-item label="详细地址" prop="detailAddress">
-            <el-input v-model="formData.detailAddress" placeholder="请输入详细地址" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
           <el-form-item label="下次跟进时间" prop="nextTime">
             <el-date-picker
               v-model="formData.nextTime"
@@ -108,6 +89,42 @@
             />
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="地理位置" prop="city">
+            <!-- <el-cascader
+              v-model="cityArr"
+              :options="areaList"
+              :props="props"
+              @change="handleChange"
+            /> -->
+            <!-- <el-button @click="selectAddr">选择地址</el-button> -->
+            <el-input
+              v-model="formData.addressStr"
+              placeholder="请选择地址"
+            >
+              <template #append><el-button @click="selectAddr">选择地址</el-button></template>
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="详细地址" prop="detailAddress">
+            <el-input v-model="formData.detailAddress" placeholder="请输入详细地址" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <!-- <el-col :span="12">
+          <el-form-item label="下次跟进时间" prop="nextTime">
+            <el-date-picker
+              v-model="formData.nextTime"
+              type="datetime"
+              value-format="x"
+              placeholder="选择下次联系时间"
+            />
+          </el-form-item>
+        </el-col> -->
         <el-col :span="12">
           <el-form-item label="备注" prop="remark">
             <el-input  type="textarea" :rows="2" v-model="formData.remark" placeholder="请输入备注" />
@@ -152,11 +169,13 @@
       <el-button @click="dialogVisible = false">取 消</el-button>
     </template>
   </Dialog>
+  <Tmap ref="mapRef" @mapConfirm="getMapAddr" />
 </template>
 <script setup lang="ts">
 import { CustomerApi, CustomerVO } from '@/api/crm/crmcustomer'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
-import * as AreaApi from '@/api/system/area'
+// import * as AreaApi from '@/api/system/area'
+import Tmap from '@/views/crm/crmcustomer/components/map/map.vue'
 
 /** 客户 表单 */
 defineOptions({ name: 'CustomerForm' })
@@ -221,7 +240,17 @@ const open = async (type: string, id?: number) => {
   dialogTitle.value = t('action.' + type)
   formType.value = type
   resetForm()
-  areaList.value = await AreaApi.getAreaTree()
+  if(id){
+    try {
+      formLoading.value = true
+      //areaList.value = await AreaApi.getAreaTree()
+    }finally {
+        formLoading.value = false
+    }
+  }else{
+    //areaList.value = await AreaApi.getAreaTree()
+  }
+  //areaList.value = await AreaApi.getAreaTree()
   cityArr.value = []
   // 修改时，设置数据
   if (id) {
@@ -229,9 +258,10 @@ const open = async (type: string, id?: number) => {
     try {
       formData.value = await CustomerApi.getCustomer(id)
       tagsArr.value = formData.value.tags.split(',')
-      cityArr.value.push(formData.value.province)
-      cityArr.value.push(formData.value.city)
-      cityArr.value.push(formData.value.area)
+      // cityArr.value.push(formData.value.province)
+      // cityArr.value.push(formData.value.city)
+      // cityArr.value.push(formData.value.area)
+      console.log('cityArr:',cityArr.value)
     } finally {
       formLoading.value = false
     }
@@ -292,6 +322,19 @@ const handleClose = (index) => {
   tagsStr.value = tagsArr.value.join(' ')
 }
 
+const mapRef = ref()
+const selectAddr = () => {
+  mapRef.value.open()
+}
+
+const getMapAddr = (data) => {
+  console.log('data333:',data)
+  formData.value.addressStr = data.address
+  formData.value.detailAddress = data.detailAddress
+  formData.value.lng = data.longitude
+  formData.value.lat = data.latitude
+}
+
 
 /** 重置表单 */
 const resetForm = () => {
@@ -315,7 +358,7 @@ const resetForm = () => {
     detailAddress: undefined,
     lng: undefined,
     lat: undefined,
-    nextTime: Date.parse(new Date()),
+    nextTime: undefined,
     followTime: undefined,
     collectTime: undefined,
     weixin: undefined,

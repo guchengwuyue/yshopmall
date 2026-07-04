@@ -152,7 +152,7 @@ export default {
   router: {
     login: '登录',
     socialLogin: '社交登录',
-    home: '待办事项',
+    home: '控制台',
     analysis: '分析页',
     workplace: '工作台'
   },

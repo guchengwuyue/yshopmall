@@ -24,7 +24,7 @@
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="id(+租户ID)" align="center" prop="detailsId" />
+      <el-table-column label="id" align="center" prop="detailsId" />
       <el-table-column label="支付类型(支付渠道)" align="center" prop="payType" />
       <el-table-column label="应用id" align="center" prop="appid" />
       <el-table-column label="商户id" align="center" prop="mchId" />

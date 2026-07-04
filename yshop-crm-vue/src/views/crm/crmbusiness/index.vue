@@ -8,6 +8,7 @@
   >
       <el-menu-item index="my">我的商机</el-menu-item>
       <el-menu-item index="sub">下属商机</el-menu-item>
+      <el-menu-item index="today">今日跟进商机</el-menu-item>
     </el-menu>
     <!-- 搜索工作栏 -->
     <el-form
@@ -85,7 +86,7 @@
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="商机名称" align="center" prop="name" width="150">
         <template #default="scope">
-          <div @click="openBusDetail(scope.row.id)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
+          <div @click="openBusDetail2(scope.row.id)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
         </template>
       </el-table-column>
       <el-table-column label="客户名称" align="center" prop="customerName" width="150">
@@ -128,6 +129,7 @@
             link
             type="warning"
             @click="openBusDetail(scope.row.id)"
+            v-hasPermi="['crm:business:record']"
           >
             跟进
           </el-button>
@@ -161,19 +163,21 @@
 
   <!-- 表单弹窗：添加/修改 -->
   <BusinessForm ref="formRef" @success="getList" />
-  <RecordForm ref="recordFormRef"  />
+  <CustomerDetail ref="customerDetailef"  />
   <BusRecordForm ref="busRecordFormRef"  />
+  <BussinessDetail ref="bussinessDetailRef" @success="getList"  />
   <SmsTemplateSendForm ref="smsTemplateSendFormRef"  />
   <MailTemplateSendForm ref="mailTemplateSendFormRef"  />
 </template>
 
 <script setup lang="ts">
-import { dateFormatter } from '@/utils/formatTime'
+import { dateFormatter ,beginOfDay ,endOfDay,formatDate} from '@/utils/formatTime'
 import download from '@/utils/download'
 import { BusinessApi, BusinessVO } from '@/api/crm/crmbusiness'
 import BusinessForm from './BusinessForm.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
-import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
+import BussinessDetail from './BusinessDetail.vue'
 import BusRecordForm from '@/views/crm/crmbusinessrecord/RecordForm.vue'
 import SmsTemplateSendForm from '@/views/components/sms/SmsTemplateSendForm.vue'
 import MailTemplateSendForm from '@/views/components/email/MailTemplateSendForm.vue'
@@ -205,6 +209,7 @@ const isDisabled = ref(true)
 
 /** 查询列表 */
 const getList = async () => {
+  isDisabled.value = true
   loading.value = true
   try {
     const data = await BusinessApi.getBusinessPage(queryParams)
@@ -230,6 +235,12 @@ const handleSelectionChange = (val) => {
 }
 
 const handleSelect = (key) => {
+  queryParams.nextTime = undefined
+  if(key == 'today'){
+    let arr = [formatDate(beginOfDay(new Date())),formatDate(endOfDay(new Date()))]
+    queryParams.nextTime = arr
+    key = 'my'
+  }
   queryParams.relation = key
   getList()
 }
@@ -252,14 +263,19 @@ const openForm = (type: string, id?: number) => {
   formRef.value.open(type, id)
 }
 
-const recordFormRef = ref()
+const customerDetailef = ref()
 const openDetail = (id?: number) => {
-  recordFormRef.value.open('', id)
+  customerDetailef.value.open('', id)
 }
 
 const busRecordFormRef = ref()
 const openBusDetail = (id?: number) => {
   busRecordFormRef.value.open('', id)
+}
+
+const bussinessDetailRef = ref()
+const openBusDetail2 = (id?: number) => {
+  bussinessDetailRef.value.open('', id)
 }
 
 /** 删除按钮操作 */

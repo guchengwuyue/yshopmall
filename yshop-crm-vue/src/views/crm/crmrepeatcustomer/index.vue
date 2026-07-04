@@ -68,14 +68,6 @@
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['crm:customer:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
       </el-form-item>
     </el-form>
   </ContentWrap>
@@ -84,7 +76,11 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="ID" align="center" prop="id" />
-      <el-table-column label="客户名称" align="center" prop="name" width="200" />
+      <el-table-column label="客户名称" align="center" prop="name" width="200">
+        <template #default="scope">
+          <div @click="openDetail(scope.row.id,scope.row)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
+        </template>
+      </el-table-column>
       <el-table-column label="手机" align="center" prop="mobile" width="120" />
       <el-table-column label="电话" align="center" prop="telephone" width="120" />
       <el-table-column label="成交状态" align="center" prop="dealStatus">
@@ -116,12 +112,14 @@
 
   <!-- 表单弹窗：添加/修改 -->
   <CustomerForm ref="formRef" @success="getList" />
+  <CustomerDetail ref="customerDetailRef" />
 </template>
 
 <script setup lang="ts">
 import { dateFormatter } from '@/utils/formatTime'
 import { CustomerApi, CustomerVO } from '@/api/crm/crmcustomer'
 import CustomerForm from '@/views/crm/crmcustomer/CustomerForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 
 /** 客户 列表 */
 defineOptions({ name: 'CrmCustomer' })
@@ -182,10 +180,16 @@ const resetQuery = () => {
 }
 
 /** 添加/修改操作 */
-const formRef = ref()
+const formRef = ref() 
 const openForm = (type: string, id?: number) => {
   formRef.value.open(type, id)
 }
+
+const customerDetailRef = ref()
+const openDetail = (id?: number,data) => {
+  customerDetailRef.value.open('', id,data)
+}
+
 
 
 /** 初始化 **/

@@ -4,7 +4,9 @@ import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.framework.mybatis.core.mapper.BaseMapperX;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesPageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesRespVO;
+import co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo.CrmCustomerRespVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmclues.CrmCluesDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
 import co.yixiang.yshop.module.system.dal.dataobject.user.AdminUserDO;
 import com.github.yulichang.wrapper.MPJLambdaWrapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,6 +25,7 @@ public interface CrmCluesMapper extends BaseMapperX<CrmCluesDO> {
 
         return selectJoinPage(reqVO, CrmCluesRespVO.class,new MPJLambdaWrapper<CrmCluesDO>()
                 .selectAll(CrmCluesDO.class)
+                .selectAs(AdminUserDO::getAvatar, CrmCustomerRespVO::getOwnUserAvatar)
                 .selectAs(AdminUserDO::getNickname,CrmCluesRespVO::getOwnUserName)
                 .leftJoin(AdminUserDO.class,AdminUserDO::getId,CrmCluesDO::getOwnerUserId)
                 .likeIfExists(CrmCluesDO::getName,reqVO.getName())
@@ -32,6 +35,8 @@ public interface CrmCluesMapper extends BaseMapperX<CrmCluesDO> {
                 .eqIfExists(CrmCluesDO::getLevel,reqVO.getLevel())
                 .eqIfExists(CrmCluesDO::getSource,reqVO.getSource())
                 .eqIfExists(CrmCluesDO::getIndustry,reqVO.getIndustry())
+                .between(reqVO.getNextTime()[0] != null && reqVO.getNextTime()[1] != null
+                        , CrmCluesDO::getNextTime, reqVO.getNextTime()[0],reqVO.getNextTime()[1])
                 .likeIfExists(AdminUserDO::getNickname,reqVO.getOwnerUserName())
                 .in(!ids.isEmpty(),CrmCluesDO::getOwnerUserId,ids)
                 .orderByDesc(CrmCluesDO::getId)

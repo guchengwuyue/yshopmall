@@ -1,12 +1,10 @@
 package co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Schema(description = "管理后台 - 发票新增/修改 Request VO")
 @Data
@@ -90,7 +88,7 @@ public class CrmInvoiceSaveReqVO {
 
 
     @Schema(description = "当前需要审批的人", example = "17417")
-    private List<Long> flowAdminId;
+    private String flowAdminId;
 
     @Schema(description = "状态0未开票1开票中2已开票3开票失败", example = "2")
     private Integer status;

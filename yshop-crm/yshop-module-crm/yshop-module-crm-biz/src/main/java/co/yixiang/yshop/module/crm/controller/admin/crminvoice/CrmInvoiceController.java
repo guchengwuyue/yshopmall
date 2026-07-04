@@ -2,10 +2,12 @@ package co.yixiang.yshop.module.crm.controller.admin.crminvoice;
 
 import co.yixiang.yshop.framework.common.pojo.CommonResult;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoicePageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crminvoice.vo.CrmInvoiceSaveReqVO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crminvoice.CrmInvoiceDO;
 import co.yixiang.yshop.module.crm.service.crminvoice.CrmInvoiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -69,6 +71,7 @@ public class CrmInvoiceController {
 
     @PostMapping("/check")
     @Operation(summary = "审核发票")
+    @Deprecated
     public CommonResult<Boolean> check(@Valid @RequestBody CheckInfoVO checkInfoVO) {
         invoiceService.check(checkInfoVO);
         return success(true);

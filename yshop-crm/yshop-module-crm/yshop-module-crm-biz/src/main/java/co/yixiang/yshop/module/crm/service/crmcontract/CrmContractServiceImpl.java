@@ -1,5 +1,6 @@
 package co.yixiang.yshop.module.crm.service.crmcontract;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.util.NumberUtil;
@@ -19,6 +20,7 @@ import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractProductDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomercontacts.CrmCustomerContactsDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflowlog.CrmFlowLogDO;
@@ -26,6 +28,7 @@ import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcontract.CrmContractMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcontract.CrmContractProductMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
+import co.yixiang.yshop.module.crm.dal.mysql.crmcustomercontacts.CrmCustomerContactsMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmflow.CrmFlowMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmflow.CrmFlowStepMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmflowlog.CrmFlowLogMapper;
@@ -35,6 +38,8 @@ import co.yixiang.yshop.module.crm.enums.RelationEnum;
 import co.yixiang.yshop.module.crm.enums.TypesEnum;
 import co.yixiang.yshop.module.crm.service.crmflow.CrmFlowService;
 import co.yixiang.yshop.module.crm.service.crmoperatelog.CrmOperatelogService;
+import co.yixiang.yshop.module.message.enums.WechatTempateEnum;
+import co.yixiang.yshop.module.message.mq.producer.WeixinNoticeProducer;
 import co.yixiang.yshop.module.product.dal.dataobject.storeproductattrvalue.StoreProductAttrValueDO;
 import co.yixiang.yshop.module.product.dal.mysql.storeproduct.StoreProductMapper;
 import co.yixiang.yshop.module.product.dal.mysql.storeproductattrvalue.StoreProductAttrValueMapper;
@@ -103,7 +108,11 @@ public class CrmContractServiceImpl implements CrmContractService {
     @Resource
     private AdminUserApi adminUserApi;
     @Resource
+    private CrmCustomerContactsMapper crmCustomerContactsMapper;
+    @Resource
     private CrmFlowService flowService;
+    @Resource
+    private WeixinNoticeProducer weixinNoticeProducer;
 
     private static final String LOCK_KEY = "contract:check:lock";
 
@@ -133,7 +142,16 @@ public class CrmContractServiceImpl implements CrmContractService {
         //插入日志
         crmOperatelogService.createLog("添加合同",0L,contract.getId(),0L);
 
-        //todo 站内信通知 审批
+        //微信队列通知 审批
+//        contract.getFlowAdminId().forEach(uid -> {
+//            weixinNoticeProducer.sendNoticeMessage(uid,
+//                    WechatTempateEnum.CHECK_NOTICE.getValue(),
+//                    WechatTempateEnum.TEMPLATES.getValue(),contract.getName(),contract.getNumber(),
+//                    SecurityFrameworkUtils.getLoginUserNickname(),crmCustomerDO.getName(),DateUtil.now());
+//        });
+
+        //发送审核
+        flowService.sendNextStep(TypesEnum.CONTRACT.getValue(),contract.getId(),"");
 
         // 返回
         return contract.getId();
@@ -155,9 +173,16 @@ public class CrmContractServiceImpl implements CrmContractService {
         contractMapper.updateById(updateObj);
 
         //更新审核
-        updateAfter(updateReqVO.getId());
+        //updateAfter(updateReqVO.getId());
 
-        //todo 站内信通知 审批
+        //微信队列通知 审批
+//        updateObj.getFlowAdminId().forEach(uid -> {
+//            weixinNoticeProducer.sendNoticeMessage(uid,
+//                    WechatTempateEnum.CHECK_NOTICE.getValue(),
+//                    WechatTempateEnum.TEMPLATES.getValue(),updateObj.getName(),updateObj.getNumber(),
+//                    SecurityFrameworkUtils.getLoginUserNickname(),crmCustomerDO.getName(),DateUtil.now());
+//        });
+
 
         // 更新子表
         updateContractProductList(updateReqVO.getId(), updateReqVO.getContractProducts());
@@ -167,7 +192,10 @@ public class CrmContractServiceImpl implements CrmContractService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteContract(Long id) {
         // 校验存在
-        validateContractExists(id);
+        CrmContractDO crmContractDO = validateContractExists(id);
+        if(!ContractStatusEnum.STATUS_0.getValue().equals(crmContractDO.getCheckStatus())){
+            throw exception(new ErrorCode(202410101,"合同不是待审核状态不可以删除"));
+        }
         // 删除
         contractMapper.deleteById(id);
 
@@ -191,23 +219,36 @@ public class CrmContractServiceImpl implements CrmContractService {
                 .flowId(crmFlowDO.getId()).build());
     }
 
-    private void validateContractExists(Long id) {
-        if (contractMapper.selectById(id) == null) {
+    private CrmContractDO validateContractExists(Long id) {
+        CrmContractDO crmContractDO =  contractMapper.selectById(id);
+        if (crmContractDO == null) {
             throw exception(CONTRACT_NOT_EXISTS);
         }
+
+        return crmContractDO;
     }
 
     @Override
     public CrmContractRespVO getContract(Long id) {
         CrmContractDO crmContractDO = contractMapper.selectById(id);
         CrmContractRespVO crmContractRespVO = BeanUtils.toBean(crmContractDO,CrmContractRespVO.class);
-        crmContractRespVO.setFlowAdminId2(crmContractDO.getFlowAdminId());
+        //crmContractRespVO.setFlowAdminId2(crmContractDO.getFlowAdminId());
         CrmCustomerDO customerDO = customerMapper.selectById(crmContractDO.getCustomerId());
         crmContractRespVO.setCustomerName(customerDO.getName());
         if(crmContractDO.getBusinessId() != null && crmContractDO.getBusinessId() > 0){
             CrmBusinessDO crmBusinessDO = crmBusinessMapper.selectById(crmContractDO.getBusinessId());
             crmContractRespVO.setBusinessName(crmBusinessDO.getName());
         }
+        CrmCustomerContactsDO crmCustomerContactsDO =  crmCustomerContactsMapper.selectById(crmContractDO.getContactsId());
+        if(crmCustomerContactsDO != null){
+            crmContractRespVO.setContactsName(crmCustomerContactsDO.getName());
+        }
+
+        AdminUserDO adminUserDO = userMapper.selectById(crmContractDO.getOrderAdminId());
+        if(adminUserDO != null){
+            crmContractRespVO.setOrderAdminName(adminUserDO.getUsername());
+        }
+
 
         return crmContractRespVO;
     }
@@ -270,6 +311,7 @@ public class CrmContractServiceImpl implements CrmContractService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Deprecated
     public void check(CheckInfoVO checkInfoVO) {
         CrmContractDO crmContractDO = contractMapper.selectById(checkInfoVO.getId());
         if(crmContractDO == null){
@@ -279,10 +321,11 @@ public class CrmContractServiceImpl implements CrmContractService {
         if(crmFlowDO == null){
             throw exception(FLOW_NOT_EXISTS);
         }
+
         Long loginAdminId = SecurityFrameworkUtils.getLoginUserId();
-        if(!crmContractDO.getFlowAdminId().contains(loginAdminId)){
-            throw exception(new ErrorCode(202408111,"无权限审核"));
-        }
+//        if(!crmContractDO.getFlowAdminId().contains(loginAdminId)){
+//            throw exception(new ErrorCode(202408111,"无权限审核"));
+//        }
         if(crmContractDO.getCheckStatus() >= ContractStatusEnum.STATUS_2.getValue()){
             throw exception(new ErrorCode(202408110,"已经审核过"));
         }
@@ -300,10 +343,10 @@ public class CrmContractServiceImpl implements CrmContractService {
         if(crmFlowStepDO == null){
             throw exception(new ErrorCode(202412042,"当前审核人不存在无法审核！"));
         }
-        List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
-        if(!userIds.contains(loginAdminId)){
-            throw exception(new ErrorCode(202412041,"当前审核人已经变更无法审核！"));
-        }
+//        List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
+//        if(!userIds.contains(loginAdminId)){
+//            throw exception(new ErrorCode(202412041,"当前审核人已经变更无法审核！"));
+//        }
 
         RLock lock = redissonClient.getLock(LOCK_KEY);
         if (lock.tryLock()) {
@@ -316,59 +359,59 @@ public class CrmContractServiceImpl implements CrmContractService {
                 String checkAdminId = StrUtil.isEmpty(crmContractDO.getCheckAdminId()) ? loginAdminId.toString() : crmContractDO.getCheckAdminId() + "," + loginAdminId;
                 crmContractDO.setCheckAdminId(checkAdminId);
                 if(ShopCommonEnum.AGREE_1.getValue().equals(checkInfoVO.getAgreeType())){
+                    CrmCustomerDO customerDO = customerMapper.selectById(crmContractDO.getCustomerId());
                     //查询当前合同处于那一步骤
                     if(crmFlowStepDO.getRelation() < count){
                         crmContractDO.setCheckStatus(ContractStatusEnum.STATUS_1.getValue());
                         //判断当前步骤是不是最后一个人,如果是 开始审核后开始存储下一步信息
-                        if(crmContractDO.getFlowAdminId().size() == 1){
-                            List<Long> list = new  ArrayList<>();
-                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
-                                    .eq(CrmFlowStepDO::getFlowId,crmContractDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
-                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
-                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
-                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
-                                        .in(AdminUserDO::getDeptId,deptIds));
-                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
-                            }else{
-                                list.add(next.getAdminIds());
-                            }
-                            crmContractDO.setFlowAdminId(list);
-                            crmContractDO.setStepId(next.getId());
-                        }else {
-                            //移除已经审核等人
-                            List<Long> nowAdminId = crmContractDO.getFlowAdminId();
-                            nowAdminId.remove(loginAdminId);
-                            crmContractDO.setFlowAdminId(nowAdminId);
-                        }
+//                        if(crmContractDO.getFlowAdminId().size() == 1){
+//                            List<Long> list = new  ArrayList<>();
+//                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
+//                                    .eq(CrmFlowStepDO::getFlowId,crmContractDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
+//                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
+////                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
+////                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
+////                                        .in(AdminUserDO::getDeptId,deptIds));
+////                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
+//                            }else{
+//                                //list.add(next.getAdminIds());
+//                            }
+//                            //crmContractDO.setFlowAdminId(list);
+//                            crmContractDO.setStepId(next.getId());
+//                        }else {
+//                            //移除已经审核等人
+////                            List<Long> nowAdminId = crmContractDO.getFlowAdminId();
+////                            nowAdminId.remove(loginAdminId);
+////                            crmContractDO.setFlowAdminId(nowAdminId);
+////                            //微信队列通知 审批
+////                            nowAdminId.forEach(uid -> {
+////                                weixinNoticeProducer.sendNoticeMessage(uid,
+////                                        WechatTempateEnum.CHECK_NOTICE.getValue(),
+////                                        WechatTempateEnum.TEMPLATES.getValue(),crmContractDO.getName(),crmContractDO.getNumber(),
+////                                        SecurityFrameworkUtils.getLoginUserNickname(),customerDO.getName(),DateUtil.now());
+////                            });
+//                        }
 
                     }else{
                         //步骤走完
                         crmContractDO.setCheckStatus(ContractStatusEnum.STATUS_2.getValue());
-                        crmContractDO.setFlowAdminId(new ArrayList<>());
+                        //crmContractDO.setFlowAdminId(new ArrayList<>());
                         crmFlowLogDO.setIsEnd(ShopCommonEnum.IS_STATUS_1.getValue());//审核结束
 
                         //客户成交
-                        CrmCustomerDO customerDO = customerMapper.selectById(crmContractDO.getCustomerId());
                         customerDO.setDealStatus(ShopCommonEnum.IS_STATUS_1.getValue());
                         customerDO.setDealTime(LocalDateTime.now());
                         customerDO.setPurchaseTimes(customerDO.getPurchaseTimes() + 1);
                         customerDO.setPurchaseTotal(customerDO.getPurchaseTotal().add(crmContractDO.getMoney()));
                         customerMapper.updateById(customerDO);
-                        if(crmContractDO.getBusinessId() != null && crmContractDO.getBusinessId() > 0){
-                            crmBusinessMapper.update(CrmBusinessDO.builder()
-                                            .isEnd(ShopCommonEnum.IS_STATUS_1.getValue())
-                                            .remark("合同已签署成交")
-                                            .build(),
-                                    new LambdaQueryWrapper<CrmBusinessDO>()
-                                            .eq(CrmBusinessDO::getId,crmContractDO.getBusinessId()));
-                        }
+
                     }
                     crmFlowLogDO.setStatus(ShopCommonEnum.IS_STATUS_1.getValue());//审核通过
                 }else {
                     //拒绝
                     crmContractDO.setCheckStatus(ContractStatusEnum.STATUS_3.getValue());
                     crmContractDO.setCheckAdminId("");
-                    crmContractDO.setFlowAdminId(new ArrayList<>());
+                   // crmContractDO.setFlowAdminId(new ArrayList<>());
                     crmFlowLogDO.setRemark(checkInfoVO.getRemark());
                     //回退库存
                     List<CrmContractProductDO> list = contractProductMapper
@@ -386,22 +429,6 @@ public class CrmContractServiceImpl implements CrmContractService {
             }
         }
 
-    }
-
-    /**
-     * 增加库存 减少销量
-     *
-     * @param num       数量
-     * @param productId 商品id
-     * @param unique    sku唯一值
-     */
-    private void incProductStock(Integer num, Long productId, String unique) {
-        //处理属性sku
-        if (StrUtil.isNotEmpty(unique)) {
-            storeProductAttrValueMapper.incStockDecSales(num, productId, unique);
-        }
-        //先处理商品库存，活动商品也要处理，因为共享库存
-        storeProductMapper.incStockDecSales(num, productId);
     }
 
     private void createContractProductList(Long contractId, List<CrmContractProductDO> list) {
@@ -441,6 +468,23 @@ public class CrmContractServiceImpl implements CrmContractService {
         }
 
 
+    }
+
+
+    /**
+     * 增加库存 减少销量
+     *
+     * @param num       数量
+     * @param productId 商品id
+     * @param unique    sku唯一值
+     */
+    private void incProductStock(Integer num, Long productId, String unique) {
+        //处理属性sku
+        if (StrUtil.isNotEmpty(unique)) {
+            storeProductAttrValueMapper.incStockDecSales(num, productId, unique);
+        }
+        //先处理商品库存，活动商品也要处理，因为共享库存
+        storeProductMapper.incStockDecSales(num, productId);
     }
 
     private void updateContractProductList(Long contractId, List<CrmContractProductDO> list) {

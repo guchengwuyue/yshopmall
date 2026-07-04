@@ -1,8 +1,9 @@
 package co.yixiang.yshop.module.mp.controller.admin.tag.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * 公众号标签 Base VO，提供给添加、修改、详细的子 VO 使用

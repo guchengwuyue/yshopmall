@@ -28,6 +28,18 @@
             <artifactId>yshop-module-infra-api</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>co.yixiang.boot</groupId>
+            <artifactId>yshop-module-mp-biz</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>co.yixiang.boot</groupId>
+            <artifactId>yshop-module-crm-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
 
 
         <!-- 业务组件 -->

@@ -1,8 +1,9 @@
 package co.yixiang.yshop.framework.swagger.config;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * Swagger 配置属性

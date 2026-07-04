@@ -18,7 +18,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER # 解决 SpringFox 与 SpringBoot 2.6.x 不兼容的问题，参见 SpringFoxHandlerProviderBeanPostProcessor 类
 #    throw-exception-if-no-handler-found: true # 404 错误时抛出异常，方便统一处理
-#    static-path-pattern: /static/** # 静态资源路径; 注意：如果不配置，则 throw-exception-if-no-handler-found 不生效！！！ TODO 芋艿：不能配置，会导致 swagger 不生效
+#    static-path-pattern: /static/** # 静态资源路径; 注意：如果不配置，则 throw-exception-if-no-handler-found 不生效！！！ TODO yshop：不能配置，会导致 swagger 不生效
 
   # Jackson 配置项
   jackson:
@@ -157,6 +157,7 @@ yshop:
     permit-all_urls:
       - /admin-api/mp/open/** # 微信公众号开放平台，微信回调接口，不需要登录
       - /admin-api/file/**
+      - /admin-api/crm/order/notify/**
   websocket:
     enable: true # websocket的开关
     path: /infra/ws # 路径

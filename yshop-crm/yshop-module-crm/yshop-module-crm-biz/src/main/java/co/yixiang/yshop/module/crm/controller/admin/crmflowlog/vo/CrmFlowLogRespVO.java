@@ -1,11 +1,12 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmflowlog.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import java.util.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
+import com.alibaba.excel.annotation.*;
 
 @Schema(description = "管理后台 - 审核日志 Response VO")
 @Data
@@ -32,9 +33,12 @@ public class CrmFlowLogRespVO {
     @ExcelProperty("关联对象 contract-合同 receivables-回款 invoice-发票")
     private String types;
 
-    @Schema(description = "审核人名称", example = "芋艿")
+    @Schema(description = "审核人名称", example = "yshop")
     @ExcelProperty("审核人名称")
     private String nickname;
+
+    @Schema(description = "审核人名称", example = "yshop")
+    private String adminName;
 
     @Schema(description = "审核意见", example = "随便")
     @ExcelProperty("审核意见")
@@ -44,12 +48,24 @@ public class CrmFlowLogRespVO {
     @ExcelProperty("1审核结束")
     private Integer isEnd;
 
-    @Schema(description = "0审核未通过,1审核通过", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
-    @ExcelProperty("0审核未通过,1审核通过")
+    @Schema(description = "0-待审核 1-审核通过,2-审核拒绝 3-撤销", requiredMode = Schema.RequiredMode.REQUIRED, example = "2")
     private Integer status;
 
     @Schema(description = "创建时间")
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
+
+    @Schema(description = "审核时间")
+    private LocalDateTime adminTime;
+
+    //其他关联信息
+    @Schema(description = "名称")
+    private String otherName;
+
+    @Schema(description = "编号")
+    private String otherNo;
+
+    @Schema(description = "用户名称")
+    private String otherUser;
 
 }

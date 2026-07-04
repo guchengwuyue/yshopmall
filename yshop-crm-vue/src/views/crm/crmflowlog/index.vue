@@ -1,133 +1,49 @@
 <template>
   <ContentWrap>
-    <!-- 搜索工作栏 -->
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
-      <el-form-item label="审批流程ID" prop="flowId">
-        <el-input
-          v-model="queryParams.flowId"
-          placeholder="请输入审批流程ID"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="对象ID（如审批类型ID）" prop="typesId">
-        <el-input
-          v-model="queryParams.typesId"
-          placeholder="请输入对象ID（如审批类型ID）"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="审核人" prop="adminId">
-        <el-input
-          v-model="queryParams.adminId"
-          placeholder="请输入审核人"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="关联对象 contract-合同 receivables-回款 invoice-发票" prop="types">
-        <el-input
-          v-model="queryParams.types"
-          placeholder="请输入关联对象 contract-合同 receivables-回款 invoice-发票"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="审核人名称" prop="nickname">
-        <el-input
-          v-model="queryParams.nickname"
-          placeholder="请输入审核人名称"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="审核意见" prop="remark">
-        <el-input
-          v-model="queryParams.remark"
-          placeholder="请输入审核意见"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="1审核结束" prop="isEnd">
-        <el-input
-          v-model="queryParams.isEnd"
-          placeholder="请输入1审核结束"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="0审核未通过,1审核通过" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="请选择0审核未通过,1审核通过"
-          clearable
-          class="!w-240px"
-        >
-          <el-option label="请选择字典生成" value="" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker
-          v-model="queryParams.createTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :default-time="[new Date('1 00:00:00'), new Date('1 23:59:59')]"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
-        <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="openForm('create')"
-          v-hasPermi="['crm:flow-log:create']"
-        >
-          <Icon icon="ep:plus" class="mr-5px" /> 新增
-        </el-button>
-        <el-button
-          type="success"
-          plain
-          @click="handleExport"
-          :loading="exportLoading"
-          v-hasPermi="['crm:flow-log:export']"
-        >
-          <Icon icon="ep:download" class="mr-5px" /> 导出
-        </el-button>
-      </el-form-item>
-    </el-form>
+    <el-menu
+    :default-active="activeIndex"
+    style="margin-bottom:10px"
+    mode="horizontal"
+    @select="handleSelect"
+  >
+      <el-menu-item :index="0"> 
+        <el-badge :value="total" class="item">
+          待我审批的
+        </el-badge>
+      </el-menu-item>
+      <el-menu-item :index="1">我已审批的</el-menu-item>
+    </el-menu>
   </ContentWrap>
 
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="ID" align="center" prop="id" />
-      <el-table-column label="审批流程ID" align="center" prop="flowId" />
-      <el-table-column label="对象ID（如审批类型ID）" align="center" prop="typesId" />
-      <el-table-column label="审核人" align="center" prop="adminId" />
-      <el-table-column label="关联对象 contract-合同 receivables-回款 invoice-发票" align="center" prop="types" />
-      <el-table-column label="审核人名称" align="center" prop="nickname" />
-      <el-table-column label="审核意见" align="center" prop="remark" />
-      <el-table-column label="1审核结束" align="center" prop="isEnd" />
-      <el-table-column label="0审核未通过,1审核通过" align="center" prop="status" />
+      <el-table-column label="提交的审批人" align="center" prop="otherUser" />
+      <el-table-column label="合同编号" align="center" prop="otherNo" width="150">
+      <template #default="scope">
+          <div @click="openForm('detail',scope.row.typesId)" style="color:#409EFF;cursor: pointer">{{scope.row.otherNo}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column label="合同名称" align="center" prop="otherName" />
+      <el-table-column label="审批人" align="center" prop="adminName" />
+      <el-table-column label="审批状态" align="center" prop="status">
+        <template #default="scope">
+          <div>
+            <el-tag v-if="scope.row.status === 0"  type="primary">待审批</el-tag>
+            <el-tag v-else-if="scope.row.status === 1"  type="success">审核通过</el-tag>
+            <el-tag v-else  type="danger">审核拒绝</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="审批意见" align="center" prop="remark" />
+      <el-table-column
+        label="审批时间"
+        align="center"
+        prop="adminTime"
+        :formatter="dateFormatter"
+        width="180px"
+      />
       <el-table-column
         label="创建时间"
         align="center"
@@ -135,23 +51,21 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" v-if="activeIndex == 0">
         <template #default="scope">
           <el-button
             link
             type="primary"
-            @click="openForm('update', scope.row.id)"
-            v-hasPermi="['crm:flow-log:update']"
+            @click="openForm('agree', scope.row.id)"
           >
-            编辑
+            通过
           </el-button>
           <el-button
             link
             type="danger"
-            @click="handleDelete(scope.row.id)"
-            v-hasPermi="['crm:flow-log:delete']"
+            @click="openForm('refuse',scope.row.id)"
           >
-            删除
+            拒绝
           </el-button>
         </template>
       </el-table-column>
@@ -167,13 +81,14 @@
 
   <!-- 表单弹窗：添加/修改 -->
   <FlowLogForm ref="formRef" @success="getList" />
+  <ContractForm3 ref="formRef3"  />
 </template>
 
 <script setup lang="ts">
 import { dateFormatter } from '@/utils/formatTime'
-import download from '@/utils/download'
 import { FlowLogApi, FlowLogVO } from '@/api/crm/crmflowlog'
 import FlowLogForm from './FlowLogForm.vue'
+import ContractForm3 from '@/views/crm/crmcontract/ContractForm3.vue'
 
 /** 审核日志 列表 */
 defineOptions({ name: 'CrmFlowLog' })
@@ -187,18 +102,11 @@ const total = ref(0) // 列表的总页数
 const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
-  flowId: undefined,
-  typesId: undefined,
-  adminId: undefined,
-  types: undefined,
-  nickname: undefined,
-  remark: undefined,
-  isEnd: undefined,
   status: undefined,
   createTime: []
 })
 const queryFormRef = ref() // 搜索的表单
-const exportLoading = ref(false) // 导出的加载中
+const activeIndex = ref(0)
 
 /** 查询列表 */
 const getList = async () => {
@@ -212,11 +120,12 @@ const getList = async () => {
   }
 }
 
-/** 搜索按钮操作 */
-const handleQuery = () => {
-  queryParams.pageNo = 1
+const handleSelect = (key) => {
+  queryParams.status = key
+  activeIndex.value = key
   getList()
 }
+
 
 /** 重置按钮操作 */
 const resetQuery = () => {
@@ -226,37 +135,17 @@ const resetQuery = () => {
 
 /** 添加/修改操作 */
 const formRef = ref()
+const formRef3 = ref()
 const openForm = (type: string, id?: number) => {
-  formRef.value.open(type, id)
-}
-
-/** 删除按钮操作 */
-const handleDelete = async (id: number) => {
-  try {
-    // 删除的二次确认
-    await message.delConfirm()
-    // 发起删除
-    await FlowLogApi.deleteFlowLog(id)
-    message.success(t('common.delSuccess'))
-    // 刷新列表
-    await getList()
-  } catch {}
-}
-
-/** 导出按钮操作 */
-const handleExport = async () => {
-  try {
-    // 导出的二次确认
-    await message.exportConfirm()
-    // 发起导出
-    exportLoading.value = true
-    const data = await FlowLogApi.exportFlowLog(queryParams)
-    download.excel(data, '审核日志.xls')
-  } catch {
-  } finally {
-    exportLoading.value = false
+  if(type == 'detail'){
+    formRef3.value.open(type, id)
+  }else{
+    formRef.value.open(type, id)
   }
+  
 }
+
+
 
 /** 初始化 **/
 onMounted(() => {

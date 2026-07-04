@@ -117,6 +117,13 @@
           <dict-tag :type="DICT_TYPE.CONTRACT_CHECK_STATUS" :value="scope.row.checkStatus" />
         </template>
       </el-table-column>
+      <el-table-column label="收款方式" align="center" prop="checkStatus" width="150">
+        <template #default="scope">
+          <span v-if="scope.row.payType == 2 && scope.row.payStatus == 1">在线已付款</span>
+          <span v-else-if="scope.row.payType == 2 && scope.row.payStatus == 0">在线未付款</span>
+          <span v-else>默认</span>
+        </template>
+      </el-table-column>
       <el-table-column
         label="创建时间"
         align="center"
@@ -124,16 +131,8 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center" fixed="right" width="180">
+      <el-table-column label="操作" align="center" fixed="right" width="220">
         <template #default="scope">
-          <el-button
-            link
-            type="warning"
-            @click="openForm('check', scope.row.id)"
-            v-if="scope.row.isCheck"
-          >
-            审核
-          </el-button>
           <el-button
             link
             type="primary"
@@ -166,7 +165,7 @@
   <ContractReceivablesForm ref="formRef" @success="getList" />
   <ContractReceivablesForm2 ref="formRef2" @success="getList" />
   <ContractReceivablesForm3 ref="formRef3"  />
-  <RecordForm ref="recordFormRef"  />
+  <CustomerDetail ref="recordFormRef"  />
   <ContractDetail ref="contractDetailRef"  />
 </template>
 
@@ -178,7 +177,8 @@ import ContractReceivablesForm from './ContractReceivablesForm.vue'
 import ContractReceivablesForm2 from './ContractReceivablesForm2.vue'
 import ContractReceivablesForm3 from './ContractReceivablesForm3.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
-import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+// import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 import ContractDetail from '@/views/crm/crmcontract/ContractForm3.vue'
 
 /** 回款 列表 */
@@ -236,7 +236,7 @@ const formRef = ref()
 const formRef2 = ref()
 const formRef3 = ref()
 const contractDetailRef = ref()
-const openForm = (type: string, id?: number) => {
+const openForm = (type: string, id) => {
   if(type == 'check'){
     formRef2.value.open(type, id)
   }else if(type == 'detail'){

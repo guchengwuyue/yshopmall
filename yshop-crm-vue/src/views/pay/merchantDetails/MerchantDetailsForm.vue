@@ -15,16 +15,12 @@
       </el-form-item>
       <el-form-item label="支付id" prop="detailsId">
         <el-select v-model="formData.detailsId">
-          <!-- <el-option  :value="tenantId" /> -->
-          <el-option label="微信支付小程序" :value="'wx_miniapp'+tenantId" />
-          <el-option label="微信支付公众号" :value="'wx_wechat'+tenantId" />
-          <el-option label="微信支付H5" :value="'wx_h5'+tenantId" />
-          <el-option label="支付宝H5" :value="'ali_h5'+tenantId" />
+          <el-option label="微信支付小程序" value="wx_miniapp" />
+          <el-option label="微信支付公众号" value="wx_wechat" />
+          <el-option label="微信支付H5" value="wx_h5" />
+          <el-option label="支付宝H5" value="ali_h5" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="支付id" prop="detailsId">
-        <el-input v-model="formData.detailsId" placeholder="请输入支付id" />
-      </el-form-item> -->
       <el-form-item label="应用id" prop="appid">
         <el-input v-model="formData.appid" placeholder="请输入应用id" />
       </el-form-item>
@@ -90,14 +86,10 @@
 </template>
 <script setup lang="ts">
 import * as MerchantDetailsApi from '@/api/pay/merchantDetails'
-import { getTenantId } from '@/utils/auth'
 
 const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
-const tenantId = ref(getTenantId())
-
-console.log('tenantId:',tenantId.value)
 
 const dialogVisible = ref(false) // 弹窗的是否展示
 const dialogTitle = ref('') // 弹窗的标题

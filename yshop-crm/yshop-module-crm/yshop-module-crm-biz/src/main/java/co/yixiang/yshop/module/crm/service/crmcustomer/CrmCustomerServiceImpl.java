@@ -1,14 +1,22 @@
 package co.yixiang.yshop.module.crm.service.crmcustomer;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.yshop.framework.common.enums.UserTypeEnum;
 import co.yixiang.yshop.framework.common.exception.ErrorCode;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.framework.common.util.object.BeanUtils;
+import co.yixiang.yshop.framework.redis.util.redis.RedisUtil;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmbusiness.CrmBusinessDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractDO;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomercontacts.CrmCustomerContactsDO;
+import co.yixiang.yshop.module.crm.dal.mysql.crmbusiness.CrmBusinessMapper;
+import co.yixiang.yshop.module.crm.dal.mysql.crmcontract.CrmContractMapper;
+import co.yixiang.yshop.module.crm.dal.mysql.crmcontractreceivables.CrmContractReceivablesMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomercontacts.CrmCustomerContactsMapper;
 import co.yixiang.yshop.module.crm.enums.CustomerTypesEnum;
@@ -54,6 +62,12 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     @Resource
     private MailSendService mailSendService;
     @Resource
+    private CrmBusinessMapper crmBusinessMapper;
+    @Resource
+    private CrmContractMapper contractMapper;
+    @Resource
+    private CrmContractReceivablesMapper contractReceivablesMapper;
+    @Resource
     private CrmRecordService crmRecordService;
 
 
@@ -61,7 +75,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     @Transactional(rollbackFor = Exception.class)
     public Long createCustomer(CrmCustomerSaveReqVO createReqVO) {
 
-
+        limitCustomer(SecurityFrameworkUtils.getLoginUserId());
         // 插入
         CrmCustomerDO customer = BeanUtils.toBean(createReqVO, CrmCustomerDO.class);
         customer.setCollectTime(LocalDateTime.now());
@@ -106,10 +120,30 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     public void deleteCustomer(Long id) {
         // 校验存在
         validateCustomerExists(id);
+        //判断客户关联
+        Long count = crmBusinessMapper.selectCount(new LambdaQueryWrapper<CrmBusinessDO>().eq(CrmBusinessDO::getCustomerId,id));
+        if(count > 0){
+            throw exception(new ErrorCode(20241010,"当前客户下有商机不可以删除"));
+        }
+        Long count2 = contractMapper.selectCount(new LambdaQueryWrapper<CrmContractDO>().eq(CrmContractDO::getCustomerId,id));
+        if(count2 > 0){
+            throw exception(new ErrorCode(20241010,"当前客户下有合同不可以删除"));
+        }
+        Long count3 = contractReceivablesMapper.selectCount(new LambdaQueryWrapper<CrmContractReceivablesDO>().eq(CrmContractReceivablesDO::getCustomerId,id));
+        if(count3 > 0){
+            throw exception(new ErrorCode(20241010,"当前客户下有商机不可以删除"));
+        }
+
         // 删除
         customerMapper.deleteById(id);
 
+        //删除记录
+//        crmRecordMapper.delete(new LambdaQueryWrapper<CrmRecordDO>()
+//                .eq(CrmRecordDO::getTypes, TypesEnum.CUSTOMER.getValue())
+//                .eq(CrmRecordDO::getTypesId,id));
         crmRecordService.deleteByType(TypesEnum.CUSTOMER.getValue(),id);
+        customerContactsMapper.delete(new LambdaQueryWrapper<CrmCustomerContactsDO>().eq(CrmCustomerContactsDO::getCustomerId,id));
+
 
         //插入日志
         crmOperatelogService.createLog("删除客户",id,0L,0L);
@@ -128,7 +162,9 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         //设置联系人的拥有0
         customerContactsMapper.update(CrmCustomerContactsDO.builder().ownerUserId(0L).build(),
                 new LambdaQueryWrapper<CrmCustomerContactsDO>().eq(CrmCustomerContactsDO::getCustomerId,id));
+
         crmRecordService.deleteByType(TypesEnum.CUSTOMER.getValue(),id);
+
         //插入日志
         crmOperatelogService.createLog("放入公海",id,0L,0L);
     }
@@ -137,12 +173,10 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     @Transactional(rollbackFor = Exception.class)
     public void receiveCustomer(Long id) {
         CrmCustomerDO customerDO = customerMapper.selectById(id);
-        if(customerDO.getOwnerUserId() > 0){
-            throw exception(new ErrorCode(202603131, "客户已领取"));
-        }
         if(customerDO == null){
             throw exception(CUSTOMER_NOT_EXISTS);
         }
+        limitCustomer(SecurityFrameworkUtils.getLoginUserId());
         customerDO.setOwnerUserId(SecurityFrameworkUtils.getLoginUserId());
         customerDO.setCollectTime(LocalDateTime.now());
         customerDO.setFollowTime(LocalDateTime.now());
@@ -169,7 +203,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     }
 
     @Override
-    public PageResult<CrmCustomerRespVO> getCustomerPage(CrmCustomerPageReqVO pageReqVO) {
+    public PageResult<CrmCustomerDO> getCustomerPage(CrmCustomerPageReqVO pageReqVO) {
         List<Long> ids = new ArrayList<>();
         Long adminId = SecurityFrameworkUtils.getLoginUserId();
         if(CustomerTypesEnum.OPEN.getValue().equals(pageReqVO.getType())){
@@ -181,13 +215,48 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
                 ids = adminUserApi.getUserListBySubordinateIds(adminId);
             }
         }
-        return customerMapper.selectPage2(pageReqVO,ids);
+        return customerMapper.selectPage(pageReqVO,ids);
     }
 
 
     @Override
     public PageResult<CrmCustomerRespVO> getCustomerPage2(CrmCustomerPageReqVO pageReqVO) {
-        return customerMapper.selectPage2(pageReqVO,new ArrayList<>());
+        List<Long> ids = new ArrayList<>();
+        Long adminId = SecurityFrameworkUtils.getLoginUserId();
+        if(CustomerTypesEnum.OPEN.getValue().equals(pageReqVO.getType())){
+            ids.add(0L);
+        }else{
+            if(RelationEnum.MY.getValue().equals(pageReqVO.getRelation())){
+                ids.add(adminId);
+            }else if(RelationEnum.SUB.getValue().equals(pageReqVO.getRelation())){
+                ids = adminUserApi.getUserListBySubordinateIds(adminId);
+            }else if(RelationEnum.ALL.getValue().equals(pageReqVO.getRelation())){
+                //这里要还要查询团队成员数据
+                ids.add(adminId);
+                ids.addAll(adminUserApi.getUserListBySubordinateIds(adminId));
+            }
+        }
+        PageResult<CrmCustomerRespVO> result = customerMapper.selectPage2(pageReqVO,ids);
+
+        for (CrmCustomerRespVO respVO : result.getList()){
+            //all-所有权限(拥有者) edit-读写权限 read-只读权限"
+            String permission = "all";
+            if(StrUtil.isNotEmpty(respVO.getRoUserId())){
+                List<String> roUsers = StrUtil.split(respVO.getRoUserId(),",");
+                if(roUsers.contains(String.valueOf(adminId))){
+                    permission = "read";
+                }
+            }
+            if(StrUtil.isNotEmpty(respVO.getRwUserId())){
+                List<String> rwUsers = StrUtil.split(respVO.getRwUserId(),",");
+                if(rwUsers.contains(String.valueOf(adminId))){
+                    permission = "edit"; //他只是有修改与跟进、添加相关联系人权限而且 其他比如放入公海等是不可以的
+                }
+            }
+            respVO.setPermission(permission);
+        }
+
+        return result;
     }
 
 
@@ -195,7 +264,7 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
     public void  sendSms(SmsTemplateSendVO sendVO) {
         List<CrmCustomerContactsDO> crmCustomerDOS = null;
         if(sendVO.getIsCustomer()){
-            crmCustomerDOS = customerContactsMapper.selectList(new LambdaQueryWrapper<CrmCustomerContactsDO>().
+             crmCustomerDOS = customerContactsMapper.selectList(new LambdaQueryWrapper<CrmCustomerContactsDO>().
                     in(CrmCustomerContactsDO::getCustomerId,sendVO.getCustomerIds()));
         }else{
             crmCustomerDOS = customerContactsMapper.selectList(new LambdaQueryWrapper<CrmCustomerContactsDO>().
@@ -237,4 +306,17 @@ public class CrmCustomerServiceImpl implements CrmCustomerService {
         });
     }
 
+
+
+    private void limitCustomer(Long uid){
+        Integer customerNum = RedisUtil.get("customerNum");
+        if(customerNum == null || customerNum == 0){
+            return;
+        }
+        Long count = customerMapper.selectCount(new LambdaQueryWrapper<CrmCustomerDO>()
+                .eq(CrmCustomerDO::getOwnerUserId,uid));
+        if(NumberUtil.compare(count,customerNum) > 0){
+            throw exception(new ErrorCode(202502130,"员工id:"+uid+"超出拥有客户限制"));
+        }
+    }
 }

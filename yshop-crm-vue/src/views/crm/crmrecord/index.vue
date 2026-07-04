@@ -95,7 +95,7 @@
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
-  <RecordForm ref="formRef" @success="getList" />
+  <CustomerDetail ref="formRef" @success="getList" />
 </template>
 
 <script setup lang="ts">
@@ -104,6 +104,7 @@ import download from '@/utils/download'
 import { RecordApi, RecordVO } from '@/api/crm/crmrecord'
 import RecordForm from './RecordForm.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 
 /** 跟进记录 列表 */
 defineOptions({ name: 'CrmRecord' })
@@ -160,7 +161,7 @@ const resetQuery = () => {
 /** 添加/修改操作 */
 const formRef = ref()
 const openForm = (type: string, id?: number) => {
-  formRef.value.open('', id)
+  formRef.value.open('', id,{})
 }
 
 /** 删除按钮操作 */

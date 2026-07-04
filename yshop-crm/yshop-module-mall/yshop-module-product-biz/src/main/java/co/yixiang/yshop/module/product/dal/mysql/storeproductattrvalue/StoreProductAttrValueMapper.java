@@ -38,4 +38,6 @@ public interface StoreProductAttrValueMapper extends BaseMapperX<StoreProductAtt
     int incStockDecSales(@Param("num") Integer num,@Param("productId") Long productId,
                          @Param("unique")  String unique);
 
+
+
 }

@@ -23,7 +23,7 @@ public class TenantRespVO {
     @ExcelProperty("租户名")
     private String name;
 
-    @Schema(description = "联系人", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "联系人", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @ExcelProperty("联系人")
     private String contactName;
 

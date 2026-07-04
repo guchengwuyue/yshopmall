@@ -1,15 +1,10 @@
 package co.yixiang.yshop.module.shop.service.material;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.shop.controller.admin.material.vo.MaterialCreateReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.material.vo.MaterialExportReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.material.vo.MaterialPageReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.material.vo.MaterialUpdateReqVO;
+import java.util.*;
+import jakarta.validation.*;
+import co.yixiang.yshop.module.shop.controller.admin.material.vo.*;
 import co.yixiang.yshop.module.shop.dal.dataobject.material.MaterialDO;
-import jakarta.validation.Valid;
-
-import java.util.Collection;
-import java.util.List;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
 
 /**
  * 素材库 Service 接口

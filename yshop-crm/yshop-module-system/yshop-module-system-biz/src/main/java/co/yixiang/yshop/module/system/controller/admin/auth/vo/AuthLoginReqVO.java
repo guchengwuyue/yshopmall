@@ -32,6 +32,8 @@ public class AuthLoginReqVO {
     @Length(min = 4, max = 16, message = "密码长度为 4-16 位")
     private String password;
 
+
+
     // ========== 图片验证码相关 ==========
 
     @Schema(description = "验证码，验证码开启时，需要传递", requiredMode = Schema.RequiredMode.REQUIRED,
@@ -56,14 +58,14 @@ public class AuthLoginReqVO {
      */
     public interface CodeEnableGroup {}
 
-    @AssertTrue(message = "授权码不能为空")
-    public boolean isSocialCodeValid() {
-        return socialType == null || StrUtil.isNotEmpty(socialCode);
-    }
+//    @AssertTrue(message = "授权码不能为空")
+//    public boolean isSocialCodeValid() {
+//        return socialType == null || StrUtil.isNotEmpty(socialCode);
+//    }
 
-    @AssertTrue(message = "授权 state 不能为空")
-    public boolean isSocialState() {
-        return socialType == null || StrUtil.isNotEmpty(socialState);
-    }
+//    @AssertTrue(message = "授权 state 不能为空")
+//    public boolean isSocialState() {
+//        return socialType == null || StrUtil.isNotEmpty(socialState);
+//    }
 
 }

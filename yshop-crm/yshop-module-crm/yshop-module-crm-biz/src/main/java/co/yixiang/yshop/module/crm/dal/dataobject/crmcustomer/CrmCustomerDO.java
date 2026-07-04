@@ -1,13 +1,16 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.*;
-
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 客户 DO
@@ -91,6 +94,12 @@ public class CrmCustomerDO extends BaseDO {
      * 区域ID
      */
     private Integer area;
+
+    /**
+     * 地址组合字符串
+     */
+    private String addressStr;
+
     /**
      * 详细地址
      */
@@ -135,5 +144,15 @@ public class CrmCustomerDO extends BaseDO {
      * 跟进状态
      */
     private Integer followStatus;
+
+    /**
+     * 读写权限用户
+     */
+    private String rwUserId;
+
+    /**
+     * 只读权限用户
+     */
+    private String roUserId;
 
 }

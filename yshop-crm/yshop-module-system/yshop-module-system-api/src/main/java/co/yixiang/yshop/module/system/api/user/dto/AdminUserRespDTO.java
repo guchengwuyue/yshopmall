@@ -21,6 +21,8 @@ public class AdminUserRespDTO {
      * 用户昵称
      */
     private String nickname;
+
+    private String avatar;
     /**
      * 帐号状态
      *
@@ -40,5 +42,7 @@ public class AdminUserRespDTO {
      * 手机号码
      */
     private String mobile;
+
+    private String openid;
 
 }

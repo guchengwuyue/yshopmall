@@ -42,6 +42,7 @@ public class CrmCustomerContactsServiceImpl implements CrmCustomerContactsServic
     public Long createCustomerContacts(CrmCustomerContactsSaveReqVO createReqVO) {
         // 插入
         CrmCustomerContactsDO customerContacts = BeanUtils.toBean(createReqVO, CrmCustomerContactsDO.class);
+        customerContacts.setOwnerUserId(SecurityFrameworkUtils.getLoginUserId());
         customerContactsMapper.insert(customerContacts);
         // 返回
         return customerContacts.getId();

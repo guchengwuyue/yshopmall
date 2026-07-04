@@ -25,6 +25,8 @@ public class CrmOperatelogServiceImpl implements CrmOperatelogService {
 
     @Override
     public void createLog(String title, Long customerId, Long contractId, Long receivableId) {
+        String name = SecurityFrameworkUtils.getLoginUser() != null ?
+                SecurityFrameworkUtils.getLoginUser().getInfo().get("nickname") : "--";
         CrmOperatelogDO crmOperatelogDO = CrmOperatelogDO.builder()
                 .title(title)
                 .customerId(customerId)
@@ -33,8 +35,8 @@ public class CrmOperatelogServiceImpl implements CrmOperatelogService {
                 .ip(ServletUtils.getClientIP())
                 .useragent(ServletUtils.getUserAgent())
                 .url(ServletUtils.getUrl())
-                .nickname(SecurityFrameworkUtils.getLoginUser().getInfo().get("nickname"))
-                .username(SecurityFrameworkUtils.getLoginUser().getInfo().get("nickname"))
+                .nickname(name)
+                .username(name)
                 .build();
 
         crmOperatelogMapper.insert(crmOperatelogDO);

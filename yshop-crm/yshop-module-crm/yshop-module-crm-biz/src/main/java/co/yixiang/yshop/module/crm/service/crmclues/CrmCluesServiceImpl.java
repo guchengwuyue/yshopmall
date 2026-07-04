@@ -1,30 +1,21 @@
 package co.yixiang.yshop.module.crm.service.crmclues;
 
-import co.yixiang.yshop.framework.common.enums.ShopCommonEnum;
-import co.yixiang.yshop.framework.common.exception.ErrorCode;
 import co.yixiang.yshop.framework.common.pojo.PageResult;
 import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesPageReqVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesRespVO;
 import co.yixiang.yshop.module.crm.controller.admin.crmclues.vo.CrmCluesSaveReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcustomer.vo.CrmCustomerSaveReqVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmclues.CrmCluesDO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmrecord.CrmRecordDO;
 import co.yixiang.yshop.module.crm.dal.mysql.crmclues.CrmCluesMapper;
-import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
-import co.yixiang.yshop.module.crm.dal.mysql.crmrecord.CrmRecordMapper;
 import co.yixiang.yshop.module.crm.enums.CluesStatusEnum;
 import co.yixiang.yshop.module.crm.enums.CustomerTypesEnum;
 import co.yixiang.yshop.module.crm.enums.RelationEnum;
 import co.yixiang.yshop.module.crm.enums.TypesEnum;
 import co.yixiang.yshop.module.crm.service.crmrecord.CrmRecordService;
 import co.yixiang.yshop.module.system.api.user.AdminUserApi;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
@@ -47,10 +38,7 @@ public class CrmCluesServiceImpl implements CrmCluesService {
     private CrmCluesMapper cluesMapper;
     @Resource
     private AdminUserApi adminUserApi;
-    @Resource
-    private CrmCustomerMapper customerMapper;
-    @Resource
-    private CrmRecordMapper crmRecordMapper;
+
     @Resource
     private CrmRecordService crmRecordService;
 
@@ -80,6 +68,7 @@ public class CrmCluesServiceImpl implements CrmCluesService {
         // 删除
         cluesMapper.deleteById(id);
 
+        //删除记录
         crmRecordService.deleteByType(TypesEnum.CLUES.getValue(),id);
     }
 
@@ -117,16 +106,13 @@ public class CrmCluesServiceImpl implements CrmCluesService {
         }
         crmCluesDO.setOwnerUserId(0L);
         cluesMapper.updateById(crmCluesDO);
-
+        //删除记录
         crmRecordService.deleteByType(TypesEnum.CLUES.getValue(),id);
     }
 
     @Override
     public void receiveClues(Long id) {
         CrmCluesDO crmCluesDO = cluesMapper.selectById(id);
-        if(crmCluesDO.getOwnerUserId() > 0){
-            throw exception(new ErrorCode(202603130, "线索已领取"));
-        }
         if (crmCluesDO == null) {
             throw exception(CLUES_NOT_EXISTS);
         }
@@ -138,31 +124,6 @@ public class CrmCluesServiceImpl implements CrmCluesService {
 
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void createCustomer(CrmCustomerSaveReqVO createReqVO) {
-        CrmCluesDO crmCluesDO = cluesMapper.selectById(createReqVO.getId());
-        if (crmCluesDO == null) {
-            throw exception(CLUES_NOT_EXISTS);
-        }
-        createReqVO.setId(null);
-        CrmCustomerDO customerDO = BeanUtils.toBean(createReqVO,CrmCustomerDO.class);
-        customerDO.setOwnerUserId(SecurityFrameworkUtils.getLoginUserId());
-        customerDO.setNextTime(LocalDateTime.now());
-        customerDO.setCollectTime(LocalDateTime.now());
-        customerMapper.insert(customerDO);
 
-        //更新线索
-        crmCluesDO.setStatus(CluesStatusEnum.STATUS_1.getValue());
-        crmCluesDO.setCustomerId(customerDO.getId());
-        cluesMapper.updateById(crmCluesDO);
 
-        //是否更新跟踪记录
-        if(ShopCommonEnum.ENABLE_1.getValue().equals(createReqVO.getIsTransfer())){
-            crmRecordMapper.update(CrmRecordDO.builder()
-                    .types(TypesEnum.CUSTOMER.getValue())
-                    .typesId(customerDO.getId()).build(),
-                    new LambdaQueryWrapper<CrmRecordDO>().eq(CrmRecordDO::getTypesId,crmCluesDO.getId()));
-        }
-    }
 }

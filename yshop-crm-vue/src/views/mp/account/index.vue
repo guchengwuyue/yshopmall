@@ -93,7 +93,6 @@
             link
             type="primary"
             @click="setMain(scope.row)"
-            v-hasPermi="['mp:account:set-main']"
           >
             设置为主账户
           </el-button>

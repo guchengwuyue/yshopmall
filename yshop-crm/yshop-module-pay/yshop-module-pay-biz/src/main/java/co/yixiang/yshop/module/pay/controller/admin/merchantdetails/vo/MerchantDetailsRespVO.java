@@ -1,9 +1,7 @@
 package co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Schema(description = "管理后台 - 支付服务商配置 Response VO")
 @Data

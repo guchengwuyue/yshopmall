@@ -2,6 +2,7 @@ package co.yixiang.yshop.module.system.api.user;
 
 import co.yixiang.yshop.framework.common.util.collection.CollectionUtils;
 import co.yixiang.yshop.module.system.api.user.dto.AdminUserRespDTO;
+import co.yixiang.yshop.module.system.api.user.dto.UserSaveDTO;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -87,5 +88,12 @@ public interface AdminUserApi {
      * @param ids 用户编号数组
      */
     void validateUserList(Collection<Long> ids);
+
+    /**
+     * 通过企业微信创建新用户
+     * @param userSaveDTO
+     * @return
+     */
+    Long createNewUser(UserSaveDTO userSaveDTO);
 
 }

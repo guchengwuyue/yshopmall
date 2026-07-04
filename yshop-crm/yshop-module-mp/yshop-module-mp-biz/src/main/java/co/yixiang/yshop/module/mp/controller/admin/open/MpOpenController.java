@@ -11,7 +11,6 @@ import co.yixiang.yshop.module.mp.framework.mp.core.context.MpContextHolder;
 import co.yixiang.yshop.module.mp.service.account.MpAccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -20,6 +19,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.annotation.Resource;
 import java.util.Objects;
 
 @Tag(name = "管理后台 - 公众号回调")

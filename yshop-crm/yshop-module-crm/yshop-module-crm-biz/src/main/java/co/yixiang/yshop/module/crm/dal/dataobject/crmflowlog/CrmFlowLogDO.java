@@ -1,10 +1,12 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmflowlog;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 审核日志 DO
@@ -55,8 +57,13 @@ public class CrmFlowLogDO extends BaseDO {
      */
     private Integer isEnd;
     /**
-     * 0审核未通过,1审核通过
+     * 0-待审核 1-审核通过,2-审核拒绝 3-撤销
      */
     private Integer status;
+
+    /**
+     * 审核时间
+     */
+    private LocalDateTime adminTime;
 
 }

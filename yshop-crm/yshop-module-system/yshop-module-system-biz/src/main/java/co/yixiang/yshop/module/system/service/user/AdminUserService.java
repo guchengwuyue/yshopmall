@@ -203,4 +203,6 @@ public interface AdminUserService {
      */
     boolean isPasswordMatch(String rawPassword, String encodedPassword);
 
+    void updateUserOpenid(String openid);
+
 }

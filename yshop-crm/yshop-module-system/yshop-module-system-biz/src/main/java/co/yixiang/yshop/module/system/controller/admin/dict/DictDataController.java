@@ -11,6 +11,7 @@ import co.yixiang.yshop.module.system.controller.admin.dict.vo.data.DictDataPage
 import co.yixiang.yshop.module.system.controller.admin.dict.vo.data.DictDataRespVO;
 import co.yixiang.yshop.module.system.controller.admin.dict.vo.data.DictDataSaveReqVO;
 import co.yixiang.yshop.module.system.controller.admin.dict.vo.data.DictDataSimpleRespVO;
+import co.yixiang.yshop.module.system.controller.app.dict.vo.AppDictDataRespVO;
 import co.yixiang.yshop.module.system.dal.dataobject.dict.DictDataDO;
 import co.yixiang.yshop.module.system.service.dict.DictDataService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,6 +100,15 @@ public class DictDataController {
         // 输出
         ExcelUtils.write(response, "字典数据.xls", "数据", DictDataRespVO.class,
                 BeanUtils.toBean(list, DictDataRespVO.class));
+    }
+
+    @GetMapping("/type")
+    @Operation(summary = "根据字典类型查询字典数据信息")
+    @Parameter(name = "type", description = "字典类型", required = true, example = "common_status")
+    public CommonResult<List<AppDictDataRespVO>> getDictDataListByType(@RequestParam("type") String type) {
+        List<DictDataDO> list = dictDataService.getDictDataList(
+                CommonStatusEnum.ENABLE.getStatus(), type);
+        return success(BeanUtils.toBean(list, AppDictDataRespVO.class));
     }
 
 }

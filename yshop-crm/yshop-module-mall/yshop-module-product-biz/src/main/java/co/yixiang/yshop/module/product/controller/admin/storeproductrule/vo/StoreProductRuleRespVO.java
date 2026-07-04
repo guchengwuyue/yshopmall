@@ -1,10 +1,7 @@
 package co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 商品规则值(规格) Response VO")

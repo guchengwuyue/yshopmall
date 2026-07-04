@@ -189,6 +189,10 @@ defineExpose({ open })
 
 const emit = defineEmits(['saveBusiness'])
 const doSelect = async (row) => {
+  if(row.isEnd == 3){
+    message.error('此商机无效');
+    return
+  }
   emit('saveBusiness', row);
   groupVisible.value = false;
 }

@@ -80,7 +80,7 @@
       <el-table-column label="发票类型" align="center" prop="invoiceType">
         <template #default="scope">
           <div>
-            <el-tag v-if="scope.row.invoiceType === 1"  type="success">增普</el-tag>
+            <el-tag v-if="scope.row.status === 1"  type="success">增普</el-tag>
             <el-tag v-else  type="danger">增专</el-tag>
           </div>
         </template>
@@ -117,16 +117,9 @@
           <el-button
             link
             type="warning"
-            @click="openForm('check', scope.row.id)"
-            v-if="scope.row.isCheck"
-          >
-            审核
-          </el-button>
-          <el-button
-            link
-            type="warning"
             @click="openForm('issue', scope.row.id)"
             v-if="scope.row.checkStatus == 2"
+            v-hasPermi="['crm:invoice:issue']"
           >
             开具
           </el-button>
@@ -135,6 +128,7 @@
             type="success"
             @click="openForm('log', scope.row.id)"
             v-if="scope.row.isCheck"
+            v-hasPermi="['crm:invoice:log']"
           >
             日志
           </el-button>
@@ -171,7 +165,7 @@
   <InvoiceForm2 ref="formRef2" @success="getList" />
   <InvoiceForm3 ref="formRef3" @success="getList" />
   <ContractDetail ref="contractDetailRef"  />
-  <RecordForm ref="recordFormRef"  />
+  <CustomerDetail ref="recordFormRef"  />
   <Log ref="logRef"  />
 </template>
 
@@ -186,6 +180,7 @@ import Log from './log.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import ContractDetail from '@/views/crm/crmcontract/ContractForm3.vue'
 import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 
 /** 发票 列表 */
 defineOptions({ name: 'CrmInvoice' })

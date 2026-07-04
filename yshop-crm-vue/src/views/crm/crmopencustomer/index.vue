@@ -102,6 +102,7 @@
           plain
           @click="openSms"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:open-customer:send-sms']"
         >
           <Icon icon="ep:notification" class="mr-5px" /> 发短信
         </el-button>
@@ -109,6 +110,7 @@
           plain
           @click="openMail"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:open-customer:send-mail']"
         >
           <Icon icon="ep:message" class="mr-5px" /> 发邮件
         </el-button>
@@ -183,6 +185,7 @@
             link
             type="success"
             @click="handleReceive(scope.row.id)"
+            v-hasPermi="['crm:open-customer:receive']"
           >
             领取
           </el-button>
@@ -272,22 +275,6 @@ const resetQuery = () => {
   handleQuery()
 }
 
-const handleSelectionChange = (val) => {
-  if(val.length > 0) {
-    isDisabled.value = false
-  }
-  selectCustomers.value = val
-}
-
-const smsTemplateSendFormRef = ref()
-const openSms = () => {
-  smsTemplateSendFormRef.value.open(selectCustomers.value,true)
-}
-
-const mailTemplateSendFormRef = ref()
-const openMail = () => {
-  mailTemplateSendFormRef.value.open(selectCustomers.value,true)
-}
 
 
 const handleReceive = async (id: number) => {
@@ -302,20 +289,24 @@ const handleReceive = async (id: number) => {
   } catch {}
 }
 
-/** 导出按钮操作 */
-const handleExport = async () => {
-  try {
-    // 导出的二次确认
-    await message.exportConfirm()
-    // 发起导出
-    exportLoading.value = true
-    const data = await CustomerApi.exportCustomer(queryParams)
-    download.excel(data, '客户.xls')
-  } catch {
-  } finally {
-    exportLoading.value = false
+const handleSelectionChange = (val) => {
+  if(val.length > 0) {
+    isDisabled.value = false
   }
+  selectCustomers.value = val
 }
+
+
+const smsTemplateSendFormRef = ref()
+const openSms = () => {
+  smsTemplateSendFormRef.value.open(selectCustomers.value,true)
+}
+
+const mailTemplateSendFormRef = ref()
+const openMail = () => {
+  mailTemplateSendFormRef.value.open(selectCustomers.value,true)
+}
+
 
 /** 初始化 **/
 onMounted(() => {

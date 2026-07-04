@@ -55,6 +55,10 @@ export const ContractReceivablesApi = {
   checkContract: async (data) => {
     return await request.post({ url: `/crm/contract-receivables/check`, data })
   },
+
+  pay: async (data) => {
+    return await request.post({ url: `/crm/order/pay`, data })
+  },
   // 导出回款 Excel
   exportContractReceivables: async (params) => {
     return await request.download({ url: `/crm/contract-receivables/export-excel`, params })

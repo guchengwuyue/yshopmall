@@ -15,11 +15,10 @@ public class WeixinNoticeMessage extends AbstractRedisStreamMessage {
     //消息类型
     private String type;
 
-    //订单好
-    private String orderId;
 
-    //价格
-    private String price;
+    private String title;
+
+    private String code;
 
     //用户
     private Long uid;
@@ -27,23 +26,11 @@ public class WeixinNoticeMessage extends AbstractRedisStreamMessage {
     //时间
     private String time;
 
-    // 快递公司
-    private String deliveryName;
 
-    // 快递单号
-    private String deliveryId;
+    private String owner;
 
-    //订单ID
-    private Long id;
+    private String customer;
 
-    //取餐号
-    private Integer numberId;
-
-    //产品名称
-    private String productName;
-
-    //门店名称
-    private String shopName;
 
 
 

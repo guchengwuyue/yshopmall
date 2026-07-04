@@ -48,6 +48,12 @@ export default defineComponent({
         )?.children
 
         tabActive.value = path
+        ref(unref(fixedMenu)).value = false;
+        if(path == '/index'){
+          appStore.setFixedMenu(false)
+          showMenu.value = false
+        }
+      
         if (children) {
           permissionStore.setMenuTabRouters(
             cloneDeep(children).map((v) => {
@@ -102,6 +108,7 @@ export default defineComponent({
       const oldPath = unref(tabActive)
       tabActive.value = item.children ? item.path : item.path.split('/')[0]
       if (item.children) {
+        appStore.setFixedMenu(true)
         if (newPath === oldPath || !unref(showMenu)) {
           showMenu.value = unref(fixedMenu) ? true : !unref(showMenu)
         }
@@ -117,12 +124,19 @@ export default defineComponent({
         push(item.path)
         permissionStore.setMenuTabRouters([])
         showMenu.value = false
+        fixedMenu.value = false
+        appStore.setFixedMenu(false)
       }
     }
 
     // 设置高亮
     const isActive = (currentPath: string) => {
       const { path } = unref(currentRoute)
+      //console.log('tabPathMap[currentPath]:',tabPathMap[currentPath])
+     // console.log('path22:',path)
+      if(path == '/index' && tabPathMap[currentPath].includes('/'+path)){
+        return true
+      }
       if (tabPathMap[currentPath].includes(path)) {
         return true
       }
@@ -199,7 +213,7 @@ export default defineComponent({
             {
               '!left-[var(--tab-menu-min-width)]': unref(collapse),
               '!left-[var(--tab-menu-max-width)]': !unref(collapse),
-              '!w-[calc(var(--left-menu-max-width)+1px)]': unref(showMenu) || unref(fixedMenu),
+              '!w-[calc(var(--left-menu-max-width)+1px)]': unref(showMenu) && unref(fixedMenu),
               '!w-0': !unref(showMenu) && !unref(fixedMenu)
             }
           ]}

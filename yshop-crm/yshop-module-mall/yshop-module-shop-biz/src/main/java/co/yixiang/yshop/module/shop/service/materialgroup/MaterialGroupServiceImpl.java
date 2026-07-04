@@ -1,22 +1,19 @@
 package co.yixiang.yshop.module.shop.service.materialgroup;
 
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.shop.controller.admin.materialgroup.vo.MaterialGroupCreateReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.materialgroup.vo.MaterialGroupExportReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.materialgroup.vo.MaterialGroupPageReqVO;
-import co.yixiang.yshop.module.shop.controller.admin.materialgroup.vo.MaterialGroupUpdateReqVO;
-import co.yixiang.yshop.module.shop.convert.materialgroup.MaterialGroupConvert;
-import co.yixiang.yshop.module.shop.dal.dataobject.materialgroup.MaterialGroupDO;
-import co.yixiang.yshop.module.shop.dal.mysql.materialgroup.MaterialGroupMapper;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import co.yixiang.yshop.module.shop.controller.admin.materialgroup.vo.*;
+import co.yixiang.yshop.module.shop.dal.dataobject.materialgroup.MaterialGroupDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+
+import co.yixiang.yshop.module.shop.convert.materialgroup.MaterialGroupConvert;
+import co.yixiang.yshop.module.shop.dal.mysql.materialgroup.MaterialGroupMapper;
 
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static co.yixiang.yshop.module.shop.enums.ErrorCodeConstants.MATERIAL_GROUP_NOT_EXISTS;
+import static co.yixiang.yshop.module.shop.enums.ErrorCodeConstants.*;
 
 /**
  * 素材分组 Service 实现类

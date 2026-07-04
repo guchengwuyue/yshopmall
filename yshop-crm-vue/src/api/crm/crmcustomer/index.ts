@@ -76,12 +76,23 @@ export const CustomerApi = {
     return await request.download({ url: `/crm/customer/export-excel`, params })
   },
 
-   sendSms: async (data) => {
+  sendSms: async (data) => {
     return await request.post({ url: `/crm/customer/send-sms`, data })
   },
   sendMail: async (data) => {
     return await request.post({ url: `/crm/customer/send-mail`, data })
   },
+
+  getRedisSet: async (data) => {
+    return await request.get({ url: `/crm/customer/getRedisSet`, data })
+  },
+
+  saveRedisSet: async (data) => {
+    return await request.post({ url: `/crm/customer/saveRedisSet`, data })
+  },
+
+
+  
   
 
 // ==================== 子表（联系人） ====================

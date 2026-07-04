@@ -102,7 +102,7 @@
 import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { RecordApi, RecordVO } from '@/api/crm/crmrecord'
-import RecordForm from './RecordForm.vue'
+import RecordForm from '@/views/crm/crmbusiness/BusinessDetail.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 
 /** 跟进记录 列表 */

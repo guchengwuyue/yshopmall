@@ -39,7 +39,7 @@ public class IdTypeEnvironmentPostProcessor implements EnvironmentPostProcessor 
         }
 
         // 设置 Quartz JobStore 对应的 Driver
-        // TODO 芋艿：暂时没有找到特别合适的地方，先放在这里
+        // TODO yshop：暂时没有找到特别合适的地方，先放在这里
         setJobStoreDriverIfPresent(environment, dbType);
 
         // 初始化 SQL 静态变量

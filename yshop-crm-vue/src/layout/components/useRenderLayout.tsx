@@ -231,6 +231,7 @@ export const useRenderLayout = () => {
   }
 
   const renderCutMenu = () => {
+    console.log('prefixCls:',prefixCls)
     return (
       <>
         <div class="relative flex items-center bg-[var(--top-header-bg-color)] layout-border__bottom">

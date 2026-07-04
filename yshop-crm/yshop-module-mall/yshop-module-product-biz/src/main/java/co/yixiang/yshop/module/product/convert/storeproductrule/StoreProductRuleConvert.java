@@ -1,15 +1,13 @@
 package co.yixiang.yshop.module.product.convert.storeproductrule;
 
+import java.util.*;
+
 import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo.StoreProductRuleCreateReqVO;
-import co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo.StoreProductRuleExcelVO;
-import co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo.StoreProductRuleRespVO;
-import co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo.StoreProductRuleUpdateReqVO;
-import co.yixiang.yshop.module.product.dal.dataobject.storeproductrule.StoreProductRuleDO;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
+import co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo.*;
+import co.yixiang.yshop.module.product.dal.dataobject.storeproductrule.StoreProductRuleDO;
 
 /**
  * 商品规则值(规格) Convert

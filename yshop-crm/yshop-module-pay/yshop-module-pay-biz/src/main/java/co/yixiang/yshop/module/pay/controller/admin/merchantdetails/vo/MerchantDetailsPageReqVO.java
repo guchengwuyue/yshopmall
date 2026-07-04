@@ -1,10 +1,8 @@
 package co.yixiang.yshop.module.pay.controller.admin.merchantdetails.vo;
 
-import co.yixiang.yshop.framework.common.pojo.PageParam;
+import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 
 @Schema(description = "管理后台 - 支付服务商配置分页 Request VO")
 @Data

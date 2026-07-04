@@ -6,8 +6,10 @@
     mode="horizontal"
     @select="handleSelect"
   >
+      <el-menu-item index="all">全部客户</el-menu-item>
       <el-menu-item index="my">我的客户</el-menu-item>
       <el-menu-item index="sub">下属客户</el-menu-item>
+      <el-menu-item index="today">今日跟进客户</el-menu-item>
     </el-menu>
     <!-- 搜索工作栏 -->
     <el-form
@@ -128,6 +130,7 @@
           plain
           @click="openSms"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:customer:send-sms']"
         >
           <Icon icon="ep:notification" class="mr-5px" /> 发短信
         </el-button>
@@ -135,6 +138,7 @@
           plain
           @click="openMail"
           :disabled = "isDisabled"
+          v-hasPermi="['crm:customer:send-mail']"
         >
           <Icon icon="ep:message" class="mr-5px" /> 发邮件
         </el-button>
@@ -145,11 +149,11 @@
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="40" />
-      <el-table-column label="ID" align="center" prop="id" />
-      <el-table-column label="客户名称" align="center" prop="name" width="200">
+      <el-table-column type="selection" width="40" fixed />
+      <!-- <el-table-column label="ID" align="center" prop="id" width="70" /> -->
+      <el-table-column label="客户名称" align="center" prop="name" width="200" fixed>
         <template #default="scope">
-          <div @click="openDetail(scope.row.id)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
+          <div @click="openDetail(scope.row.id,scope.row)" style="color:#409EFF;cursor: pointer">{{scope.row.name}}</div>
           <div v-if="scope.row.tags.length > 0" style="display:flex;flex-wrap:wrap;text-align:center;justify-content:center">
             <el-tag type="danger" round size="small"  v-for="(tag,idx) in scope.row.tags" :key="idx" >{{tag}} </el-tag>
           </div>
@@ -216,7 +220,9 @@
           <el-button
             link
             type="warning"
-            @click="openDetail(scope.row.id)"
+            @click="openRecord(scope.row.id)"
+             v-hasPermi="['crm:customer:record']"
+             v-if="scope.row.permission == 'all' || scope.row.permission == 'edit'"
           >
             跟进
           </el-button>
@@ -224,6 +230,9 @@
             link
             type="danger"
             @click="handleOpen(scope.row.id)"
+            :disabled="scope.row.dealStatus === 1"
+            v-hasPermi="['crm:customer:doopen']"
+            v-if="scope.row.permission == 'all'"
           >
             公海
           </el-button>
@@ -232,6 +241,7 @@
             type="primary"
             @click="openForm('update', scope.row.id)"
             v-hasPermi="['crm:customer:update']"
+            v-if="scope.row.permission == 'all' || scope.row.permission == 'edit'"
           >
             编辑
           </el-button>
@@ -240,6 +250,7 @@
             type="danger"
             @click="handleDelete(scope.row.id)"
             v-hasPermi="['crm:customer:delete']"
+            v-if="scope.row.permission == 'all'"
           >
             删除
           </el-button>
@@ -258,17 +269,20 @@
   <!-- 表单弹窗：添加/修改 -->
   <CustomerForm ref="formRef" @success="getList" />
   <RecordForm ref="recordFormRef"  />
+  <CustomerDetail ref="customerDetailRef"  @success="getList" />
   <SmsTemplateSendForm ref="smsTemplateSendFormRef"  />
   <MailTemplateSendForm ref="mailTemplateSendFormRef"  />
 </template>
 
+
 <script setup lang="ts">
-import { dateFormatter } from '@/utils/formatTime'
+import { dateFormatter,beginOfDay ,endOfDay,formatDate} from '@/utils/formatTime'
 import download from '@/utils/download'
 import { CustomerApi, CustomerVO } from '@/api/crm/crmcustomer'
 import CustomerForm from './CustomerForm.vue'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import RecordForm from '@/views/crm/crmrecord/RecordForm.vue'
+import CustomerDetail from '@/views/crm/crmcustomer/CustomerDetail.vue'
 import SmsTemplateSendForm from '@/views/components/sms/SmsTemplateSendForm.vue'
 import MailTemplateSendForm from '@/views/components/email/MailTemplateSendForm.vue'
 
@@ -299,16 +313,17 @@ const queryParams = reactive({
   // area: undefined,
   weixin: undefined,
   qq: undefined,
-  relation: 'my'
+  relation: 'all'
 })
 const queryFormRef = ref() // 搜索的表单
 const exportLoading = ref(false) // 导出的加载中
-const activeIndex = ref('my')
+const activeIndex = ref('all')
 const selectCustomers = ref([])
 const isDisabled = ref(true)
 
 /** 查询列表 */
 const getList = async () => {
+  isDisabled.value = true
   loading.value = true
   try {
     const data = await CustomerApi.getCustomerPage2(queryParams)
@@ -326,7 +341,16 @@ const getList = async () => {
 
 const handleSelectionChange = (val) => {
   if(val.length > 0) {
-    isDisabled.value = false
+    val.forEach(e => {
+      if(e.permission != 'all'){
+        isDisabled.value = true
+        message.error('有不可以操作数据权限')
+        return
+      }else{
+        isDisabled.value = false
+      }
+    });
+    
   }
   selectCustomers.value = val
 }
@@ -344,7 +368,14 @@ const resetQuery = () => {
 }
 
 const handleSelect = (key) => {
+  queryParams.nextTime = undefined
+  if(key == 'today'){
+    let arr = [formatDate(beginOfDay(new Date())),formatDate(endOfDay(new Date()))]
+    queryParams.nextTime = arr
+    key = 'my'
+  }
   queryParams.relation = key
+  
   getList()
 }
 
@@ -355,8 +386,13 @@ const openForm = (type: string, id?: number) => {
 }
 
 const recordFormRef = ref()
-const openDetail = (id?: number) => {
+const openRecord = (id?: number) => {
   recordFormRef.value.open('', id)
+}
+
+const customerDetailRef = ref()
+const openDetail = (id?: number,data) => {
+  customerDetailRef.value.open('', id,data)
 }
 
 const handleOpen  = async (id: number) => {
@@ -384,20 +420,7 @@ const handleDelete = async (id: number) => {
   } catch {}
 }
 
-/** 导出按钮操作 */
-const handleExport = async () => {
-  try {
-    // 导出的二次确认
-    await message.exportConfirm()
-    // 发起导出
-    exportLoading.value = true
-    const data = await CustomerApi.exportCustomer(queryParams)
-    download.excel(data, '客户.xls')
-  } catch {
-  } finally {
-    exportLoading.value = false
-  }
-}
+
 
 const smsTemplateSendFormRef = ref()
 const openSms = () => {

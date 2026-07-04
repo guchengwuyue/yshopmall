@@ -126,8 +126,7 @@ public class CrmInvoiceDO extends BaseDO {
     /**
      * 当前需要审批的人
      */
-    @TableField(typeHandler = LongListTypeHandler.class)
-    private List<Long> flowAdminId;
+    private String flowAdminId;
     /**
      * 状态0未开票1开票中2已开票3开票失败
      */

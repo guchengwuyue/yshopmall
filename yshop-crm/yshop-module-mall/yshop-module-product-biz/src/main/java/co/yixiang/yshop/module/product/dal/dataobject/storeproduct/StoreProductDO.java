@@ -1,12 +1,17 @@
 package co.yixiang.yshop.module.product.dal.dataobject.storeproduct;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
+import java.util.*;
 import java.math.BigDecimal;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 商品 DO

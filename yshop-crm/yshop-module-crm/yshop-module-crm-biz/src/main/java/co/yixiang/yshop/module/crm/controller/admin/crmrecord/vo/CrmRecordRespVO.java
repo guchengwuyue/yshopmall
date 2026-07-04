@@ -1,11 +1,12 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmrecord.vo;
 
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import java.util.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
+import com.alibaba.excel.annotation.*;
 
 @Schema(description = "管理后台 - 跟进记录 Response VO")
 @Data
@@ -35,6 +36,9 @@ public class CrmRecordRespVO {
     @ExcelProperty("跟进类型/方式")
     private Integer recordType;
 
+    @Schema(description = "跟进类型/名称")
+    private String recordTypeName;
+
     @Schema(description = "下次联系时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("下次联系时间")
     private LocalDateTime nextTime;
@@ -50,5 +54,13 @@ public class CrmRecordRespVO {
     @Schema(description = "创建时间")
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;
+
+    private Long creator;
+
+    @Schema(description = "拥有人名称")
+    private String ownUserName;
+
+    @Schema(description = "拥有人头像")
+    private String ownUserAvatar;
 
 }

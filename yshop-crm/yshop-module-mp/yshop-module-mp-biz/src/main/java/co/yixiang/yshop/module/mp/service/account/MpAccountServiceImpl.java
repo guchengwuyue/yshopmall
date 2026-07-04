@@ -22,8 +22,6 @@ import co.yixiang.yshop.module.mp.framework.mp.core.MpServiceFactory;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.binarywang.spring.starter.wxjava.mp.properties.WxMpProperties;
 import com.google.common.annotations.VisibleForTesting;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -37,6 +35,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -94,7 +94,7 @@ public class MpAccountServiceImpl implements MpAccountService {
                 }
                 log.error("[微信公众号 yshop-module-mp - 表结构未导入][参考 https://www.yixiang.co/mp/build/ 开启]");
             }
-            log.info("[initLocalCacheIfUpdate][缓存公众号账号，数量为:{}]", accounts.size());
+            //log.info("[initLocalCacheIfUpdate][缓存公众号账号，数量为:{}]", accounts.size());
 
             // 第二步：构建缓存。创建或更新支付 Client
             mpServiceFactory.init(accounts);
@@ -191,6 +191,13 @@ public class MpAccountServiceImpl implements MpAccountService {
 
     @Override
     public MpAccountDO getAccount(Long id) {
+        if(id == null || id == 0){
+            MpAccountDO account = mpAccountMapper.selectOne(new LambdaQueryWrapper<MpAccountDO>()
+                    .eq(MpAccountDO::getIsMiapp, MpAccountEnum.IS_MINI_0.getValue())
+                    .eq(MpAccountDO::getIsMain,MpAccountEnum.IS_MAIN_1.getValue()));
+
+            return account;
+        }
         return mpAccountMapper.selectById(id);
     }
 

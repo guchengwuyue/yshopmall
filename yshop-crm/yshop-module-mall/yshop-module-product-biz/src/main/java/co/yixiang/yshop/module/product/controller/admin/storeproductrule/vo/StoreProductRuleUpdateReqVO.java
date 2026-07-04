@@ -1,10 +1,9 @@
 package co.yixiang.yshop.module.product.controller.admin.storeproductrule.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+
+import jakarta.validation.constraints.*;
 
 @Schema(description = "管理后台 - 商品规则值(规格)更新 Request VO")
 @Data

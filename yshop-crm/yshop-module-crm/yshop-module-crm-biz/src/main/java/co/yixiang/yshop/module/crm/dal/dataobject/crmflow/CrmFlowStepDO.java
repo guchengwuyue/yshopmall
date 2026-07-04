@@ -1,10 +1,11 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmflow;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import java.util.*;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 审批步骤 DO
@@ -31,15 +32,19 @@ public class CrmFlowStepDO extends BaseDO {
      */
     private Long flowId;
     /**
-     * 1上级管理员，2指定用户（任意一人）3-指定部门
+     * 1上级管理员，2指定用户（任意一人）3-指定用户（多人会签）
      */
     private Integer type;
     /**
      * 审批人ID,
      */
-    private Long adminIds;
+    private String adminIds;
+
+    @TableField(exist = false)
+    private List<String> adminIds2;
+
     /**
-     * 审批流程关系（1并2或）
+     * 审批流程顺序
      */
     private Integer relation;
 

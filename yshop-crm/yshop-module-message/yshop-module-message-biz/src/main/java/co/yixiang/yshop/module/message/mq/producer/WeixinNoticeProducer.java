@@ -18,13 +18,9 @@ public class WeixinNoticeProducer {
      * @param tempkey 订单编号
      * @param type 类型
      */
-    public void sendNoticeMessage( Long uid,String tempkey,String type,String orderId,String price,
-                                     String time,String deliveryName,String deliveryId,
-                                    Long id,Integer numberId,String productName,String shopName) {
+    public void sendNoticeMessage( Long uid,String tempkey,String type,String title,String time) {
         WeixinNoticeMessage weixinNoticeMessage = new WeixinNoticeMessage()
-                .setTempkey(tempkey).setType(type).setOrderId(orderId).setUid(uid)
-                .setPrice(price).setDeliveryId(deliveryId).setTime(time).setDeliveryName(deliveryName)
-                .setId(id).setNumberId(numberId).setProductName(productName).setShopName(shopName);
+                .setTempkey(tempkey).setType(type).setTitle(title).setUid(uid).setTime(time);
         redisMQTemplate.send(weixinNoticeMessage);
     }
 }

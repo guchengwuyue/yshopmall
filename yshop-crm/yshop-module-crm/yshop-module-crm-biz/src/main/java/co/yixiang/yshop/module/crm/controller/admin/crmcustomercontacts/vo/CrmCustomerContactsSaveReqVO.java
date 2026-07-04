@@ -1,12 +1,11 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmcustomercontacts.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Schema(description = "管理后台 - 联系人新增/修改 Request VO")
 @Data
@@ -19,7 +18,7 @@ public class CrmCustomerContactsSaveReqVO {
     @NotNull(message = "客户ID不能为空")
     private Long customerId;
 
-    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED, example = "yshop")
     @NotEmpty(message = "姓名不能为空")
     private String name;
 

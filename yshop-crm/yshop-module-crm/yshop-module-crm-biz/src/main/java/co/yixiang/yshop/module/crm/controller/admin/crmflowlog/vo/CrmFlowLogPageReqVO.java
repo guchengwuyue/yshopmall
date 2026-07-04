@@ -1,12 +1,10 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmflowlog.vo;
 
-import co.yixiang.yshop.framework.common.pojo.PageParam;
+import lombok.*;
+import java.util.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
 
 import static co.yixiang.yshop.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
@@ -29,7 +27,7 @@ public class CrmFlowLogPageReqVO extends PageParam {
     @Schema(description = "关联对象 contract-合同 receivables-回款 invoice-发票")
     private String types;
 
-    @Schema(description = "审核人名称", example = "芋艿")
+    @Schema(description = "审核人名称", example = "yshop")
     private String nickname;
 
     @Schema(description = "审核意见", example = "随便")
@@ -38,7 +36,7 @@ public class CrmFlowLogPageReqVO extends PageParam {
     @Schema(description = "1审核结束")
     private Integer isEnd;
 
-    @Schema(description = "0审核未通过,1审核通过", example = "2")
+    @Schema(description = "0待审核,1已审核", example = "2")
     private Integer status;
 
     @Schema(description = "创建时间")

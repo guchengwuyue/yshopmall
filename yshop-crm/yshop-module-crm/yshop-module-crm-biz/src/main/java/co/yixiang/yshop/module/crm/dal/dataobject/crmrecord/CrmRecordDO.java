@@ -1,12 +1,12 @@
 package co.yixiang.yshop.module.crm.dal.dataobject.crmrecord;
 
-import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-
+import java.util.*;
 import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
+import co.yixiang.yshop.framework.mybatis.core.dataobject.BaseDO;
 
 /**
  * 跟进记录 DO
@@ -44,6 +44,8 @@ public class CrmRecordDO extends BaseDO {
      * 跟进类型/方式
      */
     private Integer recordType;
+
+    //private String recordTypeName;
     /**
      * 下次联系时间
      */

@@ -6,22 +6,16 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.yshop.framework.common.enums.ShopCommonEnum;
 import co.yixiang.yshop.framework.common.exception.ErrorCode;
-import co.yixiang.yshop.framework.common.pojo.PageResult;
-import co.yixiang.yshop.framework.common.util.object.BeanUtils;
 import co.yixiang.yshop.framework.mybatis.core.query.LambdaQueryWrapperX;
 import co.yixiang.yshop.framework.security.core.util.SecurityFrameworkUtils;
 import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CheckInfoVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesPageReqVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesRespVO;
-import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.CrmContractReceivablesSaveReqVO;
+import co.yixiang.yshop.module.crm.controller.admin.crmcontract.vo.CrmContractRespVO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcontract.CrmContractDO;
-import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmcustomer.CrmCustomerDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
 import co.yixiang.yshop.module.crm.dal.dataobject.crmflowlog.CrmFlowLogDO;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcontract.CrmContractMapper;
-import co.yixiang.yshop.module.crm.dal.mysql.crmcontractreceivables.CrmContractReceivablesMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmcustomer.CrmCustomerMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmflow.CrmFlowMapper;
 import co.yixiang.yshop.module.crm.dal.mysql.crmflow.CrmFlowStepMapper;
@@ -37,24 +31,28 @@ import co.yixiang.yshop.module.system.dal.dataobject.user.AdminUserDO;
 import co.yixiang.yshop.module.system.dal.mysql.user.AdminUserMapper;
 import co.yixiang.yshop.module.system.service.user.AdminUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import co.yixiang.yshop.module.crm.controller.admin.crmcontractreceivables.vo.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmcontractreceivables.CrmContractReceivablesDO;
+import co.yixiang.yshop.framework.common.pojo.PageResult;
+import co.yixiang.yshop.framework.common.pojo.PageParam;
+import co.yixiang.yshop.framework.common.util.object.BeanUtils;
+
+import co.yixiang.yshop.module.crm.dal.mysql.crmcontractreceivables.CrmContractReceivablesMapper;
+
 import static co.yixiang.yshop.framework.common.exception.util.ServiceExceptionUtil.exception;
-import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.CONTRACT_RECEIVABLES_NOT_EXISTS;
-import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.FLOW_NOT_EXISTS;
+import static co.yixiang.yshop.module.crm.enums.ErrorCodeConstants.*;
 
 /**
  * 回款 Service 实现类
@@ -111,6 +109,9 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
 
         //插入日志
         crmOperatelogService.createLog("添加回款",0L,0L,contractReceivables.getId());
+
+        //发送审核
+        flowService.sendNextStep(TypesEnum.RECEIVABLES.getValue(),contractReceivables.getId(),"");
         // 返回
         return contractReceivables.getId();
     }
@@ -129,13 +130,16 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
         contractReceivablesMapper.updateById(updateObj);
 
         //更新审核
-        updateAfter(updateObj.getId());
+       // updateAfter(updateObj.getId());
     }
 
     @Override
     public void deleteContractReceivables(Long id) {
         // 校验存在
-        validateContractReceivablesExists(id);
+        CrmContractReceivablesDO crmContractReceivablesDO = validateContractReceivablesExists(id);
+        if(!ContractStatusEnum.STATUS_0.getValue().equals(crmContractReceivablesDO.getCheckStatus())){
+            throw exception(new ErrorCode(202410102,"回款不是待审核状态不可以删除"));
+        }
         // 删除
         contractReceivablesMapper.deleteById(id);
     }
@@ -156,17 +160,20 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
                 .flowId(crmFlowDO.getId()).build());
     }
 
-    private void validateContractReceivablesExists(Long id) {
-        if (contractReceivablesMapper.selectById(id) == null) {
+    private CrmContractReceivablesDO validateContractReceivablesExists(Long id) {
+        CrmContractReceivablesDO crmContractReceivablesDO = contractReceivablesMapper.selectById(id);
+        if (crmContractReceivablesDO == null) {
             throw exception(CONTRACT_RECEIVABLES_NOT_EXISTS);
         }
+
+        return crmContractReceivablesDO;
     }
 
     @Override
     public CrmContractReceivablesRespVO getContractReceivables(Long id) {
         CrmContractReceivablesDO receivablesDO = contractReceivablesMapper.selectById(id);
         CrmContractReceivablesRespVO receivablesRespVO = BeanUtils.toBean(receivablesDO,CrmContractReceivablesRespVO.class);
-        receivablesRespVO.setFlowAdminId2(receivablesDO.getFlowAdminId());
+        //receivablesRespVO.setFlowAdminId2(receivablesDO.getFlowAdminId());
         CrmCustomerDO customerDO = customerMapper.selectById(receivablesDO.getCustomerId());
         receivablesRespVO.setCustomerName(customerDO.getName());
         CrmContractDO crmContractDO = contractMapper.selectById(receivablesDO.getContractId());
@@ -217,6 +224,7 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @Deprecated
     public void check(CheckInfoVO checkInfoVO) {
         CrmContractReceivablesDO receivablesDO = contractReceivablesMapper.selectById(checkInfoVO.getId());
         if(receivablesDO == null){
@@ -227,9 +235,9 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
             throw exception(FLOW_NOT_EXISTS);
         }
         Long loginAdminId = SecurityFrameworkUtils.getLoginUserId();
-        if(!receivablesDO.getFlowAdminId().contains(loginAdminId)){
-            throw exception(new ErrorCode(202408151,"无权限审核"));
-        }
+//        if(!receivablesDO.getFlowAdminId().contains(loginAdminId)){
+//            throw exception(new ErrorCode(202408151,"无权限审核"));
+//        }
         if(receivablesDO.getCheckStatus() >= ContractStatusEnum.STATUS_2.getValue()){
             throw exception(new ErrorCode(202408150,"已经审核过"));
         }
@@ -247,11 +255,10 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
         if(crmFlowStepDO == null){
             throw exception(new ErrorCode(202412044,"当前审核人不存在无法审核！"));
         }
-        List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
-        if(!userIds.contains(loginAdminId)){
-            throw exception(new ErrorCode(202412043,"当前审核人已经变更无法审核！"));
-        }
-
+//        List<Long> userIds = flowService.getFlowUserIds("",crmFlowStepDO.getId());
+//        if(!userIds.contains(loginAdminId)){
+//            throw exception(new ErrorCode(202412043,"当前审核人已经变更无法审核！"));
+//        }
 
         RLock lock = redissonClient.getLock(LOCK_KEY);
         if (lock.tryLock()) {
@@ -265,42 +272,46 @@ public class CrmContractReceivablesServiceImpl implements CrmContractReceivables
                 receivablesDO.setCheckAdminId(checkAdminId);
                 if(ShopCommonEnum.AGREE_1.getValue().equals(checkInfoVO.getAgreeType())){
                     //查询当前合同处于那一步骤
+                   // CrmFlowStepDO crmFlowStepDO = flowStepMapper.selectById(receivablesDO.getStepId());
                     if(crmFlowStepDO.getRelation() < count){
                         receivablesDO.setCheckStatus(ContractStatusEnum.STATUS_1.getValue());
                         //判断当前步骤是不是最后一个人,如果是 开始审核后开始存储下一步信息
-                        if(receivablesDO.getFlowAdminId().size() == 1){
-                            List<Long> list = new  ArrayList<>();
-                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
-                                    .eq(CrmFlowStepDO::getFlowId,receivablesDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
-                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
-                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
-                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
-                                        .in(AdminUserDO::getDeptId,deptIds));
-                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
-                            }else{
-                                list.add(next.getAdminIds());
-                            }
-                            receivablesDO.setFlowAdminId(list);
-                            receivablesDO.setStepId(next.getId());
-                        }else {
-                            //移除已经审核等人
-                            List<Long> nowAdminId = receivablesDO.getFlowAdminId();
-                            nowAdminId.remove(loginAdminId);
-                            receivablesDO.setFlowAdminId(nowAdminId);
-                        }
+//                        if(receivablesDO.getFlowAdminId().size() == 1){
+//                            List<Long> list = new  ArrayList<>();
+//                            CrmFlowStepDO next = flowStepMapper.selectOne(new LambdaQueryWrapper<CrmFlowStepDO>()
+//                                    .eq(CrmFlowStepDO::getFlowId,receivablesDO.getFlowId()).eq(CrmFlowStepDO::getRelation,crmFlowStepDO.getRelation()+1));
+//                            if(FlowStepEnum.TYPE_3.getValue().equals(next.getType())){
+////                                Set<Long> deptIds = adminUserService.getDeptCondition(next.getAdminIds());
+////                                List<AdminUserDO> adminUserDOS =  userMapper.selectList(new LambdaQueryWrapperX<AdminUserDO>()
+////                                        .in(AdminUserDO::getDeptId,deptIds));
+////                                list = adminUserDOS.stream().map(AdminUserDO::getId).collect(Collectors.toList());
+//                            }else{
+////                                list.add(next.getAdminIds());
+//                            }
+//                            //receivablesDO.setFlowAdminId(list);
+//                            receivablesDO.setStepId(next.getId());
+//                        }else {
+//                            //移除已经审核等人
+////                            List<Long> nowAdminId = receivablesDO.getFlowAdminId();
+////                            nowAdminId.remove(loginAdminId);
+////                            receivablesDO.setFlowAdminId(nowAdminId);
+//                        }
 
                     }else{
                         //步骤走完
                         receivablesDO.setCheckStatus(ContractStatusEnum.STATUS_2.getValue());
-                        receivablesDO.setFlowAdminId(new ArrayList<>());
+                       // receivablesDO.setFlowAdminId(new ArrayList<>());
                         crmFlowLogDO.setIsEnd(ShopCommonEnum.IS_STATUS_1.getValue());//审核结束
+
+                        //合同增加回款
+                        contractMapper.incReturnMoney(receivablesDO.getMoney(),receivablesDO.getContractId());
                     }
                     crmFlowLogDO.setStatus(ShopCommonEnum.IS_STATUS_1.getValue());//审核通过
                 }else {
                     //拒绝
                     receivablesDO.setCheckStatus(ContractStatusEnum.STATUS_3.getValue());
                     receivablesDO.setCheckAdminId("");
-                    receivablesDO.setFlowAdminId(new ArrayList<>());
+                    //receivablesDO.setFlowAdminId(new ArrayList<>());
                     crmFlowLogDO.setRemark(checkInfoVO.getRemark());
                 }
                 contractReceivablesMapper.updateById(receivablesDO);

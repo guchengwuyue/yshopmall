@@ -18,6 +18,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum WechatTempateEnum {
+    CHECK_NOTICE("check_notice","审核通知"),
+    RECORD_NOTICE("record_notice","跟进通知"),
     PAY_SUCCESS("pay_success","支付成功通知"),
     DELIVERY_SUCCESS("delivery_success","发货成功通知"),
     REFUND_SUCCESS("refund_success","退款成功通知"),

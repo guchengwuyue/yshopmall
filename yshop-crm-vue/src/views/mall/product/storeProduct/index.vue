@@ -54,7 +54,7 @@
     <ContentWrap>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane v-for="item in tableTabs" :label="item.title" :key="item.name" :name="item.name">
-          <el-table v-loading="loading" :data="list">
+          <el-table v-loading="loading" :data="list"> 
             <el-table-column label="id" align="center" width="50" prop="id" />
             <el-table-column label="商品图片" align="center" prop="image" >
               <template #default="scope">

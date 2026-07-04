@@ -1,11 +1,10 @@
 package co.yixiang.yshop.module.crm.controller.admin.crmflow.vo;
 
-import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-
-import java.util.List;
+import lombok.*;
+import java.util.*;
+import jakarta.validation.constraints.*;
+import co.yixiang.yshop.module.crm.dal.dataobject.crmflow.CrmFlowStepDO;
 
 @Schema(description = "管理后台 - 审批流程新增/修改 Request VO")
 @Data
@@ -13,6 +12,9 @@ public class CrmFlowSaveReqVO {
 
     @Schema(description = "id", requiredMode = Schema.RequiredMode.REQUIRED, example = "21989")
     private Long id;
+
+    @Schema(description = "流程类型1-固定审批 2-授权审批", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    private Integer category;
 
     @Schema(description = "审批流名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "赵六")
     @NotEmpty(message = "审批流名称不能为空")

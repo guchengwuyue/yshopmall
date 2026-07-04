@@ -90,12 +90,12 @@
     <el-row>
       <el-col :span="12">
         <el-form-item label="开票金额" prop="money">
-          <el-input-number v-model="formData.money" :min="0"  placeholder="请输入发票税前金额" />
+          <el-input type="number" v-model="formData.money" placeholder="请输入发票税前金额"  />
         </el-form-item>
       </el-col>
       <el-col :span="12">
         <el-form-item label="开票税率" prop="taxRate">
-          <el-input-number v-model="formData.taxRate" :min="0"  placeholder="请输入税率" />
+          <el-input type="number" v-model="formData.taxRate" placeholder="请输入税率" />
         </el-form-item>
       </el-col>
     </el-row>
@@ -112,7 +112,7 @@
         </el-form-item>
       </el-col>
     </el-row>
-     <el-row>
+    <el-row>
       <el-col :span="12">
         <el-form-item label="上传附件" prop="files">
           <UploadFile v-model="formData.files" />
@@ -212,6 +212,7 @@ const submitForm = async () => {
   formLoading.value = true
   try {
     const data = formData.value as unknown as InvoiceVO
+    console.log('data:',data)
     if(!data.files){
       message.error('请上传附件')
       return
@@ -220,6 +221,7 @@ const submitForm = async () => {
       const files = data.files.join(",")
 	    data.files = files
     }
+   
     await InvoiceApi.issueInvoice(data)
     message.success('操作成功')
     dialogVisible.value = false
@@ -238,6 +240,11 @@ const saveContract = async(contract) => {
   formData.value.contractId = contract.id
   formData.value.contractName = contract.name
 }
+
+// const formFileRef = ref()
+// const openForm = () => {
+//   formFileRef.value.open()
+// }
 
 /** 重置表单 */
 const resetForm = () => {
