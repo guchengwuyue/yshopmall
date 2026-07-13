@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  co.yixiang.config.MetaHandler,\
+    co.yixiang.config.MybatisConfig

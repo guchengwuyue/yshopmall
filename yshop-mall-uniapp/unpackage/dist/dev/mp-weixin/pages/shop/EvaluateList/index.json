@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "评价列表",
+  "usingComponents": {
+    "user-evaluation": "/components/UserEvaluation",
+    "loading": "/components/Loading"
+  }
+}

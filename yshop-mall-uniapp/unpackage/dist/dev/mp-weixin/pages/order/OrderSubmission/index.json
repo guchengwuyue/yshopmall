@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "提交订单",
+  "usingComponents": {
+    "order-goods": "/components/OrderGoods",
+    "coupon-list-window": "/components/CouponListWindow",
+    "address-window": "/components/AddressWindow"
+  }
+}
