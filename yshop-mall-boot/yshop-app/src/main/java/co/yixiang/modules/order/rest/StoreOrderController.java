@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -291,9 +292,10 @@ public class StoreOrderController {
      * 订单产品信息
      */
     @PostMapping("/order/product")
+    @AuthCheck
     @ApiOperation(value = "订单产品信息", notes = "订单产品信息")
     public ApiResult<OrderCartInfoVo> product(@Validated @RequestBody ProductOrderParam param) {
-        return ApiResult.ok(orderSupplyService.getProductOrder(param.getUnique()));
+        return ApiResult.ok(orderSupplyService.getProductOrder(param.getUnique(), LocalUser.getUser().getUid()));
     }
 
     /**
@@ -306,9 +308,7 @@ public class StoreOrderController {
     @ApiOperation(value = "订单评价", notes = "订单评价")
     public ApiResult<Boolean> comment(@Valid @RequestBody ProductReplyParam param) {
         YxUser user = LocalUser.getUser();
-        YxStoreOrderCartInfo orderCartInfo = storeOrderCartInfoService
-                .getOne(Wrappers.<YxStoreOrderCartInfo>lambdaQuery()
-                        .eq(YxStoreOrderCartInfo::getUnique,param.getUnique()));
+        YxStoreOrderCartInfo orderCartInfo = getOwnedOrderCartInfo(param.getUnique(), user.getUid());
         storeOrderService.orderComment(orderCartInfo, user, param.getUnique(),
                 param.getComment(),
                 param.getPics(), param.getProductScore(), param.getServiceScore());
@@ -331,22 +331,43 @@ public class StoreOrderController {
     public ApiResult<Boolean> comments(@Valid @RequestBody List<ProductReplyParam> param) {
         YxUser user = LocalUser.getUser();
         if (param.size() > 0) {
-            YxStoreOrderCartInfo orderCartInfo = storeOrderCartInfoService
-                    .getOne(Wrappers.<YxStoreOrderCartInfo>lambdaQuery()
-                            .eq(YxStoreOrderCartInfo::getUnique,param.get(0).getUnique()));
-
+            List<YxStoreOrderCartInfo> orderCartInfos = new ArrayList<>();
             for (ProductReplyParam productReplyParam : param) {
+                YxStoreOrderCartInfo orderCartInfo = getOwnedOrderCartInfo(productReplyParam.getUnique(), user.getUid());
+                if (!orderCartInfos.isEmpty()
+                        && !Objects.equals(orderCartInfos.get(0).getOid(), orderCartInfo.getOid())) {
+                    throw new YshopException("批量评价必须属于同一订单");
+                }
+                orderCartInfos.add(orderCartInfo);
+            }
+            for (int i = 0; i < param.size(); i++) {
+                ProductReplyParam productReplyParam = param.get(i);
+                YxStoreOrderCartInfo orderCartInfo = orderCartInfos.get(i);
                 storeOrderService.orderComment(orderCartInfo , user, productReplyParam.getUnique(),
                         productReplyParam.getComment(),
                         productReplyParam.getPics(), productReplyParam.getProductScore(), productReplyParam.getServiceScore());
             }
 
             //增加状态
-            orderStatusService.create(orderCartInfo.getOid(),
+            orderStatusService.create(orderCartInfos.get(0).getOid(),
                     OrderLogEnum.EVAL_ORDER.getValue(),
                     OrderLogEnum.EVAL_ORDER.getDesc());
         }
         return ApiResult.ok();
+    }
+
+    private YxStoreOrderCartInfo getOwnedOrderCartInfo(String unique, Long uid) {
+        YxStoreOrderCartInfo orderCartInfo = storeOrderCartInfoService
+                .getOne(Wrappers.<YxStoreOrderCartInfo>lambdaQuery()
+                        .eq(YxStoreOrderCartInfo::getUnique, unique));
+        if (ObjectUtil.isEmpty(orderCartInfo)) {
+            throw new YshopException("评价产品不存在");
+        }
+        YxStoreOrder order = storeOrderService.getById(orderCartInfo.getOid());
+        if (ObjectUtil.isEmpty(order) || !Objects.equals(order.getUid(), uid)) {
+            throw new YshopException("无权评价该订单");
+        }
+        return orderCartInfo;
     }
 
 
@@ -435,8 +456,11 @@ public class StoreOrderController {
         //顺丰轨迹查询处理
         String lastFourNumber = "";
         if (expressInfoDo.getShipperCode().equals(ShipperCodeEnum.SF.getValue())) {
-            YxStoreOrderQueryVo yxStoreOrderDto;
-            yxStoreOrderDto = storeOrderService.getOrderInfo(expressInfoDo.getOrderCode(),null);
+            Long uid = LocalUser.getUser().getUid();
+            YxStoreOrderQueryVo yxStoreOrderDto = storeOrderService.getOrderInfo(expressInfoDo.getOrderCode(), uid);
+            if (ObjectUtil.isNull(yxStoreOrderDto)) {
+                throw new YshopException("订单不存在");
+            }
             lastFourNumber = yxStoreOrderDto.getUserPhone();
             if (lastFourNumber.length() == 11) {
                 lastFourNumber = StrUtil.sub(lastFourNumber, lastFourNumber.length(), -4);
@@ -484,4 +508,3 @@ public class StoreOrderController {
     }
 
 }
-

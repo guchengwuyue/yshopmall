@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public interface StoreAfterSalesService extends BaseService<StoreAfterSales> {
 
-    BigDecimal getRefundAmount(StoreAfterSalesParam storeAfterSalesParam);
+    BigDecimal getRefundAmount(StoreAfterSalesParam storeAfterSalesParam, Long uid);
 
     /**
      * 创建售后订单
@@ -36,7 +36,7 @@ public interface StoreAfterSalesService extends BaseService<StoreAfterSales> {
      * @param key 订单号
      * @return
      */
-    List<YxStoreOrderCartInfoVo> checkOrderDetails(String key);
+    List<YxStoreOrderCartInfoVo> checkOrderDetails(String key, Long uid);
 
     /**
      * 查询列表
@@ -90,7 +90,7 @@ public interface StoreAfterSalesService extends BaseService<StoreAfterSales> {
      * @param id
      * @return
      */
-    Boolean addLogisticsInformation(String code, String name, String postalCode ,String orderCode, Long id);
+    Boolean addLogisticsInformation(String code, String name, String postalCode ,String orderCode, Long id, Long uid);
 
     /**
      * 删除售后订单
@@ -98,7 +98,7 @@ public interface StoreAfterSalesService extends BaseService<StoreAfterSales> {
      * @param id
      * @return /
      */
-    Boolean deleteAfterSalesOrder(String orderCode, Long id);
+    Boolean deleteAfterSalesOrder(String orderCode, Long id, Long uid);
 
     /**
      * 售后订单审核

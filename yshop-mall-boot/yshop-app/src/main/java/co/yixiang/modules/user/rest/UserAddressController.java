@@ -121,7 +121,8 @@ public class UserAddressController {
     @PostMapping("/address/del")
     @ApiOperation(value = "删除用户地址",notes = "删除用户地址")
     public ApiResult<Boolean> deleteYxUserAddress(@Valid @RequestBody IdParam idParam){
-        userAddressService.removeById(Long.valueOf(idParam.getId()));
+        Long uid = LocalUser.getUser().getUid();
+        userAddressService.removeById(Long.valueOf(idParam.getId()), uid);
         return ApiResult.ok();
     }
 
@@ -149,8 +150,12 @@ public class UserAddressController {
         if(StrUtil.isBlank(id) || !NumberUtil.isNumber(id)){
             throw new YshopException("参数非法");
         }
-        return ApiResult.ok(userAddressService.getDetail(Long.valueOf(id)));
+        Long uid = LocalUser.getUser().getUid();
+        YxUserAddressQueryVo address = userAddressService.getDetail(Long.valueOf(id), uid);
+        if (address == null) {
+            throw new YshopException("地址不存在");
+        }
+        return ApiResult.ok(address);
     }
 
 }
-

@@ -11,6 +11,7 @@ package co.yixiang.modules.user.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import co.yixiang.api.YshopException;
 import co.yixiang.common.service.impl.BaseServiceImpl;
 import co.yixiang.dozer.service.IGenerator;
 import co.yixiang.enums.ShopCommonEnum;
@@ -54,6 +55,13 @@ public class YxUserAddressServiceImpl extends BaseServiceImpl<YxUserAddressMappe
      */
     @Override
     public void setDefault(Long uid,Long addressId){
+        YxUserAddress ownedAddress = yxUserAddressMapper.selectOne(new LambdaQueryWrapper<YxUserAddress>()
+                .eq(YxUserAddress::getId, addressId)
+                .eq(YxUserAddress::getUid, uid));
+        if (ownedAddress == null) {
+            throw new YshopException("地址不存在");
+        }
+
         YxUserAddress address = new YxUserAddress();
         address.setIsDefault(ShopCommonEnum.DEFAULT_0.getValue());
         yxUserAddressMapper.update(address,
@@ -62,7 +70,9 @@ public class YxUserAddressServiceImpl extends BaseServiceImpl<YxUserAddressMappe
         YxUserAddress userAddress = new YxUserAddress();
         userAddress.setIsDefault(ShopCommonEnum.DEFAULT_1.getValue());
         userAddress.setId(addressId);
-        yxUserAddressMapper.updateById(userAddress);
+        yxUserAddressMapper.update(userAddress, new LambdaQueryWrapper<YxUserAddress>()
+                .eq(YxUserAddress::getId, addressId)
+                .eq(YxUserAddress::getUid, uid));
     }
 
 
@@ -96,8 +106,14 @@ public class YxUserAddressServiceImpl extends BaseServiceImpl<YxUserAddressMappe
         if(StrUtil.isBlank(param.getId())){
             this.save(userAddress);
         }else{
-            userAddress.setId(Long.valueOf(param.getId()));
-            this.updateById(userAddress);
+            Long addressId = Long.valueOf(param.getId());
+            userAddress.setId(addressId);
+            int updateCount = yxUserAddressMapper.update(userAddress, new LambdaQueryWrapper<YxUserAddress>()
+                    .eq(YxUserAddress::getId, addressId)
+                    .eq(YxUserAddress::getUid, uid));
+            if (updateCount <= 0) {
+                throw new YshopException("地址不存在");
+            }
         }
 
         return userAddress.getId();
@@ -109,8 +125,18 @@ public class YxUserAddressServiceImpl extends BaseServiceImpl<YxUserAddressMappe
      * @return YxUserAddressQueryVo
      */
     @Override
-    public YxUserAddressQueryVo getDetail(Long id){
-        return generator.convert(this.getById(id),YxUserAddressQueryVo.class);
+    public YxUserAddressQueryVo getDetail(Long id, Long uid){
+        YxUserAddress userAddress = yxUserAddressMapper.selectOne(new LambdaQueryWrapper<YxUserAddress>()
+                .eq(YxUserAddress::getId, id)
+                .eq(YxUserAddress::getUid, uid));
+        return generator.convert(userAddress,YxUserAddressQueryVo.class);
+    }
+
+    @Override
+    public boolean removeById(Long id, Long uid) {
+        return yxUserAddressMapper.delete(new LambdaQueryWrapper<YxUserAddress>()
+                .eq(YxUserAddress::getId, id)
+                .eq(YxUserAddress::getUid, uid)) > 0;
     }
 
 

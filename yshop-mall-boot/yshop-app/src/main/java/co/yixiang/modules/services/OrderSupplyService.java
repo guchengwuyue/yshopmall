@@ -62,8 +62,16 @@ public class OrderSupplyService {
      * @param unique 订单唯一值
      * @return OrderCartInfoVo
      */
-    public OrderCartInfoVo getProductOrder(String unique){
+    public OrderCartInfoVo getProductOrder(String unique, Long uid){
         YxStoreOrderCartInfo orderCartInfo = orderCartInfoService.findByUni(unique);
+        if (ObjectUtil.isEmpty(orderCartInfo)) {
+            throw new YshopException("订单商品不存在");
+        }
+
+        YxStoreOrderQueryVo storeOrder = storeOrderService.getOrderInfo(orderCartInfo.getOrderId(), uid);
+        if (ObjectUtil.isEmpty(storeOrder)) {
+            throw new YshopException("订单不存在");
+        }
 
         YxStoreCartQueryVo cartInfo = JSONObject.parseObject(orderCartInfo.getCartInfo(),
                 YxStoreCartQueryVo.class);
@@ -85,7 +93,7 @@ public class OrderSupplyService {
         return OrderCartInfoVo.builder()
                 .cartNum(cartInfo.getCartNum())
                 .combinationId(cartInfo.getCombinationId())
-                .orderId(storeOrderService.getById(orderCartInfo.getOid()).getOrderId())
+                .orderId(storeOrder.getOrderId())
                 .seckillId(cartInfo.getSeckillId())
                 .productInfo(productDTO)
                 .build();

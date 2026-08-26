@@ -89,5 +89,5 @@ public interface YxStoreProductRelationService extends BaseService<YxStoreProduc
      * 批量删除
      * @param ids /
      */
-    void collectDelFoot(List<Long> ids);
+    void collectDelFoot(List<Long> ids, Long uid);
 }

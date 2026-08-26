@@ -272,7 +272,7 @@ public class StoreProductController {
         if (CollectionUtil.isEmpty(param.getIds())){
             throw new YshopException("参数非法");
         }
-        productRelationService.collectDelFoot(param.getIds());
+        productRelationService.collectDelFoot(param.getIds(), LocalUser.getUser().getUid());
         return ApiResult.ok();
     }
 
@@ -309,4 +309,3 @@ public class StoreProductController {
 
 
 }
-

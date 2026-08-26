@@ -69,9 +69,14 @@ public class StoreAfterSalesServiceImpl extends BaseServiceImpl<StoreAfterSalesM
     private final RedisUtils redisUtils;
 
     @Override
-    public BigDecimal getRefundAmount(StoreAfterSalesParam storeAfterSalesParam) {
+    public BigDecimal getRefundAmount(StoreAfterSalesParam storeAfterSalesParam, Long uid) {
 
-        YxStoreOrder yxStoreOrder = storeOrderMapper.selectOne(Wrappers.<YxStoreOrder>lambdaQuery().eq(YxStoreOrder::getOrderId, storeAfterSalesParam.getOrderCode()));
+        YxStoreOrder yxStoreOrder = storeOrderMapper.selectOne(Wrappers.<YxStoreOrder>lambdaQuery()
+                .eq(YxStoreOrder::getOrderId, storeAfterSalesParam.getOrderCode())
+                .eq(YxStoreOrder::getUid, uid));
+        if (yxStoreOrder == null) {
+            throw new YshopException("订单不存在");
+        }
 
         //商品除去优惠后的总价格
         BigDecimal totalPrice = BigDecimal.ZERO;
@@ -208,12 +213,14 @@ public class StoreAfterSalesServiceImpl extends BaseServiceImpl<StoreAfterSalesM
     }
 
     @Override
-    public List<YxStoreOrderCartInfoVo> checkOrderDetails(String key) {
-        YxStoreOrder yxStoreOrder = storeOrderMapper.selectOne(Wrappers.<YxStoreOrder>lambdaQuery().eq(YxStoreOrder::getOrderId,key));
+    public List<YxStoreOrderCartInfoVo> checkOrderDetails(String key, Long uid) {
+        YxStoreOrder yxStoreOrder = storeOrderMapper.selectOne(Wrappers.<YxStoreOrder>lambdaQuery()
+                .eq(YxStoreOrder::getOrderId, key)
+                .eq(YxStoreOrder::getUid, uid));
+        if (yxStoreOrder == null) {
+            throw new YshopException("订单不存在");
+        }
         List<YxStoreOrderCartInfo> yxStoreOrderCartInfos = storeOrderCartInfoMapper.selectList(Wrappers.<YxStoreOrderCartInfo>lambdaQuery().eq(YxStoreOrderCartInfo::getOid, yxStoreOrder.getId()));
-       // YxStoreOrder yxStoreOrder = storeOrderMapper.selectById(key);
-        //查询 售后信息
-        StoreAfterSales storeAfterSales = baseMapper.selectOne(Wrappers.<StoreAfterSales>lambdaQuery().eq(StoreAfterSales::getOrderCode, yxStoreOrder.getOrderId()));
         List<YxStoreOrderCartInfoVo> yxStoreOrderCartInfoVos = new ArrayList<>();
         for (YxStoreOrderCartInfo yxStoreOrderCartInfo : yxStoreOrderCartInfos) {
 
@@ -351,11 +358,15 @@ public class StoreAfterSalesServiceImpl extends BaseServiceImpl<StoreAfterSalesM
     }
 
     @Override
-    public Boolean addLogisticsInformation(String code, String name, String postalCode, String orderCode, Long id) {
+    public Boolean addLogisticsInformation(String code, String name, String postalCode, String orderCode, Long id, Long uid) {
         StoreAfterSales storeAfterSales = baseMapper.selectOne(Wrappers.<StoreAfterSales>lambdaQuery()
                 .eq(StoreAfterSales::getId, id)
                 .eq(StoreAfterSales::getOrderCode, orderCode)
+                .eq(StoreAfterSales::getUserId, uid)
         );
+        if (storeAfterSales == null) {
+            throw new YshopException("售后订单不存在");
+        }
         if (!storeAfterSales.getState().equals(AfterSalesStatusEnum.STATUS_1.getValue())) {
             throw new YshopException("当前状态不能添加物流信息!");
         }
@@ -377,8 +388,14 @@ public class StoreAfterSalesServiceImpl extends BaseServiceImpl<StoreAfterSalesM
     }
 
     @Override
-    public Boolean deleteAfterSalesOrder(String orderCode, Long id) {
-        StoreAfterSales storeAfterSales = baseMapper.selectOne(Wrappers.<StoreAfterSales>lambdaQuery().eq(StoreAfterSales::getId, id).eq(StoreAfterSales::getOrderCode, orderCode));
+    public Boolean deleteAfterSalesOrder(String orderCode, Long id, Long uid) {
+        StoreAfterSales storeAfterSales = baseMapper.selectOne(Wrappers.<StoreAfterSales>lambdaQuery()
+                .eq(StoreAfterSales::getId, id)
+                .eq(StoreAfterSales::getOrderCode, orderCode)
+                .eq(StoreAfterSales::getUserId, uid));
+        if (storeAfterSales == null) {
+            throw new YshopException("售后订单不存在");
+        }
         return baseMapper.deleteById(storeAfterSales.getId()) > 0;
     }
 

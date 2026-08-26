@@ -200,7 +200,9 @@ public class YxStoreProductRelationServiceImpl extends BaseServiceImpl<YxStorePr
     }
 
     @Override
-    public void collectDelFoot(List<Long> ids) {
-        yxStoreProductRelationMapper.deleteBatchIds(ids);
+    public void collectDelFoot(List<Long> ids, Long uid) {
+        yxStoreProductRelationMapper.delete(new LambdaQueryWrapper<YxStoreProductRelation>()
+                .in(YxStoreProductRelation::getId, ids)
+                .eq(YxStoreProductRelation::getUid, uid));
     }
 }

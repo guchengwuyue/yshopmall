@@ -574,6 +574,11 @@ public class YxStoreOrderServiceImpl extends BaseServiceImpl<StoreOrderMapper, Y
             throw new YshopException("评价产品不存在");
         }
 
+        YxStoreOrder order = yxStoreOrderMapper.selectById(orderCartInfo.getOid());
+        if (ObjectUtil.isEmpty(order) || !Objects.equals(order.getUid(), user.getUid())) {
+            throw new YshopException("无权评价该订单");
+        }
+
         Long count = productReplyService.count(Wrappers.<YxStoreProductReply>lambdaQuery()
                 .eq(YxStoreProductReply::getOid, orderCartInfo.getOid())
                 .eq(YxStoreProductReply::getProductId, orderCartInfo.getProductId()));

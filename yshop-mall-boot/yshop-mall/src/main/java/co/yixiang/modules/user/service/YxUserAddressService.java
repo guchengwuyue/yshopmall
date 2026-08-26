@@ -41,11 +41,20 @@ public interface YxUserAddressService extends BaseService<YxUserAddress> {
     Long addAndEdit(Long uid, AddressParam param);
 
     /**
-     * 地址详情
+     * 按用户查询地址详情
      * @param id 地址id
-     * @return YxUserAddressQueryVo
+     * @param uid 用户id
+     * @return 地址详情
      */
-    YxUserAddressQueryVo getDetail(Long id);
+    YxUserAddressQueryVo getDetail(Long id, Long uid);
+
+    /**
+     * 删除当前用户的地址
+     * @param id 地址id
+     * @param uid 用户id
+     * @return 是否删除成功
+     */
+    boolean removeById(Long id, Long uid);
 
     /**
      * 获取用户地址

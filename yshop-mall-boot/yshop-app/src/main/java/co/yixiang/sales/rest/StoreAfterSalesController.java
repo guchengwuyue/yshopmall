@@ -51,7 +51,8 @@ public class StoreAfterSalesController {
     @PostMapping("/getRefundAmount")
     @ApiOperation(value = "获取退款价格", notes = "获取退款价格")
     public ApiResult<BigDecimal> getRefundAmount(@RequestBody StoreAfterSalesParam storeAfterSalesParam) {
-        return ApiResult.ok(storeAfterSalesService.getRefundAmount(storeAfterSalesParam));
+        Long uid = LocalUser.getUser().getUid();
+        return ApiResult.ok(storeAfterSalesService.getRefundAmount(storeAfterSalesParam, uid));
     }
 
     @AuthCheck
@@ -66,7 +67,8 @@ public class StoreAfterSalesController {
     @GetMapping("/applyForAfterSales/{key}")
     @ApiOperation(value = "查询订单详情", notes = "查询订单详情")
     public ApiResult<List<YxStoreOrderCartInfoVo>> checkOrderDetails(@PathVariable String key) {
-        return ApiResult.ok(storeAfterSalesService.checkOrderDetails(key));
+        Long uid = LocalUser.getUser().getUid();
+        return ApiResult.ok(storeAfterSalesService.checkOrderDetails(key, uid));
     }
 
     @AppLog(value = "查看售后列表", type = 1)
@@ -162,7 +164,7 @@ public class StoreAfterSalesController {
         if (StrUtil.isEmpty(code) || StrUtil.isEmpty(name) || StrUtil.isEmpty(postalCode)) {
             throw new YshopException("参数错误");
         }
-        Boolean revoke = storeAfterSalesService.addLogisticsInformation(code, name, postalCode, orderCode, id);
+        Boolean revoke = storeAfterSalesService.addLogisticsInformation(code, name, postalCode, orderCode, id, uid);
         return ApiResult.ok(revoke);
     }
 
@@ -178,7 +180,7 @@ public class StoreAfterSalesController {
         if (StrUtil.isEmpty(orderCode) || ObjectUtil.isEmpty(id)) {
             throw new YshopException("参数错误");
         }
-        Boolean revoke = storeAfterSalesService.deleteAfterSalesOrder(orderCode, id);
+        Boolean revoke = storeAfterSalesService.deleteAfterSalesOrder(orderCode, id, uid);
         return ApiResult.ok(revoke);
     }
 
