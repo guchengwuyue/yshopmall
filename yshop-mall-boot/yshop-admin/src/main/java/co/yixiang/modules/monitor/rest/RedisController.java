@@ -4,7 +4,7 @@ import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.monitor.domain.vo.RedisVo;
 import co.yixiang.modules.monitor.service.RedisService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Zheng Jie
  * @date 2018-12-10
  */
-@Api(tags = "redis缓存管理")
+@Tag(name = "redis缓存管理")
 @RestController
 @RequestMapping("api")
 public class RedisController {

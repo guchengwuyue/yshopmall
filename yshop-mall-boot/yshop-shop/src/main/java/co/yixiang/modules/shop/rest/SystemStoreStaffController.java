@@ -18,8 +18,8 @@ import co.yixiang.modules.shop.service.YxSystemStoreStaffService;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffDto;
 import co.yixiang.modules.shop.service.dto.YxSystemStoreStaffQueryCriteria;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ import java.util.Arrays;
 * @author hupeng
 * @date 2020-03-22
 */
-@Api(tags = "门店店员管理")
+@Tag(name = "门店店员管理")
 @RestController
 @RequestMapping("/api/yxSystemStoreStaff")
 public class SystemStoreStaffController {
@@ -59,7 +59,7 @@ public class SystemStoreStaffController {
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('yxSystemStoreStaff:list')")
     public void download(HttpServletResponse response, YxSystemStoreStaffQueryCriteria criteria) throws IOException {
@@ -68,7 +68,7 @@ public class SystemStoreStaffController {
 
     @GetMapping
     @Log("查询门店店员")
-    @ApiOperation("查询门店店员")
+    @Operation(summary = "查询门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:list')")
     public ResponseEntity<Object> getYxSystemStoreStaffs(YxSystemStoreStaffQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxSystemStoreStaffService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -76,7 +76,7 @@ public class SystemStoreStaffController {
 
     @PostMapping
     @Log("新增门店店员")
-    @ApiOperation("新增门店店员")
+    @Operation(summary = "新增门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStoreStaff resources){
         YxSystemStore systemStore = yxSystemStoreService.getOne(Wrappers.<YxSystemStore>lambdaQuery()
@@ -87,7 +87,7 @@ public class SystemStoreStaffController {
 
     @PutMapping
     @Log("修改门店店员")
-    @ApiOperation("修改门店店员")
+    @Operation(summary = "修改门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStoreStaff resources){
         YxSystemStore systemStore = yxSystemStoreService.getOne(Wrappers.<YxSystemStore>lambdaQuery()
@@ -99,7 +99,7 @@ public class SystemStoreStaffController {
 
     @ForbidSubmit
     @Log("删除门店店员")
-    @ApiOperation("删除门店店员")
+    @Operation(summary = "删除门店店员")
     @PreAuthorize("@el.check('yxSystemStoreStaff:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {

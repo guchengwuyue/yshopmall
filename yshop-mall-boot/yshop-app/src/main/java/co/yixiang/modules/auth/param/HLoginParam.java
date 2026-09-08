@@ -1,11 +1,11 @@
 package co.yixiang.modules.auth.param;
 
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @ClassName 登陆LoginDTO
@@ -17,14 +17,14 @@ import javax.validation.constraints.NotBlank;
 public class HLoginParam {
 
     @NotBlank(message = "用户名必填")
-    @ApiModelProperty(value = "用户名")
+    @Schema(description = "用户名")
     private String username;
 
     @NotBlank(message = "密码必填")
-    @ApiModelProperty(value = "密码")
+    @Schema(description = "密码")
     private String password;
 
-    @ApiModelProperty(value = "分销绑定关系的ID")
+    @Schema(description = "分销绑定关系的ID")
     private String spread;
 
 

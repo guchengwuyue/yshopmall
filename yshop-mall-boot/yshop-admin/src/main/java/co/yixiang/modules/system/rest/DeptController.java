@@ -17,8 +17,8 @@ import co.yixiang.modules.system.service.dto.DeptDto;
 import co.yixiang.modules.system.service.dto.DeptQueryCriteria;
 import co.yixiang.utils.ValidationUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ import java.util.Set;
 * @date 2019-03-25
 */
 @RestController
-@Api(tags = "系统：部门管理")
+@Tag(name = "系统：部门管理")
 @RequestMapping("/api/dept")
 public class DeptController {
 
@@ -61,7 +61,7 @@ public class DeptController {
     }
 
     @Log("导出部门数据")
-    @ApiOperation("导出部门数据")
+    @Operation(summary = "导出部门数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','dept:list')")
     public void download(HttpServletResponse response, DeptQueryCriteria criteria) throws IOException {
@@ -69,7 +69,7 @@ public class DeptController {
     }
 
     @Log("查询部门")
-    @ApiOperation("查询部门")
+    @Operation(summary = "查询部门")
     @GetMapping
     @PreAuthorize("@el.check('user:list','admin','dept:list')")
     public ResponseEntity<Object> getDepts(DeptQueryCriteria criteria){
@@ -80,7 +80,7 @@ public class DeptController {
     }
 
     @Log("新增部门")
-    @ApiOperation("新增部门")
+    @Operation(summary = "新增部门")
     @PostMapping
     @PreAuthorize("@el.check('admin','dept:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Dept resources){
@@ -91,7 +91,7 @@ public class DeptController {
     }
 
     @Log("修改部门")
-    @ApiOperation("修改部门")
+    @Operation(summary = "修改部门")
     @PutMapping
     @PreAuthorize("@el.check('admin','dept:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Dept resources){
@@ -108,7 +108,7 @@ public class DeptController {
 
     @ForbidSubmit
     @Log("删除部门")
-    @ApiOperation("删除部门")
+    @Operation(summary = "删除部门")
     @DeleteMapping
     @PreAuthorize("@el.check('admin','dept:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){

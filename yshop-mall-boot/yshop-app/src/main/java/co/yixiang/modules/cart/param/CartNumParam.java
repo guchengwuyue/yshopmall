@@ -1,12 +1,12 @@
 package co.yixiang.modules.cart.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @ClassName 购物车数量CartNumParam
@@ -19,11 +19,11 @@ public class CartNumParam {
 
     @Min(value = 1,message = "数量不在合法范围内")
     @Max(value = 9999,message = "数量不在合法范围内")
-    @ApiModelProperty(value = "购物车数量")
+    @Schema(description = "购物车数量")
     private Integer number;
 
     @NotNull(message = "参数有误")
-    @ApiModelProperty(value = "购物车ID")
+    @Schema(description = "购物车ID")
     private Long id;
 
 }

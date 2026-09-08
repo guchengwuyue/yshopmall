@@ -5,7 +5,7 @@
  */
 package co.yixiang.print;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,16 +25,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PrintStoreOrderVO implements Serializable {
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     private String startTime;
-    @ApiModelProperty(value = "结束时间")
+    @Schema(description = "结束时间")
     private String endTime;
-    @ApiModelProperty(value = "打印机编号")
+    @Schema(description = "打印机编号")
     private String driverNo;
-    @ApiModelProperty(value = "门店列表")
+    @Schema(description = "门店列表")
     private Integer storeId;
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     Long startSecond;
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     Long endSecond;
 }

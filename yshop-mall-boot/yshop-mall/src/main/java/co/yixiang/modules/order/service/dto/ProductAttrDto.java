@@ -1,6 +1,6 @@
 package co.yixiang.modules.order.service.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,15 +13,15 @@ import java.io.Serializable;
 @Data
 public class ProductAttrDto implements Serializable {
 
-    @ApiModelProperty(value = "产品属性ID")
+    @Schema(description = "产品属性ID")
     private Long productId;
 
-    @ApiModelProperty(value = "产品属性sku")
+    @Schema(description = "产品属性sku")
     private String sku;
 
-    @ApiModelProperty(value = "产品属性价格")
+    @Schema(description = "产品属性价格")
     private Double price;
 
-    @ApiModelProperty(value = "产品属性图片")
+    @Schema(description = "产品属性图片")
     private String image;
 }

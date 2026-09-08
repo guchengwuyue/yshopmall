@@ -16,8 +16,8 @@ import co.yixiang.utils.OrderUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-10-06
 */
-@Api(tags = "商城:微信菜單")
+@Tag(name = "商城:微信菜單")
 @RestController
 @RequestMapping("api")
 @SuppressWarnings("unchecked")
@@ -46,7 +46,7 @@ public class WechatMenuController {
         this.YxWechatMenuService = YxWechatMenuService;
     }
 
-    @ApiOperation(value = "查询菜单")
+    @Operation(summary = "查询菜单")
     @GetMapping(value = "/YxWechatMenu")
     @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_SELECT')")
     public ResponseEntity getYxWechatMenus(){
@@ -55,7 +55,7 @@ public class WechatMenuController {
     }
 
     @ForbidSubmit
-    @ApiOperation(value = "创建菜单")
+    @Operation(summary = "创建菜单")
     @PostMapping(value = "/YxWechatMenu")
     @PreAuthorize("hasAnyRole('admin','YxWechatMenu_ALL','YxWechatMenu_CREATE')")
     public ResponseEntity create( @RequestBody String jsonStr){

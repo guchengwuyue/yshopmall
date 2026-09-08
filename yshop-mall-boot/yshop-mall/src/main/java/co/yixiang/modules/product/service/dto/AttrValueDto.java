@@ -1,6 +1,6 @@
 package co.yixiang.modules.product.service.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class AttrValueDto {
 
-    @ApiModelProperty(value = "属性")
+    @Schema(description = "属性")
     private String attr;
 
-    @ApiModelProperty(value = "是否选择")
+    @Schema(description = "是否选择")
     private Boolean check = false;
 }

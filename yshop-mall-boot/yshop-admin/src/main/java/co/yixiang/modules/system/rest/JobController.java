@@ -14,8 +14,8 @@ import co.yixiang.modules.system.domain.Job;
 import co.yixiang.modules.system.service.JobService;
 import co.yixiang.modules.system.service.dto.JobDto;
 import co.yixiang.modules.system.service.dto.JobQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
@@ -37,7 +37,7 @@ import java.util.Set;
 * @author hupeng
 * @date 2019-03-29
 */
-@Api(tags = "系统：岗位管理")
+@Tag(name = "系统：岗位管理")
 @RestController
 @RequestMapping("/api/job")
 public class JobController {
@@ -57,7 +57,7 @@ public class JobController {
     }
 
     @Log("导出岗位数据")
-    @ApiOperation("导出岗位数据")
+    @Operation(summary = "导出岗位数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','job:list')")
     public void download(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
@@ -65,7 +65,7 @@ public class JobController {
     }
 
     @Log("查询岗位")
-    @ApiOperation("查询岗位")
+    @Operation(summary = "查询岗位")
     @GetMapping
     @PreAuthorize("@el.check('admin','job:list','user:list')")
     public ResponseEntity<Object> getJobs(JobQueryCriteria criteria, Pageable pageable){
@@ -75,7 +75,7 @@ public class JobController {
     }
 
     @Log("新增岗位")
-    @ApiOperation("新增岗位")
+    @Operation(summary = "新增岗位")
     @PostMapping
     @PreAuthorize("@el.check('admin','job:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody Job resources){
@@ -88,7 +88,7 @@ public class JobController {
 
     @ForbidSubmit
     @Log("修改岗位")
-    @ApiOperation("修改岗位")
+    @Operation(summary = "修改岗位")
     @PutMapping
     @PreAuthorize("@el.check('admin','job:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody Job resources){
@@ -99,7 +99,7 @@ public class JobController {
 
     @ForbidSubmit
     @Log("删除岗位")
-    @ApiOperation("删除岗位")
+    @Operation(summary = "删除岗位")
     @DeleteMapping
     @PreAuthorize("@el.check('admin','job:del')")
     public ResponseEntity<Object> delete(@RequestBody Set<Long> ids){

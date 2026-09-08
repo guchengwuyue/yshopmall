@@ -17,8 +17,8 @@ import co.yixiang.modules.tools.service.LocalStorageService;
 import co.yixiang.oss.config.OssProperties;
 import co.yixiang.oss.service.OssTemplate;
 import co.yixiang.utils.RedisUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,7 @@ import java.util.Map;
  * @author hupeng
  * @date 2020-01-09
  */
-@Api(tags = "上传统一管理")
+@Tag(name = "上传统一管理")
 @RestController
 @RequestMapping("/api/upload")
 @Slf4j
@@ -56,7 +56,7 @@ public class UploadController {
     }
 
 
-    @ApiOperation("上传文件")
+    @Operation(summary = "上传文件")
     @PostMapping
     public ResponseEntity<Object> create(@RequestParam(defaultValue = "") String name,
                                          @RequestParam(defaultValue = "") String type,

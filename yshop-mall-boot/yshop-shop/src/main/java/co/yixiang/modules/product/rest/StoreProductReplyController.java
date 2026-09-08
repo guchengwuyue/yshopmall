@@ -14,8 +14,8 @@ import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.product.domain.YxStoreProductReply;
 import co.yixiang.modules.product.service.YxStoreProductReplyService;
 import co.yixiang.modules.product.service.dto.YxStoreProductReplyQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,7 @@ import java.util.Date;
 * @author hupeng
 * @date 2019-11-03
 */
-@Api(tags = "商城:评论管理")
+@Tag(name = "商城:评论管理")
 @RestController
 @RequestMapping("api")
 public class StoreProductReplyController {
@@ -48,7 +48,7 @@ public class StoreProductReplyController {
     }
 
     @Log("查询")
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxStoreProductReply")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_SELECT')")
     public ResponseEntity getYxStoreProductReplys(YxStoreProductReplyQueryCriteria criteria, Pageable pageable){
@@ -58,7 +58,7 @@ public class StoreProductReplyController {
 
 
     @Log("修改")
-    @ApiOperation(value = "修改")
+    @Operation(summary = "修改")
     @PutMapping(value = "/yxStoreProductReply")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreProductReply resources){
@@ -70,7 +70,7 @@ public class StoreProductReplyController {
 
     @ForbidSubmit
     @Log("删除")
-    @ApiOperation(value = "删除")
+    @Operation(summary = "删除")
     @DeleteMapping(value = "/yxStoreProductReply/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCTREPLY_ALL','YXSTOREPRODUCTREPLY_DELETE')")
     public ResponseEntity delete(@PathVariable Long id){

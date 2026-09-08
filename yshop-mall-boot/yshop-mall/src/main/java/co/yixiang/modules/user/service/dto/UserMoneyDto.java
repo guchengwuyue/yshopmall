@@ -7,7 +7,7 @@ package co.yixiang.modules.user.service.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 import java.io.Serializable;
 
 /**

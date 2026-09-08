@@ -25,8 +25,8 @@ import co.yixiang.modules.mp.config.WxMaConfiguration;
 import co.yixiang.utils.RedisUtil;
 import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.ShopKeyUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "微信其他", tags = "微信:微信其他")
+@Tag(name = "微信:微信其他")
 public class WxMaUserController {
 
     private final YxUserService userService;
@@ -52,7 +52,7 @@ public class WxMaUserController {
     @AppLog(value = "公众号绑定手机号", type = 1)
     @AuthCheck
     @PostMapping("/binding")
-    @ApiOperation(value = "公众号绑定手机号", notes = "公众号绑定手机号")
+    @Operation(summary = "公众号绑定手机号", description = "公众号绑定手机号")
     public ApiResult<String> verify(@Validated @RequestBody BindPhoneParam param) {
         Object codeObj = redisUtils.get("code_" + param.getPhone());
         if(codeObj == null){
@@ -78,7 +78,7 @@ public class WxMaUserController {
     @AppLog(value = "小程序绑定手机号", type = 1)
     @AuthCheck
     @PostMapping("/wxapp/binding")
-    @ApiOperation(value = "小程序绑定手机号", notes = "小程序绑定手机号")
+    @Operation(summary = "小程序绑定手机号", description = "小程序绑定手机号")
     public ApiResult<Map<String,Object>> phone(@Validated @RequestBody WxPhoneParam param) {
         YxUser user = LocalUser.getUser();
         if(StrUtil.isNotBlank(user.getPhone())){

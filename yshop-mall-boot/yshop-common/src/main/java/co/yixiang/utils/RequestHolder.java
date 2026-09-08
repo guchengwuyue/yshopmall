@@ -5,11 +5,11 @@
  */
 package co.yixiang.utils;
 
-import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
@@ -28,6 +28,6 @@ public class RequestHolder {
         if (request == null) {
             return null;
         }
-        return ServletUtil.getClientIP(request);
+        return JakartaServletUtil.getClientIP(request);
     }
 }

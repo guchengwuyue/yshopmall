@@ -1,8 +1,7 @@
 package co.yixiang.modules.user.vo;
 
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,41 +16,41 @@ import java.math.BigDecimal;
  * @date 2019-12-06
  */
 @Data
-@ApiModel(value = "YxSystemUserLevelQueryVo对象", description = "设置用户等级表查询参数")
+@Schema(description = "YxSystemUserLevelQueryVo对象")
 public class YxSystemUserLevelQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
 
-    @ApiModelProperty(value = "商户id")
+    @Schema(description = "商户id")
     private Integer merId;
 
-    @ApiModelProperty(value = "会员名称")
+    @Schema(description = "会员名称")
     private String name;
 
-    @ApiModelProperty(value = "购买金额")
+    @Schema(description = "购买金额")
     private BigDecimal money;
 
-    @ApiModelProperty(value = "有效时间")
+    @Schema(description = "有效时间")
     private Integer validDate;
 
 
-    @ApiModelProperty(value = "会员等级")
+    @Schema(description = "会员等级")
     private Integer grade;
 
-    @ApiModelProperty(value = "享受折扣")
+    @Schema(description = "享受折扣")
     private BigDecimal discount;
 
-    @ApiModelProperty(value = "会员卡背景")
+    @Schema(description = "会员卡背景")
     private String image;
 
-    @ApiModelProperty(value = "会员图标")
+    @Schema(description = "会员图标")
     private String icon;
 
-    @ApiModelProperty(value = "说明")
+    @Schema(description = "说明")
     private String explain;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
     private Integer addTime;
 
 

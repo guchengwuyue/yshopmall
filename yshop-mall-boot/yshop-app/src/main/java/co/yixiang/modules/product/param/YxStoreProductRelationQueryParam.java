@@ -1,11 +1,10 @@
 package co.yixiang.modules.product.param;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -17,16 +16,16 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
-@ApiModel("查询参数对象")
+@Schema(description = "查询参数对象")
 public class YxStoreProductRelationQueryParam  {
 
     @NotBlank(message = "参数有误")
-    @ApiModelProperty(value = "商品id",required=true)
+    @Schema(description = "商品id", requiredMode = Schema.RequiredMode.REQUIRED)
     private String id;
 
-    @ApiModelProperty(value = "某种类型的商品(普通商品、秒杀商品)")
+    @Schema(description = "某种类型的商品(普通商品、秒杀商品)")
     private String category;
 
-    @ApiModelProperty(value = "collect-收藏，foot-足迹")
+    @Schema(description = "collect-收藏，foot-足迹")
     private String type;
 }

@@ -11,8 +11,8 @@ import co.yixiang.modules.mp.domain.YxWechatReply;
 import co.yixiang.modules.mp.service.YxWechatReplyService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-10-10
 */
-@Api(tags = "商城:微信回復管理")
+@Tag(name = "商城:微信回復管理")
 @RestController
 @RequestMapping("api")
 public class WechatReplyController {
@@ -37,7 +37,7 @@ public class WechatReplyController {
         this.yxWechatReplyService = yxWechatReplyService;
     }
 
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxWechatReply")
     @PreAuthorize("@el.check('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_SELECT')")
     public ResponseEntity getYxWechatReplys(){
@@ -46,7 +46,7 @@ public class WechatReplyController {
 
 
     @ForbidSubmit
-    @ApiOperation(value = "新增自动回复")
+    @Operation(summary = "新增自动回复")
     @PostMapping(value = "/yxWechatReply")
     @PreAuthorize("@el.check('admin','YXWECHATREPLY_ALL','YXWECHATREPLY_CREATE')")
     public ResponseEntity create(@RequestBody String jsonStr){

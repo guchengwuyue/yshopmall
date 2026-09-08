@@ -12,8 +12,8 @@ import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.api.ApiResult;
 import co.yixiang.modules.category.service.YxStoreCategoryService;
 import co.yixiang.utils.CateDTO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@Api(value = "商品分类", tags = "商城:商品分类")
+@Tag(name = "商城:商品分类")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StoreCategoryController {
 
@@ -44,10 +44,9 @@ public class StoreCategoryController {
      */
     @AnonymousAccess
     @GetMapping("/category")
-    @ApiOperation(value = "商品分类列表",notes = "商品分类列表")
+    @Operation(summary = "商品分类列表", description = "商品分类列表")
     public ApiResult<List<CateDTO>> getYxStoreCategoryPageList(){
         return ApiResult.ok(yxStoreCategoryService.getList());
     }
 
 }
-

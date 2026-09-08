@@ -13,8 +13,8 @@ import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.order.domain.YxExpress;
 import co.yixiang.modules.order.service.YxExpressService;
 import co.yixiang.modules.order.service.dto.YxExpressQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-12-12
 */
-@Api(tags = "商城:快递管理")
+@Tag(name = "商城:快递管理")
 @RestController
 @RequestMapping("api")
 public class ExpressController {
@@ -46,7 +46,7 @@ public class ExpressController {
     }
 
     @Log("查询快递")
-    @ApiOperation(value = "查询快递")
+    @Operation(summary = "查询快递")
     @GetMapping(value = "/yxExpress")
     @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_SELECT')")
     public ResponseEntity getYxExpresss(YxExpressQueryCriteria criteria, Pageable pageable){
@@ -55,7 +55,7 @@ public class ExpressController {
 
     @ForbidSubmit
     @Log("新增快递")
-    @ApiOperation(value = "新增快递")
+    @Operation(summary = "新增快递")
     @PostMapping(value = "/yxExpress")
     @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_CREATE')")
     public ResponseEntity create(@Validated @RequestBody YxExpress resources){
@@ -64,7 +64,7 @@ public class ExpressController {
 
     @ForbidSubmit
     @Log("修改快递")
-    @ApiOperation(value = "修改快递")
+    @Operation(summary = "修改快递")
     @PutMapping(value = "/yxExpress")
     @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxExpress resources){
@@ -74,7 +74,7 @@ public class ExpressController {
 
     @ForbidSubmit
     @Log("删除快递")
-    @ApiOperation(value = "删除快递")
+    @Operation(summary = "删除快递")
     @DeleteMapping(value = "/yxExpress/{id}")
     @PreAuthorize("hasAnyRole('admin','YXEXPRESS_ALL','YXEXPRESS_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){

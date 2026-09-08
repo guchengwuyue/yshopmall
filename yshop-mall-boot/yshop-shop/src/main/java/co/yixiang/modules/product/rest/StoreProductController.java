@@ -34,8 +34,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
  * @author hupeng
  * @date 2019-10-04
  */
-@Api(tags = "商城:商品管理")
+@Tag(name = "商城:商品管理")
 @RestController
 @RequestMapping("api")
 public class StoreProductController {
@@ -85,7 +85,7 @@ public class StoreProductController {
     }
 
     @Log("查询商品")
-    @ApiOperation(value = "查询商品")
+    @Operation(summary = "查询商品")
     @GetMapping(value = "/yxStoreProduct")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_SELECT')")
     public ResponseEntity getYxStoreProducts(YxStoreProductQueryCriteria criteria, Pageable pageable){
@@ -102,7 +102,7 @@ public class StoreProductController {
 
     @ForbidSubmit
     @Log("新增/修改商品")
-    @ApiOperation(value = "新增/修改商品")
+    @Operation(summary = "新增/修改商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PostMapping(value = "/yxStoreProduct/addOrSave")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_CREATE')")
@@ -114,7 +114,7 @@ public class StoreProductController {
 
     @ForbidSubmit
     @Log("删除商品")
-    @ApiOperation(value = "删除商品")
+    @Operation(summary = "删除商品")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @DeleteMapping(value = "/yxStoreProduct/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREPRODUCT_ALL','YXSTOREPRODUCT_DELETE')")
@@ -125,7 +125,7 @@ public class StoreProductController {
 
 
 
-    @ApiOperation(value = "商品上架/下架")
+    @Operation(summary = "商品上架/下架")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PostMapping(value = "/yxStoreProduct/onsale/{id}")
     public ResponseEntity onSale(@PathVariable Long id,@RequestBody String jsonStr){
@@ -134,13 +134,13 @@ public class StoreProductController {
         yxStoreProductService.onSale(id,status);
         return new ResponseEntity(HttpStatus.OK);
     }
-    @ApiOperation(value = "生成属性（添加活动产品专用）")
+    @Operation(summary = "生成属性（添加活动产品专用）")
     @PostMapping(value = "/yxStoreProduct/isFormatAttrForActivity/{id}")
     public ResponseEntity isFormatAttrForActivity(@PathVariable Long id,@RequestBody String jsonStr){
         return new ResponseEntity<>(yxStoreProductService.getFormatAttr(id,jsonStr,true),HttpStatus.OK);
     }
 
-    @ApiOperation(value = "生成属性")
+    @Operation(summary = "生成属性")
     @PostMapping(value = "/yxStoreProduct/isFormatAttr/{id}")
     public ResponseEntity isFormatAttr(@PathVariable Long id,@RequestBody String jsonStr){
         return new ResponseEntity<>(yxStoreProductService.getFormatAttr(id,jsonStr,false),HttpStatus.OK);
@@ -148,7 +148,7 @@ public class StoreProductController {
 
 
 
-    @ApiOperation(value = "获取商品信息")
+    @Operation(summary = "获取商品信息")
     @GetMapping(value = "/yxStoreProduct/info/{id}")
     public ResponseEntity info(@PathVariable Long id){
         Map<String,Object> map = new LinkedHashMap<>(3);

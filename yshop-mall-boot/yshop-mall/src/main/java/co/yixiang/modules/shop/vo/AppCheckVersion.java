@@ -1,7 +1,6 @@
 package co.yixiang.modules.shop.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,13 +13,13 @@ import java.io.Serializable;
  * @version:
  */
 @Data
-@ApiModel(description = "app校验升级")
+@Schema(description = "app校验升级")
 public class AppCheckVersion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "类型 1101 安卓   1102 ios")
+    @Schema(description = "类型 1101 安卓   1102 ios")
     private String type;
 
-    @ApiModelProperty(value = "app版本名称")
+    @Schema(description = "app版本名称")
     private String versionName;
 }

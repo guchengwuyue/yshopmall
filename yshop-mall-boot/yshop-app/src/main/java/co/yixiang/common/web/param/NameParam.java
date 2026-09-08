@@ -1,16 +1,15 @@
 package co.yixiang.common.web.param;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
 
-@ApiModel("名称参数")
+@Schema(description = "名称参数")
 public class NameParam implements Serializable {
     private static final long serialVersionUID = -3710501706034574149L;
 
-    @ApiModelProperty("名称")
+    @Schema(description = "名称")
     private String name;
 
     public String getName() {

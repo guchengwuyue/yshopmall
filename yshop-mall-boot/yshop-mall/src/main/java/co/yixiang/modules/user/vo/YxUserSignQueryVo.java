@@ -1,7 +1,6 @@
 package co.yixiang.modules.user.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,25 +14,25 @@ import java.io.Serializable;
  * @date 2019-12-05
  */
 @Data
-@ApiModel(value = "YxUserSignQueryVo对象", description = "签到记录表查询参数")
+@Schema(description = "YxUserSignQueryVo对象")
 public class YxUserSignQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
 
-    @ApiModelProperty(value = "用户uid")
+    @Schema(description = "用户uid")
     private Integer uid;
 
-    @ApiModelProperty(value = "签到说明")
+    @Schema(description = "签到说明")
     private String title;
 
-    @ApiModelProperty(value = "获得积分")
+    @Schema(description = "获得积分")
     private Integer number;
 
-    @ApiModelProperty(value = "剩余积分")
+    @Schema(description = "剩余积分")
     private Integer balance;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
     private Integer addTime;
 
 }

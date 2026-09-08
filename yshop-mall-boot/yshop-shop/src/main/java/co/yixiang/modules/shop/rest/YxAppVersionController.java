@@ -16,8 +16,8 @@ import co.yixiang.modules.shop.domain.YxAppVersion;
 import co.yixiang.modules.shop.service.YxAppVersionService;
 import co.yixiang.modules.shop.service.dto.YxAppVersionDto;
 import co.yixiang.modules.shop.service.dto.YxAppVersionQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -35,7 +35,7 @@ import java.util.Arrays;
 * @date 2020-12-09
 */
 @AllArgsConstructor
-@Api(tags = "app版本控制管理")
+@Tag(name = "app版本控制管理")
 @RestController
 @RequestMapping("/api/yxAppVersion")
 public class YxAppVersionController {
@@ -45,7 +45,7 @@ public class YxAppVersionController {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','yxAppVersion:list')")
     public void download(HttpServletResponse response, YxAppVersionQueryCriteria criteria) throws IOException {
@@ -54,7 +54,7 @@ public class YxAppVersionController {
 
     @GetMapping
     @Log("查询app版本控制")
-    @ApiOperation("查询app版本控制")
+    @Operation(summary = "查询app版本控制")
     @PreAuthorize("@el.check('admin','yxAppVersion:list')")
     public ResponseEntity<PageResult<YxAppVersionDto>> getYxAppVersions(YxAppVersionQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxAppVersionService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -63,7 +63,7 @@ public class YxAppVersionController {
     @ForbidSubmit
     @PostMapping
     @Log("新增app版本控制")
-    @ApiOperation("新增app版本控制")
+    @Operation(summary = "新增app版本控制")
     @PreAuthorize("@el.check('admin','yxAppVersion:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxAppVersion resources){
         return new ResponseEntity<>(yxAppVersionService.save(resources),HttpStatus.CREATED);
@@ -72,7 +72,7 @@ public class YxAppVersionController {
     @ForbidSubmit
     @PutMapping
     @Log("修改app版本控制")
-    @ApiOperation("修改app版本控制")
+    @Operation(summary = "修改app版本控制")
     @PreAuthorize("@el.check('admin','yxAppVersion:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxAppVersion resources){
         yxAppVersionService.updateById(resources);
@@ -81,7 +81,7 @@ public class YxAppVersionController {
 
     @ForbidSubmit
     @Log("删除app版本控制")
-    @ApiOperation("删除app版本控制")
+    @Operation(summary = "删除app版本控制")
     @PreAuthorize("@el.check('admin','yxAppVersion:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {

@@ -18,8 +18,8 @@ import co.yixiang.modules.activity.param.UserExtParam;
 import co.yixiang.modules.activity.service.YxUserExtractService;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.user.domain.YxUser;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "用户提现", tags = "用户:用户提现")
+@Tag(name = "用户:用户提现")
 public class UserExtractController {
 
     private final YxUserExtractService userExtractService;
@@ -54,7 +54,7 @@ public class UserExtractController {
      */
     @AuthCheck
     @GetMapping("/extract/bank")
-    @ApiOperation(value = "提现参数",notes = "提现参数")
+    @Operation(summary = "提现参数", description = "提现参数")
     public ApiResult<Object> bank(){
         YxUser yxUser = LocalUser.getUser();
         Map<String,Object> map = new LinkedHashMap<>();
@@ -70,7 +70,7 @@ public class UserExtractController {
     @AppLog(value = "用户提现", type = 1)
     @AuthCheck
     @PostMapping("/extract/cash")
-    @ApiOperation(value = "用户提现",notes = "用户提现")
+    @Operation(summary = "用户提现", description = "用户提现")
     public ApiResult<String> addYxUserExtract(@Valid @RequestBody UserExtParam param){
         YxUser yxUser = LocalUser.getUser();
         userExtractService.userExtract(yxUser,param);
@@ -81,4 +81,3 @@ public class UserExtractController {
 
 
 }
-

@@ -11,8 +11,8 @@ package co.yixiang.modules.activity.rest;
 import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStoreCouponUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponUserQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-11-10
 */
-@Api(tags = "商城:优惠券发放记录管理")
+@Tag(name = "商城:优惠券发放记录管理")
 @RestController
 @RequestMapping("api")
 public class StoreCouponUserController {
@@ -37,7 +37,7 @@ public class StoreCouponUserController {
     }
 
     @Log("查询Y")
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxStoreCouponUser")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONUSER_ALL','YXSTORECOUPONUSER_SELECT')")
     public ResponseEntity getYxStoreCouponUsers(YxStoreCouponUserQueryCriteria criteria, Pageable pageable){

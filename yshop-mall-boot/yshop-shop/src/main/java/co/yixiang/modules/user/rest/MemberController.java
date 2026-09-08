@@ -16,8 +16,8 @@ import co.yixiang.modules.user.service.dto.UserMoneyDto;
 import co.yixiang.modules.user.service.dto.YxUserQueryCriteria;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-10-06
 */
-@Api(tags = "商城:会员管理")
+@Tag(name = "商城:会员管理")
 @RestController
 @RequestMapping("api")
 public class MemberController {
@@ -50,7 +50,7 @@ public class MemberController {
 
 
     @Log("查询用户")
-    @ApiOperation(value = "查询用户")
+    @Operation(summary = "查询用户")
     @GetMapping(value = "/yxUser")
     @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_SELECT')")
     public ResponseEntity getYxUsers(YxUserQueryCriteria criteria, Pageable pageable){
@@ -59,7 +59,7 @@ public class MemberController {
 
 
     @Log("修改用户")
-    @ApiOperation(value = "修改用户")
+    @Operation(summary = "修改用户")
     @PutMapping(value = "/yxUser")
     @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxUser resources){
@@ -69,7 +69,7 @@ public class MemberController {
 
     @ForbidSubmit
     @Log("删除用户")
-    @ApiOperation(value = "删除用户")
+    @Operation(summary = "删除用户")
     @DeleteMapping(value = "/yxUser/{uid}")
     @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer uid){
@@ -78,7 +78,7 @@ public class MemberController {
     }
 
     @ForbidSubmit
-    @ApiOperation(value = "用户禁用启用")
+    @Operation(summary = "用户禁用启用")
     @PostMapping(value = "/yxUser/onStatus/{id}")
     public ResponseEntity onStatus(@PathVariable Long id,@RequestBody String jsonStr){
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -87,7 +87,7 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @ApiOperation(value = "修改余额")
+    @Operation(summary = "修改余额")
     @PostMapping(value = "/yxUser/money")
     @PreAuthorize("hasAnyRole('admin','YXUSER_ALL','YXUSER_EDIT')")
     public ResponseEntity updatePrice(@Validated @RequestBody UserMoneyDto param){

@@ -1,6 +1,6 @@
 package co.yixiang.modules.product.param;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ApiModel("查询参数对象")
+@Schema(description = "查询参数对象")
 public class CollectDelFootParam {
 
     private List<Long> ids;

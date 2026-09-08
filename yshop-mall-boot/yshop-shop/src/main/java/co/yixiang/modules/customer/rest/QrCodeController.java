@@ -9,7 +9,7 @@ import co.yixiang.utils.RecodeUtil;
 import co.yixiang.utils.RedisUtil;
 import co.yixiang.utils.RedisUtils;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
 /**
@@ -34,7 +34,7 @@ import java.net.URLEncoder;
  * @date 2020-03-21
  */
 @Slf4j
-@Api(tags = "微信")
+@Tag(name = "微信")
 @Controller
 @RequestMapping("/api/wxmp")
 @AllArgsConstructor

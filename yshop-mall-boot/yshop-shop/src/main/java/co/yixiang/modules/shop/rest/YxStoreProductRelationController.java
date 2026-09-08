@@ -22,16 +22,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import co.yixiang.domain.PageResult;
 /**
  * @author hupeng
  * @date 2020-09-03
  */
 @AllArgsConstructor
-@Api(tags = "ProductRelation管理")
+@Tag(name = "ProductRelation管理")
 @RestController
 @RequestMapping("/api/yxStoreProductRelation")
 public class YxStoreProductRelationController {
@@ -41,7 +42,7 @@ public class YxStoreProductRelationController {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','yxStoreProductRelation:list')")
     public void download(HttpServletResponse response, YxStoreProductRelationQueryCriteria criteria) throws IOException {
@@ -50,7 +51,7 @@ public class YxStoreProductRelationController {
 
     @GetMapping
     @Log("查询ProductRelation")
-    @ApiOperation("查询ProductRelation")
+    @Operation(summary = "查询ProductRelation")
     @PreAuthorize("@el.check('admin','yxStoreProductRelation:list')")
     public ResponseEntity<PageResult<YxStoreProductRelationDto>> getYxStoreProductRelations(YxStoreProductRelationQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxStoreProductRelationService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -58,7 +59,7 @@ public class YxStoreProductRelationController {
 
     @PostMapping
     @Log("新增ProductRelation")
-    @ApiOperation("新增ProductRelation")
+    @Operation(summary = "新增ProductRelation")
     @PreAuthorize("@el.check('admin','yxStoreProductRelation:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxStoreProductRelation resources){
         return new ResponseEntity<>(yxStoreProductRelationService.save(resources),HttpStatus.CREATED);
@@ -66,7 +67,7 @@ public class YxStoreProductRelationController {
 
     @PutMapping
     @Log("修改ProductRelation")
-    @ApiOperation("修改ProductRelation")
+    @Operation(summary = "修改ProductRelation")
     @PreAuthorize("@el.check('admin','yxStoreProductRelation:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxStoreProductRelation resources){
         yxStoreProductRelationService.updateById(resources);
@@ -75,7 +76,7 @@ public class YxStoreProductRelationController {
 
     @ForbidSubmit
     @Log("删除ProductRelation")
-    @ApiOperation("删除ProductRelation")
+    @Operation(summary = "删除ProductRelation")
     @PreAuthorize("@el.check('admin','yxStoreProductRelation:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {

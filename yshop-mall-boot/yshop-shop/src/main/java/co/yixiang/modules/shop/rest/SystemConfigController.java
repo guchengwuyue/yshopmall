@@ -23,8 +23,8 @@ import co.yixiang.utils.RedisUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-10-10
 */
-@Api(tags = "商城:配置管理")
+@Tag(name = "商城:配置管理")
 @RestController
 @RequestMapping("api")
 public class SystemConfigController {
@@ -52,7 +52,7 @@ public class SystemConfigController {
     }
 
     @Log("查询")
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxSystemConfig")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_SELECT')")
     public ResponseEntity getYxSystemConfigs(YxSystemConfigQueryCriteria criteria, Pageable pageable){
@@ -61,7 +61,7 @@ public class SystemConfigController {
 
     @ForbidSubmit
     @Log("新增或修改")
-    @ApiOperation(value = "新增或修改")
+    @Operation(summary = "新增或修改")
     @PostMapping(value = "/yxSystemConfig")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMCONFIG_ALL','YXSYSTEMCONFIG_CREATE')")

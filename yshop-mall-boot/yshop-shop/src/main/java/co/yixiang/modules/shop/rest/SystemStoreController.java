@@ -17,8 +17,8 @@ import co.yixiang.utils.location.GetTencentLocationVO;
 import co.yixiang.utils.location.LocationUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ import java.util.Arrays;
 * @author hupeng
 * @date 2020-03-03
 */
-@Api(tags = "门店管理")
+@Tag(name = "门店管理")
 @RestController
 @RequestMapping("/api/yxSystemStore")
 public class SystemStoreController {
@@ -55,7 +55,7 @@ public class SystemStoreController {
 
 
     @Log("所有门店")
-    @ApiOperation("所有门店")
+    @Operation(summary = "所有门店")
     @GetMapping(value = "/all")
     @PreAuthorize("@el.check('yxSystemStore:list')")
     public ResponseEntity<Object>  getAll(YxSystemStoreQueryCriteria criteria) {
@@ -63,7 +63,7 @@ public class SystemStoreController {
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('yxSystemStore:list')")
     public void download(HttpServletResponse response, YxSystemStoreQueryCriteria criteria) throws IOException {
@@ -72,7 +72,7 @@ public class SystemStoreController {
 
     @GetMapping
     @Log("查询门店")
-    @ApiOperation("查询门店")
+    @Operation(summary = "查询门店")
     @PreAuthorize("@el.check('yxSystemStore:list')")
     public ResponseEntity<Object> getYxSystemStores(YxSystemStoreQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxSystemStoreService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -80,7 +80,7 @@ public class SystemStoreController {
 
     @PostMapping(value = "/getL")
     @Log("获取经纬度")
-    @ApiOperation("获取经纬度")
+    @Operation(summary = "获取经纬度")
     @PreAuthorize("@el.check('yxSystemStore:getl')")
     public ResponseEntity<GetTencentLocationVO> create(@Validated @RequestBody String jsonStr) {
         JSONObject jsonObject = JSON.parseObject(jsonStr);
@@ -95,7 +95,7 @@ public class SystemStoreController {
     @ForbidSubmit
     @PostMapping
     @Log("新增门店")
-    @ApiOperation("新增门店")
+    @Operation(summary = "新增门店")
     @PreAuthorize("@el.check('yxSystemStore:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxSystemStore resources){
         return new ResponseEntity<>(yxSystemStoreService.save(resources),HttpStatus.CREATED);
@@ -104,7 +104,7 @@ public class SystemStoreController {
     @ForbidSubmit
     @PutMapping
     @Log("修改门店")
-    @ApiOperation("修改门店")
+    @Operation(summary = "修改门店")
     @PreAuthorize("@el.check('yxSystemStore:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxSystemStore resources){
         yxSystemStoreService.saveOrUpdate(resources);
@@ -113,7 +113,7 @@ public class SystemStoreController {
 
     @ForbidSubmit
     @Log("删除门店")
-    @ApiOperation("删除门店")
+    @Operation(summary = "删除门店")
     @PreAuthorize("@el.check('yxSystemStore:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {

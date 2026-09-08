@@ -1,10 +1,10 @@
 package co.yixiang.modules.order.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -15,49 +15,49 @@ import java.io.Serializable;
 @Data
 public class OrderParam implements Serializable {
 
-    @ApiModelProperty(value = "地址ID")
+    @Schema(description = "地址ID")
     private String addressId;
 
 
-    @ApiModelProperty(value = "拼团ID")
+    @Schema(description = "拼团ID")
     private String combinationId;
 
-    @ApiModelProperty(value = "优惠券ID")
+    @Schema(description = "优惠券ID")
     private String couponId;
 
-    @ApiModelProperty(value = "来源")
+    @Schema(description = "来源")
     private String from;
 
     @Size(max = 200,message = "长度超过了限制")
-    @ApiModelProperty(value = "备注")
+    @Schema(description = "备注")
     private String mark;
 
     @NotBlank(message="请选择支付方式")
-    @ApiModelProperty(value = "支付方式")
+    @Schema(description = "支付方式")
     private String payType;
 
-    @ApiModelProperty(value = "门店电话")
+    @Schema(description = "门店电话")
     private String phone;
 
-    @ApiModelProperty(value = "拼团id 0没有拼团")
+    @Schema(description = "拼团id 0没有拼团")
     private String pinkId;
 
-    @ApiModelProperty(value = "门店联系人")
+    @Schema(description = "门店联系人")
     private String realName;
 
-    @ApiModelProperty(value = "秒杀产品ID")
+    @Schema(description = "秒杀产品ID")
     private String seckillId;
 
-    @ApiModelProperty(value = "配送方式 1=快递 ，2=门店自提")
+    @Schema(description = "配送方式 1=快递 ，2=门店自提")
     private String shippingType;
 
-    @ApiModelProperty(value = "使用积分 1-表示使用")
+    @Schema(description = "使用积分 1-表示使用")
     private String useIntegral;
 
-    @ApiModelProperty(value = "支付渠道(0微信公众号1微信小程序) ")
+    @Schema(description = "支付渠道(0微信公众号1微信小程序) ")
     private String isChannel;
 
-    @ApiModelProperty(value = "门店ID")
+    @Schema(description = "门店ID")
     private String storeId;
 
 }

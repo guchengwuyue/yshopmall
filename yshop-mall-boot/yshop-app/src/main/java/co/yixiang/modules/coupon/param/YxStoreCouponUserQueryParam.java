@@ -1,7 +1,7 @@
 package co.yixiang.modules.coupon.param;
 
 import co.yixiang.common.web.param.QueryParam;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="YxStoreCouponUserQueryParam对象", description="优惠券发放记录表查询参数")
+@Schema(description = "YxStoreCouponUserQueryParam对象")
 public class YxStoreCouponUserQueryParam extends QueryParam {
     private static final long serialVersionUID = 1L;
 }

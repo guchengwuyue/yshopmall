@@ -10,8 +10,8 @@ import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.tools.service.LocalStorageService;
 import co.yixiang.modules.tools.service.dto.LocalStorageDto;
 import co.yixiang.modules.tools.service.dto.LocalStorageQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -37,7 +37,7 @@ import java.util.Arrays;
 * @date 2020-05-13
 */
 @AllArgsConstructor
-@Api(tags = "文件管理")
+@Tag(name = "文件管理")
 @RestController
 @RequestMapping("/api/localStorage")
 public class LocalStorageController {
@@ -47,7 +47,7 @@ public class LocalStorageController {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','storage:list')")
     public void download(HttpServletResponse response, LocalStorageQueryCriteria criteria) throws IOException {
@@ -56,7 +56,7 @@ public class LocalStorageController {
 
     @GetMapping
     @Log("查询文件")
-    @ApiOperation("查询文件")
+    @Operation(summary = "查询文件")
     @PreAuthorize("@el.check('admin','storage:list')")
     public ResponseEntity<Object> getLocalStorages(LocalStorageQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(localStorageService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -64,7 +64,7 @@ public class LocalStorageController {
 
     @PostMapping
     @Log("新增文件")
-    @ApiOperation("新增文件")
+    @Operation(summary = "新增文件")
     @PreAuthorize("@el.check('admin','storage:add')")
     public ResponseEntity<Object> create(@RequestParam String name, @RequestParam("file") MultipartFile file){
         return new ResponseEntity<>(localStorageService.create(name,file),HttpStatus.CREATED);
@@ -72,7 +72,7 @@ public class LocalStorageController {
 
     @PutMapping
     @Log("修改文件")
-    @ApiOperation("修改文件")
+    @Operation(summary = "修改文件")
     @PreAuthorize("@el.check('admin','storage:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody LocalStorageDto resources){
         localStorageService.updateLocalStorage(resources);
@@ -80,7 +80,7 @@ public class LocalStorageController {
     }
 
     @Log("删除文件")
-    @ApiOperation("删除文件")
+    @Operation(summary = "删除文件")
     @PreAuthorize("@el.check('admin','storage:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {

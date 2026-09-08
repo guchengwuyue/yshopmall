@@ -5,25 +5,19 @@
  */
 package co.yixiang.modules.security.security;
 
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.DefaultSecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 /**
- * @author /
+ * @deprecated TokenFilter is registered directly in SecurityFilterChain (Spring Security 6).
+ * Kept for reference; no longer used as SecurityConfigurerAdapter.
  */
-public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
+@Deprecated
+public class TokenConfigurer {
     private final TokenUtil tokenUtil;
 
     public TokenConfigurer(TokenUtil tokenUtil){
         this.tokenUtil = tokenUtil;
     }
 
-    @Override
-    public void configure(HttpSecurity http) {
-        TokenFilter customFilter = new TokenFilter(tokenUtil);
-        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+    public TokenUtil getTokenUtil() {
+        return tokenUtil;
     }
 }

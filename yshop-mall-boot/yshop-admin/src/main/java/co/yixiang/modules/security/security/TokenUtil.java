@@ -9,14 +9,16 @@ import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 
@@ -54,6 +56,17 @@ public class TokenUtil {
     @Autowired
     private RedisUtils redisUtils;
 
+    private SecretKey signingKey() {
+        try {
+            // JJWT 0.12 requires >= 512-bit key for HS512; derive deterministically from configured secret
+            byte[] keyBytes = java.security.MessageDigest.getInstance("SHA-512")
+                    .digest(properties.getSecret().getBytes(StandardCharsets.UTF_8));
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     /**
      * 获取用户名
      *
@@ -89,9 +102,10 @@ public class TokenUtil {
         Claims claims;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(properties.getSecret())
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .verifyWith(signingKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
         } catch (Exception e) {
             LOGGER.warn("getClaimsFromToken exception", e);
             claims = null;
@@ -128,11 +142,10 @@ public class TokenUtil {
      */
 
     public String generateToken(UserDetails userDetails) {
-        String secret=properties.getSecret();
         String token = Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .setExpiration(generateExpired())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .subject(userDetails.getUsername())
+                .expiration(generateExpired())
+                .signWith(signingKey())
                 .compact();
 
         String key = REDIS_PREFIX_AUTH + userDetails.getUsername() + ":" + token;
@@ -231,8 +244,6 @@ public class TokenUtil {
 
     public static void main(String[] args) {
         String key = Base64.getEncoder().encodeToString("123".getBytes());
-        Claims claims = Jwts.parser().setSigningKey(key)
-                .parseClaimsJws("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbImFwcCIsIndyaXRlIl0sInVpbiI6MSwiZXhwIjoxNTc1MDE1ODgzLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYjdiYjQ1NTQtNTQ4OS00YTg5LWI3NjQtNzNjODI0YzljNGMyIiwiY2xpZW50X2lkIjoibHZoYWliYW8ifQ.x7QZxRAR1wuX_YNLi6EzRJ1iaKr1rIEUgjtYF0oSx5k").getBody();
-        System.out.println(JSON.toJSONString(claims));
+        System.out.println(JSON.toJSONString(key));
     }
 }

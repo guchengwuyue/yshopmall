@@ -21,16 +21,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import co.yixiang.domain.PageResult;
 /**
 * @author ${author}
 * @date ${date}
 */
 @AllArgsConstructor
-@Api(tags = "${apiAlias}管理")
+@Tag(name = "${apiAlias}管理")
 @RestController
 @RequestMapping("/api/${changeClassName}")
 public class ${className}Controller {
@@ -40,7 +41,7 @@ public class ${className}Controller {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','${changeClassName}:list')")
     public void download(HttpServletResponse response, ${className}QueryCriteria criteria) throws IOException {
@@ -49,7 +50,7 @@ public class ${className}Controller {
 
     @GetMapping
     @Log("查询${apiAlias}")
-    @ApiOperation("查询${apiAlias}")
+    @Operation(summary = "查询${apiAlias}")
     @PreAuthorize("@el.check('admin','${changeClassName}:list')")
     public ResponseEntity<PageResult<${className}Dto>> get${className}s(${className}QueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(${changeClassName}Service.queryAll(criteria,pageable),HttpStatus.OK);
@@ -57,7 +58,7 @@ public class ${className}Controller {
 
     @PostMapping
     @Log("新增${apiAlias}")
-    @ApiOperation("新增${apiAlias}")
+    @Operation(summary = "新增${apiAlias}")
     @PreAuthorize("@el.check('admin','${changeClassName}:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody ${className} resources){
         return new ResponseEntity<>(${changeClassName}Service.save(resources),HttpStatus.CREATED);
@@ -65,7 +66,7 @@ public class ${className}Controller {
 
     @PutMapping
     @Log("修改${apiAlias}")
-    @ApiOperation("修改${apiAlias}")
+    @Operation(summary = "修改${apiAlias}")
     @PreAuthorize("@el.check('admin','${changeClassName}:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody ${className} resources){
         ${changeClassName}Service.updateById(resources);
@@ -73,7 +74,7 @@ public class ${className}Controller {
     }
 
     @Log("删除${apiAlias}")
-    @ApiOperation("删除${apiAlias}")
+    @Operation(summary = "删除${apiAlias}")
     @PreAuthorize("@el.check('admin','${changeClassName}:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody ${pkColumnType}[] ids) {

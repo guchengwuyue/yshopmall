@@ -10,8 +10,8 @@ import co.yixiang.modules.gen.domain.ColumnConfig;
 import co.yixiang.modules.gen.service.GenConfigService;
 import co.yixiang.modules.gen.service.GeneratorService;
 import co.yixiang.utils.PageUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/generator")
-@Api(tags = "系统：代码生成管理")
+@Tag(name = "系统：代码生成管理")
 public class GeneratorController {
 
     private final GeneratorService generatorService;
@@ -49,13 +49,13 @@ public class GeneratorController {
         this.genConfigService = genConfigService;
     }
 
-    @ApiOperation("查询数据库数据")
+    @Operation(summary = "查询数据库数据")
     @GetMapping(value = "/tables/all")
     public ResponseEntity<Object> getTables(){
         return new ResponseEntity<>(generatorService.getTables(), HttpStatus.OK);
     }
 
-    @ApiOperation("查询数据库数据")
+    @Operation(summary = "查询数据库数据")
     @GetMapping(value = "/tables")
     public ResponseEntity<Object> getTables(@RequestParam(defaultValue = "") String name,
                                     @RequestParam(defaultValue = "0")Integer page,
@@ -63,21 +63,21 @@ public class GeneratorController {
         return new ResponseEntity<>(generatorService.getTables(name, page, size), HttpStatus.OK);
     }
 
-    @ApiOperation("查询字段数据")
+    @Operation(summary = "查询字段数据")
     @GetMapping(value = "/columns")
     public ResponseEntity<Object> getTables(@RequestParam String tableName){
         List<ColumnConfig> columnInfos = generatorService.getColumns(tableName);
         return new ResponseEntity<>(PageUtil.toPage(columnInfos,columnInfos.size()), HttpStatus.OK);
     }
 
-    @ApiOperation("保存字段数据")
+    @Operation(summary = "保存字段数据")
     @PutMapping
     public ResponseEntity<HttpStatus> save(@RequestBody List<ColumnConfig> columnInfos){
         generatorService.save(columnInfos);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("同步字段数据")
+    @Operation(summary = "同步字段数据")
     @PostMapping(value = "sync")
     public ResponseEntity<HttpStatus> sync(@RequestBody List<String> tables){
         for (String table : tables) {
@@ -86,7 +86,7 @@ public class GeneratorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation("生成代码")
+    @Operation(summary = "生成代码")
     @PostMapping(value = "/{tableName}/{type}")
     public ResponseEntity<Object> generator(@PathVariable String tableName, @PathVariable Integer type, HttpServletRequest request, HttpServletResponse response){
         if(!generatorEnabled && type == 0){

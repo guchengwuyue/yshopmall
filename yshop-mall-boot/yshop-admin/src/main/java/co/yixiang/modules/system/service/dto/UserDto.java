@@ -9,7 +9,7 @@
 package co.yixiang.modules.system.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -24,7 +24,7 @@ import java.util.Set;
 public class UserDto implements Serializable {
 
 
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Long id;
 
     private String username;
@@ -46,10 +46,10 @@ public class UserDto implements Serializable {
 
     private Timestamp lastPasswordResetTime;
 
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Set<RoleSmallDto> roles;
 
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private JobSmallDto job;
 
     private DeptSmallDto dept;

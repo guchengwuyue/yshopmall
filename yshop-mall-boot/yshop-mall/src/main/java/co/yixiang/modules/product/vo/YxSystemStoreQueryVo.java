@@ -1,7 +1,6 @@
 package co.yixiang.modules.product.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,38 +14,38 @@ import java.io.Serializable;
  * @date 2020-03-04
  */
 @Data
-@ApiModel(value = "YxSystemStoreQueryVo对象", description = "门店自提查询参数")
+@Schema(description = "YxSystemStoreQueryVo对象")
 public class YxSystemStoreQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "门店ID")
+    @Schema(description = "门店ID")
     private Integer id;
 
-    @ApiModelProperty(value = "门店名称")
+    @Schema(description = "门店名称")
     private String name;
 
-    @ApiModelProperty(value = "简介")
+    @Schema(description = "简介")
     private String introduction;
 
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String phone;
 
-    @ApiModelProperty(value = "省市区")
+    @Schema(description = "省市区")
     private String address;
 
-    @ApiModelProperty(value = "详细地址")
+    @Schema(description = "详细地址")
     private String detailedAddress;
 
-    @ApiModelProperty(value = "门店logo")
+    @Schema(description = "门店logo")
     private String image;
 
-    @ApiModelProperty(value = "纬度")
+    @Schema(description = "纬度")
     private String latitude;
 
-    @ApiModelProperty(value = "经度")
+    @Schema(description = "经度")
     private String longitude;
 
-    @ApiModelProperty(value = "核销有效日期")
+    @Schema(description = "核销有效日期")
     private String validTime;
 
     private String latlng;
@@ -55,10 +54,10 @@ public class YxSystemStoreQueryVo implements Serializable {
         return latitude+","+longitude;
     }
 
-    @ApiModelProperty(value = "每日营业开关时间")
+    @Schema(description = "每日营业开关时间")
     private String dayTime;
 
-    @ApiModelProperty(value = "距离")
+    @Schema(description = "距离")
     private String distance;
 
 }

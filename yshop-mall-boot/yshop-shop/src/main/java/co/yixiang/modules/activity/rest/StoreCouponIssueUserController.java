@@ -12,8 +12,8 @@ import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.service.YxStoreCouponIssueUserService;
 import co.yixiang.modules.activity.service.dto.YxStoreCouponIssueUserQueryCriteria;
 import co.yixiang.modules.aop.ForbidSubmit;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-11-09
 */
-@Api(tags = "商城:优惠券前台用户领取记录管理")
+@Tag(name = "商城:优惠券前台用户领取记录管理")
 @RestController
 @RequestMapping("api")
 public class StoreCouponIssueUserController {
@@ -40,7 +40,7 @@ public class StoreCouponIssueUserController {
     }
 
     @Log("查询")
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxStoreCouponIssueUser")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_SELECT')")
     public ResponseEntity getYxStoreCouponIssueUsers(YxStoreCouponIssueUserQueryCriteria criteria, Pageable pageable){
@@ -50,7 +50,7 @@ public class StoreCouponIssueUserController {
 
     @ForbidSubmit
     @Log("删除")
-    @ApiOperation(value = "删除")
+    @Operation(summary = "删除")
     @DeleteMapping(value = "/yxStoreCouponIssueUser/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORECOUPONISSUEUSER_ALL','YXSTORECOUPONISSUEUSER_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id){

@@ -35,8 +35,8 @@ import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
@@ -51,8 +51,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -68,7 +68,7 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "微信模块", tags = "微信:微信模块")
+@Tag(name = "微信:微信模块")
 public class WechatController {
 
     private final YxStoreOrderService orderService;
@@ -81,7 +81,7 @@ public class WechatController {
      * 微信分享配置
      */
     @GetMapping("/share")
-    @ApiOperation(value = "微信分享配置",notes = "微信分享配置")
+    @Operation(summary = "微信分享配置", description = "微信分享配置")
     public ApiResult<Map<String,Object>> share() {
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("img",systemConfigService.getData(SystemConfigConstants.WECHAT_SHARE_IMG));
@@ -96,7 +96,7 @@ public class WechatController {
      * jssdk配置
      */
     @GetMapping("/wechat/config")
-    @ApiOperation(value = "jssdk配置",notes = "jssdk配置")
+    @Operation(summary = "jssdk配置", description = "jssdk配置")
     public ApiResult<Map<String,Object>> jsConfig(HttpServletRequest request) throws WxErrorException {
         WxMpService wxService = WxMpConfiguration.getWxMpService();
         String url = request.getParameter("url");
@@ -119,7 +119,7 @@ public class WechatController {
      * 微信小程序接口能力配置
      */
     @GetMapping("/wxapp/config")
-    @ApiOperation(value = "微信小程序接口能力配置",notes = "微信小程序接口能力配置",produces = "text/plain;charset=utf-8")
+    @Operation(summary = "微信小程序接口能力配置", description = "微信小程序接口能力配置")
     public String wxAppConfig(@RequestParam(value = "signature") String signature,
                                                      @RequestParam(value = "timestamp") String timestamp,
                                                      @RequestParam(value = "nonce") String nonce,
@@ -137,7 +137,7 @@ public class WechatController {
      */
     @AnonymousAccess
     @PostMapping("/wechat/notify")
-    @ApiOperation(value = "微信支付充值回调",notes = "微信支付充值回调")
+    @Operation(summary = "微信支付充值回调", description = "微信支付充值回调")
     public String renotify(@RequestBody String xmlData) {
         try {
             WxPayService wxPayService = WxPayConfiguration.getPayService(PayMethodEnum.WECHAT);
@@ -183,7 +183,7 @@ public class WechatController {
     /**
      * 微信退款回调
      */
-    @ApiOperation(value = "退款回调通知处理",notes = "退款回调通知处理")
+    @Operation(summary = "退款回调通知处理", description = "退款回调通知处理")
     @PostMapping("/notify/refund")
     public String parseRefundNotifyResult(@RequestBody String xmlData) {
         try {
@@ -226,7 +226,7 @@ public class WechatController {
      * 微信验证消息
      */
     @GetMapping( value = "/wechat/serve",produces = "text/plain;charset=utf-8")
-    @ApiOperation(value = "微信验证消息",notes = "微信验证消息")
+    @Operation(summary = "微信验证消息", description = "微信验证消息")
     public String authGet(@RequestParam(name = "signature", required = false) String signature,
                           @RequestParam(name = "timestamp", required = false) String timestamp,
                           @RequestParam(name = "nonce", required = false) String nonce,
@@ -248,7 +248,7 @@ public class WechatController {
      *微信获取消息
      */
     @PostMapping("/wechat/serve")
-    @ApiOperation(value = "微信获取消息",notes = "微信获取消息")
+    @Operation(summary = "微信获取消息", description = "微信获取消息")
     public void post(@RequestBody String requestBody,
                        @RequestParam("signature") String signature,
                        @RequestParam("timestamp") String timestamp,

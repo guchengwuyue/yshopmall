@@ -1,12 +1,11 @@
 package co.yixiang.modules.coupon.param;
 
 import co.yixiang.common.web.param.QueryParam;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -18,11 +17,11 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="YxStoreCouponQueryParam对象", description="优惠券表查询参数")
+@Schema(description = "YxStoreCouponQueryParam对象")
 public class YxStoreCouponQueryParam extends QueryParam {
     private static final long serialVersionUID = 1L;
 
     @NotBlank(message = "参数有误")
-    @ApiModelProperty(value = "优惠券ID")
+    @Schema(description = "优惠券ID")
     private String couponId;
 }

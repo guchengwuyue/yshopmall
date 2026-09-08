@@ -17,8 +17,8 @@ import co.yixiang.modules.shop.service.dto.YxSystemGroupDataQueryCriteria;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +38,7 @@ import static co.yixiang.constant.ShopConstants.YSHOP_SECKILL_TIME;
  * @author hupeng
  * @date 2019-10-18
  */
-@Api(tags = "商城:数据配置管理")
+@Tag(name = "商城:数据配置管理")
 @RestController
 @RequestMapping("api")
 public class SystemGroupDataController {
@@ -50,7 +50,7 @@ public class SystemGroupDataController {
     }
 
     @Log("查询数据配置")
-    @ApiOperation(value = "查询数据配置")
+    @Operation(summary = "查询数据配置")
     @GetMapping(value = "/yxSystemGroupData")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_SELECT')")
     public ResponseEntity getYxSystemGroupDatas(YxSystemGroupDataQueryCriteria criteria,
@@ -64,7 +64,7 @@ public class SystemGroupDataController {
 
     @ForbidSubmit
     @Log("新增数据配置")
-    @ApiOperation(value = "新增数据配置")
+    @Operation(summary = "新增数据配置")
     @PostMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE')")
@@ -95,7 +95,7 @@ public class SystemGroupDataController {
 
     @ForbidSubmit
     @Log("修改数据配置")
-    @ApiOperation(value = "修改数据配置")
+    @Operation(summary = "修改数据配置")
     @PutMapping(value = "/yxSystemGroupData")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY, allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT')")
@@ -141,7 +141,7 @@ public class SystemGroupDataController {
 
     @ForbidSubmit
     @Log("删除数据配置")
-    @ApiOperation(value = "删除数据配置")
+    @Operation(summary = "删除数据配置")
     @DeleteMapping(value = "/yxSystemGroupData/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE')")
     public ResponseEntity delete(@PathVariable Integer id) {

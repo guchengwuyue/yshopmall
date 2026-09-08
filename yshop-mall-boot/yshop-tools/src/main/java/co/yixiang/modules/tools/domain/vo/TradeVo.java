@@ -5,10 +5,10 @@
  */
 package co.yixiang.modules.tools.domain.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -29,11 +29,11 @@ public class TradeVo {
     private String subject;
 
     /** （必填）商户订单号，应该由后台生成 */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private String outTradeNo;
 
     /** （必填）第三方订单号 */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private String tradeNo;
 
     /** （必填）价格 */
@@ -41,14 +41,14 @@ public class TradeVo {
     private String totalAmount;
 
     /** 订单状态,已支付，未支付，作废 */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private String state;
 
     /** 创建时间，存入数据库时需要 */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Timestamp createTime;
 
     /** 作废时间，存入数据库时需要 */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Date cancelTime;
 }

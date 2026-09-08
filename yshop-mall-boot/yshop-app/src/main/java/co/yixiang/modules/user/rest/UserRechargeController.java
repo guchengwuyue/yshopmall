@@ -31,8 +31,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.binarywang.wxpay.bean.order.WxPayAppOrderResult;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.order.WxPayMwebOrderResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,7 +59,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "用户充值", tags = "用户:用户充值")
+@Tag(name = "用户:用户充值")
 public class UserRechargeController {
 
     private final YxUserRechargeService userRechargeService;
@@ -70,7 +70,7 @@ public class UserRechargeController {
      * 充值方案
      */
     @GetMapping("/recharge/index")
-    @ApiOperation(value = "充值方案",notes = "充值方案",response = ApiResult.class)
+    @Operation(summary = "充值方案", description = "充值方案")
     public ApiResult<Object> getWays(){
         YxSystemGroupDataQueryCriteria queryCriteria = new YxSystemGroupDataQueryCriteria();
         queryCriteria.setGroupName(ShopConstants.YSHOP_RECHARGE_PRICE_WAYS);
@@ -95,7 +95,7 @@ public class UserRechargeController {
     @AppLog(value = "公众号充值", type = 1)
     @AuthCheck
     @PostMapping("/recharge/wechat")
-    @ApiOperation(value = "公众号充值/H5充值",notes = "公众号充值/H5充值",response = ApiResult.class)
+    @Operation(summary = "公众号充值/H5充值", description = "公众号充值/H5充值")
     public ApiResult<Map<String,Object>> add(@Valid @RequestBody RechargeParam param){
         YxUser user = LocalUser.getUser();
 
@@ -161,4 +161,3 @@ public class UserRechargeController {
 
 
 }
-

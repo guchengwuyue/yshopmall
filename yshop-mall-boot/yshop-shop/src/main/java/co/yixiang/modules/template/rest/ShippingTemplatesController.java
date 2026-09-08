@@ -22,8 +22,8 @@ import co.yixiang.modules.template.service.dto.ShippingTemplatesDto;
 import co.yixiang.modules.template.service.dto.YxShippingTemplatesDto;
 import co.yixiang.modules.template.service.dto.YxShippingTemplatesQueryCriteria;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +49,7 @@ import java.util.List;
 * @date 2020-06-29
 */
 @AllArgsConstructor
-@Api(tags = "运费模板管理")
+@Tag(name = "运费模板管理")
 @RestController
 @RequestMapping("/api/yxShippingTemplates")
 public class ShippingTemplatesController {
@@ -61,7 +61,7 @@ public class ShippingTemplatesController {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','yxShippingTemplates:list')")
     public void download(HttpServletResponse response, YxShippingTemplatesQueryCriteria criteria) throws IOException {
@@ -70,7 +70,7 @@ public class ShippingTemplatesController {
 
     @GetMapping
     @Log("查询运费模板")
-    @ApiOperation("查询运费模板")
+    @Operation(summary = "查询运费模板")
     @PreAuthorize("@el.check('admin','yxShippingTemplates:list')")
     public ResponseEntity<Object> getYxShippingTemplatess(YxShippingTemplatesQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxShippingTemplatesService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -79,7 +79,7 @@ public class ShippingTemplatesController {
     @ForbidSubmit
     @PostMapping("/save/{id}")
     @Log("新增/保存运费模板")
-    @ApiOperation("新增/保存运费模板")
+    @Operation(summary = "新增/保存运费模板")
     @PreAuthorize("hasAnyRole('admin','yxShippingTemplates:add','yxShippingTemplates:edit')")
     public ResponseEntity<Object> create(@PathVariable Integer id,
                                          @Validated @RequestBody ShippingTemplatesDto shippingTemplatesDto){
@@ -90,7 +90,7 @@ public class ShippingTemplatesController {
 
     @ForbidSubmit
     @Log("删除运费模板")
-    @ApiOperation("删除运费模板")
+    @Operation(summary = "删除运费模板")
     @PreAuthorize("@el.check('admin','yxShippingTemplates:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Integer[] ids) {

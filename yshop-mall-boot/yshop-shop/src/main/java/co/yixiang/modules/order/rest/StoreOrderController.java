@@ -33,8 +33,8 @@ import co.yixiang.modules.tools.express.dao.ExpressInfo;
 import co.yixiang.modules.tools.express.dao.Traces;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -66,7 +66,7 @@ import java.util.stream.Collectors;
  * @author hupeng
  * @date 2019-10-14
  */
-@Api(tags = "商城:订单管理")
+@Tag(name = "商城:订单管理")
 @RestController
 @RequestMapping("api")
 @Slf4j
@@ -92,7 +92,7 @@ public class StoreOrderController {
      * 根据商品分类统计订单占比
      */
     @GetMapping("/yxStoreOrder/orderCount")
-    @ApiOperation(value = "根据商品分类统计订单占比",notes = "根据商品分类统计订单占比",response = ExpressParam.class)
+    @Operation(summary = "根据商品分类统计订单占比", description = "根据商品分类统计订单占比")
     public ResponseEntity orderCount(){
         OrderCountDto orderCountDto  = yxStoreOrderService.getOrderCount();
         return new ResponseEntity<>(orderCountDto, HttpStatus.OK);
@@ -119,7 +119,7 @@ public class StoreOrderController {
     }
 
 
-    @ApiOperation(value = "查询订单")
+    @Operation(summary = "查询订单")
     @GetMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_SELECT','YXEXPRESS_SELECT')")
     public ResponseEntity getYxStoreOrders(YxStoreOrderQueryCriteria criteria,
@@ -132,13 +132,13 @@ public class StoreOrderController {
         return new ResponseEntity<>(yxStoreOrderService.queryAll(newCriteria, pageable), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "根据订单id获取订单详情")
+    @Operation(summary = "根据订单id获取订单详情")
     @GetMapping(value = "/getStoreOrderDetail/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_SELECT','YXEXPRESS_SELECT')")
     public ResponseEntity getYxStoreOrders(@PathVariable Long id) {
         return new ResponseEntity<>(yxStoreOrderService.getOrderDetail(id), HttpStatus.OK);
     }
-    @ApiOperation(value = "查询订单当前状态流程")
+    @Operation(summary = "查询订单当前状态流程")
     @GetMapping(value = "/getNowOrderStatus/{id}")
     public ResponseEntity getNowOrderStatus(@PathVariable Long id) {
         List<String> statusList = new ArrayList<>();
@@ -197,7 +197,7 @@ public class StoreOrderController {
         }).collect(Collectors.toList());
         return dtoList;
     }
-    @ApiOperation(value = "发货")
+    @Operation(summary = "发货")
     @PutMapping(value = "/yxStoreOrder")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxStoreOrder resources) {
@@ -213,7 +213,7 @@ public class StoreOrderController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "修改快递单号")
+    @Operation(summary = "修改快递单号")
     @PutMapping(value = "/yxStoreOrder/updateDelivery")
     @PreAuthorize("hasAnyAuthority('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity updateDelivery(@Validated @RequestBody YxStoreOrder resources) {
@@ -231,7 +231,7 @@ public class StoreOrderController {
 
 
 
-    @ApiOperation(value = "订单核销")
+    @Operation(summary = "订单核销")
     @PutMapping(value = "/yxStoreOrder/check")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity check(@Validated @RequestBody YxStoreOrder resources) {
@@ -253,7 +253,7 @@ public class StoreOrderController {
     }
 
 
-    @ApiOperation(value = "退款")
+    @Operation(summary = "退款")
     @PostMapping(value = "/yxStoreOrder/refund")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity refund(@Validated @RequestBody YxStoreOrder resources) {
@@ -265,7 +265,7 @@ public class StoreOrderController {
 
     @ForbidSubmit
     @Log("删除")
-    @ApiOperation(value = "删除")
+    @Operation(summary = "删除")
     @DeleteMapping(value = "/yxStoreOrder/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_DELETE')")
     public ResponseEntity delete(@PathVariable Long id) {
@@ -275,7 +275,7 @@ public class StoreOrderController {
 
 
     @Log("修改订单")
-    @ApiOperation(value = "修改订单")
+    @Operation(summary = "修改订单")
     @PostMapping(value = "/yxStoreOrder/edit")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity editOrder(@RequestBody YxStoreOrder resources) {
@@ -302,7 +302,7 @@ public class StoreOrderController {
 
 
     @Log("修改订单备注")
-    @ApiOperation(value = "修改订单备注")
+    @Operation(summary = "修改订单备注")
     @PostMapping(value = "/yxStoreOrder/remark")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT')")
     public ResponseEntity editOrderRemark(@RequestBody YxStoreOrder resources) {
@@ -318,7 +318,7 @@ public class StoreOrderController {
      * 快递查询
      */
     @PostMapping("/yxStoreOrder/express")
-    @ApiOperation(value = "获取物流信息",notes = "获取物流信息",response = ExpressParam.class)
+    @Operation(summary = "获取物流信息", description = "获取物流信息")
     public ResponseEntity express( @RequestBody ExpressParam expressInfoDo){
 
         //顺丰轨迹查询处理
@@ -345,7 +345,7 @@ public class StoreOrderController {
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/yxStoreOrder/download")
     @PreAuthorize("hasAnyRole('admin','YXSTOREORDER_SELECT')")
     public void download(HttpServletResponse response,

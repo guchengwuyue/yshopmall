@@ -1,6 +1,6 @@
 package co.yixiang.modules.${package.ModuleName}.web.param;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +20,7 @@ import ${cfg.queryParamCommonPath};
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="${entity}QueryParam对象", description="$!{table.comment}查询参数")
+@Schema
 #if(${cfg.pageListOrder})
 public class ${entity}QueryParam extends OrderQueryParam {
 #else

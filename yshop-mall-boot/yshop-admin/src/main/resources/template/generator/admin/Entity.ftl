@@ -13,11 +13,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 
 <#if isNotNullColumns??>
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 </#if>
 <#if hasDateAnnotation>
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.*;
 </#if>
 <#if hasDateTime>

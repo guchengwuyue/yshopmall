@@ -1,10 +1,10 @@
 package co.yixiang.modules.order.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @ClassName HandleOrderParam
@@ -15,6 +15,6 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class DoOrderParam {
     @NotBlank(message = "参数有误")
-    @ApiModelProperty(value = "订单ID")
+    @Schema(description = "订单ID")
     private String uni;
 }

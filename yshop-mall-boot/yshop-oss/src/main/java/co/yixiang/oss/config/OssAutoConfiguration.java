@@ -2,6 +2,7 @@ package co.yixiang.oss.config;
 
 import co.yixiang.oss.service.OssTemplate;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean;
  * aws 自动配置类
  *
  */
+@AutoConfiguration
 @AllArgsConstructor
 @EnableConfigurationProperties({ OssProperties.class })
 public class OssAutoConfiguration {

@@ -4,8 +4,8 @@ package co.yixiang.xss;
 
 import co.yixiang.utils.html.EscapeUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 
 /**
  * XSS过滤处理

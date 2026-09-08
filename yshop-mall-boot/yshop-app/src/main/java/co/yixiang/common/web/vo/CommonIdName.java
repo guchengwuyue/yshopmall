@@ -1,16 +1,15 @@
 package co.yixiang.common.web.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
-@ApiModel("ID-NAME-VO")
+@Schema(description = "ID-NAME-VO")
 public class CommonIdName {
 
-	@ApiModelProperty("id")
+	@Schema(description = "id")
 	private String id;
 	
-	@ApiModelProperty("名称")
+	@Schema(description = "名称")
 	private String name;
 
 

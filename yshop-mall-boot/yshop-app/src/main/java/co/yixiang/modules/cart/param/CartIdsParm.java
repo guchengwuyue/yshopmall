@@ -1,9 +1,9 @@
 package co.yixiang.modules.cart.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,6 +15,6 @@ import java.util.List;
 public class CartIdsParm {
 
     @NotNull(message = "参数有误")
-    @ApiModelProperty(value = "购物车ID，多个用,分隔开")
+    @Schema(description = "购物车ID，多个用,分隔开")
     List<String> ids;
 }

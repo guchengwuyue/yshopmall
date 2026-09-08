@@ -1,7 +1,7 @@
 package co.yixiang.modules.user.param;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,15 +15,15 @@ import java.io.Serializable;
 public class AddressDetailParam  implements Serializable {
 
     @JsonProperty(value = "city_id")
-    @ApiModelProperty(value = "城市ID")
+    @Schema(description = "城市ID")
     private Integer cityId;
 
-    @ApiModelProperty(value = "城市")
+    @Schema(description = "城市")
     private String city;
 
-    @ApiModelProperty(value = "地区")
+    @Schema(description = "地区")
     private String district;
 
-    @ApiModelProperty(value = "省份")
+    @Schema(description = "省份")
     private String province;
 }

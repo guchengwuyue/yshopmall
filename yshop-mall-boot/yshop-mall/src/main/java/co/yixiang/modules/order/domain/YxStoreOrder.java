@@ -11,7 +11,7 @@ import co.yixiang.domain.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -231,7 +231,7 @@ public class YxStoreOrder extends BaseDomain {
 
     private Integer isSystemDel;
 
-    @ApiModelProperty(value = "实际支付积分")
+    @Schema(description = "实际支付积分")
     private BigDecimal payIntegral;
 
     public void copy(YxStoreOrder source){

@@ -2,8 +2,7 @@ package co.yixiang.modules.mp.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,49 +16,49 @@ import java.io.Serializable;
  * @date 2019-10-02
  */
 @Data
-@ApiModel(value = "YxArticleQueryVo对象", description = "文章管理表查询参数")
+@Schema(description = "YxArticleQueryVo对象")
 public class YxArticleQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "文章管理ID")
+    @Schema(description = "文章管理ID")
     private Integer id;
 
-    @ApiModelProperty(value = "文章标题")
+    @Schema(description = "文章标题")
     private String title;
 
-    @ApiModelProperty(value = "文章作者")
+    @Schema(description = "文章作者")
     private String author;
 
-    @ApiModelProperty(value = "文章图片")
+    @Schema(description = "文章图片")
     private String imageInput;
 
-    @ApiModelProperty(value = "文章简介")
+    @Schema(description = "文章简介")
     private String synopsis;
 
-    @ApiModelProperty(value = "文章分享标题")
+    @Schema(description = "文章分享标题")
     private String shareTitle;
 
-    @ApiModelProperty(value = "文章分享简介")
+    @Schema(description = "文章分享简介")
     private String shareSynopsis;
 
-    @ApiModelProperty(value = "浏览次数")
+    @Schema(description = "浏览次数")
     private String visit;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private Integer sort;
 
-    @ApiModelProperty(value = "原文链接")
+    @Schema(description = "原文链接")
     private String url;
 
-    @ApiModelProperty(value = "状态")
+    @Schema(description = "状态")
     private Boolean status;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @JsonProperty(value = "addTime")
     private String createTime;
 
-    @ApiModelProperty(value = "文章内容")
+    @Schema(description = "文章内容")
     private String content;
 
 }

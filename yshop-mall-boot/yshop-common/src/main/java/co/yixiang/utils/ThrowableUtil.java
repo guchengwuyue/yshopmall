@@ -7,7 +7,7 @@ package co.yixiang.utils;
 
 import co.yixiang.exception.BadRequestException;
 
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 

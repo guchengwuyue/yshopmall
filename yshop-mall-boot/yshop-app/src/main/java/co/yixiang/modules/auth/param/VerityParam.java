@@ -1,9 +1,9 @@
 package co.yixiang.modules.auth.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @ClassName VerityParam
@@ -14,9 +14,9 @@ import javax.validation.constraints.NotBlank;
 public class VerityParam {
 
     @NotBlank(message = "手机号必填")
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String phone;
 
-    @ApiModelProperty(value = "短信类型 bind绑定手机短信 login登陆短信 register注册短信")
+    @Schema(description = "短信类型 bind绑定手机短信 login登陆短信 register注册短信")
     private String type;
 }

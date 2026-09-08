@@ -1,7 +1,7 @@
 package co.yixiang.modules.product.param;
 
 import co.yixiang.common.web.param.QueryParam;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="YxStoreProductAttrResultQueryParam对象", description="商品属性详情表查询参数")
+@Schema(description = "YxStoreProductAttrResultQueryParam对象")
 public class YxStoreProductAttrResultQueryParam extends QueryParam {
     private static final long serialVersionUID = 1L;
 }

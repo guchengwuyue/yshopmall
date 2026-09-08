@@ -8,6 +8,10 @@
  */
 package co.yixiang.modules.product.rest;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
@@ -42,10 +46,10 @@ import co.yixiang.modules.shop.domain.YxSystemAttachment;
 import co.yixiang.modules.shop.service.YxSystemAttachmentService;
 import co.yixiang.modules.shop.service.YxSystemConfigService;
 import co.yixiang.modules.user.domain.YxUser;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +74,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@Api(value = "产品模块", tags = "商城:产品模块")
+@Tag(name = "商城:产品模块")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StoreProductController {
 
@@ -88,10 +92,10 @@ public class StoreProductController {
      * 获取首页更多产品
      */
     @GetMapping("/groom/list/{type}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "类型：1精品推荐，2热门榜单，3首发新品，4促销单品", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "type", description = "类型：1精品推荐，2热门榜单，3首发新品，4促销单品", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "获取首页更多产品",notes = "获取首页更多产品")
+    @Operation(summary = "获取首页更多产品", description = "获取首页更多产品")
     public ApiResult<Map<String,Object>> moreGoodsList(@PathVariable Integer type){
         Map<String,Object> map = new LinkedHashMap<>();
         // 精品推荐
@@ -115,7 +119,7 @@ public class StoreProductController {
      * 获取产品列表
      */
     @GetMapping("/products")
-    @ApiOperation(value = "商品列表",notes = "商品列表")
+    @Operation(summary = "商品列表", description = "商品列表")
     public ApiResult<List<YxStoreProductQueryVo>> goodsList(YxStoreProductQueryParam productQueryParam){
         return ApiResult.ok(storeProductService.getGoodsList(productQueryParam));
     }
@@ -124,7 +128,7 @@ public class StoreProductController {
      * 为你推荐
      */
     @GetMapping("/product/hot")
-    @ApiOperation(value = "为你推荐",notes = "为你推荐")
+    @Operation(summary = "为你推荐", description = "为你推荐")
     public ApiResult<List<YxStoreProductQueryVo>> productRecommend(YxStoreProductQueryParam queryParam){
         return ApiResult.ok(storeProductService.getList(queryParam.getPage(), queryParam.getLimit(),
                 ShopCommonEnum.IS_STATUS_1.getValue()));
@@ -136,10 +140,10 @@ public class StoreProductController {
     @AppLog(value = "商品详情海报", type = 1)
     @AuthCheck
     @GetMapping("/product/poster/{id}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "商品ID", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "id", description = "商品ID", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "商品详情海报",notes = "商品详情海报")
+    @Operation(summary = "商品详情海报", description = "商品详情海报")
     public ApiResult<String> prodoctPoster(@PathVariable Integer id,@RequestParam(value = "from",defaultValue = "h5") String from) throws IOException, FontFormatException {
         YxUser userInfo = LocalUser.getUser();
 
@@ -208,13 +212,13 @@ public class StoreProductController {
     //@AppLog(value = "普通商品详情", type = 1)
     //@AuthCheck
     @GetMapping("/product/detail/{id}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "商品ID", paramType = "query", dataType = "long",required = true),
-            @ApiImplicitParam(name = "latitude", value = "纬度", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "longitude", value = "经度", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "from", value = "来自:", paramType = "query", dataType = "string")
+    @Parameters({
+            @Parameter(name = "id", description = "商品ID", in = ParameterIn.QUERY, required = true, schema = @Schema(type = "integer")),
+            @Parameter(name = "latitude", description = "纬度", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+            @Parameter(name = "longitude", description = "经度", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+            @Parameter(name = "from", description = "来自:", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
     })
-    @ApiOperation(value = "普通商品详情",notes = "普通商品详情")
+    @Operation(summary = "普通商品详情", description = "普通商品详情")
     public ApiResult<ProductVo> detail(@PathVariable long id,
                                        @RequestParam(value = "",required=false) String latitude,
                                        @RequestParam(value = "",required=false) String longitude,
@@ -232,7 +236,7 @@ public class StoreProductController {
     @NoRepeatSubmit
     @AuthCheck
     @PostMapping("/collect/add")
-    @ApiOperation(value = "添加收藏",notes = "添加收藏")
+    @Operation(summary = "添加收藏", description = "添加收藏")
     public ApiResult<Boolean> collectAdd(@Validated @RequestBody YxStoreProductRelationQueryParam param){
         long uid = LocalUser.getUser().getUid();
         if(!NumberUtil.isNumber(param.getId())) {
@@ -249,7 +253,7 @@ public class StoreProductController {
     @NoRepeatSubmit
     @AuthCheck
     @PostMapping("/collect/del")
-    @ApiOperation(value = "取消收藏",notes = "取消收藏")
+    @Operation(summary = "取消收藏", description = "取消收藏")
     public ApiResult<Boolean> collectDel(@Validated @RequestBody YxStoreProductRelationQueryParam param){
         long uid = LocalUser.getUser().getUid();
         if(!NumberUtil.isNumber(param.getId())) {
@@ -267,7 +271,7 @@ public class StoreProductController {
     @NoRepeatSubmit
     @AuthCheck
     @DeleteMapping("/collect/delFoot")
-    @ApiOperation(value = "删除足跡",notes = "删除足跡")
+    @Operation(summary = "删除足跡", description = "删除足跡")
     public ApiResult<Boolean> collectDelFoot(@Validated @RequestBody CollectDelFootParam param){
         if (CollectionUtil.isEmpty(param.getIds())){
             throw new YshopException("参数非法");
@@ -280,13 +284,13 @@ public class StoreProductController {
      * 获取产品评论
      */
     @GetMapping("/reply/list/{id}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "商品ID", paramType = "query", dataType = "long",required = true),
-            @ApiImplicitParam(name = "type", value = "评论分数类型", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "id", description = "商品ID", in = ParameterIn.QUERY, required = true, schema = @Schema(type = "integer")),
+            @Parameter(name = "type", description = "评论分数类型", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "获取产品评论",notes = "获取产品评论")
+    @Operation(summary = "获取产品评论", description = "获取产品评论")
     public ApiResult<List<YxStoreProductReplyQueryVo>> replyList(@PathVariable Long id,
                                                                  @RequestParam(value = "type",defaultValue = "0") int type,
                                                                  @RequestParam(value = "page",defaultValue = "1") int page,
@@ -298,10 +302,10 @@ public class StoreProductController {
      * 获取产品评论数据
      */
     @GetMapping("/reply/config/{id}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "商品ID", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "id", description = "商品ID", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "获取产品评论数据",notes = "获取产品评论数据")
+    @Operation(summary = "获取产品评论数据", description = "获取产品评论数据")
     public ApiResult<ReplyCountVo> replyCount(@PathVariable Integer id){
         return ApiResult.ok(replyService.getReplyCount(id));
     }
@@ -309,4 +313,3 @@ public class StoreProductController {
 
 
 }
-

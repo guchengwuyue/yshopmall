@@ -9,7 +9,7 @@
 package co.yixiang.modules.mp.service.dto;
 
 import co.yixiang.annotation.Query;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -18,7 +18,7 @@ import lombok.Data;
 */
 @Data
 public class YxWechatLiveQueryCriteria{
-    @ApiModelProperty(value = "直播间状态  101：直播中，102：未开始，103 已结束，104 禁播，105：暂停，106：异常，107：已过期")
+    @Schema(description = "直播间状态  101：直播中，102：未开始，103 已结束，104 禁播，105：暂停，106：异常，107：已过期")
     @Query
     private Integer liveStatus;
 }

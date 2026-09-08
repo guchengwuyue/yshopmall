@@ -1,7 +1,6 @@
 package co.yixiang.modules.wechat.rest.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,29 +14,29 @@ import java.io.Serializable;
  * @date 2019-12-10
  */
 @Data
-@ApiModel(value = "YxWechatTemplateQueryVo对象", description = "微信模板查询参数")
+@Schema(description = "YxWechatTemplateQueryVo对象")
 public class YxWechatTemplateQueryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "模板id")
+    @Schema(description = "模板id")
     private Integer id;
 
-    @ApiModelProperty(value = "模板编号")
+    @Schema(description = "模板编号")
     private String tempkey;
 
-    @ApiModelProperty(value = "模板名")
+    @Schema(description = "模板名")
     private String name;
 
-    @ApiModelProperty(value = "回复内容")
+    @Schema(description = "回复内容")
     private String content;
 
-    @ApiModelProperty(value = "模板ID")
+    @Schema(description = "模板ID")
     private String tempid;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
     private String addTime;
 
-    @ApiModelProperty(value = "状态")
+    @Schema(description = "状态")
     private Integer status;
 
 }

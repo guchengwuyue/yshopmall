@@ -3,7 +3,7 @@ package co.yixiang.modules.sales.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -38,7 +38,7 @@ public class StoreAfterSales {
     /** 说明图片->多个用逗号分割 */
     private String explainImg;
 
-    @ApiModelProperty(value = "快递公司编码")
+    @Schema(description = "快递公司编码")
     private String shipperCode;
 
     /** 物流单号 */

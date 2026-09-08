@@ -8,8 +8,8 @@ package co.yixiang.modules.security.rest;
 import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.aop.ForbidSubmit;
 import co.yixiang.modules.security.service.OnlineUserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
@@ -31,7 +31,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/auth/online")
-@Api(tags = "系统：在线用户管理")
+@Tag(name = "系统：在线用户管理")
 public class OnlineController {
 
     private final OnlineUserService onlineUserService;
@@ -40,7 +40,7 @@ public class OnlineController {
         this.onlineUserService = onlineUserService;
     }
 
-    @ApiOperation("查询在线用户")
+    @Operation(summary = "查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check('auth_online')")
     public ResponseEntity<Object> getAll(@RequestParam(value = "filter",defaultValue = "") String filter,
@@ -50,7 +50,7 @@ public class OnlineController {
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check()")
     public void download(HttpServletResponse response,
@@ -60,7 +60,7 @@ public class OnlineController {
     }
 
     @ForbidSubmit
-    @ApiOperation("踢出用户")
+    @Operation(summary = "踢出用户")
     @DeleteMapping
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> delete(@RequestBody Set<String> keys) throws Exception {
@@ -71,7 +71,7 @@ public class OnlineController {
     }
 
     @ForbidSubmit
-    @ApiOperation("踢出移动端用户")
+    @Operation(summary = "踢出移动端用户")
     @PostMapping("/delete" )
     @PreAuthorize("@el.check()")
     public ResponseEntity<Object> deletet(@RequestBody Set<String> keys) throws Exception {

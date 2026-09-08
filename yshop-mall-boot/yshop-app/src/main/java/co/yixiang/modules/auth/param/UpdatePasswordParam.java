@@ -1,9 +1,9 @@
 package co.yixiang.modules.auth.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author : gzlv 2021/7/20 17:27
@@ -12,14 +12,14 @@ import javax.validation.constraints.NotBlank;
 public class UpdatePasswordParam {
 
     @NotBlank(message = "手机号必填")
-    @ApiModelProperty(value = "手机号码")
+    @Schema(description = "手机号码")
     private String account;
 
     @NotBlank(message = "验证码必填")
-    @ApiModelProperty(value = "验证码")
+    @Schema(description = "验证码")
     private String captcha;
 
     @NotBlank(message = "密码必填")
-    @ApiModelProperty(value = "密码")
+    @Schema(description = "密码")
     private String password;
 }

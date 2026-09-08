@@ -4,7 +4,7 @@ import co.yixiang.common.service.BaseService;
 import co.yixiang.modules.monitor.domain.Visits;
 import org.springframework.scheduling.annotation.Async;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * @author Zheng Jie

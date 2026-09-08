@@ -8,6 +8,10 @@
  */
 package co.yixiang.modules.user.rest;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
 
 import co.yixiang.api.ApiResult;
 import co.yixiang.modules.logging.aop.log.AppLog;
@@ -30,10 +34,10 @@ import co.yixiang.modules.user.service.YxUserSignService;
 import co.yixiang.modules.user.vo.SignVo;
 import co.yixiang.modules.user.vo.YxUserQueryVo;
 import com.google.common.collect.Maps;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +65,7 @@ import static co.yixiang.constant.SystemConfigConstants.YSHOP_SHOW_RECHARGE;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "用户中心", tags = "用户:用户中心")
+@Tag(name = "用户:用户中心")
 public class UserController {
 
     private final YxUserService yxUserService;
@@ -78,7 +82,7 @@ public class UserController {
      */
     @AuthCheck
     @GetMapping("/userinfo")
-    @ApiOperation(value = "获取用户信息",notes = "获取用户信息",response = YxUserQueryVo.class)
+    @Operation(summary = "获取用户信息", description = "获取用户信息")
     public ApiResult<Object> userInfo(){
         YxUser yxUser = LocalUser.getUser();
         return ApiResult.ok(yxUserService.getNewYxUserById(yxUser));
@@ -88,7 +92,7 @@ public class UserController {
      * 获取个人中心菜单
      */
     @GetMapping("/menu/user")
-    @ApiOperation(value = "获取个人中心菜单",notes = "获取个人中心菜单")
+    @Operation(summary = "获取个人中心菜单", description = "获取个人中心菜单")
     public ApiResult<Map<String,Object>> userMenu(){
         Map<String,Object> map = new LinkedHashMap<>();
         map.put("routine_my_menus",systemGroupDataService.getDatas(ShopConstants.YSHOP_MY_MENUES));
@@ -103,7 +107,7 @@ public class UserController {
     @AppLog(value = "查看订单统计数据", type = 1)
     @AuthCheck
     @GetMapping("/order/data")
-    @ApiOperation(value = "订单统计数据",notes = "订单统计数据")
+    @Operation(summary = "订单统计数据", description = "订单统计数据")
     public ApiResult<UserOrderCountVo> orderData(){
         Long uid = LocalUser.getUser().getUid();
         return ApiResult.ok(orderService.orderData(uid));
@@ -114,12 +118,12 @@ public class UserController {
      */
     @AuthCheck
     @GetMapping("/collect/user")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "type", value = "foot为足迹,collect为收藏", paramType = "query", dataType = "String")
+    @Parameters({
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "type", description = "foot为足迹,collect为收藏", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
     })
-    @ApiOperation(value = "获取收藏产品,或足迹",notes = "获取收藏产品,或足迹")
+    @Operation(summary = "获取收藏产品,或足迹", description = "获取收藏产品,或足迹")
     public ApiResult<List<YxStoreProductRelationQueryVo>> collectUser(@RequestParam(value = "page",defaultValue = "1") int page,
                                                                       @RequestParam(value = "limit",defaultValue = "10") int limit,
                                                                       @RequestParam(value = "type") String type){
@@ -133,7 +137,7 @@ public class UserController {
     @AppLog(value = "查看用户资金统计", type = 1)
     @AuthCheck
     @GetMapping("/user/balance")
-    @ApiOperation(value = "用户资金统计",notes = "用户资金统计")
+    @Operation(summary = "用户资金统计", description = "用户资金统计")
     public ApiResult<Object> userBalance(){
         YxUser yxUser = LocalUser.getUser();
         Map<String,Object> map = Maps.newHashMap();
@@ -152,7 +156,7 @@ public class UserController {
     @AppLog(value = "签到用户信息", type = 1)
     @AuthCheck
     @PostMapping("/sign/user")
-    @ApiOperation(value = "签到用户信息",notes = "签到用户信息")
+    @Operation(summary = "签到用户信息", description = "签到用户信息")
     public ApiResult<YxUserQueryVo> sign(){
         YxUser yxUser = LocalUser.getUser();
         return ApiResult.ok(userSignService.userSignInfo(yxUser));
@@ -162,7 +166,7 @@ public class UserController {
      * 签到配置
      */
     @GetMapping("/sign/config")
-    @ApiOperation(value = "签到配置",notes = "签到配置")
+    @Operation(summary = "签到配置", description = "签到配置")
     public ApiResult<Object> signConfig(){
         return ApiResult.ok(systemGroupDataService.getDatas(ShopConstants.YSHOP_SIGN_DAY_NUM));
     }
@@ -173,11 +177,11 @@ public class UserController {
     @AppLog(value = "查看签到列表", type = 1)
     @AuthCheck
     @GetMapping("/sign/list")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "签到列表",notes = "签到列表")
+    @Operation(summary = "签到列表", description = "签到列表")
     public ApiResult<List<SignVo>> signList(@RequestParam(value = "page",defaultValue = "1") int page,
                                             @RequestParam(value = "limit",defaultValue = "10") int limit){
         Long uid = LocalUser.getUser().getUid();
@@ -190,11 +194,11 @@ public class UserController {
 
     @AuthCheck
     @GetMapping("/sign/month")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "签到列表（年月）",notes = "签到列表（年月）")
+    @Operation(summary = "签到列表（年月）", description = "签到列表（年月）")
     public ApiResult<Object> signMonthList(@RequestParam(value = "page",defaultValue = "1") int page,
                                            @RequestParam(value = "limit",defaultValue = "10") int limit){
         Long uid = LocalUser.getUser().getUid();
@@ -208,7 +212,7 @@ public class UserController {
     @NoRepeatSubmit
     @AuthCheck
     @PostMapping("/sign/integral")
-    @ApiOperation(value = "开始签到",notes = "开始签到")
+    @Operation(summary = "开始签到", description = "开始签到")
     public ApiResult<Object> signIntegral(){
         YxUser yxUser = LocalUser.getUser();
         int integral = userSignService.sign(yxUser);
@@ -221,7 +225,7 @@ public class UserController {
     @AppLog(value = "用户修改信息", type = 1)
     @AuthCheck
     @PostMapping("/user/edit")
-    @ApiOperation(value = "用户修改信息",notes = "用修改信息")
+    @Operation(summary = "用户修改信息", description = "用修改信息")
     public ApiResult<Object> edit(@Validated @RequestBody UserEditParam param){
         YxUser yxUser = LocalUser.getUser();
         yxUser.setAvatar(param.getAvatar());
@@ -236,4 +240,3 @@ public class UserController {
 
 
 }
-

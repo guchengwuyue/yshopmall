@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.util.Base64Utils;
+import java.util.Base64;
 
 import java.io.Serializable;
 import java.net.URLEncoder;
@@ -157,7 +157,7 @@ public class ExpressService implements Serializable {
         byte[] src;
         try {
             src = MD5(content, charset).getBytes(charset);
-            return Base64Utils.encodeToString(src);
+            return Base64.getEncoder().encodeToString(src);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

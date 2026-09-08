@@ -13,7 +13,6 @@
     <name>工具模块</name>
 
     <properties>
-        <mail.version>1.4.7</mail.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
         <alipay.version>3.1.0</alipay.version>
     </properties>
@@ -26,11 +25,10 @@
             <version>2.0.0</version>
         </dependency>
 
-        <!--邮件依赖-->
+        <!--邮件依赖（Hutool Mail + Boot3 Jakarta Mail）-->
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>${mail.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <!--七牛云存储-->

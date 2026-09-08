@@ -12,8 +12,8 @@ import co.yixiang.modules.tools.domain.Picture;
 import co.yixiang.modules.tools.service.PictureService;
 import co.yixiang.modules.tools.service.dto.PictureQueryCriteria;
 import co.yixiang.utils.SecurityUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -36,7 +36,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/api/pictures")
-@Api(tags = "工具：免费图床管理")
+@Tag(name = "工具：免费图床管理")
 public class PictureController {
     private final IGenerator generator;
     private final PictureService pictureService;
@@ -49,13 +49,13 @@ public class PictureController {
     @Log("查询图片")
     @PreAuthorize("@el.check('pictures:list')")
     @GetMapping
-    @ApiOperation("查询图片")
+    @Operation(summary = "查询图片")
     public ResponseEntity<Object> getRoles(PictureQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(pictureService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('pictures:list')")
     public void download(HttpServletResponse response, PictureQueryCriteria criteria) throws IOException {
@@ -65,7 +65,7 @@ public class PictureController {
     @Log("上传图片")
     @PreAuthorize("@el.check('pictures:add')")
     @PostMapping
-    @ApiOperation("上传图片")
+    @Operation(summary = "上传图片")
     public ResponseEntity<Object> upload(@RequestParam MultipartFile file){
         String userName = SecurityUtils.getUsername();
         Picture picture = pictureService.upload(file,userName);
@@ -73,7 +73,7 @@ public class PictureController {
     }
 
     @Log("同步图床数据")
-    @ApiOperation("同步图床数据")
+    @Operation(summary = "同步图床数据")
     @PostMapping(value = "/synchronize")
     public ResponseEntity<Object> synchronize(){
         pictureService.synchronize();
@@ -81,7 +81,7 @@ public class PictureController {
     }
 
     @Log("多选删除图片")
-    @ApiOperation("多选删除图片")
+    @Operation(summary = "多选删除图片")
     @PreAuthorize("@el.check('pictures:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {

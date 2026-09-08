@@ -1,0 +1,18 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "disabled",
+  "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home",
+      "default": true
+    }
+  ],
+  "java.import.maven.enabled": true,
+  "java.jdt.ls.lombokSupport.enabled": true,
+  "maven.terminal.useJavaHome": true,
+  "terminal.integrated.env.osx": {
+    "JAVA_HOME": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
+  }
+}

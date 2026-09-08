@@ -12,7 +12,7 @@ import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableName;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import co.yixiang.domain.BaseDomain;
 
 /**

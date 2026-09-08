@@ -1,6 +1,6 @@
 package co.yixiang.domain;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -21,10 +21,10 @@ import java.util.List;
 public class PageResult<T> implements Serializable {
 
 
-    @ApiModelProperty("总数量")
+    @Schema(description = "总数量")
     private long totalElements;
 
-    @ApiModelProperty("内容")
+    @Schema(description = "内容")
     private List<T> content;
 
     public PageResult(long totalElements, List<T> content) {

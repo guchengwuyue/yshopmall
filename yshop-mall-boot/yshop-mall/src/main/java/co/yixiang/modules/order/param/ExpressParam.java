@@ -5,7 +5,7 @@
  */
 package co.yixiang.modules.order.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,12 +18,12 @@ import java.io.Serializable;
 @Data
 public class ExpressParam implements Serializable {
 
-    @ApiModelProperty(value = "订单编号")
+    @Schema(description = "订单编号")
     private String orderCode;
 
-    @ApiModelProperty(value = "快递公司编码")
+    @Schema(description = "快递公司编码")
     private String shipperCode;
 
-    @ApiModelProperty(value = "物流单号")
+    @Schema(description = "物流单号")
     private String logisticCode;
 }

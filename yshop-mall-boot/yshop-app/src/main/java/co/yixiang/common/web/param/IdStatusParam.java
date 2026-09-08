@@ -1,18 +1,17 @@
 package co.yixiang.common.web.param;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.io.Serializable;
 
-@ApiModel("主键状态VO")
+@Schema(description = "主键状态VO")
 public class IdStatusParam implements Serializable {
     private static final long serialVersionUID = -7581307955242965701L;
 
-    @ApiModelProperty("主键ID")
+    @Schema(description = "主键ID")
     private String id;
 
-    @ApiModelProperty("状态,1:启用 0:禁用")
+    @Schema(description = "状态,1:启用 0:禁用")
     private Integer status;
 
     public String getId() {

@@ -50,14 +50,15 @@ spring:
           config:
             multi-statement-allow: true
 
-  redis:
-    #数据库索引
-    database: 5
-    host: 127.0.0.1
-    port: 6379 # Redis服务器连接端口
-    password:  # Redis服务器连接密码（默认为空）
-    #连接超时时间
-    timeout: 5000
+  data:
+    redis:
+      #数据库索引
+      database: 5
+      host: 127.0.0.1
+      port: 6379 # Redis服务器连接端口
+      password:  # Redis服务器连接密码（默认为空）
+      #连接超时时间
+      timeout: 5000
 
 # 是否限制单用户登录
 single:
@@ -83,11 +84,6 @@ generator:
   enabled: false
 
 #如果生产环境要开启swagger，需要配置请求地址
-#springfox:
-#  documentation:
-#    swagger:
-#      v2:
-#        host: # 接口域名或外网ip
 
 #是否开启 swagger-ui，生产环境默认不开启
 swagger:
@@ -95,6 +91,11 @@ swagger:
   title: yshop商城管理后台API
   serverUrl: http://127.0.0.1:8000
   version: 2.0.0
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
 
 
 file:

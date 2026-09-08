@@ -8,6 +8,10 @@
  */
 package co.yixiang.modules.auth.rest;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
@@ -30,10 +34,10 @@ import co.yixiang.utils.RedisUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +45,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -54,7 +58,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "认证模块", tags = "商城:认证")
+@Tag(name = "商城:认证")
 public class AuthController {
 
     private final YxUserService userService;
@@ -70,7 +74,7 @@ public class AuthController {
      * 小程序登陆接口
      */
     @PostMapping("/wxapp/auth")
-    @ApiOperation(value = "小程序登陆", notes = "小程序登陆")
+    @Operation(summary = "小程序登陆", description = "小程序登陆")
     public ApiResult<Map<String, Object>> login(@Validated @RequestBody LoginParam loginParam,
                                                 HttpServletRequest request) {
 
@@ -99,14 +103,14 @@ public class AuthController {
      * 根据手机号查询用户状态
      */
     @GetMapping("/wxapp/authPhone/{phone}")
-    @ApiOperation(value = "根据手机号查询用户状态", notes = "根据手机号查询用户状态")
+    @Operation(summary = "根据手机号查询用户状态", description = "根据手机号查询用户状态")
     public ApiResult<YxUser> authPhone(@PathVariable String phone) {
         return ApiResult.ok(authService.authPhone(phone)).setMsg("获取成功");
     }
 
     @AuthCheck
     @PostMapping("/wxapp/loginAuth")
-    @ApiOperation(value = "小程序获取用户信息", notes = "小程序获取用户信息")
+    @Operation(summary = "小程序获取用户信息", description = "小程序获取用户信息")
     public ApiResult<YxUser> loginAuth(@Validated @RequestBody LoginParam loginParam) {
         Long uid = LocalUser.getUidByToken();
         String sessionKey = RedisUtil.get(ShopConstants.YSHOP_MINI_SESSION_KET+ uid).toString();
@@ -118,11 +122,11 @@ public class AuthController {
      * 微信公众号授权
      */
     @GetMapping("/wechat/auth")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "code", value = "微信授权code", paramType = "query", dataType = "string"),
-            @ApiImplicitParam(name = "spread", value = "分销绑定关系的ID", paramType = "query", dataType = "string")
+    @Parameters({
+            @Parameter(name = "code", description = "微信授权code", in = ParameterIn.QUERY, schema = @Schema(type = "string")),
+            @Parameter(name = "spread", description = "分销绑定关系的ID", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
     })
-    @ApiOperation(value = "微信公众号授权", notes = "微信公众号授权")
+    @Operation(summary = "微信公众号授权", description = "微信公众号授权")
     public ApiResult<Map<String, Object>> authLogin(@RequestParam(value = "code") String code,
                                                     @RequestParam(value = "spread") String spread,
                                                     HttpServletRequest request) {
@@ -149,7 +153,7 @@ public class AuthController {
     }
 
 
-    @ApiOperation("H5登录授权")
+    @Operation(summary = "H5登录授权")
     @PostMapping(value = "/login")
     public ApiResult<Map<String, Object>> login(@Validated @RequestBody HLoginParam loginDTO,HttpServletRequest request) {
         YxUser yxUser = userService.getOne(Wrappers.<YxUser>lambdaQuery()
@@ -180,7 +184,7 @@ public class AuthController {
         return ApiResult.ok(map).setMsg("登陆成功");
     }
 
-    @ApiOperation("H5验证码登录授权")
+    @Operation(summary = "H5验证码登录授权")
     @PostMapping(value = "/login/mobile")
     public ApiResult<Map<String, Object>> loginVerify(@Validated @RequestBody LoginVerifyParam loginVerifyParam,HttpServletRequest request) {
         Object codeObj = redisUtil.get("code_" + loginVerifyParam.getAccount());
@@ -224,7 +228,7 @@ public class AuthController {
     }
 
     @AuthCheck
-    @ApiOperation("修改密码")
+    @Operation(summary = "修改密码")
     @PostMapping(value = "/register/reset")
     public ApiResult<Boolean> updatePassword(@Validated @RequestBody UpdatePasswordParam updatePasswordParam,HttpServletRequest request) {
         Object codeObj = redisUtil.get("code_" + updatePasswordParam.getAccount());
@@ -256,7 +260,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    @ApiOperation(value = "H5/APP注册新用户", notes = "H5/APP注册新用户")
+    @Operation(summary = "H5/APP注册新用户", description = "H5/APP注册新用户")
     public ApiResult<String> register(@Validated @RequestBody RegParam param) {
         Object codeObj = redisUtil.get("code_" + param.getAccount());
         if(codeObj == null){
@@ -278,7 +282,7 @@ public class AuthController {
 
 
     @PostMapping("/register/verify")
-    @ApiOperation(value = "短信验证码发送", notes = "短信验证码发送")
+    @Operation(summary = "短信验证码发送", description = "短信验证码发送")
     public ApiResult<String> verify(@Validated @RequestBody VerityParam param) {
 //        YxUser yxUser = userService.getOne(Wrappers.<YxUser>lambdaQuery()
 //                .eq(YxUser::getPhone,param.getPhone()),false);
@@ -318,7 +322,7 @@ public class AuthController {
     }
 
     @AuthCheck
-    @ApiOperation(value = "退出登录", notes = "退出登录")
+    @Operation(summary = "退出登录", description = "退出登录")
     @PostMapping(value = "/auth/logout")
     public ApiResult<String> logout(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

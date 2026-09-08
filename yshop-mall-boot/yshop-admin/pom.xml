@@ -12,10 +12,6 @@
     <artifactId>yshop-admin</artifactId>
     <name>后台管理模块</name>
 
-    <properties>
-        <jjwt.version>0.10.6</jjwt.version>
-    </properties>
-
     <dependencies>
         <!--    代码生成模块    -->
         <dependency>
@@ -39,28 +35,24 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
-
-        <!--jwt-->
+        <!--jwt 0.12.x modular-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.jsonwebtoken</groupId>-->
-        <!--            <artifactId>jjwt-api</artifactId>-->
-        <!--            <version>${jjwt.version}</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.jsonwebtoken</groupId>-->
-        <!--            <artifactId>jjwt-impl</artifactId>-->
-        <!--            <version>${jjwt.version}</version>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.jsonwebtoken</groupId>-->
-        <!--            <artifactId>jjwt-jackson</artifactId>-->
-        <!--            <version>${jjwt.version}</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- quartz -->
         <dependency>
@@ -98,6 +90,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</jvmArguments>
+                </configuration>
             </plugin>
             <!-- 跳过单元测试 -->
             <plugin>

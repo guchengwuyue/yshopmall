@@ -1,6 +1,6 @@
 package co.yixiang.modules.cart.param;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,7 +12,7 @@ import lombok.Data;
  * @date 2019-10-25
  */
 @Data
-@ApiModel(value="YxStoreCartQueryParam对象", description="购物车表查询参数")
+@Schema(description = "YxStoreCartQueryParam对象")
 public class YxStoreCartQueryParam  {
     private static final long serialVersionUID = 1L;
 

@@ -12,11 +12,6 @@
     <artifactId>yshop-app</artifactId>
     <name>移动端模块</name>
 
-    <properties>
-        <jjwt.version>0.10.6</jjwt.version>
-        <mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>co.yixiang</groupId>
@@ -46,7 +41,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.8.1</version>
+            <version>${java-jwt.version}</version>
         </dependency>
 
         <dependency>
@@ -81,6 +76,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED</jvmArguments>
+                </configuration>
             </plugin>
             <!-- 跳过单元测试 -->
             <plugin>

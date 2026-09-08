@@ -1,9 +1,9 @@
 package co.yixiang.modules.order.param;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -14,14 +14,14 @@ import java.io.Serializable;
 @Data
 public class PayParam implements Serializable {
 
-    @ApiModelProperty(value = "来源")
+    @Schema(description = "来源")
     private String from;
 
     @NotBlank(message = "选择支付类型")
-    @ApiModelProperty(value = "支付类型")
+    @Schema(description = "支付类型")
     private String paytype;
 
     @NotBlank(message = "参数错误")
-    @ApiModelProperty(value = "订单ID")
+    @Schema(description = "订单ID")
     private String uni;
 }

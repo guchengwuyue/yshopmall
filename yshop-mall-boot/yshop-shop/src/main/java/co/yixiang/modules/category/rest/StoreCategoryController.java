@@ -19,8 +19,8 @@ import co.yixiang.modules.category.service.dto.YxStoreCategoryDto;
 import co.yixiang.modules.category.service.dto.YxStoreCategoryQueryCriteria;
 import co.yixiang.modules.product.domain.YxStoreProduct;
 import co.yixiang.modules.product.service.YxStoreProductService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,7 +44,7 @@ import java.util.List;
 * @author hupeng
 * @date 2019-10-03
 */
-@Api(tags = "商城:商品分类管理")
+@Tag(name = "商城:商品分类管理")
 @RestController
 @RequestMapping("api")
 public class StoreCategoryController {
@@ -61,7 +61,7 @@ public class StoreCategoryController {
     }
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/yxStoreCategory/download")
     @PreAuthorize("@el.check('admin','YXSTORECATEGORY_SELECT')")
     public void download(HttpServletResponse response, YxStoreCategoryQueryCriteria criteria) throws IOException {
@@ -70,7 +70,7 @@ public class StoreCategoryController {
 
 
     @Log("查询商品分类")
-    @ApiOperation(value = "查询商品分类")
+    @Operation(summary = "查询商品分类")
     @GetMapping(value = "/yxStoreCategory")
     @PreAuthorize("hasAnyRole('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_SELECT')")
     public ResponseEntity getYxStoreCategorys(YxStoreCategoryQueryCriteria criteria, Pageable pageable){
@@ -80,7 +80,7 @@ public class StoreCategoryController {
 
     @ForbidSubmit
     @Log("新增商品分类")
-    @ApiOperation(value = "新增商品分类")
+    @Operation(summary = "新增商品分类")
     @PostMapping(value = "/yxStoreCategory")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PreAuthorize("hasAnyRole('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_CREATE')")
@@ -99,7 +99,7 @@ public class StoreCategoryController {
 
     @ForbidSubmit
     @Log("修改商品分类")
-    @ApiOperation(value = "修改商品分类")
+    @Operation(summary = "修改商品分类")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @PutMapping(value = "/yxStoreCategory")
     @PreAuthorize("hasAnyRole('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_EDIT')")
@@ -124,7 +124,7 @@ public class StoreCategoryController {
 
     @ForbidSubmit
     @Log("删除商品分类")
-    @ApiOperation(value = "删除商品分类")
+    @Operation(summary = "删除商品分类")
     @CacheEvict(cacheNames = ShopConstants.YSHOP_REDIS_INDEX_KEY,allEntries = true)
     @DeleteMapping(value = "/yxStoreCategory/{id}")
     @PreAuthorize("hasAnyRole('admin','YXSTORECATEGORY_ALL','YXSTORECATEGORY_DELETE')")

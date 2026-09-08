@@ -1,7 +1,7 @@
 package co.yixiang.modules.user.param;
 
 import co.yixiang.common.web.param.QueryParam;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="YxUserQueryParam对象", description="用户表查询参数")
+@Schema(description = "YxUserQueryParam对象")
 public class YxUserQueryParam extends QueryParam {
     private static final long serialVersionUID = 1L;
 }

@@ -1,6 +1,5 @@
 package co.yixiang.modules.product.service.dto;
 
-import io.swagger.models.auth.In;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

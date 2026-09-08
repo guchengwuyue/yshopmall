@@ -2,7 +2,7 @@ package co.yixiang.modules.sales.service.vo;
 
 import co.yixiang.modules.cart.vo.YxStoreCartQueryVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,7 +43,7 @@ public class StoreAfterSalesVo {
     /** 物流名称 */
     private String deliveryName;
 
-    @ApiModelProperty(value = "快递公司编码")
+    @Schema(description = "快递公司编码")
     private String shipperCode;
 
     /** 状态 0已提交等待平台审核 1平台已审核 等待用户发货/退款 2 用户已发货 3退款成功 */

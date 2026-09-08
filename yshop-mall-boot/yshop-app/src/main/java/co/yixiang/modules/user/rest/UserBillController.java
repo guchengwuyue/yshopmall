@@ -8,6 +8,10 @@
  */
 package co.yixiang.modules.user.rest;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import co.yixiang.api.ApiResult;
@@ -27,10 +31,10 @@ import co.yixiang.modules.user.service.YxUserBillService;
 import co.yixiang.modules.user.service.YxUserService;
 import co.yixiang.modules.user.vo.YxUserBillQueryVo;
 import com.google.common.collect.Maps;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +46,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.*;
 
 /**
@@ -53,7 +57,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@Api(value = "用户分销", tags = "用户:用户分销")
+@Tag(name = "用户:用户分销")
 public class UserBillController {
 
     private final YxUserBillService userBillService;
@@ -71,7 +75,7 @@ public class UserBillController {
     @AppLog(value = "查看推广数据", type = 1)
     @AuthCheck
     @GetMapping("/commission")
-    @ApiOperation(value = "推广数据",notes = "推广数据")
+    @Operation(summary = "推广数据", description = "推广数据")
     public ApiResult<Map<String,Object>> commission(){
         YxUser yxUser = LocalUser.getUser();
 
@@ -94,11 +98,11 @@ public class UserBillController {
     @AppLog(value = "查看积分记录", type = 1)
     @AuthCheck
     @GetMapping("/integral/list")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "积分记录",notes = "积分记录")
+    @Operation(summary = "积分记录", description = "积分记录")
     public ApiResult<List<YxUserBillQueryVo>> userInfo(@RequestParam(value = "page",defaultValue = "1") int page,
                                                        @RequestParam(value = "limit",defaultValue = "10") int limit){
         Long uid = LocalUser.getUser().getUid();
@@ -113,10 +117,10 @@ public class UserBillController {
     @AppLog(value = "分销二维码海报生成", type = 1)
     @AuthCheck
     @GetMapping("/spread/banner")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "form", value = "来源", paramType = "query", dataType = "string")
+    @Parameters({
+            @Parameter(name = "form", description = "来源", in = ParameterIn.QUERY, schema = @Schema(type = "string"))
     })
-    @ApiOperation(value = "分销二维码海报生成",notes = "分销二维码海报生成")
+    @Operation(summary = "分销二维码海报生成", description = "分销二维码海报生成")
     public ApiResult<List<Map<String,Object>>> spreadBanner(@RequestParam(value = "",required=false) String from){
         YxUser yxUser = LocalUser.getUser();
         String siteUrl = systemConfigService.getData(SystemConfigConstants.SITE_URL);
@@ -148,7 +152,7 @@ public class UserBillController {
     @AppLog(value = "查看推广人统计", type = 1)
     @AuthCheck
     @PostMapping("/spread/people")
-    @ApiOperation(value = "推广人统计",notes = "推广人统计")
+    @Operation(summary = "推广人统计", description = "推广人统计")
     public ApiResult<Map<String,Object>> spreadPeople(@Valid @RequestBody PromParam param){
         Long uid = LocalUser.getUser().getUid();
         Map<String,Object> map = new LinkedHashMap<>();
@@ -164,12 +168,12 @@ public class UserBillController {
     @AppLog(value = "查看推广佣金明细", type = 1)
     @AuthCheck
     @GetMapping("/spread/commission/{type}")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页码,默认为1", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "limit", value = "页大小,默认为10", paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "type", value = "类型 0所有 1消费 2充值 3返佣 4提现 5签到积分 6退款 7系统增加 8系统减少", paramType = "query", dataType = "int")
+    @Parameters({
+            @Parameter(name = "page", description = "页码,默认为1", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "limit", description = "页大小,默认为10", in = ParameterIn.QUERY, schema = @Schema(type = "integer")),
+            @Parameter(name = "type", description = "类型 0所有 1消费 2充值 3返佣 4提现 5签到积分 6退款 7系统增加 8系统减少", in = ParameterIn.QUERY, schema = @Schema(type = "integer"))
     })
-    @ApiOperation(value = "推广佣金明细",notes = "推广佣金明细")
+    @Operation(summary = "推广佣金明细", description = "推广佣金明细")
     public ApiResult<Object> spreadCommission(@RequestParam(value = "page",defaultValue = "1") int page,
                                               @RequestParam(value = "limit",defaultValue = "10") int limit,
                                               @PathVariable String type){
@@ -192,7 +196,7 @@ public class UserBillController {
     @AppLog(value = "查看推广订单", type = 1)
     @AuthCheck
     @PostMapping("/spread/order")
-    @ApiOperation(value = "推广订单",notes = "推广订单")
+    @Operation(summary = "推广订单", description = "推广订单")
     public ApiResult<Object> spreadOrder(@RequestBody YxUserBillQueryParam param){
         Long uid = LocalUser.getUser().getUid();
         Map<String, Object> map = userBillService.spreadOrder(uid,param.getPage(),param.getLimit());

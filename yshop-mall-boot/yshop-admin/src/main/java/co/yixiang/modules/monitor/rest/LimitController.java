@@ -2,8 +2,8 @@ package co.yixiang.modules.monitor.rest;
 
 import co.yixiang.annotation.AnonymousAccess;
 import co.yixiang.annotation.Limit;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RestController
 @RequestMapping("/api/limit")
-@Api(tags = "系统：限流测试管理")
+@Tag(name = "系统：限流测试管理")
 public class LimitController {
 
     private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
@@ -26,7 +26,7 @@ public class LimitController {
      */
     @GetMapping
     @AnonymousAccess
-    @ApiOperation("测试")
+    @Operation(summary = "测试")
     @Limit(key = "test", period = 60, count = 10, name = "testLimit", prefix = "limit")
     public int testLimit() {
         return ATOMIC_INTEGER.incrementAndGet();

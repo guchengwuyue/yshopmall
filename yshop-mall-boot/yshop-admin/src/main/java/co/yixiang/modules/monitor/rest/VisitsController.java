@@ -2,8 +2,8 @@ package co.yixiang.modules.monitor.rest;
 
 import co.yixiang.modules.monitor.service.VisitsService;
 import co.yixiang.utils.RequestHolder;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/visits")
-@Api(tags = "系统:访问记录管理")
+@Tag(name = "系统:访问记录管理")
 public class VisitsController {
 
     private final VisitsService visitsService;
@@ -27,20 +27,20 @@ public class VisitsController {
     }
 
     @PostMapping
-    @ApiOperation("创建访问记录")
+    @Operation(summary = "创建访问记录")
     public ResponseEntity<Object> create(){
         visitsService.count(RequestHolder.getHttpServletRequest());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
-    @ApiOperation("查询")
+    @Operation(summary = "查询")
     public ResponseEntity<Object> get(){
         return new ResponseEntity<>(visitsService.get(),HttpStatus.OK);
     }
 
     @GetMapping(value = "/chartData")
-    @ApiOperation("查询图表数据")
+    @Operation(summary = "查询图表数据")
     public ResponseEntity<Object> getChartData(){
         return new ResponseEntity<>(visitsService.getChartData(),HttpStatus.OK);
     }

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -123,13 +123,13 @@ public class QuartzJobServiceImpl extends BaseServiceImpl<QuartzJobMapper, Quart
     @Override
     public boolean save(QuartzJob quartzJob) {
         quartzManage.addJob(quartzJob);
-        return retBool(baseMapper.insert(quartzJob));
+        return baseMapper.insert(quartzJob) > 0;
     }
 
     @Override
     public boolean updateById(QuartzJob quartzJob) {
         quartzManage.updateJobCron(quartzJob);
-        return retBool(baseMapper.updateById(quartzJob));
+        return baseMapper.updateById(quartzJob) > 0;
     }
 
     /**

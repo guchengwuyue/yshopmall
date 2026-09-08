@@ -1,6 +1,6 @@
 package co.yixiang.modules.order.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,12 +20,12 @@ import java.util.Map;
 @Builder
 public class OrderExtendDto implements Serializable {
 
-    @ApiModelProperty(value = "唯一的key")
+    @Schema(description = "唯一的key")
     private String key;
 
-    @ApiModelProperty(value = "订单ID")
+    @Schema(description = "订单ID")
     private String orderId;
 
-    @ApiModelProperty(value = "微信相关配置")
+    @Schema(description = "微信相关配置")
     private Map<String,String> jsConfig;
 }

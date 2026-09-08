@@ -11,7 +11,7 @@ package co.yixiang.api;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,43 +40,43 @@ public class ApiResult<T> implements Serializable {
     /**
      * 响应码
      */
-    @ApiModelProperty(value = "响应码")
+    @Schema(description = "响应码")
     private int status;
 
     /**
      * 是否成功
      */
-    @ApiModelProperty(value = "是否成功：成功true，失败false")
+    @Schema(description = "是否成功：成功true，失败false")
     private boolean success;
 
     /**
      * 响应消息
      */
-    @ApiModelProperty(value = "响应消息")
+    @Schema(description = "响应消息")
     private String msg;
 
     /**
      * 总条数
      */
-    @ApiModelProperty(value = "总条数")
+    @Schema(description = "总条数")
     private Integer total;
 
     /**
      * 总页数
      */
-    @ApiModelProperty(value = "总页数")
+    @Schema(description = "总页数")
     private Integer totalPage;
 
     /**
      * 响应数据
      */
-    @ApiModelProperty(value = "响应数据")
+    @Schema(description = "响应数据")
     private T data;
 
     /**
      * 响应时间
      */
-    @ApiModelProperty(value = "响应时间")
+    @Schema(description = "响应时间")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date time;

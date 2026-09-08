@@ -12,8 +12,8 @@ import co.yixiang.modules.logging.aop.log.Log;
 import co.yixiang.modules.activity.domain.YxUserExtract;
 import co.yixiang.modules.activity.service.YxUserExtractService;
 import co.yixiang.modules.activity.service.dto.YxUserExtractQueryCriteria;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 * @author hupeng
 * @date 2019-11-14
 */
-@Api(tags = "商城:提现管理")
+@Tag(name = "商城:提现管理")
 @RestController
 @RequestMapping("api")
 public class UserExtractController {
@@ -43,7 +43,7 @@ public class UserExtractController {
     }
 
     @Log("查询")
-    @ApiOperation(value = "查询")
+    @Operation(summary = "查询")
     @GetMapping(value = "/yxUserExtract")
     @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_SELECT')")
     public ResponseEntity getYxUserExtracts(YxUserExtractQueryCriteria criteria, Pageable pageable){
@@ -53,7 +53,7 @@ public class UserExtractController {
 
 
     @Log("修改审核")
-    @ApiOperation(value = "修改审核")
+    @Operation(summary = "修改审核")
     @PutMapping(value = "/yxUserExtract")
     @PreAuthorize("hasAnyRole('admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT')")
     public ResponseEntity update(@Validated @RequestBody YxUserExtract resources){

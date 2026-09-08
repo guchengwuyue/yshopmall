@@ -24,16 +24,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import co.yixiang.domain.PageResult;
 /**
 * @author Bug
 * @date 2020-12-10
 */
 @AllArgsConstructor
-@Api(tags = "customer管理")
+@Tag(name = "customer管理")
 @RestController
 @RequestMapping("/api/yxStoreCustomer")
 public class YxStoreCustomerController {
@@ -43,7 +44,7 @@ public class YxStoreCustomerController {
 
 
     @Log("导出数据")
-    @ApiOperation("导出数据")
+    @Operation(summary = "导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('admin','yxStoreCustomer:list')")
     public void download(HttpServletResponse response, YxStoreCustomerQueryCriteria criteria) throws IOException {
@@ -52,7 +53,7 @@ public class YxStoreCustomerController {
 
     @GetMapping
     @Log("查询customer")
-    @ApiOperation("查询customer")
+    @Operation(summary = "查询customer")
     @PreAuthorize("@el.check('admin','yxStoreCustomer:list')")
     public ResponseEntity<PageResult<YxStoreCustomerDto>> getYxStoreCustomers(YxStoreCustomerQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(yxStoreCustomerService.queryAll(criteria,pageable),HttpStatus.OK);
@@ -61,7 +62,7 @@ public class YxStoreCustomerController {
     @ForbidSubmit
     @PostMapping
     @Log("新增customer")
-    @ApiOperation("新增customer")
+    @Operation(summary = "新增customer")
     @PreAuthorize("@el.check('admin','yxStoreCustomer:add')")
     public ResponseEntity<Object> create(@Validated @RequestBody YxStoreCustomer resources){
         Long count = yxStoreCustomerService.count(new LambdaQueryWrapper<YxStoreCustomer>().eq(YxStoreCustomer::getOpenId, resources.getOpenId()));
@@ -74,7 +75,7 @@ public class YxStoreCustomerController {
     @ForbidSubmit
     @PutMapping
     @Log("修改customer")
-    @ApiOperation("修改customer")
+    @Operation(summary = "修改customer")
     @PreAuthorize("@el.check('admin','yxStoreCustomer:edit')")
     public ResponseEntity<Object> update(@Validated @RequestBody YxStoreCustomer resources){
         yxStoreCustomerService.updateById(resources);
@@ -83,7 +84,7 @@ public class YxStoreCustomerController {
 
     @ForbidSubmit
     @Log("删除customer")
-    @ApiOperation("删除customer")
+    @Operation(summary = "删除customer")
     @PreAuthorize("@el.check('admin','yxStoreCustomer:del')")
     @DeleteMapping
     public ResponseEntity<Object> deleteAll(@RequestBody Long[] ids) {
