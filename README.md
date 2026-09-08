@@ -10,8 +10,6 @@ yshop基于当前流行技术组合的前后端分离B2C(单商户)、B2B2C(多�
 ## 官网体验地址
 |  官网地址  |  https://www.yixiang.co |
 |---|---|
-| 单商户演示地址：  |   https://www.yixiang.co/p/B2CPRO.html |
-| 多商户演示地址：  |   https://www.yixiang.co/p/B2B2C.html|
 | 关注公众号点体验移动端|  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
 
 ## 视频资料
