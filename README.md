@@ -1,157 +1,192 @@
+<h1 align="center">yshop 意象商城系统</h1>
 
-
-<h1 style="text-align: center">yshop意象商城系统</h1>
+<p align="center">
+  前后端分离 · B2C 单商户 / B2B2C 多商户 · Spring Boot3 + Vue + uniapp
+</p>
 
 ## 项目简介
-yshop基于当前流行技术组合的前后端分离B2C(单商户)、B2B2C(多商户)商城系统： SpringBoot3.4.3+MybatisPlus+SpringSecurity+jwt+redis+Vue+uniapp的前后端分离的商城系统， 包含商品、多规格、运费模板、素材库、拼团、快递、 秒杀、优惠券、积分、分销、会员、充值、多租户等功能，更适合企业或个人二次开发；
+
+yshop 基于当前主流技术栈的前后端分离商城系统，覆盖 **B2C（单商户）** 与 **B2B2C（多商户）** 两种商业模式：
+
+- 后端：Spring Boot 3.4.3 + MyBatis-Plus + Spring Security + JWT + Redis
+- 前端：Vue（管理后台）+ uniapp（小程序 / H5 / APP）
+
+核心能力包括：商品与多规格、运费模板、素材库、拼团、快递、秒杀、优惠券、积分、分销、会员、充值、多租户等，适合企业或个人二次开发。
+
+---
+
+## 产品介绍与演示
+
+### 多商户 B2B2C
+
+YSHOP 多商户多店铺 B2B2C 电商系统，支持平台联营、招商入驻等运营模式，覆盖 **平台端 / 商家端 / 客户端**，并支持 PC、APP、小程序、H5 多终端。
+
+能力概览：商家入驻审核、会员体系、商品/品牌管控、订单售后、平台活动（优惠券/秒杀/限时折扣）、分销渠道、种草、终端装修、风控财务、积分签到、场景营销等。
+
+| 说明 | 链接 |
+|------|------|
+| 产品介绍与功能 | [https://www.yixiang.co/p/B2B2C.html](https://www.yixiang.co/p/B2B2C.html) |
 
 
+### 单商户 B2C
 
-## 官网体验地址
-|  官网地址  |  https://www.yixiang.co |
-|---|---|
-| 关注公众号点体验移动端|  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
+单商户商城（Java 版）：一套代码多端适配（微信小程序 / H5 / APP），覆盖商品、支付、订单、拼团秒杀、会员积分、优惠券、首页装修、积分商城、分销、库存预警、多门店与同城配送（达达）等场景，适合品牌自营、同城零售、门店自提与连锁经营。
 
-## 视频资料
-如果对您有帮助，您可以点右上角 "Star" 支持一下，这样我们才有继续免费下去的动力，谢谢！ QQ交流群 (入群前，请在网页右上角点 "Star" )，群里有视频教程与开发文档哦！！
+| 说明 | 链接 |
+|------|------|
+| 产品介绍、功能| [https://shanghongsys.com/singleV3.html](https://shanghongsys.com/singleV3.html) |
 
-交流QQ群：544263002
+
+---
+
+## 官网与交流
+
+| 项目 | 内容 |
+|------|------|
+| 官网 | [https://www.yixiang.co](https://www.yixiang.co) |
+| QQ 交流群 | 544263002（入群前请先 Star，群内有视频教程与开发文档） |
+| 公众号体验移动端 | ![公众号二维码](https://images.gitee.com/uploads/images/2021/0121/154904_12c09826_477893.png) |
+
+如果本项目对你有帮助，欢迎点右上角 **Star** 支持，谢谢！
+
+---
 
 ## 项目说明
+
 ```
-- yshop-mall-boot     java工程
+- yshop-mall-boot     Java 后端工程
 - yshop-mall-vue      后台前端工程
-- yshop-mall-uniapp   uniapp工程，支持小程序、h5
-
+- yshop-mall-uniapp   uniapp 工程（小程序、H5、APP）
 ```
 
+---
 
 ## 本地安装
+
 ### 基本环境（必备）
-- 1、JDK：17
-- 2、Redis 3.0+
-- 3、Maven 3.0+
-- 4、MYSQL 5.7+
-- 5、Node v8+
+
+- JDK 17
+- Redis 3.0+
+- Maven 3.0+
+- MySQL 5.7+
+- Node v8+（建议 Node 10+）
+
 ### 开发工具
-Idea、hbuilder、vscode
 
-### 后台系统工程（JAVA端）
+IntelliJ IDEA、HBuilderX、VS Code
 
-1、请确保redis已经安装启动
+### 后台系统工程（Java 端）
 
-2、idea打开yshop-mall-boot
+1. 请确保 Redis 已安装并启动  
+2. 用 IDEA 打开 `yshop-mall-boot`  
+3. 等待依赖加载完成  
+4. 导入数据库，配置开发环境数据库与 Redis（路径示意如下）：
 
-3、idea打开项目加载依赖目录如下
+![配置示意1](https://images.gitee.com/uploads/images/2021/0811/163043_bd75fb21_477893.png)
+![配置示意2](https://images.gitee.com/uploads/images/2021/0811/163103_927e6c40_477893.png)
+![配置示意3](https://images.gitee.com/uploads/images/2021/0811/163118_29a4fa04_477893.png)
 
-4、导入数据库，配置开发环境数据库信息及其redis信息，文件路径如下：
+5. 在父级 `pom.xml` 执行 `mvn clean install`，或使用 IDEA 操作：
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163043_bd75fb21_477893.png "test2.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163103_927e6c40_477893.png "test3.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163118_29a4fa04_477893.png "test4.png")
+![Maven 安装](https://images.gitee.com/uploads/images/2021/0811/163132_913fc5fd_477893.png)
 
-5、然后在父级pom.xml输入命令 mvn clean install 或者用idea工具操作
+6. 启动程序
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163132_913fc5fd_477893.png "test5.png")
+### 后台前端工程（Vue 端）
 
-6、启动程序
+1. 确保已安装 Node（建议 Node 8 或 Node 10）  
+2. 用 VS Code 打开 `yshop-mall-vue`  
+3. 在工程目录执行 `cnpm install` 或 `yarn install`：
 
+![前端目录](https://images.gitee.com/uploads/images/2021/0811/163159_895e12de_477893.png)
 
+4. 执行 `npm run dev`，出现如下输出即表示启动成功：
 
-### 后台前端工程（VUE端）
-1、请确保本地已经安装node,建议node8或者node10
+![前端启动](https://images.gitee.com/uploads/images/2021/0811/163209_09ed1793_477893.png)
 
-2、vscode打开yshop-mall-vue
+5. 浏览器打开控制台打印的地址  
 
-3、cnpm install或者yarn install,当前所有命令必须当前工程目录下进行，目录结构如下：
+默认超管账号：`admin` / `123456`
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163159_895e12de_477893.png "test8.png")
+### 移动端工程（uniapp 端）
 
+1. 用 HBuilderX 打开 `yshop-mall-uniapp`  
+2. 执行 `npm install`  
+3. 直接运行即可  
+4. 更详细教程可加入上方 QQ 群获取文档
 
-3、在控制台输入命令：npm run dev，控制台打印出如下画面，恭喜表示本项目启动成功拉。
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0811/163209_09ed1793_477893.png "test9.png")
+---
 
+## Nginx 线上部署
 
-4、打开浏览器输入地址如图：
+### 后台系统（Java 端）
 
-默认超管账户密码：admin/123456
+1. `mvn install` 或用 IDEA 打成 jar 包  
+2. 配置 Nginx（交流群群文件有视频教程）
 
-### 移动端工程（uniapp端）
+### 后台前端工程（Vue 端）
 
-1、hbuilder打开yshop-mall-uniapp
+1. 执行 `npm run build:prod` 编译打包  
+2. 将打包后的 `dist` 上传到服务器  
+3. 配置 Nginx（交流群群文件有视频教程）
 
-2、npm install
+---
 
-3、然后直接运行即可
+## Docker 部署
 
-4、详情教程可以加上面说的群交流获取更多文档
+1. 创建第三方软件服务目录：
 
-
-
-## nginx线上部署
-
-### 后台系统（Java端）
-
-1、mvn install 或者直接idea打成jar包
-
-2、配置nginx ，加入交流群，群文件里有视频教程
-
-
-
-### 后台前端工程（VUE端）
-1、输入命令：npm run build:prod 编译打包
-
-2、把打包后的dist目录代码上传到服务器
-
-3、配置nginx如下，加入交流群，群文件里有视频教程
-
-
-## docker部署
-
-- 1、创建一个存储第三方软件服务Docker Compose文件目录：
+```bash
+mkdir -p /yshop/soft
 ```
-     mkdir -p /yshop/soft
-```
-- 2、然后在该目录下新建一个docker-compose.yml文件：
-```
-    vim /yshop/soft/docker-compose.yml
-```
-- 3、接着创建上面docker-compose.yml里定义的挂载目录：
-```
-    mkdir -p /yshop/mysql/data /yshop/redis/data /yshop/redis/conf
-```
-- 4、创建Redis配置文件redis.conf：
-```
-    touch /yshop/redis/conf/redis.conf
-```
-- 5、docker 部署参考根目录docker文件夹
-- 6、以上创建好之后参考docker下文件，先执行软件安装：
-```
-  cd /yshop/soft
-  docker-compose up -d  启动
-  docker ps -a 查看镜像
-```
-- 7、运行docker/applicatiion目录下 docker-compose,当然之前一定要打包jar包，构建镜像
-  切换到Dockerfile 文件下：
-  ```
-  docker build -t yshop-admin .  
-  ```
 
+2. 在该目录新建 `docker-compose.yml`：
 
+```bash
+vim /yshop/soft/docker-compose.yml
+```
+
+3. 创建挂载目录：
+
+```bash
+mkdir -p /yshop/mysql/data /yshop/redis/data /yshop/redis/conf
+```
+
+4. 创建 Redis 配置文件：
+
+```bash
+touch /yshop/redis/conf/redis.conf
+```
+
+5. Docker 部署细节参考根目录 `docker` 文件夹  
+
+6. 先启动基础软件：
+
+```bash
+cd /yshop/soft
+docker-compose up -d
+docker ps -a
+```
+
+7. 再运行 `docker/application` 下的 compose（需先打包 jar、构建镜像）。在 Dockerfile 所在目录执行：
+
+```bash
+docker build -t yshop-admin .
+```
+
+---
 
 ## 商城功能
 
-* 一：商品模块：商品添加、规格设置，商品上下架等
-* 二：订单模块：下单、购物车、支付，发货、收货、评价、退款等
-* 三：营销模块：积分、优惠券、分销、拼团、秒杀、多门店等
-* 四：微信模块：自定义菜单、自动回复、微信授权、图文管理、模板消息推送
-* 五：配置模块：各种配置
-* 六：用户模块：登陆、注册、会员卡、充值等
-* 七：其他等
+- **商品模块**：商品添加、规格设置、上下架等  
+- **订单模块**：下单、购物车、支付、发货、收货、评价、退款等  
+- **营销模块**：积分、优惠券、分销、拼团、秒杀、多门店等  
+- **微信模块**：自定义菜单、自动回复、微信授权、图文管理、模板消息  
+- **配置模块**：系统与业务各类配置  
+- **用户模块**：登录、注册、会员卡、充值等  
 
+### 系统预览
 
-
-#### 系统预览
 <table>
     <tr>
         <td><img src="assets/55.jpg"/></td>
@@ -179,47 +214,51 @@ Idea、hbuilder、vscode
     </tr>
 </table>
 
+---
 
-### 技术选型
-* 1 后端使用技术
-    * 1.1 SpringBoot 3.4.3
-    * 1.2 mybatis、MyBatis-Plus
-    * 1.3 SpringSecurity
-    * 1.5 Druid
-    * 1.6 Slf4j
-    * 1.7 Fastjson
-    * 1.8 JWT
-    * 1.9 Redis
-    * 1.10 Quartz
-    * 1.11 Mysql
-    * 1.12 swagger
-    * 1.13 WxJava
-    * 1.14 Lombok
-    * 1.15 Hutool
-        
-* 前端使用技术
-    * 2.1 Vue 全家桶
-    * 2.2 Element
-    * 2.3 uniapp
+## 技术选型
 
+### 后端
 
+- Spring Boot 3.4.3  
+- MyBatis / MyBatis-Plus  
+- Spring Security  
+- Druid  
+- Slf4j  
+- Fastjson  
+- JWT  
+- Redis  
+- Quartz  
+- MySQL  
+- Swagger  
+- WxJava  
+- Lombok  
+- Hutool  
 
-	
-#### 反馈交流
-- 喜欢这个商城后台的小伙伴留下你的小星星啦,star,star哦！
+### 前端
 
-#### 使用须知
-- 允许个人学习使用
-- 允许用于学习、毕设等
-- 允许进行商业使用，请自觉遵守使用协议
-- 请遵守 Apache License2.0 协议，再次开源请注明出处
+- Vue 全家桶  
+- Element  
+- uniapp  
 
+---
 
+## 反馈交流
 
-####  特别鸣谢
-- eladmin:https://github.com/elunez/eladmin
-- mybaitsplus:https://github.com/baomidou/mybatis-plus
-- hutool:https://github.com/looly/hutool
-- wxjava:https://github.com/Wechat-Group/WxJava
-- vue:https://github.com/vuejs/vue
-- element:https://github.com/ElemeFE/element
+喜欢这个商城的小伙伴，欢迎留下你的 **Star**！
+
+## 使用须知
+
+- 允许个人学习使用  
+- 允许用于学习、毕设等  
+- 允许商业使用，请自觉遵守使用协议  
+- 请遵守 Apache License 2.0，再次开源请注明出处  
+
+## 特别鸣谢
+
+- [eladmin](https://github.com/elunez/eladmin)  
+- [mybatis-plus](https://github.com/baomidou/mybatis-plus)  
+- [hutool](https://github.com/looly/hutool)  
+- [WxJava](https://github.com/Wechat-Group/WxJava)  
+- [vue](https://github.com/vuejs/vue)  
+- [element](https://github.com/ElemeFE/element)  
