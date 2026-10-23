@@ -9,7 +9,7 @@
             clearable
             size="small"
             placeholder="输入部门名称搜索"
-            prefix-icon="el-icon-search"
+            :prefix-icon="Search"
             class="filter-item"
             @input="getDeptDatas"
           />
@@ -35,7 +35,7 @@
               placeholder="输入名称或者邮箱搜索"
               style="width: 200px;"
               class="filter-item"
-              @keyup.enter.native="crud.toQuery"
+              @keyup.enter="crud.toQuery"
             />
             <el-date-picker
               v-model="query.createTime"
@@ -69,7 +69,7 @@
           <crudOperation show="" :permission="permission" />
         </div>
         <!--表单渲染-->
-        <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="570px">
+        <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :model-value="crud.status.cu > 0" :title="crud.status.title" width="570px">
           <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
             <el-form-item label="用户名" prop="username">
               <el-input v-model="form.username" />
@@ -136,10 +136,12 @@
               </el-select>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
+          <template #footer>
+<div class="dialog-footer">
             <el-button type="text" @click="crud.cancelCU">取消</el-button>
             <el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
           </div>
+</template>
         </el-dialog>
         <!--表格渲染-->
         <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
@@ -150,12 +152,12 @@
           <el-table-column v-if="columns.visible('phone')" :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
           <el-table-column v-if="columns.visible('email')" :show-overflow-tooltip="true" width="125" prop="email" label="邮箱" />
           <el-table-column v-if="columns.visible('dept')" :show-overflow-tooltip="true" width="110" prop="dept" label="部门 / 岗位">
-            <template slot-scope="scope">
+            <template #default="scope">
               <div>{{ scope.row.dept.name }} / {{ scope.row.job.name }}</div>
             </template>
           </el-table-column>
           <el-table-column v-if="columns.visible('enabled')" label="状态" align="center" prop="enabled">
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-switch
                 v-model="scope.row.enabled"
                 :disabled="user.id === scope.row.id"
@@ -166,7 +168,7 @@
             </template>
           </el-table-column>
           <el-table-column v-if="columns.visible('createTime')" :show-overflow-tooltip="true" prop="createTime" width="140" label="创建日期">
-            <template slot-scope="scope">
+            <template #default="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
           </el-table-column>
@@ -177,7 +179,7 @@
             align="center"
             fixed="right"
           >
-            <template slot-scope="scope">
+            <template #default="scope">
               <udOperation
                 :data="scope.row"
                 :permission="permission"
@@ -204,9 +206,9 @@ import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
 import udOperation from '@crud/UD.operation'
 import pagination from '@crud/Pagination'
-import Treeselect from '@riophae/vue-treeselect'
+import Treeselect from 'vue3-treeselect'
 import { mapGetters } from 'vuex'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import 'vue3-treeselect/dist/vue3-treeselect.css'
 
 let userRoles = []
 // crud交由presenter持有

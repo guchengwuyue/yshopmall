@@ -3,17 +3,17 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -26,17 +26,17 @@
       <el-table-column prop="couponPrice" label="优惠券的面值" />
       <el-table-column prop="useMinPrice" label="优惠券最低消费" />
       <el-table-column label="优惠券开始时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ formatTimeTwo(scope.row.addTime) }}
         </template>
       </el-table-column>
       <el-table-column label="优惠券结束时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ formatTimeTwo(scope.row.endTime) }}
         </template>
       </el-table-column>
       <el-table-column label="获取方式">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.type == 'get'" style="cursor: pointer" :type="''">手动领取</el-tag>
             <el-tag v-else :type=" 'info' ">后台发放</el-tag>
@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
       <el-table-column label="是否可用">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.status == 0 && scope.row.isFail == 0" style="cursor: pointer" :type="''">可用</el-tag>
             <el-tag v-else :type=" 'info' ">不可用</el-tag>
@@ -52,7 +52,7 @@
         </template>
       </el-table-column>
       <el-table-column label="状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.status == 2">已过期</el-tag>
             <el-tag v-if="scope.row.status == 1">已使用</el-tag>

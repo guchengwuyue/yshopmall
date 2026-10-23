@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="title" width="900px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" :title="title" width="900px">
     <el-form v-show="hidden == false" ref="form" :model="form" :inline="true" :rules="rules" label-width="80px">
       <el-form-item label="规则名称">
         <el-row :gutter="10">
@@ -17,8 +17,8 @@
             style="position: relative;margin-right: 6px"
           >
             <el-input v-model="item.value" style="width: 150px;" placeholder="设置名称" />
-            <el-button v-show="item.attrHidden == true" type="text" style="position: absolute;top:-6px;right:17px;margin-top:1px;border: none;font-size: 14px;font-weight:bold;line-height: 1.8" icon="el-icon-close" @click="handleRemove(index)" />
-            <el-button v-show="item.attrHidden == false" type="text" style="position: absolute;top:-6px;right:17px;margin-top:1px;border: none;font-size: 14px;font-weight:bold;line-height: 1.8" icon="el-icon-check" @click="attrHiddenBool(item)" />
+            <el-button v-show="item.attrHidden == true" type="text" style="position: absolute;top:-6px;right:17px;margin-top:1px;border: none;font-size: 14px;font-weight:bold;line-height: 1.8" :icon="Close" @click="handleRemove(index)" />
+            <el-button v-show="item.attrHidden == false" type="text" style="position: absolute;top:-6px;right:17px;margin-top:1px;border: none;font-size: 14px;font-weight:bold;line-height: 1.8" :icon="Check" @click="attrHiddenBool(item)" />
           </el-col>
           <el-col :span="5"><el-button type="primary" @click="handleAdd">添加新规则</el-button></el-col>
         </el-row>
@@ -108,9 +108,9 @@ import { add, edit, isFormatAttr, setAttr, clearAttr, getAttr } from '@/api/yxSt
 import editor from '../../components/Editor'
 import picUploadTwo from '@/components/pic-upload-two'
 import mulpicUpload from '@/components/mul-pic-upload'
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import { Message } from 'element-ui'
+import Treeselect from 'vue3-treeselect'
+import 'vue3-treeselect/dist/vue3-treeselect.css'
+import { ElMessage as Message } from 'element-plus'
 export default {
   components: { editor, picUploadTwo, mulpicUpload, Treeselect },
   props: {

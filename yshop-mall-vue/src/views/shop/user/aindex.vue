@@ -3,17 +3,17 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -24,7 +24,7 @@
       <el-table-column prop="uid" label="用户id" />
       <el-table-column prop="nickname" label="用户昵称" />
       <el-table-column ref="table" prop="avatar" label="用户头像">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
@@ -32,12 +32,12 @@
       <el-table-column prop="nowMoney" label="用户余额" />
       <el-table-column prop="brokeragePrice" label="佣金金额" />
       <el-table-column :show-overflow-tooltip="true" prop="addTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ formatTime(scope.row.addTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div @click="onStatus(scope.row.uid,scope.row.status)">
             <el-tag v-if="scope.row.status == 1" style="cursor: pointer" :type="''">正常</el-tag>
             <el-tag v-else style="cursor: pointer" :type=" 'info' ">禁用</el-tag>
@@ -48,8 +48,8 @@
       <el-table-column prop="payCount" label="购买次数" />
       <!---->
       <!--<el-table-column v-if="checkPermission(['admin','YXUSER_ALL','YXUSER_EDIT','YXUSER_DELETE'])" label="操作" width="150px" align="center">-->
-      <!--<template slot-scope="scope">-->
-      <!--<el-button v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)"/>-->
+      <!--<template #default="scope">-->
+      <!--<el-button v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']" size="small" type="primary" :icon="Edit" @click="edit(scope.row)"/>-->
       <!--<el-popover-->
       <!--v-permission="['admin','YXUSER_ALL','YXUSER_DELETE']"-->
       <!--:ref="scope.row.uid"-->
@@ -57,10 +57,10 @@
       <!--width="180">-->
       <!--<p>确定删除本条数据吗？</p>-->
       <!--<div style="text-align: right; margin: 0">-->
-      <!--<el-button size="mini" type="text" @click="$refs[scope.row.uid].doClose()">取消</el-button>-->
-      <!--<el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.uid)">确定</el-button>-->
+      <!--<el-button size="small" type="text" @click="$refs[scope.row.uid].doClose()">取消</el-button>-->
+      <!--<el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.uid)">确定</el-button>-->
       <!--</div>-->
-      <!--<el-button slot="reference" type="danger" icon="el-icon-delete" size="mini"/>-->
+      <!--<el-button type="danger" :icon="Delete" size="small" />-->
       <!--</el-popover>-->
       <!--</template>-->
       <!--</el-table-column>-->

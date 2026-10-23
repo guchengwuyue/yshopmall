@@ -4,10 +4,12 @@
       <el-row :gutter="24" class="baseInfo">
         <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
           <el-card :bordered="false" dis-hover :padding="12">
-            <div slot="header" class="acea-row row-between-wrapper">
+            <template #header>
+<div class="acea-row row-between-wrapper">
               <span>会员总数</span>
               <el-tag type="success">全平台</el-tag>
             </div>
+</template>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.userCount" :duration="2600" class="card-panel-num" /></span>
               <el-divider></el-divider>
@@ -20,10 +22,12 @@
         </el-col>
         <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
           <el-card :bordered="false" dis-hover :padding="12">
-            <div slot="header" class="acea-row row-between-wrapper">
+            <template #header>
+<div class="acea-row row-between-wrapper">
               <span>订单总数</span>
               <el-tag type="success">全平台</el-tag>
             </div>
+</template>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.orderCount" :duration="3000" class="card-panel-num" /></span>
               <el-divider></el-divider>
@@ -36,10 +40,12 @@
         </el-col>
         <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
           <el-card :bordered="false" dis-hover :padding="12">
-            <div slot="header" class="acea-row row-between-wrapper">
+            <template #header>
+<div class="acea-row row-between-wrapper">
               <span>总金额</span>
               <el-tag type="success">全平台</el-tag>
             </div>
+</template>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.priceCount" :duration="3200" class="card-panel-num" /></span>
               <el-divider></el-divider>
@@ -52,10 +58,12 @@
         </el-col>
         <el-col :xs="12" :sm="12" :lg="6" class="ivu-mb">
           <el-card :bordered="false" dis-hover :padding="12">
-            <div slot="header" class="acea-row row-between-wrapper">
+            <template #header>
+<div class="acea-row row-between-wrapper">
               <span>商品总数</span>
               <el-tag type="success">全平台</el-tag>
             </div>
+</template>
             <div class="content" v-if="count">
               <span class="content-number spBlock mb15"><count-to :start-val="0" :end-val="count.goodsCount" :duration="3600" class="card-panel-num" /></span>
               <el-divider></el-divider>
@@ -71,7 +79,7 @@
   </div>
 </template>
 <script>
-import CountTo from "vue-count-to";
+import CountTo from 'vue3-count-to';
 import { gett } from "@/api/visits";
 export default {
   components: {

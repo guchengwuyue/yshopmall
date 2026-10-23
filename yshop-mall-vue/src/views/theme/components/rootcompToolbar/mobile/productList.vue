@@ -6,7 +6,7 @@
         <label>标题</label>
         <el-input v-model="activeComponent.componentContent.title" placeholder="请输入内容"></el-input>
       </div>
-      <tool-select :linkValue.sync='activeComponent.componentContent.textAlign' title="文字对齐方式" :options="alignList"></tool-select>
+      <tool-select v-model:linkValue='activeComponent.componentContent.textAlign' title="文字对齐方式" :options="alignList"></tool-select>
       <div class="single-img"></div>
       <div class="textTit">商品来源</div>
       <div class="porListBox">
@@ -49,8 +49,8 @@
       </el-switch>
     </div>
     <div v-show="activeComponent.componentContent.bannerShow">
-      <tool-single-img :imageUrl.sync='activeComponent.componentContent.bannerUrl'></tool-single-img>
-      <tool-select-link :linkObj.sync='activeComponent.componentContent.bannerLinkObj' title="图片链接"></tool-select-link>
+      <tool-single-img v-model:imageUrl='activeComponent.componentContent.bannerUrl'></tool-single-img>
+      <tool-select-link v-model:linkObj='activeComponent.componentContent.bannerLinkObj' title="图片链接"></tool-select-link>
     </div>
 
     <div class="labelLisTit titleBox">标签配置
@@ -63,8 +63,9 @@
     <div class="labelListWarp" v-show="activeComponent.componentContent.labelShow">
       <div class="labelList">
         <div class="imgListBox">
-          <draggable v-model="activeComponent.componentContent.labelList">
-            <div v-for="(item, index) in activeComponent.componentContent.labelList" :key="index" class="item">
+          <draggable v-model="activeComponent.componentContent.labelList" :item-key="dragItemKey">
+            <template #item="{ element: item, index: index }">
+              <div class="item">
               <div class="listItemBox">
                 <div class="addImgTit" @click="openAddLabel(item, index)">
                   <div class="titLeft">
@@ -82,10 +83,11 @@
                     <label>名称</label>
                     <el-input v-model="item.name" placeholder="请输入内容"></el-input>
                   </div>
-                  <tool-select-link :linkObj.sync='item.linkObj'></tool-select-link>
+                  <tool-select-link v-model:linkObj='item.linkObj'></tool-select-link>
                 </div>
               </div>
             </div>
+            </template>
           </draggable>
         </div>
       </div>
@@ -93,31 +95,36 @@
     </div>
     <el-dialog
       title="提示"
-      :visible.sync="dialogVisible"
+      v-model="dialogVisible"
       width="30%"
       :before-close="deleteItem">
       <span>点击确定删除此项</span>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </span>
+</template>
     </el-dialog>
-    <el-dialog title="选择类别" :visible.sync="dialogCategory" width="600px">
+    <el-dialog title="选择类别" v-model="dialogCategory" width="600px">
       <el-cascader style="width: 100%"
         ref="cascader"
         :options="categoryList"
         :props="{ checkStrictly: true,label: 'categoryName',value: 'id',children: 'childs' }"
         clearable></el-cascader>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="dialogCategory = false">取 消</el-button>
         <el-button type="primary" @click="addCategoryData">确 定</el-button>
       </span>
+</template>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import Draggable from 'vuedraggable'
+import { dragItemKey } from '@/utils/drag-key'
 import { toolMixin, checkEmptyChild } from '@/mixins/tool.js'
 import ToolSelectLink from '@/views/theme/components/rootcompToolbar/toolModule/tool-select-link.vue'
 import ToolSingleImg from '@/views/theme/components/rootcompToolbar/toolModule/tool-single-img.vue'
@@ -171,6 +178,7 @@ export default {
     }
   },
   methods: {
+    dragItemKey,
     // 获取类别
     getCategory () {
       getClassify().then(res => {

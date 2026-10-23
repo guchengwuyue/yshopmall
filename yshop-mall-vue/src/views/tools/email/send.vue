@@ -10,18 +10,15 @@
           :label="'收件邮箱' + (index === 0 ? '': index)"
       >
         <el-input v-model="domain.value" style="width: 550px"/>
-        <el-button icon="el-icon-plus" @click="addDomain"/>
-        <el-button style="margin-left:0;" icon="el-icon-minus" @click.prevent="removeDomain(domain)"/>
+        <el-button :icon="Plus" @click="addDomain"/>
+        <el-button style="margin-left:0;" :icon="Minus" @click.prevent="removeDomain(domain)"/>
       </el-form-item>
       <el-form-item label="邮件内容">
         <ueditor-wrap v-model="form.content" :config="myConfig" @beforeInit="addCustomDialog"
                       style="width: 90%;"></ueditor-wrap>
       </el-form-item>
-
-      <!-- <div ref="editor" class="editor"/> -->
-      <el-form-item label=""> 
-      <el-button :loading="loading"  size="medium" type="primary" @click="doSubmit">发送邮件
-      </el-button>
+      <el-form-item label="">
+        <el-button :loading="loading" size="default" type="primary" @click="doSubmit">发送邮件</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -29,10 +26,8 @@
 
 <script>
 import {send} from '@/api/tools/email'
-import {upload} from '@/utils/upload'
 import {validEmail} from '@/utils/validate'
-import {mapGetters} from 'vuex'
-import UeditorWrap from 'vue-ueditor-wrap';
+import { VueUeditorWrap as UeditorWrap } from 'vue-ueditor-wrap'
 
 export default {
   name: 'Index',
@@ -58,33 +53,6 @@ export default {
   },
   components: {
     UeditorWrap
-  },
-  computed: {
-    ...mapGetters([
-      'imagesUploadApi'
-    ])
-  },
-  mounted() {
-    const _this = this
-    var editor = new E(this.$refs.editor)
-    // 自定义菜单配置
-    editor.customConfig.zIndex = 10
-    // 文件上传
-    editor.customConfig.customUploadImg = function (files, insert) {
-      // files 是 input 中选中的文件列表
-      // insert 是获取图片 url 后，插入到编辑器的方法
-      files.forEach(image => {
-        files.forEach(image => {
-          upload(_this.imagesUploadApi, image).then(data => {
-            insert(data.data.url)
-          })
-        })
-      })
-    }
-    editor.customConfig.onchange = (html) => {
-      this.form.content = html
-    }
-    editor.create()
   },
   methods: {
     addCustomDialog () {
@@ -176,13 +144,4 @@ export default {
 </script>
 
 <style scoped>
-.editor {
-  text-align: left;
-  margin: 20px;
-  width: 730px;
-}
-
-::v-deep .w-e-text-container {
-  height: 360px !important;
-}
 </style>

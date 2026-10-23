@@ -10,17 +10,17 @@
       <el-table-column type="selection" width="55" />
       <el-table-column v-if="columns.visible('name')" prop="name" label="名称" />
       <el-table-column v-if="columns.visible('dept')" prop="dept" label="所属部门">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>{{ scope.row.deptSuperiorName ? scope.row.deptSuperiorName + ' / ' : '' }}{{ scope.row.dept.name }}</div>
         </template>
       </el-table-column>
       <el-table-column v-if="columns.visible('sort')" prop="sort" label="排序">
-        <template slot-scope="scope">
+        <template #default="scope">
           {{ scope.row.sort }}
         </template>
       </el-table-column>
       <el-table-column v-if="columns.visible('status')" prop="status" label="状态" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-switch
             v-model="scope.row.enabled"
             active-color="#409EFF"
@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
@@ -42,7 +42,7 @@
         align="center"
         fixed="right"
       >
-        <template slot-scope="scope">
+        <template #default="scope">
           <udOperation
             :data="scope.row"
             :permission="permission"

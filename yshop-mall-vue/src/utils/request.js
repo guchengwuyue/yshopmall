@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '@/router/routers'
-import { Notification, MessageBox } from 'element-ui'
+import { ElNotification as Notification, ElMessageBox as MessageBox } from 'element-plus'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import Config from '@/settings'

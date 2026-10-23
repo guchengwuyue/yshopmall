@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '订单核销'" width="500px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" :title="isAdd ? '新增' : '订单核销'" width="500px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
       <el-form-item label="核销码">
         <el-input v-model="form.verifyCode" style="width: 370px;" placeholder="请输入核销码" />
@@ -7,10 +7,12 @@
         <p style="color: red">注意:手机端也可以核销，去会员管理里把编辑相应会员开启商户管理即可</p>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <el-button type="text" @click="cancel">取消</el-button>
       <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 

@@ -62,10 +62,8 @@
         />
       </el-form-item>
     </el-form>
-    <div
-      slot="footer"
-      class="dialog-footer"
-    >
+    <template #footer>
+<div class="dialog-footer">
       <el-button
         type="text"
         @click="crud.cancelCU"
@@ -80,14 +78,15 @@
         确认
       </el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 
 <script>
 import CRUD, { form } from '@crud/crud'
 import { getDepts } from '@/api/system/dept'
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import Treeselect from 'vue3-treeselect'
+import 'vue3-treeselect/dist/vue3-treeselect.css'
 
 const defaultForm = {
   id: null,

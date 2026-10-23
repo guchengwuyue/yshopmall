@@ -1,6 +1,7 @@
 import { initData, download } from '@/api/data'
 import { parseTime, downloadFile } from '@/utils/index'
-import Vue from 'vue'
+import { getCurrentInstance, reactive } from 'vue'
+import { ElNotification } from 'element-plus'
 
 /**
  * CRUD配置
@@ -380,11 +381,7 @@ function CRUD(options) {
       const form = data || (typeof crud.defaultForm === 'object' ? JSON.parse(JSON.stringify(crud.defaultForm)) : crud.defaultForm())
       const crudFrom = crud.form
       for (const key in form) {
-        if (crudFrom.hasOwnProperty(key)) {
-          crudFrom[key] = form[key]
-        } else {
-          Vue.set(crudFrom, key, form[key])
-        }
+        crudFrom[key] = form[key]
       }
     },
     /**
@@ -467,19 +464,18 @@ function CRUD(options) {
       return crud.vms.find(vm => vm && vm.type === type).vm
     },
     notify(title, type = CRUD.NOTIFICATION_TYPE.INFO) {
-      crud.vms[0].vm.$notify({
+      ElNotification({
         title,
         type,
         duration: 2500
       })
     },
     updateProp(name, value) {
-      Vue.set(crud.props, name, value)
+      crud.props[name] = value
     }
   }
-  const crud = Object.assign({}, data)
-  // 可观测化
-  Vue.observable(crud)
+  // Vue3: reactive 返回 Proxy，必须使用返回值；不可 Object.freeze，否则无法写入
+  const crud = reactive(Object.assign({}, data))
   // 附加方法
   Object.assign(crud, methods)
   // 记录初始默认的查询参数，后续重置查询时使用
@@ -513,8 +509,7 @@ function CRUD(options) {
       this.vms.splice(this.vms.findIndex(e => e && e.vm === vm), 1)
     }
   })
-  // 冻结处理，需要扩展数据的话，使用crud.updateProp(name, value)，以crud.props.name形式访问，这个是响应式的，可以做数据绑定
-  Object.freeze(crud)
+  // 扩展数据请用 crud.updateProp(name, value)，以 crud.props.name 访问
   return crud
 }
 
@@ -544,11 +539,24 @@ function mergeOptions(src, opts) {
     ...src
   }
   for (const key in src) {
-    if (opts.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(opts, key)) {
       optsRet[key] = opts[key]
     }
   }
   return optsRet
+}
+
+/**
+ * inject 默认值：子组件从父级 provide 取；同页 mixin 时取 presenter 已挂到实例上的值
+ */
+function injectCrud(from = 'crud', pick) {
+  return {
+    from,
+    default() {
+      if (!this.crud) return undefined
+      return pick ? pick(this.crud) : this.crud
+    }
+  }
 }
 
 /**
@@ -563,15 +571,20 @@ function presenter(crud) {
     }
   }
   return {
-    inject: ['crud'],
     beforeCreate() {
-      // 由于initInjections在initProvide之前执行，如果该组件自己就需要crud，需要在initInjections前准备好crud
-      this._provided = {
-        crud,
-        'crud.query': crud.query,
-        'crud.page': crud.page,
-        'crud.form': crud.form
+      // Vue3: inject 只查父级；同组件 mixin 需直接挂载；子组件通过 provides 注入
+      const instance = getCurrentInstance()
+      if (instance) {
+        instance.provides = Object.create(instance.provides)
+        instance.provides.crud = crud
+        instance.provides['crud.query'] = crud.query
+        instance.provides['crud.page'] = crud.page
+        instance.provides['crud.form'] = crud.form
       }
+      this.crud = crud
+      this.query = crud.query
+      this.page = crud.page
+      this.form = crud.form
     },
     data() {
       return {
@@ -588,12 +601,16 @@ function presenter(crud) {
         crud.toQuery()
       }
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.crud.unregisterVM(this)
     },
     mounted() {
+      const table = this.$refs.table
+      if (!table || !table.columns) {
+        return
+      }
       const columns = {}
-      this.$refs.table.columns.forEach(e => {
+      table.columns.forEach(e => {
         if (!e.property || e.type !== 'default') {
           return
         }
@@ -614,17 +631,13 @@ function presenter(crud) {
 function header() {
   return {
     inject: {
-      crud: {
-        from: 'crud'
-      },
-      query: {
-        from: 'crud.query'
-      }
+      crud: injectCrud(),
+      query: injectCrud('crud.query', c => c.query)
     },
     created() {
       this.crud.registerVM('header', this, 1)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.crud.unregisterVM(this)
     }
   }
@@ -636,17 +649,13 @@ function header() {
 function pagination() {
   return {
     inject: {
-      crud: {
-        from: 'crud'
-      },
-      page: {
-        from: 'crud.page'
-      }
+      crud: injectCrud(),
+      page: injectCrud('crud.page', c => c.page)
     },
     created() {
       this.crud.registerVM('pagination', this, 2)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.crud.unregisterVM(this)
     }
   }
@@ -658,19 +667,15 @@ function pagination() {
 function form(defaultForm) {
   return {
     inject: {
-      crud: {
-        from: 'crud'
-      },
-      form: {
-        from: 'crud.form'
-      }
+      crud: injectCrud(),
+      form: injectCrud('crud.form', c => c.form)
     },
     created() {
       this.crud.registerVM('form', this, 3)
       this.crud.defaultForm = defaultForm
       this.crud.resetForm()
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.crud.unregisterVM(this)
     }
   }
@@ -686,14 +691,12 @@ function crud(options = {}) {
   options = mergeOptions(defaultOptions, options)
   return {
     inject: {
-      crud: {
-        from: 'crud'
-      }
+      crud: injectCrud()
     },
     created() {
       this.crud.registerVM(options.type, this)
     },
-    beforeDestroy() {
+    beforeUnmount() {
       this.crud.unregisterVM(this)
     }
   }

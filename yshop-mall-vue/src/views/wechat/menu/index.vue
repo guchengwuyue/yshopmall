@@ -105,7 +105,7 @@ import checkPermission from '@/utils/permission'
 import initData from '@/mixins/crud'
 import { del, add, get } from '@/api/YxWechatMenu'
 import eForm from './form'
-import { Message } from 'element-ui'
+import { ElMessage as Message } from 'element-plus'
 export default {
   components: { eForm },
   mixins: [initData],

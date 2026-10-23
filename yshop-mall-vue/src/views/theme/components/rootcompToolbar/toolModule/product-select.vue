@@ -29,12 +29,12 @@
       border
       style="width: 100%">
       <el-table-column label="" width="35" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-radio v-model="tableRadio" :label="scope.row"><i></i></el-radio>
         </template>
       </el-table-column>
       <el-table-column label="产品主图" width="180" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-image
             style="width: 80px; height: 80px"
             :src="scope.row.image"

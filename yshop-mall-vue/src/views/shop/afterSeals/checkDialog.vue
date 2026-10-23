@@ -2,7 +2,7 @@
   <el-dialog
   class="afterSealsAdd"
   :close-on-click-modal="false"
-  :visible.sync="visible"
+  v-model="visible"
   width="800px">
     <div class="checkForm">
       <span>订单详情：</span>
@@ -46,7 +46,7 @@
             <el-image
             :src="item.productInfo.image"
             style="width: 100px; height: 100px">
-              <div slot="placeholder" class="image-slot">
+              <div class="image-slot">
                 加载中<b class="dot">...</b>
               </div>
             </el-image>
@@ -73,7 +73,7 @@
             <el-input v-model="checkForm.deliveryTime" disabled />
           </el-form-item>
           <el-form-item v-if="checkForm.deliverySn" label="订单跟踪：">
-            <el-button size="mini" @click="showLogisticsDialog">订单跟踪</el-button>
+            <el-button size="small" @click="showLogisticsDialog">订单跟踪</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -96,7 +96,7 @@
       </el-form>
     </div>
     <el-dialog title="订单跟踪"
-               :visible.sync="kuaidiDialogVisible"
+               v-model="kuaidiDialogVisible"
                width="40%">
       <el-steps direction="vertical"
                 :active="90"
@@ -108,7 +108,7 @@
                   :description="item.AcceptTime"></el-step>
       </el-steps>
     </el-dialog>
-    <div slot="footer" class="dialog-footer">
+    <div class="dialog-footer">
       <el-button class="refuse" type="danger" v-if="isShow" :loading="loading" @click="submit(1)">拒绝</el-button>
       <el-button class="check" type="primary" v-if="isShow" :loading="loading" @click="submit(0)">确认</el-button>
     </div>

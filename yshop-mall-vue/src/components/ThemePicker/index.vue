@@ -8,7 +8,9 @@
 </template>
 
 <script>
-const version = require('element-ui/package.json').version // element-ui version from node_modules
+import { Loading } from '@element-plus/icons-vue'
+
+const version = require('element-plus/package.json').version
 const ORIGINAL_THEME = '#409EFF' // default color
 
 export default {
@@ -42,7 +44,7 @@ export default {
         customClass: 'theme-message',
         type: 'success',
         duration: 0,
-        iconClass: 'el-icon-loading'
+        icon: Loading
       })
 
       const getHandler = (variable, id) => {
@@ -61,7 +63,7 @@ export default {
       }
 
       if (!this.chalk) {
-        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
+        const url = `https://unpkg.com/element-plus@${version}/dist/index.css`
         await this.getCSSString(url, 'chalk')
       }
 

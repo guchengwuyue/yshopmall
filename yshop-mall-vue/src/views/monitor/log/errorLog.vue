@@ -3,23 +3,17 @@
     <div class="head-container">
       <Search />
       <crudOperation>
-        <el-button
-          slot="left"
-          class="filter-item"
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :loading="crud.delAllLoading"
-          @click="confirmDelAll()"
-        >
+        <template #left>
+<el-button class="filter-item" type="danger" :icon="Delete" size="small" :loading="crud.delAllLoading" @click="confirmDelAll()">
           清空
-        </el-button> v-if="columns.visible('username')"
+        </el-button>
+</template> v-if="columns.visible('username')"
       </crudOperation>
     </div>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template #default="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="请求方法">
               <span>{{ props.row.method }}</span>
@@ -36,17 +30,17 @@
       <el-table-column v-if="columns.visible('description')" prop="description" label="描述" />
       <el-table-column v-if="columns.visible('browser')" prop="browser" label="浏览器" />
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="异常详情" width="100px">
-        <template slot-scope="scope">
-          <el-button size="mini" type="text" @click="info(scope.row.id)">查看详情</el-button>
+        <template #default="scope">
+          <el-button size="small" type="text" @click="info(scope.row.id)">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="dialog" title="异常详情" append-to-body top="30px" width="85%">
+    <el-dialog v-model="dialog" title="异常详情" append-to-body top="30px" width="85%">
       <pre v-highlightjs="errorInfo"><code class="java" /></pre>
     </el-dialog>
     <!--分页组件-->

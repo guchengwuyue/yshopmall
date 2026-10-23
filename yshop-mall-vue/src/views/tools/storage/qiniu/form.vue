@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialog" :close-on-click-modal="false" title="七牛云配置" append-to-body width="580px">
+  <el-dialog v-model="dialog" :close-on-click-modal="false" title="七牛云配置" append-to-body width="580px">
     <el-form ref="form" :model="form" :rules="rules" style="margin-top: 6px;" size="small" label-width="110px">
       <el-form-item label="Access Key" prop="accessKey">
         <el-input v-model="form.accessKey" style="width: 95%" placeholder="accessKey，在安全中心，秘钥管理中查看" />
@@ -28,10 +28,12 @@
         <el-radio v-model="form.type" label="私有">私有</el-radio>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <el-button type="text" @click="dialog = false">取消</el-button>
       <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 

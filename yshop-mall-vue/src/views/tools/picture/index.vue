@@ -4,7 +4,7 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <!--搜索-->
-        <el-input v-model="query.filename" clearable size="small" placeholder="输入文件名" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.filename" clearable size="small" placeholder="输入文件名" style="width: 200px;" class="filter-item" @keyup.enter="crud.toQuery" />
         <el-date-picker
           v-model="query.createTime"
           :default-time="['00:00:00','23:59:59']"
@@ -20,30 +20,26 @@
       </div>
       <crudOperation :permission="permission">
         <!-- 上传 -->
-        <el-button
-          slot="left"
-          v-permission="['admin','pictures:add']"
-          class="filter-item"
-          size="mini"
-          type="primary"
-          icon="el-icon-upload"
-          @click="dialog = true"
-        >上传</el-button>
-        <el-tooltip slot="right" class="item" effect="dark" content="使用同步功能需要在 https://sm.ms/login 中注册账号，并且在 application.yml 文件中修改 Secret Token" placement="top-start">
+        <template #left>
+<el-button v-permission="['admin','pictures:add']" class="filter-item" size="small" type="primary" :icon="Upload" @click="dialog = true">上传</el-button>
+</template>
+        <template #right>
+<el-tooltip class="item" effect="dark" content="使用同步功能需要在 https://sm.ms/login 中注册账号，并且在 application.yml 文件中修改 Secret Token" placement="top-start">
           <el-button
             v-permission="['admin','pictures:add']"
             class="filter-item"
-            size="mini"
+            size="small"
             type="success"
-            icon="el-icon-refresh"
+            :icon="Refresh"
             :loading="syncLoading"
             @click="sync"
           >同步</el-button>
         </el-tooltip>
+</template>
       </crudOperation>
     </div>
     <!--上传图片-->
-    <el-dialog :visible.sync="dialog" :close-on-click-modal="false" append-to-body width="600px" @close="doSubmit">
+    <el-dialog v-model="dialog" :close-on-click-modal="false" append-to-body width="600px" @close="doSubmit">
       <el-upload
         :on-preview="handlePictureCardPreview"
         :before-remove="handleBeforeRemove"
@@ -54,14 +50,16 @@
         :action="imagesUploadApi"
         list-type="picture-card"
       >
-        <i class="el-icon-plus" />
+        <el-icon  ><Plus /></el-icon>
       </el-upload>
-      <el-dialog append-to-body :visible.sync="dialogVisible">
+      <el-dialog append-to-body v-model="dialogVisible">
         <img :src="dialogImageUrl" width="100%" alt="">
       </el-dialog>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="doSubmit">确认</el-button>
-      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="doSubmit">确认</el-button>
+        </div>
+      </template>
     </el-dialog>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
@@ -69,7 +67,7 @@
       <el-table-column v-if="columns.visible('filename')" width="200" prop="filename" label="文件名" />
       <el-table-column v-if="columns.visible('username')" prop="username" label="上传者" />
       <el-table-column v-if="columns.visible('url')" ref="table" :show-overflow-tooltip="true" prop="url" label="缩略图">
-        <template slot-scope="{row}">
+        <template #default="{row}">
           <el-image
             :src="row.url"
             :preview-src-list="[row.url]"
@@ -83,7 +81,7 @@
       <el-table-column v-if="columns.visible('height')" prop="height" label="高度" />
       <el-table-column v-if="columns.visible('width')" prop="width" label="宽度" />
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>

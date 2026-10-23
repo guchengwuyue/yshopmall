@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="800px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" :title="isAdd ? '新增' : '编辑'" width="800px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="140px">
       <el-form-item label="优惠券类型">
         <el-radio-group v-model="form.type" @change="couponsType">
@@ -30,10 +30,12 @@
         <el-radio v-model="form.status" :label="0">关闭</el-radio>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <el-button type="text" @click="cancel">取消</el-button>
       <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 

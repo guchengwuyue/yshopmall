@@ -1,6 +1,6 @@
 <template>
   <el-dialog :close-on-click-modal="false"
-             :visible.sync="addressView"
+             v-model="addressView"
              append-to-body
              class="modal"
              title="选择城市" width="950px">
@@ -31,7 +31,7 @@
         </div>
       </el-col>
     </el-row>
-    <div slot="footer">
+    <div>
       <el-button @click="close">取消</el-button>
       <el-button type="primary" @click="confirm">确定</el-button>
     </div>

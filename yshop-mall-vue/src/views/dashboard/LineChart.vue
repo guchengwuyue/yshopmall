@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-require('echarts/theme/macarons') // echarts theme
+import * as echarts from 'echarts'
+import 'echarts/theme/macarons' // echarts theme
 import { debounce } from '@/utils'
 import { getChartData } from '@/api/visits'
 
@@ -58,7 +58,7 @@ export default {
     this.sidebarElm = document.getElementsByClassName('sidebar-container')[0]
     this.sidebarElm && this.sidebarElm.addEventListener('transitionend', this.sidebarResizeHandler)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (!this.chart) {
       return
     }

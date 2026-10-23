@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggle-click="toggleSideBar" />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
@@ -25,25 +25,27 @@
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="user.avatar ? baseApi + '/avatar/' + user.avatar : Avatar" class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <el-icon><CaretBottom /></el-icon>
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <span style="display:block;" @click="show = true">
-            <el-dropdown-item>
-              布局设置
-            </el-dropdown-item>
-          </span>
-          <router-link to="/user/center">
-            <el-dropdown-item>
-              个人中心
-            </el-dropdown-item>
-          </router-link>
-          <span style="display:block;" @click="open">
-            <el-dropdown-item divided>
-              退出登录
-            </el-dropdown-item>
-          </span>
-        </el-dropdown-menu>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <span style="display:block;" @click="show = true">
+              <el-dropdown-item>
+                布局设置
+              </el-dropdown-item>
+            </span>
+            <router-link to="/user/center">
+              <el-dropdown-item>
+                个人中心
+              </el-dropdown-item>
+            </router-link>
+            <span style="display:block;" @click="open">
+              <el-dropdown-item divided>
+                退出登录
+              </el-dropdown-item>
+            </span>
+          </el-dropdown-menu>
+        </template>
       </el-dropdown>
     </div>
   </div>

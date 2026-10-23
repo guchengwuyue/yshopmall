@@ -7,9 +7,9 @@
         <el-button
           v-permission="['admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_CREATE']"
           class="filter-item"
-          size="mini"
+          size="small"
           type="primary"
-          icon="el-icon-plus"
+          :icon="Plus"
           @click="add"
         >新增</el-button>
       </div>
@@ -20,7 +20,7 @@
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="id" label="id" />
       <el-table-column prop="icon" label="等级图标">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.icon" style="color: #42b983" target="_blank"><img :src="scope.row.icon" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
@@ -29,20 +29,20 @@
       <el-table-column prop="discount" label="享受折扣" />
       <el-table-column prop="validDate" label="有效时间" />
       <el-table-column prop="isForever" label="是否永久">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag v-if="scope.row.isForever === 1" style="cursor: pointer" :type="''">是</el-tag>
           <el-tag v-else style="cursor: pointer" :type=" 'info' ">否</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="isShow" label="是否显示">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag v-if="scope.row.isShow === 1" style="cursor: pointer" :type="''">是</el-tag>
           <el-tag v-else style="cursor: pointer" :type=" 'info' ">否</el-tag>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT','YXSYSTEMUSERLEVEL_DELETE'])" label="操作" width="150px" align="center">
-        <template slot-scope="scope">
-          <el-button v-permission="['admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+        <template #default="scope">
+          <el-button v-permission="['admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_EDIT']" size="small" type="primary" :icon="Edit" @click="edit(scope.row)" />
           <el-popover
             :ref="scope.row.id"
             v-permission="['admin','YXSYSTEMUSERLEVEL_ALL','YXSYSTEMUSERLEVEL_DELETE']"
@@ -51,10 +51,12 @@
           >
             <p>确定删除本条数据吗？</p>
             <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              <el-button size="small" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+              <el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.id)">确定</el-button>
             </div>
-            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
+            <template #reference>
+<el-button type="danger" :icon="Delete" size="small" />
+</template>
           </el-popover>
         </template>
       </el-table-column>

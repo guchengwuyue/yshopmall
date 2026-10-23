@@ -10,7 +10,7 @@
           placeholder="输入用户昵称"
           style="width: 200px;"
           class="filter-item"
-          @keyup.enter.native="crud.toQuery"
+          @keyup.enter="crud.toQuery"
         />
         <el-input
           v-model="query.remark"
@@ -18,7 +18,7 @@
           placeholder="输入备注"
           style="width: 200px;"
           class="filter-item"
-          @keyup.enter.native="crud.toQuery"
+          @keyup.enter="crud.toQuery"
         />
 
         <rrOperation :crud="crud" />
@@ -29,7 +29,7 @@
       <el-dialog
         :close-on-click-modal="false"
         :before-close="crud.cancelCU"
-        :visible.sync="crud.status.cu > 0"
+        :model-value="crud.status.cu > 0"
         :title="crud.status.title"
         width="750px"
       >
@@ -43,7 +43,7 @@
           <el-form-item label="扫码获取">
             <div class="qrcode_img">
               <el-image :src="gzhsrc" class="qrcode">
-                <div slot="placeholder" class="image-slot">
+                <div class="image-slot">
                   加载中
                   <span class="dot">...</span>
                 </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="qrcode_img">
               <el-image :src="src" class="qrcode">
-                <div slot="placeholder" class="image-slot">
+                <div class="image-slot">
                   加载中
                   <span class="dot">...</span>
                 </div>
@@ -68,10 +68,12 @@
             <el-radio v-for="item in dict.is_enable" :key="item.id" v-model="form.isEnable" :label="item.value">{{ item.label }}</el-radio>
           </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <template #footer>
+<div class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
           <el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
         </div>
+</template>
       </el-dialog>
       <!--表格渲染-->
       <el-table
@@ -88,12 +90,12 @@
         <el-table-column v-if="columns.visible('openId')" prop="openId" label="用户标识" />
         <el-table-column v-if="columns.visible('remark')" prop="remark" label="备注" />
         <el-table-column v-if="columns.visible('isEnable')" prop="isEnable" label="是否启用">
-          <template slot-scope="scope">
+          <template #default="scope">
             {{ dict.label.is_enable[scope.row.isEnable] }}
           </template>
         </el-table-column>
         <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建时间">
-          <template slot-scope="scope">
+          <template #default="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
@@ -104,7 +106,7 @@
           width="150px"
           align="center"
         >
-          <template slot-scope="scope">
+          <template #default="scope">
             <udOperation :data="scope.row" :permission="permission" />
           </template>
         </el-table-column>

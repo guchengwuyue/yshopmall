@@ -19,8 +19,9 @@
       </div>
       <div class="textTit">内容</div>
       <div class="imgListBox">
-        <draggable v-model="activeComponent.componentContent.imgList">
-          <div v-for="(item, index) in activeComponent.componentContent.imgList" :key="index" class="item">
+        <draggable v-model="activeComponent.componentContent.imgList" :item-key="dragItemKey">
+            <template #item="{ element: item, index: index }">
+              <div class="item">
             <div class="listItemBox">
               <div class="addImgTit" @click="openAddImg(item, index)">
                 <div class="titLeft">
@@ -35,8 +36,8 @@
               </div>
               <div class="addBox" v-show="activeComponent.componentContent.imgCurrent === index">
                 <div class="addContent">
-                  <tool-single-img :imageUrl.sync='item.imgData'></tool-single-img>
-                  <tool-select-link :linkObj.sync='item.linkObj'></tool-select-link>
+                  <tool-single-img v-model:imageUrl='item.imgData'></tool-single-img>
+                  <tool-select-link v-model:linkObj='item.linkObj'></tool-select-link>
                   <div class="itemImgTit itemBox">
                     <label>标题</label>
                     <el-input v-model="item.title" placeholder="请输入内容"></el-input>
@@ -46,26 +47,30 @@
               </div>
             </div>
           </div>
-        </draggable>
+            </template>
+          </draggable>
       </div>
     </div>
     <div class="addImgBtn" @click="addImgText"><span class="iconfont">&#xe64a;</span>添加品牌图</div>
     <el-dialog
       title="提示"
-      :visible.sync="dialogVisible"
+      v-model="dialogVisible"
       width="30%"
       :before-close="deleteItem">
       <span>点击确定删除此项</span>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
   </span>
+</template>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import Draggable from 'vuedraggable'
+import { dragItemKey } from '@/utils/drag-key'
 import { toolMixin } from '@/mixins/tool.js'
 import ToolSelectLink from '@/views/theme/components/rootcompToolbar/toolModule/tool-select-link.vue'
 import ToolSingleImg from '@/views/theme/components/rootcompToolbar/toolModule/tool-single-img.vue'
@@ -128,6 +133,7 @@ export default {
     }
   },
   methods: {
+    dragItemKey,
     openAddImg (item, index) {
       if (this.activeComponent.componentContent.imgCurrent === index) {
         this.activeComponent.componentContent.imgCurrent = null

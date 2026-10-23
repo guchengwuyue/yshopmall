@@ -3,7 +3,7 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
@@ -15,13 +15,13 @@
           :value="item.value"
         />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -34,7 +34,7 @@
       <el-table-column prop="uid" label="用户id" />
       <el-table-column prop="nickname" label="用户昵称" />
       <el-table-column ref="table" prop="avatar" label="用户头像">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
@@ -43,12 +43,12 @@
       <el-table-column prop="brokeragePrice" label="佣金金额" />
       <el-table-column prop="integral" label="用户积分" />
       <el-table-column  prop="createTime" label="创建日期" width="140">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div @click="onStatus(scope.row.uid,scope.row.status)">
             <el-tag v-if="scope.row.status == 1" style="cursor: pointer" :type="''">正常</el-tag>
             <el-tag v-else style="cursor: pointer" :type=" 'info' ">禁用</el-tag>
@@ -56,7 +56,7 @@
         </template>
       </el-table-column>
       <el-table-column label="用户来源" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.userType == 'wechat'">公众号</el-tag>
             <el-tag v-else-if="scope.row.userType == 'routine'">小程序</el-tag>
@@ -67,20 +67,21 @@
       <el-table-column prop="spreadUid" label="推荐人" />
       <el-table-column prop="payCount" label="购买次数" />
       <el-table-column v-if="checkPermission(['admin','YXUSER_ALL','YXUSER_EDIT','YXUSER_DELETE'])" label="操作" width="215" align="center" fixed="right">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-            size="mini"
+            size="small"
             type="danger"
             @click="editD(scope.row)"
           >查看下级</el-button>
-          <el-dropdown size="mini" split-button type="primary" trigger="click">
+          <el-dropdown size="small" split-button type="primary" trigger="click">
             操作
-            <el-dropdown-menu slot="dropdown">
+            <template #dropdown>
+<el-dropdown-menu>
               <el-dropdown-item>
                 <el-button
                   v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="edit(scope.row)"
                 >修改用户</el-button>
@@ -88,12 +89,13 @@
               <el-dropdown-item>
                 <el-button
                   v-permission="['admin','YXUSER_ALL','YXUSER_EDIT']"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="editP(scope.row)"
                 >修改余额</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
+</template>
           </el-dropdown>
         </template>
       </el-table-column>

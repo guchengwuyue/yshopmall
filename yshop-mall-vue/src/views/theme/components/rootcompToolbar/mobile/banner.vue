@@ -5,11 +5,9 @@
       <div class="toolBox">
         <div class="modelTit">图片设置</div>
         <div class="imgListBox">
-          <draggable v-model="activeComponent.componentContent.bannerData">
-            <div
-              v-for="(item, index) in activeComponent.componentContent
-                .bannerData"
-              :key="index"
+          <draggable v-model="activeComponent.componentContent.bannerData" :item-key="dragItemKey">
+            <template #item="{ element: item, index: index }">
+              <div
               class="item"
             >
               <div class="listItemBox">
@@ -32,7 +30,7 @@
                 <div class="addBox" v-show="imgCurrent === index">
                   <div class="addContent">
                     <tool-single-img
-                      :imageUrl.sync="item.pic"
+                      v-model:imageUrl="item.pic"
                     ></tool-single-img>
                     <div class="modelTit titleBox">跳转地址</div>
                     <el-input
@@ -63,6 +61,7 @@
                 </div>
               </div>
             </div>
+            </template>
           </draggable>
         </div>
         <div class="addImgBtn" @click="addImgText">
@@ -73,19 +72,21 @@
     <!-- 弹框部分 -->
     <el-dialog
       title="提示"
-      :visible.sync="dialogVisible"
+      v-model="dialogVisible"
       width="30%"
       :before-close="deleteItem">
       <span>点击确定删除此项</span>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false"
           >确 定</el-button
         >
       </span>
+</template>
     </el-dialog>
     <el-dialog
-      :visible.sync="dialogImageVisible">
+      v-model="dialogImageVisible">
       <img width="100%" :src="dialogImageUrl" alt="" />
     </el-dialog>
   </div>
@@ -93,6 +94,7 @@
 
 <script>
 import Draggable from 'vuedraggable'
+import { dragItemKey } from '@/utils/drag-key'
 import { toolMixin } from '@/mixins/tool.js'
 import ToolSelectLink from '@/views/theme/components/rootcompToolbar/toolModule/tool-select-link.vue'
 import ToolSelectCategory from '@/views/theme/components/rootcompToolbar/toolModule/tool-select-category.vue'
@@ -134,6 +136,7 @@ export default {
     }
   },
   methods: {
+    dragItemKey,
     // 添加类别
     addCategory () {},
     openAddImg (item, index) {

@@ -13,14 +13,14 @@
       <el-table-column prop="name" label="任务名称" />
       <el-table-column prop="sort" label="排序" />
       <el-table-column prop="isShow" label="是否显示">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag v-if="scope.row.isShow === 1" style="cursor: pointer" :type="''">是</el-tag>
           <el-tag v-else style="cursor: pointer" :type=" 'info' ">否</el-tag>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT','YXSYSTEMUSERTASK_DELETE'])" label="操作" width="150px" align="center">
-        <template slot-scope="scope">
-          <el-button v-permission="['admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+        <template #default="scope">
+          <el-button v-permission="['admin','YXSYSTEMUSERTASK_ALL','YXSYSTEMUSERTASK_EDIT']" size="small" type="primary" :icon="Edit" @click="edit(scope.row)" />
         </template>
       </el-table-column>
     </el-table>

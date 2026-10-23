@@ -1,9 +1,11 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" title="查看分销下级" width="700px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" title="查看分销下级" width="700px">
     <el-card>
-      <div slot="header">
+      <template #header>
+<div>
         <span>{{ form.nickname }}的下级</span>
       </div>
+</template>
       <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
         <el-tab-pane label="一级" name="first">
           <el-table
@@ -18,7 +20,7 @@
             <el-table-column
               prop="avatar"
               label="头像">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
               </template>
             </el-table-column>
@@ -42,7 +44,7 @@
             <el-table-column
               prop="avatar"
               label="头像">
-              <template slot-scope="scope">
+              <template #default="scope">
                 <a :href="scope.row.avatar" style="color: #42b983" target="_blank"><img :src="scope.row.avatar" alt="点击打开" class="el-avatar"></a>
               </template>
             </el-table-column>

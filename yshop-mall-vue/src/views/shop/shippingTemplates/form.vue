@@ -1,6 +1,6 @@
 <template>
   <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU"
-             :visible.sync="crud.status.cu > 0"
+             :model-value="crud.status.cu > 0"
              :title="crud.status.title" width="950px">
     <el-form ref="formData" :model="formData" class="attrFrom"  :rules="rules" label-width="130px" :inline="true">
       <el-row :gutter="24" type="flex">
@@ -32,37 +32,37 @@
             >
               <el-table-column prop="regionName" label="可配送区域" width="130" />
               <el-table-column prop="first" label="首件" width="120">
-                <template slot="header" slot-scope="scope">
+                <template #header="scope">
                   <span v-if="formData.type == 1">首件</span>
                   <span v-else-if="formData.type == 2">首件重量(KG)</span>
                   <span v-else>首件体积(m³)</span>
                 </template>
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row.first" /></span>
                 </template>
               </el-table-column>
               <el-table-column prop="price" label="运费（元）" width="110">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row.price"/></span>
                 </template>
               </el-table-column>
               <el-table-column prop="_continue" label="续件" width="120">
-                <template slot="header" slot-scope="scope">
+                <template #header="scope">
                   <span v-if="formData.type == 1">续件</span>
                   <span v-else-if="formData.type == 2">续件重量(KG)</span>
                   <span v-else>续件体积(m³)</span>
                 </template>
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row._continue"/></span>
                 </template>
               </el-table-column>
               <el-table-column prop="continue_price" label="续费（元）" width="110">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row.continue_price"/></span>
                 </template>
               </el-table-column>
               <el-table-column  label="操作">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <a v-if="scope.row.regionName!=='默认全国'" @click="delCity(index,1)">删除</a>
                 </template>
               </el-table-column>
@@ -92,22 +92,22 @@
             >
               <el-table-column prop="placeName" label="选择地区" />
               <el-table-column prop="a_num" label="包邮件数" width="120" >
-                <template slot="header" slot-scope="scope">
+                <template #header="scope">
                   <span v-if="formData.type == 1">包邮件数</span>
                   <span v-else-if="formData.type == 2">包邮重量(KG)</span>
                   <span v-else>包邮体积(m³)</span>
                 </template>
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row.a_num"/></span>
                 </template>
               </el-table-column>
               <el-table-column prop="a_price" label="包邮金额（元）" width="120">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <span><el-input type="text" v-model="scope.row.a_price"/></span>
                 </template>
               </el-table-column>
               <el-table-column  label="操作">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <a v-if="scope.row.regionName!=='默认全国'" @click="delCity(index,2)">删除</a>
                 </template>
               </el-table-column>
@@ -136,10 +136,12 @@
         </el-col>
       </el-row>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <!--<el-button type="text" @click="crud.cancelCU">取消</el-button>-->
       <!--<el-button :loading="modal_loading" type="primary" @click="handleSubmit('formData')">确认</el-button>-->
     </div>
+</template>
     <city ref="city" @selectCity="selectCity" :type="type"></city>
   </el-dialog>
 

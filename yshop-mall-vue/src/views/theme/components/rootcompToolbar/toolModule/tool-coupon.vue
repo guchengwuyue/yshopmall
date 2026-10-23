@@ -17,12 +17,14 @@
       <i class="iconfont">&#xe685;</i><span>添加优惠券</span>
     </div>
   </div>
-  <el-dialog title="选择优惠券" :visible.sync="couponDialogVisible" width="1000">
+  <el-dialog title="选择优惠券" v-model="couponDialogVisible" width="1000">
     <coupon-select ref="couponSelect"></coupon-select>
-    <span slot="footer" class="dialog-footer">
+    <template #footer>
+<span class="dialog-footer">
       <el-button @click="couponDialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="couponChanged">确 定</el-button>
     </span>
+</template>
   </el-dialog>
 </div>
 </template>

@@ -1,12 +1,19 @@
 import Cookies from 'js-cookie'
 
+/** Normalize legacy Element UI sizes to Element Plus */
+function normalizeSize(size) {
+  if (size === 'mini' || size === 'medium') return 'small'
+  if (size === 'large' || size === 'default' || size === 'small') return size
+  return 'small'
+}
+
 const state = {
   sidebar: {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
   device: 'desktop',
-  size: Cookies.get('size') || 'small'
+  size: normalizeSize(Cookies.get('size') || 'small')
 }
 
 const mutations = {
@@ -28,8 +35,9 @@ const mutations = {
     state.device = device
   },
   SET_SIZE: (state, size) => {
-    state.size = size
-    Cookies.set('size', size)
+    const next = normalizeSize(size)
+    state.size = next
+    Cookies.set('size', next)
   }
 }
 

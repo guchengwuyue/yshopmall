@@ -2,9 +2,9 @@
   <div class="imageTextTool">
     <h3 class="toolTit">图文</h3>
     <div class="toolBox">
-      <tool-single-img :imageUrl.sync='activeComponent.componentContent.imageUrl'></tool-single-img>
-      <tool-select-link :linkObj.sync='activeComponent.componentContent.linkObj' title="图片链接"></tool-select-link>
-      <tool-select :linkValue.sync='activeComponent.componentContent.positionValue' title="PC图片位置" :options="positionOpt"></tool-select>
+      <tool-single-img v-model:imageUrl='activeComponent.componentContent.imageUrl'></tool-single-img>
+      <tool-select-link v-model:linkObj='activeComponent.componentContent.linkObj' title="图片链接"></tool-select-link>
+      <tool-select v-model:linkValue='activeComponent.componentContent.positionValue' title="PC图片位置" :options="positionOpt"></tool-select>
       <div class="textTit">文本设置</div>
       <div class="itemBox">
         <label>标题</label>
@@ -12,23 +12,24 @@
       </div>
       <div class="itemBox">
         <label>正文</label>
-        <quill-editor
-          v-model="activeComponent.componentContent.content"
+        <QuillEditor
+          v-model:content="activeComponent.componentContent.content"
+          content-type="html"
           ref="myQuillEditor"
+          theme="snow"
           :options="editorOption"
-          @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-          @change="onEditorChange($event)">
-        </quill-editor>
+        />
       </div>
     </div>
-    <el-dialog :visible.sync="dialogVisible">
+    <el-dialog v-model="dialogVisible">
       <img width="100%" :src="dialogImageUrl" alt="">
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { quillEditor } from 'vue-quill-editor'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import { toolMixin } from '@/mixins/tool.js'
 import ToolSelectLink from '@/views/theme/components/rootcompToolbar/toolModule/tool-select-link.vue'
 import ToolSingleImg from '@/views/theme/components/rootcompToolbar/toolModule/tool-single-img.vue'
@@ -40,7 +41,7 @@ export default {
     ToolSelectLink,
     ToolSelect,
     ToolSingleImg,
-    quillEditor
+    QuillEditor
   },
   data () {
     return {

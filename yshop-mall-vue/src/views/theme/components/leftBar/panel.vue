@@ -23,28 +23,29 @@
               :list="item.classList"
               :clone="cloneItem"
               :group="{ name: 'pageEdit', pull: 'clone', put: false }"
-              :options="{ sort: false }"
+              :sort="false"
+              :item-key="dragItemKey"
             >
-              <div
-                @mouseover="hoverItem(classItem)"
-                @mouseout="hoverItemOut"
-                class="childItem list-group-item"
-                v-for="(classItem, index) of item.classList"
-                :key="index"
-              >
-                <div class="contentBox">
-                  <img
-                    :src="
-                      isHover === classItem.title
-                        ? classItem.iconH
-                        : classItem.icon
-                    "
-                    alt=""
-                  />
-                  <span>{{ classItem.title }}</span>
+              <template #item="{ element: classItem }">
+                <div
+                  @mouseover="hoverItem(classItem)"
+                  @mouseout="hoverItemOut"
+                  class="childItem list-group-item"
+                >
+                  <div class="contentBox">
+                    <img
+                      :src="
+                        isHover === classItem.title
+                          ? classItem.iconH
+                          : classItem.icon
+                      "
+                      alt=""
+                    />
+                    <span>{{ classItem.title }}</span>
+                  </div>
+                  <div class="cloneText">组件放置区域</div>
                 </div>
-                <div class="cloneText">组件放置区域</div>
-              </div>
+              </template>
             </draggable>
           </div>
         </div>
@@ -56,8 +57,8 @@
       @click="sidebarShow = !sidebarShow"
       :class="{ on: sidebarShow }"
     >
-      <i class="el-icon-arrow-right iconfont icon-arrow-right"></i>
-      <i class="el-icon-arrow-left iconfont icon-arrow-left"></i>
+      <el-icon class="iconfont icon-arrow-right" ><ArrowRight /></el-icon>
+      <el-icon class="iconfont icon-arrow-left" ><ArrowLeft /></el-icon>
     </div>
   </div>
 </template>
@@ -65,6 +66,7 @@
 <script>
 import draggable from 'vuedraggable'
 import { mapGetters } from 'vuex'
+import { dragItemKey } from '@/utils/drag-key'
 // 默认配置文件
 import panelList from './panelList.js'
 export default {
@@ -81,6 +83,7 @@ export default {
     }
   },
   methods: {
+    dragItemKey,
     hoverItem (classItem) {
       this.isHover = classItem.title
     },

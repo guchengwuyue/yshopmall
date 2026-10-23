@@ -22,26 +22,32 @@
         <span class="iconfont" @click="delSelect">&#xe651;</span>
       </div>
     </div>
-    <el-dialog width="600px" title="选择类别" :visible.sync="categoryVisible">
+    <el-dialog width="600px" title="选择类别" v-model="categoryVisible">
       <category-select ref="categorySelect"></category-select>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="categoryVisible = false">取 消</el-button>
         <el-button type="primary" @click="categoryChanged">确 定</el-button>
       </span>
+</template>
     </el-dialog>
-    <el-dialog title="选择商品" :visible.sync="productVisible">
+    <el-dialog title="选择商品" v-model="productVisible">
       <product-select ref="productSelect"></product-select>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="productVisible = false">取 消</el-button>
         <el-button type="primary" @click="productChanged">确 定</el-button>
       </span>
+</template>
     </el-dialog>
-    <el-dialog title="选择店辅" :visible.sync="shopVisible">
+    <el-dialog title="选择店辅" v-model="shopVisible">
       <shop-select ref="shopSelect"></shop-select>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="shopVisible = false">取 消</el-button>
         <el-button type="primary" @click="shopChanged">确 定</el-button>
       </span>
+</template>
     </el-dialog>
   </div>
 </template>

@@ -5,11 +5,10 @@
   <div class="editorNavType">
     <h2>专区导航</h2>
     <ul class="editorList">
-      <draggable v-model="activeComponent.componentContent.typeRoute">
-        <li
+      <draggable v-model="activeComponent.componentContent.typeRoute" :item-key="dragItemKey">
+            <template #item="{ element: item, index: index }">
+              <li
         class="item"
-        v-for="(item, index) in activeComponent.componentContent.typeRoute"
-        :key="index"
         >
           <DraggableSlot :obj="item" :index="index" @deleteIt="deleteIt">
             <div class="addContent">
@@ -32,30 +31,34 @@
             </div>
           </DraggableSlot>
         </li>
-      </draggable>
+            </template>
+          </draggable>
       <div class="addImgBtn" @click="addImgText">
         <span class="iconfont">&#xe64a;</span>添加图文
       </div>
     </ul>
     <el-dialog
     title="提示"
-    :visible.sync="dialogVisible"
+    v-model="dialogVisible"
     width="30%"
     :before-close="deleteItem"
     >
       <span>点击确定删除此项</span>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false"
           >确 定</el-button
         >
       </span>
+</template>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import Draggable from 'vuedraggable'
+import { dragItemKey } from '@/utils/drag-key'
 import { toolMixin } from '@/mixins/tool.js'
 import DraggableSlot from '@/views/theme/components/rootcompToolbar/pc/components/draggableSlot.vue'
 export default {
@@ -68,6 +71,7 @@ export default {
         }
     },
     methods: {
+    dragItemKey,
       // 添加图文
       addImgText () {
           this.activeComponent.componentContent.typeRoute.push({

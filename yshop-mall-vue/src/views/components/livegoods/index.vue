@@ -7,27 +7,27 @@
             <img :src="item.coverImgeUrl" alt="" class="el-upload-list__item-thumbnail">
             <span class="el-upload-list__item-actions">
             <span class="el-upload-list__item-delete" @click="deleteGood(index)">
-              <i class="el-icon-delete" />
+              <el-icon  ><Delete /></el-icon>
             </span>
           </span>
           </div>
         </li>
       </ul>
       <div tabindex="0" class="el-upload el-upload--picture-card"  @click="toSelete">
-        <i class="el-icon-plus" />
+        <el-icon  ><Plus /></el-icon>
       </div>
     </div>
 
-    <el-dialog :visible.sync="dialog" append-to-body width="60%" title="商品列表">
+    <el-dialog v-model="dialog" append-to-body width="60%" title="商品列表">
     <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
 
     </div>
@@ -43,13 +43,13 @@
       <el-table-column prop="name" label="商品名称" />
       <el-table-column prop="productId" label="关联商品id" />
       <el-table-column prop="coverImgUrl" label="商品图片" >
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.coverImgeUrl" style="color: #42b983" target="_blank"><img :src="scope.row.coverImgeUrl" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
       <el-table-column prop="url" label="商品小程序路径" />
       <el-table-column prop="priceType" label="价格类型" >
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.priceType == 1" :type="''">一口价</el-tag>
             <el-tag v-else-if="scope.row.priceType == 2" :type="''">价格区间</el-tag>
@@ -61,7 +61,7 @@
       <!--        <el-table-column v-if="columns.visible('price2')" prop="price2" label="price2" />-->
       <el-table-column prop="auditStatus" label="审核状态" >
         <!--          //0：未审核，1：审核中，2:审核通过，3审核失败-->
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.auditStatus === 0" :type="''">未审核</el-tag>
             <el-tag v-else-if="scope.row.auditStatus === 1" :type="''">审核中</el-tag>
@@ -72,7 +72,7 @@
       </el-table-column>
       <!--        1, 2：表示是为api添加商品，否则是直播控制台添加的商品-->
       <el-table-colum prop="thirdPartyTag" label="添加途径" >
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.thirdPartyTag == 0" :type="''">api添加</el-tag>
             <el-tag v-else-if="scope.row.thirdPartyTag == 2" :type="''">控制台</el-tag>

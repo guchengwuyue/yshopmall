@@ -2,7 +2,7 @@
   <div
     v-if="crud.props.searchToggle"
   >
-    <el-input v-model="query.name" clearable size="small" placeholder="输入岗位名称搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+    <el-input v-model="query.name" clearable size="small" placeholder="输入岗位名称搜索" style="width: 200px;" class="filter-item" @keyup.enter="crud.toQuery" />
     <el-date-picker
       v-model="query.createTime"
       :default-time="['00:00:00','23:59:59']"

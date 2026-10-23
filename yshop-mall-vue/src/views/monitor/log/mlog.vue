@@ -4,8 +4,8 @@
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -16,7 +16,7 @@
       <el-table-column prop="address" label="地址来源" />
       <el-table-column prop="description" label="描述" />
       <el-table-column prop="createTime" label="创建日期" width="180px">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>

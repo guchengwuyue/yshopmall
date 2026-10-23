@@ -9,7 +9,7 @@
       :before-upload="beforeAvatarUpload"
     >
       <img v-if="value" :src="resourcesUrl + value" class="pic">
-      <i v-else class="el-icon-plus pic-uploader-icon" />
+      <el-icon v-else class="pic-uploader-icon"><Plus /></el-icon>
     </el-upload>
   </div>
 </template>

@@ -10,19 +10,19 @@
         <el-table-column v-if="columns.visible('id')" prop="id" label="id" />
         <el-table-column v-if="columns.visible('ruleName')" prop="ruleName" label="规格名称" />
         <el-table-column v-if="columns.visible('ruleValue')" prop="ruleValue" label="规格值" >
-          <template slot-scope="scope">
+          <template #default="scope">
             <div v-for="(item, index) in scope.row.ruleValue">
               {{ item.value }} : {{ item.detail.join(',')}}
             </div>
           </template>
         </el-table-column>
         <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建时间">
-          <template slot-scope="scope">
+          <template #default="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column v-permission="['admin','yxStoreProductRule:edit','yxStoreProductRule:del']" label="操作" width="150px" align="center">
-          <template slot-scope="scope">
+          <template #default="scope">
             <udOperation
               :data="scope.row"
               :permission="permission"

@@ -1,6 +1,6 @@
 <template>
   <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU"
-             :visible.sync="crud.status.cu > 0"
+             :model-value="crud.status.cu > 0"
              :title="crud.status.title" width="950px">
     <el-form ref="formData" :model="formData" class="attrFrom"  :rules="rules" label-width="92px" :inline="true">
       <el-row :gutter="24">
@@ -14,7 +14,7 @@
         <el-col :span="23" class="noForm" v-for="(item, index) in formData.ruleValue" :key="index">
           <el-form-item label=" ">
             <div class="acea-row row-middle"><span class="mr5">{{item.value}}</span>
-              <i class="el-icon-circle-close"  @click="handleRemove(index)"></i>
+              <el-icon   @click="handleRemove(index)"><CircleClose /></el-icon>
             </div>
             <div class="rulesBox">
               <el-tag   class="mb5" style="margin: 2px 4px 2px 0;" closable
@@ -23,7 +23,9 @@
               </el-tag>
               <el-input placeholder="请输入属性名称" v-model="item.detail.attrsVal"
                         style="width: 170px">
-                <el-button slot="append" type="primary" @click="createAttr(item.detail.attrsVal,index)">添加</el-button>
+                <template #append>
+<el-button type="primary" @click="createAttr(item.detail.attrsVal,index)">添加</el-button>
+</template>
               </el-input>
             </div>
           </el-form-item>
@@ -49,10 +51,12 @@
       </el-row>
       <el-button type="primary" icon="md-add" @click="addBtn" v-if="!isBtn" class="ml95 mt10">添加新规格</el-button>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <el-button type="text" @click="crud.cancelCU">取消</el-button>
       <el-button :loading="modal_loading" type="primary" @click="handleSubmit('formData')">确认</el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 

@@ -3,22 +3,15 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <el-input v-model="query.filter" clearable size="small" placeholder="全表模糊搜索" style="width: 200px;"
-                  class="filter-item" @keyup.enter.native="crud.toQuery"/>
+                  class="filter-item" @keyup.enter="crud.toQuery"/>
         <rrOperation :crud="crud"/>
       </div>
       <crudOperation>
-        <el-button
-            slot="left"
-            class="filter-item"
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            :loading="delLoading"
-            :disabled="crud.selections.length === 0"
-            @click="doDelete(crud.selections)"
-        >
+        <template #left>
+<el-button class="filter-item" type="danger" :icon="Delete" size="small" :loading="delLoading" :disabled="crud.selections.length === 0" @click="doDelete(crud.selections)">
           强退
         </el-button>
+</template>
       </crudOperation>
     </div>
     <!--表格渲染-->
@@ -31,12 +24,12 @@
       <el-table-column v-if="columns.visible('address')" :show-overflow-tooltip="true" prop="address" label="登录地点"/>
       <el-table-column v-if="columns.visible('browser')" prop="browser" label="浏览器"/>
       <el-table-column v-if="columns.visible('loginTime')" prop="loginTime" label="登录时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.loginTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="100px" fixed="right">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-popover
               :ref="scope.$index"
               v-permission="['admin']"
@@ -45,12 +38,14 @@
           >
             <p>确定强制退出该用户吗？</p>
             <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.$index].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="delMethod(scope.row, scope.$index)">
+              <el-button size="small" type="text" @click="$refs[scope.$index].doClose()">取消</el-button>
+              <el-button :loading="delLoading" type="primary" size="small" @click="delMethod(scope.row, scope.$index)">
                 确定
               </el-button>
             </div>
-            <el-button slot="reference" size="mini" type="text">强退</el-button>
+            <template #reference>
+<el-button size="small" type="text">强退</el-button>
+</template>
           </el-popover>
         </template>
       </el-table-column>

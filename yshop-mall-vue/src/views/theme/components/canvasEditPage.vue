@@ -5,11 +5,10 @@
       :list="componentsData"
       group="pageEdit"
       @change="pageChange"
-    >
-      <div
-      class="list-group-item"
-      v-for="(item,index) in componentsData"
-      :key="index" :class="{'on':activeComponent == index}"
+     :item-key="dragItemKey">
+            <template #item="{ element: item, index: index }">
+              <div
+      class="list-group-item" :class="{'on':activeComponent == index}"
       @click="selectComponent(item,index)">
         <component
         :is="componentMap[terminal-3].get(item.type)"
@@ -21,12 +20,14 @@
             </span>
         </div>
       </div>
-    </draggable>
+            </template>
+          </draggable>
   </div>
 </template>
 
 <script>
   import draggable from 'vuedraggable'
+import { dragItemKey } from '@/utils/drag-key'
   import componentMap from '@/views/theme/components/canvasShow/componentMap.js'
   import { mapGetters, mapMutations } from 'vuex'
   export default {
@@ -52,6 +53,7 @@
       ])
     },
     methods: {
+    dragItemKey,
       ...mapMutations({
         setActiveComponent: 'SET_ACTIVECOMPONENT',
         setComponentsData: 'SET_COMPONENTSDATA'

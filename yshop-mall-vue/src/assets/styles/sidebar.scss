@@ -55,33 +55,71 @@
 
     .svg-icon {
       margin-right: 16px;
+      color: $menuText;
+      fill: currentColor;
     }
 
+    // Element Plus 菜单颜色走 CSS 变量（旧 background-color / text-color 属性已弃用）
     .el-menu {
       border: none;
       height: 100%;
       width: 100% !important;
+      background-color: $menuBg !important;
+      --el-menu-bg-color: #{$menuBg};
+      --el-menu-text-color: #{$menuText};
+      --el-menu-active-color: #{$menuActiveText};
+      --el-menu-hover-bg-color: #{$menuHover};
+      --el-menu-hover-text-color: #{$menuText};
     }
 
-    // menu hover
-    .submenu-title-noDropdown,
+    .el-menu-item,
+    .el-sub-menu__title,
     .el-submenu__title {
+      color: $menuText !important;
+      background-color: $menuBg !important;
+
       &:hover {
         background-color: $menuHover !important;
+        color: #fff !important;
+      }
+
+      span {
+        color: inherit;
       }
     }
 
+    .el-menu-item.is-active {
+      color: $menuActiveText !important;
+
+      span {
+        color: inherit;
+      }
+    }
+
+    .is-active>.el-sub-menu__title,
     .is-active>.el-submenu__title {
       color: $subMenuActiveText !important;
     }
 
+    & .nest-menu .el-sub-menu>.el-sub-menu__title,
+    & .el-sub-menu .el-menu-item,
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
+      color: $menuText !important;
+
+      span {
+        color: inherit;
+      }
 
       &:hover {
         background-color: $subMenuHover !important;
+        color: #fff !important;
+      }
+
+      &.is-active {
+        color: $menuActiveText !important;
       }
     }
   }
@@ -108,9 +146,11 @@
       }
     }
 
+    .el-sub-menu,
     .el-submenu {
       overflow: hidden;
 
+      &>.el-sub-menu__title,
       &>.el-submenu__title {
         padding: 0 !important;
 
@@ -118,6 +158,7 @@
           margin-left: 20px;
         }
 
+        .el-sub-menu__icon-arrow,
         .el-submenu__icon-arrow {
           display: none;
         }
@@ -125,7 +166,9 @@
     }
 
     .el-menu--collapse {
+      .el-sub-menu,
       .el-submenu {
+        &>.el-sub-menu__title,
         &>.el-submenu__title {
           &>span {
             height: 0;
@@ -139,6 +182,7 @@
     }
   }
 
+  .el-menu--collapse .el-menu .el-sub-menu,
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
@@ -180,6 +224,7 @@
     }
   }
 
+  .nest-menu .el-sub-menu>.el-sub-menu__title,
   .nest-menu .el-submenu>.el-submenu__title,
   .el-menu-item {
     &:hover {

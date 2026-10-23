@@ -7,16 +7,18 @@
 
       <div class="divBox">
         <el-card :bordered="false" dis-hover>
-          <div slot="header">
+          <template #header>
+<div>
             <div class="acea-row row-middle">
               <el-avatar
-                icon="el-icon-s-operation"
+                :icon="Operation"
                 size="small"
                 style="color: #1890ff; background: #e6f7ff; font-size: 13px"
               />
               <span class="ivu-pl-8">统计</span>
             </div>
           </div>
+</template>
           <el-row :gutter="24">
             <el-col
               :xl="8"

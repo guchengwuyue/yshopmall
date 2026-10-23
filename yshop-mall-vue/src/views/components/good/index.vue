@@ -7,7 +7,7 @@
             <img :src="value.image" alt="" class="el-upload-list__item-thumbnail">
             <span class="el-upload-list__item-actions">
               <span class="el-upload-list__item-delete" @click="deleteGood">
-                <i class="el-icon-delete" />
+                <el-icon  ><Delete /></el-icon>
               </span>
             </span>
           </div>
@@ -15,18 +15,18 @@
       </ul>
     </div>
     <div v-else tabindex="0" class="el-upload el-upload--picture-card"  @click="toSelete">
-      <i class="el-icon-plus" />
+      <el-icon  ><Plus /></el-icon>
     </div>
-    <el-dialog :visible.sync="dialog" append-to-body width="60%" title="商品列表">
+    <el-dialog v-model="dialog" append-to-body width="60%" title="商品列表">
       <div class="app-container">
       <!--工具栏-->
       <div class="head-container">
         <!-- 搜索 -->
-        <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+        <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
         <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
           <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
         </el-select>
-        <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+        <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
         <!-- 新增 -->
 
       </div>
@@ -36,7 +36,7 @@
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;" >
       <el-table-column prop="id" label="商品id" />
       <el-table-column ref="table" prop="image" label="商品图片">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.image" style="color: #42b983" target="_blank"><img :src="scope.row.image" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
@@ -44,11 +44,11 @@
       <el-table-column prop="storeCategory.cateName" label="分类名称" />
       <el-table-column prop="price" label="商品价格" />
       <el-table-column  label="操作" width="185" align="center" fixed="right">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
-            size="mini"
+            size="small"
             type="primary"
-            icon="el-icon-edit"
+            :icon="Edit"
             @click="doSelect(scope.row)"
           >选择</el-button>
         </template>

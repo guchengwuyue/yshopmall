@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { get as getDictDetail } from '@/api/system/dictDetail'
 
 export default class Dict {
@@ -12,17 +11,17 @@ export default class Dict {
     }
     const ps = []
     names.forEach(n => {
-      Vue.set(this.dict.dict, n, {})
-      Vue.set(this.dict.label, n, {})
-      Vue.set(this.dict, n, [])
+      this.dict.dict[n] = {}
+      this.dict.label[n] = {}
+      this.dict[n] = []
       ps.push(getDictDetail(n).then(data => {
         this.dict[n].splice(0, 0, ...data.content)
         data.content.forEach(d => {
-          if (parseInt(d.value).toString() != 'NaN') {
+          if (parseInt(d.value).toString() !== 'NaN') {
             d.value = parseInt(d.value)
           }
-          Vue.set(this.dict.dict[n], d.value, d)
-          Vue.set(this.dict.label[n], d.value, d.label)
+          this.dict.dict[n][d.value] = d
+          this.dict.label[n][d.value] = d.label
         })
       }))
     })

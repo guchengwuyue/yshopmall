@@ -4,7 +4,7 @@
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
-        <el-input v-model="query.blurry" clearable size="small" placeholder="输入内容模糊搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.blurry" clearable size="small" placeholder="输入内容模糊搜索" style="width: 200px;" class="filter-item" @keyup.enter="crud.toQuery" />
         <el-date-picker
           v-model="query.createTime"
           :default-time="['00:00:00','23:59:59']"
@@ -20,20 +20,14 @@
       </div>
       <crudOperation :permission="permission">
         <!-- 新增 -->
-        <el-button
-          slot="left"
-          v-permission="['admin','storage:add']"
-          class="filter-item"
-          size="mini"
-          type="primary"
-          icon="el-icon-upload"
-          @click="crud.toAdd"
-        >上传
+        <template #left>
+<el-button v-permission="['admin','storage:add']" class="filter-item" size="small" type="primary" :icon="Upload" @click="crud.toAdd">上传
         </el-button>
+</template>
       </crudOperation>
     </div>
     <!--表单组件-->
-    <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.add ? '文件上传' : '编辑文件'" width="500px">
+    <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :model-value="crud.status.cu > 0" :title="crud.status.add ? '文件上传' : '编辑文件'" width="500px">
       <el-form ref="form" :model="form" size="small" label-width="80px">
         <el-form-item label="文件名">
           <el-input v-model="form.name" style="width: 370px;" />
@@ -50,22 +44,26 @@
             :on-error="handleError"
             :action="fileUploadApi + '?name=' + form.name"
           >
-            <div class="eladmin-upload"><i class="el-icon-upload" /> 添加文件</div>
-            <div slot="tip" class="el-upload__tip">可上传任意格式文件，且不超过100M</div>
+            <div class="eladmin-upload"><el-icon  ><Upload /></el-icon> 添加文件</div>
+            <template #tip>
+<div class="el-upload__tip">可上传任意格式文件，且不超过100M</div>
+</template>
           </el-upload>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <template #footer>
+<div class="dialog-footer">
         <el-button type="text" @click="crud.cancelCU">取消</el-button>
         <el-button v-if="crud.status.add" :loading="loading" type="primary" @click="upload">确认</el-button>
         <el-button v-else :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
       </div>
+</template>
     </el-dialog>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
       <el-table-column type="selection" width="55" />
       <el-table-column v-if="columns.visible('name')" prop="name" label="文件名">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-popover
             :content="'file/' + scope.row.type + '/' + scope.row.realName"
             placement="top-start"
@@ -73,20 +71,16 @@
             width="200"
             trigger="hover"
           >
-            <a
-              slot="reference"
-              :href="baseApi + '/file/' + scope.row.type + '/' + scope.row.realName"
-              class="el-link--primary"
-              style="word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color: #1890ff;font-size: 13px;"
-              target="_blank"
-            >
+            <template #reference>
+<a :href="baseApi + '/file/' + scope.row.type + '/' + scope.row.realName" class="el-link--primary" style="word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color: #1890ff;font-size: 13px;" target="_blank">
               {{ scope.row.name }}
             </a>
+</template>
           </el-popover>
         </template>
       </el-table-column>
       <el-table-column v-if="columns.visible('path')" prop="path" label="预览图">
-        <template slot-scope="{row}">
+        <template #default="{row}">
           <el-image
             :src=" baseApi + '/file/' + row.type + '/' + row.realName"
             :preview-src-list="[baseApi + '/file/' + row.type + '/' + row.realName]"
@@ -94,8 +88,8 @@
             lazy
             class="el-avatar"
           >
-            <div slot="error">
-              <i class="el-icon-document" />
+            <div>
+              <el-icon  ><Document /></el-icon>
             </div>
           </el-image>
         </template>
@@ -105,7 +99,7 @@
       <el-table-column v-if="columns.visible('size')" prop="size" label="大小" />
       <el-table-column v-if="columns.visible('operate')" prop="operate" label="操作人" />
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>

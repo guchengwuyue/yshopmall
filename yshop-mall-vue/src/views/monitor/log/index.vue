@@ -3,23 +3,17 @@
     <div class="head-container">
       <Search />
       <crudOperation>
-        <el-button
-          slot="left"
-          class="filter-item"
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :loading="crud.delAllLoading"
-          @click="confirmDelAll()"
-        >
+        <template #left>
+<el-button class="filter-item" type="danger" :icon="Delete" size="small" :loading="crud.delAllLoading" @click="confirmDelAll()">
           清空
         </el-button>
+</template>
       </crudOperation>
     </div>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template #default="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="请求方法">
               <span>{{ props.row.method }}</span>
@@ -36,14 +30,14 @@
       <el-table-column v-if="columns.visible('description')" prop="description" label="描述" />
       <el-table-column v-if="columns.visible('browser')" prop="browser" label="浏览器" />
       <el-table-column v-if="columns.visible('time')" prop="time" label="请求耗时" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag v-if="scope.row.time <= 300">{{ scope.row.time }}ms</el-tag>
           <el-tag v-else-if="scope.row.time <= 1000" type="warning">{{ scope.row.time }}ms</el-tag>
           <el-tag v-else type="danger">{{ scope.row.time }}ms</el-tag>
         </template>
       </el-table-column>
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期" width="180px">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>

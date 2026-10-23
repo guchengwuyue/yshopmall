@@ -4,7 +4,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/shop/cate' }">
-              <i class="el-icon-goods" style="color: #69c0ff" />
+              <el-icon  style="color: #69c0ff" ><Goods /></el-icon>
               <p>商品管理</p>
             </router-link>
           </el-card>
@@ -12,7 +12,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/member/member' }">
-              <i class="el-icon-user" style="color: #95de64" />
+              <el-icon  style="color: #95de64" ><User /></el-icon>
               <p>会员管理</p>
             </router-link>
           </el-card>
@@ -20,7 +20,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/order/order' }">
-              <i class="el-icon-s-order" style="color: #ff9c6e" />
+              <el-icon  style="color: #ff9c6e" ><List /></el-icon>
               <p>订单管理</p>
             </router-link>
           </el-card>
@@ -28,7 +28,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/syscoupon/coupon' }">
-              <i class="el-icon-s-ticket" style="color: #b37feb" />
+              <el-icon  style="color: #b37feb" ><Ticket /></el-icon>
               <p>电子券管理</p>
             </router-link>
           </el-card>
@@ -36,7 +36,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/syspoints/pointConfig' }">
-              <i class="el-icon-postcard" style="color: #ffd666" />
+              <el-icon  style="color: #ffd666" ><Postcard /></el-icon>
               <p>积分管理</p>
             </router-link>
           </el-card>
@@ -44,7 +44,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/wechat/wemenu' }">
-              <i class="el-icon-notebook-1" style="color: #5cdbd3" />
+              <el-icon  style="color: #5cdbd3" ><Notebook /></el-icon>
               <p>微信管理</p>
             </router-link>
           </el-card>
@@ -52,7 +52,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/price/extract' }">
-              <i class="el-icon-s-finance" style="color: #ff85c0" />
+              <el-icon  style="color: #ff85c0" ><Money /></el-icon>
               <p>财务管理</p>
             </router-link>
           </el-card>
@@ -60,7 +60,7 @@
         <el-col v-bind="grid" class="ivu-mb">
           <el-card :bordered="false">
             <router-link :to="{ path: '/store/storeinfo' }">
-              <i class="el-icon-office-building" style="color: #ffc069" />
+              <el-icon  style="color: #ffc069" ><OfficeBuilding /></el-icon>
               <p>门店管理</p>
             </router-link>
           </el-card>
@@ -69,7 +69,7 @@
     </div>
 </template>
 <script>
-import CountTo from 'vue-count-to'
+import CountTo from 'vue3-count-to'
 import { gett } from '@/api/visits'
 export default {
   components: {

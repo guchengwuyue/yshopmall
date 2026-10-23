@@ -50,7 +50,7 @@ import initData from '@/mixins/crud'
 import { del, add, get } from '@/api/yxSystemConfig'
 import eForm from './form'
 import picUpload from '@/components/pic-upload'
-import { Message } from 'element-ui'
+import { ElMessage as Message } from 'element-plus'
 import MaterialList from '@/components/material'
 export default {
   components: { eForm, picUpload, MaterialList },

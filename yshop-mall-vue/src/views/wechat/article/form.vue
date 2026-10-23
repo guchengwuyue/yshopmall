@@ -22,7 +22,7 @@
         <el-button :loading="loading" type="primary" @click="doSubmit">保存</el-button>
       </el-form-item>
     </el-form>
-    <!--<div slot="footer" class="dialog-footer">-->
+    <!--<div class="dialog-footer">-->
       <!--<el-button type="text" @click="cancel">取消</el-button>-->
       <!--<el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>-->
     <!--</div>-->
@@ -35,7 +35,7 @@ import picUpload from '@/components/pic-upload'
 import editor from '../../components/Editor'
 import yamedit from '@/components/YamlEdit'
 import MaterialList from '@/components/material'
-import UeditorWrap from 'vue-ueditor-wrap';
+import { VueUeditorWrap as UeditorWrap } from 'vue-ueditor-wrap'
 export default {
   components: { editor, picUpload, yamedit, MaterialList, UeditorWrap },
   // props: {

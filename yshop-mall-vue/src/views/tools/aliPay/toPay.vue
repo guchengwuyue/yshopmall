@@ -12,7 +12,7 @@
         <el-input v-model="form.body" style="width: 35%" rows="8" type="textarea" />
       </el-form-item>
       <el-form-item label="">
-        <el-button :loading="loading" size="medium" type="primary" @click="doSubmit">去支付</el-button>
+        <el-button :loading="loading" size="default" type="primary" @click="doSubmit">去支付</el-button>
       </el-form-item>
     </el-form>
   </div>

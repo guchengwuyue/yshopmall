@@ -46,12 +46,14 @@
   }
 }
 
-// to fixed https://github.com/ElemeFE/element/issues/2461
+// Element UI 时代为修复 transform 动画抖动写的覆盖样式。
+// 升级 Element Plus 后，margin: 0 auto 会盖掉默认的 margin-top: 15vh，导致弹窗贴顶。
+// 保留 position/left/transform 兼容，恢复与 Element Plus 一致的垂直位置。
 .el-dialog {
   transform: none;
   left: 0;
   position: relative;
-  margin: 0 auto;
+  margin: var(--el-dialog-margin-top, 15vh) auto 50px;
 }
 
 // refine element ui upload

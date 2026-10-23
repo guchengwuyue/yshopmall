@@ -15,12 +15,22 @@ module.exports = {
   assetsDir: 'static',
   lintOnSave: false,
   productionSourceMap: false,
+  transpileDependencies: [
+    'element-plus',
+    'vue3-treeselect',
+    'vue3-count-to',
+    'vuedraggable',
+    '@vueup/vue-quill',
+    'vue-ueditor-wrap'
+  ],
   devServer: {
     port: port,
     open: false,
-    overlay: {
-      warnings: false,
-      errors: true
+    client: {
+      overlay: {
+        warnings: false,
+        errors: true
+      }
     },
     proxy: {
       '/api': {
@@ -47,35 +57,27 @@ module.exports = {
       alias: {
         '@': resolve('src'),
         '@crud': resolve('src/components/Crud')
+      },
+      fallback: {
+        path: require.resolve('path-browserify')
       }
     }
   },
-  // css: {
-  //   loaderOptions: {
-  //     sass: {
-  //       prependData: `
-  //         @import "@/assets/styles/contaner.scss";
-  //         `
-  //     }
-  //   }
-  // },
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test
     config.plugins.delete('prefetch') // TODO: need test
 
     // sass-resources-loader
-    config.module
-      .rule('scss')
-      .oneOfs
-      .store
-      .forEach(item => {
-        item.use('sass-resources-loader')
-          .loader('sass-resources-loader')
-          .options({
-            resources: ['./src/assets/styles/contaner.scss']
-          })
-          .end()
-      })
+    const oneOfsMap = config.module.rule('scss').oneOfs.store
+    oneOfsMap.forEach(item => {
+      item
+        .use('sass-resources-loader')
+        .loader('sass-resources-loader')
+        .options({
+          resources: ['./src/assets/styles/contaner.scss']
+        })
+        .end()
+    })
 
     // set svg-sprite-loader
     config.module
@@ -94,13 +96,15 @@ module.exports = {
       })
       .end()
 
-    // set preserveWhitespace
+    // set preserveWhitespace (Vue3)
     config.module
       .rule('vue')
       .use('vue-loader')
-      .loader('vue-loader')
       .tap(options => {
-        options.compilerOptions.preserveWhitespace = true
+        options.compilerOptions = {
+          ...(options.compilerOptions || {}),
+          whitespace: 'preserve'
+        }
         return options
       })
       .end()
@@ -118,7 +122,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()
@@ -132,15 +136,15 @@ module.exports = {
                   priority: 10,
                   chunks: 'initial' // only package third parties that are initially dependent
                 },
-                elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                elementPlus: {
+                  name: 'chunk-elementPlus',
+                  priority: 20,
+                  test: /[\\/]node_modules[\\/]_?element-plus(.*)/
                 },
                 commons: {
                   name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
-                  minChunks: 3, //  minimum common number
+                  test: resolve('src/components'),
+                  minChunks: 3,
                   priority: 5,
                   reuseExistingChunk: true
                 }

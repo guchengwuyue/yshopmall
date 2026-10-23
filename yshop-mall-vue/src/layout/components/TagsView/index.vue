@@ -3,17 +3,28 @@
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
-        ref="tag"
         :key="tag.path"
-        :class="isActive(tag)?'active':''"
+        v-slot="{ navigate }"
         :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-        tag="span"
-        class="tags-view-item"
-        @click.middle.native="closeSelectedTag(tag)"
-        @contextmenu.prevent.native="openMenu(tag,$event)"
+        custom
       >
-        {{ tag.title }}
-        <span v-if="!tag.meta.affix" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+        <span
+          ref="tag"
+          class="tags-view-item"
+          :class="isActive(tag) ? 'active' : ''"
+          @click="navigate"
+          @click.middle="closeSelectedTag(tag)"
+          @contextmenu.prevent="openMenu(tag, $event)"
+        >
+          {{ tag.title }}
+          <el-icon
+            v-if="!tag.meta.affix"
+            class="el-icon-close"
+            @click.prevent.stop="closeSelectedTag(tag)"
+          >
+            <Close />
+          </el-icon>
+        </span>
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
@@ -107,17 +118,18 @@ export default {
       return false
     },
     moveToCurrentTag() {
-      const tags = this.$refs.tag
+      // Vue3: ref 挂在 span 上，不再有 router-link 的 to；按 visitedViews 下标对齐 DOM
       this.$nextTick(() => {
-        for (const tag of tags) {
-          if (tag.to.path === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag)
-            // when query is different then update
-            if (tag.to.fullPath !== this.$route.fullPath) {
-              this.$store.dispatch('tagsView/updateVisitedView', this.$route)
-            }
-            break
+        const tags = this.$refs.tag
+        if (!tags || !tags.length) return
+        for (const [index, tagEl] of tags.entries()) {
+          const view = this.visitedViews[index]
+          if (!view || view.path !== this.$route.path) continue
+          this.$refs.scrollPane.moveToTarget(tagEl)
+          if (view.fullPath !== this.$route.fullPath) {
+            this.$store.dispatch('tagsView/updateVisitedView', this.$route)
           }
+          break
         }
       })
     },

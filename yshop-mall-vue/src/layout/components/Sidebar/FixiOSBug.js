@@ -12,7 +12,8 @@ export default {
   methods: {
     fixBugIniOS() {
       const $subMenu = this.$refs.subMenu
-      if ($subMenu) {
+      // Element Plus 内部 API 可能不存在，需防护
+      if ($subMenu && typeof $subMenu.handleMouseleave === 'function') {
         const handleMouseleave = $subMenu.handleMouseleave
         $subMenu.handleMouseleave = (e) => {
           if (this.device === 'mobile') {

@@ -4,8 +4,8 @@
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -18,12 +18,12 @@
       <el-table-column prop="productId" label="商品ID" />
       <el-table-column prop="product.storeName" label="商品名称" />
       <el-table-column ref="table" prop="product.image" label="商品图片">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a :href="scope.row.product.image" style="color: #42b983" target="_blank"><img :src="scope.row.product.image" alt="点击打开" class="el-avatar"></a>
         </template>
       </el-table-column>
       <el-table-column prop="type" label="类型">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.type == 'collect'" :type="''">收藏</el-tag>
             <el-tag v-else :type=" 'info' ">足迹</el-tag>
@@ -31,7 +31,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="添加时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>

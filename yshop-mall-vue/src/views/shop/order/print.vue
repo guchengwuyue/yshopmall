@@ -1,11 +1,11 @@
 <template>
-  <el-dialog id="printDialog" :append-to-body="false" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" title="订单打印" width="220mm">
+  <el-dialog id="printDialog" :append-to-body="false" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" title="订单打印" width="220mm">
 
     <el-button
       type="warning"
       class="filter-item"
-      size="mini"
-      icon="el-icon-printer"
+      size="small"
+      :icon="Printer"
       onclick="doPrint()"
     >打印</el-button>
 
@@ -40,7 +40,7 @@
         <el-table-column prop="cartInfoMap.cartNum" width="80mm" label="数量" />
 
         <el-table-column prop="cartInfoMap" width="80mm" label="小计(元)" >
-          <template slot-scope="scope">
+          <template #default="scope">
             <span>{{ scope.row.cartInfoMap.productInfo.price*scope.row.cartInfoMap.cartNum }}</span>
           </template>
         </el-table-column>

@@ -3,14 +3,14 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="nickname" clearable placeholder="输入用户昵称" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-input v-model="nickname" clearable placeholder="输入用户昵称" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
 
@@ -24,21 +24,21 @@
       <el-table-column prop="nickname" label="用户昵称" />
       <el-table-column prop="title" label="账单标题" />
       <el-table-column prop="category" label="明细种类">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span v-if="scope.row.category == 'now_money'">余额</span>
           <span v-else-if="scope.row.category == 'integral'">积分</span>
           <span v-else>未知</span>
         </template>
       </el-table-column>
       <el-table-column prop="number" label="明细数字">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span v-if="scope.row.pm == 1">+</span>
           <span v-else>-</span>
           <span>{{ scope.row.number }}</span>
         </template>
       </el-table-column>
       <el-table-column :show-overflow-tooltip="true" prop="addTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>

@@ -3,9 +3,11 @@
     <el-row :gutter="20">
       <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="5" style="margin-bottom: 10px">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span>个人信息</span>
           </div>
+</template>
           <div>
             <div style="text-align: center">
               <el-upload
@@ -57,7 +59,7 @@
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item label="">
-                  <el-button :loading="saveLoading" size="mini" type="primary" @click="doSubmit">保存配置</el-button>
+                  <el-button :loading="saveLoading" size="small" type="primary" @click="doSubmit">保存配置</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -69,7 +71,7 @@
                 <el-table-column :show-overflow-tooltip="true" prop="address" label="IP来源" />
                 <el-table-column prop="browser" label="浏览器" />
                 <el-table-column prop="time" label="请求耗时" align="center">
-                  <template slot-scope="scope">
+                  <template #default="scope">
                     <el-tag v-if="scope.row.time <= 300">{{ scope.row.time }}ms</el-tag>
                     <el-tag v-else-if="scope.row.time <= 1000" type="warning">{{ scope.row.time }}ms</el-tag>
                     <el-tag v-else type="danger">{{ scope.row.time }}ms</el-tag>
@@ -78,10 +80,10 @@
                 <el-table-column
                   align="right"
                 >
-                  <template slot="header">
-                    <div style="display:inline-block;float: right;cursor: pointer" @click="init">创建日期<i class="el-icon-refresh" style="margin-left: 40px" /></div>
+                  <template #header>
+                    <div style="display:inline-block;float: right;cursor: pointer" @click="init">创建日期<el-icon  style="margin-left: 40px" ><Refresh /></el-icon></div>
                   </template>
-                  <template slot-scope="scope">
+                  <template #default="scope">
                     <span>{{ parseTime(scope.row.createTime) }}</span>
                   </template>
                 </el-table-column>

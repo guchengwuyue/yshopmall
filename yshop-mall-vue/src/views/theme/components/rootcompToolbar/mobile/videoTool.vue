@@ -22,26 +22,27 @@
       </div>
       <div class="itemBox">
         <label>正文</label>
-        <quill-editor
-          v-model="activeComponent.componentContent.mainBody"
+        <QuillEditor
+          v-model:content="activeComponent.componentContent.mainBody"
+          content-type="html"
           ref="myQuillEditor"
+          theme="snow"
           :options="editorOption"
-          @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-          @change="onEditorChange($event)">
-        </quill-editor>
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { quillEditor } from 'vue-quill-editor'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import { toolMixin } from '@/mixins/tool.js'
 export default {
   mixins: [toolMixin],
   name: 'videoTool',
   components: {
-    quillEditor
+    QuillEditor
   },
   data() {
     return {

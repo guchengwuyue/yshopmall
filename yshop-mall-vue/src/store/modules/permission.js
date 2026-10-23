@@ -36,8 +36,19 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
   })
 }
 
+// webpack 5 动态 import 需带 .vue，且用相对路径建立 context，否则会 webpackEmptyContext
+const viewModules = require.context('../../views', true, /\.vue$/)
+
 export const loadView = (view) => {
-  return (resolve) => require([`@/views/${view}`], resolve)
+  return () => {
+    const path = `./${view}.vue`
+    try {
+      return Promise.resolve(viewModules(path))
+    } catch (e) {
+      console.error(`[permission] 找不到页面组件: views/${view}.vue`, e)
+      return import('@/views/features/404')
+    }
+  }
 }
 
 export default permission

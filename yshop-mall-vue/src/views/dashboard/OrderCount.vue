@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import echarts from "echarts";
-require("echarts/theme/macarons"); // echarts theme
+import * as echarts from 'echarts';
+import 'echarts/theme/macarons'; // echarts theme
 import { getOrderCount } from "@/api/visits";
 import { debounce } from "@/utils";
 
@@ -47,7 +47,7 @@ export default {
     }, 100);
     window.addEventListener("resize", this.__resizeHandler);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (!this.chart) {
       return;
     }

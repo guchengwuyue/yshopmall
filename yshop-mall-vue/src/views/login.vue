@@ -6,12 +6,12 @@
           YSHOP单商户B2C电商系统
         </h3>
         <ul style="margin: 0;color: #ffffff;font-size: 15px;line-height: 25px;padding-left: 20px">
-          <li>Springboot2</li>
+          <li>Springboot3</li>
           <li>MybatisPlus</li>
           <li>SpringSecurity</li>
           <li>Jwt</li>
           <li>Redis</li>
-          <li>Vue</li>
+          <li>Vue3</li>
         </ul>
         <h3 style="color: #ffffff;">
           官网:https://www.yixiang.co
@@ -23,17 +23,23 @@
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+          <template #prefix>
+<svg-icon icon-class="user" class="el-input__icon input-icon" />
+</template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
-          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+        <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter="handleLogin">
+          <template #prefix>
+<svg-icon icon-class="password" class="el-input__icon input-icon" />
+</template>
         </el-input>
       </el-form-item>
       <el-form-item prop="code">
-        <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter.native="handleLogin">
-          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+        <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter="handleLogin">
+          <template #prefix>
+<svg-icon icon-class="validCode" class="el-input__icon input-icon" />
+</template>
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode">
@@ -43,7 +49,7 @@
         记住我
       </el-checkbox>
       <el-form-item style="width:100%;">
-        <el-button :loading="loading" size="medium" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
+        <el-button :loading="loading" size="default" type="primary" style="width:100%;" @click.prevent="handleLogin">
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>

@@ -3,9 +3,11 @@
     <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
       <div class="card-panel">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span style="font-weight: bolder">项目信息</span>
           </div>
+</template>
           <div class="text item">
             <span style="font-weight: bolder">yshop基于当前流行技术组合的前后端分离商城系统：</span>
             SpringBoot2+Jpa+MybatisPlus+SpringSecurity
@@ -49,9 +51,11 @@
     <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
       <div class="card-panel">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span style="font-weight: bolder">开源+VIP说明</span>
           </div>
+</template>
           <div class="text item">
             <span style="font-weight: bolder">开源版：</span>是整个商城的管理后台（后台已经封装好了图片素材库、编辑器、配置等等组件），
             它可以用于所有的Web应用程序，如网站商城管理后台，网站会员中心，CMS，CRM，OA等等，
@@ -94,9 +98,11 @@
     <el-col :xs="16" :sm="16" :lg="8" class="card-panel-col">
       <div class="card-panel">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span style="font-weight: bolder">更新日志</span>
           </div>
+</template>
           <div class="text item">
             <span style="font-weight: bolder">（预计4月初发布）yshop2.1版本(已上演示版的公众号/H5版本) 更新如下：</span>
           </div>

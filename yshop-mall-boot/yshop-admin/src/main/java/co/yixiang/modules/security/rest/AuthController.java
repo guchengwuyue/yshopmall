@@ -18,7 +18,8 @@ import co.yixiang.modules.security.service.OnlineUserService;
 import co.yixiang.utils.RedisUtils;
 import co.yixiang.utils.SecurityUtils;
 import co.yixiang.utils.StringUtils;
-import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -129,17 +130,11 @@ public class AuthController {
     @Operation(summary = "获取验证码")
     @GetMapping(value = "/code")
     public ResponseEntity<Object> getCode(){
-        // 算术类型 https://gitee.com/whvse/EasyCaptcha
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
-        // 几位数运算，默认是两位
-        captcha.setLen(2);
-        // 获取运算的结果
-        String result ="";
-        try {
-            result = new Double(Double.parseDouble(captcha.text())).intValue()+"";
-        }catch (Exception e){
-            result = captcha.text();
-        }
+        // 字符类型（JDK15+ 已移除 Nashorn，ArithmeticCaptcha 依赖 ScriptEngine 会 NPE）
+        // https://gitee.com/whvse/EasyCaptcha
+        SpecCaptcha captcha = new SpecCaptcha(111, 36, 4);
+        captcha.setCharType(Captcha.TYPE_DEFAULT);
+        String result = captcha.text();
         String uuid = properties.getCodeKey() + IdUtil.simpleUUID();
         // 保存
         redisUtils.set(uuid, result, expiration, TimeUnit.MINUTES);

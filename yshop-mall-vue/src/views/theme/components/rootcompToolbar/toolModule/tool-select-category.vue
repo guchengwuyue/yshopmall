@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <el-dialog width="500" title="选择类别" :visible.sync="categoryVisible">
+    <el-dialog width="500" title="选择类别" v-model="categoryVisible">
       <el-select
         v-model="categoryValue"
         multiple
@@ -28,10 +28,12 @@
           :value="item.id">
         </el-option>
       </el-select>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
+<span class="dialog-footer">
         <el-button @click="categoryVisible = false">取 消</el-button>
         <el-button type="primary" @click="categoryChanged">确 定</el-button>
       </span>
+</template>
     </el-dialog>
   </div>
 </template>

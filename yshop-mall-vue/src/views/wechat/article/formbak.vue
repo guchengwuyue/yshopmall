@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="1000px">
+  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" v-model="dialog" :title="isAdd ? '新增' : '编辑'" width="1000px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
       <el-form-item label="标题">
         <el-input v-model="form.title" style="width: 370px;" />
@@ -18,10 +18,12 @@
         <ueditor-wrap v-model="form.content" :config="myConfig"  @beforeInit="addCustomDialog"  style="width: 90%;"></ueditor-wrap>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <template #footer>
+<div class="dialog-footer">
       <el-button type="text" @click="cancel">取消</el-button>
       <el-button :loading="loading" type="primary" @click="doSubmit">确认</el-button>
     </div>
+</template>
   </el-dialog>
 </template>
 
@@ -31,7 +33,7 @@ import picUpload from '@/components/pic-upload'
 import editor from '../../components/Editor'
 import yamedit from '@/components/YamlEdit'
 import MaterialList from '@/components/material'
-import UeditorWrap from 'vue-ueditor-wrap';
+import { VueUeditorWrap as UeditorWrap } from 'vue-ueditor-wrap'
 export default {
   components: { editor, picUpload, yamedit, MaterialList, UeditorWrap },
   props: {

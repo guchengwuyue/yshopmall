@@ -2,20 +2,29 @@
   <div class="app-container">
     <p class="warn-content">
       Markdown 基于
-      <el-link type="primary" href="https://github.com/hinesboy/mavonEditor" target="_blank">MavonEditor</el-link>
+      <el-link type="primary" href="https://github.com/imzbf/md-editor-v3" target="_blank">md-editor-v3</el-link>
       ，图片上传使用 <el-link type="primary" href="https://sm.ms/" target="_blank">SM.MS</el-link>
     </p>
-    <mavon-editor ref="md" :style="'height:' + height" @imgAdd="imgAdd" />
+    <MdEditor
+      v-model="text"
+      :style="{ height }"
+      @onUploadImg="onUploadImg"
+    />
   </div>
 </template>
 
 <script>
+import { MdEditor } from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
 import { upload } from '@/utils/upload'
 import { mapGetters } from 'vuex'
+
 export default {
   name: 'Markdown',
+  components: { MdEditor },
   data() {
     return {
+      text: '',
       height: document.documentElement.clientHeight - 200 + 'px'
     }
   },
@@ -31,9 +40,16 @@ export default {
     }
   },
   methods: {
-    imgAdd(pos, $file) {
-      upload(this.imagesUploadApi, $file).then(data => {
-        this.$refs.md.$img2Url(pos, data.data.url)
+    onUploadImg(files, callback) {
+      Promise.all(
+        files.map(file =>
+          upload(this.imagesUploadApi, file).then(data => {
+            const url = (data && data.data && data.data.url) || (data && data.url) || ''
+            return url
+          })
+        )
+      ).then(urls => {
+        callback(urls.filter(Boolean))
       })
     }
   }

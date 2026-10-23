@@ -7,9 +7,9 @@
         <el-button
           v-permission="['admin','YXWECHATTEMPLATE_ALL','YXWECHATTEMPLATE_CREATE']"
           class="filter-item"
-          size="mini"
+          size="small"
           type="primary"
-          icon="el-icon-plus"
+          :icon="Plus"
           @click="add"
         >新增</el-button>
       </div>
@@ -19,7 +19,7 @@
     <!--表格渲染-->
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="status" label="消息类型">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.type == 'template'" :type="''">模板消息</el-tag>
             <el-tag v-else :type=" 'info' ">订阅消息</el-tag>
@@ -31,7 +31,7 @@
       <el-table-column prop="name" label="模板名" />
       <el-table-column prop="tempid" label="模板ID" />
       <el-table-column prop="status" label="状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div>
             <el-tag v-if="scope.row.status === 1" :type="''">可用</el-tag>
             <el-tag v-else :type=" 'info' ">禁用</el-tag>
@@ -39,8 +39,8 @@
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXWECHATTEMPLATE_ALL','YXWECHATTEMPLATE_EDIT','YXWECHATTEMPLATE_DELETE'])" label="操作" width="150px" align="center">
-        <template slot-scope="scope">
-          <el-button v-permission="['admin','YXWECHATTEMPLATE_ALL','YXWECHATTEMPLATE_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+        <template #default="scope">
+          <el-button v-permission="['admin','YXWECHATTEMPLATE_ALL','YXWECHATTEMPLATE_EDIT']" size="small" type="primary" :icon="Edit" @click="edit(scope.row)" />
           <el-popover
             :ref="scope.row.id"
             v-permission="['admin','YXWECHATTEMPLATE_ALL','YXWECHATTEMPLATE_DELETE']"
@@ -49,10 +49,12 @@
           >
             <p>确定删除本条数据吗？</p>
             <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              <el-button size="small" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+              <el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.id)">确定</el-button>
             </div>
-            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
+            <template #reference>
+<el-button type="danger" :icon="Delete" size="small" />
+</template>
           </el-popover>
         </template>
       </el-table-column>

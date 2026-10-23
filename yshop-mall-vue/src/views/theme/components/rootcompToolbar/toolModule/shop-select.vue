@@ -14,7 +14,7 @@
       border
       style="width: 100%">
       <el-table-column label="" width="35" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-radio v-model="tableRadio" :label="scope.row"><i></i></el-radio>
         </template>
       </el-table-column>

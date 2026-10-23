@@ -1,9 +1,9 @@
 <!--分页-->
 <template>
   <el-pagination
-    :page-size.sync="page.size"
+    v-model:page-size="page.size"
+    v-model:current-page="page.page"
     :total="page.total"
-    :current-page.sync="page.page"
     style="margin-top: 8px;"
     layout="total, prev, pager, next, sizes"
     @size-change="crud.sizeChangeHandler($event)"

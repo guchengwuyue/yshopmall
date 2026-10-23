@@ -1,35 +1,14 @@
-
 <template>
-  <!-- eslint-disable vue/require-component-is -->
-  <component v-bind="linkProps(to)">
-    <slot />
-  </component>
+  <!-- 站内/外链导航均由 el-menu @select 处理，此处只透传内容，避免 Vue3 下 router-link 包裹 li 点击无效 -->
+  <slot />
 </template>
 
 <script>
-import { isExternal } from '@/utils/validate'
-
 export default {
   props: {
     to: {
       type: String,
       required: true
-    }
-  },
-  methods: {
-    linkProps(url) {
-      if (isExternal(url)) {
-        return {
-          is: 'a',
-          href: url,
-          target: '_blank',
-          rel: 'noopener'
-        }
-      }
-      return {
-        is: 'router-link',
-        to: url
-      }
     }
   }
 }

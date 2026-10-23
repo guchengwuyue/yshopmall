@@ -3,43 +3,57 @@
 
     <el-tabs v-model="status" type="card" @tab-click="handleOrder">
       <el-tab-pane name="-9">
-        <span slot="label"><i class="el-icon-s-order"></i> 全部订单</span>
+        <template #label>
+<span><el-icon ><List /></el-icon> 全部订单</span>
+</template>
       </el-tab-pane>
       <el-tab-pane name="0">
-        <span slot="label"><i class="el-icon-bank-card"></i> 未支付</span>
+        <template #label>
+<span><el-icon ><CreditCard /></el-icon> 未支付</span>
+</template>
       </el-tab-pane>
       <el-tab-pane name="1">
-        <span slot="label"><i class="el-icon-refrigerator"></i> 待核销</span>
+        <template #label>
+<span><el-icon ><Refrigerator /></el-icon> 待核销</span>
+</template>
       </el-tab-pane>
       <el-tab-pane name="3">
-        <span slot="label"><i class="el-icon-document"></i> 待评价</span>
+        <template #label>
+<span><el-icon ><Document /></el-icon> 待评价</span>
+</template>
       </el-tab-pane>
       <el-tab-pane name="4">
-        <span slot="label"><i class="el-icon-circle-check"></i> 交易完成</span>
+        <template #label>
+<span><el-icon ><CircleCheck /></el-icon> 交易完成</span>
+</template>
       </el-tab-pane>
       <!--<el-tab-pane name="-1">-->
-      <!--  <span slot="label"><i class="el-icon-back"></i> 退款中</span>-->
+      <!--  <template #label>
+<span><el-icon ><Back /></el-icon> 退款中</span>
+</template>-->
       <!--</el-tab-pane>-->
       <!--<el-tab-pane name="-2">-->
-      <!--  <span slot="label"><i class="el-icon-finished"></i> 已退款</span>-->
+      <!--  <template #label>
+<span><el-icon ><Finished /></el-icon> 已退款</span>
+</template>-->
       <!--</el-tab-pane>-->
     </el-tabs>
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
       <el-select v-model="storeId" clearable placeholder="选择门店" class="filter-item" style="width: 130px">
         <el-option v-for="item in storeList" :key="item.key" :label="item.name" :value="item.id" />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
 
@@ -55,14 +69,14 @@
     <el-table v-loading="loading" :data="data" size="small" style="width: 100%;">
       <el-table-column prop="storeName" label="所属门店" />
       <el-table-column prop="orderId" width="150" label="订单号">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ scope.row.orderId }}</span>
           <p>{{ scope.row.pinkName }}</p>
         </template>
       </el-table-column>
       <el-table-column prop="realName" label="用户姓名" />
       <el-table-column prop="cartInfoList" width="300" label="商品信息">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div v-for="(item,index) in scope.row.cartInfoList" v-if="item.cartInfoMap.productInfo.attrInfo">
             <span>
               <img
@@ -86,31 +100,32 @@
       <el-table-column prop="payPrice" label="实际支付" />
       <el-table-column prop="payTypeName" label="支付状态" />
       <el-table-column prop="statusName" label="订单状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span v-html="scope.row.statusName"></span>
         </template>
       </el-table-column>
       <el-table-column prop="addTime" width="160" label="创建时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ formatTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT','YXSTOREORDER_DELETE'])" label="操作" width="200" align="center" fixed="right">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
-            size="mini"
+            size="small"
             type="primary"
             @click="detail(scope.row)"
           >
             订单详情</el-button>
-          <el-dropdown size="mini" split-button type="primary" trigger="click">
+          <el-dropdown size="small" split-button type="primary" trigger="click">
             操作
-            <el-dropdown-menu slot="dropdown">
+            <template #dropdown>
+<el-dropdown-menu>
               <el-dropdown-item>
                 <el-button
                   v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
-                  size="mini"
+                  size="small"
                   type="success"
                   @click="remark(scope.row)"
                 >
@@ -120,7 +135,7 @@
                 <el-button
                   v-if="scope.row._status == 2"
                   v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="edit(scope.row)"
                 >
@@ -130,7 +145,7 @@
 <!--                <el-button-->
 <!--                  v-if="scope.row._status == 3"-->
 <!--                  v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"-->
-<!--                  size="mini"-->
+<!--                  size="small"-->
 <!--                  type="primary"-->
 <!--                  @click="refund(scope.row)"-->
 <!--                >-->
@@ -139,7 +154,7 @@
               <el-dropdown-item v-if="scope.row._status == 1">
                 <el-button
                   v-permission="['admin','YXSTOREORDER_ALL','YXSTOREORDER_EDIT']"
-                  size="mini"
+                  size="small"
                   type="primary"
                   @click="editOrder(scope.row)"
                 >
@@ -154,13 +169,16 @@
                 >
                   <p>确定删除本条数据吗？</p>
                   <div style="text-align: right; margin: 0">
-                    <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-                    <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+                    <el-button size="small" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+                    <el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.id)">确定</el-button>
                   </div>
-                  <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini">删除</el-button>
+                  <template #reference>
+<el-button type="danger" :icon="Delete" size="small">删除</el-button>
+</template>
                 </el-popover>
               </el-dropdown-item>
             </el-dropdown-menu>
+</template>
           </el-dropdown>
 
         </template>

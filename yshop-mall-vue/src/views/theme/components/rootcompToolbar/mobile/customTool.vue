@@ -18,7 +18,7 @@
         <div class="block">
           <el-slider
             :show-input-controls=false
-            input-size="mini"
+            input-size="small"
             v-model="activeComponent.componentContent.imgClearance"
             show-input></el-slider>
         </div>
@@ -28,7 +28,7 @@
         <div class="block">
           <el-slider
             :show-input-controls=false
-            input-size="mini"
+            input-size="small"
             v-model="activeComponent.componentContent.pageSpacing"
             show-input></el-slider>
         </div>
@@ -129,13 +129,13 @@
                     :src="activeComponent.componentContent.imgData[activeComponent.componentContent.imgBoxActive].src" >
                   <div class="tips"
                     v-if="activeComponent.componentContent.imgData[activeComponent.componentContent.imgBoxActive].src" >更换图片</div>
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <el-icon class="avatar-uploader-icon" v-else ><Plus /></el-icon>
                   <span>添加图片</span>
                 </el-upload>
               </div>
               <div class="addLink">
                 <tool-select-link
-                  :linkObj.sync='activeComponent.componentContent.imgData[activeComponent.componentContent.imgBoxActive].linkObj'
+                  v-model:linkObj='activeComponent.componentContent.imgData[activeComponent.componentContent.imgBoxActive].linkObj'
                   title="链接"></tool-select-link>
               </div>
             </div>

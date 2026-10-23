@@ -5,7 +5,7 @@
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
       <crudOperation :permission="permission"/>
       <!--表单组件-->
-      <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0"
+      <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :model-value="crud.status.cu > 0"
                  :title="crud.status.title" width="500px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
           <el-form-item label="版本名称">
@@ -29,10 +29,12 @@
             </el-radio>
           </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
+        <template #footer>
+<div class="dialog-footer">
           <el-button type="text" @click="crud.cancelCU">取消</el-button>
           <el-button :loading="crud.status.cu === 2" type="primary" @click="crud.submitCU">确认</el-button>
         </div>
+</template>
       </el-dialog>
       <!--表格渲染-->
       <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;"
@@ -44,18 +46,18 @@
         <el-table-column v-if="columns.visible('iosUrl')" prop="iosUrl" label="ios store应用商店链接"/>
         <el-table-column v-if="columns.visible('androidUrl')" prop="androidUrl" label="安卓下载链接"/>
         <el-table-column v-if="columns.visible('forceUpdate')" prop="forceUpdate" label="是否强制升级">
-          <template slot-scope="scope">
+          <template #default="scope">
             {{ dict.label.force_update[scope.row.forceUpdate] }}
           </template>
         </el-table-column>
         <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="更新时间">
-          <template slot-scope="scope">
+          <template #default="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
         <el-table-column v-permission="['admin','yxAppVersion:edit','yxAppVersion:del']" label="操作" width="150px"
                          align="center">
-          <template slot-scope="scope">
+          <template #default="scope">
             <udOperation
               :data="scope.row"
               :permission="permission"

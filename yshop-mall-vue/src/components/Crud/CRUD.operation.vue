@@ -7,9 +7,9 @@
         v-if="crud.optShow.add"
         v-permission="permission.add"
         class="filter-item"
-        size="mini"
+        size="small"
         type="primary"
-        icon="el-icon-plus"
+        :icon="Plus"
         @click="crud.toAdd"
       >
         新增
@@ -18,26 +18,15 @@
         v-if="crud.optShow.edit"
         v-permission="permission.edit"
         class="filter-item"
-        size="mini"
+        size="small"
         type="success"
-        icon="el-icon-edit"
+        :icon="Edit"
         :disabled="crud.selections.length !== 1"
         @click="crud.toEdit(crud.selections[0])"
       >
         修改
       </el-button>
-      <el-button
-        v-if="crud.optShow.del"
-        slot="reference"
-        v-permission="permission.del"
-        class="filter-item"
-        type="danger"
-        icon="el-icon-delete"
-        size="mini"
-        :loading="crud.delAllLoading"
-        :disabled="crud.selections.length === 0"
-        @click="toDelete(crud.selections)"
-      >
+      <el-button v-if="crud.optShow.del" v-permission="permission.del" class="filter-item" type="danger" :icon="Delete" size="small" :loading="crud.delAllLoading" :disabled="crud.selections.length === 0" @click="toDelete(crud.selections)">
         删除
       </el-button>
       <el-button
@@ -45,9 +34,9 @@
         :loading="crud.downloadLoading"
         :disabled="!crud.data.length"
         class="filter-item"
-        size="mini"
+        size="small"
         type="warning"
-        icon="el-icon-download"
+        :icon="Download"
         @click="crud.doExport"
       >导出</el-button>
       <!--右侧-->
@@ -55,15 +44,15 @@
     </span>
     <el-button-group class="crud-opts-right">
       <el-button
-        size="mini"
+        size="small"
         plain
         type="info"
-        icon="el-icon-search"
+        :icon="Search"
         @click="toggleSearch()"
       />
       <el-button
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="crud.refresh()"
       />
       <el-popover
@@ -71,16 +60,14 @@
         width="150"
         trigger="click"
       >
-        <el-button
-          slot="reference"
-          size="mini"
-          icon="el-icon-s-grid"
-        >
-          <i
-            class="fa fa-caret-down"
-            aria-hidden="true"
-          />
-        </el-button>
+        <template #reference>
+          <el-button size="small" :icon="Grid">
+            <i
+              class="fa fa-caret-down"
+              aria-hidden="true"
+            />
+          </el-button>
+        </template>
         <el-checkbox
           v-model="allColumnsSelected"
           :indeterminate="allColumnsSelectedIndeterminate"

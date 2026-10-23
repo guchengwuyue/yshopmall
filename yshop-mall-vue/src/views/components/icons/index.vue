@@ -8,9 +8,11 @@
       <el-tab-pane label="Icons">
         <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
           <el-tooltip placement="top">
-            <div slot="content">
+            <template #content>
+<div>
               {{ generateIconCode(item) }}
             </div>
+</template>
             <div class="icon-item">
               <svg-icon :icon-class="item" class-name="disabled" />
               <span>{{ item }}</span>
@@ -18,14 +20,18 @@
           </el-tooltip>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="Element-UI Icons">
+      <el-tab-pane label="Element Plus Icons">
         <div v-for="item of elementIcons" :key="item" @click="handleClipboard(generateElementIconCode(item),$event)">
           <el-tooltip placement="top">
-            <div slot="content">
-              {{ generateElementIconCode(item) }}
-            </div>
+            <template #content>
+              <div>
+                {{ generateElementIconCode(item) }}
+              </div>
+            </template>
             <div class="icon-item">
-              <i :class="'el-icon-' + item" />
+              <el-icon :size="30">
+                <component :is="$elIcon('el-icon-' + item)" />
+              </el-icon>
               <span>{{ item }}</span>
             </div>
           </el-tooltip>
@@ -37,6 +43,7 @@
 
 <script>
 import clipboard from '@/utils/clipboard'
+import { elIconToComponentName } from '@/utils/element-icons'
 import svgIcons from './svg-icons'
 import elementIcons from './element-icons'
 
@@ -53,7 +60,8 @@ export default {
       return `<svg-icon icon-class="${symbol}" />`
     },
     generateElementIconCode(symbol) {
-      return `<i class="el-icon-${symbol}" />`
+      const name = elIconToComponentName('el-icon-' + symbol) || symbol
+      return `<el-icon><${name} /></el-icon>`
     },
     handleClipboard(text, event) {
       clipboard(text, event)

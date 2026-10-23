@@ -3,20 +3,21 @@
     <el-row :gutter="15">
       <el-col style="margin-bottom: 10px">
         <el-card class="box-card" shadow="never">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span class="role-span">字段配置：{{ tableName }}</span>
             <el-button
               :loading="genLoading"
-              icon="el-icon-s-promotion"
-              size="mini"
+              :icon="Promotion"
+              size="small"
               style="float: right; padding: 6px 9px;"
               type="success"
               @click="toGen"
             >保存&生成</el-button>
             <el-button
               :loading="columnLoading"
-              icon="el-icon-check"
-              size="mini"
+              :icon="Check"
+              size="small"
               style="float: right; padding: 6px 9px;margin-right: 9px"
               type="primary"
               @click="saveColumnConfig"
@@ -24,41 +25,42 @@
             <el-tooltip class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
               <el-button
                 :loading="syncLoading"
-                icon="el-icon-refresh"
-                size="mini"
+                :icon="Refresh"
+                size="small"
                 style="float: right; padding: 6px 9px;"
                 type="info"
                 @click="sync"
               >同步</el-button>
             </el-tooltip>
           </div>
+</template>
           <el-form size="small" label-width="90px">
             <el-table v-loading="loading" :data="data" :max-height="tableHeight" size="small" style="width: 100%;margin-bottom: 15px">
               <el-table-column prop="columnName" label="字段名称" />
               <el-table-column prop="columnType" label="字段类型" />
               <el-table-column prop="remark" label="字段描述">
-                <template slot-scope="scope">
-                  <el-input v-model="data[scope.$index].remark" size="mini" class="edit-input" />
+                <template #default="scope">
+                  <el-input v-model="data[scope.$index].remark" size="small" class="edit-input" />
                 </template>
               </el-table-column>
               <el-table-column align="center" label="必填" width="70px">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <el-checkbox v-model="data[scope.$index].notNull" />
                 </template>
               </el-table-column>
               <el-table-column align="center" label="列表" width="70px">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <el-checkbox v-model="data[scope.$index].listShow" />
                 </template>
               </el-table-column>
               <el-table-column align="center" label="表单" width="70px">
-                <template slot-scope="scope">
+                <template #default="scope">
                   <el-checkbox v-model="data[scope.$index].formShow" />
                 </template>
               </el-table-column>
               <el-table-column label="表单类型">
-                <template slot-scope="scope">
-                  <el-select v-model="data[scope.$index].formType" filterable class="edit-input" clearable size="mini" placeholder="请选择">
+                <template #default="scope">
+                  <el-select v-model="data[scope.$index].formType" filterable class="edit-input" clearable size="small" placeholder="请选择">
                     <el-option
                       label="文本框"
                       value="Input"
@@ -87,8 +89,8 @@
                 </template>
               </el-table-column>
               <el-table-column label="查询方式">
-                <template slot-scope="scope">
-                  <el-select v-model="data[scope.$index].queryType" filterable class="edit-input" clearable size="mini" placeholder="请选择">
+                <template #default="scope">
+                  <el-select v-model="data[scope.$index].queryType" filterable class="edit-input" clearable size="small" placeholder="请选择">
                     <el-option
                       label="="
                       value="="
@@ -121,8 +123,8 @@
                 </template>
               </el-table-column>
               <el-table-column label="日期注解">
-                <template slot-scope="scope">
-                  <el-select v-model="data[scope.$index].dateAnnotation" filterable class="edit-input" clearable size="mini" placeholder="请选择">
+                <template #default="scope">
+                  <el-select v-model="data[scope.$index].dateAnnotation" filterable class="edit-input" clearable size="small" placeholder="请选择">
                     <el-option
                       label="自动创建时间"
                       value="CreationTimestamp"
@@ -135,8 +137,8 @@
                 </template>
               </el-table-column>
               <el-table-column label="关联字典">
-                <template slot-scope="scope">
-                  <el-select v-model="data[scope.$index].dictName" filterable class="edit-input" clearable size="mini" placeholder="请选择">
+                <template #default="scope">
+                  <el-select v-model="data[scope.$index].dictName" filterable class="edit-input" clearable size="small" placeholder="请选择">
                     <el-option v-for="item in dicts" :key="item.id" :label="item.remark === '' ? item.name : item.remark" :value="item.name" />
                   </el-select>
                 </template>
@@ -147,17 +149,19 @@
       </el-col>
       <el-col>
         <el-card class="box-card" shadow="never">
-          <div slot="header" class="clearfix">
+          <template #header>
+<div class="clearfix">
             <span class="role-span">生成配置</span>
             <el-button
               :loading="configLoading"
-              icon="el-icon-check"
-              size="mini"
+              :icon="Check"
+              size="small"
               style="float: right; padding: 6px 9px"
               type="primary"
               @click="doSubmit"
             >保存</el-button>
           </div>
+</template>
           <el-form ref="form" :model="form" :rules="rules" size="small" label-width="78px">
             <el-form-item label="作者名称" prop="author">
               <el-input v-model="form.author" style="width: 40%" />
@@ -188,7 +192,7 @@
               <span style="color: #C0C0C0;margin-left: 10px;">默认不去除表前缀，可自定义</span>
             </el-form-item>
             <el-form-item label="是否覆盖" prop="cover">
-              <el-radio-group v-model="form.cover" size="mini" style="width: 40%">
+              <el-radio-group v-model="form.cover" size="small" style="width: 40%">
                 <el-radio-button label="true">是</el-radio-button>
                 <el-radio-button label="false">否</el-radio-button>
               </el-radio-group>

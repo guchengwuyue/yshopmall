@@ -13,16 +13,13 @@
           :src="imageUrl"
           class="single-img__img"
         >
-        <i
-          v-else
-          class="el-icon-upload"
-        >
+        <div v-else>
+          <el-icon class="el-icon-upload"><Upload /></el-icon>
           <div class="el-upload__text"><em>选择图片</em></div>
-          <div
-            class="el-upload__tip"
-            slot="tip"
-          >{{tip.label}}</div>
-        </i>
+        </div>
+        <template #tip>
+          <div class="el-upload__tip">{{ tip.label }}</div>
+        </template>
       </el-upload>
       <div
         class="overlay"
@@ -34,7 +31,7 @@
     </div>
     <el-dialog
       title="图片展示"
-      :visible.sync="dialogVisible"
+      v-model="dialogVisible"
     >
       <img
         width="100%"

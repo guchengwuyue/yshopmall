@@ -7,9 +7,9 @@
         <el-button
           v-permission="['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_CREATE']"
           class="filter-item"
-          size="mini"
+          size="small"
           type="primary"
-          icon="el-icon-plus"
+          :icon="Plus"
           @click="add"
         >新增</el-button>
       </div>
@@ -22,14 +22,14 @@
       <el-table-column prop="map.time" label="开启时间(整数小时)" />
       <el-table-column prop="map.continued" label="持续时间(整数小时)" />
       <el-table-column prop="map.status" label="状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag v-show="scope.row.status == 1" type="success">开启</el-tag>
           <el-tag v-show="scope.row.status == 2" type="danger">关闭</el-tag>
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT','YXSYSTEMGROUPDATA_DELETE'])" label="操作" width="150px" align="center">
-        <template slot-scope="scope">
-          <el-button v-permission="['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT']" size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)" />
+        <template #default="scope">
+          <el-button v-permission="['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_EDIT']" size="small" type="primary" :icon="Edit" @click="edit(scope.row)" />
           <el-popover
             :ref="scope.row.id"
             v-permission="['admin','YXSYSTEMGROUPDATA_ALL','YXSYSTEMGROUPDATA_DELETE']"
@@ -38,10 +38,12 @@
           >
             <p>确定删除本条数据吗？</p>
             <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              <el-button size="small" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
+              <el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.id)">确定</el-button>
             </div>
-            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
+            <template #reference>
+<el-button type="danger" :icon="Delete" size="small" />
+</template>
           </el-popover>
         </template>
       </el-table-column>

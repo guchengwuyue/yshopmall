@@ -3,17 +3,17 @@
     <!--工具栏-->
     <div class="head-container">
       <!-- 搜索 -->
-      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter.native="toQuery" />
+      <el-input v-model="query.value" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item" @keyup.enter="toQuery" />
       <el-select v-model="query.type" clearable placeholder="类型" class="filter-item" style="width: 130px">
         <el-option v-for="item in queryTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="small" type="success" :icon="Search" @click="toQuery">搜索</el-button>
       <!-- 新增 -->
       <el-button
         type="danger"
         class="filter-item"
-        size="mini"
-        icon="el-icon-refresh"
+        size="small"
+        :icon="Refresh"
         @click="toQuery"
       >刷新</el-button>
     </div>
@@ -24,7 +24,7 @@
       <el-table-column prop="id" label="id" />
       <el-table-column prop="extractPrice" label="提现金额" />
       <el-table-column prop="extractType" label="提现方式">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div v-if="scope.row.extractType=='weixin'">
             姓名:{{ scope.row.realName }}<br>
             微信号:{{ scope.row.wechat }}
@@ -36,12 +36,12 @@
         </template>
       </el-table-column>
       <el-table-column prop="addTime" label="添加时间">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span>{{ formatTimeTwo(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="审核状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <div v-if="scope.row.status==1">
             提现通过
           </div>
@@ -57,10 +57,10 @@
         </template>
       </el-table-column>
       <el-table-column v-if="checkPermission(['admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT','YXUSEREXTRACT_DELETE'])" label="操作" width="150px" align="center">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             v-permission="['admin','YXUSEREXTRACT_ALL','YXUSEREXTRACT_EDIT']"
-            size="mini"
+            size="small"
             type="primary"
             @click="edit(scope.row)"
           >操作</el-button>
@@ -71,10 +71,10 @@
           <!--width="180">-->
           <!--<p>确定删除本条数据吗？</p>-->
           <!--<div style="text-align: right; margin: 0">-->
-          <!--<el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>-->
-          <!--<el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>-->
+          <!--<el-button size="small" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>-->
+          <!--<el-button :loading="delLoading" type="primary" size="small" @click="subDelete(scope.row.id)">确定</el-button>-->
           <!--</div>-->
-          <!--<el-button slot="reference" type="danger" icon="el-icon-delete" size="mini"/>-->
+          <!--<el-button type="danger" :icon="Delete" size="small" />-->
           <!--</el-popover>-->
         </template>
       </el-table-column>

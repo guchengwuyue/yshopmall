@@ -3,21 +3,23 @@
     <!--工具栏-->
     <div class="head-container">
       <div v-if="crud.props.searchToggle">
-        <el-input v-model="query.name" clearable size="small" placeholder="请输入表名" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.name" clearable size="small" placeholder="请输入表名" style="width: 200px;" class="filter-item" @keyup.enter="crud.toQuery" />
         <rrOperation :crud="crud" />
       </div>
       <crudOperation>
-        <el-tooltip slot="right" class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
+        <template #right>
+<el-tooltip class="item" effect="dark" content="数据库中表字段变动时使用该功能" placement="top-start">
           <el-button
             class="filter-item"
-            size="mini"
+            size="small"
             type="success"
-            icon="el-icon-refresh"
+            :icon="Refresh"
             :loading="syncLoading"
             :disabled="crud.selections.length === 0"
             @click="sync"
           >同步</el-button>
         </el-tooltip>
+</template>
       </crudOperation>
     </div>
     <!--表格渲染-->
@@ -33,25 +35,25 @@
       <el-table-column v-if="columns.visible('coding')" :show-overflow-tooltip="true" prop="coding" label="字符编码集" />
       <el-table-column v-if="columns.visible('remark')" :show-overflow-tooltip="true" prop="remark" label="备注" />
       <el-table-column v-if="columns.visible('createTime')" prop="createTime" label="创建日期">
-        <template slot-scope="scope">
+        <template #default="scope">
           <!-- <span>{{ parseTime(scope.row.createTime) }}</span> -->
           <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160px" align="center" fixed="right">
-        <template slot-scope="scope">
-          <el-button size="mini" style="margin-right: 2px" type="text">
+        <template #default="scope">
+          <el-button size="small" style="margin-right: 2px" type="text">
             <router-link :to="'/sys-tools/generator/preview/' + scope.row.tableName">
               预览
             </router-link>
           </el-button>
-          <el-button size="mini" style="margin-left: -1px;margin-right: 2px" type="text" @click="toDownload(scope.row.tableName)">下载</el-button>
-          <el-button size="mini" style="margin-left: -1px;margin-right: 2px" type="text">
+          <el-button size="small" style="margin-left: -1px;margin-right: 2px" type="text" @click="toDownload(scope.row.tableName)">下载</el-button>
+          <el-button size="small" style="margin-left: -1px;margin-right: 2px" type="text">
             <router-link :to="'/sys-tools/generator/config/' + scope.row.tableName">
               配置
             </router-link>
           </el-button>
-          <el-button type="text" style="margin-left: -1px" size="mini" @click="toGen(scope.row.tableName)">生成</el-button>
+          <el-button type="text" style="margin-left: -1px" size="small" @click="toGen(scope.row.tableName)">生成</el-button>
         </template>
       </el-table-column>
     </el-table>

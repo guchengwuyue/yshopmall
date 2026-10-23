@@ -11,6 +11,7 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
+        @select="handleSelect"
       >
         <sidebar-item v-for="route in permission_routers" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
@@ -23,6 +24,7 @@ import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/assets/styles/variables.scss'
+import { isExternal } from '@/utils/validate'
 
 export default {
   components: { SidebarItem, Logo },
@@ -48,6 +50,17 @@ export default {
     },
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  methods: {
+    handleSelect(index) {
+      if (!index) return
+      if (isExternal(index)) {
+        window.open(index, '_blank')
+        return
+      }
+      if (index === this.$route.path) return
+      this.$router.push(index).catch(() => {})
     }
   }
 }

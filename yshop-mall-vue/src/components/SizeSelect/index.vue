@@ -3,24 +3,32 @@
     <div>
       <svg-icon class-name="size-icon" icon-class="size" />
     </div>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size===item.value" :command="item.value">
-        {{
-          item.label }}
-      </el-dropdown-item>
-    </el-dropdown-menu>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item
+          v-for="item of sizeOptions"
+          :key="item.value"
+          :disabled="size === item.value"
+          :command="item.value"
+        >
+          {{ item.label }}
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
   </el-dropdown>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   data() {
     return {
+      // Element Plus: large | default | small（无 mini/medium）
       sizeOptions: [
+        { label: 'Large', value: 'large' },
         { label: 'Default', value: 'default' },
-        { label: 'Medium', value: 'medium' },
-        { label: 'Small', value: 'small' },
-        { label: 'Mini', value: 'mini' }
+        { label: 'Small', value: 'small' }
       ]
     }
   },
@@ -31,7 +39,7 @@ export default {
   },
   methods: {
     handleSetSize(size) {
-      this.$ELEMENT.size = size
+      Cookies.set('size', size)
       this.$store.dispatch('app/setSize', size)
       this.refreshView()
       this.$message({
@@ -52,6 +60,5 @@ export default {
       })
     }
   }
-
 }
 </script>
