@@ -18,6 +18,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +39,9 @@ public class JwtToken {
 
     @Value("${yshop.security.jwt-key}")
     public void setJwtKey(String jwtKey) {
+        if (jwtKey == null || jwtKey.trim().isEmpty() || jwtKey.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalArgumentException("Set YSHOP_JWT_KEY to a unique random key of at least 32 bytes");
+        }
         JwtToken.jwtKey = jwtKey;
     }
 

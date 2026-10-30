@@ -13,7 +13,10 @@ import co.yixiang.api.ApiCode;
 import co.yixiang.api.UnAuthenticatedException;
 import co.yixiang.common.util.JwtToken;
 import co.yixiang.common.util.RequestUtils;
+import co.yixiang.common.util.SpringContextUtil;
+import co.yixiang.constant.ShopConstants;
 import co.yixiang.modules.user.domain.YxUser;
+import co.yixiang.utils.RedisUtils;
 import com.auth0.jwt.interfaces.Claim;
 import org.apache.commons.lang3.StringUtils;
 
@@ -71,6 +74,14 @@ public class LocalUser {
         Map<String, Claim> map = optionalMap
                 .orElseThrow(() -> new UnAuthenticatedException(ApiCode.UNAUTHORIZED));
 
-        return  map.get("uid").asLong();
+        Claim usernameClaim = map.get("uName");
+        Claim uidClaim = map.get("uid");
+        String username = usernameClaim == null ? null : usernameClaim.asString();
+        Long uid = uidClaim == null ? null : uidClaim.asLong();
+        if (StringUtils.isBlank(username) || uid == null ||
+                SpringContextUtil.getBean(RedisUtils.class).get(ShopConstants.YSHOP_APP_LOGIN_USER + username + ":" + token) == null) {
+            throw new UnAuthenticatedException(ApiCode.UNAUTHORIZED);
+        }
+        return uid;
     }
 }
