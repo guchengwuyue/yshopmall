@@ -54,12 +54,11 @@
             },
             /* ios打包配置 */
             "ios" : {},
-            /* SDK配置 */
+            /* SDK配置：客户端仅保留 appid，appsecret 由服务端换票，勿写入仓库 */
             "sdkConfigs" : {
                 "oauth" : {
                     "weixin" : {
                         "appid" : "wx7c84ede33062d1e4",
-                        "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
                         "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
@@ -69,124 +68,14 @@
                         "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
-                /* 应用发布信息 */
-                "distribute" : {
-                    /* android打包配置 */
-                    "android" : {
-                        "permissions" : [
-                            "<uses-feature android:name=\"android.hardware.camera\"/>",
-                            "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                            "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
-                            "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-                            "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                            "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                            "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                            "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                            "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                            "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
-                            "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                            "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
-                            "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                            "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
-                            "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                            "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>"
-                        ]
-                    },
-                    /* ios打包配置 */
-                    "ios" : {},
-                    /* SDK配置 */
-                    "sdkConfigs" : {
-                        "oauth" : {
-                            "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
-                                "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
-                                "UniversalLinks" : "https://yixiang.co/app/"
-                            }
-                        },
-                        "payment" : {
-                            "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
-                                "UniversalLinks" : "https://yixiang.co/app/"
-                            }
-                        },
-                        "share" : {
-                            "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
-                                "UniversalLinks" : "https://yixiang.co/app/"
-                            }
-                        },
-                        "ad" : {},
-                        "geolocation" : {}
-                    },
-                    "splashscreen" : {
-                        "ios" : {
-                            "iphone" : {
-                                "portrait-896h@3x" : "splash/1242+2688.png",
-                                "portrait-896h@2x" : "splash/828+1792.png",
-                                "iphonex" : "splash/1125+2436.png",
-                                "retina55" : "splash/1142+2208.png",
-                                "retina47" : "splash/750+1334.png",
-                                "retina40" : "splash/640+1136.png",
-                                "retina35" : "splash/640+960.png"
-                            }
-                        },
-                        "android" : {
-                            "hdpi" : "splash/480+762.png",
-                            "xhdpi" : "splash/720+1242.png",
-                            "xxhdpi" : "splash/1080+1882.png"
-                        },
-                        "iosStyle" : "common"
-                    },
-                    "icons" : {
-                        "android" : {
-                            "hdpi" : "icons/72x72.png",
-                            "xhdpi" : "icons/96x96.png",
-                            "xxhdpi" : "icons/144x144.png",
-                            "xxxhdpi" : "icons/192x192.png"
-                        },
-                        "ios" : {
-                            "appstore" : "icons/1024x1024.png",
-                            "ipad" : {
-                                "app" : "icons/76x76.png",
-                                "app@2x" : "icons/152x152.png",
-                                "notification" : "icons/20x20.png",
-                                "notification@2x" : "icons/40x40.png",
-                                "proapp@2x" : "icons/167x167.png",
-                                "settings" : "icons/29x29.png",
-                                "settings@2x" : "icons/58x58.png",
-                                "spotlight" : "icons/40x40.png",
-                                "spotlight@2x" : "icons/80x80.png"
-                            },
-                            "iphone" : {
-                                "app@2x" : "icons/120x120.png",
-                                "app@3x" : "icons/180x180.png",
-                                "notification@2x" : "icons/40x40.png",
-                                "notification@3x" : "icons/60x60.png",
-                                "settings@2x" : "icons/58x58.png",
-                                "settings@3x" : "icons/87x87.png",
-                                "spotlight@2x" : "icons/80x80.png",
-                                "spotlight@3x" : "icons/120x120.png"
-                            }
-                        }
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wx7c84ede33062d1e4",
+                        "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
-                "ad" : {}
-            },
-            "quickapp" : {},
-            "mp-weixin" : {
-                "appid" : "wx604d2ea4702620d2",
-                "setting" : {
-                    "urlCheck" : true,
-                    "postcss" : true,
-                    "minified" : true
-                },
-                "usingComponents" : true,
-                "permission" : {
-                    "scope.userLocation" : {
-                        "desc" : "定位最近的门店"
-                    }
-                },
-                "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ]
+                "ad" : {},
+                "geolocation" : {}
             },
             "splashscreen" : {
                 "ios" : {
@@ -246,6 +135,9 @@
         "appid" : "wx001e2dc50bf532df",
         "setting" : {
             "urlCheck" : false
+        },
+        "optimization" : {
+            "subPackages" : true
         },
         "usingComponents" : true,
         "permission" : {

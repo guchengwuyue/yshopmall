@@ -215,7 +215,7 @@ export default {
           .then(res => {
             console.log('登录成功,开始处理登录信息保存，并获取用户详情')
             uni.hideLoading()
-            store.commit('login', res.data.token, dayjs(res.data.expires_time))
+            store.commit('login', { token: res.data.token, expiresTime: dayjs(res.data.expires_time) })
             store.dispatch('userInfo', true)
             getUserInfo()
               .then(user => {

@@ -1,8 +1,8 @@
 <template>
 	<view class="goodList">
-		<view @click="routerGo(item)" class="item acea-row row-between-wrapper" v-for="(item, goodlistIndex) in goodList" :key="goodlistIndex">
+		<view @click="routerGo(item)" class="item acea-row row-between-wrapper" v-for="(item, goodlistIndex) in goodList" :key="item.id || item.productId || goodlistIndex">
 			<view class="pictrue">
-				<image :src="item.image" class="image" />
+				<image :src="item.image" class="image" lazy-load />
 				<image :src="`${$VUE_APP_RESOURCES_URL}/images/one.png`" class="numPic" v-if="isSort === true && index === 0" />
 				<image :src="`${$VUE_APP_RESOURCES_URL}/images/two.png`" class="numPic" v-if="isSort === true && index === 1" />
 				<image :src="`${$VUE_APP_RESOURCES_URL}/images/three.png`" class="numPic" v-if="isSort === true && index === 2" />

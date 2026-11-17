@@ -28,10 +28,13 @@ const vuexStore = new Vuex.Store({
     goName: cookie.get('goName') || '',
   },
   mutations: {
-    login(state, token, expires_time) {
-	  console.log('设置token')
+    login(state, payload) {
+      // 兼容：commit('login', token) 或 commit('login', { token, expiresTime })
+      const token = payload && typeof payload === 'object' && payload.token !== undefined ? payload.token : payload
+      const expiresTime = payload && typeof payload === 'object' ? payload.expiresTime : undefined
+      console.log('设置token')
       state.token = token
-      cookie.set(loginKey, token, expires_time)
+      cookie.set(loginKey, token, expiresTime)
     },
     logout(state) {
       console.log('清除数据')
@@ -121,8 +124,8 @@ const vuexStore = new Vuex.Store({
         })
       })
     },
-    changeLogin({ state, commit }, data, date) {
-      commit('login', data, date)
+    changeLogin({ state, commit }, payload) {
+      commit('login', payload)
     },
     setUserInfo({ state, commit }, user) {
       commit('updateUserInfo', user)

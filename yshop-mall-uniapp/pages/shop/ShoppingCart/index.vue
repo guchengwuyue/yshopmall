@@ -23,7 +23,7 @@
       <view v-if="validList.length > 0 || cartList.invalid.length > 0">
         <view class="list">
           <view class="item acea-row row-between-wrapper" v-for="(item, cartListValidIndex) in validList"
-            :key="cartListValidIndex">
+            :key="item.id || item.productId || cartListValidIndex">
             <view class="select-btn">
               <view class="checkbox-wrapper">
                 <checkbox-group @change="switchSelect(cartListValidIndex)">
@@ -35,8 +35,8 @@
             </view>
             <view class="picTxt acea-row row-between-wrapper">
               <view class="pictrue" @click="goGoodsCon(item)">
-                <image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
-                <image :src="item.productInfo.image" v-else />
+                <image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" lazy-load />
+                <image :src="item.productInfo.image" v-else lazy-load />
               </view>
               <view class="text">
                 <view class="line1">{{ item.productInfo.storeName }}</view>
@@ -67,12 +67,12 @@
             </view>
           </view>
           <view class="goodsList" :hidden="goodsHidden">
-            <view v-for="(item, cartListinvalidIndex) in cartList.invalid" :key="cartListinvalidIndex">
+            <view v-for="(item, cartListinvalidIndex) in cartList.invalid" :key="item.id || item.productId || cartListinvalidIndex">
               <view @click="goGoodsCon(item)" class="item acea-row row-between-wrapper" v-if="item.productInfo">
                 <view class="invalid acea-row row-center-wrapper">失效</view>
                 <view class="pictrue">
-                  <image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
-                  <image :src="item.productInfo.image" v-else />
+                  <image :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" lazy-load />
+                  <image :src="item.productInfo.image" v-else lazy-load />
                 </view>
                 <view class="text acea-row row-column-between">
                   <view class="line1">{{ item.productInfo.storeName }}</view>

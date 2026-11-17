@@ -7,9 +7,9 @@
 		</view>
 		<view class="recommendList acea-row row-between-wrapper">
 			<view @click="routerGo(item)" class="item" v-for="(item, recommendIndex) in hostProduct"
-				:key="recommendIndex">
+				:key="item.id || item.productId || recommendIndex">
 				<view class="pictrue">
-					<image :src="item.image" class="image" />
+					<image :src="item.image" class="image" lazy-load />
 				</view>
 				<view class="name line1">{{ item.storeName }}</view>
 				<view class="money font-color-red">

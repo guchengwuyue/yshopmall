@@ -111,7 +111,7 @@ export default {
         spread: cookie.get('spread'),
       })
         .then(res => {
-          this.$store.commit('login', res.data.token, dayjs(res.data.expires_time))
+          this.$store.commit('login', { token: res.data.token, expiresTime: dayjs(res.data.expires_time) })
           handleGetUserInfo()
         })
         .catch(err => {
@@ -266,7 +266,7 @@ export default {
         spread: cookie.get('spread'),
       })
         .then(res => {
-          this.$store.commit('login', res.data.token, dayjs(res.data.expires_time))
+          this.$store.commit('login', { token: res.data.token, expiresTime: dayjs(res.data.expires_time) })
           handleGetUserInfo()
         })
         .catch(err => {

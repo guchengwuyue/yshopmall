@@ -1,0 +1,19 @@
+# 依赖
+node_modules/
+
+# uni-app 编译产物
+unpackage/
+
+# source map
+*.map
+
+# 本地 IDE / 系统杂项
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.log
+.hbuilderx/
+.project
+.classpath
+.settings/

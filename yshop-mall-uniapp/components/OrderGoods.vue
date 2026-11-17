@@ -4,7 +4,7 @@
     <view class="goodWrapper">
       <view class="item acea-row row-between-wrapper" v-for="cart in cartInfo" :key="cart.id">
         <view class="pictrue">
-          <image :src="cart.productInfo.image" class="image" />
+          <image :src="cart.productInfo.image" class="image" lazy-load />
         </view>
         <view class="text">
           <view class="acea-row row-between-wrapper">

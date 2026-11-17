@@ -1,13 +1,13 @@
 <template>
   <view class="newsList" ref="container">
-    <view class="list" v-for="(item, articleListIndex) in articleList" :key="articleListIndex">
+    <view class="list" v-for="(item, articleListIndex) in articleList" :key="item.id || articleListIndex">
       <view @click="goNewsDetail(item)" class="item acea-row row-between-wrapper">
         <view class="text acea-row row-column-between">
           <view class="name line2">{{ item.title }}</view>
           <view>{{ item.addTime }}</view>
         </view>
         <view class="pictrue">
-          <image :src="item.imageInput" />
+          <image :src="item.imageInput" lazy-load />
         </view>
       </view>
     </view>

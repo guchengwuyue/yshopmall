@@ -14,7 +14,7 @@
 						<view class="min-goods" @tap="jump('/pages/shop/GoodsCon/index',{id:mgoods.id})">
 							<view class="img-box">
 								<view class="tag">hot</view>
-								<image class="img" :src="mgoods.image" mode="widthFix"></image>
+								<image class="img" :src="mgoods.image" mode="widthFix" lazy-load></image>
 							</view>
 							<view class="price-box">
 								<view class="y-f">

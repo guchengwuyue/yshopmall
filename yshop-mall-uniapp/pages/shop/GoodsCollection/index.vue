@@ -1,9 +1,9 @@
 <template>
   <view ref="container">
     <view class="collectionGoods" v-if="collectProductList.length > 0">
-      <view class="item acea-row row-between-wrapper" v-for="(item, collectProductListIndex) in collectProductList" :key="collectProductListIndex" @click="goGoodsCon(item)">
+      <view class="item acea-row row-between-wrapper" v-for="(item, collectProductListIndex) in collectProductList" :key="item.id || item.productId || collectProductListIndex" @click="goGoodsCon(item)">
         <view class="pictrue">
-          <image :src="item.image" />
+          <image :src="item.image" lazy-load />
         </view>
         <view class="text acea-row row-column-between">
           <view class="infor line1">{{ item.storeName }}</view>

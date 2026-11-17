@@ -136,7 +136,7 @@ export default {
           .then(({ data }) => {
             uni.hideLoading();
             const expires_time = dayjs(data.expires_time);
-            store.commit("login", data.token, expires_time);
+            store.commit("login", { token: data.token, expiresTime: expires_time });
             this.$emit("changeswitch", false);
             location.reload();
           })

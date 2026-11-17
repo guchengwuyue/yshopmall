@@ -177,7 +177,7 @@
 			  })
 			  .then(res => {
 				var data = res.data;
-				that.$store.commit("login", data.token, dayjs(data.expires_time));
+				that.$store.commit("login", { token: data.token, expiresTime: dayjs(data.expires_time) });
 				handleGetUserInfo();
 			  })
 			  .catch(err => {
@@ -316,7 +316,7 @@
 				spread: cookie.get("spread")
 			})
 			.then(({ data }) => {
-				this.$store.commit("login", data.token, dayjs(data.expires_time));
+				this.$store.commit("login", { token: data.token, expiresTime: dayjs(data.expires_time) });
 				handleGetUserInfo();
 				// let replace=this.$yroute.query.replace
 				// if(replace){

@@ -1,8 +1,7 @@
 import { subscribeMessage } from '@/libs/order'
-import { getProvider } from '@/utils'
 import WechatJSSDK from 'wechat-jssdk/dist/client.umd'
 import { getWechatConfig, wechatAuth } from '@/api/public'
-import { parseQuery } from '@/utils'
+import { parseQuery } from '@/utils/router'
 import cookie from '@/utils/store/cookie'
 import store from '@/store'
 import dayjs from 'dayjs'
@@ -165,8 +164,7 @@ export async function auth(code) {
       .then(({ data }) => {
         console.log(data)
         const expires_time = dayjs(data.expires_time)
-        const newTime = Math.round(new Date() / 1000)
-        store.commit('login', data.token, expires_time - newTime)
+        store.commit('login', { token: data.token, expiresTime: expires_time })
         cookie.set(WX_AUTH, code, expires_time)
         cookie.remove(STATE_KEY)
         loginType && cookie.remove(LOGINTYPE)

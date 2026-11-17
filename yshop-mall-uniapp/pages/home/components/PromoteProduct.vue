@@ -15,7 +15,7 @@
 							@tap="$yrouter.push({ path: '/pages/shop/GoodsCon/index', query: { id: item.id } })">
 							<view class="img-box">
 								<view class="tag">促销</view>
-								<image class="img" :src="mgoods.image" mode="widthFix"></image>
+								<image class="img" :src="mgoods.image" mode="widthFix" lazy-load></image>
 							</view>
 							<view class="price-box">
 								<view class="y-f">
