@@ -30,32 +30,32 @@
 			return {
 				bottomData: [{
 						text: '微信',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/grid-2.png',
+						icon: '/static/images/share-info.png',
 						name: 'wx'
 					},
 					{
 						text: '支付宝',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/grid-8.png',
+						icon: '/static/images/nav1.png',
 						name: 'wx'
 					},
 					{
 						text: 'QQ',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/gird-3.png',
+						icon: '/static/images/nav2.png',
 						name: 'qq'
 					},
 					{
 						text: '新浪',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/grid-1.png',
+						icon: '/static/images/nav3.png',
 						name: 'sina'
 					},
 					{
 						text: '百度',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/grid-7.png',
+						icon: '/static/images/nav4.png',
 						name: 'copy'
 					},
 					{
 						text: '其他',
-						icon: 'https://img-cdn-qiniu.dcloud.net.cn/uni-ui/grid-5.png',
+						icon: '/static/images/extension.png',
 						name: 'more'
 					}
 				]

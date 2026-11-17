@@ -30,9 +30,16 @@ export const panelList = [
           componentContent: {
             bannerData: [
               {
-                pic: require('@/assets/canvasImg/cereshop/banner.png'),
+                pic: '/static/images/home_banner1.png',
                 name: '0',
                 sort: 0,
+                url: '/',
+                status: 1
+              },
+              {
+                pic: '/static/images/home_banner2.png',
+                name: '1',
+                sort: 1,
                 url: '/',
                 status: 1
               }
@@ -66,95 +73,88 @@ export const panelList = [
           componentContent: {
             menus: [
               {
-                imageArr: [
-                  'https://image.dayouqiantu.cn/5e85bfa61251d.png'
-                ],
+                imageArr: ['/static/images/menu_all.png'],
                 uniapp_url: '/pages/shop/GoodsList/index',
                 name: '全部商品',
                 id: 180,
-                pic: 'https://image.dayouqiantu.cn/all.png',
+                pic: '/static/images/menu_all.png',
                 sort: 9,
                 url: '/goods_list',
                 wxapp_url: '/pages/shop/GoodsClass/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/news.png'],
+                imageArr: ['/static/images/menu_news.png'],
                 uniapp_url: '/pages/shop/news/NewsList/index',
                 name: '图文资讯',
                 id: 196,
-                pic: 'https://image.dayouqiantu.cn/xw.png',
+                pic: '/static/images/menu_news.png',
                 sort: 8,
                 url: '/news_list',
                 wxapp_url: '/pages/shop/news/NewsList/main',
                 status: 1
               },
               {
-                imageArr: [
-                  'https://image.dayouqiantu.cn/5e4e939507b5e.png'
-                ],
+                imageArr: ['/static/images/menu_collect.png'],
                 uniapp_url: '/pages/shop/GoodsCollection/index',
                 name: '我的收藏',
                 id: 197,
-                pic: 'https://image.dayouqiantu.cn/colle.png',
+                pic: '/static/images/menu_collect.png',
                 sort: 7,
                 url: '/collection',
                 wxapp_url: '/pages/shop/GoodsCollection/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/coupon.png'],
+                imageArr: ['/static/images/menu_coupon.png'],
                 uniapp_url: '',
                 name: '优惠券',
                 id: 199,
-                pic: 'https://image.dayouqiantu.cn/cou.png',
+                pic: '/static/images/menu_coupon.png',
                 sort: 6,
                 url: '/user/get_coupon',
                 wxapp_url: '/pages/user/coupon/GetCoupon/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/pink.png'],
+                imageArr: ['/static/images/menu_group.png'],
                 uniapp_url: '/pages/activity/GoodsGroup/index',
                 name: '拼团专区',
                 id: 200,
-                pic:
-                  'https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png',
+                pic: '/static/images/menu_group.png',
                 sort: 5,
                 url: '/activity/group',
                 wxapp_url: '/pages/activity/GoodsGroup/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/sign.png'],
+                imageArr: ['/static/images/menu_sign.png'],
                 uniapp_url: '/pages/user/signIn/Sign/index',
                 name: '积分签到',
                 id: 209,
-                pic:
-                  'https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png',
+                pic: '/static/images/menu_sign.png',
                 sort: 4,
                 url: '/user/sign',
                 wxapp_url: '/pages/user/signIn/Sign/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/sekill.png'],
+                imageArr: ['/static/images/menu_seckill.png'],
                 uniapp_url: '/pages/activity/GoodsSeckill/index',
                 name: '秒杀专区',
                 id: 216,
-                pic:
-                  'https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png',
+                pic: '/static/images/menu_seckill.png',
                 sort: 3,
                 url: '/activity/goods_seckill',
                 wxapp_url: '/pages/activity/GoodsSeckill/main',
                 status: 1
               },
               {
-                imageArr: ['https://image.dayouqiantu.cn/bargin.png'],
+                imageArr: ['/static/images/menu_bargain.png'],
                 uniapp_url: '/pages/activity/GoodsBargain/index',
                 name: '砍价专区',
                 id: 217,
-                pic: 'https://image.dayouqiantu.cn/bar.png',
+                pic: '/static/images/menu_bargain.png',
                 sort: 2,
                 url: '/activity/bargain',
                 wxapp_url: '/pages/activity/GoodsBargain/main',
@@ -173,21 +173,21 @@ export const panelList = [
             detail: {
               list: [
                 {
-                  image: 'https://wx.yixiang.co/static/images/index001.png',
+                  image: '/static/images/index001.png',
                   url: '',
                   uniapp_url: '',
                   wxapp_url: '',
                   path_type: 1
                 },
                 {
-                  image: 'https://wx.yixiang.co/static/images/index002.png',
+                  image: '/static/images/index002.png',
                   url: '',
                   uniapp_url: '',
                   wxapp_url: '',
                   path_type: 1
                 },
                 {
-                  image: 'https://wx.yixiang.co/static/images/index003.png',
+                  image: '/static/images/index003.png',
                   url: '',
                   uniapp_url: '',
                   wxapp_url: '',

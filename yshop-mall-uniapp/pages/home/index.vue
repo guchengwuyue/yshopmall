@@ -82,6 +82,7 @@ import ProductsRecommended from './components/ProductsRecommended'
 import { getHomeData, getShare, getCanvas } from '@/api/public'
 import cookie from '@/utils/store/cookie'
 import { isWeixin, handleUrlParam } from '@/utils/index'
+import { fixHomeCanvasImages } from '@/utils/homeCanvasAssets'
 
 import { openShareAll } from '@/libs/wechat'
 
@@ -217,12 +218,15 @@ export default {
     getCanvas()
       .then(res => {
 		  console.log('223',res)
+		  if (res && res.data && res.data.json) {
+			this.homeData = fixHomeCanvasImages(JSON.parse(res.data.json))
+		  }
 	  })
       .catch(error => {
 		if (!error) {
 		  return
 		}
-        this.homeData = JSON.parse(error.data.json)
+        this.homeData = fixHomeCanvasImages(JSON.parse(error.data.json))
 		console.log('225',this.homeData)
       })
     getHomeData().then(res => {

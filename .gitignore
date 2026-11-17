@@ -1,17 +1,90 @@
+# ========================
+# OS
+# ========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ========================
+# IDE / Editor
+# ========================
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
 *.classpath
 *.project
-*.iml
 *.factorypath
-target
-.idea/
-*.log
-logs
-*.DS_Store
-/.git
-/.idea
-*.log
-*.DS_Store
-/yshop-mall-boot/target/
-/yshop-mall-vue/node_modules
-/yshop-mall-uniapp/node_moduls
+.settings/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.hbuilderx/
 
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ========================
+# Java / Maven (yshop-mall-boot)
+# ========================
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+.mvn/wrapper/maven-wrapper.jar
+
+# ========================
+# Node / Frontend
+# ========================
+node_modules/
+dist/
+.cache/
+.temp/
+.tmp/
+*.local
+.env
+.env.*
+!.env.example
+
+# ========================
+# UniApp (yshop-mall-uniapp)
+# ========================
+unpackage/
+*.map
+
+# ========================
+# Test / Coverage
+# ========================
+coverage/
+.nyc_output/
+tests/**/coverage/
+tests/e2e/reports/
+selenium-debug.log
+
+# ========================
+# Misc
+# ========================
+*.bak
+*.tmp
+*.temp
+*.orig
+.history/

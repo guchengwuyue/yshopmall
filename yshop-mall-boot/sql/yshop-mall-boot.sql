@@ -1,17 +1,17 @@
 /*
- Navicat Premium Data Transfer
+ Navicat Premium Dump SQL
 
- Source Server         : localhost
+ Source Server         : 192.168.31.39
  Source Server Type    : MySQL
- Source Server Version : 80027
- Source Host           : localhost:3306
+ Source Server Version : 90600 (9.6.0)
+ Source Host           : 192.168.31.40:3306
  Source Schema         : yshop-mall-boot
 
  Target Server Type    : MySQL
- Target Server Version : 80027
+ Target Server Version : 90600 (9.6.0)
  File Encoding         : 65001
 
- Date: 13/05/2026 11:36:40
+ Date: 17/11/2026 11:43:41
 */
 
 SET NAMES utf8mb4;
@@ -21,28 +21,27 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for column_config
 -- ----------------------------
 DROP TABLE IF EXISTS `column_config`;
-CREATE TABLE `column_config` (
+CREATE TABLE `column_config`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `table_name` varchar(255) DEFAULT NULL,
-  `column_name` varchar(255) DEFAULT NULL,
-  `column_type` varchar(255) DEFAULT NULL,
-  `dict_name` varchar(255) DEFAULT NULL,
-  `extra` varchar(255) DEFAULT NULL,
-  `form_show` bit(1) DEFAULT NULL,
-  `form_type` varchar(255) DEFAULT NULL,
-  `key_type` varchar(255) DEFAULT NULL,
-  `list_show` bit(1) DEFAULT NULL,
-  `not_null` bit(1) DEFAULT NULL,
-  `query_type` varchar(255) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  `date_annotation` varchar(255) DEFAULT NULL,
+  `table_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `column_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `column_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `dict_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `extra` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `form_show` bit(1) NULL DEFAULT NULL,
+  `form_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `key_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `list_show` bit(1) NULL DEFAULT NULL,
+  `not_null` bit(1) NULL DEFAULT NULL,
+  `query_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `date_annotation` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1199 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='代码生成字段信息存储';
+) ENGINE = InnoDB AUTO_INCREMENT = 1199 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '代码生成字段信息存储' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of column_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `column_config` VALUES (1, 'gen_test', 'id', 'int', '', 'auto_increment', b'1', NULL, 'PRI', b'1', b'1', NULL, 'ID', 'CreationTimestamp');
 INSERT INTO `column_config` VALUES (2, 'gen_test', 'sex', 'int', NULL, '', b'1', NULL, '', b'1', b'0', 'NotNull', '性别', NULL);
 INSERT INTO `column_config` VALUES (3, 'gen_test', 'create_time', 'datetime', NULL, '', b'0', NULL, '', b'1', b'0', 'BetWeen', '', NULL);
@@ -1090,30 +1089,28 @@ INSERT INTO `column_config` VALUES (1195, 'yx_store_after_sales_item', 'cart_inf
 INSERT INTO `column_config` VALUES (1196, 'yx_store_after_sales_item', 'is_del', 'bit', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '逻辑删除', NULL);
 INSERT INTO `column_config` VALUES (1197, 'yx_store_order_cart_info', 'order_id', 'varchar', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '订单号', NULL);
 INSERT INTO `column_config` VALUES (1198, 'yx_store_order_cart_info', 'is_after_sales', 'tinyint', NULL, '', b'1', NULL, '', b'1', b'1', NULL, '是否能售后 0不能1能', NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for gen_config
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_config`;
-CREATE TABLE `gen_config` (
+CREATE TABLE `gen_config`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `table_name` varchar(255) DEFAULT NULL COMMENT '表名',
-  `author` varchar(255) DEFAULT NULL COMMENT '作者',
-  `cover` bit(1) DEFAULT NULL COMMENT '是否覆盖',
-  `module_name` varchar(255) DEFAULT NULL COMMENT '模块名称',
-  `pack` varchar(255) DEFAULT NULL COMMENT '至于哪个包下',
-  `path` varchar(255) DEFAULT NULL COMMENT '前端代码生成的路径',
-  `api_path` varchar(255) DEFAULT NULL COMMENT '前端Api文件路径',
-  `prefix` varchar(255) DEFAULT NULL COMMENT '表前缀',
-  `api_alias` varchar(255) DEFAULT NULL COMMENT '接口名称',
+  `table_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表名',
+  `author` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '作者',
+  `cover` bit(1) NULL DEFAULT NULL COMMENT '是否覆盖',
+  `module_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '模块名称',
+  `pack` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '至于哪个包下',
+  `path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '前端代码生成的路径',
+  `api_path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '前端Api文件路径',
+  `prefix` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '表前缀',
+  `api_alias` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '接口名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='代码生成器配置';
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '代码生成器配置' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of gen_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `gen_config` VALUES (3, 'gen_test', 'Zheng Jie', b'1', 'eladmin-system', 'me.zhengjie.gen', 'E:\\workspace\\me\\front\\eladmin-web\\src\\views\\gen', 'E:\\workspace\\me\\front\\eladmin-web\\src\\views\\gen/', NULL, '测试生成');
 INSERT INTO `gen_config` VALUES (4, 'yx_material_group', 'hupeng', b'0', 'yshop-shop', 'co.yixiang.modules.shop', 'E:\\output', 'E:\\output\\', NULL, '素材');
 INSERT INTO `gen_config` VALUES (5, 'yx_material', 'hupeng', b'0', 'yshop-shop', 'co.yixiang.modules.shop', 'E:\\output', 'E:\\output\\', NULL, '素材管理');
@@ -1177,128 +1174,118 @@ INSERT INTO `gen_config` VALUES (62, 'yx_store_coupon_issue_user', 'hupeng', b'0
 INSERT INTO `gen_config` VALUES (63, 'local_storage', 'hupeng', b'0', 'yshop-mall', 'co.yixiang.modules', 'freight', 'freight/', NULL, 'freight');
 INSERT INTO `gen_config` VALUES (64, 'yx_user_group', 'hupeng', b'0', 'yshop-mall', 'co.yixiang.modules', '/text', '/text/', NULL, 'text');
 INSERT INTO `gen_config` VALUES (65, 'yx_wechat_template', 'hupeng', b'0', 'yshop-mall', 'co.yixiang.modules', 'D:\\mysql', 'D:\\mysql/', NULL, 'yx_wechat_template');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for gen_test
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_test`;
-CREATE TABLE `gen_test` (
+CREATE TABLE `gen_test`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `sex` int DEFAULT NULL COMMENT '性别',
-  `create_time` datetime DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `sex` int NULL DEFAULT NULL COMMENT '性别',
+  `create_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='代码生成测试';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '代码生成测试' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of gen_test
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for monitor_server
 -- ----------------------------
 DROP TABLE IF EXISTS `monitor_server`;
-CREATE TABLE `monitor_server` (
+CREATE TABLE `monitor_server`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `cpu_core` int DEFAULT NULL COMMENT 'CPU内核数',
-  `cpu_rate` double DEFAULT NULL COMMENT 'CPU使用率',
-  `disk_total` double DEFAULT NULL COMMENT '磁盘总量',
-  `disk_used` double DEFAULT NULL COMMENT '磁盘使用量',
-  `mem_total` double DEFAULT NULL COMMENT '内存总数',
-  `mem_used` double DEFAULT NULL COMMENT '内存使用量',
-  `name` varchar(255) DEFAULT NULL COMMENT '名称',
-  `port` int DEFAULT NULL COMMENT '访问端口',
-  `sort` int DEFAULT NULL COMMENT '排序',
-  `state` varchar(255) DEFAULT NULL COMMENT '状态',
-  `swap_total` double DEFAULT NULL COMMENT '交换区总量',
-  `swap_used` double DEFAULT NULL COMMENT '交换区使用量',
-  `address` varchar(255) NOT NULL COMMENT '服务地址',
+  `cpu_core` int NULL DEFAULT NULL COMMENT 'CPU内核数',
+  `cpu_rate` double NULL DEFAULT NULL COMMENT 'CPU使用率',
+  `disk_total` double NULL DEFAULT NULL COMMENT '磁盘总量',
+  `disk_used` double NULL DEFAULT NULL COMMENT '磁盘使用量',
+  `mem_total` double NULL DEFAULT NULL COMMENT '内存总数',
+  `mem_used` double NULL DEFAULT NULL COMMENT '内存使用量',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `port` int NULL DEFAULT NULL COMMENT '访问端口',
+  `sort` int NULL DEFAULT NULL COMMENT '排序',
+  `state` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '状态',
+  `swap_total` double NULL DEFAULT NULL COMMENT '交换区总量',
+  `swap_used` double NULL DEFAULT NULL COMMENT '交换区使用量',
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '服务地址',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='服务监控';
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '服务监控' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of monitor_server
 -- ----------------------------
-BEGIN;
 INSERT INTO `monitor_server` VALUES (1, 8, 0.05924018, 465.12402, 91.66521, 7.849415, 7.6052284, '本地', 8777, 999, '0', 14.599415, 11.263367, 'localhost');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for quartz_job
 -- ----------------------------
 DROP TABLE IF EXISTS `quartz_job`;
-CREATE TABLE `quartz_job` (
+CREATE TABLE `quartz_job`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `bean_name` varchar(255) DEFAULT NULL COMMENT 'Spring Bean名称',
-  `cron_expression` varchar(255) DEFAULT NULL COMMENT 'cron 表达式',
-  `is_pause` bit(1) DEFAULT NULL COMMENT '状态：1暂停、0启用',
-  `job_name` varchar(255) DEFAULT NULL COMMENT '任务名称',
-  `method_name` varchar(255) DEFAULT NULL COMMENT '方法名称',
-  `params` varchar(255) DEFAULT NULL COMMENT '参数',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `bean_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'Spring Bean名称',
+  `cron_expression` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'cron 表达式',
+  `is_pause` bit(1) NULL DEFAULT NULL COMMENT '状态：1暂停、0启用',
+  `job_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '任务名称',
+  `method_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '方法名称',
+  `params` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '参数',
+  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='定时任务';
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '定时任务' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of quartz_job
 -- ----------------------------
-BEGIN;
 INSERT INTO `quartz_job` VALUES (1, 'visitsTask', '0 0 0 * * ?', b'0', '更新访客记录', 'run', NULL, '每日0点创建新的访客记录', '2019-01-08 14:53:31', NULL, 0);
 INSERT INTO `quartz_job` VALUES (2, 'testTask', '0/5 * * * * ?', b'1', '测试1', 'run1', 'test', '带参测试，多参使用json', '2019-08-22 14:08:29', NULL, 0);
 INSERT INTO `quartz_job` VALUES (3, 'testTask', '0/5 * * * * ?', b'1', '测试43', 'run', '44', '不带参测试', '2019-09-26 16:44:39', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for quartz_log
 -- ----------------------------
 DROP TABLE IF EXISTS `quartz_log`;
-CREATE TABLE `quartz_log` (
+CREATE TABLE `quartz_log`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `baen_name` varchar(255) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `cron_expression` varchar(255) DEFAULT NULL,
-  `exception_detail` text,
-  `is_success` bit(1) DEFAULT NULL,
-  `job_name` varchar(255) DEFAULT NULL,
-  `method_name` varchar(255) DEFAULT NULL,
-  `params` varchar(255) DEFAULT NULL,
-  `time` bigint DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `baen_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  `cron_expression` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `exception_detail` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
+  `is_success` bit(1) NULL DEFAULT NULL,
+  `job_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `method_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `params` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `time` bigint NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1613 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='定时任务日志';
+) ENGINE = InnoDB AUTO_INCREMENT = 1613 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '定时任务日志' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of quartz_log
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept` (
+CREATE TABLE `sys_dept`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `name` varchar(255) NOT NULL COMMENT '名称',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
   `pid` bigint NOT NULL COMMENT '上级部门',
   `enabled` bit(1) NOT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=251 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='部门';
+) ENGINE = InnoDB AUTO_INCREMENT = 251 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '部门' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dept` VALUES (1, '1111', 0, b'1', '2019-03-01 12:07:37', '2024-09-03 00:40:20', 0);
 INSERT INTO `sys_dept` VALUES (2, '研发部1', 7, b'1', '2019-03-25 09:15:32', '2020-08-12 15:53:51', 0);
 INSERT INTO `sys_dept` VALUES (5, '运维部', 7, b'1', '2019-03-25 09:20:44', '2020-07-28 17:26:53', 0);
@@ -1516,26 +1503,24 @@ INSERT INTO `sys_dept` VALUES (247, '好', 1, b'1', '2024-12-04 14:00:00', NULL,
 INSERT INTO `sys_dept` VALUES (248, '333', 1, b'0', '2024-12-04 14:00:22', '2024-12-19 14:48:32', 0);
 INSERT INTO `sys_dept` VALUES (249, '222', 72, b'1', '2024-12-12 10:28:50', NULL, 0);
 INSERT INTO `sys_dept` VALUES (250, 'ceshi2', 1, b'1', '2024-12-19 14:59:40', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
+CREATE TABLE `sys_dict`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL COMMENT '字典名称',
-  `remark` varchar(255) DEFAULT NULL COMMENT '描述',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典名称',
+  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='数据字典';
+) ENGINE = InnoDB AUTO_INCREMENT = 140 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '数据字典' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dict` VALUES (1, 'user_status', '用户状态', '2019-10-27 20:31:36', NULL, 0);
 INSERT INTO `sys_dict` VALUES (4, 'dept_status', '部门状态', '2019-10-27 20:31:36', NULL, 0);
 INSERT INTO `sys_dict` VALUES (5, 'job_status', '岗位状态', '2019-10-27 20:31:36', NULL, 0);
@@ -1664,30 +1649,28 @@ INSERT INTO `sys_dict` VALUES (136, '支付宝1', NULL, '2024-05-11 20:30:56', N
 INSERT INTO `sys_dict` VALUES (137, '支付宝', NULL, '2024-08-09 18:03:23', NULL, 0);
 INSERT INTO `sys_dict` VALUES (138, '1', '1', '2024-11-04 13:52:57', NULL, 0);
 INSERT INTO `sys_dict` VALUES (139, 'ceshi', 'ceshi', '2024-12-20 13:05:36', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dict_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_detail`;
-CREATE TABLE `sys_dict_detail` (
+CREATE TABLE `sys_dict_detail`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `label` varchar(255) NOT NULL COMMENT '字典标签',
-  `value` varchar(255) NOT NULL COMMENT '字典值',
-  `sort` varchar(255) DEFAULT NULL COMMENT '排序',
-  `dict_id` bigint DEFAULT NULL COMMENT '字典id',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `label` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典标签',
+  `value` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字典值',
+  `sort` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '排序',
+  `dict_id` bigint NULL DEFAULT NULL COMMENT '字典id',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK5tpkputc6d9nboxojdbgnpmyb` (`dict_id`) USING BTREE,
-  CONSTRAINT `FK5tpkputc6d9nboxojdbgnpmyb` FOREIGN KEY (`dict_id`) REFERENCES `sys_dict` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='数据字典详情';
+  INDEX `FK5tpkputc6d9nboxojdbgnpmyb`(`dict_id` ASC) USING BTREE,
+  CONSTRAINT `FK5tpkputc6d9nboxojdbgnpmyb` FOREIGN KEY (`dict_id`) REFERENCES `sys_dict` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '数据字典详情' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_dict_detail
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dict_detail` VALUES (1, '激活', 'true', '1', 1, '2019-10-27 20:31:36', NULL, 0);
 INSERT INTO `sys_dict_detail` VALUES (2, '禁用', 'false', '2', 1, NULL, NULL, 0);
 INSERT INTO `sys_dict_detail` VALUES (3, '启用', 'true', '1', 4, NULL, NULL, 0);
@@ -1825,30 +1808,28 @@ INSERT INTO `sys_dict_detail` VALUES (151, '微信', '2', '999', 137, '2024-08-1
 INSERT INTO `sys_dict_detail` VALUES (152, '信用卡', '2', '999', 137, '2024-08-12 18:13:07', NULL, 0);
 INSERT INTO `sys_dict_detail` VALUES (153, '信用卡', '2', '999', 137, '2024-08-12 18:13:33', NULL, 0);
 INSERT INTO `sys_dict_detail` VALUES (154, '112', '211', '2', 137, '2024-08-13 11:29:04', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_job
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job`;
-CREATE TABLE `sys_job` (
+CREATE TABLE `sys_job`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `name` varchar(255) NOT NULL COMMENT '岗位名称',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '岗位名称',
   `enabled` bit(1) NOT NULL COMMENT '岗位状态',
   `sort` bigint NOT NULL COMMENT '岗位排序',
-  `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `dept_id` bigint NULL DEFAULT NULL COMMENT '部门ID',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FKmvhj0rogastlctflsxf1d6k3i` (`dept_id`) USING BTREE,
-  CONSTRAINT `FKmvhj0rogastlctflsxf1d6k3i` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='岗位';
+  INDEX `FKmvhj0rogastlctflsxf1d6k3i`(`dept_id` ASC) USING BTREE,
+  CONSTRAINT `FKmvhj0rogastlctflsxf1d6k3i` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '岗位' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_job
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_job` VALUES (8, '人事专员', b'1', 3, 11, '2019-03-29 14:52:28', NULL, 0);
 INSERT INTO `sys_job` VALUES (10, '产品经理', b'1', 4, 2, '2019-03-29 14:55:51', NULL, 0);
 INSERT INTO `sys_job` VALUES (11, '全栈开发2', b'1', 2, 2, '2019-03-31 13:39:30', NULL, 0);
@@ -1920,36 +1901,34 @@ INSERT INTO `sys_job` VALUES (81, '我叫牛马', b'1', 1, 1, '2024-06-05 15:18:
 INSERT INTO `sys_job` VALUES (82, '12', b'1', 999, 1, '2024-06-09 15:59:47', NULL, 0);
 INSERT INTO `sys_job` VALUES (83, '店主', b'1', 999, 243, '2024-07-10 14:49:24', NULL, 0);
 INSERT INTO `sys_job` VALUES (84, '测试岗位！', b'1', 999, 1, '2024-12-24 14:53:22', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
+CREATE TABLE `sys_log`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `create_time` datetime DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `exception_detail` longtext,
-  `log_type` varchar(255) DEFAULT '',
-  `method` varchar(255) DEFAULT NULL,
-  `params` text,
-  `request_ip` varchar(255) DEFAULT NULL,
-  `time` bigint DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `browser` varchar(255) DEFAULT NULL,
-  `type` int DEFAULT '0',
-  `uid` bigint DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `create_time` datetime NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `exception_detail` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
+  `log_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '',
+  `method` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `params` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
+  `request_ip` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `time` bigint NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `browser` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `type` int NULL DEFAULT 0,
+  `uid` bigint NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2189 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='系统日志';
+) ENGINE = InnoDB AUTO_INCREMENT = 2254 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统日志' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_log` VALUES (1964, '2024-12-26 11:14:13', '查询用户', NULL, 'INFO', 'co.yixiang.modules.user.rest.MemberController.getYxUsers()', '{ criteria: YxUserQueryCriteria(nickname=null, phone=null, isPromoter=null, userType=, uid=null, grade=null) pageable: Page request [number: 0, size 10, sort: uid: DESC] }', '192.168.31.39', 103, 'admin', '未知', NULL, 0, 1, NULL, 0);
 INSERT INTO `sys_log` VALUES (1965, '2024-12-26 11:14:15', '查询', NULL, 'INFO', 'co.yixiang.modules.user.rest.SystemUserLevelController.getYxSystemUserLevels()', '{ criteria: YxSystemUserLevelQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 43, 'admin', '未知', NULL, 0, 1, NULL, 0);
 INSERT INTO `sys_log` VALUES (1966, '2024-12-26 11:14:18', '查询', NULL, 'INFO', 'co.yixiang.modules.user.rest.SystemUserTaskController.getYxSystemUserTasks()', '{ criteria: YxSystemUserTaskQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '192.168.31.39', 44, 'admin', '未知', NULL, 0, 1, NULL, 0);
@@ -2175,37 +2154,100 @@ INSERT INTO `sys_log` VALUES (2185, '2026-05-13 11:24:32', '购物车 添加', N
 INSERT INTO `sys_log` VALUES (2186, '2026-05-13 11:24:33', '订单确认', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.confirm()', '{ param: co.yixiang.modules.order.param.ConfirmOrderParam@2fb51b5 }', '192.168.31.39', 232, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
 INSERT INTO `sys_log` VALUES (2187, '2026-05-13 11:24:37', '订单创建', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.create()', '{ param: OrderParam(addressId=5242, combinationId=null, couponId=0, from=routine, mark=, payType=yue, phone=, pinkId=0, realName=, seckillId=null, shippingType=1, useIntegral=0, isChannel=null, storeId=4) key: 4e51e3824645495a8ec49e245f19d374 }', '192.168.31.39', 220, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
 INSERT INTO `sys_log` VALUES (2188, '2026-05-13 11:24:38', '查看订单详情', NULL, 'INFO', 'co.yixiang.modules.order.rest.StoreOrderController.detail()', '{ key: 2054402405981749248 }', '192.168.31.39', 31, '15136175246', '未知', NULL, 1, 41315, NULL, 0);
-COMMIT;
+INSERT INTO `sys_log` VALUES (2189, '2026-10-23 16:24:17', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@b5f66a7] }', '127.0.0.1', 2357, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2190, '2026-10-23 16:45:44', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 751, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2191, '2026-10-23 16:45:44', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 794, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2192, '2026-10-23 16:56:53', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 337, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2193, '2026-10-23 16:56:53', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 498, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2194, '2026-10-23 16:58:26', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 147, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2195, '2026-10-23 16:58:26', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 228, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2196, '2026-10-23 16:59:28', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: sort: DESC] }', '127.0.0.1', 708, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2197, '2026-10-23 16:59:31', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: sort: DESC] }', '127.0.0.1', 38, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2198, '2026-10-23 16:59:34', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 274, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2199, '2026-10-23 16:59:34', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 721, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2200, '2026-10-23 16:59:42', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 302, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2201, '2026-10-23 16:59:42', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 583, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2202, '2026-10-23 16:59:52', '用户登录', NULL, 'INFO', 'co.yixiang.modules.security.rest.AuthController.login()', '{ authUser: {username=admin, password= ******} request: SecurityContextHolderAwareRequestWrapper[ org.springframework.security.web.header.HeaderWriterFilter$HeaderWriterRequest@63440f84] }', '127.0.0.1', 228, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2203, '2026-10-23 16:59:53', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 309, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2204, '2026-10-23 16:59:53', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 345, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2205, '2026-10-23 16:59:58', '查询sku规则', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductRuleController.getYxStoreProductRules()', '{ criteria: YxStoreProductRuleQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 222, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2206, '2026-10-23 17:01:08', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 314, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2207, '2026-10-23 17:01:15', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 29, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2208, '2026-10-23 17:05:16', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 217, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2209, '2026-10-23 17:05:20', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 1310, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2210, '2026-10-23 17:05:21', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 1220, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2211, '2026-10-23 17:05:28', '查询快递', NULL, 'INFO', 'co.yixiang.modules.shop.rest.ExpressController.getYxExpresss()', '{ criteria: YxExpressQueryCriteria() pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 1181, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2212, '2026-10-23 17:05:31', '查询快递', NULL, 'INFO', 'co.yixiang.modules.shop.rest.ExpressController.getYxExpresss()', '{ criteria: YxExpressQueryCriteria() pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 10, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2213, '2026-10-23 17:05:41', '查询', NULL, 'INFO', 'co.yixiang.modules.activity.rest.UserExtractController.getYxUserExtracts()', '{ criteria: YxUserExtractQueryCriteria(realName=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 298, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2214, '2026-10-23 17:05:47', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: sort: DESC] }', '127.0.0.1', 59, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2215, '2026-10-23 17:05:48', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 25, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2216, '2026-10-23 17:05:56', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 47, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2217, '2026-10-23 17:06:01', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=0, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 255, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2218, '2026-10-23 17:06:01', '查询商品', NULL, 'INFO', 'co.yixiang.modules.product.rest.StoreProductController.getYxStoreProducts()', '{ criteria: YxStoreProductQueryCriteria(storeName=null, isDel=0, isShow=1, cateId=null, isIntegral=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 347, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2219, '2026-10-23 17:06:05', '查询运费模板', NULL, 'INFO', 'co.yixiang.modules.template.rest.ShippingTemplatesController.getYxShippingTemplatess()', '{ criteria: YxShippingTemplatesQueryCriteria() pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 6, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2220, '2026-10-23 17:08:26', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 10, sort: sort: DESC] }', '127.0.0.1', 214, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2221, '2026-10-23 17:08:27', '查询商品分类', NULL, 'INFO', 'co.yixiang.modules.category.rest.StoreCategoryController.getYxStoreCategorys()', '{ criteria: YxStoreCategoryQueryCriteria(cateName=null) pageable: Page request [number: 0, size 20, sort: UNSORTED] }', '127.0.0.1', 35, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2222, '2026-10-23 17:08:29', '查询所有素材分组', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialGroupController.getYxMaterialGroupsList()', '{ criteria: YxMaterialGroupQueryCriteria() }', '127.0.0.1', 179, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2223, '2026-10-23 17:08:30', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=null) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 237, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2224, '2026-10-23 17:08:34', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=69f626ca9b98cb8f9355a07c313c006f) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 237, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2225, '2026-10-23 17:08:35', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=a3e9e2a9cd7df93f8a1bb87eaafa3a59) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 10, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2226, '2026-10-23 17:09:15', '新增素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.create()', '{ resources: YxMaterial(id=a0cee720675e72449a28082064dcaa5b, createId=admin, type=1, groupId=a3e9e2a9cd7df93f8a1bb87eaafa3a59, name=logo (1).png, url=https://app2.yixiang.co/file/pic/20261023170914760011.png) }', '127.0.0.1', 11, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2227, '2026-10-23 17:09:15', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=a3e9e2a9cd7df93f8a1bb87eaafa3a59) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 13, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2228, '2026-10-23 17:34:04', '查询所有素材分组', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialGroupController.getYxMaterialGroupsList()', '{ criteria: YxMaterialGroupQueryCriteria() }', '127.0.0.1', 416, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2229, '2026-10-23 17:34:04', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=null) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 90, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2230, '2026-10-23 17:34:06', '查询素材管理', NULL, 'INFO', 'co.yixiang.modules.shop.rest.MaterialController.getYxMaterials()', '{ criteria: YxMaterialQueryCriteria(groupId=a3e9e2a9cd7df93f8a1bb87eaafa3a59) pageable: Page request [number: 0, size 12, sort: create_time: DESC] }', '127.0.0.1', 82, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2231, '2026-10-23 17:34:16', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.SysUserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 398, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2232, '2026-10-23 17:34:16', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '127.0.0.1', 287, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2233, '2026-10-23 17:34:16', '查询用户', NULL, 'INFO', 'co.yixiang.modules.system.rest.SysUserController.getUsers()', '{ criteria: UserQueryCriteria(id=null, deptIds=[], blurry=null, enabled=null, deptId=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 159, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2234, '2026-10-23 17:34:17', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=user_status) pageable: Page request [number: 0, size 2000, sort: sort + 0: ASC] }', '127.0.0.1', 1607, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2235, '2026-10-23 17:34:30', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '127.0.0.1', 111, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2236, '2026-10-23 17:34:30', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=dept_status) pageable: Page request [number: 0, size 2000, sort: sort + 0: ASC] }', '127.0.0.1', 297, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2237, '2026-10-23 17:34:47', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '127.0.0.1', 394, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2238, '2026-10-23 17:34:59', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=dept_status) pageable: Page request [number: 0, size 2000, sort: sort + 0: ASC] }', '127.0.0.1', 34, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2239, '2026-10-23 17:34:59', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '127.0.0.1', 228, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2240, '2026-10-23 17:35:36', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '127.0.0.1', 137, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2241, '2026-10-23 17:44:16', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=dept_status) pageable: Page request [number: 0, size 2000, sort: sort + 0: ASC] }', '127.0.0.1', 613, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2242, '2026-10-23 17:44:17', '查询部门', NULL, 'INFO', 'co.yixiang.modules.system.rest.DeptController.getDepts()', '{ criteria: DeptQueryCriteria(ids=[], name=null, enabled=null, pid=null, createTime=null) }', '127.0.0.1', 285, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2243, '2026-10-23 17:44:19', '查询菜单', NULL, 'INFO', 'co.yixiang.modules.system.rest.MenuController.getMenus()', '{ criteria: MenuQueryCriteria(blurry=null, createTime=null) }', '127.0.0.1', 72, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2244, '2026-10-23 17:44:24', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=job_status) pageable: Page request [number: 0, size 2000, sort: sort + 0: ASC] }', '127.0.0.1', 140, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2245, '2026-10-23 17:44:24', '查询岗位', NULL, 'INFO', 'co.yixiang.modules.system.rest.JobController.getJobs()', '{ criteria: JobQueryCriteria(name=null, enabled=null, deptId=null, deptIds=[], createTime=null) pageable: Page request [number: 0, size 10, sort: sort: ASC,id: DESC] }', '127.0.0.1', 220, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2246, '2026-10-23 17:44:27', '查询字典', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictController.getDicts()', '{ resources: DictQueryCriteria(blurry=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 113, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2247, '2026-10-23 17:44:28', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=支付宝) pageable: Page request [number: 0, size 10, sort: sort: ASC,id: DESC] }', '127.0.0.1', 77, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2248, '2026-10-23 17:44:39', '查询字典详情', NULL, 'INFO', 'co.yixiang.modules.system.rest.DictDetailController.getDictDetails()', '{ criteria: DictDetailQueryCriteria(label=null, dictName=支付宝1) pageable: Page request [number: 0, size 10, sort: sort: ASC,id: DESC] }', '127.0.0.1', 13, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2249, '2026-10-23 17:44:47', '查询角色', NULL, 'INFO', 'co.yixiang.modules.system.rest.RoleController.getRoles()', '{ criteria: RoleQueryCriteria(blurry=null, createTime=null) pageable: Page request [number: 0, size 10, sort: level: ASC] }', '127.0.0.1', 647, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2250, '2026-10-23 17:44:48', '查询角色', NULL, 'INFO', 'co.yixiang.modules.system.rest.RoleController.getRoles()', '{ criteria: RoleQueryCriteria(blurry=null, createTime=null) pageable: Page request [number: 0, size 10, sort: level: ASC] }', '127.0.0.1', 105, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2251, '2026-10-23 17:45:27', '查询定时任务', NULL, 'INFO', 'co.yixiang.modules.quartz.rest.QuartzJobController.getJobs()', '{ criteria: QuartzJobQueryCriteria(jobName=null, isSuccess=null, isPause=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 140, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2252, '2026-10-23 17:45:31', '查询文件', NULL, 'INFO', 'co.yixiang.modules.tools.rest.LocalStorageController.getLocalStorages()', '{ criteria: LocalStorageQueryCriteria(blurry=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 217, 'admin', '未知', NULL, 0, 1, NULL, 0);
+INSERT INTO `sys_log` VALUES (2253, '2026-10-23 17:45:32', '查询文件', NULL, 'INFO', 'co.yixiang.modules.tools.rest.QiniuController.getRoles()', '{ criteria: QiniuQueryCriteria(name=null, createTime=null) pageable: Page request [number: 0, size 10, sort: id: DESC] }', '127.0.0.1', 506, 'admin', '未知', NULL, 0, 1, NULL, 0);
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
+CREATE TABLE `sys_menu`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `i_frame` bit(1) DEFAULT NULL COMMENT '是否外链',
-  `name` varchar(255) DEFAULT NULL COMMENT '菜单名称',
-  `component` varchar(255) DEFAULT NULL COMMENT '组件',
+  `i_frame` bit(1) NULL DEFAULT NULL COMMENT '是否外链',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
+  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '组件',
   `pid` bigint NOT NULL COMMENT '上级菜单ID',
   `sort` bigint NOT NULL COMMENT '排序',
-  `icon` varchar(255) DEFAULT NULL COMMENT '图标',
-  `path` varchar(255) DEFAULT NULL COMMENT '链接地址',
-  `cache` bit(1) DEFAULT b'0' COMMENT '缓存',
-  `hidden` bit(1) DEFAULT b'0' COMMENT '是否隐藏',
-  `component_name` varchar(20) DEFAULT '-' COMMENT '组件名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `permission` varchar(255) DEFAULT NULL COMMENT '权限',
-  `type` int DEFAULT NULL COMMENT '类型',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '链接地址',
+  `cache` bit(1) NULL DEFAULT b'0' COMMENT '缓存',
+  `hidden` bit(1) NULL DEFAULT b'0' COMMENT '是否隐藏',
+  `component_name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '-' COMMENT '组件名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `permission` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '权限',
+  `type` int NULL DEFAULT NULL COMMENT '类型',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `FKqcf9gem97gqa5qjm4d3elcqt5` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=270 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT;
+  INDEX `FKqcf9gem97gqa5qjm4d3elcqt5`(`pid` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 270 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_menu` VALUES (1, b'0', '系统管理', NULL, 0, 99, 'system', 'system', b'0', b'0', NULL, '2018-12-18 15:11:29', NULL, 1, '2020-06-29 17:44:24', 0);
 INSERT INTO `sys_menu` VALUES (2, b'0', '用户管理', 'system/user/index', 1, 2, 'peoples', 'user', b'0', b'0', 'User', '2018-12-18 15:14:44', 'user:list', 1, NULL, 0);
 INSERT INTO `sys_menu` VALUES (3, b'0', '角色管理', 'system/role/index', 1, 3, 'role', 'role', b'0', b'0', 'Role', '2018-12-18 15:16:07', 'roles:list', 1, NULL, 0);
@@ -2415,69 +2457,63 @@ INSERT INTO `sys_menu` VALUES (266, b'0', '售后', 'shop/afterSeals/index', 53,
 INSERT INTO `sys_menu` VALUES (267, b'0', '新增', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:17', 'yxStoreAfterSales:add', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (268, b'0', '修改', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:39', 'yxStoreAfterSales:edit', 2, NULL, 0);
 INSERT INTO `sys_menu` VALUES (269, b'0', '删除', NULL, 266, 999, NULL, NULL, b'0', b'0', '-', '2021-06-30 15:34:55', 'yxStoreAfterSales:del', 2, NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
+CREATE TABLE `sys_role`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `name` varchar(255) NOT NULL COMMENT '名称',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `data_scope` varchar(255) DEFAULT NULL COMMENT '数据权限',
-  `level` int DEFAULT NULL COMMENT '角色级别',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `permission` varchar(255) DEFAULT NULL COMMENT '功能权限',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '名称',
+  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `data_scope` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '数据权限',
+  `level` int NULL DEFAULT NULL COMMENT '角色级别',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `permission` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '功能权限',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='角色表';
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role` VALUES (1, '超级管理员', '-', '全部', 1, '2018-11-23 11:04:37', 'admin', NULL, 0);
 INSERT INTO `sys_role` VALUES (2, '普通用户', '-', '本级', 2, '2018-11-23 13:09:06', 'common', NULL, 0);
 INSERT INTO `sys_role` VALUES (3, '管理员2', '222', '全部', 3, '2020-01-31 16:53:25', '22', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_roles_depts
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_roles_depts`;
-CREATE TABLE `sys_roles_depts` (
+CREATE TABLE `sys_roles_depts`  (
   `role_id` bigint NOT NULL,
   `dept_id` bigint NOT NULL,
-  PRIMARY KEY (`role_id`,`dept_id`) USING BTREE,
-  KEY `FK7qg6itn5ajdoa9h9o78v9ksur` (`dept_id`) USING BTREE,
-  CONSTRAINT `FK7qg6itn5ajdoa9h9o78v9ksur` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`),
-  CONSTRAINT `FKrg1ci4cxxfbja0sb0pddju7k` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='角色部门关联';
+  PRIMARY KEY (`role_id`, `dept_id`) USING BTREE,
+  INDEX `FK7qg6itn5ajdoa9h9o78v9ksur`(`dept_id` ASC) USING BTREE,
+  CONSTRAINT `FK7qg6itn5ajdoa9h9o78v9ksur` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FKrg1ci4cxxfbja0sb0pddju7k` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色部门关联' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_roles_depts
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_roles_menus
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_roles_menus`;
-CREATE TABLE `sys_roles_menus` (
+CREATE TABLE `sys_roles_menus`  (
   `menu_id` bigint NOT NULL COMMENT '菜单ID',
   `role_id` bigint NOT NULL COMMENT '角色ID',
-  PRIMARY KEY (`menu_id`,`role_id`) USING BTREE,
-  KEY `FKcngg2qadojhi3a651a5adkvbq` (`role_id`) USING BTREE,
-  CONSTRAINT `FKtag324maketmxffly3pdyh193` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='角色菜单关联';
+  PRIMARY KEY (`menu_id`, `role_id`) USING BTREE,
+  INDEX `FKcngg2qadojhi3a651a5adkvbq`(`role_id` ASC) USING BTREE,
+  CONSTRAINT `FKtag324maketmxffly3pdyh193` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '角色菜单关联' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_roles_menus
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_roles_menus` VALUES (1, 1);
 INSERT INTO `sys_roles_menus` VALUES (2, 1);
 INSERT INTO `sys_roles_menus` VALUES (3, 1);
@@ -2667,113 +2703,105 @@ INSERT INTO `sys_roles_menus` VALUES (118, 2);
 INSERT INTO `sys_roles_menus` VALUES (119, 2);
 INSERT INTO `sys_roles_menus` VALUES (126, 2);
 INSERT INTO `sys_roles_menus` VALUES (154, 2);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
+CREATE TABLE `sys_user`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `avatar_id` bigint DEFAULT NULL COMMENT '头像',
-  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
-  `enabled` bigint DEFAULT NULL COMMENT '状态：1启用、0禁用',
-  `password` varchar(255) DEFAULT NULL COMMENT '密码',
-  `username` varchar(255) DEFAULT NULL COMMENT '用户名',
-  `dept_id` bigint DEFAULT NULL COMMENT '部门名称',
-  `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
-  `job_id` bigint DEFAULT NULL COMMENT '岗位名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `last_password_reset_time` datetime DEFAULT NULL COMMENT '最后修改密码的日期',
-  `nick_name` varchar(255) DEFAULT NULL,
-  `sex` varchar(255) DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `avatar_id` bigint NULL DEFAULT NULL COMMENT '头像',
+  `email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `enabled` bigint NULL DEFAULT NULL COMMENT '状态：1启用、0禁用',
+  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `dept_id` bigint NULL DEFAULT NULL COMMENT '部门名称',
+  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号码',
+  `job_id` bigint NULL DEFAULT NULL COMMENT '岗位名称',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `last_password_reset_time` datetime NULL DEFAULT NULL COMMENT '最后修改密码的日期',
+  `nick_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `sex` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `UK_kpubos9gc2cvtkb0thktkbkes` (`email`) USING BTREE,
-  UNIQUE KEY `username` (`username`) USING BTREE,
-  KEY `FK5rwmryny6jthaaxkogownknqp` (`dept_id`) USING BTREE,
-  KEY `FKfftoc2abhot8f2wu6cl9a5iky` (`job_id`) USING BTREE,
-  KEY `FKpq2dhypk2qgt68nauh2by22jb` (`avatar_id`) USING BTREE,
-  CONSTRAINT `FK5rwmryny6jthaaxkogownknqp` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`),
-  CONSTRAINT `FKfftoc2abhot8f2wu6cl9a5iky` FOREIGN KEY (`job_id`) REFERENCES `sys_job` (`id`),
-  CONSTRAINT `FKpq2dhypk2qgt68nauh2by22jb` FOREIGN KEY (`avatar_id`) REFERENCES `sys_user_avatar` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='系统用户';
+  UNIQUE INDEX `UK_kpubos9gc2cvtkb0thktkbkes`(`email` ASC) USING BTREE,
+  UNIQUE INDEX `username`(`username` ASC) USING BTREE,
+  INDEX `FK5rwmryny6jthaaxkogownknqp`(`dept_id` ASC) USING BTREE,
+  INDEX `FKfftoc2abhot8f2wu6cl9a5iky`(`job_id` ASC) USING BTREE,
+  INDEX `FKpq2dhypk2qgt68nauh2by22jb`(`avatar_id` ASC) USING BTREE,
+  CONSTRAINT `FK5rwmryny6jthaaxkogownknqp` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FKfftoc2abhot8f2wu6cl9a5iky` FOREIGN KEY (`job_id`) REFERENCES `sys_job` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FKpq2dhypk2qgt68nauh2by22jb` FOREIGN KEY (`avatar_id`) REFERENCES `sys_user_avatar` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统用户' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user` VALUES (1, 1, 'yshop@qq.com', 1, '$2a$10$fP.426qKaTmix50Oln8L.uav55gELhAd0Eg66Av4oG86u8km7D/Ky', 'admin', 2, '18888888888', 11, '2018-08-23 09:11:56', '2019-05-18 17:34:21', '管理员', '男', '2020-07-05 18:14:04', 0);
 INSERT INTO `sys_user` VALUES (3, NULL, 'test@yshopnet', 1, '$2a$10$HhxyGZy.ulf3RvAwaHUGb.k.2i9PBpv4YbLMJWp8pES7pPhTyRCF.', 'test', 2, '17777777777', 12, '2018-12-27 20:05:26', '2019-04-01 09:15:24', '测试', '男', NULL, 0);
 INSERT INTO `sys_user` VALUES (4, NULL, 'test2@qq.com', 1, '$2a$10$IjehtV8MiXb8ni.Qz0wBteE7FjVn49cEcsSj2.ZBUqqHjnC3umSh.', 'test2', 2, '15136175247', 11, '2020-02-15 20:39:16', NULL, 'test2', '男', NULL, 0);
 INSERT INTO `sys_user` VALUES (5, NULL, '444@qq.com', 0, '$2a$10$f/VH35NBOBszycV9KEA1HenQ0qVjazDm8LacQU9PO.A4UizFxLMuq', 'qqqqq', 11, '15136175249', 8, '2020-02-17 11:12:01', NULL, 'eeeeee', '男', NULL, 0);
 INSERT INTO `sys_user` VALUES (6, NULL, '666@qq.com', 0, '$2a$10$3Vlo24eOmHHW7.3vAjqPSusfIINNo4JiujzxgqsaoWLx/d5de/jEm', '7777', 8, '15136175246', 8, '2020-05-18 19:43:30', NULL, '777', '男', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_avatar
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_avatar`;
-CREATE TABLE `sys_user_avatar` (
+CREATE TABLE `sys_user_avatar`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `real_name` varchar(255) DEFAULT NULL COMMENT '真实文件名',
-  `path` varchar(255) DEFAULT NULL COMMENT '路径',
-  `size` varchar(255) DEFAULT NULL COMMENT '大小',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `real_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '真实文件名',
+  `path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路径',
+  `size` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '大小',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='系统用户头像';
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '系统用户头像' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_user_avatar
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_user_avatar` VALUES (1, '20200705181403641316.png', '/home/yshop/avatar/20200705181403641316.png', '12.93KB   ', '2020-06-27 12:05:56');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_users_roles
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_users_roles`;
-CREATE TABLE `sys_users_roles` (
+CREATE TABLE `sys_users_roles`  (
   `user_id` bigint NOT NULL COMMENT '用户ID',
   `role_id` bigint NOT NULL COMMENT '角色ID',
-  PRIMARY KEY (`user_id`,`role_id`) USING BTREE,
-  KEY `FKq4eq273l04bpu4efj0jd0jb98` (`role_id`) USING BTREE,
-  CONSTRAINT `FKgd3iendaoyh04b95ykqise6qh` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`),
-  CONSTRAINT `FKt4v0rrweyk393bdgt107vdx0x` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='用户角色关联';
+  PRIMARY KEY (`user_id`, `role_id`) USING BTREE,
+  INDEX `FKq4eq273l04bpu4efj0jd0jb98`(`role_id` ASC) USING BTREE,
+  CONSTRAINT `FKgd3iendaoyh04b95ykqise6qh` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FKt4v0rrweyk393bdgt107vdx0x` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户角色关联' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_users_roles
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_users_roles` VALUES (1, 1);
 INSERT INTO `sys_users_roles` VALUES (3, 2);
 INSERT INTO `sys_users_roles` VALUES (4, 2);
 INSERT INTO `sys_users_roles` VALUES (5, 2);
 INSERT INTO `sys_users_roles` VALUES (6, 2);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_visits
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_visits`;
-CREATE TABLE `sys_visits` (
+CREATE TABLE `sys_visits`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `create_time` datetime DEFAULT NULL,
-  `date` varchar(255) DEFAULT NULL,
-  `ip_counts` bigint DEFAULT NULL,
-  `pv_counts` bigint DEFAULT NULL,
-  `week_day` varchar(255) DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  `date` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `ip_counts` bigint NULL DEFAULT NULL,
+  `pv_counts` bigint NULL DEFAULT NULL,
+  `week_day` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `UK_11aksgq87euk9bcyeesfs4vtp` (`date`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='访客记录';
+  UNIQUE INDEX `UK_11aksgq87euk9bcyeesfs4vtp`(`date` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '访客记录' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of sys_visits
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_visits` VALUES (1, '2024-12-24 08:54:22', NULL, 2, 1, NULL);
 INSERT INTO `sys_visits` VALUES (2, '2024-12-24 09:07:35', NULL, 3, 1, NULL);
 INSERT INTO `sys_visits` VALUES (3, '2024-12-24 09:21:41', NULL, 4, 1, NULL);
@@ -2833,31 +2861,38 @@ INSERT INTO `sys_visits` VALUES (56, '2025-02-17 11:45:32', NULL, 1, 1, NULL);
 INSERT INTO `sys_visits` VALUES (57, '2025-04-04 10:25:08', NULL, 1, 1, NULL);
 INSERT INTO `sys_visits` VALUES (58, '2026-05-13 09:19:43', NULL, 1, 1, NULL);
 INSERT INTO `sys_visits` VALUES (59, '2026-05-13 10:45:20', NULL, 1, 1, NULL);
-COMMIT;
+INSERT INTO `sys_visits` VALUES (60, '2026-10-23 16:24:17', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (61, '2026-10-23 16:25:19', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (62, '2026-10-23 16:29:02', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (63, '2026-10-23 16:36:08', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (64, '2026-10-23 16:36:25', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (65, '2026-10-23 16:40:00', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (66, '2026-10-23 16:40:01', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (67, '2026-10-23 16:58:26', NULL, 1, 1, NULL);
+INSERT INTO `sys_visits` VALUES (68, '2026-10-23 17:53:47', NULL, 1, 1, NULL);
 
 -- ----------------------------
 -- Table structure for tools_alipay_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_alipay_config`;
-CREATE TABLE `tools_alipay_config` (
+CREATE TABLE `tools_alipay_config`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `app_id` varchar(255) DEFAULT NULL COMMENT '应用ID',
-  `charset` varchar(255) DEFAULT NULL COMMENT '编码',
-  `format` varchar(255) DEFAULT NULL COMMENT '类型 固定格式json',
-  `gateway_url` varchar(255) DEFAULT NULL COMMENT '网关地址',
-  `notify_url` varchar(255) DEFAULT NULL COMMENT '异步回调',
-  `private_key` text COMMENT '私钥',
-  `public_key` text COMMENT '公钥',
-  `return_url` varchar(255) DEFAULT NULL COMMENT '回调地址',
-  `sign_type` varchar(255) DEFAULT NULL COMMENT '签名方式',
-  `sys_service_provider_id` varchar(255) DEFAULT NULL COMMENT '商户号',
+  `app_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '应用ID',
+  `charset` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `format` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型 固定格式json',
+  `gateway_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '网关地址',
+  `notify_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '异步回调',
+  `private_key` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '私钥',
+  `public_key` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '公钥',
+  `return_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回调地址',
+  `sign_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '签名方式',
+  `sys_service_provider_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '商户号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='支付宝配置类';
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '支付宝配置类' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_alipay_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_alipay_config` VALUES (1, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
 INSERT INTO `tools_alipay_config` VALUES (2, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
 INSERT INTO `tools_alipay_config` VALUES (3, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
@@ -2918,26 +2953,24 @@ INSERT INTO `tools_alipay_config` VALUES (57, '2016091700532697', 'utf-8', 'JSON
 INSERT INTO `tools_alipay_config` VALUES (58, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
 INSERT INTO `tools_alipay_config` VALUES (59, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
 INSERT INTO `tools_alipay_config` VALUES (60, '2016091700532697', 'utf-8', 'JSON', 'https://openapi.alipaydev.com/gateway.do', 'http://api.auauz.net/api/aliPay/notify', 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5js8sInU10AJ0cAQ8UMMyXrQ+oHZEkVt5lBwsStmTJ7YikVYgbskx1YYEXTojRsWCb+SH/kDmDU4pK/u91SJ4KFCRMF2411piYuXU/jF96zKrADznYh/zAraqT6hvAIVtQAlMHN53nx16rLzZ/8jDEkaSwT7+HvHiS+7sxSojnu/3oV7BtgISoUNstmSe8WpWHOaWv19xyS+Mce9MY4BfseFhzTICUymUQdd/8hXA28/H6osUfAgsnxAKv7Wil3aJSgaJczWuflYOve0dJ3InZkhw5Cvr0atwpk8YKBQjy5CdkoHqvkOcIB+cYHXJKzOE5tqU7inSwVbHzOLQ3XbnAgMBAAECggEAVJp5eT0Ixg1eYSqFs9568WdetUNCSUchNxDBu6wxAbhUgfRUGZuJnnAll63OCTGGck+EGkFh48JjRcBpGoeoHLL88QXlZZbC/iLrea6gcDIhuvfzzOffe1RcZtDFEj9hlotg8dQj1tS0gy9pN9g4+EBH7zeu+fyv+qb2e/v1l6FkISXUjpkD7RLQr3ykjiiEw9BpeKb7j5s7Kdx1NNIzhkcQKNqlk8JrTGDNInbDM6inZfwwIO2R1DHinwdfKWkvOTODTYa2MoAvVMFT9Bec9FbLpoWp7ogv1JMV9svgrcF9XLzANZ/OQvkbe9TV9GWYvIbxN6qwQioKCWO4GPnCAQKBgQDgW5MgfhX8yjXqoaUy/d1VjI8dHeIyw8d+OBAYwaxRSlCfyQ+tieWcR2HdTzPca0T0GkWcKZm0ei5xRURgxt4DUDLXNh26HG0qObbtLJdu/AuBUuCqgOiLqJ2f1uIbrz6OZUHns+bT/jGW2Ws8+C13zTCZkZt9CaQsrp3QOGDx5wKBgQDTul39hp3ZPwGNFeZdkGoUoViOSd5Lhowd5wYMGAEXWRLlU8z+smT5v0POz9JnIbCRchIY2FAPKRdVTICzmPk2EPJFxYTcwaNbVqL6lN7J2IlXXMiit5QbiLauo55w7plwV6LQmKm9KV7JsZs5XwqF7CEovI7GevFzyD3w+uizAQKBgC3LY1eRhOlpWOIAhpjG6qOoohmeXOphvdmMlfSHq6WYFqbWwmV4rS5d/6LNpNdL6fItXqIGd8I34jzql49taCmi+A2nlR/E559j0mvM20gjGDIYeZUz5MOE8k+K6/IcrhcgofgqZ2ZED1ksHdB/E8DNWCswZl16V1FrfvjeWSNnAoGAMrBplCrIW5xz+J0Hm9rZKrs+AkK5D4fUv8vxbK/KgxZ2KaUYbNm0xv39c+PZUYuFRCz1HDGdaSPDTE6WeWjkMQd5mS6ikl9hhpqFRkyh0d0fdGToO9yLftQKOGE/q3XUEktI1XvXF0xyPwNgUCnq0QkpHyGVZPtGFxwXiDvpvgECgYA5PoB+nY8iDiRaJNko9w0hL4AeKogwf+4TbCw+KWVEn6jhuJa4LFTdSqp89PktQaoVpwv92el/AhYjWOl/jVCm122f9b7GyoelbjMNolToDwe5pF5RnSpEuDdLy9MfE8LnE3PlbE7E5BipQ3UjSebkgNboLHH/lNZA5qvEtvbfvQ==', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAut9evKRuHJ/2QNfDlLwvN/S8l9hRAgPbb0u61bm4AtzaTGsLeMtScetxTWJnVvAVpMS9luhEJjt+Sbk5TNLArsgzzwARgaTKOLMT1TvWAK5EbHyI+eSrc3s7Awe1VYGwcubRFWDm16eQLv0k7iqiw+4mweHSz/wWyvBJVgwLoQ02btVtAQErCfSJCOmt0Q/oJQjj08YNRV4EKzB19+f5A+HQVAKy72dSybTzAK+3FPtTtNen/+b5wGeat7c32dhYHnGorPkPeXLtsqqUTp1su5fMfd4lElNdZaoCI7osZxWWUo17vBCZnyeXc9fk0qwD9mK6yRAxNbrY72Xx5VqIqwIDAQAB', 'http://api.auauz.net/api/aliPay/return', 'RSA2', '2088102176044281');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for tools_email_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_email_config`;
-CREATE TABLE `tools_email_config` (
+CREATE TABLE `tools_email_config`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `from_user` varchar(255) DEFAULT NULL COMMENT '收件人',
-  `host` varchar(255) DEFAULT NULL COMMENT '邮件服务器SMTP地址',
-  `pass` varchar(255) DEFAULT NULL COMMENT '密码',
-  `port` varchar(255) DEFAULT NULL COMMENT '端口',
-  `user` varchar(255) DEFAULT NULL COMMENT '发件者用户名',
+  `from_user` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收件人',
+  `host` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '邮件服务器SMTP地址',
+  `pass` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `port` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '端口',
+  `user` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发件者用户名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='邮箱配置';
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '邮箱配置' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_email_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_email_config` VALUES (1, 'postmaster1@dingyuesoft.com', 'smtp.qiye.aliyun.com', '1E5CA81F5CEEBDAB5B52F510AEFCCFE3', '465', 'postmaster@dingyuesoft.com');
 INSERT INTO `tools_email_config` VALUES (2, '111@qq.com', '111', '111', '111', '1');
 INSERT INTO `tools_email_config` VALUES (3, '111@qq.com', '111', '111', '111', '1');
@@ -2962,29 +2995,27 @@ INSERT INTO `tools_email_config` VALUES (21, '111@qq.com', '111', '111', '111', 
 INSERT INTO `tools_email_config` VALUES (22, '111@qq.com', '111', '5A9E22D5DCCA325C', '111', '1');
 INSERT INTO `tools_email_config` VALUES (23, '111@qq.com', '111', '111', '111', '111');
 INSERT INTO `tools_email_config` VALUES (24, '111@qq.com', '111', '111', '111ssad', '1');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for tools_local_storage
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_local_storage`;
-CREATE TABLE `tools_local_storage` (
+CREATE TABLE `tools_local_storage`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `real_name` varchar(255) DEFAULT NULL COMMENT '文件真实的名称',
-  `name` varchar(255) DEFAULT NULL COMMENT '文件名',
-  `suffix` varchar(255) DEFAULT NULL COMMENT '后缀',
-  `path` varchar(255) DEFAULT NULL COMMENT '路径',
-  `type` varchar(255) DEFAULT NULL COMMENT '类型',
-  `size` varchar(100) DEFAULT NULL COMMENT '大小',
-  `operate` varchar(255) DEFAULT NULL COMMENT '操作人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
+  `real_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件真实的名称',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件名',
+  `suffix` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '后缀',
+  `path` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '路径',
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型',
+  `size` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '大小',
+  `operate` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '操作人',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6856 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='本地存储';
+) ENGINE = InnoDB AUTO_INCREMENT = 6857 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '本地存储' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_local_storage
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_local_storage` VALUES (6548, '20240614100902806627.png', 'google_play', 'png', '/home/yshop/file/pic/20240614100902806627.png', 'pic', '2.44KB   ', 'yshop', '2024-06-14 10:09:03');
 INSERT INTO `tools_local_storage` VALUES (6549, '20240614101403747472.png', 'android', 'png', '/home/yshop/file/pic/20240614101403747472.png', 'pic', '1.75KB   ', 'yshop', '2024-06-14 10:14:04');
 INSERT INTO `tools_local_storage` VALUES (6550, '20240614101423447008.png', 'download_phone', 'png', '/home/yshop/file/pic/20240614101423447008.png', 'pic', '49.71KB   ', 'yshop', '2024-06-14 10:14:23');
@@ -3219,96 +3250,89 @@ INSERT INTO `tools_local_storage` VALUES (6852, '20241224132443795949.jpeg', '20
 INSERT INTO `tools_local_storage` VALUES (6853, '20241224133456540558.png', '20210222221343477890', 'png', '/home/yshop/file/pic/20241224133456540558.png', 'pic', '95.49KB   ', 'yshop', '2024-12-24 13:34:57');
 INSERT INTO `tools_local_storage` VALUES (6854, '20241224133910149628.png', 'B1_大厅', 'png', '/home/yshop/file/pic/20241224133910149628.png', 'pic', '96.16KB   ', 'yshop', '2024-12-24 13:39:10');
 INSERT INTO `tools_local_storage` VALUES (6855, '20241224133946458460.gif', 'live-logo', 'gif', '/home/yshop/file/pic/20241224133946458460.gif', 'pic', '8.77KB   ', 'yshop', '2024-12-24 13:39:46');
-COMMIT;
+INSERT INTO `tools_local_storage` VALUES (6856, '20261023170914760011.png', 'logo (1)', 'png', '/Users/hupeng/hupeng/java/yshopb2c-open/yshopmall/yshop-mall-boot/D:\\yshop\\file\\pic/20261023170914760011.png', 'pic', '2.22KB   ', 'yshop', '2026-10-23 17:09:15');
 
 -- ----------------------------
 -- Table structure for tools_picture
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_picture`;
-CREATE TABLE `tools_picture` (
+CREATE TABLE `tools_picture`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `create_time` datetime DEFAULT NULL COMMENT '上传日期',
-  `delete_url` varchar(255) DEFAULT NULL COMMENT '删除的URL',
-  `filename` varchar(255) DEFAULT NULL COMMENT '图片名称',
-  `height` varchar(255) DEFAULT NULL COMMENT '图片高度',
-  `size` varchar(255) DEFAULT NULL COMMENT '图片大小',
-  `url` varchar(255) DEFAULT NULL COMMENT '图片地址',
-  `username` varchar(255) DEFAULT NULL COMMENT '用户名称',
-  `width` varchar(255) DEFAULT NULL COMMENT '图片宽度',
-  `md5code` varchar(255) DEFAULT NULL COMMENT '文件的MD5值',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '上传日期',
+  `delete_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '删除的URL',
+  `filename` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片名称',
+  `height` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片高度',
+  `size` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片大小',
+  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片地址',
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户名称',
+  `width` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片宽度',
+  `md5code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件的MD5值',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='Sm.Ms图床';
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'Sm.Ms图床' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_picture
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_picture` VALUES (1, '2020-08-04 08:15:43', NULL, '1573439721.jpg', '1920', '129.66KB   ', 'https://i.loli.net/2020/08/04/duQ6Y8jl3IwnOEo.jpg', 'admin', '1080', '750278f58ebe2c03cad937f3deee9c74');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for tools_qiniu_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_qiniu_config`;
-CREATE TABLE `tools_qiniu_config` (
+CREATE TABLE `tools_qiniu_config`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `access_key` text COMMENT 'accessKey',
-  `bucket` varchar(255) DEFAULT NULL COMMENT 'Bucket 识别符',
-  `host` varchar(255) NOT NULL COMMENT '外链域名',
-  `secret_key` text COMMENT 'secretKey',
-  `type` varchar(255) DEFAULT NULL COMMENT '空间类型',
-  `zone` varchar(255) DEFAULT NULL COMMENT '机房',
+  `access_key` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'accessKey',
+  `bucket` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'Bucket 识别符',
+  `host` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '外链域名',
+  `secret_key` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT 'secretKey',
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '空间类型',
+  `zone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '机房',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='七牛云配置';
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '七牛云配置' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_qiniu_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_qiniu_config` VALUES (1, 'HRcgLTwnz_GXJurXFwlEmLVEmg9KFAp8StwZ0e9n', 'ltxys', 'http://image.lantianxinxi.cn', 'XfynBor0K9giQuT5wcIlvGHe_qCsadslrUfektYn', '公开', '华南');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for tools_qiniu_content
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_qiniu_content`;
-CREATE TABLE `tools_qiniu_content` (
+CREATE TABLE `tools_qiniu_content`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `bucket` varchar(255) DEFAULT NULL COMMENT 'Bucket 识别符',
-  `name` varchar(255) DEFAULT NULL COMMENT '文件名称',
-  `size` varchar(255) DEFAULT NULL COMMENT '文件大小',
-  `type` varchar(255) DEFAULT NULL COMMENT '文件类型：私有或公开',
-  `update_time` datetime DEFAULT NULL COMMENT '上传或同步的时间',
-  `url` varchar(255) DEFAULT NULL COMMENT '文件url',
-  `suffix` varchar(255) DEFAULT NULL,
+  `bucket` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'Bucket 识别符',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `size` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件大小',
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件类型：私有或公开',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '上传或同步的时间',
+  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件url',
+  `suffix` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='七牛云文件存储';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '七牛云文件存储' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_qiniu_content
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for tools_verification_code
 -- ----------------------------
 DROP TABLE IF EXISTS `tools_verification_code`;
-CREATE TABLE `tools_verification_code` (
+CREATE TABLE `tools_verification_code`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `code` varchar(255) DEFAULT NULL COMMENT '验证码',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
-  `status` bit(1) DEFAULT NULL COMMENT '状态：1有效、0过期',
-  `type` varchar(255) DEFAULT NULL COMMENT '验证码类型：email或者短信',
-  `value` varchar(255) DEFAULT NULL COMMENT '接收邮箱或者手机号码',
-  `scenes` varchar(255) DEFAULT NULL COMMENT '业务名称：如重置邮箱、重置密码等',
+  `code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '验证码',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建日期',
+  `status` bit(1) NULL DEFAULT NULL COMMENT '状态：1有效、0过期',
+  `type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '验证码类型：email或者短信',
+  `value` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '接收邮箱或者手机号码',
+  `scenes` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '业务名称：如重置邮箱、重置密码等',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=COMPACT COMMENT='验证码';
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '验证码' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of tools_verification_code
 -- ----------------------------
-BEGIN;
 INSERT INTO `tools_verification_code` VALUES (1, '099462', '2020-08-20 20:12:26', b'1', 'email', 'qweqweq', '重置邮箱');
 INSERT INTO `tools_verification_code` VALUES (2, '099462', '2020-08-20 20:17:26', b'0', 'email', 'qweqweq', '重置邮箱');
 INSERT INTO `tools_verification_code` VALUES (3, '253682', '2020-11-18 22:43:25', b'1', 'email', '3237379237@q.com', '重置邮箱');
@@ -3390,66 +3414,62 @@ INSERT INTO `tools_verification_code` VALUES (78, '988348', '2024-06-15 09:31:14
 INSERT INTO `tools_verification_code` VALUES (79, '929360', '2024-07-04 22:36:30', b'1', 'email', '3105996931@qq.com', '重置邮箱');
 INSERT INTO `tools_verification_code` VALUES (80, '004661', '2024-07-09 09:35:54', b'1', 'email', '2525521521@qq.com', '重置邮箱');
 INSERT INTO `tools_verification_code` VALUES (81, '088924', '2024-09-12 16:20:16', b'1', 'email', 'qxyywy@qq.com', '重置邮箱');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_app_version
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_app_version`;
-CREATE TABLE `yx_app_version` (
+CREATE TABLE `yx_app_version`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `version_code` varchar(64) DEFAULT NULL COMMENT '版本code',
-  `version_name` varchar(64) DEFAULT NULL COMMENT '版本名称',
-  `version_info` varchar(600) DEFAULT NULL COMMENT '版本描述',
-  `ios_url` varchar(10000) DEFAULT NULL COMMENT 'ios store应用商店链接',
-  `android_url` varchar(10000) DEFAULT NULL COMMENT '安卓下载链接',
-  `force_update` tinyint DEFAULT NULL COMMENT '是否强制升级',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `version_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '版本code',
+  `version_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '版本名称',
+  `version_info` varchar(600) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '版本描述',
+  `ios_url` varchar(10000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'ios store应用商店链接',
+  `android_url` varchar(10000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '安卓下载链接',
+  `force_update` tinyint NULL DEFAULT NULL COMMENT '是否强制升级',
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='app版本';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = 'app版本' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_app_version
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_article
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_article`;
-CREATE TABLE `yx_article` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '文章管理ID',
-  `cid` varchar(255) DEFAULT '1' COMMENT '分类id',
-  `title` varchar(255) NOT NULL COMMENT '文章标题',
-  `author` varchar(255) DEFAULT NULL COMMENT '文章作者',
-  `image_input` varchar(255) NOT NULL COMMENT '文章图片',
-  `synopsis` varchar(255) DEFAULT NULL COMMENT '文章简介',
-  `content` mediumtext,
-  `share_title` varchar(255) DEFAULT NULL COMMENT '文章分享标题',
-  `share_synopsis` varchar(255) DEFAULT NULL COMMENT '文章分享简介',
-  `visit` varchar(255) DEFAULT NULL COMMENT '浏览次数',
-  `sort` int unsigned DEFAULT '0' COMMENT '排序',
-  `url` varchar(255) DEFAULT NULL COMMENT '原文链接',
-  `status` tinyint unsigned DEFAULT NULL COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
-  `hide` tinyint unsigned DEFAULT '0' COMMENT '是否隐藏',
-  `admin_id` int unsigned DEFAULT '0' COMMENT '管理员id',
-  `mer_id` int unsigned DEFAULT '0' COMMENT '商户id',
-  `product_id` int DEFAULT '0' COMMENT '产品关联id',
-  `is_hot` tinyint unsigned DEFAULT '0' COMMENT '是否热门(小程序)',
-  `is_banner` tinyint unsigned DEFAULT '0' COMMENT '是否轮播图(小程序)',
+CREATE TABLE `yx_article`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文章管理ID',
+  `cid` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '1' COMMENT '分类id',
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '文章标题',
+  `author` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文章作者',
+  `image_input` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '文章图片',
+  `synopsis` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文章简介',
+  `content` mediumtext CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL,
+  `share_title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文章分享标题',
+  `share_synopsis` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文章分享简介',
+  `visit` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '浏览次数',
+  `sort` int UNSIGNED NULL DEFAULT 0 COMMENT '排序',
+  `url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '原文链接',
+  `status` tinyint UNSIGNED NULL DEFAULT NULL COMMENT '状态',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
+  `hide` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否隐藏',
+  `admin_id` int UNSIGNED NULL DEFAULT 0 COMMENT '管理员id',
+  `mer_id` int UNSIGNED NULL DEFAULT 0 COMMENT '商户id',
+  `product_id` int NULL DEFAULT 0 COMMENT '产品关联id',
+  `is_hot` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否热门(小程序)',
+  `is_banner` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否轮播图(小程序)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='文章管理表';
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '文章管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_article
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_article` VALUES (7, '', '燃气表型号IYT80', '李菲', 'https://app2.yixiang.co/file/pic/20200817132120753113.jpg', '123123123', '<p>请问请问他</p>', '', '', '1571', 0, '', NULL, '2020-08-18 13:30:25', '2021-08-31 17:56:06', 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `yx_article` VALUES (17, '', '燃气表型号IYT80', '路劲', 'https://app2.yixiang.co/file/pic/20210428174554538889.jpg', '1231231231', '<p><br/></p><p><br/></p><p><img src=\"https://app2.yixiang.co/file/pic/20210428174043992403.png\"/></p>', '', '', '782', 0, '', NULL, '2021-04-29 07:42:00', '2021-12-07 19:18:24', 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `yx_article` VALUES (18, '', '燃气表型号', '王振雅', 'https://app2.yixiang.co/file/pic/20210813121648099881.jpg', '5月21日-30日，广东省共报告了确诊病例26例，本土无症状感染者21例。10天，广东全省已新增感染者47例，且已出现5代... ', '<p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　<a target=\"_blank\" href=\"http://www.chinanews.com/\" style=\"text-decoration-line: none;\">中新网</a>7月15日电 据《中希时报》报道，当地时间7月14日晚，希腊国家公共卫生组织宣布，过去24小时，希腊新增2938例新冠病毒肺炎患者。目前累计确诊447718例。新增死亡7例，累计死亡12813例。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<strong>排除全国封锁的可能性</strong></p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　14日，希腊政府发言人佩洛尼在接受采访时，排除了在全国范围内实施封锁的可能性。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　她强调，政府无意再实施大范围的全面封锁措施，但疫苗接种工作必须稳步推进。她说：“我们希望在夏季结束时能达到70%的人口免疫。”她指出，由于德尔塔变异毒株的传播性极强，导致了最近新增病例的急剧增加。不过，迄今为止这种变化并未给国家医疗系统带来额外的压力。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　谈到政府已经宣布将针对医护人员和养老院工作人员进行疫苗的强制接种时，佩洛尼表示，不排除在今后将更多的特定职业群体列为强制接种疫苗的对象。她说：“一切都在根据疫情的发展趋势和疫苗接种计划进行审查和评估。”</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<strong>新一波疫情形势令人担忧</strong></p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　随着德尔塔变异毒株在希腊的持续扩散，卫生专家们对新一波疫情的形势深表担忧。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　雅典大学分析化学教授托尼科斯·托马伊迪斯(Nikos Thomaidis)表示，希腊13日新增病例达到了3109例，这一数字出现的时间比流行病学家预期的要早，这也证实了新一波疫情来势汹汹。他指出，根据对城市污水病毒含量的检测结果，首都雅典所在的阿提卡地区、克里特岛、拉里萨和塞萨洛尼基的疫情形势尤为严峻。阿提卡地区的污水中，病毒含量两周内增加了170%以上。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　对于希腊未来的疫情发展，雅典大学传染病学教授尼克斯·西普萨斯(Nikos Sypsas)则给出了悲观预测。他指出，如果目前的情况持续下去，下月希腊每日新增的病例数量可能破万。他强调，在新的一波疫情中没有接种疫苗的人几乎都会被新冠病毒感染。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<strong>否认旅游业助推病毒扩散</strong></p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　由于希腊新增新冠肺炎病例数量最近出现了大幅增长，有人将病毒扩散的原因之一归咎为希腊旅游业重启后外国游客将病毒带至希腊境内。对此，希腊旅游部长塞奥哈里斯14日驳斥了这种说法。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　他说：“希腊旅游业重启的过程非常谨慎，7月的前10天，在所有入境点采集的 105609 份样本中，只有 74 份新冠病毒检测结果呈阳性，这一概率仅为 0.07%。这说明国家在开放边境方面没有问题，感染病例的增加与旅游业无关。”</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　据统计，希腊经济的五分之一依赖于旅游业。今年希腊的旅游季已从5月14日正式重新开放。政府的目标是，希望今年旅游业的收入能达到2019年的一半左右。当年希腊旅游业的收入高达181.5亿欧元，创历史新高。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; color: rgb(51, 51, 51); letter-spacing: 1px; font-family: &quot;microsoft yahei&quot;; font-size: 20px; white-space: normal; background-color: rgb(255, 255, 255);\">　　不过，随着传染性极强的德尔塔毒株在全球持续蔓延，希腊政府在促进旅游业恢复的同时还必须做好防止境外病例输入的措施。根据希腊目前的防疫规定，游客入境希腊时需要提供疫苗接种证明或病毒检测为阴性的检测证明。(蔡玲)</p><p><br/></p><p><img src=\"https://app2.yixiang.co/file/pic/20210715140037922106.jpg\"/></p>', '', '', '754', 0, '', NULL, '2021-05-31 14:57:40', '2021-10-19 13:35:10', 0, 0, 0, 0, 0, 0, 0);
@@ -3465,29 +3485,27 @@ INSERT INTO `yx_article` VALUES (58, '', '蔡徐坤', '鸡哥', 'https://app2.yi
 INSERT INTO `yx_article` VALUES (59, '', '测试一把', '渣渣辉', 'https://app2.yixiang.co/file/pic/20240806091103894304.jpg', '悟空火眼金睛，职场背调新利器', '<p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\">基于《2024内容营销十大新趋势》PDF文件中的内容，以下是为《唐朝诡事录之西行》这部影视作品设计的一些与品牌联名的策划创意。这些策划旨在利用趋势中的关键点，如品牌梗、情感共鸣、在地叙事、跨界合作以及新兴内容形式等，以提升品牌影响力及影视作品的市场认知度。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">1.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">与知名餐饮品牌的联名</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 《唐朝诡事录之西行》与海底捞合作，推出“诡秘美食之旅”主题餐厅。餐厅内部装潢模仿唐代风格，并设置与剧中经典场景相呼应的用餐区域。菜单上设计一系列与剧情相关的菜品，如“诡影牛肉”、“迷雾豆花”等，同时每道菜附带剧情小贴士，增强食客的体验感。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">2.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">利用品牌梗与社交媒体联动</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 捕捉《唐朝诡事录之西行》中的热门台词或情节，创造品牌梗并联动微博、抖音等社交媒体平台。例如，剧中某位角色口头禅“谜团重重，终将破解”，可与知名饮料品牌合作，推出限量版“谜团解密饮”，包装上印有角色形象和该句台词，同时在社交媒体上发起#谜团解密挑战赛#，鼓励用户拍摄解谜视频。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">3.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">与时尚品牌跨界合作</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 与汉服品牌或国风设计师合作，推出《唐朝诡事录之西行》联名款服饰。服饰设计融入剧中的服装元素，如唐代官服、武侠装等，并在细节处加入剧中神秘符号或图腾。同时，在线上商城及线下实体店设置体验区，让消费者试穿并拍照打卡，上传至社交平台参与抽奖活动。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">4.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">在地叙事与文化旅游结合</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 联动剧中取景地或历史背景相近的城市，开展“西行探秘游”文化旅游项目。与旅行社合作，推出主题旅游线路，沿途讲解与《唐朝诡事录之西行》相关的历史典故和文化背景。同时，与当地餐饮、住宿业合作，推出联名套餐和住宿优惠，让游客全方位体验唐代风情。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">5.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">情感共鸣与心理健康品牌合作</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 考虑到剧中可能涉及探案、解谜等元素带来的紧张感，与心理健康品牌合作，推出“西行静心之旅”系列活动。品牌可以设计一系列解压小游戏或冥想音频，引导观众在观剧之余放松心情。同时，在社交媒体上发起#西行减压日记#话题，鼓励观众分享自己的解压方式，与品牌建立情感共鸣。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">6.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">利用新兴内容形式如短剧或播客</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 制作《唐朝诡事录之西行》番外短剧或播客节目，作为内容营销的延伸。短剧可以聚焦剧中未解之谜或次要角色的故事线，而播客则可以是主创团队访谈、剧情解析等内容。通过官方渠道及合作平台发布，吸引粉丝深度参与并提升作品影响力。</p><h3 style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 14px 0px 8px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(5, 7, 59); font-size: 20px; border: none; line-height: 1.7; text-wrap: wrap; background-color: rgb(253, 253, 254);\">7.&nbsp;<span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none;\">跨界艺术展览</span></h3><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 0px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\"><span style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin: 0px; scrollbar-width: none; font-weight: 600;\">策划创意</span>： 与美术馆或画廊合作，举办《唐朝诡事录之西行》主题艺术展览。展览内容可以包括剧中场景还原、角色服饰设计、概念艺术画作等，为观众提供一个沉浸式的观展体验。同时，可以邀请剧中演员参与展览开幕式，增加活动的吸引力。</p><p id=\"\" style=\"box-sizing: border-box; padding: 0px; -webkit-font-smoothing: antialiased; list-style: none; margin-top: 14px; margin-bottom: 0px; scrollbar-width: none; font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Ubuntu, &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Source Han Sans CN&quot;, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 15px; line-height: 1.7; color: rgb(5, 7, 59); text-wrap: wrap; background-color: rgb(253, 253, 254);\">通过这些策划创意，《唐朝诡事录之西行》不仅能与品牌实现互利共赢的合作，还能进一步提升作品的知名度和影响力。</p><p><br/></p><p><img src=\"https://app2.yixiang.co/file/pic/20240222231443506456.png\"/><img src=\"https://app2.yixiang.co/file/pic/20240206095720354896.jpg\"/><img src=\"https://app2.yixiang.co/file/pic/20240206095719768551.jpg\"/></p>', '', '', '53', 0, '', NULL, '2024-09-03 16:45:17', NULL, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `yx_article` VALUES (60, '', '哈喽', '1', 'https://app2.yixiang.co/file/pic/20241028094956191511.jpg', '123213', '<p><span style=\"text-wrap: nowrap;\">&lt;!DOCTYPE html&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;html&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;head&gt;</span></p><p>	<span style=\"text-wrap: nowrap;\">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no&quot;&gt;</span></p><p>	<span style=\"text-wrap: nowrap;\">&lt;script src=&quot;https://www.jiangsu.gov.cn/JSZWFW-TYYH/resources/tyyh/yhzx/images/jquery-1.7.2mini.js&quot;&gt;&lt;/script&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &lt;title&gt;扫码&lt;/title&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;/head&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;body style=&quot;background: rgb(237, 237, 237); margin: 0px;&quot;&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;div style=&quot;background: #fff; margin: 10px; border-radius: 5px;&nbsp; &nbsp; &nbsp;padding: 0 10px;&quot;&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &lt;div class=&quot;hero-head&quot; style=&quot;&nbsp; &nbsp; text-align: center;&quot; onclick=&quot;goto()&quot;&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;text-align: left; font-size: 18px; font-weight: bold; padding-bottom: 10px;&quot; id=&quot;titleBox&quot;&gt;&lt;/div&gt;</span></p><p>		<span style=\"text-wrap: nowrap;\">&lt;img id=&quot;imgBox&quot; style=&quot;width: 100%&quot; src=&quot;&quot;/&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;text-align: left;&nbsp; &nbsp; font-size: 16px; padding-bottom: 10px&quot; id=&quot;contentBox&quot;&gt;&lt;/div&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; &lt;/div&gt;</span></p><p><span style=\"text-wrap: nowrap;\">&lt;/div&gt;</span></p><p><span style=\"text-wrap: nowrap;\"><br/></span></p><p><span style=\"text-wrap: nowrap;\"><br/></span></p><p><span style=\"text-wrap: nowrap;\">&lt;script&gt;</span></p><p>	<span style=\"text-wrap: nowrap;\">var urlAll = new URL(window.location.href);</span></p><p>	<span style=\"text-wrap: nowrap;\">var params = new URLSearchParams(urlAll.search);</span></p><p>	<span style=\"text-wrap: nowrap;\">var imgUrl, linkKey;</span></p><p>	<span style=\"text-wrap: nowrap;\">var path = &quot;http://&quot;+atob(params.get(&#39;to&#39;))+&quot;/m/u/open/&quot;;</span></p><p>	<span style=\"text-wrap: nowrap;\">var pathUrl = path + params.get(&#39;key&#39;)</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; init();</span></p><p><span style=\"text-wrap: nowrap;\"><br/></span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; function init() {</span></p><p>		<span style=\"text-wrap: nowrap;\">$.get(pathUrl, {}, function(res){</span></p><p>			<span style=\"text-wrap: nowrap;\">console.log(res)</span></p><p>			<span style=\"text-wrap: nowrap;\">if (res.code == 200) {</span></p><p>				<span style=\"text-wrap: nowrap;\">$(&#39;#titleBox&#39;).text(res.data.title)</span></p><p>				<span style=\"text-wrap: nowrap;\">$(&#39;#contentBox&#39;).text(res.data.remark)</span></p><p>				<span style=\"text-wrap: nowrap;\">$(&#39;#imgBox&#39;).attr(&#39;src&#39;, &#39;data:image/png;base64,&#39; + res.data.imgUrl)</span></p><p>				<span style=\"text-wrap: nowrap;\">if (res.data.status == &#39;0&#39;) {</span></p><p>					<span style=\"text-wrap: nowrap;\">if (res.data.jumpSecond &gt; 0) {</span></p><p>						<span style=\"text-wrap: nowrap;\">setTimeout(function(){</span></p><p>							<span style=\"text-wrap: nowrap;\">imgUrl = res.data.target</span></p><p>							<span style=\"text-wrap: nowrap;\">linkKey = res.data.linkKey</span></p><p>							<span style=\"text-wrap: nowrap;\">goto()</span></p><p>						<span style=\"text-wrap: nowrap;\">}, res.data.jumpSecond * 1000)</span></p><p>					<span style=\"text-wrap: nowrap;\">} else {</span></p><p>						<span style=\"text-wrap: nowrap;\">goto()</span></p><p>					<span style=\"text-wrap: nowrap;\">}</span></p><p>				<span style=\"text-wrap: nowrap;\">}</span></p><p>			<span style=\"text-wrap: nowrap;\">} else {</span></p><p>				<span style=\"text-wrap: nowrap;\">$(&#39;#titleBox&#39;).text(&#39;Error 01&#39;)</span></p><p>			<span style=\"text-wrap: nowrap;\">}</span></p><p>		<span style=\"text-wrap: nowrap;\">})</span></p><p><span style=\"text-wrap: nowrap;\">&nbsp; &nbsp; }</span></p><p>	</p><p>	<span style=\"text-wrap: nowrap;\">function goto() {</span></p><p>		<span style=\"text-wrap: nowrap;\">$.get(path + &quot;js/&quot; + params.get(&#39;key&#39;), {}, function(res){</span></p><p>			<span style=\"text-wrap: nowrap;\">console.log(res)</span></p><p>			<span style=\"text-wrap: nowrap;\">if (res.code == 200) {</span></p><p>				<span style=\"text-wrap: nowrap;\">window.location.href = imgUrl</span></p><p>			<span style=\"text-wrap: nowrap;\">}</span></p><p>		<span style=\"text-wrap: nowrap;\">})</span></p><p>	<span style=\"text-wrap: nowrap;\">}</span></p><p><span style=\"text-wrap: nowrap;\">&lt;/script&gt;</span></p><p><span style=\"text-wrap: nowrap;\"><br/></span></p><p><span style=\"text-wrap: nowrap;\">&lt;/body&gt;&lt;/html&gt;</span></p><p><br/></p>', '', '', '97', 0, '', NULL, '2024-11-11 03:01:35', NULL, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO `yx_article` VALUES (61, '', '轻武器', '12', 'https://app2.yixiang.co/file/pic/20241123152117963929.jpeg', '1112', '<p>1212</p>', '', '', '8', 0, '', NULL, '2024-11-24 21:28:24', NULL, 0, 0, 0, 0, 0, 0, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_express
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_express`;
-CREATE TABLE `yx_express` (
-  `id` mediumint unsigned NOT NULL AUTO_INCREMENT COMMENT '快递公司id',
-  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '快递公司简称',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '快递公司全称',
-  `sort` int NOT NULL DEFAULT '0' COMMENT '排序',
-  `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint DEFAULT '0',
+CREATE TABLE `yx_express`  (
+  `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '快递公司id',
+  `code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '快递公司简称',
+  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '快递公司全称',
+  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+  `is_show` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示',
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `is_show` (`is_show`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=433 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='快递公司表';
+  INDEX `is_show`(`is_show` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 433 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '快递公司表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_express
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_express` VALUES (426, 'STO', '申通快递', 0, 0, NULL, NULL, 0);
 INSERT INTO `yx_express` VALUES (427, 'SF', '顺丰速运', 0, 0, NULL, NULL, 0);
 INSERT INTO `yx_express` VALUES (428, 'ZTO', '中通快递', 0, 0, NULL, NULL, 0);
@@ -3495,29 +3513,27 @@ INSERT INTO `yx_express` VALUES (429, 'YTO', '圆通速递2', 0, 0, NULL, NULL, 
 INSERT INTO `yx_express` VALUES (430, '555', '555555', 0, 0, NULL, NULL, 1);
 INSERT INTO `yx_express` VALUES (431, '555', '5555', 0, 0, NULL, NULL, 1);
 INSERT INTO `yx_express` VALUES (432, '555', '555', 0, 0, '2020-06-26 12:29:48', NULL, 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_material
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_material`;
-CREATE TABLE `yx_material` (
+CREATE TABLE `yx_material`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'PK',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `create_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建者ID',
+  `create_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建者ID',
   `type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '类型1、图片；2、视频',
-  `group_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '分组ID',
+  `group_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '分组ID',
   `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '素材名',
-  `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '素材链接',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '素材链接',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='素材库';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '素材库' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_material
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_material` VALUES ('00b7ad548ff4b1469afc9914b881210e', '2024-12-24 12:52:51', 'admin', '1', '69f626ca9b98cb8f9355a07c313c006f', '0c7ca46ee84ef0d54f5096ad3d4966b6.jpg', 'https://app2.yixiang.co/file/pic/20241224125251150316.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('046f1f0da8105c1772a5a1717044053e', '2024-12-24 12:57:11', 'admin', '1', '69f626ca9b98cb8f9355a07c313c006f', '5ce61e50d5101.png', 'https://app2.yixiang.co/file/pic/20241224125711317430.png', NULL, 0);
 INSERT INTO `yx_material` VALUES ('0c684a1ceee7c5cebd97a0b5166fc114', '2024-12-24 13:34:57', 'admin', '1', NULL, '20210222221343477890.png', 'https://app2.yixiang.co/file/pic/20241224133456540558.png', NULL, 0);
@@ -3530,6 +3546,7 @@ INSERT INTO `yx_material` VALUES ('5ab600816d44ebb2c461e76751f8bfd5', '2024-12-2
 INSERT INTO `yx_material` VALUES ('6ef1b4d6e2cf582e72fe12b2c52dd92f', '2024-12-24 13:03:23', 'admin', '1', 'a3e9e2a9cd7df93f8a1bb87eaafa3a59', 'd74433cc0d25f1986c2dac9ebc1b2562.jpg', 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('900dece164ab07cf4bfe4021a5f6b862', '2024-12-24 12:42:54', 'admin', '1', '69f626ca9b98cb8f9355a07c313c006f', 'H7iNYQR2n-NKBNh9WJxqwg.png', 'https://app2.yixiang.co/file/pic/20241224124253495957.png', NULL, 0);
 INSERT INTO `yx_material` VALUES ('971f7986897c653e6e1b5cfdf3a573f8', '2024-12-24 12:54:31', 'admin', '1', '69f626ca9b98cb8f9355a07c313c006f', '5ce6208cf3d21.png', 'https://app2.yixiang.co/file/pic/20241224125430765419.png', NULL, 0);
+INSERT INTO `yx_material` VALUES ('a0cee720675e72449a28082064dcaa5b', '2026-10-23 17:09:15', 'admin', '1', 'a3e9e2a9cd7df93f8a1bb87eaafa3a59', 'logo (1).png', 'https://app2.yixiang.co/file/pic/20261023170914760011.png', NULL, 0);
 INSERT INTO `yx_material` VALUES ('a1a6337d2a6683f084d83f5b3a86d836', '2024-12-24 13:17:24', 'admin', '1', NULL, '7092e35b87c2849b5f7c48b3e8175f98.jpg', 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('a605991229590c8a5ec5adb16169a68b', '2024-12-24 13:07:59', 'admin', '1', NULL, 'eaf32068cfbd842665a838bdc74b6c65.jpg', 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('b965f78061e72b456b2b2f48efc7c9bd', '2024-12-24 13:03:23', 'admin', '1', 'a3e9e2a9cd7df93f8a1bb87eaafa3a59', '3af0cce99e4e0a9cbd6f83417105b237.jpg', 'https://app2.yixiang.co/file/pic/20241224130323222531.jpg', NULL, 0);
@@ -3542,79 +3559,73 @@ INSERT INTO `yx_material` VALUES ('dd8c7f09168a70c335e8e864eaf647a2', '2024-12-2
 INSERT INTO `yx_material` VALUES ('e780130ad5eb8210b90eb56e69f75f58', '2024-12-24 13:10:16', 'admin', '1', NULL, '5f5ce3c45b9f29953d484ae9819d7e50.jpg', 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('f0316f54e5b0e1585b612fa7e3da1f20', '2024-12-24 12:52:32', 'admin', '1', '69f626ca9b98cb8f9355a07c313c006f', 'f4670fd2e386daffa005f7ae9beb1c9a.jpg', 'https://app2.yixiang.co/file/pic/20241224125231716757.jpg', NULL, 0);
 INSERT INTO `yx_material` VALUES ('f82a94589723122367d4f60c7f1bc7f1', '2024-12-24 13:39:47', 'admin', '1', NULL, 'live-logo.gif', 'https://app2.yixiang.co/file/pic/20241224133946458460.gif', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_material_group
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_material_group`;
-CREATE TABLE `yx_material_group` (
+CREATE TABLE `yx_material_group`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'PK',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `create_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '创建者ID',
+  `create_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '创建者ID',
   `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '分组名',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='素材分组';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '素材分组' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_material_group
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_material_group` VALUES ('69f626ca9b98cb8f9355a07c313c006f', '2024-12-24 12:42:47', NULL, '分类', NULL, 0);
 INSERT INTO `yx_material_group` VALUES ('a3e9e2a9cd7df93f8a1bb87eaafa3a59', '2024-12-24 13:02:59', NULL, '产品', NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_shipping_templates
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_shipping_templates`;
-CREATE TABLE `yx_shipping_templates` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '模板ID',
-  `name` varchar(255) DEFAULT NULL COMMENT '模板名称',
-  `type` tinyint(1) DEFAULT NULL COMMENT '计费方式',
-  `region_info` text COMMENT '地域以及费用',
-  `appoint` tinyint(1) DEFAULT NULL COMMENT '指定包邮开关',
-  `appoint_info` text COMMENT '指定包邮内容',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
-  `sort` int DEFAULT NULL COMMENT '排序',
+CREATE TABLE `yx_shipping_templates`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '模板ID',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '模板名称',
+  `type` tinyint(1) NULL DEFAULT NULL COMMENT '计费方式',
+  `region_info` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '地域以及费用',
+  `appoint` tinyint(1) NULL DEFAULT NULL COMMENT '指定包邮开关',
+  `appoint_info` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '指定包邮内容',
+  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
+  `sort` int NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='运费模板表';
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '运费模板表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_shipping_templates
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_shipping_templates` VALUES (32, '9999', 1, '[{\"_continue\":\"1\",\"continue_price\":\"0\",\"first\":\"1\",\"price\":\"0\",\"region\":[{\"city_id\":\"0\",\"name\":\"默认全国\"}],\"regionName\":\"默认全国\"}]', 0, '[]', '2020-07-01 14:03:59', NULL, 1, 0);
 INSERT INTO `yx_shipping_templates` VALUES (33, '8888', 1, '[{\"_continue\":\"1\",\"continue_price\":\"0\",\"first\":\"1\",\"price\":\"0\",\"region\":[{\"city_id\":\"0\",\"name\":\"默认全国\"}],\"regionName\":\"默认全国\"}]', 0, '[]', '2020-07-01 14:08:19', NULL, 1, 0);
 INSERT INTO `yx_shipping_templates` VALUES (34, '默认全国运费模板', 1, '[{\"_continue\":\"1\",\"continue_price\":\"2\",\"first\":\"1\",\"price\":\"0\",\"region\":[{\"city_id\":\"0\",\"name\":\"默认全国\"}],\"regionName\":\"默认全国\"}]', 0, '[]', '2020-07-01 15:20:44', '2020-07-05 17:06:47', 0, 0);
 INSERT INTO `yx_shipping_templates` VALUES (35, '包邮湖北省，河南省特例', 1, '[{\"_continue\":\"1\",\"continue_price\":\"1\",\"first\":\"1\",\"price\":\"1\",\"region\":[{\"city_id\":\"0\",\"name\":\"默认全国\"}],\"regionName\":\"默认全国\"},{\"_continue\":\"1\",\"continue_price\":\"5\",\"first\":\"1\",\"price\":\"2\",\"region\":[{\"children\":[{\"city_id\":\"367396\"},{\"city_id\":\"370304\"},{\"city_id\":\"372971\"},{\"city_id\":\"376365\"},{\"city_id\":\"379245\"},{\"city_id\":\"382878\"},{\"city_id\":\"383890\"},{\"city_id\":\"387707\"},{\"city_id\":\"389719\"},{\"city_id\":\"392737\"},{\"city_id\":\"395254\"},{\"city_id\":\"396611\"},{\"city_id\":\"398169\"},{\"city_id\":\"403311\"},{\"city_id\":\"408287\"},{\"city_id\":\"411925\"},{\"city_id\":\"417174\"},{\"city_id\":\"420258\"}],\"city_id\":\"367395\",\"name\":\"河南省\"}],\"regionName\":\"河南省\"}]', 1, '[{\"a_num\":\"2\",\"a_price\":\"100\",\"place\":[{\"children\":[{\"city_id\":\"420825\"},{\"city_id\":\"424449\"},{\"city_id\":\"425508\"},{\"city_id\":\"427710\"},{\"city_id\":\"429501\"},{\"city_id\":\"432415\"},{\"city_id\":\"432829\"},{\"city_id\":\"434548\"},{\"city_id\":\"437779\"},{\"city_id\":\"440639\"},{\"city_id\":\"445040\"},{\"city_id\":\"446212\"},{\"city_id\":\"447268\"},{\"city_id\":\"449865\"}],\"city_id\":\"420824\",\"name\":\"湖北省\"}],\"placeName\":\"湖北省\"}]', '2020-07-01 15:26:38', '2020-07-05 17:08:39', 0, 0);
 INSERT INTO `yx_shipping_templates` VALUES (36, '8888', 1, '[{\"_continue\":\"1\",\"continue_price\":\"1\",\"first\":\"1\",\"price\":\"1\",\"region\":[{\"city_id\":\"0\",\"name\":\"默认全国\"}],\"regionName\":\"默认全国\"}]', 1, '[]', '2020-07-01 16:04:28', '2020-07-01 16:07:31', 1, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_shipping_templates_free
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_shipping_templates_free`;
-CREATE TABLE `yx_shipping_templates_free` (
+CREATE TABLE `yx_shipping_templates_free`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `province_id` int NOT NULL DEFAULT '0' COMMENT '省ID',
-  `temp_id` int NOT NULL DEFAULT '0' COMMENT '模板ID',
-  `city_id` int NOT NULL DEFAULT '0' COMMENT '城市ID',
-  `number` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '包邮件数',
-  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '包邮金额',
-  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '计费方式',
-  `uniqid` varchar(32) NOT NULL DEFAULT '' COMMENT '分组唯一值',
+  `province_id` int NOT NULL DEFAULT 0 COMMENT '省ID',
+  `temp_id` int NOT NULL DEFAULT 0 COMMENT '模板ID',
+  `city_id` int NOT NULL DEFAULT 0 COMMENT '城市ID',
+  `number` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '包邮件数',
+  `price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '包邮金额',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '计费方式',
+  `uniqid` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '分组唯一值',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 198 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_shipping_templates_free
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_shipping_templates_free` VALUES (158, 13267, 36, 13268, 1.00, 1.00, 1, 'ddd9604e6fb54edab5ced2e32c41db61');
 INSERT INTO `yx_shipping_templates_free` VALUES (159, 13267, 36, 18128, 1.00, 1.00, 1, 'ddd9604e6fb54edab5ced2e32c41db61');
 INSERT INTO `yx_shipping_templates_free` VALUES (160, 13267, 36, 24371, 1.00, 1.00, 1, 'ddd9604e6fb54edab5ced2e32c41db61');
@@ -3641,30 +3652,28 @@ INSERT INTO `yx_shipping_templates_free` VALUES (194, 420824, 35, 445040, 2.00, 
 INSERT INTO `yx_shipping_templates_free` VALUES (195, 420824, 35, 446212, 2.00, 100.00, 1, '5a3c9a0dbe084d568b6f70e19e28c695');
 INSERT INTO `yx_shipping_templates_free` VALUES (196, 420824, 35, 447268, 2.00, 100.00, 1, '5a3c9a0dbe084d568b6f70e19e28c695');
 INSERT INTO `yx_shipping_templates_free` VALUES (197, 420824, 35, 449865, 2.00, 100.00, 1, '5a3c9a0dbe084d568b6f70e19e28c695');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_shipping_templates_region
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_shipping_templates_region`;
-CREATE TABLE `yx_shipping_templates_region` (
+CREATE TABLE `yx_shipping_templates_region`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `province_id` int NOT NULL DEFAULT '0' COMMENT '省ID',
-  `temp_id` int NOT NULL DEFAULT '0' COMMENT '模板ID',
-  `city_id` int NOT NULL DEFAULT '0' COMMENT '城市ID',
-  `first` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '首件',
-  `first_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '首件运费',
-  `continues` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '续件',
-  `continue_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '续件运费',
-  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '计费方式',
-  `uniqid` varchar(50) NOT NULL DEFAULT '' COMMENT '分组唯一值',
+  `province_id` int NOT NULL DEFAULT 0 COMMENT '省ID',
+  `temp_id` int NOT NULL DEFAULT 0 COMMENT '模板ID',
+  `city_id` int NOT NULL DEFAULT 0 COMMENT '城市ID',
+  `first` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '首件',
+  `first_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '首件运费',
+  `continues` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '续件',
+  `continue_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '续件运费',
+  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '计费方式',
+  `uniqid` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '分组唯一值',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 250 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_shipping_templates_region
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_shipping_templates_region` VALUES (175, 0, 32, 0, 1.00, 0.00, 1.00, 0.00, 1, 'da4f15807a2e47b880d8db454a350a5e');
 INSERT INTO `yx_shipping_templates_region` VALUES (176, 0, 33, 0, 1.00, 0.00, 1.00, 0.00, 1, '6ddd27e504e3451aad294cfb9e105fa2');
 INSERT INTO `yx_shipping_templates_region` VALUES (210, 0, 36, 0, 1.00, 1.00, 1.00, 1.00, 1, '14e3da43097248c29ed0d41eded5d9c0');
@@ -3688,137 +3697,127 @@ INSERT INTO `yx_shipping_templates_region` VALUES (246, 367395, 35, 408287, 1.00
 INSERT INTO `yx_shipping_templates_region` VALUES (247, 367395, 35, 411925, 1.00, 2.00, 1.00, 5.00, 1, 'f883508219224a6d8a10ccbf99c0e9ba');
 INSERT INTO `yx_shipping_templates_region` VALUES (248, 367395, 35, 417174, 1.00, 2.00, 1.00, 5.00, 1, 'f883508219224a6d8a10ccbf99c0e9ba');
 INSERT INTO `yx_shipping_templates_region` VALUES (249, 367395, 35, 420258, 1.00, 2.00, 1.00, 5.00, 1, 'f883508219224a6d8a10ccbf99c0e9ba');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_after_sales
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_after_sales`;
-CREATE TABLE `yx_store_after_sales` (
+CREATE TABLE `yx_store_after_sales`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `order_code` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '订单号',
-  `refund_amount` decimal(32,8) DEFAULT NULL COMMENT '退款金额',
-  `service_type` tinyint(1) DEFAULT NULL COMMENT '服务类型0仅退款1退货退款',
-  `reasons` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '申请原因',
-  `explains` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '说明',
-  `explain_img` text CHARACTER SET utf8 COLLATE utf8_bin COMMENT '说明图片->多个用逗号分割',
-  `shipper_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '物流公司编码',
-  `delivery_sn` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '物流单号',
-  `delivery_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '物流名称',
-  `state` tinyint(1) DEFAULT NULL COMMENT '状态 0已提交等待平台审核 1平台已审核 等待用户发货/退款 2 用户已发货 3退款成功',
-  `sales_state` tinyint(1) DEFAULT NULL COMMENT '售后状态-0正常1用户取消2商家拒绝',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `is_del` tinyint(1) DEFAULT NULL COMMENT '逻辑删除',
-  `user_id` bigint DEFAULT NULL COMMENT '用户id',
-  `consignee` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '商家收货人',
-  `phone_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '商家手机号',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '商家地址',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=869 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='售后记录表';
+  `order_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '订单号',
+  `refund_amount` decimal(32, 8) NULL DEFAULT NULL COMMENT '退款金额',
+  `service_type` tinyint(1) NULL DEFAULT NULL COMMENT '服务类型0仅退款1退货退款',
+  `reasons` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL COMMENT '申请原因',
+  `explains` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL COMMENT '说明',
+  `explain_img` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL COMMENT '说明图片->多个用逗号分割',
+  `shipper_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '物流公司编码',
+  `delivery_sn` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '物流单号',
+  `delivery_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '物流名称',
+  `state` tinyint(1) NULL DEFAULT NULL COMMENT '状态 0已提交等待平台审核 1平台已审核 等待用户发货/退款 2 用户已发货 3退款成功',
+  `sales_state` tinyint(1) NULL DEFAULT NULL COMMENT '售后状态-0正常1用户取消2商家拒绝',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `is_del` tinyint(1) NULL DEFAULT NULL COMMENT '逻辑删除',
+  `user_id` bigint NULL DEFAULT NULL COMMENT '用户id',
+  `consignee` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '商家收货人',
+  `phone_number` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '商家手机号',
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '商家地址',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 869 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '售后记录表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yx_store_after_sales
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_after_sales_item
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_after_sales_item`;
-CREATE TABLE `yx_store_after_sales_item` (
+CREATE TABLE `yx_store_after_sales_item`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `store_after_sales_id` bigint DEFAULT NULL COMMENT '售后id',
-  `product_id` bigint DEFAULT NULL COMMENT '商品id',
-  `cart_info` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '退货东西的详情信息',
-  `is_del` bit(1) DEFAULT NULL COMMENT '逻辑删除',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='售后子表';
+  `store_after_sales_id` bigint NULL DEFAULT NULL COMMENT '售后id',
+  `product_id` bigint NULL DEFAULT NULL COMMENT '商品id',
+  `cart_info` text CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '退货东西的详情信息',
+  `is_del` bit(1) NULL DEFAULT NULL COMMENT '逻辑删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 753 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '售后子表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yx_store_after_sales_item
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_after_sales_status
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_after_sales_status`;
-CREATE TABLE `yx_store_after_sales_status` (
+CREATE TABLE `yx_store_after_sales_status`  (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `store_after_sales_id` bigint DEFAULT NULL COMMENT '售后id',
-  `change_type` tinyint(1) DEFAULT NULL COMMENT '操作类型',
-  `change_message` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '操作备注',
-  `change_time` datetime DEFAULT NULL COMMENT '操作时间',
-  `operator` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '操作人',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2442 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin COMMENT='售后订单操作详情表';
+  `store_after_sales_id` bigint NULL DEFAULT NULL COMMENT '售后id',
+  `change_type` tinyint(1) NULL DEFAULT NULL COMMENT '操作类型',
+  `change_message` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '操作备注',
+  `change_time` datetime NULL DEFAULT NULL COMMENT '操作时间',
+  `operator` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL COMMENT '操作人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2442 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin COMMENT = '售后订单操作详情表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yx_store_after_sales_status
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_canvas
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_canvas`;
-CREATE TABLE `yx_store_canvas` (
+CREATE TABLE `yx_store_canvas`  (
   `canvas_id` bigint NOT NULL AUTO_INCREMENT COMMENT '画布id',
   `terminal` tinyint(1) NOT NULL COMMENT '终端 1-小程序 2-H5 3-APP 4-PC',
-  `json` text COMMENT '画布json数据',
-  `type` tinyint(1) DEFAULT '1' COMMENT '类型 1-系统画布 2-自定义页面 3-商家店铺装修',
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '名称',
-  `shop_id` bigint DEFAULT '0' COMMENT '店铺id，当type=3的时候，值为具体的店铺id，其它情况为0',
+  `json` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '画布json数据',
+  `type` tinyint(1) NULL DEFAULT 1 COMMENT '类型 1-系统画布 2-自定义页面 3-商家店铺装修',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `shop_id` bigint NULL DEFAULT 0 COMMENT '店铺id，当type=3的时候，值为具体的店铺id，其它情况为0',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
-  `is_del` tinyint(1) DEFAULT NULL COMMENT '删除标识',
+  `is_del` tinyint(1) NULL DEFAULT NULL COMMENT '删除标识',
   PRIMARY KEY (`canvas_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='画布信息表';
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '画布信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_canvas
 -- ----------------------------
-BEGIN;
-INSERT INTO `yx_store_canvas` VALUES (11, 3, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123138639021.jpeg\"},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://app2.yixiang.co/file/pic/20241224123218917756.jpg\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123331919460.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123351388600.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123503465659.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://app2.yixiang.co/file/pic/20241224123632233356.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":6},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2026-05-13 09:27:55', 0);
-INSERT INTO `yx_store_canvas` VALUES (12, 1, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213137611454.jpg\"}]},\"index\":2},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"http://img.yixiang.co/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"http://img.yixiang.co/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"http://img.yixiang.con/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"http://img.yixiang.co/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"http://img.yixiang.co/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"http://img.yixiang.co/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"http://img.yixiang.co/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"http://img.yixiang.co/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"http://img.yixiang.co/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"https://h5.yixiang.co/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"https://h5.yixiang.co/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":5},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":9},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-01-20 12:14:21', 0);
-INSERT INTO `yx_store_canvas` VALUES (111, 32, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://image.dayouqiantu.cn/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://image.dayouqiantu.cn/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://image.dayouqiantu.cn/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://image.dayouqiantu.cn/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"https://image.dayouqiantu.cn/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-12-30 11:51:11', 0);
-INSERT INTO `yx_store_canvas` VALUES (113, 4, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":4},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://image.dayouqiantu.cn/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://image.dayouqiantu.cn/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://image.dayouqiantu.cn/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://image.dayouqiantu.cn/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"https://image.dayouqiantu.cn/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":7},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":11},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":12},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":13},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":13},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":15},{\"title\":\"轮播图\",\"type\":\"PcBanner\",\"componentContent\":{\"bannerList\":[{\"title\":\"轮播1\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/1.jpg\",\"url\":\"\",\"linkTo\":\"\"},{\"title\":\"轮播2\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/5c9f05aee5059.jpg\",\"url\":\"\",\"linkTo\":\"\"}]},\"index\":13},{\"title\":\"联系方式\",\"type\":\"Footer\",\"componentContent\":{\"publicList\":[{\"title\":\"客服电话\",\"des\":\"400 800 2100\"},{\"title\":\"营业时间\",\"des\":\"9:00-23:00\"},{\"title\":\"微信公众号\",\"des\":\"微信公众号\",\"pic\":\"/static/img/erweima@2x.png\",\"linkTo\":\"\"},{\"title\":\"小程序码\",\"des\":\"小程序码\",\"pic\":\"/static/img/xcxm.png\",\"linkTo\":\"\"}]},\"index\":15},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":13}]', 1, '1', 0, '2022-12-29 15:28:04', '2022-12-29 21:35:47', 0);
-COMMIT;
+INSERT INTO `yx_store_canvas` VALUES (11, 3, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"/static/images/home_banner1.png\"},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"/static/images/home_banner2.png\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"/static/images/menu_all.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"/static/images/menu_all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"/static/images/menu_news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"/static/images/menu_news.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"/static/images/menu_coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"/static/images/menu_coupon.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"/static/images/menu_sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"/static/images/menu_sign.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":6},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2026-05-13 09:27:55', 0);
+INSERT INTO `yx_store_canvas` VALUES (12, 1, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":2},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1},{\"title\":\"\",\"imgData\":\"\",\"url\":\"\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213137611454.jpg\"}]},\"index\":2},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.2版本新增积分兑换、画布容器、商家订单通知等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"/static/images/menu_all.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"http://img.yixiang.co/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"/static/images/menu_news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"http://img.yixiang.con/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"http://img.yixiang.co/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"/static/images/menu_coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"http://img.yixiang.co/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"http://img.yixiang.co/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"/static/images/menu_sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"http://img.yixiang.co/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"http://img.yixiang.co/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"http://img.yixiang.co/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"http://img.yixiang.co/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":5},{\"title\":\"广告\",\"type\":\"adv\",\"componentContent\":{\"detail\":{\"list\":[{\"image\":\"/static/images/index001.png\",\"url\":\"\",\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"path_type\":1},{\"image\":\"/static/images/index002.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"wxapp_url\":\"/pages/shop/GoodsList/index\",\"path_type\":1},{\"image\":\"/static/images/index003.png\",\"url\":\"\",\"uniapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"wxapp_url\":\"/pages/shop/GoodsList/index?title=\\\"积分商城\\\"&isIntegral=true\",\"path_type\":1}],\"name\":\"\",\"style\":3}},\"index\":5},{\"title\":\"热门榜单\",\"type\":\"hotCommodity\",\"componentContent\":{},\"index\":6},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":7},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":9},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-01-20 12:14:21', 0);
+INSERT INTO `yx_store_canvas` VALUES (111, 32, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"/static/images/menu_all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"/static/images/menu_news.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"/static/images/menu_collect.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"/static/images/menu_coupon.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"/static/images/menu_bargain.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":9}]', 1, '1', 0, '2021-02-22 15:08:10', '2022-12-30 11:51:11', 0);
+INSERT INTO `yx_store_canvas` VALUES (113, 4, '[{\"title\":\"店铺头部\",\"type\":\"header\",\"componentContent\":{\"title\":\"Yshop\"},\"index\":0},{\"title\":\"搜索商品\",\"type\":\"search\",\"componentContent\":{},\"index\":1},{\"title\":\"轮播图\",\"type\":\"banner\",\"componentContent\":{\"bannerData\":[{\"pic\":\"/static/img/banner.f96c3f57.png\",\"name\":\"0\",\"sort\":0,\"url\":\"/\",\"status\":1}]},\"index\":5},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"精彩内容即将上线\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":3},{\"title\":\"滚动新闻\",\"type\":\"noticeBar\",\"componentContent\":{\"roll\":[{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\"}]},\"index\":4},{\"title\":\"菜单\",\"type\":\"menu\",\"componentContent\":{\"menus\":[{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"/static/images/menu_all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"/static/images/menu_news.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"/static/images/menu_collect.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"/static/images/menu_coupon.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1},{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"/static/images/menu_bargain.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}]},\"index\":4},{\"title\":\"促销单品\",\"type\":\"promoteProduct\",\"componentContent\":{},\"index\":4},{\"title\":\"精品推荐\",\"type\":\"productsRecommended\",\"componentContent\":{},\"index\":13},{\"title\":\"超值拼团\",\"type\":\"groupon\",\"componentContent\":{},\"index\":6},{\"title\":\"直播\",\"type\":\"live\",\"componentContent\":{},\"index\":8},{\"title\":\"为您推荐\",\"type\":\"promotionGood\",\"componentContent\":{},\"index\":7},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":11},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":12},{\"title\":\"个人中心\",\"type\":\"NavPersonal\",\"componentContent\":{\"txtRoute\":[{\"title\":\"优惠卷\",\"des\":\"优惠卷\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"优惠卷\",\"editorDes\":\"\",\"editorUrl\":\"\",\"editorPic\":\"\"}]},{\"title\":\"会员中心\",\"des\":\"会员中心\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"会员中心\",\"editorDes\":\"\"}]},{\"title\":\"我的订单\",\"des\":\"我的订单\",\"linkTo\":\"\",\"pic\":\"\",\"notice\":0,\"editors\":[{\"editorTitle\":\"我的订单\",\"editorDes\":\"\"}]}],\"cartNum\":4},\"index\":13},{\"title\":\"专区导航\",\"type\":\"NavType\",\"componentContent\":{\"typeRoute\":[{\"title\":\"首页\",\"des\":\"首页\",\"linkTo\":\"/indexpage/index\",\"pic\":\"\"},{\"title\":\"全部商品\",\"des\":\"全部商品\",\"linkTo\":\"/indexpage/productlist\",\"pic\":\"\"},{\"title\":\"秒杀专区\",\"des\":\"秒杀专区\",\"linkTo\":\"/indexpage/seckill\",\"pic\":\"\"},{\"title\":\"拼团专区\",\"des\":\"拼团专区\",\"linkTo\":\"/indexpage/combination\",\"pic\":\"\"},{\"title\":\"领卷中心\",\"des\":\"领卷中心\",\"linkTo\":\"/indexpage/getcoupon\",\"pic\":\"\"},{\"title\":\"图文详情\",\"des\":\"图文详情\",\"linkTo\":\"/indexpage/noticedetail\",\"pic\":\"\"}]},\"index\":13},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":15},{\"title\":\"轮播图\",\"type\":\"PcBanner\",\"componentContent\":{\"bannerList\":[{\"title\":\"轮播1\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/1.jpg\",\"url\":\"\",\"linkTo\":\"\"},{\"title\":\"轮播2\",\"des\":\"\",\"pic\":\"https://image.dayouqiantu.cn/5c9f05aee5059.jpg\",\"url\":\"\",\"linkTo\":\"\"}]},\"index\":13},{\"title\":\"联系方式\",\"type\":\"Footer\",\"componentContent\":{\"publicList\":[{\"title\":\"客服电话\",\"des\":\"400 800 2100\"},{\"title\":\"营业时间\",\"des\":\"9:00-23:00\"},{\"title\":\"微信公众号\",\"des\":\"微信公众号\",\"pic\":\"/static/img/erweima@2x.png\",\"linkTo\":\"\"},{\"title\":\"小程序码\",\"des\":\"小程序码\",\"pic\":\"/static/img/xcxm.png\",\"linkTo\":\"\"}]},\"index\":15},{\"title\":\"新品上新\",\"type\":\"ProductNew\",\"componentContent\":{\"product\":[{\"title\":\"新款商品1\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品2\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"},{\"title\":\"新款商品3\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\",\"type\":0},{\"title\":\"新款商品4\",\"id\":\"1\",\"pic\":\"https://wxapi.yixiang.co/api/file/pic/20210222213116280067.jpeg\",\"storeName\":\"测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品\",\"price\":\"123\"}]},\"index\":13}]', 1, '1', 0, '2022-12-29 15:28:04', '2022-12-29 21:35:47', 0);
 
 -- ----------------------------
 -- Table structure for yx_store_cart
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_cart`;
-CREATE TABLE `yx_store_cart` (
+CREATE TABLE `yx_store_cart`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '购物车表ID',
-  `uid` bigint unsigned NOT NULL COMMENT '用户ID',
-  `type` varchar(32) NOT NULL DEFAULT 'product' COMMENT '类型',
-  `product_id` bigint unsigned NOT NULL COMMENT '商品ID',
-  `product_attr_unique` varchar(50) NOT NULL DEFAULT '' COMMENT '商品属性',
-  `cart_num` smallint unsigned NOT NULL DEFAULT '0' COMMENT '商品数量',
+  `uid` bigint UNSIGNED NOT NULL COMMENT '用户ID',
+  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'product' COMMENT '类型',
+  `product_id` bigint UNSIGNED NOT NULL COMMENT '商品ID',
+  `product_attr_unique` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商品属性',
+  `cart_num` smallint UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品数量',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_pay` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = 未购买 1 = 已购买',
-  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
-  `is_new` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为立即购买',
-  `combination_id` int unsigned DEFAULT '0' COMMENT '拼团id',
-  `seckill_id` int unsigned NOT NULL DEFAULT '0' COMMENT '秒杀产品ID',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_pay` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = 未购买 1 = 已购买',
+  `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `is_new` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否为立即购买',
+  `combination_id` int UNSIGNED NULL DEFAULT 0 COMMENT '拼团id',
+  `seckill_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '秒杀产品ID',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `user_id` (`uid`) USING BTREE,
-  KEY `goods_id` (`product_id`) USING BTREE,
-  KEY `uid` (`uid`,`is_pay`) USING BTREE,
-  KEY `uid_2` (`uid`,`is_del`) USING BTREE,
-  KEY `uid_3` (`uid`,`is_new`) USING BTREE,
-  KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='购物车表';
+  INDEX `user_id`(`uid` ASC) USING BTREE,
+  INDEX `goods_id`(`product_id` ASC) USING BTREE,
+  INDEX `uid`(`uid` ASC, `is_pay` ASC) USING BTREE,
+  INDEX `uid_2`(`uid` ASC, `is_del` ASC) USING BTREE,
+  INDEX `uid_3`(`uid` ASC, `is_new` ASC) USING BTREE,
+  INDEX `type`(`type` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '购物车表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_cart
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_cart` VALUES (1, 35450, 'product', 37, '54125f4a23c24c96b82038108bb6700f', 1, '2024-12-24 13:02:09', NULL, 0, 0, 0, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (2, 34551, 'product', 37, 'a5750ad037e44097b7c5d0e6f3d6cd0d', 1, '2024-12-24 13:40:53', NULL, 0, 0, 1, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (3, 39992, 'product', 37, 'a5750ad037e44097b7c5d0e6f3d6cd0d', 1, '2024-12-24 16:23:57', '2024-12-24 16:24:34', 1, 0, 1, 0, 0);
@@ -3831,84 +3830,80 @@ INSERT INTO `yx_store_cart` VALUES (9, 41315, 'product', 34, 'ca111c30eed945d38b
 INSERT INTO `yx_store_cart` VALUES (10, 41315, 'product', 36, 'c38b4340485b465d92b787dd68dcc26e', 1, '2025-04-04 10:36:38', NULL, 0, 0, 1, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (11, 41315, 'product', 35, 'bb527a974fff415d9c57db601bbfcb76', 1, '2025-04-04 10:38:45', '2025-04-04 10:41:30', 0, 0, 1, 0, 0);
 INSERT INTO `yx_store_cart` VALUES (12, 41315, 'product', 33, '4527a28e4fce4492831997c1b61df575', 1, '2026-05-13 11:24:32', '2026-05-13 11:24:37', 1, 0, 1, 0, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_category
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_category`;
-CREATE TABLE `yx_store_category` (
+CREATE TABLE `yx_store_category`  (
   `id` mediumint NOT NULL AUTO_INCREMENT COMMENT '商品分类表ID',
   `pid` mediumint NOT NULL COMMENT '父id',
-  `cate_name` varchar(100) NOT NULL COMMENT '分类名称',
-  `sort` mediumint DEFAULT NULL COMMENT '排序',
-  `pic` varchar(128) DEFAULT '' COMMENT '图标',
-  `is_show` tinyint(1) DEFAULT '1' COMMENT '是否推荐',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint unsigned DEFAULT '0' COMMENT '删除状态',
+  `cate_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '分类名称',
+  `sort` mediumint NULL DEFAULT NULL COMMENT '排序',
+  `pic` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '图标',
+  `is_show` tinyint(1) NULL DEFAULT 1 COMMENT '是否推荐',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '删除状态',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `pid` (`pid`) USING BTREE,
-  KEY `is_base` (`is_show`) USING BTREE,
-  KEY `sort` (`sort`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品分类表';
+  INDEX `pid`(`pid` ASC) USING BTREE,
+  INDEX `is_base`(`is_show` ASC) USING BTREE,
+  INDEX `sort`(`sort` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品分类表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_category
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_category` VALUES (1, 0, '家用电器', 1, '', 1, '2020-07-09 10:37:46', '2024-12-24 12:44:25', 0);
 INSERT INTO `yx_store_category` VALUES (10, 0, '美妆个护', 2, '', 1, '2020-07-09 10:31:02', '2024-12-24 12:44:52', 0);
-INSERT INTO `yx_store_category` VALUES (11, 10, '工具', 2, 'https://app2.yixiang.co/file/pic/20241224124539720574.png', 1, '2020-07-09 10:31:47', '2024-12-24 12:45:45', 0);
-INSERT INTO `yx_store_category` VALUES (24, 1, '电视', 2, 'https://app2.yixiang.co/file/pic/20241224124253495957.png', 1, '2020-07-09 10:39:53', '2024-12-24 12:42:59', 0);
+INSERT INTO `yx_store_category` VALUES (11, 10, '工具', 2, '/static/images/nav1.png', 1, '2020-07-09 10:31:47', '2024-12-24 12:45:45', 0);
+INSERT INTO `yx_store_category` VALUES (24, 1, '电视', 2, 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:39:53', '2024-12-24 12:42:59', 0);
 INSERT INTO `yx_store_category` VALUES (25, 0, '家具餐厨', 2, '', 1, '2020-07-09 10:40:08', '2024-12-24 12:46:46', 0);
-INSERT INTO `yx_store_category` VALUES (26, 25, '床品', 2, 'https://app2.yixiang.co/file/pic/20241224124732190691.png', 1, '2020-07-09 10:40:33', '2024-12-24 12:47:38', 0);
+INSERT INTO `yx_store_category` VALUES (26, 25, '床品', 2, '/static/images/nav2.png', 1, '2020-07-09 10:40:33', '2024-12-24 12:47:38', 0);
 INSERT INTO `yx_store_category` VALUES (27, 0, '电子产品', 1, '', 1, '2020-07-09 10:40:50', '2024-12-24 12:48:04', 0);
 INSERT INTO `yx_store_category` VALUES (28, 0, '运动专区', 2, '', 1, '2020-07-09 10:41:14', '2024-12-24 12:51:44', 0);
 INSERT INTO `yx_store_category` VALUES (29, 0, '家具软装', 3, '', 1, '2020-07-09 10:41:23', '2024-12-24 12:53:34', 0);
 INSERT INTO `yx_store_category` VALUES (30, 0, '生活家居', 4, '', 1, '2020-07-09 10:41:43', '2024-12-24 12:55:41', 0);
-INSERT INTO `yx_store_category` VALUES (31, 27, '电脑', 5, 'https://app2.yixiang.co/file/pic/20241224124834407931.png', 1, '2020-07-09 10:41:58', '2024-12-24 12:48:43', 0);
-INSERT INTO `yx_store_category` VALUES (32, 27, '相机', 6, 'https://app2.yixiang.co/file/pic/20241224124944267120.png', 1, '2020-07-09 10:42:24', '2024-12-24 12:49:49', 0);
-INSERT INTO `yx_store_category` VALUES (33, 27, '手表', 7, 'https://app2.yixiang.co/file/pic/20241224125059865718.png', 1, '2020-07-09 10:42:42', '2024-12-24 12:51:08', 0);
-INSERT INTO `yx_store_category` VALUES (34, 28, '特步', 8, 'https://app2.yixiang.co/file/pic/20241224125231716757.jpg', 1, '2020-07-09 10:43:00', '2024-12-24 12:52:37', 0);
-INSERT INTO `yx_store_category` VALUES (35, 28, '361', 9, 'https://app2.yixiang.co/file/pic/20241224125251150316.jpg', 1, '2020-07-09 10:43:20', '2024-12-24 12:52:57', 0);
-INSERT INTO `yx_store_category` VALUES (36, 29, '大床', 10, 'https://app2.yixiang.co/file/pic/20241224125430765419.png', 1, '2020-07-09 10:43:37', '2024-12-24 12:54:47', 0);
-INSERT INTO `yx_store_category` VALUES (37, 29, '沙发', 11, 'https://app2.yixiang.co/file/pic/20241224125457894606.png', 1, '2020-07-09 10:43:55', '2024-12-24 12:55:06', 0);
-INSERT INTO `yx_store_category` VALUES (38, 30, '收纳', 12, 'https://app2.yixiang.co/file/pic/20241224125610387800.jpeg', 1, '2020-07-09 10:44:18', '2024-12-24 12:56:15', 0);
+INSERT INTO `yx_store_category` VALUES (31, 27, '电脑', 5, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:41:58', '2024-12-24 12:48:43', 0);
+INSERT INTO `yx_store_category` VALUES (32, 27, '相机', 6, 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:42:24', '2024-12-24 12:49:49', 0);
+INSERT INTO `yx_store_category` VALUES (33, 27, '手表', 7, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:42:42', '2024-12-24 12:51:08', 0);
+INSERT INTO `yx_store_category` VALUES (34, 28, '特步', 8, '/static/images/nav3.png', 1, '2020-07-09 10:43:00', '2024-12-24 12:52:37', 0);
+INSERT INTO `yx_store_category` VALUES (35, 28, '361', 9, '/static/images/nav4.png', 1, '2020-07-09 10:43:20', '2024-12-24 12:52:57', 0);
+INSERT INTO `yx_store_category` VALUES (36, 29, '大床', 10, 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:43:37', '2024-12-24 12:54:47', 0);
+INSERT INTO `yx_store_category` VALUES (37, 29, '沙发', 11, 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=200&q=80', 1, '2020-07-09 10:43:55', '2024-12-24 12:55:06', 0);
+INSERT INTO `yx_store_category` VALUES (38, 30, '收纳', 12, '/static/images/gift.png', 1, '2020-07-09 10:44:18', '2024-12-24 12:56:15', 0);
 INSERT INTO `yx_store_category` VALUES (39, 0, '电商影星', 13, '', 1, '2020-07-09 10:44:45', '2024-12-24 12:56:38', 0);
-INSERT INTO `yx_store_category` VALUES (40, 39, '影响', 14, 'https://app2.yixiang.co/file/pic/20241224125711317430.png', 1, '2020-07-09 10:45:01', '2024-12-24 12:57:15', 0);
-COMMIT;
+INSERT INTO `yx_store_category` VALUES (40, 39, '影响', 14, '/static/images/public.png', 1, '2020-07-09 10:45:01', '2024-12-24 12:57:15', 0);
 
 -- ----------------------------
 -- Table structure for yx_store_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_coupon`;
-CREATE TABLE `yx_store_coupon` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '优惠券表ID',
-  `title` varchar(64) NOT NULL COMMENT '优惠券名称',
-  `integral` int unsigned NOT NULL DEFAULT '0' COMMENT '兑换消耗积分值',
-  `coupon_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '兑换的优惠券面值',
-  `use_min_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '最低消费多少金额可用优惠券',
-  `coupon_time` int unsigned NOT NULL DEFAULT '0' COMMENT '优惠券有效期限（单位：天）',
-  `sort` int unsigned NOT NULL DEFAULT '1' COMMENT '排序',
-  `status` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '状态（0：关闭，1：开启）',
-  `product_id` varchar(200) DEFAULT NULL COMMENT '商品ids',
-  `type` tinyint DEFAULT '0' COMMENT '优惠券类型 0-通用 1-商品券',
+CREATE TABLE `yx_store_coupon`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '优惠券表ID',
+  `title` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '优惠券名称',
+  `integral` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '兑换消耗积分值',
+  `coupon_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '兑换的优惠券面值',
+  `use_min_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '最低消费多少金额可用优惠券',
+  `coupon_time` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '优惠券有效期限（单位：天）',
+  `sort` int UNSIGNED NOT NULL DEFAULT 1 COMMENT '排序',
+  `status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态（0：关闭，1：开启）',
+  `product_id` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '商品ids',
+  `type` tinyint NULL DEFAULT 0 COMMENT '优惠券类型 0-通用 1-商品券',
   `create_time` datetime NOT NULL COMMENT '兑换项目添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `state` (`status`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `coupon_time` (`coupon_time`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=67152 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='优惠券表';
+  INDEX `state`(`status` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `coupon_time`(`coupon_time` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 67152 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '优惠券表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_coupon
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_coupon` VALUES (1, '双十一优惠券', 0, 5.00, 100.00, 20, 0, 1, '29', 1, '2020-06-21 13:45:51', '2020-07-08 15:44:29', 0);
 INSERT INTO `yx_store_coupon` VALUES (2, '5555', 0, 0.00, 0.00, 1, 0, 1, NULL, 0, '2020-06-25 19:30:55', NULL, 1);
 INSERT INTO `yx_store_coupon` VALUES (3, '6666', 0, 2.00, 10.00, 10, 0, 1, NULL, 0, '2020-06-25 22:48:47', NULL, 0);
@@ -4610,38 +4605,36 @@ INSERT INTO `yx_store_coupon` VALUES (67148, '1', 0, 2.00, 22.00, 1, 2, 1, '', 0
 INSERT INTO `yx_store_coupon` VALUES (67149, '2', 0, 0.00, 1.00, 1, 0, 1, '', 0, '2024-12-01 22:30:34', NULL, 0);
 INSERT INTO `yx_store_coupon` VALUES (67150, '代金券-1202', 0, 80.00, 100.00, 30, 0, 1, '32,33,34', 1, '2024-12-02 15:27:01', NULL, 0);
 INSERT INTO `yx_store_coupon` VALUES (67151, '满-', 0, 10000.00, 10001.00, 1, 1, 0, '', 0, '2024-12-06 13:31:01', '2024-12-18 16:26:38', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_coupon_issue
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_coupon_issue`;
-CREATE TABLE `yx_store_coupon_issue` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `cname` varchar(50) DEFAULT '',
-  `cid` int DEFAULT NULL COMMENT '优惠券ID',
-  `ctype` tinyint(1) DEFAULT NULL COMMENT '优惠券类型 0-通用 1-商品券',
-  `start_time` datetime DEFAULT NULL COMMENT '优惠券领取开启时间',
-  `end_time` datetime DEFAULT NULL COMMENT '优惠券领取结束时间',
-  `total_count` int DEFAULT NULL COMMENT '优惠券领取数量',
-  `remain_count` int DEFAULT NULL COMMENT '优惠券剩余领取数量',
-  `is_permanent` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否无限张数',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 正常 0 未开启 -1 已无效',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0',
-  `create_time` datetime DEFAULT NULL COMMENT '优惠券添加时间',
-  `update_time` datetime DEFAULT NULL,
+CREATE TABLE `yx_store_coupon_issue`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '',
+  `cid` int NULL DEFAULT NULL COMMENT '优惠券ID',
+  `ctype` tinyint(1) NULL DEFAULT NULL COMMENT '优惠券类型 0-通用 1-商品券',
+  `start_time` datetime NULL DEFAULT NULL COMMENT '优惠券领取开启时间',
+  `end_time` datetime NULL DEFAULT NULL COMMENT '优惠券领取结束时间',
+  `total_count` int NULL DEFAULT NULL COMMENT '优惠券领取数量',
+  `remain_count` int NULL DEFAULT NULL COMMENT '优惠券剩余领取数量',
+  `is_permanent` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否无限张数',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1 正常 0 未开启 -1 已无效',
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0,
+  `create_time` datetime NULL DEFAULT NULL COMMENT '优惠券添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `cid` (`cid`) USING BTREE,
-  KEY `start_time` (`start_time`,`end_time`) USING BTREE,
-  KEY `remain_count` (`remain_count`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1384 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='优惠券前台领取表';
+  INDEX `cid`(`cid` ASC) USING BTREE,
+  INDEX `start_time`(`start_time` ASC, `end_time` ASC) USING BTREE,
+  INDEX `remain_count`(`remain_count` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1384 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '优惠券前台领取表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_coupon_issue
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_coupon_issue` VALUES (1215, '11月测试', 600, 0, '2023-11-15 00:00:03', '2023-11-24 00:00:00', 0, 0, 0, 1, 0, '2023-11-16 15:16:44', '2023-11-16 15:19:58');
 INSERT INTO `yx_store_coupon_issue` VALUES (1216, '11月测试', 600, 1, '2023-11-15 00:00:00', '2023-11-17 00:00:00', 11, 9, 0, 1, 0, '2023-11-16 15:20:16', NULL);
 INSERT INTO `yx_store_coupon_issue` VALUES (1217, '11月测试', 600, 0, '2023-11-15 00:00:00', '2023-11-17 00:00:00', 454, 454, 0, 1, 0, '2023-11-16 15:21:00', NULL);
@@ -4811,306 +4804,290 @@ INSERT INTO `yx_store_coupon_issue` VALUES (1380, '满-', 67151, 0, '2024-12-06 
 INSERT INTO `yx_store_coupon_issue` VALUES (1381, '代金券-1202', 67150, 1, '2024-12-17 00:00:00', '2024-12-21 00:00:00', 0, 0, 0, 0, 0, '2024-12-16 15:25:12', '2024-12-16 15:25:33');
 INSERT INTO `yx_store_coupon_issue` VALUES (1382, '满-', 67151, 0, '2024-12-11 00:00:00', '2024-12-24 00:00:00', 0, 0, 1, 1, 0, '2024-12-18 16:26:56', '2024-12-18 16:27:51');
 INSERT INTO `yx_store_coupon_issue` VALUES (1383, '满-', 67151, 0, '2024-12-18 00:00:00', '2024-12-31 00:00:00', 10, 9, 0, 1, 0, '2024-12-18 16:27:26', '2024-12-18 16:27:38');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_coupon_issue_user
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_coupon_issue_user`;
-CREATE TABLE `yx_store_coupon_issue_user` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint DEFAULT NULL COMMENT '领取优惠券用户ID',
-  `issue_coupon_id` int DEFAULT NULL COMMENT '优惠券前台领取ID',
-  `create_time` datetime DEFAULT NULL COMMENT '领取时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+CREATE TABLE `yx_store_coupon_issue_user`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` bigint NULL DEFAULT NULL COMMENT '领取优惠券用户ID',
+  `issue_coupon_id` int NULL DEFAULT NULL COMMENT '优惠券前台领取ID',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '领取时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uid` (`uid`,`issue_coupon_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10353 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='优惠券前台用户领取记录表';
+  UNIQUE INDEX `uid`(`uid` ASC, `issue_coupon_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10353 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '优惠券前台用户领取记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_coupon_issue_user
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_coupon_user
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_coupon_user`;
-CREATE TABLE `yx_store_coupon_user` (
+CREATE TABLE `yx_store_coupon_user`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '优惠券发放记录id',
-  `cid` int unsigned NOT NULL DEFAULT '0' COMMENT '兑换的项目id',
-  `uid` bigint unsigned NOT NULL DEFAULT '0' COMMENT '优惠券所属用户',
-  `coupon_title` varchar(32) NOT NULL COMMENT '优惠券名称',
-  `coupon_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '优惠券的面值',
-  `use_min_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '最低消费多少金额可用优惠券',
+  `cid` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '兑换的项目id',
+  `uid` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '优惠券所属用户',
+  `coupon_title` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '优惠券名称',
+  `coupon_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '优惠券的面值',
+  `use_min_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '最低消费多少金额可用优惠券',
   `create_time` datetime NOT NULL COMMENT '优惠券创建时间',
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
   `end_time` datetime NOT NULL COMMENT '优惠券结束时间',
-  `use_time` datetime DEFAULT NULL COMMENT '使用时间',
-  `type` varchar(32) NOT NULL DEFAULT 'send' COMMENT '获取方式',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态（0：未使用，1：已使用, 2:已过期）',
-  `is_fail` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否有效',
-  `is_del` tinyint(1) DEFAULT '0',
+  `use_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
+  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'send' COMMENT '获取方式',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态（0：未使用，1：已使用, 2:已过期）',
+  `is_fail` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否有效',
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `cid` (`cid`) USING BTREE,
-  KEY `uid` (`uid`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `end_time` (`end_time`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `is_fail` (`is_fail`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10355 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='优惠券发放记录表';
+  INDEX `cid`(`cid` ASC) USING BTREE,
+  INDEX `uid`(`uid` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `end_time`(`end_time` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `is_fail`(`is_fail` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10355 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '优惠券发放记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_coupon_user
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_customer`;
-CREATE TABLE `yx_store_customer` (
+CREATE TABLE `yx_store_customer`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `nick_name` varchar(255) DEFAULT NULL COMMENT '用户昵称',
-  `open_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'openId',
-  `remark` varchar(128) DEFAULT NULL COMMENT '备注',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `is_del` tinyint(1) DEFAULT '0',
-  `is_enable` tinyint(1) DEFAULT '1' COMMENT '是否启用',
+  `nick_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户昵称',
+  `open_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT 'openId',
+  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
+  `is_del` tinyint(1) NULL DEFAULT 0,
+  `is_enable` tinyint(1) NULL DEFAULT 1 COMMENT '是否启用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='订单通知用户表 接收订单通知的用户';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '订单通知用户表 接收订单通知的用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_customer
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_order
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_order`;
-CREATE TABLE `yx_store_order` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '订单ID',
-  `order_id` varchar(32) NOT NULL COMMENT '订单号',
-  `extend_order_id` varchar(32) DEFAULT NULL COMMENT '额外订单号',
-  `uid` bigint unsigned NOT NULL COMMENT '用户id',
-  `real_name` varchar(32) NOT NULL COMMENT '用户姓名',
-  `user_phone` varchar(18) NOT NULL COMMENT '用户电话',
-  `user_address` varchar(100) NOT NULL COMMENT '详细地址',
-  `cart_id` varchar(256) NOT NULL DEFAULT '[]' COMMENT '购物车id',
-  `freight_price` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '运费金额',
-  `total_num` int unsigned NOT NULL DEFAULT '0' COMMENT '订单商品总数',
-  `total_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '订单总价',
-  `total_postage` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '邮费',
-  `pay_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '实际支付金额',
-  `pay_postage` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '支付邮费',
-  `deduction_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '抵扣金额',
-  `coupon_id` int unsigned NOT NULL DEFAULT '0' COMMENT '优惠券id',
-  `coupon_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '优惠券金额',
-  `paid` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '支付状态',
-  `pay_time` datetime DEFAULT NULL COMMENT '支付时间',
-  `pay_type` varchar(32) NOT NULL COMMENT '支付方式',
+CREATE TABLE `yx_store_order`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+  `order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '订单号',
+  `extend_order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '额外订单号',
+  `uid` bigint UNSIGNED NOT NULL COMMENT '用户id',
+  `real_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户姓名',
+  `user_phone` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户电话',
+  `user_address` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '详细地址',
+  `cart_id` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '[]' COMMENT '购物车id',
+  `freight_price` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '运费金额',
+  `total_num` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '订单商品总数',
+  `total_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '订单总价',
+  `total_postage` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '邮费',
+  `pay_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '实际支付金额',
+  `pay_postage` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '支付邮费',
+  `deduction_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '抵扣金额',
+  `coupon_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '优惠券id',
+  `coupon_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '优惠券金额',
+  `paid` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '支付状态',
+  `pay_time` datetime NULL DEFAULT NULL COMMENT '支付时间',
+  `pay_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '支付方式',
   `create_time` datetime NOT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '订单状态（-1 : 申请退款 -2 : 退货成功 0：待发货；1：待收货；2：已收货；3：已完成；-1：已退款）',
-  `refund_status` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 未退款 1 申请中 2 已退款',
-  `refund_reason_wap_img` varchar(255) DEFAULT NULL COMMENT '退款图片',
-  `refund_reason_wap_explain` varchar(255) DEFAULT NULL COMMENT '退款用户说明',
-  `refund_reason_time` datetime DEFAULT NULL COMMENT '退款时间',
-  `refund_reason_wap` varchar(255) DEFAULT NULL COMMENT '前台退款原因',
-  `refund_reason` varchar(255) DEFAULT NULL COMMENT '不退款的理由',
-  `refund_price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '退款金额',
-  `delivery_sn` varchar(100) DEFAULT '' COMMENT '快递公司编号',
-  `delivery_name` varchar(64) DEFAULT NULL COMMENT '快递名称/送货人姓名',
-  `delivery_type` varchar(32) DEFAULT NULL COMMENT '发货类型',
-  `delivery_id` varchar(64) DEFAULT NULL COMMENT '快递单号/手机号',
-  `gain_integral` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '消费赚取积分',
-  `use_integral` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '使用积分',
-  `back_integral` decimal(8,2) unsigned DEFAULT NULL COMMENT '给用户退了多少积分',
-  `mark` varchar(512) NOT NULL COMMENT '备注',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
-  `unique` char(32) NOT NULL COMMENT '唯一id(md5加密)类似id',
-  `remark` varchar(512) DEFAULT NULL COMMENT '管理员备注',
-  `mer_id` int unsigned NOT NULL DEFAULT '0' COMMENT '商户ID',
-  `combination_id` bigint unsigned DEFAULT '0' COMMENT '拼团产品id0一般产品',
-  `pink_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '拼团id 0没有拼团',
-  `cost` decimal(8,2) unsigned NOT NULL COMMENT '成本价',
-  `seckill_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '秒杀产品ID',
-  `verify_code` varchar(50) NOT NULL DEFAULT '' COMMENT '核销码',
-  `store_id` int NOT NULL DEFAULT '0' COMMENT '门店id',
-  `shipping_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配送方式 1=快递 ，2=门店自提',
-  `is_channel` tinyint unsigned DEFAULT '0' COMMENT '支付渠道(0微信公众号1微信小程序)',
-  `is_system_del` tinyint(1) DEFAULT '0',
-  `pay_integral` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '支付积分',
+  `update_time` datetime NULL DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '订单状态（-1 : 申请退款 -2 : 退货成功 0：待发货；1：待收货；2：已收货；3：已完成；-1：已退款）',
+  `refund_status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 未退款 1 申请中 2 已退款',
+  `refund_reason_wap_img` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '退款图片',
+  `refund_reason_wap_explain` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '退款用户说明',
+  `refund_reason_time` datetime NULL DEFAULT NULL COMMENT '退款时间',
+  `refund_reason_wap` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '前台退款原因',
+  `refund_reason` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '不退款的理由',
+  `refund_price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '退款金额',
+  `delivery_sn` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '快递公司编号',
+  `delivery_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '快递名称/送货人姓名',
+  `delivery_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '发货类型',
+  `delivery_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '快递单号/手机号',
+  `gain_integral` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '消费赚取积分',
+  `use_integral` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '使用积分',
+  `back_integral` decimal(8, 2) UNSIGNED NULL DEFAULT NULL COMMENT '给用户退了多少积分',
+  `mark` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '备注',
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `unique` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '唯一id(md5加密)类似id',
+  `remark` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '管理员备注',
+  `mer_id` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '商户ID',
+  `combination_id` bigint UNSIGNED NULL DEFAULT 0 COMMENT '拼团产品id0一般产品',
+  `pink_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '拼团id 0没有拼团',
+  `cost` decimal(8, 2) UNSIGNED NOT NULL COMMENT '成本价',
+  `seckill_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '秒杀产品ID',
+  `verify_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '核销码',
+  `store_id` int NOT NULL DEFAULT 0 COMMENT '门店id',
+  `shipping_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '配送方式 1=快递 ，2=门店自提',
+  `is_channel` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '支付渠道(0微信公众号1微信小程序)',
+  `is_system_del` tinyint(1) NULL DEFAULT 0,
+  `pay_integral` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '支付积分',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `order_id_2` (`order_id`,`uid`) USING BTREE,
-  UNIQUE KEY `unique` (`unique`) USING BTREE,
-  KEY `uid` (`uid`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `pay_price` (`pay_price`) USING BTREE,
-  KEY `paid` (`paid`) USING BTREE,
-  KEY `pay_time` (`pay_time`) USING BTREE,
-  KEY `pay_type` (`pay_type`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE,
-  KEY `coupon_id` (`coupon_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13675 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单表';
+  UNIQUE INDEX `order_id_2`(`order_id` ASC, `uid` ASC) USING BTREE,
+  UNIQUE INDEX `unique`(`unique` ASC) USING BTREE,
+  INDEX `uid`(`uid` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `pay_price`(`pay_price` ASC) USING BTREE,
+  INDEX `paid`(`paid` ASC) USING BTREE,
+  INDEX `pay_time`(`pay_time` ASC) USING BTREE,
+  INDEX `pay_type`(`pay_type` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE,
+  INDEX `coupon_id`(`coupon_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13675 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_order
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_order` VALUES (13673, '1872155091755073536', NULL, 41315, 'hupeng', '18000000000', '北京市 北京市 东城区 66', '8', 0.00, 1, 1.00, 0.00, 1.00, 0.00, 0.00, 0, 0.00, 1, '2024-12-26 13:38:52', 'yue', '2024-12-26 13:38:51', '2024-12-26 13:38:52', 0, 0, NULL, NULL, NULL, NULL, NULL, 0.00, '', NULL, NULL, NULL, 0.00, 0.00, 0.00, '', 0, '18c0e85e16b74a4a8aec77a3f50dd162', NULL, 0, 0, 0, 2.00, 0, '', 0, 1, 1, 0, 0.00);
 INSERT INTO `yx_store_order` VALUES (13674, '2054402405981749248', NULL, 41315, 'hupeng', '18000000000', '北京市 北京市 东城区 66', '12', 0.00, 1, 0.20, 1.00, 1.20, 1.00, 0.00, 0, 0.00, 1, '2026-05-13 11:24:37', 'yue', '2026-05-13 11:24:37', '2026-05-13 11:24:37', 0, 0, NULL, NULL, NULL, NULL, NULL, 0.00, '', NULL, NULL, NULL, 1.00, 0.00, 0.00, '', 0, '4e51e3824645495a8ec49e245f19d374', NULL, 0, 0, 0, 100.00, 0, '', 0, 1, 1, 0, 0.00);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_order_cart_info
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_order_cart_info`;
-CREATE TABLE `yx_store_order_cart_info` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `oid` bigint unsigned NOT NULL COMMENT '订单id',
-  `order_id` varchar(32) DEFAULT NULL COMMENT '订单号',
-  `cart_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '购物车id',
-  `product_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
-  `cart_info` text NOT NULL COMMENT '购买东西的详细信息',
-  `unique` varchar(50) NOT NULL DEFAULT '' COMMENT '唯一id',
-  `is_after_sales` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '是否能售后 0不能1能',
+CREATE TABLE `yx_store_order_cart_info`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `oid` bigint UNSIGNED NOT NULL COMMENT '订单id',
+  `order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单号',
+  `cart_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '购物车id',
+  `product_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
+  `cart_info` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '购买东西的详细信息',
+  `unique` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '唯一id',
+  `is_after_sales` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT 0 COMMENT '是否能售后 0不能1能',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `oid` (`oid`,`unique`) USING BTREE,
-  KEY `cart_id` (`cart_id`) USING BTREE,
-  KEY `product_id` (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=14226 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单购物详情表';
+  UNIQUE INDEX `oid`(`oid` ASC, `unique` ASC) USING BTREE,
+  INDEX `cart_id`(`cart_id` ASC) USING BTREE,
+  INDEX `product_id`(`product_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14226 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单购物详情表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_order_cart_info
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_order_cart_info` VALUES (14224, 13673, '1872155091755073536', 8, 34, '{\"productId\":34,\"seckillId\":0,\"vipTruePrice\":1.0,\"combinationId\":0,\"costPrice\":2.0,\"trueStock\":9884,\"truePrice\":1.0,\"type\":\"product\",\"cartNum\":1,\"productInfo\":{\"specType\":1,\"isIntegral\":0,\"otPrice\":33.00,\"userCollect\":false,\"description\":\"<p><br/></p><p><br/></p><p><img style=\\\"max-width: 100%;\\\" src=\\\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\\\"/></p>\",\"isPostage\":0,\"isSub\":0,\"image_base\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"sales\":2187,\"integral\":0,\"price\":1.00,\"userLike\":false,\"vipPrice\":0.00,\"storeName\":\"柏黛雅全套化妆刷套装眼影腮红修容刷子便携彩妆化妆工具官方正品\",\"id\":34,\"keyword\":\"柏黛雅\",\"stock\":37801,\"image\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"cost\":2.00,\"isGood\":0,\"unitName\":\"米\",\"giveIntegral\":0.00,\"sort\":0,\"sliderImageArr\":[\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\"],\"sliderImage\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg,https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"isShow\":1,\"postage\":0.00,\"cateId\":\"11\",\"isSeckill\":0,\"merId\":0,\"ficti\":0,\"storeInfo\":\"柏黛雅\",\"tempId\":34,\"attrInfo\":{\"brokerage\":0.00,\"image\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"cost\":2.00,\"productId\":34,\"otPrice\":34.00,\"weight\":0.00,\"sales\":0,\"barCode\":\"\",\"brokerageTwo\":0.00,\"volume\":0.00,\"integral\":0,\"price\":1.00,\"pinkStock\":0,\"seckillPrice\":0.01,\"unique\":\"feff4937312f439eb194ac09d142d9d4\",\"id\":3859,\"sku\":\"70,90m\",\"stock\":9884,\"pinkPrice\":0.01,\"seckillStock\":0},\"browse\":137694},\"uid\":41315,\"productAttrUnique\":\"feff4937312f439eb194ac09d142d9d4\",\"id\":8}', '94127666b2184f53bff5365bd704ba8c', 1);
 INSERT INTO `yx_store_order_cart_info` VALUES (14225, 13674, '2054402405981749248', 12, 33, '{\"productId\":33,\"seckillId\":0,\"vipTruePrice\":0.2,\"combinationId\":0,\"costPrice\":100.0,\"trueStock\":9999,\"truePrice\":0.2,\"type\":\"product\",\"cartNum\":1,\"productInfo\":{\"specType\":0,\"isIntegral\":0,\"otPrice\":200.00,\"userCollect\":false,\"description\":\"<p><br/></p><p><br/></p><p><img style=\\\"max-width: 100%;\\\" src=\\\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\\\"/></p>\",\"isPostage\":0,\"isSub\":0,\"image_base\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"sales\":1933,\"integral\":0,\"price\":0.20,\"userLike\":false,\"vipPrice\":0.00,\"storeName\":\"into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品\",\"id\":33,\"keyword\":\"into you\",\"stock\":9999,\"image\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"cost\":100.00,\"isGood\":0,\"unitName\":\"张\",\"giveIntegral\":1.00,\"sort\":0,\"sliderImageArr\":[\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\"],\"sliderImage\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"isShow\":1,\"postage\":0.00,\"cateId\":\"11\",\"isSeckill\":0,\"merId\":0,\"ficti\":10,\"storeInfo\":\"into you\",\"tempId\":35,\"attrInfo\":{\"brokerage\":0.00,\"image\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"cost\":100.00,\"productId\":33,\"otPrice\":200.00,\"weight\":0.00,\"sales\":0,\"barCode\":\"\",\"brokerageTwo\":0.00,\"volume\":0.00,\"integral\":0,\"price\":0.20,\"pinkStock\":0,\"seckillPrice\":0.00,\"unique\":\"4527a28e4fce4492831997c1b61df575\",\"id\":87228,\"sku\":\"默认\",\"stock\":9999,\"pinkPrice\":0.00,\"seckillStock\":0},\"browse\":135928},\"uid\":41315,\"productAttrUnique\":\"4527a28e4fce4492831997c1b61df575\",\"id\":12}', 'ae39975a06f547a3ac57c7cb5e4073f4', 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_order_status
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_order_status`;
-CREATE TABLE `yx_store_order_status` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `oid` bigint unsigned NOT NULL COMMENT '订单id',
-  `change_type` varchar(32) NOT NULL COMMENT '操作类型',
-  `change_message` varchar(256) NOT NULL COMMENT '操作备注',
+CREATE TABLE `yx_store_order_status`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `oid` bigint UNSIGNED NOT NULL COMMENT '订单id',
+  `change_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '操作类型',
+  `change_message` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '操作备注',
   `change_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `oid` (`oid`) USING BTREE,
-  KEY `change_type` (`change_type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=26486 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='订单操作记录表';
+  INDEX `oid`(`oid` ASC) USING BTREE,
+  INDEX `change_type`(`change_type` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 26486 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '订单操作记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_order_status
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_order_status` VALUES (26482, 13673, 'yshop_create_order', '订单生成', '2024-12-26 13:38:51');
 INSERT INTO `yx_store_order_status` VALUES (26483, 13673, 'pay_success', '用户付款成功', '2024-12-26 13:38:51');
 INSERT INTO `yx_store_order_status` VALUES (26484, 13674, 'yshop_create_order', '订单生成', '2026-05-13 11:24:37');
 INSERT INTO `yx_store_order_status` VALUES (26485, 13674, 'pay_success', '用户付款成功', '2026-05-13 11:24:37');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_product
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product`;
-CREATE TABLE `yx_store_product` (
+CREATE TABLE `yx_store_product`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商品id',
-  `mer_id` int unsigned DEFAULT '0' COMMENT '商户Id(0为总后台管理员创建,不为0的时候是商户后台创建)',
-  `image` varchar(256) NOT NULL COMMENT '商品图片',
-  `slider_image` varchar(2000) NOT NULL COMMENT '轮播图',
-  `store_name` varchar(128) NOT NULL COMMENT '商品名称',
-  `store_info` varchar(256) NOT NULL COMMENT '商品简介',
-  `keyword` varchar(256) NOT NULL COMMENT '关键字',
-  `bar_code` varchar(15) DEFAULT '' COMMENT '产品条码（一维码）',
-  `cate_id` varchar(64) NOT NULL COMMENT '分类id',
-  `price` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '商品价格',
-  `vip_price` decimal(8,2) unsigned DEFAULT '0.00' COMMENT '会员价格',
-  `ot_price` decimal(8,2) unsigned DEFAULT '0.00' COMMENT '市场价',
-  `postage` decimal(8,2) unsigned DEFAULT '0.00' COMMENT '邮费',
-  `unit_name` varchar(32) DEFAULT NULL COMMENT '单位名',
-  `sort` smallint DEFAULT '0' COMMENT '排序',
-  `sales` mediumint unsigned DEFAULT '0' COMMENT '销量',
-  `stock` mediumint unsigned DEFAULT '0' COMMENT '库存',
-  `is_show` tinyint(1) DEFAULT '1' COMMENT '状态（0：未上架，1：上架）',
-  `is_hot` tinyint(1) DEFAULT '0' COMMENT '是否热卖',
-  `is_benefit` tinyint(1) DEFAULT '0' COMMENT '是否优惠',
-  `is_best` tinyint(1) DEFAULT '0' COMMENT '是否精品',
-  `is_new` tinyint(1) DEFAULT '0' COMMENT '是否新品',
-  `description` text COMMENT '产品描述',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_postage` tinyint unsigned DEFAULT '0' COMMENT '是否包邮',
-  `is_del` tinyint unsigned DEFAULT '0' COMMENT '是否删除',
-  `is_integral` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '是开启积分兑换',
-  `integral` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '需要多少积分兑换',
-  `mer_use` tinyint unsigned DEFAULT '0' COMMENT '商户是否代理 0不可代理1可代理',
-  `give_integral` decimal(8,2) unsigned DEFAULT NULL COMMENT '获得积分',
-  `cost` decimal(8,2) unsigned DEFAULT NULL COMMENT '成本价',
-  `is_seckill` tinyint unsigned DEFAULT '0' COMMENT '秒杀状态 0 未开启 1已开启',
-  `is_good` tinyint(1) DEFAULT '0' COMMENT '是否优品推荐',
-  `ficti` mediumint DEFAULT '100' COMMENT '虚拟销量',
-  `browse` int DEFAULT '0' COMMENT '浏览量',
-  `code_path` varchar(64) NOT NULL DEFAULT '' COMMENT '产品二维码地址(用户小程序海报)',
-  `is_sub` tinyint(1) DEFAULT '0' COMMENT '是否单独分佣',
-  `temp_id` int DEFAULT NULL COMMENT '运费模板ID',
-  `spec_type` tinyint(1) DEFAULT '0' COMMENT '规格 0单 1多',
+  `mer_id` int UNSIGNED NULL DEFAULT 0 COMMENT '商户Id(0为总后台管理员创建,不为0的时候是商户后台创建)',
+  `image` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品图片',
+  `slider_image` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '轮播图',
+  `store_name` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品名称',
+  `store_info` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品简介',
+  `keyword` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '关键字',
+  `bar_code` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '产品条码（一维码）',
+  `cate_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '分类id',
+  `price` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '商品价格',
+  `vip_price` decimal(8, 2) UNSIGNED NULL DEFAULT 0.00 COMMENT '会员价格',
+  `ot_price` decimal(8, 2) UNSIGNED NULL DEFAULT 0.00 COMMENT '市场价',
+  `postage` decimal(8, 2) UNSIGNED NULL DEFAULT 0.00 COMMENT '邮费',
+  `unit_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '单位名',
+  `sort` smallint NULL DEFAULT 0 COMMENT '排序',
+  `sales` mediumint UNSIGNED NULL DEFAULT 0 COMMENT '销量',
+  `stock` mediumint UNSIGNED NULL DEFAULT 0 COMMENT '库存',
+  `is_show` tinyint(1) NULL DEFAULT 1 COMMENT '状态（0：未上架，1：上架）',
+  `is_hot` tinyint(1) NULL DEFAULT 0 COMMENT '是否热卖',
+  `is_benefit` tinyint(1) NULL DEFAULT 0 COMMENT '是否优惠',
+  `is_best` tinyint(1) NULL DEFAULT 0 COMMENT '是否精品',
+  `is_new` tinyint(1) NULL DEFAULT 0 COMMENT '是否新品',
+  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '产品描述',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_postage` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否包邮',
+  `is_del` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否删除',
+  `is_integral` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT 0 COMMENT '是开启积分兑换',
+  `integral` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT 0 COMMENT '需要多少积分兑换',
+  `mer_use` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '商户是否代理 0不可代理1可代理',
+  `give_integral` decimal(8, 2) UNSIGNED NULL DEFAULT NULL COMMENT '获得积分',
+  `cost` decimal(8, 2) UNSIGNED NULL DEFAULT NULL COMMENT '成本价',
+  `is_seckill` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '秒杀状态 0 未开启 1已开启',
+  `is_good` tinyint(1) NULL DEFAULT 0 COMMENT '是否优品推荐',
+  `ficti` mediumint NULL DEFAULT 100 COMMENT '虚拟销量',
+  `browse` int NULL DEFAULT 0 COMMENT '浏览量',
+  `code_path` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '产品二维码地址(用户小程序海报)',
+  `is_sub` tinyint(1) NULL DEFAULT 0 COMMENT '是否单独分佣',
+  `temp_id` int NULL DEFAULT NULL COMMENT '运费模板ID',
+  `spec_type` tinyint(1) NULL DEFAULT 0 COMMENT '规格 0单 1多',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `is_hot` (`is_hot`) USING BTREE,
-  KEY `is_benefit` (`is_benefit`) USING BTREE,
-  KEY `is_best` (`is_best`) USING BTREE,
-  KEY `is_new` (`is_new`) USING BTREE,
-  KEY `toggle_on_sale, is_del` (`is_del`) USING BTREE,
-  KEY `price` (`price`) USING BTREE,
-  KEY `is_show` (`is_show`) USING BTREE,
-  KEY `sort` (`sort`) USING BTREE,
-  KEY `sales` (`sales`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `is_postage` (`is_postage`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品表';
+  INDEX `is_hot`(`is_hot` ASC) USING BTREE,
+  INDEX `is_benefit`(`is_benefit` ASC) USING BTREE,
+  INDEX `is_best`(`is_best` ASC) USING BTREE,
+  INDEX `is_new`(`is_new` ASC) USING BTREE,
+  INDEX `toggle_on_sale, is_del`(`is_del` ASC) USING BTREE,
+  INDEX `price`(`price` ASC) USING BTREE,
+  INDEX `is_show`(`is_show` ASC) USING BTREE,
+  INDEX `sort`(`sort` ASC) USING BTREE,
+  INDEX `sales`(`sales` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `is_postage`(`is_postage` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product
 -- ----------------------------
-BEGIN;
-INSERT INTO `yx_store_product` VALUES (32, 0, 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', 'TOMFORD汤姆福特唇膏4色TF口红黑管套装礼盒16', 'TOMFORD', 'TOMFORD', '', '11', 10.00, 0.00, 18.00, 0.00, '米', 0, 3369, 9981, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224131723895452.jpg\"/></p>', '2020-09-14 15:19:38', '2024-12-24 13:17:53', 0, 0, 0, 0, 0, 1.00, 8.00, 0, 0, 0, 142383, '', 1, 34, 0);
-INSERT INTO `yx_store_product` VALUES (33, 0, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', 'into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品', 'into you', 'into you', '', '11', 0.20, 0.00, 200.00, 0.00, '张', 0, 1934, 9998, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\"/></p>', '2020-09-14 15:26:11', '2024-12-24 13:16:32', 0, 0, 0, 0, 0, 1.00, 100.00, 0, 0, 10, 135928, '', 0, 35, 0);
-INSERT INTO `yx_store_product` VALUES (34, 0, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg,https://app2.yixiang.co/file/pic/20241224130758625815.jpg', '柏黛雅全套化妆刷套装眼影腮红修容刷子便携彩妆化妆工具官方正品', '柏黛雅', '柏黛雅', '', '11', 1.00, 0.00, 33.00, 0.00, '米', 0, 2188, 37800, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\"/></p>', '2020-09-14 15:28:38', '2024-12-24 13:08:52', 0, 0, 0, 0, 0, 0.00, 2.00, 0, 0, 0, 137695, '', 0, 34, 1);
-INSERT INTO `yx_store_product` VALUES (35, 0, 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'Kaleidos万花镜欲场系列唇蜜腮红眼影盘套组唇釉005名利场', 'Kaleidos', 'Kaleidos', '', '11', 1.00, 0.00, 10.00, 0.00, '米', 0, 1237, 9996, 1, 1, 1, 1, 1, '<p><br/></p><p></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130632542464.jpg\"/></p>', '2020-09-14 15:29:58', '2024-12-24 13:07:01', 0, 0, 0, 9, 0, 0.00, 5.00, 0, 0, 0, 136865, '', 0, 34, 0);
-INSERT INTO `yx_store_product` VALUES (36, 0, 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg,https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '华为MateBook D 16 2024笔记本电脑 13代酷睿标压处理器/16英寸护眼大屏/轻薄办公本 ', '华为MateBook \n', '华为MateBook ', '', '31', 0.50, 0.00, 5.00, 0.00, '张', 0, 1435, 38534, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224130323267952.jpg\"/></p>', '2020-09-14 15:32:14', '2024-12-24 13:05:15', 0, 0, 0, 0, 0, 1.00, 0.00, 0, 0, 10, 141780, '', 0, 34, 1);
-INSERT INTO `yx_store_product` VALUES (37, 0, 'https://app2.yixiang.co/file/pic/20241224125949157717.jpg', 'https://app2.yixiang.co/file/pic/20241224125949157717.jpg,https://app2.yixiang.co/file/pic/20241224125949122219.jpg', '小米电视5 55英寸 L55M6-5 4K超高清 5.9mm超薄全面屏', '小米电视', '电视', '', '24', 0.01, 0.00, 6.00, 0.00, '张', 0, 1998, 9997, 1, 1, 1, 1, 1, '<p><br/></p><p></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224125949157717.jpg\"/></p>', '2020-09-14 15:35:19', '2024-12-24 13:00:34', 0, 0, 0, 10, 0, 0.00, 1.00, 0, 0, 0, 29813, '', 0, 34, 0);
-INSERT INTO `yx_store_product` VALUES (38, 0, 'https://app2.yixiang.co/file/pic/20241224133456540558.png', 'https://app2.yixiang.co/file/pic/20241224133456540558.png', 'YSHOP精美小杯子', '小杯子', '小杯子', '', '36', 20.00, 0.00, 30.00, 0.00, '个', 0, 77, 9999, 1, 0, 0, 0, 0, '<p><br/></p><p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224133456540558.png\"/></p>', '2021-02-22 22:08:59', '2024-12-24 13:35:19', 0, 0, 1, 10, 0, 0.00, 15.00, 0, 0, 0, 1190, '', 0, 34, 0);
-INSERT INTO `yx_store_product` VALUES (39, 0, 'https://app2.yixiang.co/file/pic/20241224132443795949.jpeg', 'https://app2.yixiang.co/file/pic/20241224132443795949.jpeg', '意象卡通猫熊', '意象卡通猫熊', '意象', '', '36', 38.00, 0.00, 66.00, 0.00, '个', 0, 169, 8719, 1, 0, 0, 0, 0, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://app2.yixiang.co/file/pic/20241224132443795949.jpeg\"/></p>', '2021-02-22 22:11:41', '2024-12-24 13:34:31', 0, 0, 1, 20, 0, 0.00, 20.00, 0, 0, 0, 2175, '', 0, 34, 0);
-COMMIT;
+INSERT INTO `yx_store_product` VALUES (32, 0, 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80', 'TOMFORD汤姆福特唇膏4色TF口红黑管套装礼盒16', 'TOMFORD', 'TOMFORD', '', '11', 10.00, 0.00, 18.00, 0.00, '米', 0, 3369, 9981, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:19:38', '2024-12-24 13:17:53', 0, 0, 0, 0, 0, 1.00, 8.00, 0, 0, 0, 142383, '', 1, 34, 0);
+INSERT INTO `yx_store_product` VALUES (33, 0, 'https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80', 'into you唇泥空气唇釉唇蜜em525水雾口红intoyou05裸色系官方正品', 'into you', 'into you', '', '11', 0.20, 0.00, 200.00, 0.00, '张', 0, 1934, 9998, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:26:11', '2024-12-24 13:16:32', 0, 0, 0, 0, 0, 1.00, 100.00, 0, 0, 10, 135929, '', 0, 35, 0);
+INSERT INTO `yx_store_product` VALUES (34, 0, 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80,https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80', '柏黛雅全套化妆刷套装眼影腮红修容刷子便携彩妆化妆工具官方正品', '柏黛雅', '柏黛雅', '', '11', 1.00, 0.00, 33.00, 0.00, '米', 0, 2188, 37800, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:28:38', '2024-12-24 13:08:52', 0, 0, 0, 0, 0, 0.00, 2.00, 0, 0, 0, 137696, '', 0, 34, 1);
+INSERT INTO `yx_store_product` VALUES (35, 0, 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80', 'Kaleidos万花镜欲场系列唇蜜腮红眼影盘套组唇釉005名利场', 'Kaleidos', 'Kaleidos', '', '11', 1.00, 0.00, 10.00, 0.00, '米', 0, 1237, 9996, 1, 1, 1, 1, 1, '<p><br/></p><p></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:29:58', '2024-12-24 13:07:01', 0, 0, 0, 9, 0, 0.00, 5.00, 0, 0, 0, 136865, '', 0, 34, 0);
+INSERT INTO `yx_store_product` VALUES (36, 0, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80,https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80', '华为MateBook D 16 2024笔记本电脑 13代酷睿标压处理器/16英寸护眼大屏/轻薄办公本 ', '华为MateBook \n', '华为MateBook ', '', '31', 0.50, 0.00, 5.00, 0.00, '张', 0, 1435, 38534, 1, 1, 1, 1, 1, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:32:14', '2024-12-24 13:05:15', 0, 0, 0, 0, 0, 1.00, 0.00, 0, 0, 10, 141781, '', 0, 34, 1);
+INSERT INTO `yx_store_product` VALUES (37, 0, 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80,https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=800&q=80', '小米电视5 55英寸 L55M6-5 4K超高清 5.9mm超薄全面屏', '小米电视', '电视', '', '24', 0.01, 0.00, 6.00, 0.00, '张', 0, 1998, 9997, 1, 1, 1, 1, 1, '<p><br/></p><p></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80\"/></p>', '2020-09-14 15:35:19', '2024-12-24 13:00:34', 0, 0, 0, 10, 0, 0.00, 1.00, 0, 0, 0, 29813, '', 0, 34, 0);
+INSERT INTO `yx_store_product` VALUES (38, 0, 'https://images.unsplash.com/photo-1514228742587-6b1558fcc036?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1514228742587-6b1558fcc036?auto=format&fit=crop&w=800&q=80', 'YSHOP精美小杯子', '小杯子', '小杯子', '', '36', 20.00, 0.00, 30.00, 0.00, '个', 0, 77, 9999, 1, 0, 0, 0, 0, '<p><br/></p><p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1514228742587-6b1558fcc036?auto=format&fit=crop&w=800&q=80\"/></p>', '2021-02-22 22:08:59', '2024-12-24 13:35:19', 0, 0, 1, 10, 0, 0.00, 15.00, 0, 0, 0, 1190, '', 0, 34, 0);
+INSERT INTO `yx_store_product` VALUES (39, 0, 'https://images.unsplash.com/photo-1530325553241-4f6e768bfa87?auto=format&fit=crop&w=800&q=80', 'https://images.unsplash.com/photo-1530325553241-4f6e768bfa87?auto=format&fit=crop&w=800&q=80', '意象卡通猫熊', '意象卡通猫熊', '意象', '', '36', 38.00, 0.00, 66.00, 0.00, '个', 0, 169, 8719, 1, 0, 0, 0, 0, '<p><br/></p><p><br/></p><p><img style=\"max-width: 100%;\" src=\"https://images.unsplash.com/photo-1530325553241-4f6e768bfa87?auto=format&fit=crop&w=800&q=80\"/></p>', '2021-02-22 22:11:41', '2024-12-24 13:34:31', 0, 0, 1, 20, 0, 0.00, 20.00, 0, 0, 0, 2175, '', 0, 34, 0);
 
 -- ----------------------------
 -- Table structure for yx_store_product_attr
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_attr`;
-CREATE TABLE `yx_store_product_attr` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
-  `attr_name` varchar(32) NOT NULL COMMENT '属性名',
-  `attr_values` varchar(256) NOT NULL COMMENT '属性值',
+CREATE TABLE `yx_store_product_attr`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品ID',
+  `attr_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '属性名',
+  `attr_values` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '属性值',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `store_id` (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=68831 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品属性表';
+  INDEX `store_id`(`product_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 68831 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品属性表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_attr
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_product_attr` VALUES (68819, 36, '纸张', 'A4,A3');
 INSERT INTO `yx_store_product_attr` VALUES (68820, 36, '颜色', '白色,红色');
 INSERT INTO `yx_store_product_attr` VALUES (68822, 34, '长', '100m,90m');
@@ -5121,25 +5098,23 @@ INSERT INTO `yx_store_product_attr` VALUES (68827, 39, '规格', '默认');
 INSERT INTO `yx_store_product_attr` VALUES (68828, 38, '规格', '默认');
 INSERT INTO `yx_store_product_attr` VALUES (68829, 37, '规格', '默认');
 INSERT INTO `yx_store_product_attr` VALUES (68830, 35, '规格', '默认');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_product_attr_result
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_attr_result`;
-CREATE TABLE `yx_store_product_attr_result` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL COMMENT '商品ID',
-  `result` text NOT NULL COMMENT '商品属性参数',
+CREATE TABLE `yx_store_product_attr_result`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL COMMENT '商品ID',
+  `result` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品属性参数',
   `change_time` datetime NOT NULL COMMENT '上次修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `product_id` (`product_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=59427 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品属性详情表';
+  INDEX `product_id`(`product_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 59427 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品属性详情表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_attr_result
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_product_attr_result` VALUES (59417, 36, '{\"attr\":[{\"detail\":[\"A4\",\"A3\"],\"value\":\"纸张\"},{\"detail\":[\"白色\",\"红色\"],\"value\":\"颜色\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":1.0,\"detail\":{\"纸张\":\"A4\",\"颜色\":\"白色\"},\"integral\":0,\"otPrice\":5.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130323267952.jpg\",\"pinkPrice\":2.0,\"pinkStock\":3,\"price\":1.0,\"seckillPrice\":0.01,\"seckillStock\":19,\"sku\":\"A4,白色\",\"stock\":8882,\"value1\":\"A4\",\"value2\":\"白色\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":0.0,\"detail\":{\"纸张\":\"A4\",\"颜色\":\"红色\"},\"integral\":0,\"otPrice\":6.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130323222531.jpg\",\"pinkPrice\":0.05,\"pinkStock\":9,\"price\":0.5,\"seckillPrice\":0.02,\"seckillStock\":15,\"sku\":\"A4,红色\",\"stock\":9815,\"value1\":\"A4\",\"value2\":\"红色\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":1.0,\"detail\":{\"纸张\":\"A3\",\"颜色\":\"白色\"},\"integral\":0,\"otPrice\":7.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130323267952.jpg\",\"pinkPrice\":0.05,\"pinkStock\":10,\"price\":2.0,\"seckillPrice\":0.03,\"seckillStock\":10,\"sku\":\"A3,白色\",\"stock\":9941,\"value1\":\"A3\",\"value2\":\"白色\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":1.0,\"detail\":{\"纸张\":\"A3\",\"颜色\":\"红色\"},\"integral\":0,\"otPrice\":8.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130323222531.jpg\",\"pinkPrice\":0.05,\"pinkStock\":10,\"price\":3.0,\"seckillPrice\":0.04,\"seckillStock\":10,\"sku\":\"A3,红色\",\"stock\":9896,\"value1\":\"A3\",\"value2\":\"红色\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:05:15');
 INSERT INTO `yx_store_product_attr_result` VALUES (59419, 34, '{\"attr\":[{\"detail\":[\"100m\",\"90m\"],\"value\":\"长\"},{\"detail\":[\"50m\",\"70\"],\"value\":\"高\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":2.0,\"detail\":{\"长\":\"100m\",\"高\":\"50m\"},\"integral\":0,\"otPrice\":333.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"pinkPrice\":0.01,\"pinkStock\":2,\"price\":10.0,\"seckillPrice\":0.02,\"seckillStock\":96,\"sku\":\"100m,50m\",\"stock\":8105,\"value1\":\"100m\",\"value2\":\"50m\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":2.0,\"detail\":{\"长\":\"100m\",\"高\":\"70\"},\"integral\":0,\"otPrice\":33.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"pinkPrice\":0.01,\"pinkStock\":2,\"price\":8.0,\"seckillPrice\":0.01,\"seckillStock\":100,\"sku\":\"100m,70\",\"stock\":9914,\"value1\":\"100m\",\"value2\":\"70\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":2.0,\"detail\":{\"长\":\"90m\",\"高\":\"50m\"},\"integral\":0,\"otPrice\":33.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"pinkPrice\":0.01,\"pinkStock\":2,\"price\":9.0,\"seckillPrice\":0.01,\"seckillStock\":100,\"sku\":\"50m,90m\",\"stock\":9898,\"value1\":\"90m\",\"value2\":\"50m\",\"volume\":0.0,\"weight\":0.0},{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":2.0,\"detail\":{\"长\":\"90m\",\"高\":\"70\"},\"integral\":0,\"otPrice\":34.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130758625815.jpg\",\"pinkPrice\":0.01,\"pinkStock\":2,\"price\":1.0,\"seckillPrice\":0.01,\"seckillStock\":100,\"sku\":\"70,90m\",\"stock\":9884,\"value1\":\"90m\",\"value2\":\"70\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:08:52');
 INSERT INTO `yx_store_product_attr_result` VALUES (59420, 33, '{\"attr\":[{\"attrHidden\":\"\",\"detail\":[\"默认\"],\"detailValue\":\"\",\"value\":\"规格\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":100.0,\"detail\":{\"规格\":\"默认\"},\"integral\":0,\"otPrice\":200.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224131015912375.jpg\",\"pinkPrice\":0.0,\"pinkStock\":0,\"price\":0.2,\"seckillPrice\":0.0,\"seckillStock\":0,\"sku\":\"\",\"stock\":9999,\"value1\":\"规格\",\"value2\":\"\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:16:32');
@@ -5148,141 +5123,133 @@ INSERT INTO `yx_store_product_attr_result` VALUES (59423, 39, '{\"attr\":[{\"att
 INSERT INTO `yx_store_product_attr_result` VALUES (59424, 38, '{\"attr\":[{\"attrHidden\":\"\",\"detail\":[\"默认\"],\"detailValue\":\"\",\"value\":\"规格\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":15.0,\"detail\":{\"规格\":\"默认\"},\"integral\":10,\"otPrice\":30.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224133456540558.png\",\"pinkPrice\":10.0,\"pinkStock\":0,\"price\":20.0,\"seckillPrice\":0.0,\"seckillStock\":0,\"stock\":9999,\"value1\":\"规格\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:35:19');
 INSERT INTO `yx_store_product_attr_result` VALUES (59425, 37, '{\"attr\":[{\"attrHidden\":\"\",\"detail\":[\"默认\"],\"detailValue\":\"\",\"value\":\"规格\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":1.0,\"detail\":{\"规格\":\"默认\"},\"integral\":10,\"otPrice\":6.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224125949157717.jpg\",\"pinkPrice\":5.01,\"pinkStock\":999,\"price\":0.01,\"seckillPrice\":5.0,\"seckillStock\":8,\"stock\":9999,\"value1\":\"规格\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:37:36');
 INSERT INTO `yx_store_product_attr_result` VALUES (59426, 35, '{\"attr\":[{\"attrHidden\":\"\",\"detail\":[\"默认\"],\"detailValue\":\"\",\"value\":\"规格\"}],\"value\":[{\"barCode\":\"\",\"brokerage\":0.0,\"brokerageTwo\":0.0,\"cost\":5.0,\"detail\":{\"规格\":\"默认\"},\"integral\":9,\"otPrice\":10.0,\"pic\":\"https://app2.yixiang.co/file/pic/20241224130632542464.jpg\",\"pinkPrice\":10.0,\"pinkStock\":0,\"price\":1.0,\"seckillPrice\":100.0,\"seckillStock\":888,\"stock\":9996,\"value1\":\"规格\",\"volume\":0.0,\"weight\":0.0}]}', '2024-12-24 13:38:17');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_product_attr_value
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_attr_value`;
-CREATE TABLE `yx_store_product_attr_value` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `product_id` bigint unsigned NOT NULL COMMENT '商品ID',
-  `sku` varchar(128) NOT NULL COMMENT '商品属性索引值 (attr_value|attr_value[|....])',
-  `stock` int unsigned NOT NULL COMMENT '属性对应的库存',
-  `sales` int unsigned DEFAULT '0' COMMENT '销量',
-  `price` decimal(8,2) unsigned NOT NULL COMMENT '属性金额',
-  `image` varchar(128) DEFAULT NULL COMMENT '图片',
-  `unique` varchar(100) NOT NULL DEFAULT '' COMMENT '唯一值',
-  `cost` decimal(8,2) unsigned NOT NULL COMMENT '成本价',
-  `bar_code` varchar(255) DEFAULT NULL COMMENT '商品条码',
-  `ot_price` decimal(10,2) DEFAULT '0.00' COMMENT '原价',
-  `weight` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '重量',
-  `volume` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '体积',
-  `brokerage` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '一级返佣',
-  `brokerage_two` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '二级返佣',
-  `pink_price` decimal(8,2) NOT NULL COMMENT '拼团价',
+CREATE TABLE `yx_store_product_attr_value`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL COMMENT '商品ID',
+  `sku` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '商品属性索引值 (attr_value|attr_value[|....])',
+  `stock` int UNSIGNED NOT NULL COMMENT '属性对应的库存',
+  `sales` int UNSIGNED NULL DEFAULT 0 COMMENT '销量',
+  `price` decimal(8, 2) UNSIGNED NOT NULL COMMENT '属性金额',
+  `image` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图片',
+  `unique` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '唯一值',
+  `cost` decimal(8, 2) UNSIGNED NOT NULL COMMENT '成本价',
+  `bar_code` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '商品条码',
+  `ot_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '原价',
+  `weight` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '重量',
+  `volume` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '体积',
+  `brokerage` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '一级返佣',
+  `brokerage_two` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '二级返佣',
+  `pink_price` decimal(8, 2) NOT NULL COMMENT '拼团价',
   `pink_stock` int NOT NULL COMMENT '拼团库存',
-  `seckill_price` decimal(10,2) NOT NULL COMMENT '秒杀价',
-  `integral` int DEFAULT '0' COMMENT '需要多少积分兑换',
+  `seckill_price` decimal(10, 2) NOT NULL COMMENT '秒杀价',
+  `integral` int NULL DEFAULT 0 COMMENT '需要多少积分兑换',
   `seckill_stock` int NOT NULL COMMENT '秒杀库存',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `unique` (`unique`,`sku`) USING BTREE,
-  KEY `store_id` (`product_id`,`sku`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=87235 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品属性值表';
+  UNIQUE INDEX `unique`(`unique` ASC, `sku` ASC) USING BTREE,
+  INDEX `store_id`(`product_id` ASC, `sku` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 87235 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品属性值表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_attr_value
 -- ----------------------------
-BEGIN;
-INSERT INTO `yx_store_product_attr_value` VALUES (3856, 34, '100m,50m', 8105, 0, 10.00, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', 'ca111c30eed945d38b298f5940a5d1b5', 2.00, '', 333.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.02, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (3857, 34, '100m,70', 9914, 0, 8.00, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', '1886ce241a5243d3b02f8955b8b85de2', 2.00, '', 33.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (3858, 34, '50m,90m', 9898, 0, 9.00, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', '7c031371dc1d4653af1c492e963acd96', 2.00, '', 33.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (3859, 34, '70,90m', 9883, 1, 1.00, 'https://app2.yixiang.co/file/pic/20241224130758625815.jpg', 'feff4937312f439eb194ac09d142d9d4', 2.00, '', 34.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (73073, 36, 'A4,白色', 8882, 0, 1.00, 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', 'c38b4340485b465d92b787dd68dcc26e', 1.00, '', 5.00, 0.00, 0.00, 0.00, 0.00, 2.00, 0, 0.01, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (73074, 36, 'A4,红色', 9815, 0, 0.50, 'https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '12e088034fc3410caaef5f87b2bcc3cc', 0.00, '', 6.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.02, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (73075, 36, 'A3,白色', 9941, 0, 2.00, 'https://app2.yixiang.co/file/pic/20241224130323267952.jpg', 'bef3fffa8c6d4e0599890bea3cfa407d', 1.00, '', 7.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.03, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (73076, 36, 'A3,红色', 9896, 0, 3.00, 'https://app2.yixiang.co/file/pic/20241224130323222531.jpg', '9dedfb55cb6947cb9bf22c15efce7c9b', 1.00, '', 8.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.04, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87228, 33, '默认', 9998, 1, 0.20, 'https://app2.yixiang.co/file/pic/20241224131015912375.jpg', '4527a28e4fce4492831997c1b61df575', 100.00, '', 200.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87229, 32, '默认', 9981, 0, 10.00, 'https://app2.yixiang.co/file/pic/20241224131723895452.jpg', '2fbbc2085aef4103bba717eb6828b204', 8.00, '', 18.00, 0.00, 0.00, 1.00, 1.00, 0.01, 0, 1.00, 0, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87231, 39, '默认', 8719, 0, 38.00, 'https://app2.yixiang.co/file/pic/20241224132443795949.jpeg', 'd5b3763dd52f4eefbbab72f423322e3a', 20.00, '', 66.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 20, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87232, 38, '默认', 9999, 0, 20.00, 'https://app2.yixiang.co/file/pic/20241224133456540558.png', 'b625377a2d7c4208826f6ae2b9cb44dd', 15.00, '', 30.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0, 0.00, 10, 0);
-INSERT INTO `yx_store_product_attr_value` VALUES (87233, 37, '默认', 9997, 2, 0.01, 'https://app2.yixiang.co/file/pic/20241224125949157717.jpg', 'a5750ad037e44097b7c5d0e6f3d6cd0d', 1.00, '', 6.00, 0.00, 0.00, 0.00, 0.00, 5.01, 999, 5.00, 10, 8);
-INSERT INTO `yx_store_product_attr_value` VALUES (87234, 35, '默认', 9996, 0, 1.00, 'https://app2.yixiang.co/file/pic/20241224130632542464.jpg', 'bb527a974fff415d9c57db601bbfcb76', 5.00, '', 10.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0, 100.00, 9, 888);
-COMMIT;
+INSERT INTO `yx_store_product_attr_value` VALUES (3856, 34, '100m,50m', 8105, 0, 10.00, 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80', 'ca111c30eed945d38b298f5940a5d1b5', 2.00, '', 333.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.02, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (3857, 34, '100m,70', 9914, 0, 8.00, 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80', '1886ce241a5243d3b02f8955b8b85de2', 2.00, '', 33.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (3858, 34, '50m,90m', 9898, 0, 9.00, 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80', '7c031371dc1d4653af1c492e963acd96', 2.00, '', 33.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (3859, 34, '70,90m', 9883, 1, 1.00, 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80', 'feff4937312f439eb194ac09d142d9d4', 2.00, '', 34.00, 0.00, 0.00, 0.00, 0.00, 0.01, 0, 0.01, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (73073, 36, 'A4,白色', 8882, 0, 1.00, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80', 'c38b4340485b465d92b787dd68dcc26e', 1.00, '', 5.00, 0.00, 0.00, 0.00, 0.00, 2.00, 0, 0.01, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (73074, 36, 'A4,红色', 9815, 0, 0.50, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80', '12e088034fc3410caaef5f87b2bcc3cc', 0.00, '', 6.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.02, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (73075, 36, 'A3,白色', 9941, 0, 2.00, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80', 'bef3fffa8c6d4e0599890bea3cfa407d', 1.00, '', 7.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.03, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (73076, 36, 'A3,红色', 9896, 0, 3.00, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80', '9dedfb55cb6947cb9bf22c15efce7c9b', 1.00, '', 8.00, 0.00, 0.00, 0.00, 0.00, 0.05, 0, 0.04, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87228, 33, '默认', 9998, 1, 0.20, 'https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80', '4527a28e4fce4492831997c1b61df575', 100.00, '', 200.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87229, 32, '默认', 9981, 0, 10.00, 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80', '2fbbc2085aef4103bba717eb6828b204', 8.00, '', 18.00, 0.00, 0.00, 1.00, 1.00, 0.01, 0, 1.00, 0, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87231, 39, '默认', 8719, 0, 38.00, 'https://images.unsplash.com/photo-1530325553241-4f6e768bfa87?auto=format&fit=crop&w=800&q=80', 'd5b3763dd52f4eefbbab72f423322e3a', 20.00, '', 66.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0.00, 20, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87232, 38, '默认', 9999, 0, 20.00, 'https://images.unsplash.com/photo-1514228742587-6b1558fcc036?auto=format&fit=crop&w=800&q=80', 'b625377a2d7c4208826f6ae2b9cb44dd', 15.00, '', 30.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0, 0.00, 10, 0);
+INSERT INTO `yx_store_product_attr_value` VALUES (87233, 37, '默认', 9997, 2, 0.01, 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80', 'a5750ad037e44097b7c5d0e6f3d6cd0d', 1.00, '', 6.00, 0.00, 0.00, 0.00, 0.00, 5.01, 999, 5.00, 10, 8);
+INSERT INTO `yx_store_product_attr_value` VALUES (87234, 35, '默认', 9996, 0, 1.00, 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80', 'bb527a974fff415d9c57db601bbfcb76', 5.00, '', 10.00, 0.00, 0.00, 0.00, 0.00, 10.00, 0, 100.00, 9, 888);
 
 -- ----------------------------
 -- Table structure for yx_store_product_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_relation`;
-CREATE TABLE `yx_store_product_relation` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint unsigned NOT NULL COMMENT '用户ID',
-  `product_id` bigint unsigned NOT NULL COMMENT '商品ID',
-  `type` varchar(32) DEFAULT NULL COMMENT '类型(收藏(collect）、点赞(like))',
-  `category` varchar(32) DEFAULT NULL COMMENT '某种类型的商品(普通商品、秒杀商品)',
+CREATE TABLE `yx_store_product_relation`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` bigint UNSIGNED NOT NULL COMMENT '用户ID',
+  `product_id` bigint UNSIGNED NOT NULL COMMENT '商品ID',
+  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型(收藏(collect）、点赞(like))',
+  `category` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '某种类型的商品(普通商品、秒杀商品)',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uid` (`uid`,`product_id`,`type`,`category`) USING BTREE,
-  KEY `type` (`type`) USING BTREE,
-  KEY `category` (`category`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品点赞和收藏表';
+  UNIQUE INDEX `uid`(`uid` ASC, `product_id` ASC, `type` ASC, `category` ASC) USING BTREE,
+  INDEX `type`(`type` ASC) USING BTREE,
+  INDEX `category`(`category` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品点赞和收藏表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_relation
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_product_relation` VALUES (23, 41315, 37, 'foot', 'product', '2025-04-04 10:37:12', '2025-04-04 10:37:12', 0);
-INSERT INTO `yx_store_product_relation` VALUES (24, 41315, 34, 'foot', 'product', '2025-04-04 10:30:33', '2025-04-04 10:30:33', 0);
+INSERT INTO `yx_store_product_relation` VALUES (24, 41315, 34, 'foot', 'product', '2026-11-17 11:35:17', '2026-11-17 11:35:17', 0);
 INSERT INTO `yx_store_product_relation` VALUES (25, 41315, 35, 'foot', 'product', '2025-04-04 10:41:27', '2025-04-04 10:41:27', 0);
-INSERT INTO `yx_store_product_relation` VALUES (26, 41315, 36, 'foot', 'product', '2025-04-04 10:36:34', NULL, 0);
-INSERT INTO `yx_store_product_relation` VALUES (27, 41315, 33, 'foot', 'product', '2026-05-13 11:24:30', NULL, 0);
-COMMIT;
+INSERT INTO `yx_store_product_relation` VALUES (26, 41315, 36, 'foot', 'product', '2026-11-17 11:37:42', '2026-11-17 11:37:42', 0);
+INSERT INTO `yx_store_product_relation` VALUES (27, 41315, 33, 'foot', 'product', '2026-11-17 11:12:14', '2026-11-17 11:12:14', 0);
 
 -- ----------------------------
 -- Table structure for yx_store_product_reply
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_reply`;
-CREATE TABLE `yx_store_product_reply` (
+CREATE TABLE `yx_store_product_reply`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '评论ID',
   `uid` bigint NOT NULL COMMENT '用户ID',
   `oid` bigint NOT NULL COMMENT '订单ID',
-  `unique` char(32) NOT NULL COMMENT '唯一id',
+  `unique` char(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '唯一id',
   `product_id` bigint NOT NULL COMMENT '产品id',
-  `reply_type` varchar(32) NOT NULL DEFAULT 'product' COMMENT '某种商品类型(普通商品、秒杀商品）',
+  `reply_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT 'product' COMMENT '某种商品类型(普通商品、秒杀商品）',
   `product_score` tinyint(1) NOT NULL COMMENT '商品分数',
   `service_score` tinyint(1) NOT NULL COMMENT '服务分数',
-  `comment` varchar(512) NOT NULL COMMENT '评论内容',
-  `pics` text NOT NULL COMMENT '评论图片',
+  `comment` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '评论内容',
+  `pics` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '评论图片',
   `create_time` datetime NOT NULL COMMENT '评论时间',
-  `update_time` datetime DEFAULT NULL,
-  `merchant_reply_content` varchar(300) DEFAULT NULL COMMENT '管理员回复内容',
-  `merchant_reply_time` datetime DEFAULT NULL COMMENT '管理员回复时间',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0未删除1已删除',
-  `is_reply` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未回复1已回复',
+  `update_time` datetime NULL DEFAULT NULL,
+  `merchant_reply_content` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '管理员回复内容',
+  `merchant_reply_time` datetime NULL DEFAULT NULL COMMENT '管理员回复时间',
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '0未删除1已删除',
+  `is_reply` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0未回复1已回复',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `parent_id` (`reply_type`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE,
-  KEY `product_score` (`product_score`) USING BTREE,
-  KEY `service_score` (`service_score`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='评论表';
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `parent_id`(`reply_type` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE,
+  INDEX `product_score`(`product_score` ASC) USING BTREE,
+  INDEX `service_score`(`service_score` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '评论表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_reply
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_product_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_product_rule`;
-CREATE TABLE `yx_store_product_rule` (
+CREATE TABLE `yx_store_product_rule`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `rule_name` varchar(32) NOT NULL COMMENT '规格名称',
+  `rule_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '规格名称',
   `rule_value` json NOT NULL COMMENT '规格值',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=105953 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商品规则值(规格)表';
+) ENGINE = InnoDB AUTO_INCREMENT = 105953 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商品规则值(规格)表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_product_rule
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_product_rule` VALUES (10, '图文打印1', '[{\"value\": \"纸张\", \"detail\": [\"A4\", \"A3\", \"A5\", \"A6\", \"A7\"]}, {\"value\": \"颜色\", \"detail\": [\"白色\", \"红色\", \"菊花色\"]}]', '2020-06-29 13:46:52', '2022-10-10 11:15:43', 0);
 INSERT INTO `yx_store_product_rule` VALUES (24, '手机', '[{\"value\": \"颜色\", \"detail\": [\"黑色\", \"白色\", \"灰色\", \"红色\"]}, {\"value\": \"尺寸\", \"detail\": [\"5寸\", \"7寸\", \"14寸\"]}, {\"value\": \"内存\", \"detail\": [\"16G\", \"64G\", \"128G\"]}, {\"value\": \"重量\", \"detail\": [\"10kg\", \"15kg\", \"25kg\", \"35kg\"]}, {\"value\": \"颜值\", \"detail\": [\"一般\", \"二般\", \"三般\"]}, {\"value\": \"版本\", \"detail\": [\"旧\", \"新\"]}]', '2020-06-29 15:55:51', '2022-11-17 13:55:57', 0);
 INSERT INTO `yx_store_product_rule` VALUES (25, '平面设计', '[{\"value\": \"长\", \"detail\": [\"100m\", \"90m\", \"00\"]}, {\"value\": \"高\", \"detail\": [\"50m\", \"70\"]}, {\"value\": \"3434\", \"detail\": [\"4334\"]}]', '2020-07-09 11:00:28', '2022-11-11 09:51:08', 0);
@@ -5290,29 +5257,27 @@ INSERT INTO `yx_store_product_rule` VALUES (26, '照片', '[{\"value\": \"尺寸
 INSERT INTO `yx_store_product_rule` VALUES (29, '手机', '[{\"value\": \"尺寸\", \"detail\": [\"7.5寸\", \"8\"]}, {\"value\": \"颜色\", \"detail\": [\"红色\", \"黑色\", \"白色\", \"蓝\"]}, {\"value\": \"重量\", \"detail\": [\"5kg\", \"10kg\"]}, {\"value\": \"a\", \"detail\": [\"b\", \"ssss\", \"aaa\", \"cc\"]}]', '2020-07-13 11:20:45', '2022-11-10 17:09:51', 0);
 INSERT INTO `yx_store_product_rule` VALUES (105951, '测试', '[{\"value\": \"颜色\", \"detail\": [\"红\", \"白\", \"蓝色\"]}, {\"value\": \"车型\", \"detail\": [\"大众\", \"宝马\", \"路虎\"]}, {\"value\": \"城市\", \"detail\": [\"北京\", \"上海\", \"南京\"]}]', '2022-11-08 13:28:13', '2022-11-09 14:26:39', 0);
 INSERT INTO `yx_store_product_rule` VALUES (105952, '斯特', '[{\"value\": \"图书\", \"detail\": []}, {\"value\": \"沙发沙发上\", \"detail\": [\"舒服舒服\"]}]', '2022-11-08 17:19:23', '2022-11-11 14:24:54', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_store_visit
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_store_visit`;
-CREATE TABLE `yx_store_visit` (
+CREATE TABLE `yx_store_visit`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int DEFAULT NULL COMMENT '产品ID',
-  `product_type` varchar(32) DEFAULT NULL COMMENT '产品类型',
-  `cate_id` int DEFAULT NULL COMMENT '产品分类ID',
-  `type` char(50) DEFAULT NULL COMMENT '产品类型',
-  `uid` int DEFAULT NULL COMMENT '用户ID',
-  `count` int DEFAULT NULL COMMENT '访问次数',
-  `content` varchar(255) DEFAULT NULL COMMENT '备注描述',
-  `add_time` int DEFAULT NULL COMMENT '添加时间',
+  `product_id` int NULL DEFAULT NULL COMMENT '产品ID',
+  `product_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品类型',
+  `cate_id` int NULL DEFAULT NULL COMMENT '产品分类ID',
+  `type` char(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '产品类型',
+  `uid` int NULL DEFAULT NULL COMMENT '用户ID',
+  `count` int NULL DEFAULT NULL COMMENT '访问次数',
+  `content` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '备注描述',
+  `add_time` int NULL DEFAULT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=542 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='产品浏览分析表';
+) ENGINE = InnoDB AUTO_INCREMENT = 542 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '产品浏览分析表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_store_visit
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_store_visit` VALUES (504, 36, 'combination', 24, 'combination', 35048, 1, NULL, 1701399288);
 INSERT INTO `yx_store_visit` VALUES (505, 32, 'combination', 11, 'combination', 35066, 1, NULL, 1701419130);
 INSERT INTO `yx_store_visit` VALUES (506, 37, 'combination', 24, 'combination', 35066, 1, NULL, 1701422510);
@@ -5351,58 +5316,54 @@ INSERT INTO `yx_store_visit` VALUES (538, 37, 'combination', 24, 'combination', 
 INSERT INTO `yx_store_visit` VALUES (539, 37, 'combination', 24, 'combination', 36439, 1, NULL, 1707754082);
 INSERT INTO `yx_store_visit` VALUES (540, 37, 'combination', 24, 'combination', 36442, 1, NULL, 1707754165);
 INSERT INTO `yx_store_visit` VALUES (541, 36, 'combination', 24, 'combination', 36686, 1, NULL, 1709087073);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_attachment
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_attachment`;
-CREATE TABLE `yx_system_attachment` (
+CREATE TABLE `yx_system_attachment`  (
   `att_id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '附件名称',
-  `att_dir` varchar(200) NOT NULL DEFAULT '' COMMENT '附件路径',
-  `satt_dir` varchar(200) DEFAULT NULL COMMENT '压缩图片路径',
-  `att_size` char(30) NOT NULL DEFAULT '' COMMENT '附件大小',
-  `att_type` char(30) NOT NULL DEFAULT '' COMMENT '附件类型',
-  `pid` int NOT NULL DEFAULT '0' COMMENT '分类ID0编辑器,1产品图片,2拼团图片,3砍价图片,4秒杀图片,5文章图片,6组合数据图',
-  `image_type` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '图片上传类型 1本地 2七牛云 3OSS 4COS ',
-  `module_type` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '图片上传模块类型 1 后台上传 2 用户生成',
-  `uid` bigint unsigned DEFAULT '0' COMMENT '用户id',
-  `invite_code` varchar(50) DEFAULT '' COMMENT '邀请码',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '附件名称',
+  `att_dir` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '附件路径',
+  `satt_dir` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '压缩图片路径',
+  `att_size` char(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '附件大小',
+  `att_type` char(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '附件类型',
+  `pid` int NOT NULL DEFAULT 0 COMMENT '分类ID0编辑器,1产品图片,2拼团图片,3砍价图片,4秒杀图片,5文章图片,6组合数据图',
+  `image_type` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '图片上传类型 1本地 2七牛云 3OSS 4COS ',
+  `module_type` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '图片上传模块类型 1 后台上传 2 用户生成',
+  `uid` bigint UNSIGNED NULL DEFAULT 0 COMMENT '用户id',
+  `invite_code` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '邀请码',
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`att_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=24690 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='附件管理表';
+) ENGINE = InnoDB AUTO_INCREMENT = 24690 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '附件管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_attachment
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_city
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_city`;
-CREATE TABLE `yx_system_city` (
+CREATE TABLE `yx_system_city`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `city_id` int NOT NULL DEFAULT '0' COMMENT '城市id',
-  `level` int NOT NULL DEFAULT '0' COMMENT '省市级别',
-  `parent_id` int NOT NULL DEFAULT '0' COMMENT '父级id',
-  `area_code` varchar(30) NOT NULL DEFAULT '' COMMENT '区号',
-  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
-  `merger_name` varchar(255) NOT NULL DEFAULT '' COMMENT '合并名称',
-  `lng` varchar(50) NOT NULL DEFAULT '' COMMENT '经度',
-  `lat` varchar(50) NOT NULL DEFAULT '' COMMENT '纬度',
-  `is_show` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否展示',
+  `city_id` int NOT NULL DEFAULT 0 COMMENT '城市id',
+  `level` int NOT NULL DEFAULT 0 COMMENT '省市级别',
+  `parent_id` int NOT NULL DEFAULT 0 COMMENT '父级id',
+  `area_code` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '区号',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '名称',
+  `merger_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '合并名称',
+  `lng` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '经度',
+  `lat` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '纬度',
+  `is_show` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否展示',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3971 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='城市表';
+) ENGINE = InnoDB AUTO_INCREMENT = 3971 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '城市表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_city
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_city` VALUES (1, 1, 0, 0, '110000000000', '北京市', '北京', '116.407526', '39.904030', 1);
 INSERT INTO `yx_system_city` VALUES (2, 7362, 0, 0, '120000000000', '天津市', '天津', '117.200983', '39.084158', 1);
 INSERT INTO `yx_system_city` VALUES (3, 13267, 0, 0, '130000000000', '河北省', '河北', '114.468664', '38.037057', 1);
@@ -9341,25 +9302,23 @@ INSERT INTO `yx_system_city` VALUES (3967, 752170, 2, 752169, '', '澳门半岛'
 INSERT INTO `yx_system_city` VALUES (3968, 752171, 2, 752169, '', '凼仔', '凼仔', '', '', 1);
 INSERT INTO `yx_system_city` VALUES (3969, 752172, 2, 752169, '', '路凼城', '路凼城', '', '', 1);
 INSERT INTO `yx_system_city` VALUES (3970, 752173, 2, 752169, '', '路环', '路环', '', '', 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_config
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_config`;
-CREATE TABLE `yx_system_config` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '配置id',
-  `menu_name` varchar(255) NOT NULL COMMENT '字段名称',
-  `value` varchar(5000) DEFAULT NULL COMMENT '默认值',
-  `sort` int unsigned DEFAULT '0' COMMENT '排序',
-  `status` tinyint unsigned DEFAULT '0' COMMENT '是否隐藏',
+CREATE TABLE `yx_system_config`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '配置id',
+  `menu_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '字段名称',
+  `value` varchar(5000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '默认值',
+  `sort` int UNSIGNED NULL DEFAULT 0 COMMENT '排序',
+  `status` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否隐藏',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='配置表';
+) ENGINE = InnoDB AUTO_INCREMENT = 223 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_config
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_config` VALUES (162, 'wechat_share_img', 'https://image.dayouqiantu.cn/list_34.png', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (165, 'wechat_avatar', '', NULL, NULL);
 INSERT INTO `yx_system_config` VALUES (172, 'wechat_share_synopsis', 'springboot2前后端分离电商系统', NULL, NULL);
@@ -9408,47 +9367,45 @@ INSERT INTO `yx_system_config` VALUES (219, 'exp_enable', '1', 0, 0);
 INSERT INTO `yx_system_config` VALUES (220, 'exp_appId', '1607734', 0, 0);
 INSERT INTO `yx_system_config` VALUES (221, 'exp_appKey', '81f43a2e-f504-45c4-9b54-2637d59f8190', 0, 0);
 INSERT INTO `yx_system_config` VALUES (222, 'admin_api_url', 'https://app2.yixiang.co', 0, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_group_data
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_group_data`;
-CREATE TABLE `yx_system_group_data` (
+CREATE TABLE `yx_system_group_data`  (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '组合数据详情ID',
-  `group_name` varchar(100) NOT NULL DEFAULT '' COMMENT '对应的数据名称',
-  `value` text NOT NULL COMMENT '数据组对应的数据值（json数据）',
-  `create_time` datetime DEFAULT NULL COMMENT '添加数据时间',
-  `update_time` datetime DEFAULT NULL,
-  `sort` int DEFAULT '0' COMMENT '数据排序',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态（1：开启；2：关闭；）',
-  `is_del` tinyint(1) DEFAULT '0',
+  `group_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '对应的数据名称',
+  `value` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '数据组对应的数据值（json数据）',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加数据时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `sort` int NULL DEFAULT 0 COMMENT '数据排序',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态（1：开启；2：关闭；）',
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='组合数据详情表';
+) ENGINE = InnoDB AUTO_INCREMENT = 226 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '组合数据详情表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_group_data
 -- ----------------------------
-BEGIN;
-INSERT INTO `yx_system_group_data` VALUES (177, 'yshop_home_banner', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5c9f05aee5059.jpg\"],\"name\":\"banner2\",\"id\":177,\"pic\":\"https://image.dayouqiantu.cn/5c9f05aee5059.jpg\",\"sort\":1,\"url\":\"wwww\",\"status\":1}', '0000-00-00 00:00:00', NULL, 1, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (180, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5e85bfa61251d.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"https://image.dayouqiantu.cn/all.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 9, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (177, 'yshop_home_banner', '{\"imageArr\":[\"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80\"],\"name\":\"banner2\",\"id\":177,\"pic\":\"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80\",\"sort\":1,\"url\":\"/\",\"status\":1}', '0000-00-00 00:00:00', NULL, 1, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (180, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/nav1.png\"],\"uniapp_url\":\"/pages/shop/GoodsList/index\",\"name\":\"全部商品\",\"id\":180,\"pic\":\"/static/images/nav1.png\",\"sort\":9,\"url\":\"/goods_list\",\"wxapp_url\":\"/pages/shop/GoodsClass/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 9, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (182, 'yshop_home_roll_news', '{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"id\":182,\"pic\":\"https://i.loli.net/2019/10/18/DqOUgNf7wjuFpPT.png\",\"sort\":2,\"title\":\"分销、拼团、商户功能上线啦！\",\"url\":\"/news_list\",\"info\":\"yshop3.0\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-27 15:47:38', 2, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (183, 'yshop_hot_search', '{\"id\":183,\"title\":\"照片\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (184, 'yshop_hot_search', '{\"id\":184,\"title\":\"springboot\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (187, 'yshop_home_roll_news', '{\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"id\":187,\"sort\":1,\"url\":\"/news_list\",\"info\":\"yshop基于springboot2+Mybatisplus商城系统，3.0版本重构了代码，新增了运费模板、sku单独管理、商品券等\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-27 15:47:22', 4, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (188, 'yshop_hot_search', '{\"id\":188,\"title\":\"打印\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (189, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5dec896eeb25a.png\"],\"uniapp_url\":\"/pages/user/UserVip/index\",\"name\":\"会员中心\",\"id\":189,\"pic\":\"https://image.dayouqiantu.cn/44503fabb593c8a814858dafc522a90a.png\",\"sort\":9,\"url\":\"/user/vip\",\"wxapp_url\":\"/pages/user/UserVip/main\",\"status\":1}', '0000-00-00 00:00:00', '2026-05-13 10:53:53', 9, 1, 1);
-INSERT INTO `yx_system_group_data` VALUES (190, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428984d64d.png\"],\"uniapp_url\":\"/pages/user/coupon/UserCoupon/index\",\"name\":\"优惠券\",\"id\":190,\"pic\":\"https://image.dayouqiantu.cn/5db428984d64d.png\",\"sort\":8,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/UserCoupon/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 8, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (191, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428a8d3ab0.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"收藏商品\",\"id\":191,\"pic\":\"https://image.dayouqiantu.cn/5db428a8d3ab0.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (192, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428bd61b73.png\"],\"uniapp_url\":\"/pages/user/address/AddressManagement/index\",\"name\":\"地址管理\",\"id\":192,\"pic\":\"https://image.dayouqiantu.cn/5db428bd61b73.png\",\"sort\":6,\"url\":\"/user/add_manage\",\"wxapp_url\":\"/pages/user/address/AddressManagement/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 6, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (193, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428e28dd48.png\"],\"uniapp_url\":\"/pages/user/promotion/UserPromotion/index\",\"name\":\"我的推广\",\"id\":193,\"pic\":\"https://image.dayouqiantu.cn/5db428e28dd48.png\",\"sort\":5,\"url\":\"/user/user_promotion\",\"wxapp_url\":\"/pages/user/promotion/UserPromotion/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:45:21', 5, 1, 1);
-INSERT INTO `yx_system_group_data` VALUES (194, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db42a4208c55.png\"],\"uniapp_url\":\"/pages/user/UserAccount/index\",\"name\":\"我的余额\",\"id\":194,\"pic\":\"https://image.dayouqiantu.cn/5db42a4208c55.png\",\"sort\":4,\"url\":\"/user/account\",\"wxapp_url\":\"/pages/user/UserAccount/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 4, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (195, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5db428f410462.png\"],\"uniapp_url\":\"/pages/user/signIn/Integral/index\",\"name\":\"我的积分\",\"id\":195,\"pic\":\"https://image.dayouqiantu.cn/5db428f410462.png\",\"sort\":3,\"url\":\"/user/integral\",\"wxapp_url\":\"/pages/user/signIn/Integral/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 3, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (196, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"https://image.dayouqiantu.cn/xw.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:24', 8, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (197, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5e4e939507b5e.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"https://image.dayouqiantu.cn/colle.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (199, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"https://image.dayouqiantu.cn/cou.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:36', 6, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (200, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/pink.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"https://image.dayouqiantu.cn/62ac09d2914d36c65b9b59d2147d809a.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:45', 5, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (201, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5ddb7a37d58d9.png\"],\"uniapp_url\":\"/pages/orderAdmin/OrderIndex/index\",\"name\":\"商户管理\",\"id\":201,\"pic\":\"https://image.dayouqiantu.cn/5ddb7a37d58d9.png\",\"sort\":2,\"url\":\"/customer/index\",\"wxapp_url\":\"/pages/orderAdmin/OrderIndex/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:43:54', 2, 1, 1);
+INSERT INTO `yx_system_group_data` VALUES (189, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/vip.png\"],\"uniapp_url\":\"/pages/user/UserVip/index\",\"name\":\"会员中心\",\"id\":189,\"pic\":\"/static/images/vip.png\",\"sort\":9,\"url\":\"/user/vip\",\"wxapp_url\":\"/pages/user/UserVip/main\",\"status\":1}', '0000-00-00 00:00:00', '2026-05-13 10:53:53', 9, 1, 1);
+INSERT INTO `yx_system_group_data` VALUES (190, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/UserCoupon/index\",\"name\":\"优惠券\",\"id\":190,\"pic\":\"/static/images/coupon.png\",\"sort\":8,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/UserCoupon/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 8, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (191, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/collection.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"收藏商品\",\"id\":191,\"pic\":\"/static/images/collection.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (192, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/address.png\"],\"uniapp_url\":\"/pages/user/address/AddressManagement/index\",\"name\":\"地址管理\",\"id\":192,\"pic\":\"/static/images/address.png\",\"sort\":6,\"url\":\"/user/add_manage\",\"wxapp_url\":\"/pages/user/address/AddressManagement/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 6, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (193, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/extension.png\"],\"uniapp_url\":\"/pages/user/promotion/UserPromotion/index\",\"name\":\"我的推广\",\"id\":193,\"pic\":\"/static/images/extension.png\",\"sort\":5,\"url\":\"/user/user_promotion\",\"wxapp_url\":\"/pages/user/promotion/UserPromotion/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:45:21', 5, 1, 1);
+INSERT INTO `yx_system_group_data` VALUES (194, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/balance.png\"],\"uniapp_url\":\"/pages/user/UserAccount/index\",\"name\":\"我的余额\",\"id\":194,\"pic\":\"/static/images/balance.png\",\"sort\":4,\"url\":\"/user/account\",\"wxapp_url\":\"/pages/user/UserAccount/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 4, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (195, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/money.png\"],\"uniapp_url\":\"/pages/user/signIn/Integral/index\",\"name\":\"我的积分\",\"id\":195,\"pic\":\"/static/images/money.png\",\"sort\":3,\"url\":\"/user/integral\",\"wxapp_url\":\"/pages/user/signIn/Integral/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 3, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (196, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/news.png\"],\"uniapp_url\":\"/pages/shop/news/NewsList/index\",\"name\":\"图文资讯\",\"id\":196,\"pic\":\"/static/images/news.png\",\"sort\":8,\"url\":\"/news_list\",\"wxapp_url\":\"/pages/shop/news/NewsList/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:24', 8, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (197, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/collection.png\"],\"uniapp_url\":\"/pages/shop/GoodsCollection/index\",\"name\":\"我的收藏\",\"id\":197,\"pic\":\"/static/images/collection.png\",\"sort\":7,\"url\":\"/collection\",\"wxapp_url\":\"/pages/shop/GoodsCollection/main\",\"status\":1}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (199, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/coupon.png\"],\"uniapp_url\":\"/pages/user/coupon/GetCoupon/index\",\"name\":\"优惠券\",\"id\":199,\"pic\":\"/static/images/coupon.png\",\"sort\":6,\"url\":\"/user/get_coupon\",\"wxapp_url\":\"/pages/user/coupon/GetCoupon/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:36', 6, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (200, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/group.png\"],\"uniapp_url\":\"/pages/activity/GoodsGroup/index\",\"name\":\"拼团专区\",\"id\":200,\"pic\":\"/static/images/group.png\",\"sort\":5,\"url\":\"/activity/group\",\"wxapp_url\":\"/pages/activity/GoodsGroup/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:45', 5, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (201, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/orderIcon.png\"],\"uniapp_url\":\"/pages/orderAdmin/OrderIndex/index\",\"name\":\"商户管理\",\"id\":201,\"pic\":\"/static/images/orderIcon.png\",\"sort\":2,\"url\":\"/customer/index\",\"wxapp_url\":\"/pages/orderAdmin/OrderIndex/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:43:54', 2, 1, 1);
 INSERT INTO `yx_system_group_data` VALUES (202, 'yshop_sign_day_num', '{\"sign_num\":\"10\",\"id\":205,\"day\":\"第一天\"}', '0000-00-00 00:00:00', NULL, 9, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (203, 'yshop_sign_day_num', '{\"sign_num\":\"20\",\"id\":\"\",\"day\":\"第二天\"}', '0000-00-00 00:00:00', NULL, 8, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (204, 'yshop_sign_day_num', '{\"sign_num\":\"30\",\"id\":\"\",\"day\":\"第三天\"}', '0000-00-00 00:00:00', NULL, 7, 1, 0);
@@ -9456,86 +9413,82 @@ INSERT INTO `yx_system_group_data` VALUES (205, 'yshop_sign_day_num', '{\"addTim
 INSERT INTO `yx_system_group_data` VALUES (206, 'yshop_sign_day_num', '{\"addTime\":\"\",\"sign_num\":\"50\",\"id\":\"\",\"sort\":\"\",\"value\":\"\",\"day\":\"第五天\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 5, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (207, 'yshop_sign_day_num', '{\"addTime\":\"\",\"sign_num\":\"60\",\"id\":\"\",\"sort\":\"\",\"value\":\"\",\"day\":\"第六天\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 4, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (208, 'yshop_sign_day_num', '{\"addTime\":\"\",\"sign_num\":\"100\",\"id\":\"\",\"sort\":\"\",\"value\":\"\",\"day\":\"奖励\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 3, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (209, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/sign.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"https://image.dayouqiantu.cn/29ea4acebbf99e7eaf6f85af2b6d79ae.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:56', 4, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (209, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/calendar_all.png\"],\"uniapp_url\":\"/pages/user/signIn/Sign/index\",\"name\":\"积分签到\",\"id\":209,\"pic\":\"/static/images/calendar_all.png\",\"sort\":4,\"url\":\"/user/sign\",\"wxapp_url\":\"/pages/user/signIn/Sign/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:26:56', 4, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (210, 'yshop_seckill_time', '{\"continued\":2,\"id\":\"\",\"time\":5}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (211, 'yshop_seckill_time', '{\"addTime\":\"\",\"continued\":\"3\",\"id\":\"\",\"sort\":\"\",\"time\":\"7\",\"value\":\"\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (212, 'yshop_seckill_time', '{\"addTime\":\"\",\"continued\":\"2\",\"id\":\"\",\"sort\":\"\",\"time\":\"10\",\"value\":\"\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (213, 'yshop_seckill_time', '{\"addTime\":\"\",\"continued\":\"3\",\"id\":\"\",\"sort\":\"\",\"time\":\"12\",\"value\":\"\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (214, 'yshop_seckill_time', '{\"addTime\":\"\",\"continued\":\"4\",\"id\":\"\",\"sort\":\"\",\"time\":\"15\",\"value\":\"\",\"status\":\"\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (215, 'yshop_seckill_time', '{\"continued\":\"2\",\"id\":223,\"time\":\"19\"}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (216, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/sekill.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"https://image.dayouqiantu.cn/b0344c148141b50d68db9722708ea49e.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:27:06', 3, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (217, 'yshop_home_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/bargin.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"https://image.dayouqiantu.cn/bar.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:27:16', 2, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (218, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5dfd7b748e053.png\"],\"uniapp_url\":\"/pages/activity/BargainRecord/index\",\"name\":\"砍价记录\",\"id\":218,\"pic\":\"https://image.dayouqiantu.cn/207cb655fbf45fc7142704de4f3ea254.png\",\"sort\":1,\"url\":\"/activity/bargain/record\",\"wxapp_url\":\"/pages/activity/BargainRecord/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-02-17 11:45:45', 1, 1, 1);
-INSERT INTO `yx_system_group_data` VALUES (219, 'yshop_home_banner', '{\"imageArr\":[\"https://image.dayouqiantu.cn/1.jpg\"],\"name\":\"222\",\"id\":219,\"pic\":\"https://image.dayouqiantu.cn/1.jpg\",\"sort\":0,\"url\":\"/\",\"status\":1}', '0000-00-00 00:00:00', '2020-09-14 17:03:43', 2, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (221, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/5e60da498cfdd.png\"],\"uniapp_url\":\"/pages/orderAdmin/OrderCancellation/index\",\"name\":\"订单核销\",\"id\":230,\"pic\":\"https://image.dayouqiantu.cn/hexiao.png\",\"sort\":0,\"url\":\"/order/order_cancellation\",\"wxapp_url\":\"\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:42:53', 0, 1, 1);
+INSERT INTO `yx_system_group_data` VALUES (216, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/light.png\"],\"uniapp_url\":\"/pages/activity/GoodsSeckill/index\",\"name\":\"秒杀专区\",\"id\":216,\"pic\":\"/static/images/light.png\",\"sort\":3,\"url\":\"/activity/goods_seckill\",\"wxapp_url\":\"/pages/activity/GoodsSeckill/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:27:06', 3, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (217, 'yshop_home_menus', '{\"imageArr\":[\"/static/images/bargain.png\"],\"uniapp_url\":\"/pages/activity/GoodsBargain/index\",\"name\":\"砍价专区\",\"id\":217,\"pic\":\"/static/images/bargain.png\",\"sort\":2,\"url\":\"/activity/bargain\",\"wxapp_url\":\"/pages/activity/GoodsBargain/main\",\"status\":1}', '0000-00-00 00:00:00', '2020-06-26 18:27:16', 2, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (218, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/bargain.png\"],\"uniapp_url\":\"/pages/activity/BargainRecord/index\",\"name\":\"砍价记录\",\"id\":218,\"pic\":\"/static/images/bargain.png\",\"sort\":1,\"url\":\"/activity/bargain/record\",\"wxapp_url\":\"/pages/activity/BargainRecord/main\",\"status\":1}', '0000-00-00 00:00:00', '2025-02-17 11:45:45', 1, 1, 1);
+INSERT INTO `yx_system_group_data` VALUES (219, 'yshop_home_banner', '{\"imageArr\":[\"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80\"],\"name\":\"banner1\",\"id\":219,\"pic\":\"https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80\",\"sort\":0,\"url\":\"/\",\"status\":1}', '0000-00-00 00:00:00', '2020-09-14 17:03:43', 2, 1, 0);
+INSERT INTO `yx_system_group_data` VALUES (221, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/writeOff.jpg\"],\"uniapp_url\":\"/pages/orderAdmin/OrderCancellation/index\",\"name\":\"订单核销\",\"id\":230,\"pic\":\"/static/images/writeOff.jpg\",\"sort\":0,\"url\":\"/order/order_cancellation\",\"wxapp_url\":\"\",\"status\":1}', '0000-00-00 00:00:00', '2025-04-04 10:42:53', 0, 1, 1);
 INSERT INTO `yx_system_group_data` VALUES (222, 'yshop_recharge_price_ways', '{\"give_price\":\"10\",\"price\":\"100\",\"id\":\"\",\"sort\":0,\"status\":1}', '0000-00-00 00:00:00', NULL, 1, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (223, 'yshop_recharge_price_ways', '{\"give_price\":\"1\",\"price\":1,\"id\":\"\",\"sort\":0,\"status\":1}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
 INSERT INTO `yx_system_group_data` VALUES (224, 'yshop_recharge_price_ways', '{\"give_price\":\"1\",\"price\":1,\"id\":\"\",\"sort\":0,\"status\":1}', '0000-00-00 00:00:00', NULL, 0, 1, 0);
-INSERT INTO `yx_system_group_data` VALUES (225, 'yshop_my_menus', '{\"imageArr\":[\"https://image.dayouqiantu.cn/zj.png\"],\"uniapp_url\":\"/pages/shop/GoodsFoot/index\",\"name\":\"我的足迹\",\"id\":225,\"pic\":\"https://image.dayouqiantu.cn/zj.png\",\"sort\":\"10\",\"url\":\"\",\"wxapp_url\":\"\",\"status\":1}', '2020-09-14 16:44:48', '2020-09-14 16:45:04', 10, 1, 0);
-COMMIT;
+INSERT INTO `yx_system_group_data` VALUES (225, 'yshop_my_menus', '{\"imageArr\":[\"/static/images/recording.png\"],\"uniapp_url\":\"/pages/shop/GoodsFoot/index\",\"name\":\"我的足迹\",\"id\":225,\"pic\":\"/static/images/recording.png\",\"sort\":\"10\",\"url\":\"\",\"wxapp_url\":\"\",\"status\":1}', '2020-09-14 16:44:48', '2020-09-14 16:45:04', 10, 1, 0);
 
 -- ----------------------------
 -- Table structure for yx_system_store
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_store`;
-CREATE TABLE `yx_system_store` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '门店名称',
-  `introduction` varchar(1000) NOT NULL DEFAULT '' COMMENT '简介',
-  `phone` char(25) NOT NULL DEFAULT '' COMMENT '手机号码',
-  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '省市区',
-  `detailed_address` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
-  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '门店logo',
-  `latitude` char(25) NOT NULL DEFAULT '' COMMENT '纬度',
-  `longitude` char(25) NOT NULL DEFAULT '' COMMENT '经度',
-  `valid_time` varchar(100) NOT NULL DEFAULT '' COMMENT '核销有效日期',
-  `day_time` varchar(100) NOT NULL DEFAULT '' COMMENT '每日营业开关时间',
+CREATE TABLE `yx_system_store`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '门店名称',
+  `introduction` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '简介',
+  `phone` char(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '手机号码',
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '省市区',
+  `detailed_address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '详细地址',
+  `image` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '门店logo',
+  `latitude` char(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '纬度',
+  `longitude` char(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '经度',
+  `valid_time` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '核销有效日期',
+  `day_time` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '每日营业开关时间',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
-  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
-  `day_time_end` datetime DEFAULT NULL,
-  `day_time_start` datetime DEFAULT NULL,
-  `valid_time_end` datetime DEFAULT NULL,
-  `valid_time_start` datetime DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_show` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示',
+  `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `day_time_end` datetime NULL DEFAULT NULL,
+  `day_time_start` datetime NULL DEFAULT NULL,
+  `valid_time_end` datetime NULL DEFAULT NULL,
+  `valid_time_start` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `phone` (`phone`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='门店自提';
+  INDEX `phone`(`phone` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '门店自提' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_store
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_store` VALUES (3, 'yshop店铺', 'springboot商城', '15136175234', '河南省漯河市', '', 'https://app2.yixiang.co/file/pic/20241224133946458460.gif', '33.54528', '113.9202', '2020-03-09 - 2020-04-30', '11:33:49 - 19:33:49', '0000-00-00 00:00:00', '2024-12-24 13:39:52', 0, 0, '2020-03-04 19:33:49', '2020-03-04 11:33:49', '2020-04-30 00:00:00', '2020-03-09 00:00:00');
 INSERT INTO `yx_system_store` VALUES (4, '信阳门店', '信阳门店', '15136275234', '河南省信阳市', '', 'https://app2.yixiang.co/file/pic/20241224133910149628.png', '32.11683', '114.05857', '2020-03-21 - 2020-03-31', '17:11:13 - 20:11:13', '0000-00-00 00:00:00', '2024-12-24 13:39:25', 1, 0, '2020-03-21 20:11:13', '2020-03-21 17:11:13', '2020-03-31 00:00:00', '2020-03-21 00:00:00');
 INSERT INTO `yx_system_store` VALUES (5, '郑州门店', '郑州门店', '15136175246', '河南省郑州', '', 'https://image.dayouqiantu.cn/noMeal_tt.png', '34.72468', '113.6401', '2020-03-21 - 2020-03-31', '17:11:13 - 20:11:15', '0000-00-00 00:00:00', '2020-06-26 10:51:21', 1, 1, '2020-03-21 20:11:15', '2020-03-21 17:11:13', '2020-03-31 00:00:00', '2020-03-21 00:00:00');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_store_staff
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_store_staff`;
-CREATE TABLE `yx_system_store_staff` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint unsigned NOT NULL COMMENT '微信用户id',
-  `nickname` varchar(50) NOT NULL,
-  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '店员头像',
+CREATE TABLE `yx_system_store_staff`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` bigint UNSIGNED NOT NULL COMMENT '微信用户id',
+  `nickname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '店员头像',
   `store_id` int NOT NULL COMMENT '门店id',
-  `store_name` varchar(50) DEFAULT NULL,
-  `staff_name` varchar(64) DEFAULT '' COMMENT '店员名称',
-  `phone` char(15) DEFAULT NULL COMMENT '手机号码',
-  `verify_status` tinyint NOT NULL DEFAULT '0' COMMENT '核销开关',
-  `status` tinyint DEFAULT '1' COMMENT '状态',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `store_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `staff_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '店员名称',
+  `phone` char(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号码',
+  `verify_status` tinyint NOT NULL DEFAULT 0 COMMENT '核销开关',
+  `status` tinyint NULL DEFAULT 1 COMMENT '状态',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=381 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='门店店员表';
+) ENGINE = InnoDB AUTO_INCREMENT = 381 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '门店店员表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_store_staff
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_store_staff` VALUES (2, 12, '会敲代码的喵2', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', 4, '信阳门店', 'tttt', '15136175423', 1, 1, '0000-00-00 00:00:00', NULL, 1);
 INSERT INTO `yx_system_store_staff` VALUES (3, 11, '会敲代码的喵88', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', 5, '郑州门店', 'tttt', '16136175234', 1, 1, '0000-00-00 00:00:00', NULL, 1);
 INSERT INTO `yx_system_store_staff` VALUES (4, 19, '15136175528', 'https://image.dayouqiantu.cn/5dc2c7f3a104c.png', 5, '郑州门店', '111', '15136175246', 1, 1, '0000-00-00 00:00:00', NULL, 0);
@@ -9915,69 +9868,65 @@ INSERT INTO `yx_system_store_staff` VALUES (377, 40770, '故旧', 'https://third
 INSERT INTO `yx_system_store_staff` VALUES (378, 40908, '吕伟伟-软件开发', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJFTFV2quj9yFy3fv5kt5nticgHdQ9NcnqcjJ7NPgBNcq0J5PxrhviargD0p35GAV8uOzGmicEQDz1ibQ/132', 4, '信阳门店', '1', '111', 1, 1, '2024-11-28 10:03:52', NULL, 0);
 INSERT INTO `yx_system_store_staff` VALUES (379, 40972, 'FY', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIrOu1S8ibR7YmbRDAP5DYEpgRuX6Uiac2HufdjAibJ2yxoXKrJ12qymPu6YZEM1VQFwVz9BiaE3jRp5CNL7TwQFX0P2pKVqKicRAw0W5At7oFibYIw/132', 3, 'yshop店铺', '2', '3', 1, 1, '2024-12-04 00:12:49', NULL, 0);
 INSERT INTO `yx_system_store_staff` VALUES (380, 41038, '致博吾余', 'https://thirdwx.qlogo.cn/mmopen/vi_32/lU6jqW6HvTEV1ElVhVoxWPPQuxGbSGvgL8Ox3nicQ8ZibiazLn9dKj4yKAZ3z2WIicw6tQZmLgEMHjZPhmkD19eszuqWQHsYAmGLA5eZk3oGOSg/132', 3, 'yshop店铺', '小于', '13355667788', 1, 1, '2024-12-09 16:41:29', '2024-12-20 15:22:56', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_user_level
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_user_level`;
-CREATE TABLE `yx_system_user_level` (
+CREATE TABLE `yx_system_user_level`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `mer_id` int NOT NULL DEFAULT '0' COMMENT '商户id',
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '会员名称',
-  `money` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '购买金额',
-  `valid_date` int NOT NULL DEFAULT '0' COMMENT '有效时间',
-  `is_forever` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为永久会员',
-  `is_pay` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否购买,1=购买,0=不购买',
-  `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示 1=显示,0=隐藏',
-  `grade` int NOT NULL DEFAULT '0' COMMENT '会员等级',
-  `discount` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '享受折扣',
-  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '会员卡背景',
-  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT '会员图标',
-  `explain` text NOT NULL COMMENT '说明',
+  `mer_id` int NOT NULL DEFAULT 0 COMMENT '商户id',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '会员名称',
+  `money` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '购买金额',
+  `valid_date` int NOT NULL DEFAULT 0 COMMENT '有效时间',
+  `is_forever` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否为永久会员',
+  `is_pay` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否购买,1=购买,0=不购买',
+  `is_show` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示 1=显示,0=隐藏',
+  `grade` int NOT NULL DEFAULT 0 COMMENT '会员等级',
+  `discount` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '享受折扣',
+  `image` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '会员卡背景',
+  `icon` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '会员图标',
+  `explain` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '说明',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除.1=删除,0=未删除',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除.1=删除,0=未删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='设置用户等级表';
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '设置用户等级表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_user_level
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_user_level` VALUES (1, 0, '普通会员', 20.00, 0, 1, 0, 1, 1, 99.00, 'https://image.dayouqiantu.cn/5c9ccca8cd632.jpg', 'https://image.dayouqiantu.cn/5c9ccca8bc1e0.png', '普通会员', '0000-00-00 00:00:00', NULL, 0);
 INSERT INTO `yx_system_user_level` VALUES (2, 0, '青铜会员', 0.00, 0, 1, 0, 1, 2, 98.00, 'https://image.dayouqiantu.cn/5c9ccca904016.jpg', 'https://image.dayouqiantu.cn/5c9ccca8f0a30.png', '青铜会员', '0000-00-00 00:00:00', NULL, 0);
 INSERT INTO `yx_system_user_level` VALUES (3, 0, '黄铜会员', 0.00, 0, 1, 0, 1, 3, 95.00, 'https://image.dayouqiantu.cn/5c9ccca8b27f1.jpg', 'https://image.dayouqiantu.cn/5c9ccca8e9365.png', '黄铜会员', '0000-00-00 00:00:00', NULL, 0);
 INSERT INTO `yx_system_user_level` VALUES (4, 0, '白银会员', 0.00, 0, 1, 0, 1, 4, 94.00, 'https://image.dayouqiantu.cn/5c9ccca8d6ae1.jpg', 'https://image.dayouqiantu.cn/5c9ccca8a27f0.png', '白银会员', '0000-00-00 00:00:00', NULL, 0);
 INSERT INTO `yx_system_user_level` VALUES (5, 0, '黄金会员', 0.00, 0, 1, 0, 1, 5, 90.00, 'https://image.dayouqiantu.cn/5c9ccca8b27f1.jpg', 'https://image.dayouqiantu.cn/5c9ccca8aa5b9.png', '黄金会员', '0000-00-00 00:00:00', NULL, 0);
 INSERT INTO `yx_system_user_level` VALUES (6, 0, '钻石会员', 0.00, 0, 1, 0, 1, 6, 88.00, 'http://localhost:8000/file/pic/钻石-20200328094531898.jpg', 'http://pic.dayouqiantu.cn/5c9ccca90d2d3.png', '钻石会员', '0000-00-00 00:00:00', NULL, 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_system_user_task
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_system_user_task`;
-CREATE TABLE `yx_system_user_task` (
+CREATE TABLE `yx_system_user_task`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '任务名称',
-  `real_name` varchar(255) NOT NULL DEFAULT '' COMMENT '配置原名',
-  `task_type` varchar(50) NOT NULL DEFAULT '' COMMENT '任务类型',
-  `number` int NOT NULL DEFAULT '0' COMMENT '限定数',
-  `level_id` int NOT NULL DEFAULT '0' COMMENT '等级id',
-  `sort` int NOT NULL DEFAULT '0' COMMENT '排序',
-  `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否显示',
-  `is_must` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否务必达成任务,1务必达成,0=满足其一',
-  `illustrate` varchar(255) NOT NULL DEFAULT '' COMMENT '任务说明',
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '任务名称',
+  `real_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '配置原名',
+  `task_type` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '任务类型',
+  `number` int NOT NULL DEFAULT 0 COMMENT '限定数',
+  `level_id` int NOT NULL DEFAULT 0 COMMENT '等级id',
+  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+  `is_show` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否显示',
+  `is_must` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否务必达成任务,1务必达成,0=满足其一',
+  `illustrate` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '任务说明',
   `create_time` datetime NOT NULL COMMENT '新增时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='等级任务设置';
+) ENGINE = InnoDB AUTO_INCREMENT = 163 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '等级任务设置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_system_user_task
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_system_user_task` VALUES (2, 'askjgfkashg', '积分数', 'SatisfactionIntegral', 101, 4, 7, 1, 1, '1231234', '2024-06-05 16:17:00', '2024-07-04 14:46:46', 0);
 INSERT INTO `yx_system_user_task` VALUES (7, '2134', '积分数', 'SatisfactionIntegral', 101, 4, 7, 1, 1, '1231234', '0000-00-00 00:00:00', '2024-07-15 14:55:02', 0);
 INSERT INTO `yx_system_user_task` VALUES (8, '签到33天', '累计签到', 'CumulativeAttendance', 9, 4, 3, 1, 1, '', '0000-00-00 00:00:00', '2024-08-08 14:19:51', 0);
@@ -9990,435 +9939,406 @@ INSERT INTO `yx_system_user_task` VALUES (14, '累计签到100天', '累计签�
 INSERT INTO `yx_system_user_task` VALUES (15, '消费满10元', '消费金额', 'ConsumptionAmount', 10, 4, 11, 1, 1, '', '0000-00-00 00:00:00', '2024-09-25 12:04:26', 0);
 INSERT INTO `yx_system_user_task` VALUES (16, '222', '', '', 2, 0, 2, 0, 0, '2222', '2024-06-05 16:10:24', '2024-12-01 22:21:28', 0);
 INSERT INTO `yx_system_user_task` VALUES (162, '', '', '', 2, 0, 3, 0, 0, '', '2024-06-06 18:51:32', '2024-06-07 09:26:38', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user`;
-CREATE TABLE `yx_user` (
-  `uid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `username` varchar(255) DEFAULT NULL COMMENT '用户账户(跟accout一样)',
-  `password` varchar(255) DEFAULT NULL COMMENT '用户密码（跟pwd）',
-  `real_name` varchar(25) DEFAULT '' COMMENT '真实姓名',
-  `birthday` int DEFAULT '0' COMMENT '生日',
-  `card_id` varchar(20) DEFAULT '' COMMENT '身份证号码',
-  `mark` varchar(255) DEFAULT '' COMMENT '用户备注',
-  `partner_id` int DEFAULT '0' COMMENT '合伙人id',
-  `group_id` int DEFAULT '0' COMMENT '用户分组id',
-  `nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户昵称',
-  `avatar` varchar(256) DEFAULT NULL COMMENT '用户头像',
-  `phone` char(15) DEFAULT NULL COMMENT '手机号码',
-  `add_ip` varchar(100) DEFAULT '' COMMENT '添加ip',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL COMMENT '最后一次登录时间',
-  `last_ip` varchar(100) DEFAULT '' COMMENT '最后一次登录ip',
-  `now_money` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '用户余额',
-  `brokerage_price` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '佣金金额',
-  `integral` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '用户剩余积分',
-  `sign_num` int NOT NULL DEFAULT '0' COMMENT '连续签到天数',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1为正常，0为禁止',
-  `level` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '等级',
-  `spread_uid` bigint unsigned DEFAULT '0' COMMENT '推广元id',
-  `spread_time` datetime DEFAULT NULL COMMENT '推广员关联时间',
-  `user_type` varchar(32) NOT NULL COMMENT '用户类型',
-  `is_promoter` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否为推广员',
-  `pay_count` int unsigned DEFAULT '0' COMMENT '用户购买次数',
-  `spread_count` int DEFAULT '0' COMMENT '下级人数',
-  `addres` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
-  `adminid` int unsigned DEFAULT '0' COMMENT '管理员编号 ',
-  `login_type` varchar(36) NOT NULL DEFAULT '' COMMENT '用户登陆类型，h5,wechat,routine',
-  `wx_profile` json DEFAULT NULL COMMENT '微信用户json信息',
-  `is_del` tinyint(1) DEFAULT '0',
+CREATE TABLE `yx_user`  (
+  `uid` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户账户(跟accout一样)',
+  `password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户密码（跟pwd）',
+  `real_name` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '真实姓名',
+  `birthday` int NULL DEFAULT 0 COMMENT '生日',
+  `card_id` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '身份证号码',
+  `mark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '用户备注',
+  `partner_id` int NULL DEFAULT 0 COMMENT '合伙人id',
+  `group_id` int NULL DEFAULT 0 COMMENT '用户分组id',
+  `nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户昵称',
+  `avatar` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户头像',
+  `phone` char(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '手机号码',
+  `add_ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '添加ip',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '最后一次登录时间',
+  `last_ip` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '最后一次登录ip',
+  `now_money` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '用户余额',
+  `brokerage_price` decimal(8, 2) NOT NULL DEFAULT 0.00 COMMENT '佣金金额',
+  `integral` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '用户剩余积分',
+  `sign_num` int NOT NULL DEFAULT 0 COMMENT '连续签到天数',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1为正常，0为禁止',
+  `level` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '等级',
+  `spread_uid` bigint UNSIGNED NULL DEFAULT 0 COMMENT '推广元id',
+  `spread_time` datetime NULL DEFAULT NULL COMMENT '推广员关联时间',
+  `user_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '用户类型',
+  `is_promoter` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否为推广员',
+  `pay_count` int UNSIGNED NULL DEFAULT 0 COMMENT '用户购买次数',
+  `spread_count` int NULL DEFAULT 0 COMMENT '下级人数',
+  `addres` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '详细地址',
+  `adminid` int UNSIGNED NULL DEFAULT 0 COMMENT '管理员编号 ',
+  `login_type` varchar(36) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '用户登陆类型，h5,wechat,routine',
+  `wx_profile` json NULL COMMENT '微信用户json信息',
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`uid`) USING BTREE,
-  UNIQUE KEY `username` (`username`) USING BTREE,
-  KEY `spreaduid` (`spread_uid`) USING BTREE,
-  KEY `level` (`level`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `is_promoter` (`is_promoter`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=41316 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+  UNIQUE INDEX `username`(`username` ASC) USING BTREE,
+  INDEX `spreaduid`(`spread_uid` ASC) USING BTREE,
+  INDEX `level`(`level` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `is_promoter`(`is_promoter` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 41316 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_user` VALUES (41315, '15136175246', NULL, '', 0, '', '', 0, 0, '15136175246', 'https://image.dayouqiantu.cn/5e79f6cfd33b6.png', '15136175246', '127.0.0.1', '2024-12-26 13:18:08', '2026-05-13 10:53:08', '127.0.0.1', 9997.80, 0.00, 0.00, 0, 1, 0, 0, NULL, 'routine', 0, 2, 0, '', 0, '', '{\"sex\": null, \"city\": \"\", \"openid\": \"\", \"country\": \"\", \"unionId\": \"\", \"language\": \"\", \"nickname\": \"\", \"province\": \"\", \"subscribe\": null, \"headimgurl\": \"\", \"routineOpenid\": \"orIMY4xGhMmipwFZoSL1vOhUNFZ0\", \"subscribeTime\": null}', 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_address
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_address`;
-CREATE TABLE `yx_user_address` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '用户地址id',
-  `uid` bigint unsigned NOT NULL COMMENT '用户id',
-  `real_name` varchar(32) NOT NULL DEFAULT '' COMMENT '收货人姓名',
-  `phone` varchar(16) NOT NULL DEFAULT '' COMMENT '收货人电话',
-  `province` varchar(64) NOT NULL DEFAULT '' COMMENT '收货人所在省',
-  `city` varchar(64) NOT NULL DEFAULT '' COMMENT '收货人所在市',
-  `city_id` int DEFAULT NULL,
-  `district` varchar(64) NOT NULL DEFAULT '' COMMENT '收货人所在区',
-  `detail` varchar(256) NOT NULL DEFAULT '' COMMENT '收货人详细地址',
-  `post_code` varchar(20) NOT NULL DEFAULT '' COMMENT '邮编',
-  `longitude` varchar(16) NOT NULL DEFAULT '0' COMMENT '经度',
-  `latitude` varchar(16) NOT NULL DEFAULT '0' COMMENT '纬度',
-  `is_default` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否默认',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
+CREATE TABLE `yx_user_address`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户地址id',
+  `uid` bigint UNSIGNED NOT NULL COMMENT '用户id',
+  `real_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人姓名',
+  `phone` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人电话',
+  `province` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人所在省',
+  `city` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人所在市',
+  `city_id` int NULL DEFAULT NULL,
+  `district` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人所在区',
+  `detail` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '收货人详细地址',
+  `post_code` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '邮编',
+  `longitude` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '经度',
+  `latitude` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '纬度',
+  `is_default` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否默认',
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `uid` (`uid`) USING BTREE,
-  KEY `is_default` (`is_default`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5243 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户地址表';
+  INDEX `uid`(`uid` ASC) USING BTREE,
+  INDEX `is_default`(`is_default` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5243 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户地址表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_address
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_user_address` VALUES (5242, 41315, 'hupeng', '18000000000', '北京市', '北京市', 2, '东城区', '66', '', '0', '0', 1, 0, '2024-12-26 13:24:30', NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_bill
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_bill`;
-CREATE TABLE `yx_user_bill` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '用户账单id',
-  `uid` bigint unsigned NOT NULL DEFAULT '0' COMMENT '用户uid',
-  `link_id` varchar(32) NOT NULL DEFAULT '0' COMMENT '关联id',
-  `pm` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 = 支出 1 = 获得',
-  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '账单标题',
-  `category` varchar(64) NOT NULL DEFAULT '' COMMENT '明细种类',
-  `type` varchar(64) NOT NULL DEFAULT '' COMMENT '明细类型',
-  `number` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '明细数字',
-  `balance` decimal(8,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '剩余',
-  `mark` varchar(512) NOT NULL DEFAULT '' COMMENT '备注',
+CREATE TABLE `yx_user_bill`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户账单id',
+  `uid` bigint UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户uid',
+  `link_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0' COMMENT '关联id',
+  `pm` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 = 支出 1 = 获得',
+  `title` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '账单标题',
+  `category` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '明细种类',
+  `type` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '明细类型',
+  `number` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '明细数字',
+  `balance` decimal(8, 2) UNSIGNED NOT NULL DEFAULT 0.00 COMMENT '剩余',
+  `mark` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '备注',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0 = 带确定 1 = 有效 -1 = 无效',
-  `is_del` tinyint(1) DEFAULT '0',
+  `update_time` datetime NULL DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 = 带确定 1 = 有效 -1 = 无效',
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `openid` (`uid`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `pm` (`pm`) USING BTREE,
-  KEY `type` (`category`,`type`,`link_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16089 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户账单表';
+  INDEX `openid`(`uid` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `pm`(`pm` ASC) USING BTREE,
+  INDEX `type`(`category` ASC, `type` ASC, `link_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16089 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户账单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_bill
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_user_bill` VALUES (16086, 41315, '', 1, '系统增加余额', 'now_money', 'system_add', 10000.00, 10000.00, '系统增加了10000.0余额', '2024-12-26 13:20:25', NULL, 1, 0);
 INSERT INTO `yx_user_bill` VALUES (16087, 41315, '0', 0, '购买商品', 'now_money', 'pay_product', 1.00, 9999.00, '余额支付1.00元购买商品', '2024-12-26 13:38:52', NULL, 1, 0);
 INSERT INTO `yx_user_bill` VALUES (16088, 41315, '0', 0, '购买商品', 'now_money', 'pay_product', 1.20, 9997.80, '余额支付1.20元购买商品', '2026-05-13 11:24:37', NULL, 1, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_enter
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_enter`;
-CREATE TABLE `yx_user_enter` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '商户申请ID',
-  `uid` int unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `province` varchar(32) NOT NULL DEFAULT '' COMMENT '商户所在省',
-  `city` varchar(32) NOT NULL DEFAULT '' COMMENT '商户所在市',
-  `district` varchar(32) NOT NULL DEFAULT '' COMMENT '商户所在区',
-  `address` varchar(256) NOT NULL DEFAULT '' COMMENT '商户详细地址',
-  `merchant_name` varchar(256) NOT NULL DEFAULT '' COMMENT '商户名称',
-  `link_user` varchar(32) NOT NULL DEFAULT '',
-  `link_tel` varchar(16) NOT NULL DEFAULT '' COMMENT '商户电话',
-  `charter` varchar(512) NOT NULL DEFAULT '' COMMENT '商户证书',
-  `add_time` int unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `apply_time` int unsigned NOT NULL DEFAULT '0' COMMENT '审核时间',
+CREATE TABLE `yx_user_enter`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商户申请ID',
+  `uid` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户ID',
+  `province` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户所在省',
+  `city` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户所在市',
+  `district` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户所在区',
+  `address` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户详细地址',
+  `merchant_name` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户名称',
+  `link_user` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '',
+  `link_tel` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户电话',
+  `charter` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '商户证书',
+  `add_time` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '添加时间',
+  `apply_time` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '审核时间',
   `success_time` int NOT NULL COMMENT '通过时间',
-  `fail_message` varchar(256) NOT NULL DEFAULT '' COMMENT '未通过原因',
-  `fail_time` int unsigned NOT NULL DEFAULT '0' COMMENT '未通过时间',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '-1 审核未通过 0未审核 1审核通过',
-  `is_lock` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '0 = 开启 1= 关闭',
-  `is_del` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否删除',
+  `fail_message` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '未通过原因',
+  `fail_time` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '未通过时间',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '-1 审核未通过 0未审核 1审核通过',
+  `is_lock` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '0 = 开启 1= 关闭',
+  `is_del` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uid` (`uid`) USING BTREE,
-  KEY `province` (`province`,`city`,`district`) USING BTREE,
-  KEY `is_lock` (`is_lock`) USING BTREE,
-  KEY `is_del` (`is_del`) USING BTREE,
-  KEY `status` (`status`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='商户申请表';
+  UNIQUE INDEX `uid`(`uid` ASC) USING BTREE,
+  INDEX `province`(`province` ASC, `city` ASC, `district` ASC) USING BTREE,
+  INDEX `is_lock`(`is_lock` ASC) USING BTREE,
+  INDEX `is_del`(`is_del` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '商户申请表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_enter
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_extract
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_extract`;
-CREATE TABLE `yx_user_extract` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint unsigned DEFAULT NULL,
-  `real_name` varchar(64) DEFAULT NULL COMMENT '名称',
-  `extract_type` varchar(32) DEFAULT 'bank' COMMENT 'bank = 银行卡 alipay = 支付宝wx=微信',
-  `bank_code` varchar(32) DEFAULT '0' COMMENT '银行卡',
-  `bank_address` varchar(256) DEFAULT '' COMMENT '开户地址',
-  `alipay_code` varchar(64) DEFAULT '' COMMENT '支付宝账号',
-  `extract_price` decimal(8,2) unsigned DEFAULT '0.00' COMMENT '提现金额',
-  `mark` varchar(512) DEFAULT NULL,
-  `balance` decimal(8,2) unsigned DEFAULT '0.00',
-  `fail_msg` varchar(128) DEFAULT NULL COMMENT '无效原因',
-  `fail_time` datetime DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `status` tinyint DEFAULT '0' COMMENT '-1 未通过 0 审核中 1 已提现',
-  `wechat` varchar(15) DEFAULT NULL COMMENT '微信号',
-  `is_del` tinyint(1) DEFAULT '0',
+CREATE TABLE `yx_user_extract`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` bigint UNSIGNED NULL DEFAULT NULL,
+  `real_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '名称',
+  `extract_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT 'bank' COMMENT 'bank = 银行卡 alipay = 支付宝wx=微信',
+  `bank_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '0' COMMENT '银行卡',
+  `bank_address` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '开户地址',
+  `alipay_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '' COMMENT '支付宝账号',
+  `extract_price` decimal(8, 2) UNSIGNED NULL DEFAULT 0.00 COMMENT '提现金额',
+  `mark` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL,
+  `balance` decimal(8, 2) UNSIGNED NULL DEFAULT 0.00,
+  `fail_msg` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '无效原因',
+  `fail_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL COMMENT '添加时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `status` tinyint NULL DEFAULT 0 COMMENT '-1 未通过 0 审核中 1 已提现',
+  `wechat` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '微信号',
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `extract_type` (`extract_type`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `add_time` (`create_time`) USING BTREE,
-  KEY `openid` (`uid`) USING BTREE,
-  KEY `fail_time` (`fail_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户提现表';
+  INDEX `extract_type`(`extract_type` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `add_time`(`create_time` ASC) USING BTREE,
+  INDEX `openid`(`uid` ASC) USING BTREE,
+  INDEX `fail_time`(`fail_time` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户提现表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_extract
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_group
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_group`;
-CREATE TABLE `yx_user_group` (
-  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(64) DEFAULT NULL COMMENT '用户分组名称',
+CREATE TABLE `yx_user_group`  (
+  `id` smallint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '用户分组名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户分组表';
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户分组表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_group
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_recharge`;
-CREATE TABLE `yx_user_recharge` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uid` bigint DEFAULT NULL COMMENT '充值用户UID',
-  `nickname` varchar(50) DEFAULT '',
-  `order_id` varchar(32) DEFAULT NULL COMMENT '订单号',
-  `price` decimal(8,2) DEFAULT NULL COMMENT '充值金额',
-  `give_price` decimal(8,2) DEFAULT '0.00' COMMENT '购买赠送金额',
-  `recharge_type` varchar(32) DEFAULT NULL COMMENT '充值类型',
-  `paid` tinyint(1) DEFAULT NULL COMMENT '是否充值',
-  `pay_time` datetime DEFAULT NULL COMMENT '充值支付时间',
-  `create_time` datetime DEFAULT NULL COMMENT '充值时间',
-  `update_time` datetime DEFAULT NULL,
-  `refund_price` decimal(10,2) DEFAULT '0.00' COMMENT '退款金额',
-  `is_del` tinyint DEFAULT '0',
+CREATE TABLE `yx_user_recharge`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` bigint NULL DEFAULT NULL COMMENT '充值用户UID',
+  `nickname` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT '',
+  `order_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '订单号',
+  `price` decimal(8, 2) NULL DEFAULT NULL COMMENT '充值金额',
+  `give_price` decimal(8, 2) NULL DEFAULT 0.00 COMMENT '购买赠送金额',
+  `recharge_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '充值类型',
+  `paid` tinyint(1) NULL DEFAULT NULL COMMENT '是否充值',
+  `pay_time` datetime NULL DEFAULT NULL COMMENT '充值支付时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '充值时间',
+  `update_time` datetime NULL DEFAULT NULL,
+  `refund_price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '退款金额',
+  `is_del` tinyint NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `order_id` (`order_id`) USING BTREE,
-  KEY `uid` (`uid`) USING BTREE,
-  KEY `recharge_type` (`recharge_type`) USING BTREE,
-  KEY `paid` (`paid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户充值表';
+  UNIQUE INDEX `order_id`(`order_id` ASC) USING BTREE,
+  INDEX `uid`(`uid` ASC) USING BTREE,
+  INDEX `recharge_type`(`recharge_type` ASC) USING BTREE,
+  INDEX `paid`(`paid` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 375 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '用户充值表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_recharge
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_user_sign
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_user_sign`;
-CREATE TABLE `yx_user_sign` (
+CREATE TABLE `yx_user_sign`  (
   `int` bigint NOT NULL AUTO_INCREMENT,
-  `uid` bigint NOT NULL DEFAULT '0' COMMENT '用户uid',
-  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '签到说明',
-  `number` int NOT NULL DEFAULT '0' COMMENT '获得积分',
-  `balance` int NOT NULL DEFAULT '0' COMMENT '剩余积分',
+  `uid` bigint NOT NULL DEFAULT 0 COMMENT '用户uid',
+  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '签到说明',
+  `number` int NOT NULL DEFAULT 0 COMMENT '获得积分',
+  `balance` int NOT NULL DEFAULT 0 COMMENT '剩余积分',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `is_del` tinyint(1) DEFAULT '0',
+  `update_time` datetime NULL DEFAULT NULL,
+  `is_del` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`int`) USING BTREE,
-  KEY `uid` (`uid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5296 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='签到记录表';
+  INDEX `uid`(`uid` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5296 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '签到记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_user_sign
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_live
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_live`;
-CREATE TABLE `yx_wechat_live` (
+CREATE TABLE `yx_wechat_live`  (
   `room_id` bigint NOT NULL COMMENT '直播间id',
-  `name` varchar(255) NOT NULL COMMENT '直播间标题',
-  `cover_imge` varchar(255) DEFAULT NULL COMMENT '背景图',
-  `share_imge` varchar(255) DEFAULT NULL COMMENT '分享图片',
-  `live_status` int DEFAULT NULL COMMENT '直播间状态',
-  `start_time` bigint DEFAULT NULL COMMENT '开始时间',
-  `end_time` bigint DEFAULT NULL COMMENT '预计结束时间',
-  `anchor_name` varchar(64) DEFAULT NULL COMMENT '主播昵称',
-  `anchor_wechat` varchar(32) DEFAULT NULL COMMENT '主播微信号',
-  `anchor_imge` varchar(255) DEFAULT NULL COMMENT '主播头像',
-  `type` tinyint(1) DEFAULT NULL COMMENT '直播间类型 1：推流 0：手机直播',
-  `screen_type` tinyint(1) DEFAULT NULL COMMENT '横屏、竖屏 【1：横屏，0：竖屏】',
-  `close_like` tinyint(1) DEFAULT NULL COMMENT '是否关闭点赞 【0：开启，1：关闭】',
-  `close_comment` tinyint(1) DEFAULT NULL COMMENT '是否关闭评论 【0：开启，1：关闭】',
-  `close_goods` tinyint(1) DEFAULT NULL COMMENT '是否关闭货架 【0：开启，1：关闭】',
-  `product_id` varchar(255) DEFAULT NULL COMMENT '商品id 多个,分割',
-  `close_replay` tinyint(1) DEFAULT NULL COMMENT '是否关闭回放【0：开启，1：关闭】',
-  `close_share` tinyint(1) DEFAULT NULL COMMENT '是否关闭分享【0：开启，1：关闭】',
-  `close_kf` tinyint(1) DEFAULT NULL COMMENT '是否关闭客服【0：开启，1：关闭】',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '直播间标题',
+  `cover_imge` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '背景图',
+  `share_imge` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '分享图片',
+  `live_status` int NULL DEFAULT NULL COMMENT '直播间状态',
+  `start_time` bigint NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` bigint NULL DEFAULT NULL COMMENT '预计结束时间',
+  `anchor_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主播昵称',
+  `anchor_wechat` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主播微信号',
+  `anchor_imge` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '主播头像',
+  `type` tinyint(1) NULL DEFAULT NULL COMMENT '直播间类型 1：推流 0：手机直播',
+  `screen_type` tinyint(1) NULL DEFAULT NULL COMMENT '横屏、竖屏 【1：横屏，0：竖屏】',
+  `close_like` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭点赞 【0：开启，1：关闭】',
+  `close_comment` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭评论 【0：开启，1：关闭】',
+  `close_goods` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭货架 【0：开启，1：关闭】',
+  `product_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品id 多个,分割',
+  `close_replay` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭回放【0：开启，1：关闭】',
+  `close_share` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭分享【0：开启，1：关闭】',
+  `close_kf` tinyint(1) NULL DEFAULT NULL COMMENT '是否关闭客服【0：开启，1：关闭】',
   PRIMARY KEY (`room_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='微信直播表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '微信直播表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_live
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_wechat_live` VALUES (21, '广告板定制', 'https://consoleapi.xinxintuan.co/file/pic/20200903171807568739.jpg', 'https://consoleapi.xinxintuan.co/file/pic/20200903171807568739.jpg', 103, 1599730609, 1599730645, 'yshop', 'simpleton_boy', 'https://consoleapi.xinxintuan.co/file/pic/20200903171208889668.png', 0, 0, 0, 0, 0, NULL, 0, NULL, 1);
 INSERT INTO `yx_wechat_live` VALUES (27, '广告布定制', 'https://image.dayouqiantu.cn/WechatIMG232.jpeg', 'https://image.dayouqiantu.cn/WechatIMG232.jpeg', 107, 1600272000, 1600354800, 'yshop', 'zimengzhiqiu', 'https://image.dayouqiantu.cn/zj.png', 0, 0, 0, 0, 0, '9,8,7', 0, 0, 0);
 INSERT INTO `yx_wechat_live` VALUES (28, '打印资料', 'https://image.dayouqiantu.cn/WechatIMG229.jpeg', 'https://image.dayouqiantu.cn/WechatIMG229.jpeg', 107, 1600358400, 1600441200, 'yshop', 'zimengzhiqiu', 'https://image.dayouqiantu.cn/zj.png', 0, 0, 0, 0, 0, '9,8,7', 0, 0, 0);
 INSERT INTO `yx_wechat_live` VALUES (29, '我们能印什么', 'https://image.dayouqiantu.cn/WechatIMG230.jpeg', 'https://image.dayouqiantu.cn/WechatIMG230.jpeg', 107, 1600358400, 1600441200, 'yshop', 'zimengzhiqiu', 'https://image.dayouqiantu.cn/zj.png', 0, 0, 0, 0, 0, '9,8,7', 0, 0, 0);
 INSERT INTO `yx_wechat_live` VALUES (30, '专业打印', 'https://image.dayouqiantu.cn/3.jpg', 'https://image.dayouqiantu.cn/3.jpg', 103, 1600077780, 1600077820, 'yshop', 'zimengzhiqiu', 'https://image.dayouqiantu.cn/zj.png', 0, 0, 0, 0, 0, '9,8,7', 0, 0, 0);
 INSERT INTO `yx_wechat_live` VALUES (31, '测试直播房间1', NULL, NULL, 107, 1621612800, 1621785600, '阳光正好', NULL, NULL, 0, NULL, 0, 0, 0, NULL, 0, NULL, 0);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_live_goods
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_live_goods`;
-CREATE TABLE `yx_wechat_live_goods` (
+CREATE TABLE `yx_wechat_live_goods`  (
   `goods_id` bigint NOT NULL COMMENT '直播商品id',
-  `product_id` bigint DEFAULT NULL COMMENT '关联商品id',
-  `cover_imge_url` varchar(255) NOT NULL COMMENT '商品图片',
-  `url` varchar(64) NOT NULL COMMENT '商品小程序路径',
-  `price_type` varchar(255) NOT NULL COMMENT '价格类型 1：一口价（只需要传入price，price2不传） 2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传） 3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）',
-  `price` varchar(64) NOT NULL,
-  `price2` varchar(64) DEFAULT NULL,
-  `name` varchar(255) NOT NULL COMMENT '商品名称',
-  `third_party_tag` varchar(255) DEFAULT NULL COMMENT '1, 2：表示是为api添加商品，否则是直播控制台添加的商品',
-  `audit_id` bigint DEFAULT NULL COMMENT '审核单id',
-  `audit_status` int(1) unsigned zerofill DEFAULT NULL COMMENT '审核状态 0：未审核，1：审核中，2:审核通过，3审核失败',
+  `product_id` bigint NULL DEFAULT NULL COMMENT '关联商品id',
+  `cover_imge_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品图片',
+  `url` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品小程序路径',
+  `price_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '价格类型 1：一口价（只需要传入price，price2不传） 2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传） 3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）',
+  `price` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `price2` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品名称',
+  `third_party_tag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '1, 2：表示是为api添加商品，否则是直播控制台添加的商品',
+  `audit_id` bigint NULL DEFAULT NULL COMMENT '审核单id',
+  `audit_status` int(1) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '审核状态 0：未审核，1：审核中，2:审核通过，3审核失败',
   PRIMARY KEY (`goods_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='微信直播商品表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '微信直播商品表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_live_goods
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_wechat_live_goods` VALUES (7, 6, 'https://image.dayouqiantu.cn/2222.jpg', 'pages/shop/GoodsCon/index.html?id=30', '3', '76', '11', '印刷各种印刷', '2', 447137937, 2);
 INSERT INTO `yx_wechat_live_goods` VALUES (8, 5, 'https://image.dayouqiantu.cn/11.jpg', 'pages/shop/GoodsCon/index.html?id=30', '3', '30', '11', '广告版定制', '2', 447137941, 2);
 INSERT INTO `yx_wechat_live_goods` VALUES (9, 4, 'https://image.dayouqiantu.cn/33333.jpg', 'pages/shop/GoodsCon/index.html?id=30', '3', '23', '1', '户外写真背胶', '2', 447137947, 2);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_media
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_media`;
-CREATE TABLE `yx_wechat_media` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '微信视频音频id',
-  `type` varchar(16) NOT NULL DEFAULT '' COMMENT '回复类型',
-  `path` varchar(128) NOT NULL DEFAULT '' COMMENT '文件路径',
-  `media_id` varchar(64) NOT NULL DEFAULT '' COMMENT '微信服务器返回的id',
-  `url` varchar(256) NOT NULL DEFAULT '' COMMENT '地址',
-  `temporary` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '是否永久或者临时 0永久1临时',
-  `add_time` int unsigned NOT NULL COMMENT '添加时间',
+CREATE TABLE `yx_wechat_media`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '微信视频音频id',
+  `type` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '回复类型',
+  `path` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '文件路径',
+  `media_id` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '微信服务器返回的id',
+  `url` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '地址',
+  `temporary` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否永久或者临时 0永久1临时',
+  `add_time` int UNSIGNED NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `type` (`type`,`media_id`) USING BTREE,
-  KEY `type_2` (`type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='微信回复表';
+  UNIQUE INDEX `type`(`type` ASC, `media_id` ASC) USING BTREE,
+  INDEX `type_2`(`type` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '微信回复表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_media
 -- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_menu`;
-CREATE TABLE `yx_wechat_menu` (
-  `key` varchar(32) NOT NULL,
-  `result` text COMMENT '缓存数据',
-  `add_time` int DEFAULT NULL COMMENT '缓存时间',
+CREATE TABLE `yx_wechat_menu`  (
+  `key` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `result` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL COMMENT '缓存数据',
+  `add_time` int NULL DEFAULT NULL COMMENT '缓存时间',
   PRIMARY KEY (`key`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='微信缓存表';
+) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '微信缓存表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_menu
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_wechat_menu` VALUES ('wechat_menus', '[{\"subButtons\":[{\"appId\":\"wx604d2ea4702620d2\",\"name\":\"小程序\",\"type\":\"miniprogram\",\"pagePath\":\"pages/Loading/index\",\"url\":\"pages/Loading/index\"},{\"name\":\"公众号h5\",\"type\":\"view\",\"url\":\"https://h5.yixiang.co\"}],\"name\":\"单商户\",\"type\":\"click\",\"key\":\"yshop\"},{\"subButtons\":[{\"name\":\"介绍及演示\",\"type\":\"view\",\"url\":\"https://www.yixiang.co/p/YshopduoshanghuduodianpuB2B2Cjieshaojiqiyanshi.html\"}],\"name\":\"多商户\",\"type\":\"click\",\"key\":\"yshop2\"},{\"subButtons\":[{\"name\":\"在线购买\",\"type\":\"view\",\"url\":\"https://www.yixiang.co/index/csmvip/index.html\"},{\"name\":\"我的订单\",\"type\":\"view\",\"url\":\"https://www.yixiang.co/index/csmvip.myorder/index.html\"}],\"name\":\"官方购买\",\"type\":\"click\",\"url\":\"https://www.yixiang.co/index/csmvip/index.html\",\"key\":\"yshop\"}]', 1570435277);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_reply
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_reply`;
-CREATE TABLE `yx_wechat_reply` (
-  `id` mediumint unsigned NOT NULL AUTO_INCREMENT COMMENT '微信关键字回复id',
-  `key` varchar(64) NOT NULL DEFAULT '' COMMENT '关键字',
-  `type` varchar(32) NOT NULL DEFAULT '' COMMENT '回复类型',
-  `data` text NOT NULL COMMENT '回复数据',
-  `status` tinyint unsigned NOT NULL DEFAULT '1' COMMENT '0=不可用  1 =可用',
-  `hide` tinyint unsigned DEFAULT '0' COMMENT '是否隐藏',
+CREATE TABLE `yx_wechat_reply`  (
+  `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '微信关键字回复id',
+  `key` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '关键字',
+  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '回复类型',
+  `data` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '回复数据',
+  `status` tinyint UNSIGNED NOT NULL DEFAULT 1 COMMENT '0=不可用  1 =可用',
+  `hide` tinyint UNSIGNED NULL DEFAULT 0 COMMENT '是否隐藏',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `key` (`key`) USING BTREE,
-  KEY `type` (`type`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `hide` (`hide`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='微信关键字回复表';
+  UNIQUE INDEX `key`(`key` ASC) USING BTREE,
+  INDEX `type`(`type` ASC) USING BTREE,
+  INDEX `status`(`status` ASC) USING BTREE,
+  INDEX `hide`(`hide` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '微信关键字回复表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_reply
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_wechat_reply` VALUES (1, 'subscribe', 'text', '{\"content\":\"yshop意象电商系统欢迎您哦！\"}', 1, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for yx_wechat_template
 -- ----------------------------
 DROP TABLE IF EXISTS `yx_wechat_template`;
-CREATE TABLE `yx_wechat_template` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '模板id',
-  `tempkey` char(50) NOT NULL DEFAULT '' COMMENT '模板编号',
-  `name` char(100) NOT NULL DEFAULT '' COMMENT '模板名',
-  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '回复内容',
-  `tempid` char(100) DEFAULT NULL COMMENT '模板ID',
+CREATE TABLE `yx_wechat_template`  (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '模板id',
+  `tempkey` char(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '模板编号',
+  `name` char(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '模板名',
+  `content` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '回复内容',
+  `tempid` char(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '模板ID',
   `create_time` datetime NOT NULL COMMENT '添加时间',
-  `update_time` datetime DEFAULT NULL,
-  `status` tinyint NOT NULL DEFAULT '0' COMMENT '状态',
-  `is_del` tinyint(1) DEFAULT '0',
-  `type` varchar(30) DEFAULT NULL COMMENT '类型：template:模板消息 subscribe:订阅消息',
+  `update_time` datetime NULL DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
+  `is_del` tinyint(1) NULL DEFAULT 0,
+  `type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '类型：template:模板消息 subscribe:订阅消息',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `tempkey` (`tempkey`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='微信模板';
+  INDEX `tempkey`(`tempkey` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '微信模板' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of yx_wechat_template
 -- ----------------------------
-BEGIN;
 INSERT INTO `yx_wechat_template` VALUES (3, 'delivery_success', '订单发货提醒', '{{first.DATA}}\n订单编号：{{keyword1.DATA}}\n物流公司：{{keyword2.DATA}}\n物流单号：{{keyword3.DATA}}\n{{remark.DATA}}', 'NyrkeQ5TDFDq0GV0wkNA9L39GzPHfzbQqVLnbA5OTsY', '0000-00-00 00:00:00', '2020-07-09 12:50:35', 1, 0, 'template');
 INSERT INTO `yx_wechat_template` VALUES (13, 'pay_success', '订单支付成功通知', '{{first.DATA}}\n订单编号：{{keyword1.DATA}}\n支付金额：{{keyword2.DATA}}\n{{remark.DATA}}', 'r6PWTcAOQodoyz0GT_0NCoFxssBT4ZB7AJqVdTdRvfA', '0000-00-00 00:00:00', '2020-07-09 12:49:56', 1, 0, 'template');
 INSERT INTO `yx_wechat_template` VALUES (14, 'recharge_success', '帐户资金变动提醒', '{{first.DATA}}\n变动类型：{{keyword1.DATA}}\n变动时间：{{keyword2.DATA}}\n变动金额：{{keyword3.DATA}}\n{{remark.DATA}}', 'ePF4RS3ONCEuS9AuPyqZ2Th_B-HZ6E1CIpnJRt7ACwI', '0000-00-00 00:00:00', '2020-07-09 12:50:15', 1, 0, 'template');
 INSERT INTO `yx_wechat_template` VALUES (15, 'refund_success', ' 退款进度通知', '', 'jaDVkOdbbk01WcWSxp1_liEQen44-euhj7shxjDvLIc', '2020-07-09 12:51:22', NULL, 1, 0, 'template');
 INSERT INTO `yx_wechat_template` VALUES (16, 'pay_success', '订单支付成功通知', '', 'W5r2c2kzhbq8uxStkPAVx_sk-5aapMFCqe7b7KU5jXI', '2020-09-14 16:46:34', NULL, 1, 0, 'subscribe');
-COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
