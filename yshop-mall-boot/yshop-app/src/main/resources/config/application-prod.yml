@@ -69,7 +69,7 @@ single:
 
 yshop:
   security:
-    jwt-key: yshopmini
+    jwt-key: ${YSHOP_JWT_KEY:}
     token-expired-in: 7200000
 
 

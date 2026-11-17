@@ -67,7 +67,7 @@ spring:
 
 yshop:
   security:
-    jwt-key: yshopmini
+    jwt-key: ${YSHOP_JWT_KEY:}
     token-expired-in: 86400000
 
 # 是否限制单用户登录
